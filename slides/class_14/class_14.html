@@ -1,0 +1,1673 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análisis de Datos Categóricos (SOC3070)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca  Profesor Asistente, Sociología UC" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Análisis de Datos Categóricos (SOC3070)
+## Clase #14
+### <br> Mauricio Bucca<br> Profesor Asistente, Sociología UC
+### <a href="https://github.com/mebucca">github.com/mebucca</a>
+
+---
+
+class: inverse, center, middle
+# Regresión Logística (Multinomial) Ordenada
+
+
+---
+## Estructura de un modelo de regresión logística multinomial ordenada 
+
+`$$\newcommand{\vect}[1]{\boldsymbol{#1}}$$`
+Un modelo de regresión logística ordenada generaliza la regresión logística (binomial) a situaciones en que la variable dependiente es una  variable discreta con .bold[ dos o más valores ordenados] (ejemplo: "muy de acuerdo", "algo de acuerdo", "poco de acuerdo", etc..).
+
+&lt;br&gt;
+--
+
+.bold[Configuración]
+
+- Tenemos `\(n\)` observaciones (individuos) independientes: `\(i = 1, \dots, n\)`
+
+--
+
+- Para cada observación observamos datos `\(y_{i}, \dots , y_{n}\)` que actúan como variable dependiente, donde `\(y_{i} \in \{j:1,2, \cdots, J\}\)`
+  
+  - Las `\(J\)` categorías de `\(y_{i}\)` siguen un orden.
+
+--
+
+- Asumimos que estos datos son realizaciones de `\(n\)` variables aleatoriascon probabilidades `\(\{p_{1}, p_{2}, \dots, p_{J}\}\)`
+
+--
+
+- Dichas probabilidades varían de individuo en individuo en función de ciertas covariables.
+
+
+
+---
+class: inverse, center, middle
+
+## Fundamentos teóricos
+### Interpretación de regresión logística en términos de variable latente
+
+
+---
+## Regresión logística binomial, variable latente
+
+
+Una regresión logística binomial `\(y_{i} \in {0,1}\)`
+
+--
+.pull-left[
+`$$y_{i} \sim \text{Bernoulli}\big(p_{i} = e^{\eta_{i}}/(1 + e^{\eta_{i}})\big)$$`
+] 
+
+
+.pull-right[
+donde `\(\quad \eta_{i} = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}\)`
+]
+
+--
+
+&lt;br&gt;
+Ejemplo: si `\(\eta_{i}=0\)`, entonces: `\(p_{i}=1/(1+1)=0.5\)`
+
+
+&lt;br&gt;
+--
+
+Una formulación alternativa describe la variable dependiente `\(y\)` como una .bold[manifestación discreta] de una .bold[variable latente] (inobservada) continua, `\(y^{*}\)`.
+
+.pull-left[
+`\begin{align}
+y_{i} = \begin{cases}
+1 \quad \text{si} \quad y^{*}_{i} &gt; 0 \\
+0 \quad \text{si} \quad y^{*}_{i} &lt; 0
+\end{cases}`
+\end{align}`
+]
+
+.pull-right[
+`\(y^{*}_{i} = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki} + \epsilon_{i}\)`
+]
+
+
+- `\(\epsilon_{i}\)` sigue una distribución de probabilidad .bold[logística]: `\(\epsilon_{i} \sim \text{logistic}(\mu=0,\sigma=\pi/\sqrt{3}) \approx \mathcal{N}(0,1.6)\)`
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+---
+## Regresión logística binomial, variable latente
+
+&lt;br&gt;
+&lt;br&gt;
+.bold[Distribución] de error aleatorio en regresión logística con variable latente:
+
+.pull-left[
+![](class_14_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+![](class_14_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+]
+
+
+---
+## Regresión logística binomial, variable latente
+
+
+.pull-left[
+`\begin{align}
+y_{i} = \begin{cases}
+  1 \quad \text{si} \quad y^{*}_{i} &gt; 0 \\
+  0 \quad \text{si} \quad y^{*}_{i} &lt; 0
+  \end{cases}
+\end{align}`
+]
+
+
+--
+.pull-right[
+`\(y^{*}_{i} = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki} + \epsilon_{i}\)`
+]
+
+
+- `\(\epsilon_{i} \sim \text{logistic}(\mu=0,\sigma=\pi/\sqrt{3})\)`
+
+
+--
+
+
+`\begin{align}
+\mathbb{P}(y_{i}=0) &amp;= \mathbb{P}(y^{*}_{i}&lt;0) \\  \\
+&amp;= \mathbb{P}(\beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki} + \epsilon_{i}  &lt; 0) \\ \\
+&amp;= \mathbb{P}(\epsilon_{i} &lt; -(\beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})) \\ \\
+&amp;= F_{\epsilon_{i}}(-(\beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})) \quad \text{ i.e. función de probabilidad acumulada} \\ \\ 
+&amp;= \text{logit}^{-1}(-(\beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))
+\end{align}`
+
+
+---
+## Regresión logística binomial, variable latente
+
+Ajustando el siguiente modelo: `\(\text{logit(everaffair}_{i}) = \beta_{0} + \beta_{1}*\text{rate}_{i}\)` obtenemos:
+
+&lt;br&gt;
+
+.pull-left[
+
+```
+## (Intercept)        rate 
+##   0.8253902  -0.5082193
+```
+
+
+```r
+xb_1 = 0.83 - 0.5*1
+plogis(-xb_1,0,1)
+```
+
+```
+## [1] 0.4182406
+```
+
+```r
+inv_logit = 1/(1 + exp(xb_1)); inv_logit
+```
+
+```
+## [1] 0.4182406
+```
+]
+
+--
+
+.pull-right[
+![](class_14_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+]
+
+
+---
+class: inverse, center, middle
+
+## Regresión logística (multinomial) ordenada
+
+
+
+---
+## Regresión logística (multinomial) ordenada, variable latente
+
+La formulación con variable latente se puede generalizar al caso en que a variable dependiente toma `\(J\)` valores ordenados, tal que `\(y \in \{1,2,\dots,J\}\)`
+
+--
+
+.pull-left[
+`$$y^{*}_{i} = \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki} + \epsilon_{i}$$`
+]
+
+.pull-right[
+`$$\epsilon_{i} \sim \text{logistic}(\mu=0,\sigma=\pi/\sqrt{3})$$`
+]
+
+&lt;br&gt;
+--
+
+En este caso la variable latente `\(y^{*}\)` es dividida en `\(J\)` intervalos usando `\(J-1\)` .bold[cutoff points]:  `\(\alpha_{1} &lt; \alpha_{2} &lt; \dots &lt; \alpha_{J-1} &lt; \alpha_{J}\)` 
+
+
+.pull-left[
+![](class_14_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+`\begin{align}
+y_{i}=1 \quad \text{si }&amp;  y^{*}_{i} &lt; \alpha_{1} \\  \\  
+y_{i}=2 \quad \text{si }&amp;  \alpha_{1} &lt; y^{*}_{i} &lt; \alpha_{2} \\ \\  
+&amp; \vdots \\  \\  
+y_{i}=J \quad \text{si }&amp;  y^{*}_{i} &gt; \alpha_{J-1}
+\end{align}`
+]
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+---
+## Regresión logística (multinomial) ordenada, variable latente
+
+Esta paramatrización implica que:
+
+
+.pull-left[
+![](class_14_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+`\begin{align}
+\mathbb{P}(y_{i}\leq 1) &amp;= \mathbb{P}(y^{*}_{i}&lt; \alpha_{1}) \\  \\
+&amp;= \mathbb{P}(\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki} + \epsilon_{i}  &lt; \alpha_{1}) \\ \\
+&amp;= \mathbb{P}(\epsilon_{i} &lt; \alpha_{1} -(\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})) \\ \\
+&amp;= F_{\epsilon_{i}}(\alpha_{1} -(\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))  \\ \\ 
+&amp;= \text{logit}^{-1}(\alpha_{1} -(\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))
+\end{align}`
+]
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+
+---
+## Regresión logística (multinomial) ordenada, variable latente
+
+
+Asimismo,
+
+.pull-left[
+![](class_14_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+`\begin{align}
+\mathbb{P}(y_{i}\leq 2) &amp;= \mathbb{P}(y^{*}_{i}&lt; \alpha_{2}) \\  \\
+&amp;= \mathbb{P}(\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki} + \epsilon_{i}  &lt; \alpha_{2}) \\ \\
+&amp;= \mathbb{P}(\epsilon_{i} &lt; \alpha_{2} -(\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})) \\ \\
+&amp;= F_{\epsilon_{i}}(\alpha_{2} -(\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))  \\ \\ 
+&amp;= \text{logit}^{-1}(\alpha_{2} -(\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))
+\end{align}`
+]
+
+&lt;br&gt;
+--
+
+y así sucesivamente ...
+ 
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+
+
+
+---
+## Regresión logística (multinomial) ordenada, variable latente
+
+Reiterando, las probabilidades "acumuladas" en cada valor sucesivo de la variable `\(y\)` vienen dadas por: 
+
+
+`$$\mathbb{P}(y_{i} \leq 1) = \text{logit}^{-1}(\alpha_{1} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))$$`
+
+&lt;br&gt;
+--
+
+
+`$$\mathbb{P}(y_{i} \leq 2) = \text{logit}^{-1}(\alpha_{2} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))$$`
+`$$\vdots$$`
+
+&lt;br&gt;
+--
+
+`$$\mathbb{P}(y_{i} \leq J-1) = \text{logit}^{-1}(\alpha_{J-1} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))$$`
+donde
+--
+
+
+- `\(\alpha_{1}, \alpha_{2}, \dots, \alpha_{j-1}\)` son .bold[cutoff points] que dividen la variable latente `\(y^{*}\)`
+
+- Valores más alto de `\(y^{*}\)` implican una mayor probabilidad de obtener valores en la variable discreta `\(y\)`
+
+
+---
+## Regresión logística (multinomial) ordenada, variable latente
+
+Sintéticamente:
+
+.content-box-yellow[
+`$$\mathbb{P}(y_{i} \leq j) = \text{logit}^{-1}(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))$$`
+]
+
+
+.pull-left[
+![](class_14_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+![](class_14_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+]
+
+---
+## Regresión logística (multinomial) ordenada
+
+
+La función de probabilidad acumulada 
+`$$\mathbb{P}(y_{i} \leq j) = \text{logit}^{-1}(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))$$`
+&lt;br&gt;
+
+puede ser re-expresada como regresión logística aplicando logit link a ambos lados obtenemos:
+
+--
+&lt;br&gt;
+
+`$$\text{logit}[ \mathbb{P}(y_{i} \leq j)] = \alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})$$`
+
+es decir,
+&lt;br&gt;
+--
+
+
+.content-box-blue[
+`$$\ln \frac{\mathbb{P}(y_{i} \leq j)}{1 - \mathbb{P}(y_{i} \leq j)}  = \ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} &gt; j)} = \alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})$$`
+]
+
+
+---
+## Regresión logística (multinomial) ordenada en la práctica
+
+Continuando con los datos de infidelidad, pero ahora considerando infidelidad como una variable discreta ordenada:
+
+
+```
+## # A tibble: 601 x 10
+##    sex      age    ym child religious education occupation  rate nbaffairs affairs
+##    &lt;fct&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;int&gt;     &lt;dbl&gt;      &lt;int&gt; &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;  
+##  1 male      37 10    no            3        18          7     4         0 fiel   
+##  2 female    27  4    no            4        14          6     4         0 fiel   
+##  3 female    32 15    yes           1        12          1     4         0 fiel   
+##  4 male      57 15    yes           5        18          6     5         0 fiel   
+##  5 male      22  0.75 no            2        17          6     3         0 fiel   
+##  6 female    32  1.5  no            2        17          5     5         0 fiel   
+##  7 female    22  0.75 no            2        12          1     3         0 fiel   
+##  8 male      57 15    yes           2        14          4     4         0 fiel   
+##  9 female    32 15    yes           4        16          1     2         0 fiel   
+## 10 male      22  1.5  no            4        14          4     5         0 fiel   
+## # … with 591 more rows
+```
+
+```
+## [1] "affairs:"
+```
+
+```
+## [1] "fiel"       "ocasional"  "compulsivo"
+```
+
+---
+## Regresión logística (multinomial) ordenada en la práctica
+
+.pull-left[
+Variable latente (fiel --&gt; infiel compulsivo)
+`$$y^{*} = \beta_{1}\text{rate}_{i} + \epsilon_{i}$$`
+]
+.pull-right[
+Logit acumulado:
+`$$\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} &gt; j)} = \alpha_{j} - \beta_{1}\text{rate}_{i}$$`
+]
+
+
+```r
+affairsdata$affairs &lt;- ordered(affairsdata$affairs, c("fiel","ocasional","compulsivo"))
+ologit_affairs_rate &lt;- polr(affairs ~ rate, data=affairsdata)
+```
+
+.pull-left[
+
+```r
+summary(ologit_affairs_rate)$coefficients[,c(1,2)]
+```
+
+```
+## 
+## Re-fitting to get Hessian
+```
+
+```
+##                            Value Std. Error
+## rate                 -0.52459022 0.08281275
+## fiel|ocasional       -0.89217118 0.31791872
+## ocasional|compulsivo -0.07045263 0.31765167
+```
+]
+
+.pull-right[
+![](class_14_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+]
+
+
+---
+## Regresión logística (multinomial) ordenada en la práctica
+
+.pull-left[
+Variable latente (fiel --&gt; infiel compulsivo)
+`$$y^{*} = \beta_{1}\text{rate}_{i} + \epsilon_{i}$$`
+]
+.pull-right[
+Logit acumulado:
+`$$\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} &gt; j)} = \alpha_{j} - \beta_{1}\text{rate}_{i}$$`
+]
+
+
+```r
+affairsdata$affairs &lt;- ordered(affairsdata$affairs, c("fiel","ocasional","compulsivo"))
+ologit_affairs_rate &lt;- polr(affairs ~ rate, data=affairsdata)
+```
+
+.pull-left[
+
+```r
+summary(ologit_affairs_rate)$coefficients[,c(1,2)]
+```
+
+```
+## 
+## Re-fitting to get Hessian
+```
+
+```
+##                            Value Std. Error
+## rate                 -0.52459022 0.08281275
+## fiel|ocasional       -0.89217118 0.31791872
+## ocasional|compulsivo -0.07045263 0.31765167
+```
+]
+
+.pull-right[
+![](class_14_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+]
+
+---
+## Regresión logística (multinomial) ordenada en la práctica
+
+.pull-left[
+Nuestro modelo: `\(\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} &gt; j)} = \alpha_{j} - \beta_{1}\text{rate}_{i}\)`
+]
+.pull-right[
+
+```
+##                            Value Std. Error
+## rate                 -0.52459022 0.08281275
+## fiel|ocasional       -0.89217118 0.31791872
+## ocasional|compulsivo -0.07045263 0.31765167
+```
+]
+
+
+.pull-left[
+![](class_14_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+]
+
+
+.pull-right[
+![](class_14_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+]
+
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+---
+
+## Regresión logística (multinomial) ordenada en la práctica
+
+Podemos calcular los valores de la variable latente a partir del output del modelo. Usemos el caso de un individuo con `rate=1`
+
+.pull-left[
+Nuestro modelo: `\(y^{*} =  \beta_{1}\text{rate}_{i}\)`
+]
+.pull-right[
+
+```
+##                            Value Std. Error
+## rate                 -0.52459022 0.08281275
+## fiel|ocasional       -0.89217118 0.31791872
+## ocasional|compulsivo -0.07045263 0.31765167
+```
+]
+
+.pull-left[
+
+```r
+y_latente_1 &lt;- -0.53; y_latente_1
+```
+
+```
+## [1] -0.53
+```
+
+]
+
+.pull-right[
+![](class_14_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+]
+
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+
+---
+
+## Regresión logística (multinomial) ordenada en la práctica
+
+Igualmente podemos calcular las probabilidades acumuladas a partir del output del modelo. Usemos el caso de un individuo con `rate=1`
+
+.pull-left[
+Nuestro modelo: `\(\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} &gt; j)} = \alpha_{j} - \beta_{1}\text{rate}_{i}\)`
+]
+.pull-right[
+
+```
+##                            Value Std. Error
+## rate                 -0.52459022 0.08281275
+## fiel|ocasional       -0.89217118 0.31791872
+## ocasional|compulsivo -0.07045263 0.31765167
+```
+]
+
+
+.pull-left[
+
+```r
+logit_fiel &lt;- -0.9 - (- 0.52*1)
+logit_ocasional &lt;- -0.07 - (-0.52*1)
+pcum_fiel &lt;- 1/(1 + exp(-logit_fiel))
+pcum_ocasional &lt;- 1/(1 + exp(-logit_ocasional))
+```
+
+```
+##      pcum_fiel pcum_ocasional 
+##      0.4061269      0.6106392
+```
+
+Equivalente:
+
+```r
+c(plogis(logit_fiel), plogis(logit_ocasional))
+```
+
+```
+## [1] 0.4061269 0.6106392
+```
+]
+
+.pull-right[
+![](class_14_files/figure-html/unnamed-chunk-34-1.png)&lt;!-- --&gt;
+]
+
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+---
+## Regresión logística (multinomial) ordenada: probabilidad de categoria `\(j\)`
+
+
+`$$\text{Dado} \quad \mathbb{P}(y_{i} \leq j) = \text{logit}^{-1}(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))$$`
+&lt;br&gt;
+
+Podemos calcular la probabilidad de ocurrencia de la categoría `\(j\)` como sigue:
+
+&lt;br&gt;
+--
+
+`\begin{align}
+\mathbb{P}(y_{i} = j) &amp;= \mathbb{P}(y_{i}&lt;j) - \mathbb{P}(y_{i}&lt; j-1) \\ \\
+&amp;= \text{logit}^{-1}(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}) ) - \text{logit}^{-1}(\alpha_{j-1} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})) \\ \\
+&amp;= \frac{1}{1 + e^{-(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}) )}} - \frac{1}{1 + e^{-(\alpha_{j-1} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))}}
+\end{align}`
+
+
+---
+## Regresión logística (multinomial) ordenada en la práctica
+
+.pull-left[
+Nuestro modelo: `\(\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} &gt; j)} = \alpha_{j} - \beta_{1}\text{rate}_{i}\)`
+]
+.pull-right[
+
+```
+##                            Value Std. Error
+## rate                 -0.52459022 0.08281275
+## fiel|ocasional       -0.89217118 0.31791872
+## ocasional|compulsivo -0.07045263 0.31765167
+```
+]
+
+
+.pull-left[
+![](class_14_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+]
+
+
+.pull-right[
+![](class_14_files/figure-html/unnamed-chunk-38-1.png)&lt;!-- --&gt;
+]
+
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+
+
+---
+## Regresión logística (multinomial) ordenada en la práctica
+
+Usando `\(\mathbb{P}(y_{i} = j) = \text{logit}^{-1}(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})) - \text{logit}^{-1}(\alpha_{j-1} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))\)` calculamos las probabilidades a partir del output del modelo. Para un individuo con `rate=1`:
+
+--
+
+.pull-left[
+
+```
+##                            Value Std. Error
+## rate                 -0.52459022 0.08281275
+## fiel|ocasional       -0.89217118 0.31791872
+## ocasional|compulsivo -0.07045263 0.31765167
+```
+
+
+
+```r
+logit_fiel &lt;- -0.9 - (- 0.52*1)
+logit_ocasional &lt;- -0.07 - (-0.52*1)
+pcum_fiel &lt;- 1/(1 + exp(-logit_fiel))
+pcum_ocasional &lt;- 1/(1 + exp(-logit_ocasional))
+```
+
+```
+##      pcum_fiel pcum_ocasional 
+##      0.4061269      0.6106392
+```
+
+]
+
+.pull-right[
+![](class_14_files/figure-html/unnamed-chunk-43-1.png)&lt;!-- --&gt;
+]
+
+--
+
+
+```r
+c(p_fiel= pcum_fiel, p_ocasional = pcum_ocasional - pcum_fiel, 
+  p_compulsivo=1-pcum_ocasional)
+```
+
+```
+##       p_fiel  p_ocasional p_compulsivo 
+##    0.4061269    0.2045123    0.3893608
+```
+
+---
+## Regresión logística (multinomial) ordenada en la práctica
+
+`$$\mathbb{P}(y_{i} = j) = \text{logit}^{-1}(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})) - \text{logit}^{-1}(\alpha_{j-1} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))$$`
+
+.pull-left[
+
+
+```r
+# probabilidades
+c(p_fiel= pcum_fiel, p_ocasional = pcum_ocasional - pcum_fiel, 
+  p_compulsivo=1-pcum_ocasional)
+```
+
+```
+##       p_fiel  p_ocasional p_compulsivo 
+##    0.4061269    0.2045123    0.3893608
+```
+
+```r
+# versión automática
+predict(ologit_affairs_rate, 
+        newdata = data_frame(rate=1), type="probs" )
+```
+
+```
+##       fiel  ocasional compulsivo 
+##  0.4091257  0.2024969  0.3883775
+```
+
+```r
+predict(ologit_affairs_rate, 
+        newdata = data_frame(rate=1), type="class" )
+```
+
+```
+## [1] fiel
+## Levels: fiel ocasional compulsivo
+```
+
+]
+
+
+.pull-right[
+![](class_14_files/figure-html/unnamed-chunk-46-1.png)&lt;!-- --&gt;
+]
+
+
+---
+class: inverse, center, middle
+
+## Estimación
+
+---
+## Estimación
+
+
+&lt;br&gt;
+--
+
+- Coeficientes y cutoff points son estimados via MLE
+
+--
+
+- En `R` usaremos función `MASS::polr` para ajustar estos modelos.
+
+  - Estima coeficientes correspondientes a efectos sobre la variable latente `\(y^{*}\)`
+  
+  - Estima cutoff points
+
+
+---
+class: inverse, center, middle
+
+## Interpretación
+
+---
+class:center, middle
+
+## Efectos marginales sobre el logit 
+
+
+---
+## Un ejemplo empírico
+
+.pull-left[
+Continuando con los datos de infidelidad, ajustaremos el siguiente modelo:
+
+`$$\underbrace{\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} &gt; j) } }_{\text{logit}(\mathbb{P}(y_{i} \leq j))}= \alpha_{j} - (\beta_{1}\text{rate}_{i} + \beta_{2}\text{male}_{i})$$`
+
+donde:
+
+- `\(y_{i} \in \{\text{"fiel"},\text{"ocasional"}, \text{"compulsivo"}\}\)`
+
+- Probabilidades  son una función de evaluación del matrimonio (rate) y género (male)
+
+]
+
+--
+.pull-right[
+
+```r
+ologit_affairs_rate_sex &lt;- 
+  polr(affairs ~ rate + sex, data=affairsdata)
+summary(ologit_affairs_rate_sex)
+```
+
+```
+## 
+## Re-fitting to get Hessian
+```
+
+```
+## Call:
+## polr(formula = affairs ~ rate + sex, data = affairsdata)
+## 
+## Coefficients:
+##           Value Std. Error t value
+## rate    -0.5267    0.08301  -6.345
+## sexmale  0.2163    0.19214   1.126
+## 
+## Intercepts:
+##                      Value   Std. Error t value
+## fiel|ocasional       -0.7923  0.3303    -2.3992
+## ocasional|compulsivo  0.0306  0.3304     0.0925
+## 
+## Residual Deviance: 840.7027 
+## AIC: 848.7027
+```
+]
+
+---
+## Efectos marginales sobre el logit 
+
+Dado el siguiente modelo de regresión logística ordenada:
+
+&lt;br&gt;
+
+`$$y^{*}= \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}$$`
+
+y
+
+`$$\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} &gt; j) } = \alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})$$`
+
+--
+
+
+&lt;br&gt;
+
+- El efecto marginal de `\(x_{k}\)` sobre la variable latente `\(y^{*}\)`  está dado por:
+
+
+.pull-left[
+.content-box-blue[
+`$$\frac{\partial y^{*} }{\partial x_{k}} = \beta_{k}$$`
+]
+]
+.pull-right[
+.content-box-yellow[
+"Un aumento en `\(\Delta\)` unidades de `\(x_{k}\)` se traduce en un cambio en `\(\Delta  \beta_{k}\)` unidades la variable latente `\(y^{*}\)`"
+] 
+]
+
+
+---
+## Efectos marginales sobre el logit 
+
+Asimismo, dado
+
+`$$\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} &gt; j) } = \alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})$$`
+
+--
+
+- los puntos de corte `\(\alpha_{j}\)` corresponden al logit de la probabilidad que `\(y_{i}\)` tome un valor menor o igual que `\(j\)` (en vez mayor que `\(j\)`),  cuando `\(x_{1} = \dots = x_{k} = 0\)`
+
+
+--
+
+- El efecto marginal de `\(x_{k}\)` sobre el logit de la probabilidad que `\(y_{i}\)` tome un valor menor o igual que `\(j\)` está dado por:
+
+
+.pull-left[
+.content-box-blue[
+`$$\frac{\partial\text{logit}[\mathbb{P}(y_{i} \leq j)]}{\partial x_{k}} = -\beta_{k}$$`
+]
+]
+.pull-right[
+.content-box-yellow[
+"Un aumento en `\(\Delta\)` unidades de `\(x_{k}\)` se traduce en un cambio en `\(-\beta_{k}\Delta\)` unidades en el logit de la probabilidad que `\(y_{i}\)` sean menor o igual que `\(j\)` "
+] 
+]
+
+.bold[Importante:] El efecto marginal sobre la variable latente ( `\(\beta_{k}\)` ) y sobre el logit ( `\(-\beta_{k}\)` ), es el mismo para cualquier valor de `\(j\)`.
+
+---
+## Efectos marginales sobre el logit 
+
+En nuestro ejemplo: `\(\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} &gt; j)}= \alpha_{j} - (\beta_{1}\text{rate}_{i} + \beta_{2}\text{male}_{i})\)`
+
+&lt;br&gt;
+
+.pull-left[
+
+```
+## 
+## Re-fitting to get Hessian
+```
+
+```
+##                            Value Std. Error
+## rate                 -0.52668276 0.08301161
+## sexmale               0.21634566 0.19214186
+## fiel|ocasional       -0.79234946 0.33025352
+## ocasional|compulsivo  0.03057237 0.33035455
+```
+]
+.pull-right[
+![](class_14_files/figure-html/unnamed-chunk-49-1.png)&lt;!-- --&gt;
+]
+
+---
+## Efectos marginales sobre el logit 
+
+.pull-left[
+
+```
+## 
+## Re-fitting to get Hessian
+```
+
+```
+##                            Value Std. Error
+## rate                 -0.52668276 0.08301161
+## sexmale               0.21634566 0.19214186
+## fiel|ocasional       -0.79234946 0.33025352
+## ocasional|compulsivo  0.03057237 0.33035455
+```
+]
+
+.pull-right[
+Si `rate=1` y `male=1`, entonces `logit(p_fiel)` y `logit(p_ocasional)` son=
+
+```r
+c(fiel= -0.8 - (-0.53*1 + 0.21*1),
+  ocasional= 0.03 - (-0.53*1 + 0.21*1))
+```
+
+```
+##      fiel ocasional 
+##     -0.48      0.35
+```
+
+Si `rate=2` y `male=1`, entonces `logit(p_fiel)` y `logit(p_ocasional)` son=
+
+```r
+c(fiel= -0.8 - (-0.53*2 + 0.21*1),
+  ocasional= 0.03 - (-0.53*2 + 0.21*1))
+```
+
+```
+##      fiel ocasional 
+##      0.05      0.88
+```
+]
+
+
+---
+## Efectos marginales sobre el logit 
+
+.pull-left[
+
+```
+## 
+## Re-fitting to get Hessian
+```
+
+```
+##                            Value Std. Error
+## rate                 -0.52668276 0.08301161
+## sexmale               0.21634566 0.19214186
+## fiel|ocasional       -0.79234946 0.33025352
+## ocasional|compulsivo  0.03057237 0.33035455
+```
+
+&lt;br&gt;
+Por tanto, el efecto sobre el logit ( `\(-\beta_{rate}\)` ) es:
+
+
+
+```r
+c(
+coef_rate_fiel = (-0.8 - (-0.53*2 + 0.21*1))-(-0.8 - (-0.53*1 + 0.21*1)),
+coef_rate_ocasional = (0.03 - (-0.53*2 + 0.21*1))-(0.03 - (-0.53*1 + 0.21*1))
+)
+```
+
+```
+##      coef_rate_fiel coef_rate_ocasional 
+##                0.53                0.53
+```
+
+]
+
+.pull-right[
+Si `rate=1` y `male=1`, entonces `logit(p_fiel)` y `logit(p_ocasional)` son=
+
+```r
+c(fiel= -0.8 -( -0.53*1 + 0.21*1),
+  ocasional= 0.03 -( -0.53*1 + 0.21*1))
+```
+
+```
+##      fiel ocasional 
+##     -0.48      0.35
+```
+
+Si `rate=2` y `male=1`, entonces `logit(p_fiel)` y `logit(p_ocasional)` son=
+
+```r
+c(fiel= -0.8 -( -0.53*2 + 0.21*1),
+  ocasional= 0.03 -( -0.53*2 + 0.21*1))
+```
+
+```
+##      fiel ocasional 
+##      0.05      0.88
+```
+]
+
+---
+class:center, middle
+
+## Efectos multiplicativos sobre las odds 
+
+
+---
+## Efectos multiplicativos sobre las odds 
+
+Dado el siguiente modelo de regresión logística ordinal: 
+
+
+`$$\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} &gt; j) } = \alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})$$`
+
+&lt;br&gt;
+--
+
+exponenciando a ambos lados obtenemos 
+
+`$$\frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} &gt; j) } = e^{\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})}$$`
+
+--
+
+equivalentemente
+
+.content-box-blue[
+`$$\frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} &gt; j) } = e^{\alpha_{j}}\cdot e^{-\beta_{1} x_{i1}}  \cdots e^{-\beta_{k} x_{ik}}$$`
+]
+
+---
+## Efectos multiplicativos sobre las odds: odds ratios
+
+Considera la situación en que `\(i\)` y `\(i^{´}\)` son dos observaciones con `\(x_{k}=c\)` y `\(x_{k}=c+1\)`, respectivamente. El resto de las covariables toman valores idénticos. 
+--
+ Las odds de observar `\(\mathbb{P}(y \leq j)\)` vs `\(\mathbb{P}(y &gt; j)\)` son:
+
+
+- `\(\mathbb{P}(y_{i} \leq j)/\mathbb{P}(y_{i} &gt; j) = e^{\alpha_{j}} \cdot e^{-\beta_{1} x_{i1}}  \cdots (e^{-\beta_{k}})^{c}\)`
+
+- `\(\mathbb{P}(y_i^{´} \leq j)/\mathbb{P}(y_i^{´} &gt; j)= e^{\alpha_{j}} \cdot e^{-\beta_{1} x_{i^{´}1}}  \cdots (e^{-\beta_{k}})^{c+1}\)`
+
+
+&lt;br&gt;
+--
+
+El ratio de las odds entre `\(i^{´}\)` e `\(i\)` está dado por:
+
+`\begin{align}
+\frac{\mathbb{P}(y_i^{´} \leq j)/\mathbb{P}(y_i^{´} &gt; j)}{\mathbb{P}(y_{i} \leq j)/\mathbb{P}(y_{i} &gt; j)} &amp;= \frac{e^{\alpha_{j}} \cdot e^{-\beta_{1} x_{i^{´}1}}  \cdots (e^{-\beta_{k}})^{c+1}}{e^{\alpha_{j}} \cdot e^{-\beta_{1} x_{i1}}  \cdots (e^{-\beta_{k}})^{c}} = e^{-\beta_{k}}
+\end{align}`
+
+
+&lt;br&gt;
+En otras palabras, manteniendo otros factores constantes, `\(e^{-\beta_{k}}\)` representa la odds ratio de `\(\mathbb{P}(y \leq j)\)` vs `\(\mathbb{P}(y &gt; j)\)` entre el caso con `\(x_{k}\)` aumentado en una unidad, y el caso con `\(x_{k}\)` en un nivel basal dado. 
+
+
+.bold[Importante:] La misma odd-ratio aplica para la probabilidad acumula de cualquier `\(j\)`. Por esta razón el modelo logístico ordenado tambien es conocidos como .bold[proportional odds model]. 
+
+
+---
+## Efectos multiplicativos sobre las odds 
+
+.content-box-yellow[
+"Un cambio en `\(\Delta\)` unidades de `\(x_{k}\)` multiplica el ratio entre `\(\mathbb{P}(y&lt;j)\)` vs `\(\mathbb{P}(y&gt;j)\)` por `\(e^{- \beta_{k}\Delta}\)`"
+] 
+
+&lt;br&gt;
+.bold[Propiedades]:
+
+--
+
+- `\(e^{-\beta_{k}}\)` está restringido al rango `\([0,\infty+)\)`. Es una constante que "comprime" o amplifica el ratio entre las probabilidades de `\(\mathbb{P}(y&lt;j)\)` vs `\(\mathbb{P}(y&gt;j)\)`
+
+--
+
+- Si `\(-\beta_{k} &lt; 0  \to  (0 &lt; e^{-\beta_{k}} &lt; 1)\)`. Es decir, un aumento en `\(x_{k}\)` está asociado con una reducción (multiplicativa) del ratio entre las probabilidades de  `\(\mathbb{P}(y&lt;j)\)` vs `\(\mathbb{P}(y&gt;j)\)`
+
+--
+
+- Si `\(-\beta_{k} = 0  \to  (e^{-\beta_{k}} =1)\)`. Es decir, un cambio en `\(x_{k}\)` está asociado a un cambio nulo en el ratio entre las probabilidades de `\(\mathbb{P}(y&lt;j)\)` vs `\(\mathbb{P}(y&gt;j)\)`
+
+--
+
+- Si `\(-\beta_{k} &gt; 0  \to  (e^{-\beta_{k}} &gt; 1)\)`. Es decir, un aumento en `\(x_{k}\)` está asociado a aumento (multiplicativo) en el ratio entre las probabilidades de `\(\mathbb{P}(y&lt;j)\)` vs `\(\mathbb{P}(y&gt;j)\)`
+
+
+---
+## Efectos multiplicativos sobre las odds 
+
+En nuestro ejemplo: `\(\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} &gt; j)}= \alpha_{j} - (\beta_{1}\text{rate}_{i} + \beta_{2}\text{male}_{i})\)`, donde 
+
+`\(\frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} &gt; j)}= e^{\alpha_{j}} \cdot e^{-\beta_{1}\text{rate}_{i}} \cdot e^{-\beta_{2}\text{male}_{i}}\)`
+&lt;br&gt;
+
+.pull-left[
+
+```r
+#coeffs
+coefs &lt;- summary(ologit_affairs_rate_sex)$coefficients[1:2,c(1,2)]; coefs
+```
+
+```
+##              Value Std. Error
+## rate    -0.5266828 0.08301161
+## sexmale  0.2163457 0.19214186
+```
+
+```r
+#exp(-coeffs)
+exp(-coefs)[,c(1,NA)]
+```
+
+```
+##             Value &lt;NA&gt;
+## rate    1.6933059   NA
+## sexmale 0.8054568   NA
+```
+
+]
+
+.pull-right[
+![](class_14_files/figure-html/unnamed-chunk-58-1.png)&lt;!-- --&gt;
+]
+
+---
+## Efectos multiplicativos sobre las odds 
+
+.pull-left[
+
+```
+##               beta exp(-beta)
+## rate    -0.5266828  1.6933059
+## sexmale  0.2163457  0.8054568
+```
+
+
+]
+
+.pull-right[
+Si `rate=1` y `male=1`, entonces `odds(p_fiel)` y `odds(p_ocasional)` son=
+
+```r
+c(fiel= exp(-0.8 - (-0.53*1 + 0.21*1)),
+  ocasional= exp(0.03 - (-0.53*1 + 0.21*1)))
+```
+
+```
+##      fiel ocasional 
+## 0.6187834 1.4190675
+```
+
+--
+
+Si `rate=2` y `male=1`, entonces `odds(p_fiel)` y `odds(p_ocasional)` son=
+
+```r
+c(fiel= exp(-0.8 - (-0.53*2 + 0.21*1)),
+  ocasional= exp(0.03 - (-0.53*2 + 0.21*1)))
+```
+
+```
+##      fiel ocasional 
+##  1.051271  2.410900
+```
+]
+
+
+---
+## Efectos multiplicativos sobre las odds 
+
+.pull-left[
+
+```
+##               beta exp(-beta)
+## rate    -0.5266828  1.6933059
+## sexmale  0.2163457  0.8054568
+```
+
+
+&lt;br&gt;
+Por tanto, la odds ratio ( `\(e^{-\beta_{rate}}\)`)  es:
+
+
+
+```r
+c(
+or_rate_fiel = exp(-0.8 - (-0.53*2 + 0.21*1))/exp(-0.8 - (-0.53*1 + 0.21*1)),
+or_rate_ocasional = exp(0.03 - (-0.53*2 + 0.21*1))/exp(0.03 - (-0.53*1 + 0.21*1))
+)
+```
+
+```
+##      or_rate_fiel or_rate_ocasional 
+##          1.698932          1.698932
+```
+
+]
+
+.pull-right[
+Si `rate=1` y `male=1`, entonces `odds(p_fiel)` y `odds(p_ocasional)` son=
+
+```r
+c(fiel= exp(-0.8 - (-0.53*1 + 0.21*1)),
+  ocasional= exp(0.03 - (-0.53*1 + 0.21*1)))
+```
+
+```
+##      fiel ocasional 
+## 0.6187834 1.4190675
+```
+
+
+Si `rate=2` y `male=1`, entonces `odds(p_fiel)` y `odds(p_ocasional)` son=
+
+```r
+c(fiel= exp(-0.8 - (-0.53*2 + 0.21*1)),
+  ocasional= exp(0.03 - (-0.53*2 + 0.21*1)))
+```
+
+```
+##      fiel ocasional 
+##  1.051271  2.410900
+```
+]
+
+---
+class:center, middle
+
+## Efectos marginales sobre la probabilidad de la categoría `\(j\)`
+
+
+---
+## Efectos marginales sobre la probabilidad de la categoría `\(j\)`
+
+--
+
+Dado el siguiente modelo de regresión logística multinomial: 
+
+
+`$$\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} &gt; j) } = \alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})$$`
+y
+
+`\begin{align}
+\mathbb{P}(y_{i} = j) &amp;= \mathbb{P}(y_{i}&lt;j) - \mathbb{P}(y_{i}&lt; j-1) \\ \\
+&amp;= \frac{1}{1 + e^{-(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}) )}} - \frac{1}{1 + e^{-(\alpha_{j-1} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))}}
+\end{align}`
+
+&lt;br&gt;
+--
+Queremos saber el .bold[efecto marginal] de los predictores sobre la .bold[probabilidad] de observar cada categoría `\(j: \{1, \dots, J\}\)`. Formalmente:
+
+&lt;br&gt;
+--
+
+`$$\frac{\partial \mathbb{P}(y_{i} = j)}{\partial x_{k}} = \cdots$$`
+
+---
+## Efectos marginales sobre la probabilidad de la categoría `\(j\)`
+
+Después de varios pasos, obtenemos:
+
+&lt;br&gt;
+.content-box-yellow[
+`$$\frac{\partial \mathbb{P}(y_{i} = j)}{\partial x_{k}} = -\beta_{k} \cdot  \bigg( \mathbb{P}(y_{i} \leq j) \cdot (1 - \mathbb{P}(y_{i} \leq j))  -  \mathbb{P}(y_{i} \leq j-1) \cdot (1 - \mathbb{P}(y_{i} \leq j-1)) \bigg)$$`
+]
+
+donde:
+
+`$$\mathbb{P}(y_{i} \leq j) = \text{logit}^{-1}(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})) \quad \text{para todo } j$$`
+
+---
+## Efectos marginales sobre la probabilidad de la categoría `\(j\)`
+
+Para los casos especiales `\(j=1\)` y `\(j=J\)` observamos que 
+
+&lt;br&gt;
+
+- `\(\frac{\partial \mathbb{P}(y_{i} = 1)}{\partial x_{k}} = -\beta_{k} \cdot \bigg( \mathbb{P}(y_{i} \leq 1) \cdot (1 - \mathbb{P}(y_{i} \leq 1)) - 0\bigg)\)`
+
+
+- `\(\frac{\partial \mathbb{P}(y_{i} = J)}{\partial x_{k}} = - \beta_{k} \cdot \bigg( 0 -  \mathbb{P}(y_{i} \leq J-1) \cdot (1 - \mathbb{P}(y_{i} \leq J-1))\bigg) = \beta_{k} \cdot \bigg( \mathbb{P}(y_{i} \leq J-1) \cdot (1 - \mathbb{P}(y_{i} \leq J-1))\bigg)\)`
+
+&lt;br&gt;
+--
+
+
+Por tanto,:
+
+- Para `\(j=1\)` el efecto marginal sobre la probabilidad `\(\mathbb{P}(y=1)\)` tiene el .bold[signo contrario] que efecto sobre la variable latente `\(y^{*}\)`, `\(\beta_k\)`. 
+
+- Para `\(j=J\)` el efecto marginal sobre la probabilidad `\(\mathbb{P}(y=J)\)` tiene el .bold[mismo signo] que efecto sobre la variable latente `\(y^{*}\)`, `\(\beta_k\)`. 
+
+
+
+---
+## Efectos marginales sobre la probabilidad de la categoría `\(j\)`
+
+Para las categorías intermedias, en cambio:
+
+&lt;br&gt;
+
+`$$\frac{\partial \mathbb{P}(y_{i} = j)}{\partial x_{k}} = -\beta_{k} \cdot  \bigg( \mathbb{P}(y_{i} \leq j) \cdot (1 - \mathbb{P}(y_{i} \leq j))  -  \mathbb{P}(y_{i} \leq j-1) \cdot (1 - \mathbb{P}(y_{i} \leq j-1)) \bigg)$$`
+
+
+&lt;br&gt;
+--
+
+Podemos notar que:
+
+- Siempre `\(\mathbb{P}(y_{i} \leq j) &gt; \mathbb{P}(y_{i} \leq j-1)\)` (e.j. 0.8 &gt; 0.7)
+
+
+- Pero `\(\bigg( \mathbb{P}(y_{i} \leq j) \cdot (1 - \mathbb{P}(y_{i} \leq j))  -  \mathbb{P}(y_{i} \leq j-1) \cdot (1 - \mathbb{P}(y_{i} \leq j-1)) \bigg)\)` puede ser positivo o negativo. (e.j. `\(0.8*(0.2) - 0.7*(0.3) = -0.05\)` ) 
+
+
+- Por tanto, para las categorias `\(j\)` intermedias el signo del efecto marginal sobre la probabilidad .bold[no necesariamente coincide] con el signo del efecto sobre la variable latente `\(y^{*}\)`, `\(\beta_k\)`.
+
+---
+## Efectos marginales sobre la probabilidad de la categoría `\(j\)`
+
+En nuestro ejemplo: `\(\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} &gt; j)}= \alpha_{j} - (\beta_{1}\text{rate}_{i} + \beta_{2}\text{male}_{i})\)`, donde 
+
+
+`$$\mathbb{P}(y_{i} = j) = \mathbb{P}(y_{i}&lt;j) - \mathbb{P}(y_{i}&lt; j-1) = \frac{1}{1 + e^{-(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}) )}} - \frac{1}{1 + e^{-(\alpha_{j-1} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))}}$$`
+
+.pull-left[
+
+```r
+#coeffs
+coefs &lt;- summary(ologit_affairs_rate_sex)$coefficients[1:2,c(1,2)]; coefs
+```
+
+```
+##              Value Std. Error
+## rate    -0.5266828 0.08301161
+## sexmale  0.2163457 0.19214186
+```
+
+]
+
+.pull-right[
+![](class_14_files/figure-html/unnamed-chunk-67-1.png)&lt;!-- --&gt;
+]
+
+
+
+---
+## Efectos marginales sobre la probabilidad de la categoría `\(j\)`
+
+.pull-left[
+`$$\mathbb{P}(y_{i} = j) = \mathbb{P}(y_{i}&lt;j) - \mathbb{P}(y_{i}&lt; j-1)$$` 
+]
+
+.pull-right[
+`$$\frac{\partial \mathbb{P}(y_{i} = j)}{\partial x_{k}}$$`
+]
+
+.pull-left[
+![](class_14_files/figure-html/unnamed-chunk-68-1.png)&lt;!-- --&gt;
+]
+
+
+.pull-right[
+![](class_14_files/figure-html/unnamed-chunk-69-1.png)&lt;!-- --&gt;
+]
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+---
+## Efectos marginales sobre la probabilidad de la categoría `\(j\)`
+
+- Efectos marginales son _esencialmente_ heterogéneos. No hay un efecto sino muchos. 
+
+--
+
+- Heterogeneidad crece con la complejidad del modelo: número de predictores, interacciones, etc. 
+
+--
+
+- Más aún, en el caso de modelos de regresión logística multinomial/ordinal, los efectos marginales no son necesariamente monotónicos (pueden cambiar de signo).
+
+--
+
+- En la práctica, muchas veces queremos UN número que resuma el efecto marginal. 
+
+&lt;br&gt;
+--
+.pull-left[
+![For god sakes just give me the damn number](https://i.makeagif.com/media/8-29-2018/ior4IF.gif)
+]
+
+--
+
+Cantidades de interes:
+.pull-right[
+
+* Average Marginal Effects (AME)
+
+* Marginal Effects at the Mean (MEM)
+
+* Marginal Effects at Representative Values (MER)
+
+]
+
+
+---
+## Efectos marginales sobre la probabilidad de la categoría `\(j\)`: AME
+
+--
+
+`$$\text{Aproximación numérica:} \quad \frac{1}{n} \sum_{i} \frac{\partial p_{ij}}{\partial x_{k}} \approx  \frac{1}{n} \sum_{i}  \frac{p_{ij}(x_{1}, \dots ,x_{k} = c + \delta) - p_{ij}(x_{1}, \dots ,x_{k} = c )}{\delta}$$`
+--
+
+AME de rate:
+
+```r
+delta = 0.1
+p_hat &lt;- predict(ologit_affairs_rate_sex, type="probs") %&gt;% as_tibble()  %&gt;% mutate(id = row_number()) %&gt;% 
+         pivot_longer(-id, names_to="affair", values_to="prob") 
+
+affairsdata_delta &lt;- affairsdata %&gt;% mutate(rate = rate + delta) 
+p_hat_delta &lt;- predict(ologit_affairs_rate_sex, newdata=affairsdata_delta ,type="probs")  %&gt;% as_tibble() %&gt;% mutate(id = row_number()) %&gt;% pivot_longer(-id, names_to="affair", values_to="prob_delta") 
+
+p_hat_delta &lt;- p_hat_delta %&gt;% left_join(p_hat, by=c("id","affair")) %&gt;% mutate(me_rate = (prob_delta  - prob)/delta) %&gt;% dplyr::select(id,affair,me_rate) %&gt;% pivot_wider(names_from = "affair", values_from = "me_rate") %&gt;% drop_na()
+```
+
+--
+
+.pull-left[
+
+```r
+p_hat_delta %&gt;% dplyr::summarise(across(fiel:compulsivo, ~ mean(.x)))
+```
+
+```
+## # A tibble: 1 x 3
+##     fiel ocasional compulsivo
+##    &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+## 1 0.0908   -0.0338    -0.0569
+```
+]
+.pull-right[
+
+```r
+summary(margins(ologit_affairs_rate_sex, variables = "rate"))
+```
+
+```
+##  factor    AME SE  z  p lower upper
+##    rate 0.0918 NA NA NA    NA    NA
+```
+]
+
+---
+## Efectos marginales sobre la probabilidad de la categoría `\(j\)`: MEM
+
+`$$\text{Aproximación numérica:} \quad \frac{\partial p_{ij}}{\partial x_{k}} \approx  \frac{p_{ij}(x_{1}=\bar{x_{1}}, \dots ,x_{k} = \bar{x_{k}} + \delta) - p_{ij}(x_{1}=\bar{x_{1}}, \dots ,x_{k} =\bar{x_{k}} )}{\delta}$$`
+--
+
+MEM de rate:
+
+
+```r
+delta = 0.1
+grid &lt;- affairsdata %&gt;% data_grid(sex, .model=ologit_affairs_rate_sex)
+grid_delta &lt;- affairsdata %&gt;% data_grid(sex, .model=ologit_affairs_rate_sex) %&gt;% mutate(rate = rate + delta)
+
+p_hat &lt;- predict(ologit_affairs_rate_sex, type="probs", newdata =grid) %&gt;% as_tibble() %&gt;% 
+  mutate(id = c("F","M"))%&gt;% pivot_longer(-id, names_to="affair", values_to="prob") 
+
+p_hat_delta &lt;- predict(ologit_affairs_rate_sex, type="probs", newdata =grid_delta) %&gt;% as_tibble() %&gt;% 
+  mutate(id = c("F","M")) %&gt;% pivot_longer(-id, names_to="affair", values_to="prob_delta") 
+
+p_hat_delta &lt;- p_hat_delta %&gt;% left_join(p_hat, by=c("id","affair")) %&gt;% mutate(me_rate = (prob_delta  - prob)/delta) %&gt;% dplyr::select(id,affair,me_rate) %&gt;% pivot_wider(names_from = "affair", values_from = "me_rate") %&gt;% drop_na(); p_hat_delta
+```
+
+```
+## # A tibble: 2 x 4
+##   id      fiel ocasional compulsivo
+##   &lt;chr&gt;  &lt;dbl&gt;     &lt;dbl&gt;      &lt;dbl&gt;
+## 1 F     0.0866   -0.0379    -0.0487
+## 2 M     0.0975   -0.0399    -0.0575
+```
+
+---
+class: inverse, center, middle
+
+.huge[
+**Hasta la próxima clase. Gracias!**
+]
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

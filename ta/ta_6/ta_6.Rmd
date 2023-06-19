@@ -1,0 +1,401 @@
+---
+title: "Análisis de Datos Categóricos"
+author: "Ayudantía 5 "
+date: Felipe Olivares
+output: 
+  beamer_presentation:
+    theme: "Copenhagen"
+    colortheme: "dolphin"
+    fonttheme: "structurebold"
+    keep_tex: true
+fontsize: 8pt
+---
+
+
+
+```{r setup, include=FALSE}
+def.chunk.hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- def.chunk.hook(x, options)
+  paste0("\n \\", "tiny","\n\n", x, "\n\n \\normalsize")
+})
+```
+
+
+## Contenido
+
+
+ 1. LPM
+ 
+ 2. Regresión logística
+
+
+
+## LPM
+
+
+El modelo lineal de probabilidad, se puede interpretar en términos probabilísticos, en el sentido de que un valor concreto de la recta de regresión mide la probabilidad de que ocurra el hecho objetivo de estudio. Es decir, nuestra variable dependiente se puede considerar como la estimación de la probabilidad de que ocurra el hecho objetivo de estudio Yi = 1 siguiendo el siguiente criterio: Valores próximos a cero se corresponde con una baja probabilidad de ocurrencia del hecho estudiado (menor cuanto más próximos a cero); mientras que a valores próximos a uno se les asigna una probabilidad elevada de ocurrencia (mayor cuanto más próximos a uno).
+
+$$y_{i} = \beta_{0} + \beta_{1}x_{1i} + \dots \beta_{k}x_{ki} + e_{i}$$
+
+El modelo de regresión más simple aplicado a datos categóricos es el modelo lineal de probabilidad (LPM).  Esto es básicamente lo mismo que un modelo de regresión lineal.
+
+*Variable dependiente = intercepto + predictores + error aleatorio*
+
+
+## LPM
+
+Revisemos los mismos datos de la ayudantía anterior para crear un modelo de regresión lineal en base a predictores que revisamos
+
+``` {r echo=FALSE,include=FALSE}
+#Subset base de datos OCS
+load(url("https://github.com/mebucca/cda_soc3070/blob/master/ta/ta_6/data_OCS_2.RData?raw=true"))
+library(ggplot2) # cargamos la librería que vamos a utilizar
+library(tidyverse)
+
+```
+
+```{r echo=TRUE, comment='#'}
+
+head(df1)
+
+```
+
+## LPM
+
+La regresión lineal que vamos a construir la haremos sobre la base de la pregunta acerca del tipo de control policial que realizan las policías (Control negociado o control violento de la protesta) en el caso de las manifestaciones sobre educación en Chile para los años 2009-2019. Para realizar esto, utilizaremos como variable dependiente la acción policial y variables independientes: grupos sociales estudiantes, demandas sobre educación y tipo de protesta disruptiva.
+
+```{r echo=TRUE, comment='#'}
+str (df1) # siempre importante revisar la estructura de las codificaciones
+# la interpretación es más intuitiva dejando todo en 0 y 1
+```
+
+
+## LPM
+
+Creamos un subset de datos que contenga solo aquellos casos en que existe acción policial. Así mismo, y de acuerdo a lo que observamos previamente en la estructura de los datos, recodificamos las variables de interés para colocarlas en nuestra regresión.
+
+Para efecto de la regresión que modelaremos la función de un control violento de la protesta respecto de un control negociado. Por lo tanto, es importante que el control negociado de la protesta=0 y control violento de la protesta=1 (consideren lo dicho previamente respecto del sentido del efecto que queremos estimar)
+
+```{r echo=TRUE, comment='#'}
+df2 <- df1 %>% select(apolicial,ppolicial,educacion,estudiantes,,disruptiva,trabajadores) %>%
+  mutate(apolicial = if_else(apolicial=="Violencia Policial",1,0),
+         educacion = if_else(educacion=="Sí",1,0),
+                  estudiantes= if_else(estudiantes=="Sí",1,0),
+         disruptiva = if_else(disruptiva=="Sí",1,0),
+         trabajadores = if_else(trabajadores=="Sí",1,0))  %>%
+  mutate(apolicial = as.numeric(apolicial),
+         educacion = as.numeric(educacion),
+                 estudiantes = as.numeric(estudiantes), 
+         disruptiva = as.numeric(disruptiva),
+         trabajadores= as.numeric(trabajadores))  %>%
+  na.omit(df2)
+```
+
+
+## LPM
+
+```{r echo=TRUE, comment='#'}
+#Modelo de regresión propuesto
+lm1 <-lm(apolicial ~ educacion + estudiantes + disruptiva, data=df2)
+summary(lm1)
+```
+
+
+## LPM
+
+**Interpretación**
+
+recordemos..
+
+$$y_{i} = \beta_{0} + \beta_{1}x_{1i} + \dots \beta_{k}x_{ki} + e_{i}$$
+
+Entonces decimos que el efecto de $x_{k}$ sobre $y$ es $\beta_{k}$. ¿Qué significa?
+
+
+"Un cambio en $\Delta$ unidades de $x_{k}$ se traduce en un cambio en $\Delta$ $\beta_{k}$ unidades en el valor esperado de $y_{i}$"
+
+
+
+
+## LPM
+
+
+**Lectura de coeficientes**
+
+1- Efecto de educación sobre control violento de la protesta:
+
+**R:** En promedio, la presencia de demandas por educación disminuye la probabilidad de un control violento de la protesta en 0.009, es decir, la presencia de demandas educativas durante la protesta disminuye un 9% controlando por el resto de la covariables del modelo. Sin embargo, este efecto no es significativo.
+
+2- Efecto de la presencia de estudiantes sobre control violento de la protesta:
+
+**R:**En promedio, la presencia de estudiantes durante una manifestación aumenta la probabilidad de un control violento de la protesta en 0.14, es decir, la presencia de estudiantes aumenta un 14% controlando por nuestras covariables del modelo. Este efecto es estadísticamente significativo a un 99,9% de confianza  y un valor *p*= 8.42e-11
+
+3- Efecto de tácticas disruptivas sobre el control violento de la protesta:
+
+**R:**En promedio, la presencia de tácticas disruptivas durante la protesta aumenta la probabilidad de un control violento de la protesta en 0.06, es decir, la presencia de tácticas disruptivas aumenta un 6%, controlando por el resto de la covariables del modelo. Este efecto es estadísticamente significativo a un 99,9% de confianza y un valor *p*= -7.03e07
+
+
+## LPM
+
+*Limitaciones...*
+
+**Distribución y rango**: Los modelos de regresión lineal asumen que la variable dependiente son manifestaciones de distribuciones normales, pero que ocurre cuándo nuestras observaciones no son normales (toma valores 0 y 1). Esto puede provocar que nuestras estimaciones escapen de los rangos 0 y 1 (que son el rango natural de una probabilidad). 
+
+
+**Sesgados e inconsistentes**: Coeficiente no da en el blanco y además consistentemente convergen en un valor erróneo. 
+
+**Varianza**: Supuesto de varianza constante en caso de las regresiones lineales no se cumple para variables categóricas = $p_i (1-p_i)$ Sabemos que usar una variable Bernoulli o Binomial no tiene varianzas constantes dada la distribución que tienen los datos. 
+
+
+## Regresión Logística
+
+Para ver regresión logística trabajaremos con los mismos datos que utilizamos para la regresión lineal que vimos previamente.
+
+```{r echo=TRUE, comment='#'}
+
+head(df2)
+
+```
+
+## Regresión Logística
+
+Es importante recordar la recodificación y/o conversión de variables que se estimen necesarias. Las variables dicotómicas se leen mejor cuándo tienen una codificación 0 y 1 dependiendo de la categoría de interés. Este procedimiento ya lo realizamos para la regresión lineal.
+
+
+**1- Ajuste un modelo de regresión logística que predice el control violento de la protesta como función de distinas covariables: educación, estudiantes y tácticas disruptivas.** 
+
+Formalmente:
+
+\tiny
+$$\underbrace{\ln \frac{p_{i}}{ 1 - p_{i}}}_{\text{logit}(p_{i})}    = \beta_{0} + \beta_{1}\text{demandas por educación}_{i} + \beta_{2}\text{presencia de estudiantes}_{i} + \beta_{3}\text{presencia de tácticas disruptivas}_{i} + \beta_{4}\text{ N° de manifestantes}_{i}$$
+
+```{r, include=FALSE}
+# agregamos la variable de participantes a otro subset de datos
+df3 <- df1 %>% select(apolicial,ppolicial,educacion,estudiantes,,disruptiva,trabajadores, participantes) %>%
+  mutate(apolicial = if_else(apolicial=="Violencia Policial",1,0),
+         educacion = if_else(educacion=="Sí",1,0),
+                  estudiantes= if_else(estudiantes=="Sí",1,0),
+         disruptiva = if_else(disruptiva=="Sí",1,0),
+         trabajadores = if_else(trabajadores=="Sí",1,0))  %>%
+  mutate(apolicial = as.numeric(apolicial),
+         educacion = as.numeric(educacion),
+                 estudiantes = as.numeric(estudiantes), 
+         disruptiva = as.numeric(disruptiva),
+         trabajadores= as.numeric(trabajadores))  %>%
+  na.omit(df3)
+
+
+```
+
+## Regresión Logística
+
+
+Recordamos del modelo de regresión lineal que el valor de un coeficiente significaba el cambio en unidades de la variable dependiente por cada
+unidad de la variable independiente a que se refiere el coeficiente, manteniendo el resto de la covariables del modelo constantes. A nivel de coeficientes estimados exponencialmente la interpretación es muy similar y la diferencia estriba en que en este caso no se trata del cambio (incremento o disminución) de la probabilidad de la variable dependiente por cada unidad de cambio en las independientes, sino del incremento o disminución que se produce en el cociente entre $P(Y=1)$ / $P(Y=0)$
+
+Utilizar este procedimiento no cambia en modo alguno la forma de interpretar el signo del coeficiente. Un coeficiente positivo aumenta la probabilidad, mientras que un valor negativo disminuye la probabilidad. Así pues si $\beta$ es positivo, su transformación (antilog) será mayor a 1, y el odds ratio aumentará. Este aumento se produce cuando la probabilidad prevista de ocurrencia de un suceso aumenta y la probabilidad prevista de su no ocurrencia disminuye. Por lo tanto, el modelo tiene una elevada probabilidad de ocurrencia. De la misma forma, si $\beta$ es negativo, el antilogaritmo es menor que 1 y el odds ratio disminuye. Un valor de cero equivale a un valor de 1, lo que no produce cambio en el odds.
+
+
+## Regresión Logística
+
+
+
+```{r echo=TRUE, comment='#'}
+
+logit1 <- glm(apolicial ~ educacion + estudiantes + disruptiva + participantes, family = binomial(link=logit), data=df3)
+summary(logit1)
+
+
+```
+
+## Regresión Logística
+
+
+**2- Interprete el intercepto y los efectos del modelo en términos de log-odds.**
+
+Formalmente:
+
+$$\frac{\partial\text{logit}(p_{i})}{\partial x_{k}} = \beta_{k}$$
+```{r echo=TRUE, comment='#'}
+#Estimación de GLM (Regresión logística)
+summary(logit1)$coefficients[,1]
+
+```
+
+**Respuesta:**
+El coeﬁciente asociado a educación indica que las log-odd esperadas de un control violento de la protesta cuándo existen demandas por educación durante la protestas son 0.189  puntos mayores que cuándo no hay demandas de este tipo presentes. El coeﬁciente asociado a estudiantes indica que las log-odd esperadas de un control violento de la protesta cuándo existe presencia de estudiantes durante una manifestación son de 0.502 puntos mayores que cuándo no hay presencia de estudiantes. El coeficiente de táctica disruptiva nos indica que la presencia de este tipo de repertorio de la protesta aumenta las log-odd de un control violento de la protestsa en 0.57 puntos. Finalmente el número de participantes presenta un coeficiente log-odd muy pequeño 0.00005 por cada participante adicional a la protesta. 
+
+
+
+## Regresión Logística
+
+**3- Considerando el modelo ajustado ¿Cuál sería la probabilidad esperada sobre una marcha de 500 personas respecto del control violento de la protesta**
+
+Formalmente:
+
+\tiny
+
+$$\mathbb{P}(\text{Control violento| Educación=1, Estudiantes=1, Disruptiva=1,  N° participantes=500)} $$
+$$ \mathbb{P} = \frac{1}{1 + e^{-(\beta_{0} + \beta_{Educación}+ \beta_{Estudiantes}+ \beta_{Disruptiva}+ \beta_{Nparticipantes})}}$$
+
+## Regresión Logística
+
+```{r echo=TRUE, comment='#'}
+summary(logit1)$coefficients[,1]
+```
+
+$$ \mathbb{P}= \frac{1}{1 + e^{-( -0.275  + 0.189*1 +  0.502*1 + 0.570*1 + 0.00005*500 )}}$$
+```{r echo=TRUE, comment='#'}
+# efecto multiplicativo - odd de una marcha de 500 personas
+exp(-0.275  + 0.189*1 +  0.502*1 + 0.570*1 + 0.00005*500 )
+
+
+```
+
+
+
+
+
+## Regresión Logística
+
+**4- Ajuste un modelo que evalue la violencia en el control de la protesta en función de otras variables. Esta vez incorporando a trabajadores en grupos sociales y generando un efecto multiplicativo (interacción) respecto del número de trabajadores y las tácticas disruptivas. Interprete los coeficientes en términos de odds-ratio**.
+
+Formalmente:
+\tiny
+$$\frac{p_{i}}{1 - p_{i}} =  e^{\beta_{0}} \cdot e^{\beta_{1} x_{i1}}  \dots e^{\beta_{k} x_{ik}}$$
+
+La trasformación de probabilidades a odds es monotónica, si la probabilidad aumenta también lo hacen los odds, y viceversa. El rango de valores que pueden tomar los odds es de $(0,\infty+)$. Dado que el valor de una probabilidad está acotado entre (0,1)
+
+donde:
+
+- $e^{\beta_{k}}$ está restringido al rango $[0,\infty+)$. Es una constante que "comprime" o amplifica las odds de éxito.
+
+- Si $\beta_{k} < 0  \to  (0 < e^{\beta_{k}} < 1)$. Es decir, un aumento en $x_{k}$ está asociado con una reducción (multiplicativa) de las odds de éxito. 
+
+- Si $\beta_{k} = 0  \to  (e^{\beta_{k}} =1)$. Es decir, un cambio en $x_{k}$ está asociado a un cambio nulo en las odds de éxito.
+
+- Si $\beta_{k} > 0  \to  (e^{\beta_{k}} > 1)$. Es decir, un aumento en $x_{k}$ está asociado a aumento (multiplicativo) en de las odds de éxito.
+
+\newpage
+
+
+## Regresión Logística
+
+Revisemos primero el modelo estimado anteriormente para entender algunas cosas..
+
+```{r echo=TRUE, comment='#'}
+summary(logit1)$coefficients[,1]
+```
+
+
+```{r echo=TRUE, comment='#'}
+exp(summary(logit1)$coefficients[,1])
+```
+```{r echo=TRUE, comment='#'}
+
+#cambio entre una marcha de 500 personas y una de 600 personas
+exp(-0.275  + 0.189*1 +  0.502*1 + 0.570*1 + 0.00005*500 )/exp(-0.275  + 0.189 *1 +  0.502*1 + 0.570*1 + 0.00005*600)
+
+
+```
+
+
+
+
+
+## Regresión Logística
+
+
+
+```{r echo=TRUE, comment='#'}
+#Estimación de GLM (Regresión logística)
+logit2 <- glm(apolicial ~ trabajadores*disruptiva + participantes + estudiantes, family = binomial(link=logit), data=df3)
+exp(summary(logit2)$coefficients[,1])
+```
+\newpage
+
+## Regresión Logística
+
+
+**Veamos el ejemplo anterior en términos de log-odds para entender el sentido de los efectos..**
+
+Lo que controla la dirección del efecto es el coeficiente en la regresión logística. De ahí la importancia de mirar la regresión en términos de log-odds para ayudar a entender el efecto que estamos obteniendo de nuestros coeficientes para el modelo estimado.
+
+```{r echo=TRUE, comment='#'}
+# Modelo en log-odds
+summary(logit2)
+```
+
+
+## Regresión Logística
+
+Veamos la intepretación:
+
+```{r echo=TRUE, comment='#'}
+exp(summary(logit2)$coefficients[,1])
+
+```
+
+
+El coeﬁciente asociado al grupo social de los trabajadores indica que las odds de un control violento de la protesta en presencia de este grupo social disminuye en un 0.59 las odds respecto de que no haya trabajadores presentes, con un efecto significativo al 99,9% de confianza, controlando por todas las covariables. El coeficiente asociado a  las tácticas disruptivas de un control violento de la protesta aumenta en un 1.57 odds respecto de la no presencia de este tipo de tácticas, controlando por todas las covariables. En tercer lugar, el coeficiente asociado a al número de participantes nos indica que por cada participante adicional durante una manifestación las odds de que un control violento de la protesta aumenta  en 1.00 puntos, con un efecto significativo de un 95 % de confianza, controlando por el resto de las covariables del modelo.
+
+
+El coeficiente asociado a estudiantes indica que las odds de presencia de estudiante durante un control violento de la protesta aumenta un 1.91 las odds respecto de la no presencia de este grupo social en una manifestación. Esto tiene un efecto significativo al 99% de confianza, controlando por todas las covariables. Finalmente, el coeficiente de la interacción entre trabajdores y tácticas disruptivas nos indica que las odds sobre la presencia de trabajadores y el uso de tácticas disruptivas durante un control violento de la protesta aumenta en 1.47, estadísticamente significativo a un 95% de confianza, controlando por el resto de nuestras variables independientes del modelo.
+
+
+
+## Regresión Logística - AME, MEM, MER
+
+El efecto marginal en la media (MEM) se calcula ajustando los valores de todas las covariables a sus medias dentro de la muestra. Es decir, 
+el MEM es el efecto parcial de la variable dependiente ($Y$) condicionado a un regresor ($X$) después de establecer todas las demás covariables en sus medias. En otras palabras, el MEM es la diferencia en el efecto de $X$ sobre $Y$ cuando todas las demás covariables  están en su media.
+
+```{r echo=TRUE, comment='#'}
+# margins package
+library(margins) # AME, EM y MER
+library(marginaleffects) #M AME, EM y MER
+
+AME<-summary(margins(logit2))
+
+AME
+```
+
+Lo que obtenemos es el efecto promedio de las variables del modelo. 
+
+## Regresión Logística - AME, MEM, MER
+
+El MEM (efecto marginal a la media) es muy similar al AME, excepto que en lugar de mantenerse en sus valores observados, las covariables se mantienen en sus valores medios.
+
+```{r echo=TRUE, comment='#'}
+
+df4 <- df3 %>% mutate(disruptiva = 1*(disruptiva==1)) # esto ya se encuentra así, pero es importante hacerlo en caso de tener otro tipo de datos
+logit_disruptiva <- glm(apolicial ~ disruptiva + trabajadores, family=binomial(link="logit"), 
+                             data=df4)
+mean_disruptiva = mean(df3$disruptiva);  mean_trabajadores = mean(df3$trabajadores)
+c("Promedio trab"=mean_trabajadores, "Promedio dis"=mean_disruptiva)
+
+mem<-summary(margins(logit_disruptiva, at=list(disruptiva=mean_disruptiva,trabajadores=mean_trabajadores)))
+
+MEM<-marginaleffects(logit_disruptiva, newdata =  typical(trabajadores=mean_trabajadores, disruptiva=mean_disruptiva))
+
+mem
+```
+
+
+
+## Regresión Logística - AME, MEM, MER
+
+Así mismo, podemos obtener los efectos para casos específicos que estamos buscando investigar. Tratemos de observar las diferencias por quartiles de acuerdo a la variable participantes.
+
+```{r echo=TRUE, comment='#'}
+
+#Modelo
+logit_participantes <- glm(apolicial ~ disruptiva + participantes, family=binomial(link="logit"), data=df3)
+
+mer <-margins(logit_participantes,at=list(disruptiva=c(1,0),participantes=quantile(df3$participantes,p=c(0.25,0.5,0.75))))
+
+mer
+```
+
+Lo que podemos observar es la diferencia respecto de 6 casos específicos según criterior que estamos dando para investigar. Para este caso en específico, observamos las diferencias en distintos quartiles para los casos de presencia de táctica disruptiva o no.
+

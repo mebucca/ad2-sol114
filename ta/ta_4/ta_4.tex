@@ -1,0 +1,795 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  8pt,
+  ignorenonframetext,
+]{beamer}
+\usepackage{pgfpages}
+\setbeamertemplate{caption}[numbered]
+\setbeamertemplate{caption label separator}{: }
+\setbeamercolor{caption name}{fg=normal text.fg}
+\beamertemplatenavigationsymbolsempty
+% Prevent slide breaks in the middle of a paragraph
+\widowpenalties 1 10000
+\raggedbottom
+\setbeamertemplate{part page}{
+  \centering
+  \begin{beamercolorbox}[sep=16pt,center]{part title}
+    \usebeamerfont{part title}\insertpart\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{section page}{
+  \centering
+  \begin{beamercolorbox}[sep=12pt,center]{part title}
+    \usebeamerfont{section title}\insertsection\par
+  \end{beamercolorbox}
+}
+\setbeamertemplate{subsection page}{
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center]{part title}
+    \usebeamerfont{subsection title}\insertsubsection\par
+  \end{beamercolorbox}
+}
+\AtBeginPart{
+  \frame{\partpage}
+}
+\AtBeginSection{
+  \ifbibliography
+  \else
+    \frame{\sectionpage}
+  \fi
+}
+\AtBeginSubsection{
+  \frame{\subsectionpage}
+}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usetheme[]{Copenhagen}
+\usecolortheme{dolphin}
+\usefonttheme{structurebold}
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\newif\ifbibliography
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same} % disable monospaced font for URLs
+\hypersetup{
+  pdftitle={Análisis de Datos Categóricos},
+  pdfauthor={Ayudantía 4},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+\title{Análisis de Datos Categóricos}
+\author{Ayudantía 4}
+\date{Felipe Olivares}
+
+\begin{document}
+\frame{\titlepage}
+
+\begin{frame}{Contenido}
+\protect\hypertarget{contenido}{}
+\begin{enumerate}
+\item
+  Loops en R
+\item
+  Medidas de asociación
+\end{enumerate}
+\end{frame}
+
+\begin{frame}[fragile]{Loops en R}
+\protect\hypertarget{loops-en-r}{}
+Los loops (``ciclos'' o ``bucles'' en español) son un tipo especial de
+funciones en \texttt{R} que sirven para ejecutar una tarea determinada
+una cantidad \emph{n} de veces. Se llama iteración a cada una de estas
+repeticiones, y sirven para hacer en segundos lo que manualmente
+llevaría horas, días o sería simplemente demasiado.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Sintaxis for}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{)\{}
+  \FunctionTok{print}\NormalTok{(i)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# [1] 1
+# [1] 2
+# [1] 3
+# [1] 4
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Loops en R}
+\protect\hypertarget{loops-en-r-1}{}
+Componentes de un loop:
+
+\textbf{for} = función que identifica los procedimientos del loop.
+
+\textbf{in} = especificación del objeto (vector, factor, matriz) sobre
+el que se llevarán a cabo las iteraciones.
+
+\textbf{()} = argumentos de unidades \emph{i} o \emph{j} de la función.
+
+\textbf{\{\}} = operaciones de la función sobre cada \emph{i} o \emph{j}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Sintaxis}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\DecValTok{4}\NormalTok{)\{}
+\FunctionTok{print}\NormalTok{(i }\SpecialCharTok{\^{}} \DecValTok{2}\NormalTok{)  }\CommentTok{\# elevamos al cuadrado cada "i" que estamos iterando}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# [1] 1
+# [1] 4
+# [1] 9
+# [1] 16
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Loops en R}
+\protect\hypertarget{loops-en-r-2}{}
+Note que las especificaciones de un loop pueden ser aplicadas para la
+creación de distintos objetos, como es el caso de una matriz con filas
+\emph{i} y columnas \emph{j}. Por otro lado, se pueden definir vectores
+para integrarlos en los loops. En este sentido, losloop son muy
+flexibles respecto de lo que pueden realizar, ya sea con números o
+palabras
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Sintaxis para vectores}
+
+\NormalTok{perros }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Naruto"}\NormalTok{, }\StringTok{"Chopin"}\NormalTok{, }\StringTok{"Yeti"}\NormalTok{, }\StringTok{"sultan"}\NormalTok{, }\StringTok{"fido"}\NormalTok{, }\StringTok{"yonofui"}\NormalTok{)}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(perros)) \{}
+  \FunctionTok{print}\NormalTok{(}\FunctionTok{paste}\NormalTok{(}\StringTok{"Mi perro se llamaba:"}\NormalTok{, perros[i]))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# [1] "Mi perro se llamaba: Naruto"
+# [1] "Mi perro se llamaba: Chopin"
+# [1] "Mi perro se llamaba: Yeti"
+# [1] "Mi perro se llamaba: sultan"
+# [1] "Mi perro se llamaba: fido"
+# [1] "Mi perro se llamaba: yonofui"
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Loops en R}
+\protect\hypertarget{loops-en-r-3}{}
+Mediante loops es posible obtener resultados de promedios, medianas u
+otras operaciones que necesitemos de nuestros datos. Esto puede ser de
+mucha ayuda en la presencia bases de datos más grandes dónde, por
+ejemplo, sacar un promedio para cada valor es imposible.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Usando la librería tidyverse generamos datos aleatorios en formato tibble}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}
+  \AttributeTok{a =} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{3}\NormalTok{),}
+  \AttributeTok{b =} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{3}\NormalTok{),}
+  \AttributeTok{c =} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{3}\NormalTok{),}
+  \AttributeTok{d =} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{3}\NormalTok{))}
+
+\CommentTok{\#resivamos los datos}
+\NormalTok{df}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 3 x 4
+##        a      b      c       d
+##    <dbl>  <dbl>  <dbl>   <dbl>
+## 1 -1.47  -1.67  -0.719  1.22  
+## 2  0.617  0.455  1.08  -0.994 
+## 3  0.725 -0.710 -0.346  0.0339
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Loops en R}
+\protect\hypertarget{loops-en-r-4}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Sacar resultados 1 por 1 }
+\FunctionTok{median}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{a)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# [1] 0.6171565
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{median}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{b)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# [1] -0.7102614
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{median}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{c)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# [1] -0.3463874
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{median}\NormalTok{(df}\SpecialCharTok{$}\NormalTok{d)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# [1] 0.03386827
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Loops para los mismos resultados}
+\NormalTok{resultados }\OtherTok{\textless{}{-}} \FunctionTok{vector}\NormalTok{(}\StringTok{"double"}\NormalTok{, }\FunctionTok{ncol}\NormalTok{(df))  }\CommentTok{\#  output}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \FunctionTok{seq\_along}\NormalTok{(df)) \{            }\CommentTok{\#  secuencia}
+\NormalTok{  resultados[[i]] }\OtherTok{\textless{}{-}} \FunctionTok{median}\NormalTok{(df[[i]])      }\CommentTok{\#  cuerpo}
+\NormalTok{\}}
+\NormalTok{resultados}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# [1]  0.61715648 -0.71026144 -0.34638739  0.03386827
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Loops en R}
+\protect\hypertarget{loops-en-r-5}{}
+el comando \emph{if} en loops permite colocar condiciones dentro de las
+operaciones que estamos realizando. Esto puede ser muy útil, por
+ejemplo, para definir dónde queremos realizar ciertas operaciones dentro
+de una base de datos. Veamos un ejemplo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{x }\OtherTok{\textless{}{-}} \DecValTok{5}
+\ControlFlowTok{if}\NormalTok{(x }\SpecialCharTok{\textgreater{}} \DecValTok{0}\NormalTok{)\{ }\CommentTok{\#condición}
+\FunctionTok{print}\NormalTok{(}\StringTok{"número positivo"}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# [1] "número positivo"
+\end{verbatim}
+
+Acá la expresión del código es ``verdadera'' si la sentencia se ejecuta,
+dada la condición que colocamos incialmente \emph{``x \textgreater{}
+0''}, por lo que generara una respuesta en ``character'' que dice
+``número positivo'', lo cual definimos en el output.
+\end{frame}
+
+\begin{frame}[fragile]{Loops en R}
+\protect\hypertarget{loops-en-r-6}{}
+Veamos un ejemplo más complejo. Supongamos que Juan tiene las siguientes
+notas en distintas asignaturas: 3,6,2,1,5,7 y queremos agregar una
+columna de aprobado y reprobado según la asignatura.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{class }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{3}\NormalTok{,}\DecValTok{6}\NormalTok{,}\DecValTok{2}\NormalTok{,}\DecValTok{1}\NormalTok{,}\DecValTok{5}\NormalTok{,}\DecValTok{7}\NormalTok{)  }\CommentTok{\# notas de distintos ramos}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{()}
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\FunctionTok{length}\NormalTok{(class))\{}
+\ControlFlowTok{if}\NormalTok{(class[i] }\SpecialCharTok{\textgreater{}=} \DecValTok{4}\NormalTok{) p[i] }\OtherTok{=} \StringTok{"aprobado"}
+\ControlFlowTok{if}\NormalTok{(class[i] }\SpecialCharTok{\textless{}} \DecValTok{4}\NormalTok{) p[i] }\OtherTok{=} \StringTok{"reprobado"}
+\NormalTok{\}}
+\FunctionTok{as.data.frame}\NormalTok{(}\FunctionTok{rbind}\NormalTok{(p,class))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#              V1       V2        V3        V4       V5       V6
+# p     reprobado aprobado reprobado reprobado aprobado aprobado
+# class         3        6         2         1        5        7
+\end{verbatim}
+
+Donde los componentes \emph{if}:
+
+\textbf{if} = función de especificación lógica.
+
+\textbf{()} = condiciones lógicas para unidades \emph{i} o \emph{j} de
+la función.
+
+\textbf{\{\}} = operaciones de la función \emph{if} sobre cada \emph{i}
+o \emph{j}
+\end{frame}
+
+\begin{frame}[fragile]{Medidas de asociación}
+\protect\hypertarget{medidas-de-asociaciuxf3n}{}
+Trabajaremos las medidas de asociación utilizando la base de datos del
+Observatoriod de conflictos (OCS) de COES. Esta base de datos es pública
+y la hemos estado utilizando en ayudantías anteriores. La base de datos
+está previamente trabajada para sus disintas variables, es decir, ha
+sufrido recodificaciones y creación de variables.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(df1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# # A tibble: 6 x 16
+#   ano   region     educa~1 indig~2 laboral salud pacif~3 disru~4 viole~5 organ~6
+#   <fct> <fct>      <fct>   <fct>   <fct>   <fct> <fct>   <fct>   <fct>   <fct>  
+# 1 2009  Metropoli~ No      No      No      No    Sí      No      No      1 orga~
+# 2 2009  Tarapacá   Sí      No      No      No    Sí      No      No      1 orga~
+# 3 2009  Tarapacá   No      No      Sí      No    Sí      Sí      No      1 orga~
+# 4 2009  O´Higgins  No      No      Sí      No    No      Sí      No      Sin or~
+# 5 2009  Araucanía  No      Sí      No      No    Sí      No      No      Sin or~
+# 6 2009  Araucanía  No      No      No      No    No      Sí      No      Sin or~
+# # ... with 6 more variables: nacional <fct>, macrozona <chr>,
+# #   estudiantes <fct>, trabajadores <fct>, ppolicial <fct>, apolicial <fct>,
+# #   and abbreviated variable names 1: educacion, 2: indigena, 3: pacifica,
+# #   4: disruptiva, 5: violenta, 6: organizacion
+# # i Use `colnames()` to see all variable names
+\end{verbatim}
+\end{frame}
+
+\begin{frame}{Medidas de asociación}
+\protect\hypertarget{medidas-de-asociaciuxf3n-1}{}
+Contexto:
+
+En la última década han existido desarrollos teóricos importantes para
+aclarar el significado de la represión policial y para recentrar su
+estudio en torno a nociones más amplias de ``control de la protesta'', o
+``el control social de la protesta''. En relación con esto último, Earl
+(2004) sostiene que parte relevante de la investigación sobre el control
+de la protesta estudia la represión como forma característica de
+observar las conductas que tienen las policías en escenarios de
+movilización social (Koopman, 1995; Kriesi et al, 1995; Mc Adams, 1982,
+Davenport. 2007). Este tipo aproximaciones basadas en las acciones
+represivas de las policías para mantener el orden público muchas veces
+oscurecen interrogantes importantes respecto de la heterogeneidad de los
+actores y conductas policiales empleadas. Por un lado, nublan la
+posibilidad de observar otras acciones que no involucran el uso dela
+coerción como estrategia de disuasión o control del orden público. Por
+otra parte, hablar de control dela protesta permite desmontar la idea de
+que la represión es un sinónimo de violencia estatal y esclarecerel arco
+de posibilidades que existen en las conductas policiales durante las
+manifestaciones.
+
+En esta ocación estaremos trabajando sobre las medidas de asociación a
+través de la relación entre acción policial y tácticas o repertorios de
+la protesta. Esto datos podemos encontrarlos para distintas regiones y
+distintos años entre el 2009-2019. Para efectos del análisis
+utilizaremos la variable \textbf{acción} policial, la cuál fue creada a
+partir de distintas variables que contiene la base de datos del OCS
+(enfrentamientos directos con manifestantes, uso de carros lanzagua o
+gases lacrimógenos, uso de armas de fuego, uso de detenciónd de
+manifestantes, solo presencia policial de la protesta).
+\end{frame}
+
+\begin{frame}[fragile]{Medidas de asociación}
+\protect\hypertarget{medidas-de-asociaciuxf3n-2}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Presencia policial 2009{-}2019}
+\FunctionTok{table}\NormalTok{(df1}\SpecialCharTok{$}\NormalTok{ppolicial) }\CommentTok{\# 26\% y 74\%}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# 
+#    Si    No 
+#  6079 17318
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Acción policial 2009{-}2019 }
+\FunctionTok{table}\NormalTok{(df1}\SpecialCharTok{$}\NormalTok{apolicial) }\CommentTok{\# 44\% y 56\%}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# 
+#  Control negociado Violencia Policial 
+#               2697               3382
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Tácticas de la protesta  2009{-}2019 }
+\FunctionTok{table}\NormalTok{(df1}\SpecialCharTok{$}\NormalTok{violenta) }\CommentTok{\# 45\% y 55\%}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# 
+#    No    Sí 
+# 19365  4033
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Medidas de asociación}
+\protect\hypertarget{medidas-de-asociaciuxf3n-3}{}
+Lo primero que haremos es ver la asociación que existe entre las
+acciones policiales y las tácticas disruptivas durante una manifestación
+en el espacio público. Esto revisado de forma transversal para los datos
+que contiene el OCS para los años 2009-2019
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Sintaxis}
+\CommentTok{\#Relación bivariada entre presencia policial y táctica pacífica}
+
+\NormalTok{ctable1 }\OtherTok{\textless{}{-}}\NormalTok{ df1 }\SpecialCharTok{\%\textgreater{}\%} \FunctionTok{with}\NormalTok{(}\FunctionTok{table}\NormalTok{(apolicial,disruptiva)) }\CommentTok{\# 2{-}way table}
+
+\FunctionTok{print}\NormalTok{(ctable1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#                     disruptiva
+# apolicial              No   Sí
+#   Control negociado  1248 1449
+#   Violencia Policial 1365 2017
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Medidas de asociación}
+\protect\hypertarget{medidas-de-asociaciuxf3n-4}{}
+Recordatorio:
+
+Tenemos independencia estadística si la ocurrencia de un evento no
+afecta la probabilidad de la ocurrencia de otro evento. Dicho de otro
+modo, la probabilidad de que ocurra \(y\) es independiente de qué valor
+asume \(x\). Por lo tanto, nos encontramos frente a independencia
+estadística si las probabilidades conjunta son iguales al producto de
+sus probabilidades marginales \(P(XY) = P(X)P(Y)\). Las medidas de
+asociación nos permitirán justamente poder evaluar este escenario.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Sintaxis}
+\CommentTok{\#Relaciones multivariadas (en este caso bivariadas)}
+\FunctionTok{prop.table}\NormalTok{(ctable1,}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#                     disruptiva
+# apolicial                   No        Sí
+#   Control negociado  0.4627364 0.5372636
+#   Violencia Policial 0.4036073 0.5963927
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Medidas de asociación}
+\protect\hypertarget{medidas-de-asociaciuxf3n-5}{}
+¿Cuál es la diferencia de proporciones \(\delta\) que se observa en la
+acción policial (\emph{Y}) de acuerdo a la presencia de tácticas
+disruptivas de los manifestantes (\emph{X}). Particularmente, la
+proporción de un control violento de la protesta (\emph{PCN}) respecto
+de un control negociado de la protesta (\emph{PCV}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Sintaxis}
+\CommentTok{\#Diferencia de proporciones}
+\NormalTok{delta }\OtherTok{\textless{}{-}}\NormalTok{ (}\FloatTok{0.597{-}0.537}\NormalTok{)}
+\NormalTok{delta}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# [1] 0.06
+\end{verbatim}
+
+\textbf{R}= Existe una diferencia de proporción de 0.06 entre un control
+violento de la protesta para tácticas disruptivas en comparación con un
+control negociado de la protesta. Ahora, es importante recalcar que esto
+es solo una diferencia de proporciones, es decir, aún no sabemos si esto
+es estadísticamente significativo o no.
+\end{frame}
+
+\begin{frame}[fragile]{Medidas de asociación}
+\protect\hypertarget{medidas-de-asociaciuxf3n-6}{}
+\textbf{Odds Ratio}
+
+La \emph{odds} basícamente se define como la razón entre éxito o
+fracaso, es decir, la razón entre \(p\) y \(1-p\) ¿Cuáles son las odds
+de un control violento de la protesta durante una manifestación
+disruptiva?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(ctable1) }\CommentTok{\# utilizamos la primera tabla de contigencia}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#                     disruptiva
+# apolicial              No   Sí
+#   Control negociado  1248 1449
+#   Violencia Policial 1365 2017
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Sintaxis}
+\CommentTok{\# Valor probabilístico de éxito}
+\NormalTok{p }\OtherTok{\textless{}{-}}\NormalTok{ (}\DecValTok{2017}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1365} \SpecialCharTok{+}\DecValTok{2017}\NormalTok{))}
+
+\CommentTok{\# Odds (P/1{-}P)}
+\NormalTok{odds }\OtherTok{\textless{}{-}}\NormalTok{ (p}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1}\SpecialCharTok{{-}}\NormalTok{p)) }
+\NormalTok{odds}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# [1] 1.477656
+\end{verbatim}
+
+\textbf{R}:Las odds (``chances'') de que existe un control violento de
+la protesta durante una manifestación disruptiva son de 1.47
+\end{frame}
+
+\begin{frame}{Medidas de asociación}
+\protect\hypertarget{medidas-de-asociaciuxf3n-7}{}
+\textbf{Odds ratio}
+
+A partir de la tabla de contigencia que tenemos podemos medir la
+asociación entre variables, es decir las \emph{odds ratio}.
+
+Ahora bien, en una tabla de 2x2 la razón de odds \(\theta\) es la razón
+de éxito en dos ﬁlas, o
+\(\theta= \frac{odds1}{odds2}=\frac{P_1/(1-P_1)}{P_2/(1-P_2)}\)
+
+Sabemos que\ldots{}
+
+\begin{itemize}
+\item
+  Si \(\theta=1\) hay igualdad de odds (``chances'') y, por lo tanto,
+  hay independencia entre variables.
+\item
+  Si \(\theta > 1\) entonces el éxito es más probable para el grupo en
+  el numerador.
+\item
+  Si \(\theta < 1\) entonces el éxito es más probable para el grupo en
+  el denominador.
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Medidas de asociación}
+\protect\hypertarget{medidas-de-asociaciuxf3n-8}{}
+Siempre es relevante, antes de calcular el \emph{odds ratio}, saber que
+queremos calcular o que pregunta nos estamos haciendo. Por ejemplo:
+
+¿Cuál es la razón de odds de un control negociado de la protesta en
+presencia de tácticas disruptivas?.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{prop.table}\NormalTok{(ctable1,}\DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#                     disruptiva
+# apolicial                   No        Sí
+#   Control negociado  0.4627364 0.5372636
+#   Violencia Policial 0.4036073 0.5963927
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Sintaxis}
+\CommentTok{\# Razón de Odds en proporciones }
+\NormalTok{OR }\OtherTok{\textless{}{-}}\NormalTok{ ((}\FloatTok{0.537}\SpecialCharTok{/}\FloatTok{0.462}\NormalTok{)}\SpecialCharTok{/}\NormalTok{(}\FloatTok{0.596}\SpecialCharTok{/}\FloatTok{0.403}\NormalTok{)) }
+\NormalTok{OR}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# [1] 0.7859431
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]{Medidas de asociación}
+\protect\hypertarget{medidas-de-asociaciuxf3n-9}{}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{ (ctable1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#                     disruptiva
+# apolicial              No   Sí
+#   Control negociado  1248 1449
+#   Violencia Policial 1365 2017
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# esto también se puede calcular como producto cruzado }
+
+\NormalTok{theta }\OtherTok{=}\NormalTok{ ((}\DecValTok{1449}\SpecialCharTok{*}\DecValTok{1365}\NormalTok{)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1248}\SpecialCharTok{*}\DecValTok{2017}\NormalTok{)) }\CommentTok{\# Cross{-}product Ratio}
+\NormalTok{theta}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# [1] 0.7857431
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{theta\_p }\OtherTok{\textless{}{-}}\NormalTok{ (theta}\DecValTok{{-}1}\NormalTok{)}\SpecialCharTok{*}\DecValTok{100}
+\NormalTok{theta\_p}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# [1] -21.42569
+\end{verbatim}
+
+\textbf{R}: Las odds de la existencia de un control negociado de la
+protesta son 0.8 veces las odds de un control violento de la protesta
+cuándo existen tácticas disruptivas, es decir, el control negociado de
+la protesta es un 21 \% más bajo que el control violento de este tipo de
+manifestaciones con presencia de tácticas disruptivas.
+\end{frame}
+
+\begin{frame}[fragile]{Inferencia Estadística}
+\protect\hypertarget{inferencia-estaduxedstica}{}
+Continuando con nuestros cálculos previos\ldots{}
+
+\textbf{Intervalos de confianza}
+
+¿Es posible afirmar que nuestro valor \(\delta= 0.06\), que observa en
+la muestra una diferencia de proporciones, es estadísticamente
+significativo a un 99\% de confianza?
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Sintaxis}
+\CommentTok{\#CI Diferencia de proporciones}
+\NormalTok{PCV  }\OtherTok{\textless{}{-}} \FloatTok{0.5963927} \CommentTok{\# control violento}
+\NormalTok{PCN  }\OtherTok{\textless{}{-}} \FloatTok{0.5372636} \CommentTok{\# Control negociado}
+\NormalTok{se }\OtherTok{\textless{}{-}}  \FunctionTok{sqrt}\NormalTok{((PCV}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ PCV))}\SpecialCharTok{/}\DecValTok{4690} \SpecialCharTok{+}\NormalTok{  (PCN}\SpecialCharTok{*}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ PCN))}\SpecialCharTok{/}\DecValTok{3919}\NormalTok{)}
+\NormalTok{ci99\_delta }\OtherTok{\textless{}{-}}  \FunctionTok{c}\NormalTok{(}\AttributeTok{li=}\NormalTok{(delta }\SpecialCharTok{{-}} \FloatTok{2.58}\SpecialCharTok{*}\NormalTok{se), }\AttributeTok{ls=}\NormalTok{(delta }\SpecialCharTok{+} \FloatTok{2.58}\SpecialCharTok{*}\NormalTok{se)) }
+\FunctionTok{print}\NormalTok{(ci99\_delta)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+#         li         ls 
+# 0.03236132 0.08763868
+\end{verbatim}
+
+\textbf{R}: La diferencia de proporciones observada es estadísticamente
+significativa a un 99\% de confianza
+\end{frame}
+
+\begin{frame}[fragile]{Inferencia Estadística}
+\protect\hypertarget{inferencia-estaduxedstica-1}{}
+Test \(\chi^2\)
+
+¿Es posible rechazar la \(H_0\) que afirma la independencia estadística
+de la relación bivariada entre la presencia de tácticas disruptivas y el
+tipo de control policial de la protesta? \emph{Ojo}: Recordemos que en
+tablas de 2x2 la independencia estadística entre variables equivale a
+\(H_0: \pi_{ij}=\pi_{i+}\pi_{+j}\), con una posible
+\(H_1: \pi_{ij}\neq\pi_{i+}\pi_{+j}\) y que los grados de libertad están
+determinados por \(df= (i-1)(j-1)\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Sintaxis}
+\CommentTok{\# Test Chi2 de independencia estadística}
+\FunctionTok{chisq.test}\NormalTok{(ctable1,}\AttributeTok{correct =} \ConstantTok{FALSE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+# 
+#   Pearson's Chi-squared test
+# 
+# data:  ctable1
+# X-squared = 21.405, df = 1, p-value = 3.718e-06
+\end{verbatim}
+
+R= Con un valor \(\chi^2 = 21.405\) y un \(p=0.000003718\) es posible
+rechazar \(H_0\) y afirmar que no existe independencia estadística entre
+las variables en todos los niveles convencionales de confianza
+\(p<0.001\), \(p<0.01\), \(p<0.05\). Hay asociación entre las variables.
+\end{frame}
+
+\end{document}

@@ -1,0 +1,1390 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análisis de Datos Categóricos (SOC3070)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca  Profesor Asistente, Sociología UC" />
+    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Análisis de Datos Categóricos (SOC3070)
+## Clase #7
+### <br> Mauricio Bucca<br> Profesor Asistente, Sociología UC
+### <a href="https://github.com/mebucca">github.com/mebucca</a>
+
+---
+
+
+class: inverse, center, middle
+
+#Modelos de Regresión para variable dependiente categórica
+## Modelo Lineal de Probabilidad (LMP)
+
+---
+
+.pull-left[
+![allen](allen.jpg)
+]
+
+.pull-right[
+.huge[.bold[Todo lo que siempre quisiste saber sobre regresión lineal (ˆ)
+]]
+(ˆ) .bold[_Pero nunca te atreviste a preguntar_ ]
+]
+
+---
+##  Estructura de un modelo de regresión lineal
+
+
+Un modelo de regresión lineal estándar tiene la siguiente estructura:
+
+&lt;br&gt;
+
+`$$y_{i} = \overbrace{\beta_{0} + \beta_{1}x_{1i} + \dots \beta_{k}x_{ki}}^{\hat{y}} + e_{i}$$`
+donde:
+
+--
+
+- `\(y\)` es la variable dependiente
+
+- `\(x_{1} \dots x_{k}\)` son predictores o variables independientes 
+
+- `\(\beta_{1} \dots \beta_{k}\)` son los respectivos "efectos" de los predictores sobre `\(y\)`
+
+- `\(e\)` es un término de error aleatorio ("white noise")
+
+- `\(\hat{y} \perp e\)`
+
+
+---
+##  Estructura de un modelo de regresión lineal
+
+Podemos repensar el LM de la siguiente forma:
+
+&lt;br&gt;
+--
+.bold[Configuración]
+
+
+- Tenemos `\(n\)` observaciones (individuos) independientes: `\(i = 1, \dots, n\)`
+
+
+--
+
+- Para cada individuo observamos un valor en la variable dependiente `\(y_{i}\)`, tal que  `\(y_{i} \in \{-\infty,\infty+ \}\)`
+
+
+--
+
+- Estos resultados son realizaciones de variables aleatorias `\(\text{Normal}(\mu_{i}, \sigma_{i})\)` con media y varianza desconocida: misma distribución pero parámetros (potencialmente) distintos
+
+  - Notar que es imposible identificar estos parámetros individualmente ( `\(n\)` observaciones y `\(2n\)` parámetros)
+
+---
+##  Estructura de un modelo de regresión lineal
+
+El modelo de regresión lineal estándar "resuelve" este problema de la siguiente manera
+
+`$$y_{i} \sim \text{Normal}(\mu_{i}, \sigma_{i}) \quad \quad \text{ donde}$$`
+--
+
+-  `\(\mu_{i} = \beta_{0} + \beta_{1}x_{1i} + \dots \beta_{k}x_{ki}\)`
+--
+`\(\quad =\mathbb{E}(y_{i} \mid x_{1}, \dots, x_{k})\)`
+
+
+--
+
+- `\(\sigma^{2}_{i} =  \sigma^{2}\)`
+--
+`\(\quad =\mathbb{Var}(y_{i} \mid x_{1}, \dots, x_{k})\)`
+
+--
+
+- `\(x_{1}, \dots, x_{k}\)` son valores fijos, no variables aleatorias
+
+
+--
+
+- Todo lo anterior implica que, si `\((e_{i} = y_{i} - \mu_{i})\)`, entonces
+--
+`\(\quad e_{i} = \text{Normal}(\mu_{i}, \sigma) - \mu_{i} \sim  \text{Normal}(0, \sigma)\)`
+
+
+--
+En resumen,
+
+.content-box-blue[
+`$$y_{i} \sim \text{Normal}(\mu_{i}, \sigma) \quad  \text{ o, equivalentemente: } \quad  y_{i} = \mu_{i} + \text{Normal}(0, \sigma)$$`
+]
+
+--
+
+Notar que  LM describe los datos con `\(k + 2\)` parámetros: `\(\beta_{0}, \beta_{1}, \dots, \beta_{k}, \sigma\)`
+
+---
+##  Estructura de un modelo de regresión lineal
+
+Es común encontrar el modelo lineal escrito en forma matricial:
+
+`$$\newcommand{\vect}[1]{\boldsymbol{#1}}$$`
+
+
+
+.pull-left[
+`$$\vect{y} \sim \text{Normal}_{n}(\vect{X}\vect{\beta},\vect{\Sigma}) \quad \text{ donde ...}$$`
+
+
+]
+.pull-right[
+- `\(\vect{y}\)` es un vector que contiene las diferentes `\(y_{i}, \dots, y_{n}\)`
+
+- `\(\vect{\mu} = \vect{X}\vect{\beta} = \beta_{0} + \beta_{1}\vect{x}_{1} + \dots + \beta_{k}\vect{x}_{k}\)`
+
+- `\(\vect{\Sigma^{2}}\)` es la matriz de varianza-covarianza entre las observaciones
+]
+
+&lt;br&gt;
+--
+visualmente:
+
+`$$\begin{bmatrix}
+y_{i} \\  \vdots \\ y_{n}
+\end{bmatrix}_{(n,1)} \sim \text{Normal}_{n}\Bigg(  \vect{\mu} = \begin{bmatrix}
+\beta_{0} + \beta_{1}x_{1i} + \dots \beta_{k}x_{ki} \\ 
+ \vdots \\ \beta_{0} + \beta_{1}x_{1n} + \dots \beta_{k}x_{kn}
+\end{bmatrix}_{(n,1)} , \vect{\Sigma^{2}} = \begin{bmatrix}
+    \sigma^{2}    &amp; 0      &amp; \ldots         &amp; 0      \\
+    0      &amp; \sigma^{2}     &amp; \ldots         &amp; 0      \\
+    \vdots &amp; \vdots &amp; \sigma^{2}   &amp; \vdots \\
+    0      &amp; 0      &amp; \ldots         &amp; \sigma^{2} 
+\end{bmatrix}_{(n,n)}\Bigg)$$`
+ 
+---
+##  Modelo de regresión lineal
+
+"Ensamblemos" el modelo via Monte Carlo Simulation. "Data Generating Process" (.bold[DGP]):
+--
+
+
+
+```r
+set.seed("87742") # seed
+n &lt;- 5000 # observaciones
+x &lt;- sample(1:100,n,replace=TRUE) # 1 predictor o var independiente
+```
+
+
+```
+##  int [1:5000] 29 19 62 6 62 90 6 83 65 76 ...
+```
+
+
+```r
+# parámetros
+sigma &lt;- 7 # sd
+b_0 &lt;- 10 # intercepto
+b_1 &lt;- 1.1 # coeficiente de x
+mu &lt;- b_0 + b_1*x # valor predicho
+```
+
+
+```
+##  num [1:5000] 41.9 30.9 78.2 16.6 78.2 ...
+```
+
+
+```r
+# variable dependiente
+y &lt;- rnorm(n,mu,sigma) # variable dependiente. Equivalente: y &lt;- mu + rnorm(n,0,sigma)
+```
+
+
+```
+##  num [1:5000] 44.4 37.03 81.88 9.85 81.41 ...
+```
+
+---
+## Estimación modelo de regresión lineal:
+
+.pull-left[
+.content-box-blue[
+.bold[OLS]
+`$$\hat{\boldsymbol{\beta}}_{OLS} = \underset{\beta}{\arg\min\ } \sum_{i=1}^{n} (y_{i} - \vect{X}_{i}'\vect{\beta})^{2} \quad \text{ donde}$$`
+]
+]
+
+.pull-right[
+- `\(\vect{y}\)` es el vector `\(y_{i}, \dots, y_{n}\)`
+- `\(\vect{X}_{i}'\vect{\beta} = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}\)`
+]
+
+--
+
+.pull-left[
+.content-box-blue[
+.bold[MLE]
+`$$\hat{\boldsymbol{\beta}}_{MLE} = \underset{\beta}{\arg\max\ } \prod_{i=1}^{n} \frac{1}{\sqrt{2\pi\sigma^{2}}} e^{- \frac{(y_{i} - \vect{X}_{i}'\vect{\beta})^{2}}{2\sigma^{2}}} \quad \text{ donde}$$`
+]
+]
+
+.pull-right[
+* `\(\frac{1}{\sqrt{2\pi\sigma^{2}}} e^{- \frac{(x - \mu)^{2}}{2\sigma^{2}}}\)` es la función de probabilidad de una variable `\(X\)` que distribuye .bold[normal]
+]
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+--
+Ambos métodos producen mismos resultados en el caso de LM.
+
+---
+## Modelo de regresión lineal
+
+En el caso de un modelo univariado del siguiente tipo: `\(y_{i} =\beta_{0} + \beta x_{i}  + e_{i}\)`, los estimadores son los siguientes:
+
+
+&lt;br&gt;
+
+
+- `\(\hat{\beta}_{1} = \frac{\sum (x_{i}-\bar{x})(y_{i}-\bar{y})}{\sum (x_{i}-\bar{x})^{2}}      = \hat{\rho}_{xy} \frac{\hat{\sigma}_{y}}{\hat{\sigma}_{x}}\)`
+
+
+&lt;br&gt;
+
+
+- `\(\hat{\beta}_{0} = \bar{y} - \hat{\beta}_{1}\bar{x}\)`
+
+
+&lt;br&gt;
+
+
+- `\(\hat{\sigma}^{2} = \frac{\sum (y_{i} - (\beta_{0} + \beta x_{i}  + e_{i}))^{2}}{n-2}\)` 
+
+
+&lt;br&gt;
+
+
+- SE de `\(\hat{\beta}_{1}\)` es `\(\sqrt{\mathbb{Var}(\hat{\beta}_{1})} = \hat{\sigma}/\sum (x - \bar{x})^2\)`
+
+
+
+---
+## Modelo de regresión lineal
+
+Ahora estimemos los parámetros de nuestro modelo via OLS 
+
+
+```r
+our_data &lt;- tibble(y=y, x=x)
+our_lm_ols &lt;- lm(y ~ x, data=our_data) # "fit" el modelo usando función lm()
+print(summary(our_lm_ols)) # analicemos nuestros resultados
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x, data = our_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -24.9776  -4.6438   0.0353   4.6418  25.1847 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 10.168799   0.193246   52.62   &lt;2e-16 ***
+## x            1.095101   0.003382  323.81   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 6.943 on 4998 degrees of freedom
+## Multiple R-squared:  0.9545,	Adjusted R-squared:  0.9545 
+## F-statistic: 1.049e+05 on 1 and 4998 DF,  p-value: &lt; 2.2e-16
+```
+
+---
+## Modelo de regresión lineal
+
+Ahora estimemos los parámetros via MLE
+
+
+```r
+our_lm_mle &lt;- glm(y ~ x, family="gaussian", data=our_data) # "fit" modelo usando función glm()
+print(summary(our_lm_mle)) # analicemos nuestros resultados
+```
+
+```
+## 
+## Call:
+## glm(formula = y ~ x, family = "gaussian", data = our_data)
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -24.9776   -4.6438    0.0353    4.6418   25.1847  
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 10.168799   0.193246   52.62   &lt;2e-16 ***
+## x            1.095101   0.003382  323.81   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for gaussian family taken to be 48.20756)
+## 
+##     Null deviance: 5295609  on 4999  degrees of freedom
+## Residual deviance:  240941  on 4998  degrees of freedom
+## AIC: 33571
+## 
+## Number of Fisher Scoring iterations: 2
+```
+
+---
+## Modelo de regresión lineal
+
+.pull-left[
+
+```
+## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.
+```
+
+![](class_7_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+]
+
+--
+
+.pull-right[
+Observamos que:
+
+-  `\(\mathbb{E}(y_{i} \mid x = 50) = 64.9\)`
+
+-  `\(\mathbb{E}(y_{i} \mid x = 60) = 75.9\)`
+
+- Estas "medias condicionales" no son determinísticas sino .bold[_probabilísticas_].
+
+
+- Específicamente, sabemos que:
+
+  - `\(y_{i} \mid x = 50  \sim N(\mu= 64.9, \sigma=7)\)` 
+
+  - `\(y_{i} \mid x = 60  \sim N(\mu= 75.9, \sigma=7)\)`
+]
+
+---
+## Modelo de regresión lineal
+
+
+.pull-left[
+
+Así se ve:
+
+-  `\(\mathbb{E}(y_{i} \mid x = 50) = 64.9\)`
+
+-  `\(\mathbb{E}(y_{i} \mid x = 60) = 75.9\)`
+
+donde:
+
+  - `\(y_{i} \mid x = 50  \sim N(\mu= 64.9, \sigma=7)\)` 
+
+  - `\(y_{i} \mid x = 60  \sim N(\mu= 75.9, \sigma=7)\)`
+]
+
+
+.pull-right[
+
+
+```r
+b_0_hat &lt;- our_lm_ols$coefficients[1]
+b_1_hat &lt;- our_lm_ols$coefficients[2]
+y_hat &lt;- b_0_hat + b_1_hat*c(50,60)
+sigma_hat &lt;- summary(our_lm_ols)$sigma
+y_x50 &lt;- rnorm(n, mean=y_hat[1], sd=sigma_hat)
+y_x60 &lt;- rnorm(n, mean=y_hat[2], sd=sigma_hat)
+```
+
+
+
+![](class_7_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
+```
+## List of 6
+##  $ axis.title.x   :List of 11
+##   ..$ family       : NULL
+##   ..$ face         : NULL
+##   ..$ colour       : NULL
+##   ..$ size         : num 24
+##   ..$ hjust        : NULL
+##   ..$ vjust        : NULL
+##   ..$ angle        : NULL
+##   ..$ lineheight   : NULL
+##   ..$ margin       : NULL
+##   ..$ debug        : NULL
+##   ..$ inherit.blank: logi FALSE
+##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##  $ axis.title.y   :List of 11
+##   ..$ family       : NULL
+##   ..$ face         : NULL
+##   ..$ colour       : NULL
+##   ..$ size         : num 24
+##   ..$ hjust        : NULL
+##   ..$ vjust        : NULL
+##   ..$ angle        : NULL
+##   ..$ lineheight   : NULL
+##   ..$ margin       : NULL
+##   ..$ debug        : NULL
+##   ..$ inherit.blank: logi FALSE
+##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##  $ axis.text.x    :List of 11
+##   ..$ family       : NULL
+##   ..$ face         : NULL
+##   ..$ colour       : NULL
+##   ..$ size         : num 22
+##   ..$ hjust        : NULL
+##   ..$ vjust        : NULL
+##   ..$ angle        : NULL
+##   ..$ lineheight   : NULL
+##   ..$ margin       : NULL
+##   ..$ debug        : NULL
+##   ..$ inherit.blank: logi FALSE
+##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##  $ axis.text.y    :List of 11
+##   ..$ family       : NULL
+##   ..$ face         : NULL
+##   ..$ colour       : NULL
+##   ..$ size         : num 22
+##   ..$ hjust        : NULL
+##   ..$ vjust        : NULL
+##   ..$ angle        : NULL
+##   ..$ lineheight   : NULL
+##   ..$ margin       : NULL
+##   ..$ debug        : NULL
+##   ..$ inherit.blank: logi FALSE
+##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##  $ legend.text    :List of 11
+##   ..$ family       : NULL
+##   ..$ face         : NULL
+##   ..$ colour       : NULL
+##   ..$ size         : num 18
+##   ..$ hjust        : NULL
+##   ..$ vjust        : NULL
+##   ..$ angle        : NULL
+##   ..$ lineheight   : NULL
+##   ..$ margin       : NULL
+##   ..$ debug        : NULL
+##   ..$ inherit.blank: logi FALSE
+##   ..- attr(*, "class")= chr [1:2] "element_text" "element"
+##  $ legend.position: chr "none"
+##  - attr(*, "class")= chr [1:2] "theme" "gg"
+##  - attr(*, "complete")= logi FALSE
+##  - attr(*, "validate")= logi TRUE
+```
+
+
+]
+
+---
+## Interpretación coeficientes en LM
+
+`$$\text{Si } \quad \quad y_{i} = \overbrace{\beta_{0} + \beta_{1}x_{1i} + \dots \beta_{k}x_{ki}}^{\mathbb{E}(y_{i} \mid x_{1}, \dots, x_{k})} + \underbrace{e_{i}}_{\text{Normal}(0,\sigma)}$$`
+
+---
+## Interpretación coeficientes en LM
+
+`$$\text{Si } \quad \quad y_{i} = \overbrace{\beta_{0} + \beta_{1}x_{1i} + \dots \beta_{k}x_{ki}}^{\mathbb{E}(y_{i} \mid x_{1}, \dots, x_{k})} + \underbrace{e_{i}}_{\text{Normal}}(0,\sigma)$$`
+
+Entonces decimos que el efecto de `\(x_{k}\)` sobre `\(y\)` es `\(\beta_{k}\)`. ¿Qué significa?
+
+.pull-left[
+`$$\frac{\partial \mathbb{E}(y_{i} \mid x_{1}, \dots, x_{k})}{\partial x_{k}} = \beta_{k}$$`
+]
+.pull-right[
+"Un cambio en `\(\Delta\)` unidades de `\(x_{k}\)` se traduce en un cambio en `\(\Delta\)` `\(\beta_{k}\)` unidades en el valor esperado de `\(y_{i}\)`"
+]
+
+--
+
+¿Por qué?
+--
+ Asumamos que sólo la variable `\(x_{1}\)` cambia en una unidad, de `\(x_{1}=c\)` a `\(x_{1}=c+1\)`. Entonces:
+
+`\begin{align}
+  \frac{\Delta \mathbb{E}(y_{i})  }{\Delta x_{1}} &amp;= \frac{ \mathbb{E}(y_{i} \mid x_{1}=c+1, \dots, x_{k})  - \mathbb{E}(y_{i} \mid x_{1}=c, \dots, x_{k})}{(c+1) - c} \\ \\
+  &amp;=(\beta_{0} + \beta_{1}(c+1) +  \dots + \beta_{l}x_{k}) - (\beta_{0} + \beta_{1}c  \dots + \beta_{l}x_{k}) = \beta_{1}(c+1) - \beta_{1}c \\ \\
+  &amp;= \beta_{1}c + \beta_{1} - \beta_{1}c = \beta_{1}
+\end{align}`
+
+---
+## Interpretación coeficientes en LM
+
+En nuestro ejemplo:
+
+.pull-left[
+
+```r
+print(our_lm_ols)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x, data = our_data)
+## 
+## Coefficients:
+## (Intercept)            x  
+##      10.169        1.095
+```
+]
+.pull-right[
+Si `x=50`, entonces `y`=
+
+```r
+10.2 + 1.1*50
+```
+
+```
+## [1] 65.2
+```
+
+Si `x=51`, entonces `y`=
+
+```r
+10.2 + 1.1*51
+```
+
+```
+## [1] 66.3
+```
+
+Por tanto, `\(\beta\)`=
+
+```r
+((10.2 + 1.1*51)-(10.2 + 1.1*50))/(51 - 50)
+```
+
+```
+## [1] 1.1
+```
+]
+
+---
+
+## Interpretación coeficientes en LM
+
+Un ejemplo más complejo: podemos incluir interacciones y efectos no lineales
+
+
+```r
+set.seed("87742") # seed
+n &lt;- 50000 # observaciones
+x &lt;- sample(1:100,n,replace=TRUE) # variable independiente continua
+d &lt;- sample(0:1,n,replace = TRUE) # dicotómica
+```
+
+
+```r
+# parámetros
+sigma &lt;- 3 # sd
+b_0 &lt;- 10  # intercepto
+b_1 &lt;- 3.3  # coeficiente de variable continua ln(x)
+b_2 &lt;- 2.1  # coeficiente de variable dummy d
+b_3 &lt;- 0.7 # coeficiente interacción ln(x)*d 
+
+mu &lt;- b_0 + b_1*I(log(x)) + b_2*d + b_3*I(log(x))*d   # valor predicho
+```
+
+
+```r
+# variable dependiente
+y &lt;- mu + rnorm(n,0,sigma)
+```
+
+
+```
+##  'AsIs' num [1:50000] 23.93892.... 19.43195.... 30.28145.... 18.73986.... 16.72140.... ...
+```
+
+---
+## Interpretación coeficientes en LM
+
+Estimamos los parámetros  via OLS 
+
+
+
+```r
+our_data2 &lt;- tibble(y=y, x=x, d=d) 
+our_lm_ols2 &lt;- lm(y ~ I(log(x))*factor(d), data=our_data2) # "fit" el modelo usando función lm()
+print(summary(our_lm_ols2)) # analicemos nuestros resultados
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ I(log(x)) * factor(d), data = our_data2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -12.0529  -2.0201  -0.0048   2.0232  13.0837 
+## 
+## Coefficients:
+##                      Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)          10.05135    0.07695  130.62   &lt;2e-16 ***
+## I(log(x))             3.29114    0.02052  160.39   &lt;2e-16 ***
+## factor(d)1            1.96025    0.10802   18.15   &lt;2e-16 ***
+## I(log(x)):factor(d)1  0.72939    0.02883   25.30   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.994 on 49996 degrees of freedom
+## Multiple R-squared:  0.6533,	Adjusted R-squared:  0.6533 
+## F-statistic: 3.141e+04 on 3 and 49996 DF,  p-value: &lt; 2.2e-16
+```
+
+---
+## Interpretación coeficientes en LM
+
+.pull-left[
+![](class_7_files/figure-html/unnamed-chunk-22-1.png)&lt;!-- --&gt;
+]
+
+--
+
+
+.pull-right[
+
+`$$y_{i} = \beta_{0} + \beta_{1}\ln x_{i} +  \beta_{2}d_{i} + \beta_{3}\ln x_{i} \cdot d_{i} + e_{i}$$`
+&lt;br&gt;
+Por tanto:
+
+`\begin{align}
+\mathbb{E}(y_{i} \mid x, d) =
+  \begin{cases} 
+    \beta_{0} + \beta_{1}\ln x_{i}   \quad \text{ si } d_{i}=0 \\ \\
+    (\beta_{0} + \beta_{2}) + (\beta_{1} + \beta_{3}) \ln x_{i} \quad  \text{ si } d_{i}=1
+  \end{cases}
+\end{align}`
+
+&lt;br&gt;
+Específicamente:
+
+`\begin{align}
+\frac{\partial \mathbb{E}(y_{i} \mid x, d) }{\partial x} = 
+  \begin{cases} 
+    \beta_{1}/x &amp; \quad \text{ si } d_{i}=0 \\ \\
+    (\beta_{1} + \beta_{3})/x &amp; \quad \text{ si } d_{i}=1
+  \end{cases}
+\end{align}`
+]
+
+---
+class: inverse, center, middle
+
+## El Modelo Lineal de Probabilidad (LPM)
+
+---
+
+## El Modelo Lineal de Probabilidad (LPM)
+
+.bold[LMP] es simplemente un modelo de regresión lineal aplicado a una variable dicotómica. Un LMP estándar tiene la siguiente forma:
+
+--
+
+`$$y_{i} = \overbrace{\beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}}^{\mathbb{E}(y_{i} \mid x_{1}, \dots, x_{k})} +  e_{i} \quad \quad \text{ donde } y_{i} \in \{0,1\}$$`
+
+
+Dado que  `\(y_{i} \in \{0,1\}\)`,
+
+
+* `\(\mathbb{E}(y_{i} \mid x_{1}, \dots, x_{k}) \equiv \mathbb{P}(y_{i} =1 \mid x_{1}, \dots, x_{k})\)`
+
+* Equivalentemente, `\(\mu_{i} \equiv p_{i}\)`
+
+Por tanto, en un LPM
+
+.content-box-blue[
+`$$y_{i} \sim \text{Normal}(p_{i}, \sigma) \quad  \text{ o, equivalentemente: } \quad  y_{i} = p_{i} + \text{Normal}(0, \sigma)$$`
+]
+
+---
+## LMP en la práctica 
+
+Para ejemplificar el uso del LPM continuaremos trabajando con los datos de infidelidad. 
+
+
+```
+## # A tibble: 15 × 10
+##    sex      age    ym child religious education  rate nbaffairs everaffair    everaffair_d
+##    &lt;fct&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;int&gt;     &lt;dbl&gt; &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;                &lt;dbl&gt;
+##  1 male      57    15 yes           4        20     4         0 Never                    0
+##  2 female    57    15 yes           4        16     4         0 Never                    0
+##  3 female    57    15 yes           2        18     2         0 Never                    0
+##  4 male      57    15 yes           4         9     2         0 Never                    0
+##  5 male      57    15 yes           4        20     5         0 Never                    0
+##  6 male      57    15 yes           2        20     4         0 Never                    0
+##  7 male      57    15 yes           4         9     4         0 Never                    0
+##  8 male      57    15 yes           4        17     5         0 Never                    0
+##  9 male      57    15 yes           5        18     2         0 Never                    0
+## 10 female    57    15 yes           3        18     2         0 Never                    0
+## 11 male      57    15 no            4         9     1         0 Never                    0
+## 12 female    57    15 no            4        20     5         0 Never                    0
+## 13 female    57    15 yes           1        18     4         2 At least once            1
+## 14 male      57    15 yes           1        17     4         2 At least once            1
+## 15 male      57    15 yes           5        20     5         7 At least once            1
+```
+
+---
+## LMP en la práctica 
+
+Ajustaremos el siguiente modelo: `\(\text{everaffair}_{i} = \beta_{0} + \beta_{1}*\text{rate}_{i}\)`, que modela la probabilidad de tener un affair como función de la evaluación de los entrevistados de su matrimonio, desde 1 (muy infeliz) a 5 (muy feliz).
+
+
+```r
+lpm_affairs_rate &lt;- lm(everaffair_d ~ rate, data=affairsdata); summary(lpm_affairs_rate)
+```
+
+```
+## 
+## Call:
+## lm(formula = everaffair_d ~ rate, data = affairsdata)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.5417 -0.2428 -0.1431 -0.1431  0.8569 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.64140    0.06336  10.123  &lt; 2e-16 ***
+## rate        -0.09965    0.01552  -6.422 2.74e-10 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.4193 on 599 degrees of freedom
+## Multiple R-squared:  0.06442,	Adjusted R-squared:  0.06286 
+## F-statistic: 41.25 on 1 and 599 DF,  p-value: 2.736e-10
+```
+
+---
+## LMP en la práctica 
+
+.pull-left[
+![](class_7_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+]
+
+--
+
+.pull-right[
+.bold[Modelo]
+
+`\(\text{everaffair}_{i} = \beta_{0} + \beta_{1}*\text{rate}_{i}\)`
+
+Específicamente:
+
+`\(\frac{\partial \mathbb{P}(\text{affair}_{i}=1 \mid \text{ rate}) }{\partial \text{ rate}} = \beta_{1} = -0.1\)` 
+
+
+.bold[Interpretación]:
+
+"Un cambio en `\(\Delta\)` unidades en la evaluación del matrimonio se traduce en un cambio en `\(\Delta\)` `\(\beta_{1}\)` unidades la probabilidad de haber tenido un affair"
+
+
+.bold[Ejemplo]:
+
+Diferencia en probabilidad de affair entre personas con matrimonio "muy infeliz" vs "muy feliz":
+
+`\((\beta_{0} + \beta_{1}) - (\beta_{0} + 5\beta_{1}) = -4\beta_{1} = 0.4\)`
+
+]
+
+---
+## LMP en la práctica 
+
+.content-box-blue[
+`$$\text{LPM asume que: } \quad y_{i} \sim \text{Normal}(p_{i}, \sigma) \quad  \text{ o, equivalentemente: } \quad  y_{i} = p_{i} + \text{Normal}(0, \sigma)$$`
+]
+
+En este caso:
+
+`$$\text{everaffair}_{i} \sim \text{Normal}(\hat{p}_{i}= 0.64 - 0.1*\text{rate}_{i}, \hat{\sigma}=0.42)$$`
+
+
+donde `\(\hat{p}_{i} \in (0.14,0.54)\)`
+
+&lt;br&gt;
+--
+
+Hasta aquí todo bien, pero ...
+
+---
+## Limitaciones del LMP  
+
+.content-box-blue[
+`$$\text{LPM asume que: } \quad  y_{i} \sim \text{Normal}(p_{i}, \sigma) \quad  \text{ o, equivalentemente: } \quad  y_{i} = p_{i} + \text{Normal}(0, \sigma)$$`
+]
+
+.bold[1) Distribución y rango]
+
+- LPM asume que las observaciones `\(y_{i}, \dots, y_{n}\)` siguen una distribución normal, pero sabemos que no es así. `\(y_{i} \in \{0,1\}\)`. 
+
+--
+
+Derivado de lo anterior,
+
+- A pesar de que `\(y_{i} \in \{0,1\}\)`, las predicciones de un LPM no están restringidas a este rango. Teóricamente, `\(p_{i} \in \{-\infty,\infty+\}\)`. En la práctica  `\(\hat{p}_{i}\)` puede salir de rango `\(\{0,1\}\)`, especialmente cuando la probabilidad marginal `\(\mathbb{P}(y=1)\)` es cercana a `\(0\)` o `\(1\)`.
+
+---
+## Limitaciones del LMP  
+
+.bold[1) Distribución y rango]
+
+
+  - El problema no es sólo que obtener probabilidades predichas menores que 0 o mayores que 1 no tiene sentido.
+  
+  - Cuando esto ocurre, los coeficientes estimados por el LMP son .bold[sesgados] e .bold[inconsistentes]
+    
+    - Más aún, en muestras grandes el problema es peor: converge hacia valores erróneos
+    
+    - Problema especialmente serio cuando el modelo produce una proporción alta de predicciones fuera de rango
+    
+
+&lt;br&gt;
+
+.pull-left[
+![oaxaca1](oaxaca1.png)
+]
+
+.pull-left[
+![oaxaca2](oaxaca2.png)
+]
+
+---
+
+.bold[Paréntesis: Sesgo (Bias) y Consistencia (Consistency) de un estimador]
+
+--
+
+.pull-left[
+
+![unb_cons](unbiased_consistent.png)
+]
+
+--
+
+.pull-right[
+![b_incons](biased_inconsistent.png)
+
+]
+
+---
+.bold[Paréntesis: Sesgo (Bias) y Consistencia (Consistency) de un estimador]
+
+--
+
+.pull-left[
+![b_cons](biased_consistent.png)
+
+]
+
+--
+
+.pull-right[
+![unb_incons](unbiased_inconsistent.png)
+
+]
+
+
+---
+## Limitaciones del LMP  
+
+.content-box-blue[
+`$$\text{LPM asume que: } \quad  y_{i} \sim \text{Normal}(p_{i}, \sigma) \quad  \text{ o, equivalentemente: } \quad  y_{i} = p_{i} + \text{Normal}(0, \sigma)$$`
+]
+
+.bold[2) Observaciones con varianza heterogénea (o, errores heterocedásticos)]
+
+`\begin{align}
+  \mathbb{Var}(y_{i}) &amp;=  \sum_{\text{valores } y_{i}} (y_{i} - \mathbb{E}(y_{i}) )^{2} \cdot \mathbb{P}(y_{i}) \\ 
+             &amp;= \sum_{\text{valores } y_{i}} (y_{i} - p_{i})^{2} \cdot \mathbb{P}(y_{i}) 
+\end{align}`
+
+---
+## Limitaciones del LMP  
+
+.content-box-blue[
+`$$\text{LPM asume que: } \quad  y_{i} \sim \text{Normal}(p_{i}, \sigma) \quad  \text{ o, equivalentemente: } \quad  y_{i} = p_{i} + \text{Normal}(0, \sigma)$$`
+]
+
+.bold[2) Observaciones con varianza heterogenea (o, errores heterocedásticos)]
+
+`\begin{align}
+  \mathbb{Var}(y_{i}) &amp;=  \sum_{\text{valores } y_{i}} (y_{i} - \mathbb{E}(y_{i}) )^{2} \cdot \mathbb{P}(y_{i}) \\ 
+             &amp;= \sum_{\text{valores } y_{i}} (y_{i} - p_{i})^{2} \cdot \mathbb{P}(y_{i}) \\  \\
+             &amp;=   (1 - p_{i})^{2} \cdot \mathbb{P}(y_{i}=1) + (0 - p_{i})^{2} \cdot \mathbb{P}(y_{i}=0) \\ 
+             &amp;=   (1 - p_{i})^{2}p_{i} + (0 - p_{i})^{2} (1-p_{i}) \\ 
+             &amp;= p_{i}(1-p_{i}) 
+\end{align}`
+
+---
+## Limitaciones del LMP  
+
+
+.bold[2) Observaciones con varianza heterogénea (o, errores heterocedásticos)]
+
+`\begin{align}
+  \mathbb{Var}(y_{i}) &amp;=  p_{i}(1-p_{i}) \\
+                      &amp;= (\beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})(1 - \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})
+\end{align}`
+
+--
+
+Por tanto,
+.content-box-blue[
+`$$\text{LPM asume que: } \quad  y_{i} \sim \text{Normal}(p_{i}, \sigma) \quad  \text{ o, equivalentemente: } \quad  y_{i} = p_{i} + \text{Normal}(0, \sigma)$$`
+]
+--
+
+pero en realidad,
+
+.content-box-red[
+`$$y_{i} \sim \text{Normal}(p_{i}, \sigma_{i} = p_{i}(1-p_{i})) \quad  \text{ o, equivalentemente: } \quad  y_{i} = p_{i} + \text{Normal}(0, \sigma_{i} = p_{i}(1-p_{i}))$$`
+]
+
+---
+## Limitaciones del LMP en la práctica 
+
+Para ejemplificar estas limitaciones del LPM estimemos un modelo ligeramente más complejo:
+
+`\(\text{everaffair}_{i} = \beta_{0} + \beta_{1}*\text{rate}_{i} + \beta_{2}*\text{rate}^{2}_{i} + \sum_{j}\vect{1} \{\text{rel}=j\}\Big( \beta_{0j} + \beta_{1j} \cdot \text{rate}_{i} + \beta_{2j} \cdot \text{rate}^{2}_{i}\Big)\)`
+
+
+```r
+lpm_affairs_raterel &lt;- 
+  lm(everaffair_d ~ rate*factor(religious) + I(rate^2)*factor(religious), 
+     data=affairsdata)
+summary(lpm_affairs_raterel)$coefficients
+```
+
+---
+## Limitaciones del LMP en la práctica 
+
+`\(\text{everaffair}_{i} = \beta_{0} + \beta_{1}*\text{rate}_{i} + \beta_{2}*\text{rate}^{2}_{i} + \sum_{j}\vect{1} \{\text{rel}=j\}\Big( \beta_{0j} + \beta_{1j} \cdot \text{rate}_{i} + \beta_{2j} \cdot \text{rate}^{2}_{i}\Big)\)`
+
+&lt;br&gt;
+
+
+```
+##                                 Estimate Std. Error    t value    Pr(&gt;|t|)
+## (Intercept)                   1.93223443 0.60757213  3.1802552 0.001549173
+## rate                         -0.59564510 0.35259983 -1.6892949 0.091694858
+## factor(religious)2           -1.78379916 0.66768379 -2.6716227 0.007758429
+## factor(religious)3           -1.18924248 0.68392110 -1.7388592 0.082584703
+## factor(religious)4           -1.01501689 0.67535567 -1.5029368 0.133394036
+## factor(religious)5           -1.13934373 0.75671094 -1.5056525 0.132695217
+## I(rate^2)                     0.05270655 0.04893715  1.0770254 0.281912084
+## rate:factor(religious)2       0.76126301 0.39243452  1.9398472 0.052877724
+## rate:factor(religious)3       0.58088887 0.40189195  1.4453857 0.148884129
+## rate:factor(religious)4       0.24746240 0.39320415  0.6293484 0.529366259
+## rate:factor(religious)5       0.28202792 0.44449596  0.6344893 0.526009189
+## factor(religious)2:I(rate^2) -0.08602173 0.05487567 -1.5675752 0.117520116
+## factor(religious)3:I(rate^2) -0.07467898 0.05622021 -1.3283299 0.184586222
+## factor(religious)4:I(rate^2) -0.01475551 0.05465733 -0.2699640 0.787283004
+## factor(religious)5:I(rate^2) -0.01503184 0.06208400 -0.2421210 0.808771116
+```
+
+---
+## Limitaciones del LMP en la práctica 
+
+.bold[Predicciones fuera de rango, sesgo e inconsistencia]
+
+.pull-left[
+![](class_7_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
+]
+
+--
+
+.pull-right[
+![](class_7_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+]
+
+---
+## Limitaciones del LMP en la práctica 
+
+.bold[Errores heterocedásticos]
+
+.pull-left[
+![](class_7_files/figure-html/unnamed-chunk-28-1.png)&lt;!-- --&gt;
+]
+
+--
+
+.pull-right[
+
+![](class_7_files/figure-html/unnamed-chunk-29-1.png)&lt;!-- --&gt;
+
+]
+
+
+---
+## Ventajas del LMP
+
+--
+
+- Fácil de estimar: OLS
+
+--
+
+
+- Fácil de interpretar: los coeficientes tienen una interpretación directa en términos de efectos parciales (marginales) sobre la _probabilidad_ de éxito en la variable dependiente. 
+
+  - Especialmente importante cuando trabajamos con modelos complejos: interacciones, efectos no-lineales, etc.
+  
+--
+
+  - Permite una serie de extensiones propias de cualquier LM (.bold[mediación], variables instrumentales, efectos fijos) que con otros modelos para datos categóricos (ej, logit) no son posibles o son muy complejas.
+  
+  
+--
+
+.pull-left[
+Por lo mismo, hay .bold[mucho] interés en "rescatar" el LPM
+]
+.pull-right[
+![rescue](rescue.jpg)
+]
+
+---
+## Al rescate de LPM
+
+.bold[Problema: Observaciones con varianza heterogénea (heterocedasticidad)] 
+
+`\(\quad \quad \Box\)` .bold[Solución: Errores Estándar "Robustos"]
+
+
+
+```r
+# Paquetes necesarios
+library(lmtest)
+library(sandwich)
+
+# Estimación del modelo
+lpm_affairs_raterel &lt;- 
+  lm(everaffair_d ~ rate*factor(religious) + I(rate^2)*factor(religious), 
+     data=affairsdata)
+
+# Inferencia usando matrix de varianza-covarianza robusta (White method)
+coeftest(lpm_affairs_raterel, vcov = vcovHC(lpm_affairs_raterel, type="HC1")) 
+
+## type="HC3" es default R pero type="HC1" produce mismo resultados de Stata
+```
+
+
+---
+## Al rescate de LPM
+
+.bold[Problema: Observaciones con varianza heterogenea (heterocedásticidad)] 
+
+`\(\quad \quad \Box\)` .bold[Solución: Errores Estándar "Robustos"]
+
+
+```
+## 
+## t test of coefficients:
+## 
+##                               Estimate Std. Error t value  Pr(&gt;|t|)    
+## (Intercept)                   1.932234   0.548892  3.5202 0.0004646 ***
+## rate                         -0.595645   0.347765 -1.7128 0.0872818 .  
+## factor(religious)2           -1.783799   0.623893 -2.8591 0.0043991 ** 
+## factor(religious)3           -1.189242   0.649859 -1.8300 0.0677576 .  
+## factor(religious)4           -1.015017   0.649529 -1.5627 0.1186639    
+## factor(religious)5           -1.139344   0.755811 -1.5074 0.1322354    
+## I(rate^2)                     0.052707   0.050265  1.0486 0.2948060    
+## rate:factor(religious)2       0.761263   0.392281  1.9406 0.0527854 .  
+## rate:factor(religious)3       0.580889   0.407477  1.4256 0.1545234    
+## rate:factor(religious)4       0.247462   0.397200  0.6230 0.5335156    
+## rate:factor(religious)5       0.282028   0.456356  0.6180 0.5368156    
+## factor(religious)2:I(rate^2) -0.086022   0.056444 -1.5240 0.1280416    
+## factor(religious)3:I(rate^2) -0.074679   0.058482 -1.2770 0.2021206    
+## factor(religious)4:I(rate^2) -0.014756   0.056383 -0.2617 0.7936437    
+## factor(religious)5:I(rate^2) -0.015032   0.064420 -0.2333 0.8155792    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+---
+## Al rescate de LPM
+
+.bold[Problema: Predicciones fuera de rango, sesgo e inconsistencia] 
+
+`\(\quad \quad \Box\)` .bold[Solución: No hay]
+
+--
+
+`\(\quad \quad \Box\)` .bold[Paleativo: "trimming"]
+
+
+.pull-left[
+![oaxaca1](oaxaca1.png)
+]
+
+.pull-left[
+![oaxaca2](oaxaca3.png)
+]
+
+---
+## Al rescate de LPM
+
+.bold[Problema: Predicciones fuera de rango, sesgo e inconsistencia] 
+
+`\(\quad \quad \Box\)` .bold[Paleativo: "trimming"]
+
+
+
+
+```r
+# Estimación del modelo
+lpm_affairs_raterel &lt;- 
+  lm(everaffair_d ~ rate*factor(religious) + I(rate^2)*factor(religious), 
+     data=affairsdata)
+
+# Muestra recortada
+trimmed_sample &lt;- affairsdata %&gt;% mutate(fitted= lpm_affairs_raterel$fitted.values) %&gt;%
+                  filter(between(fitted,0,1))
+
+# Re-estimación del modelo en muestra trimmed
+lpm_affairs_raterel_trimmed  &lt;- 
+  lm(everaffair_d ~ rate*factor(religious) + I(rate^2)*factor(religious), 
+     data=trimmed_sample)
+
+summary(lpm_affairs_raterel_trimmed)
+```
+---
+## Al rescate de LPM
+
+.bold[Problema: Predicciones fuera de rango, sesgo e inconsistencia] 
+
+`\(\quad \quad \Box\)` .bold[Paleativo: "trimming"]
+
+
+
+```
+## 
+## Call:
+## lm(formula = everaffair_d ~ rate * factor(religious) + I(rate^2) * 
+##     factor(religious), data = trimmed_sample)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -0.7063 -0.2779 -0.1317 -0.1199  0.8801 
+## 
+## Coefficients:
+##                              Estimate Std. Error t value Pr(&gt;|t|)   
+## (Intercept)                   3.06937    0.95990   3.198  0.00146 **
+## rate                         -1.18867    0.52390  -2.269  0.02364 * 
+## factor(religious)2           -2.92094    0.99895  -2.924  0.00359 **
+## factor(religious)3           -2.32638    1.00985  -2.304  0.02159 * 
+## factor(religious)4           -2.15216    1.00408  -2.143  0.03249 * 
+## factor(religious)5           -2.27648    1.06038  -2.147  0.03222 * 
+## I(rate^2)                     0.12660    0.06874   1.842  0.06601 . 
+## rate:factor(religious)2       1.35429    0.55144   2.456  0.01434 * 
+## rate:factor(religious)3       1.17392    0.55819   2.103  0.03589 * 
+## rate:factor(religious)4       0.84049    0.55198   1.523  0.12838   
+## rate:factor(religious)5       0.87506    0.58954   1.484  0.13827   
+## factor(religious)2:I(rate^2) -0.15992    0.07308  -2.188  0.02904 * 
+## factor(religious)3:I(rate^2) -0.14858    0.07409  -2.005  0.04539 * 
+## factor(religious)4:I(rate^2) -0.08865    0.07291  -1.216  0.22453   
+## factor(religious)5:I(rate^2) -0.08893    0.07862  -1.131  0.25848   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.4096 on 585 degrees of freedom
+## Multiple R-squared:  0.1239,	Adjusted R-squared:  0.1029 
+## F-statistic: 5.908 on 14 and 585 DF,  p-value: 6.241e-11
+```
+
+
+---
+## Al rescate de LPM
+
+.bold[Problema: Predicciones fuera de rango, sesgo e inconsistencia] 
+
+`\(\quad \quad \Box\)` .bold[Paleativo: "trimming"]
+
+
+.pull-left[
+![](class_7_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+]
+
+
+.pull-right[
+
+![](class_7_files/figure-html/unnamed-chunk-31-1.png)&lt;!-- --&gt;
+]
+
+---
+## En resumen
+
+--
+
+- LMP tiene muchas ventajas y muchos adeptos (economistas) debido a su parsimonia
+
+- LMP tiene también muchos problemas
+
+
+&lt;br&gt;
+--
+
+¿Son esas ventajas suficientes para contrapesar las desventajas?
+--
+ Depende del contexto, pero:
+ 
+
+&lt;br&gt;
+
+![cuidado](https://media1.tenor.com/images/8d77dfaf373ed23296797e20c237b5d0/tenor.gif?itemid=13809357)
+
+
+  
+---
+class: inverse, center, middle
+
+.huge[
+**Hasta la próxima clase. Gracias!**
+]
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,1210 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análisis de Datos Categóricos (SOC3070)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca  Profesor Asistente, Sociología UC" />
+    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Análisis de Datos Categóricos (SOC3070)
+## Clase #11
+### <br> Mauricio Bucca<br> Profesor Asistente, Sociología UC
+### <a href="https://github.com/mebucca">github.com/mebucca</a>
+
+---
+
+
+class: inverse, center, middle
+
+#Regresión Logística, inferencia
+
+---
+##Configuración
+
+--
+
+&lt;br&gt;
+
+- Tenemos `\(y_{1}, \dots y_{n}\)` son `\(n\)` variables independientes con distribución `\(\text{Bernoulli}(p_{i})\)`
+
+
+--
+
+- `\(\mathbb{E}(y_{i} \mid x_{i1}, \dots,x_{ik}) = \mathbb{P}(y_{i}=1 \mid x_{i1}, \dots,x_{ik}) = p_{i}\)` 
+
+&lt;br&gt;
+--
+
+donde, 
+
+
+`$$\ln \frac{p_{i}}{1 - p_{i}} = \beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}$$`
+
+---
+##Configuración
+
+&lt;br&gt;
+
+- Tenemos `\(y_{1}, \dots y_{n}\)` son `\(n\)` variables independientes con distribución `\(\text{Bernoulli}(p_{i})\)`
+
+
+- `\(\mathbb{E}(y_{i} \mid x_{i1}, \dots,x_{ik}) = \mathbb{P}(y_{i}=1 \mid x_{i1}, \dots,x_{ik}) = p_{i}\)` 
+
+&lt;br&gt;
+
+donde, 
+
+.content-box-blue[
+`$$\underbrace{\ln \frac{p_{i}}{1 - p_{i}}}_{\text{Link logit}(p_{i})} = \overbrace{\beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}}^{\text{Predictor lineal  } \eta_{i}}$$`
+]
+
+--
+
+- .bold[Inferencia]: ¿que podemos decir sobre `\(\hat{\beta}_{0},\hat{\beta}_{1}, \dots, \hat{\beta}_{k}\)`  (o cualquier producto de éstos) más allá de nuestra muestra?
+
+---
+class: inverse, center, middle
+
+## Inferencia estadística para regresión logística (y GLMs)
+
+
+---
+## Inferencia acerca de parámetros del modelo
+
+- Los coeficientes de un GLM son estimados via MLE.
+--
+ Un ML "estimate" `\(\hat{\theta}\)` tiene las siguientes propiedades:
+
+--
+
+.img-right[![MLE_prop](unbiased_consistent.png)]
+
+
+.pull-left[
+- Es .bold[consistente]: `\(\hat{\theta} \xrightarrow{p} \theta\)`. Es decir, en la medida que `\(n \to \infty\)`, el  estimador `\(\hat{\theta}\)` tiende en probabilidad a `\(\theta\)`, el valor verdadero del parámetro. 
+]
+.pull-right[
+]
+
+--
+
+.pull-left[
+- Es .bold[insesgado]: `\(\mathbb{E}(\hat{\theta}) = \theta\)`.
+]
+.pull-right[
+]
+
+--
+
+.pull-left[
+- Distribuye .bold[asintónticamente normal]: `\(\hat{\theta} \xrightarrow{d} \mathcal{N}(\theta, \frac{\sigma_{\theta}}{\sqrt{n}})\)`. Es decir, no solo converge al valor verdadero, sino que converge rápidamente ( `\(1/\sqrt{n}\)` ).
+]
+.pull-right[
+]
+
+--
+
+Notar que `\(\frac{\sigma_{\theta}}{\sqrt{n}}\)` es el "standard error" (SE) de `\(\theta\)`.
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+---
+## Inferencia acerca de parámetros del modelo: intervalos de confianza
+
+Dado que `\(\hat{\theta} \sim \mathcal{N}(\theta, \frac{\sigma_{\theta}}{\sqrt{n}})\)` ...
+
+&lt;br&gt;
+--
+
+podemos construir un intervalo de confianza de la siguiente manera:
+
+`$$(1 - \alpha) \text{ CI}_{\hat{\theta}} = \hat{\theta} \pm \Phi^{-1}(\alpha/2) \cdot SE_{\hat{\theta}}$$`
+&lt;br&gt;
+--
+
+Ejemplo, un intervalo al 95% de confianza está dado por:
+
+`$$95\% \text{ CI}_{\hat{\theta}} = \hat{\theta} \pm 2 \cdot  \frac{\sigma_{\theta}}{\sqrt{n}}$$`
+
+
+---
+## Inferencia acerca de parámetros del modelo:  intervalos de confianza
+
+
+
+Retomando nuestro modelo de clases anteriores: `\(\ln \frac{p_{i}}{ 1 - p_{i}}    = \beta_{0} + \beta_{1}\text{male}_{i} + \beta_{2}\text{ym}_{i}\)`
+
+--
+
+
+```
+## everaffair_d ~ factor(sex) + ym
+```
+
+```
+##                    Estimate Std. Error   z value     Pr(&gt;|z|)
+## (Intercept)     -1.71395429 0.20633183 -8.306786 9.832929e-17
+## factor(sex)male  0.22157111 0.19064190  1.162237 2.451391e-01
+## ym               0.05842959 0.01727402  3.382513 7.182590e-04
+```
+
+--
+
+.content-box-blue[
+.bold[Calculemos un IC al 95% para efecto el de "years of marriage" sobre el logit de ser infiel:] `\(\beta_{2}\)`
+]
+
+--
+
+
+```r
+beta2 &lt;- summary(logit_affairs_sex_ym)$coefficients["ym","Estimate"]
+se_beta2 &lt;- summary(logit_affairs_sex_ym)$coefficients["ym","Std. Error"]
+ci_beta2 &lt;- beta2 + c(-2,2)*se_beta2; ci_beta2
+```
+
+```
+## [1] 0.02388155 0.09297763
+```
+
+--
+
+
+```r
+confint(logit_affairs_sex_ym)
+```
+
+```
+## Waiting for profiling to be done...
+```
+
+```
+##                       2.5 %      97.5 %
+## (Intercept)     -2.12990424 -1.31985336
+## factor(sex)male -0.15199429  0.59625678
+## ym               0.02479755  0.09260135
+```
+
+---
+## Inferencia acerca de parámetros del modelo: tests
+
+
+```
+##                    Estimate Std. Error   z value     Pr(&gt;|z|)
+## (Intercept)     -1.71395429 0.20633183 -8.306786 9.832929e-17
+## factor(sex)male  0.22157111 0.19064190  1.162237 2.451391e-01
+## ym               0.05842959 0.01727402  3.382513 7.182590e-04
+```
+
+--
+
+.bold[¿Que significan los p-values en este contexto?] 
+
+--
+
+.img-right[
+![star](stars.jpg)
+]
+
+
+```
+## 
+## =============================================
+##                       Dependent variable:    
+##                   ---------------------------
+##                          everaffair_d        
+## ---------------------------------------------
+## factor(sex)male          0.222 (0.191)       
+## ym                     0.058*** (0.017)      
+## Constant               -1.714*** (0.206)     
+## ---------------------------------------------
+## Observations                  601            
+## Log Likelihood             -331.074          
+## Akaike Inf. Crit.           668.148          
+## =============================================
+## Note:             *p&lt;0.1; **p&lt;0.05; ***p&lt;0.01
+```
+
+---
+## Inferencia acerca de parámetros del modelo: tests
+
+
+```
+##                    Estimate Std. Error   z value     Pr(&gt;|z|)
+## (Intercept)     -1.71395429 0.20633183 -8.306786 9.832929e-17
+## factor(sex)male  0.22157111 0.19064190  1.162237 2.451391e-01
+## ym               0.05842959 0.01727402  3.382513 7.182590e-04
+```
+
+--
+
+.bold[Test de hipótesis]
+
+--
+
+1) `\(H_{0}:\)` Los años de matrimonio no afectan la probabilidad de ser infiel ( `\(\beta_{2}=0\)` )
+
+--
+
+2) ¿Cuál es la distribución de `\(\beta_{2}\)` si la hipótesis nula es verdadera?
+
+--
+
+.content-box-blue[
+`$$\beta_{2} \mid H_{0} \sim \text{Normal}\Big(\mu_{\beta_{2}} = 0, \sigma_{\beta_{2}} = \text{SE}_{\beta_{2}}\Big)$$`
+]
+
+--
+
+3) Calcular .bold[p-value] (2 colas)
+
+
+.content-box-blue[
+`$$\mathbb{P}( \beta_{2} &gt; | \hat{\beta}_{2} |  \mid H_{0}) :=   \mathbb{P}\big(\text{Normal}(\mu_{\beta_{2}} = 0, \sigma_{\beta_{2}} = \text{SE}_{\beta_{2}})  &gt; |\hat{\beta}_{2}| \big)$$`
+]
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+---
+## Inferencia acerca de parámetros del modelo: tests
+
+
+```
+##                    Estimate Std. Error   z value     Pr(&gt;|z|)
+## (Intercept)     -1.71395429 0.20633183 -8.306786 9.832929e-17
+## factor(sex)male  0.22157111 0.19064190  1.162237 2.451391e-01
+## ym               0.05842959 0.01727402  3.382513 7.182590e-04
+```
+
+
+
+![](class_11_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+
+---
+## Inferencia acerca de parámetros del modelo: ejemplo empírico
+
+--
+
+.content-box-blue[
+.bold[Calculemos ahora un IC al 95% para efecto multiplicativo de "years of marriage" sobre las odds de ser infiel:] `\(e^{\beta_{2}}\)`= 0.0584296
+]
+
+--
+
+![michael](michael.gif)
+
+--
+
+¿Cuál es la sampling distribution de una función de nuestro estimate?
+
+
+---
+class: inverse, center, middle
+
+## Simulation and Resampling Methods
+
+
+---
+## Métodos de simulación y re-muestreo para inferencia estadística
+
+&lt;br&gt;
+--
+
+- Incluso para estimadores muy simples es difícil (o imposible) determinar la distribución de la muestra.
+
+--
+
+- Cuando es posible, los resultados se basan en supuestos sobre distribución, comportamientos asintóticos y aproximaciones que no siempre se cumplen.  
+
+
+--
+
+- Los métodos de simulación y re-muestreo ofrecen una alternativa cuando no se dispone de soluciones analíticas (una formula conocida).
+
+--
+
+- Estos métodos son computacionalmente intensivos, lo que los hacía inviables en el pasado pero no actualmente.
+
+--
+
+- Dos métodos especialmente útiles:
+
+ - Monte Carlo Simulation
+ 
+ - Boostrapping
+
+---
+class: inverse, center, middle
+
+## Monte Carlo Simulation
+
+---
+## Monte Carlo Simulation
+
+
+![casino](mc_casino.jpg)
+---
+## Monte Carlo Simulation
+
+
+.bold[Intuición:]
+
+--
+
+- Estimamos un modelo y tenemos una cierta "cantidad de interés" (estimate)
+
+--
+
+
+- No conocemos la distribución de nuestro estimate a través de infinitas muestras porque sólo tenemos una muestra. 
+
+
+--
+
+- Tampoco tenemos conocimiento teórico sobre la distribución de nuestro estimate.
+
+--
+
+- Sin embargo, "conocemos" la distribución de nuestros datos y sus parámetros, por tanto, podemos generar muestras aleatorias.
+
+--
+
+- Podemos observar y estudiar el comportamiento de nuestro estimate en estas muestras generadas aleatoriamente.
+
+---
+## Monte Carlo Simulation
+
+.bold[Esquema del algoritmo]:
+
+--
+
+1. Asume una la distribución los datos.
+
+
+--
+
+2. Usando la distribución asumida y los parámetros estimados (en nuestro caso, `\(y \sim \text{Binomial}(\hat{p} = \text{logit}^{-1}(X\hat{\theta}))\)` ), genera una muestra aleatoriad de datos `\(y_{m}\)`
+
+--
+
+3. Regresiona `\(y_{m}\)` y `\(X\)` para obtener el estimate `\(\hat{\theta}_{m}\)` 
+
+--
+
+4. Repite los pasos 2 y 3  M veces (número grande).
+
+--
+
+5. El conjunto de M resultados obtenidos corresponde a la "Monte Carlo distribution" del estimate.
+
+--
+
+6. Evalúa la distribución del estimate (SE,CI, etc) o de cualquier cantidad derivada de éste.
+
+
+---
+## Monte Carlo Simulation: ejemplo empírico
+
+Siguiendo con `\(\ln \frac{p_{i}}{ 1 - p_{i}}    = \beta_{0} + \beta_{1}\text{male}_{i} + \beta_{2}\text{ym}_{i}\)`, 
+--
+
+.content-box-blue[
+.bold[Calculemos un IC al 95% para efecto el de "years of marriage" sobre el logit de ser infiel:] `\(\beta_{2}\)`
+]
+
+--
+
+
+```r
+# Escribir una función que ejecute re-sampling y la estimación
+mc_beta2  &lt;- function(x) {
+  p_hat   &lt;- predict(logit_affairs_sex_ym, type="response")
+  y_m     &lt;- rbinom(n=length(p_hat),size=1,prob=p_hat)
+  logit_m &lt;- glm(y_m ~ factor(affairsdata$sex) + affairsdata$ym, family=binomial(link="logit"))
+  beta2_m &lt;- logit_m$coefficients[3]
+  return(ym=beta2_m)
+}
+# Iterar función y almacenar resultados 
+nreps =1200
+betas2_mc &lt;- replicate(nreps,mc_beta2()); head(betas2_mc)
+```
+
+```
+## affairsdata$ym affairsdata$ym affairsdata$ym affairsdata$ym affairsdata$ym 
+##     0.04483195     0.03327474     0.07987091     0.03759558     0.03638463 
+## affairsdata$ym 
+##     0.03716640
+```
+
+---
+## Monte Carlo Simulation: ejemplo empírico
+
+--
+
+.pull-left[
+
+```r
+betasall_mc &lt;- sim(logit_affairs_sex_ym, n.sims=1200)@coef
+betasall_mc %&gt;% head(4)
+```
+
+```
+##      (Intercept) factor(sex)male         ym
+## [1,]   -1.851865      -0.2249545 0.10779509
+## [2,]   -1.606259       0.3107796 0.04543939
+## [3,]   -1.987991       0.4707530 0.07006984
+## [4,]   -1.834887       0.4082679 0.04480975
+```
+
+```r
+se_beta2_mc &lt;- sd(betasall_mc[,"ym"]); se_beta2_mc
+```
+
+```
+## [1] 0.01783054
+```
+
+```r
+ci_beta2_mc &lt;- 
+  quantile(betasall_mc[,"ym"], p=c(0.06,0.975))
+  ci_beta2_mc
+```
+
+```
+##         6%      97.5% 
+## 0.03009339 0.09195184
+```
+]
+
+--
+
+.pull-right[
+
+```
+## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
+## "none")` instead.
+```
+
+![](class_11_files/figure-html/unnamed-chunk-15-1.png)&lt;!-- --&gt;
+]
+
+---
+## Monte Carlo Simulation: ejemplo empírico
+
+.content-box-blue[
+¿Un IC al 95% para efecto el de "years of marriage" como .bold["odds ratio"]: `\(e^{\beta_{2}}\)`? 
+]
+
+Simulando ...
+--
+
+.img-right-bottom2[
+![easy](easy.gif)
+]
+
+--
+
+
+```r
+betasall_mc &lt;- sim(logit_affairs_sex_ym, n.sims=1200)@coef
+expbetasall_mc &lt;- exp(betasall_mc)
+expbetasall_mc %&gt;% head()
+```
+
+```
+##      (Intercept) factor(sex)male       ym
+## [1,]   0.2710494       1.0847772 1.055103
+## [2,]   0.1979020       1.1173393 1.059561
+## [3,]   0.1507957       1.5726193 1.067832
+## [4,]   0.1487465       0.9257553 1.095249
+## [5,]   0.1925649       0.9993434 1.067220
+## [6,]   0.1602637       1.0715875 1.072947
+```
+
+
+---
+## Monte Carlo Simulation: ejemplo empírico
+
+--
+
+.pull-left[
+
+```r
+se_exbeta2_mc &lt;- sd(expbetasall_mc[,"ym"]); se_exbeta2_mc
+```
+
+```
+## [1] 0.01800449
+```
+
+```r
+ci_expbeta2_mc &lt;- 
+  quantile(expbetasall_mc[,"ym"], p=c(0.025,0.975))
+  ci_expbeta2_mc
+```
+
+```
+##     2.5%    97.5% 
+## 1.025528 1.095362
+```
+]
+
+--
+
+.pull-right[
+
+```
+## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
+## "none")` instead.
+```
+
+![](class_11_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+]
+
+---
+## Monte Carlo Simulation: ejemplo empírico
+
+
+.content-box-blue[
+.bold[Calculemos ahora IC al 95% para el Average Marginal Effect de"years of marriage" sobre la probabilidad de ser infiel]
+]
+
+
+--
+
+Simulando ...
+
+.img-bottom-right[
+![easy](easy.gif)
+]
+
+
+---
+## Monte Carlo Simulation: ejemplo empírico
+
+
+.content-box-blue[
+.bold[Calculemos ahora IC al 95% para el Average Marginal Effect de"years of marriage" sobre la probabilidad de ser infiel]
+]
+
+--
+
+
+Simulando ...
+
+
+
+```r
+mc_ame_beta2  &lt;- function(x) {
+  p_hat   &lt;- predict(logit_affairs_sex_ym, type="response")
+  y_m     &lt;- rbinom(n=length(p_hat),size=1,prob=p_hat)
+  logit_m &lt;- glm(y_m ~ factor(affairsdata$sex) + affairsdata$ym, family=binomial(link="logit"))
+  p_hat_m &lt;- predict(logit_m, type="response")
+  beta2_m &lt;- logit_m$coefficients[3]
+  me_m    &lt;-  beta2_m*p_hat_m*(1-p_hat_m) 
+  ame_m   &lt;- mean(me_m)
+  return(ame_m)
+}
+# Iterar función y almacenar resultados 
+nreps =1200
+ame_ym_mc &lt;- replicate(nreps,mc_ame_beta2()); head(ame_ym_mc,4)
+```
+
+```
+## [1] 0.009697429 0.013715679 0.007006863 0.012367910
+```
+
+---
+## Monte Carlo Simulation: ejemplo empírico
+
+
+.pull-left[
+
+```r
+p_hat   &lt;- predict(logit_affairs_sex_ym, type = "response")
+me_ym   &lt;- beta2*p_hat*(1-p_hat)
+ame_ym  &lt;- mean(me_ym); ame_ym
+```
+
+```
+## [1] 0.01070277
+```
+
+```r
+se_ame_ym_bs &lt;- sd(ame_ym_mc); se_ame_ym_bs 
+```
+
+```
+## [1] 0.003145965
+```
+
+```r
+ci_ame_ym_mc &lt;- 
+  quantile(ame_ym_mc, p=c(0.025,0.975))
+  ci_ame_ym_mc
+```
+
+```
+##        2.5%       97.5% 
+## 0.004303758 0.016547174
+```
+]
+
+--
+
+.pull-right[
+
+```
+## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
+## "none")` instead.
+```
+
+![](class_11_files/figure-html/unnamed-chunk-21-1.png)&lt;!-- --&gt;
+]
+
+---
+
+&lt;br&gt;
+
+.bold[¿Y si ni siquiera conocemos la distribución de nuestros datos?]
+--
+.bold[¿Y si nuestro modelo no es paramétrico?]
+
+.pull-left[
+![boots](rambo.jpg)
+
+]
+
+--
+
+.pull-right[
+![boots](boots.jpg)
+]
+
+---
+class: inverse, center, middle
+
+## Bootstrap Method 
+
+---
+## Bootstrap Method 
+
+.bold[Intuición:]
+
+--
+
+- Estimamos un modelo y tenemos una cierta "cantidad de interés" (estimate)
+
+--
+
+
+- No conocemos la distribución nuestro estimate a través de infinitas muestras porque sólo tenemos una muestra. 
+
+--
+
+- Tampoco tenemos conocimiento teórico sobre la distribución de nuestro estimate.
+
+--
+
+- Podemos tomar muestras de nuestra muestra, preservando cualquier distribución desconocida subyacente.
+
+--
+
+- Podemos observar y estudiar el comportamiento de nuestro estimate en estas muestras de nuestras muestras.
+
+---
+## Bootstrap Method 
+
+.bold[Muestrando desde la muestra:]
+
+¿Cuántas muestras podemos tomar (con reemplazo) a partir de nuestra muestra?
+--
+ .bold[Respuesta]: `\(n^n\)`
+
+&lt;br&gt;
+--
+
+`$$\text{muestra} : \left[\begin{array}{@{}c@{}}
+    1 \\
+    2 \\
+    3 
+    \end{array} \right]$$`
+
+&lt;br&gt;
+--
+
+`$$\text{posibles muestras de la muesta:} \left[\begin{array}{@{}c@{}} 
+    1 \\
+    1 \\
+    1 
+    \end{array} \right] 
+    \text{ o}  \left[\begin{array}{@{}c@{}} 
+    1 \\
+    1 \\
+    2 
+    \end{array} \right] 
+    \text{ o}  \left[\begin{array}{@{}c@{}} 
+    1 \\
+    3 \\
+    2 
+    \end{array} \right] 
+    \text{ o}  \left[\begin{array}{@{}c@{}} 
+    3 \\
+    1 \\
+    2 
+    \end{array} \right] 
+    \text{ o}  \left[\begin{array}{@{}c@{}} 
+    3 \\
+    3 \\
+    3 
+    \end{array} \right]  ...$$`
+
+---
+## Bootstrap Method
+
+.bold[Esquema del algoritmo] (Bootstrap no paramétrico):
+
+--
+
+1. Asume que la distribución empírica del los datos refleja la distribución de probabilidad de las variables de interés.
+
+--
+
+2. A partir de la muestra obtenén una muestra aleatoria del mismo tamaño que la muestra original (N), con reemplazo:  `\((y_{b},X_{b})\)`
+
+--
+
+3. Regresiona `\(y_{b}\)` y `\(X_{b}\)` para obtener el estimate `\(\hat{\theta}_{b}\)` 
+
+--
+
+4. Repite los pasos 2 y 3 un gran número de veces B.
+
+--
+
+5. El conjunto de B resultados obtenidos corresponde a la "Bootstrap distribution" del estimate.
+
+--
+
+6. Evalúa la distribución del estimate (SE,CI, etc) o de cualquier cantidad derivada de éste.
+
+---
+## Bootstrap Method: ejemplo empírico 
+
+Siguiendo con `\(\ln \frac{p_{i}}{ 1 - p_{i}}    = \beta_{0} + \beta_{1}\text{male}_{i} + \beta_{2}\text{ym}_{i}\)`, 
+--
+
+.content-box-blue[
+.bold[Calculemos un IC al 95% para efecto el de "years of marriage" sobre el logit de ser infiel:] `\(\beta_{2}\)`
+]
+
+--
+
+
+```r
+# Escribir una función que ejecute re-sampling y la estimación
+bs_beta2  &lt;- function(x) {
+  data_b  &lt;- sample_n(affairsdata,size=nrow(affairsdata),replace=TRUE)
+  logit_b &lt;- glm(everaffair_d ~ factor(sex) + ym, family=binomial(link="logit"), data=data_b)
+  beta2_b &lt;- logit_b$coefficients[3]
+  return(beta2_b)
+}
+
+# Iterar función y almacenar resultados 
+nreps =1200
+betas2_bs &lt;- replicate(nreps,bs_beta2()); head(betas2_bs)
+```
+
+```
+##         ym         ym         ym         ym         ym         ym 
+## 0.07408519 0.05434794 0.08462352 0.03966619 0.05463285 0.06933538
+```
+
+---
+## Bootstrap Method: ejemplo empírico 
+
+.pull-left[
+
+```r
+se_beta2_bs &lt;- sd(betas2_bs)
+se_beta2_bs
+```
+
+```
+## [1] 0.0173006
+```
+
+```r
+ci_beta2_bs &lt;- 
+  quantile(betas2_bs, p=c(0.025,0.975))
+  ci_beta2_bs
+```
+
+```
+##       2.5%      97.5% 
+## 0.02342217 0.09250712
+```
+]
+
+--
+
+.pull-right[
+
+```
+## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
+## "none")` instead.
+```
+
+![](class_11_files/figure-html/unnamed-chunk-24-1.png)&lt;!-- --&gt;
+]
+
+---
+## Bootstrap Method: ejemplo empírico 
+
+.content-box-blue[
+¿Un IC al 95% para efecto el de "years of marriage" como .bold["odds ratio"]: `\(e^{\beta_{2}}\)`? 
+]
+
+--
+
+Bootstrapeando ...
+
+
+.img-bottom-right[
+![easy](easy.gif)
+]
+
+
+---
+## Bootstrap Method: ejemplo empírico 
+
+.content-box-blue[
+¿Un IC al 95% para efecto el de "years of marriage" como .bold["odds ratio"]: `\(e^{\beta_{2}}\)`? 
+]
+
+
+Bootstrapeando ...
+
+
+
+```r
+# Escribir una función que ejecute re-sampling y la estimación
+bs_expbeta2  &lt;- function(x) {
+  data_b  &lt;- sample_n(affairsdata,size=nrow(affairsdata),replace=TRUE)
+  logit_b &lt;- glm(everaffair_d ~ factor(sex) + ym, family=binomial(link="logit"), data=data_b)
+  expbeta2_b &lt;- exp(logit_b$coefficients[3])
+  return(expbeta2_b)
+}
+
+# Iterar función y almacenar resultados 
+nreps = 2000 
+expbetas2_bs &lt;- replicate(nreps,bs_expbeta2()); head(expbetas2_bs)
+```
+
+```
+##       ym       ym       ym       ym       ym       ym 
+## 1.086385 1.090366 1.055391 1.057313 1.078436 1.063008
+```
+
+---
+## Bootstrap Method: ejemplo empírico 
+
+.pull-left[
+
+```r
+se_expbeta2_bs &lt;- sd(expbetas2_bs)
+se_expbeta2_bs
+```
+
+```
+## [1] 0.01776979
+```
+
+```r
+ci_expbeta2_bs &lt;- 
+  quantile(expbetas2_bs, p=c(0.025,0.975))
+  ci_expbeta2_bs
+```
+
+```
+##     2.5%    97.5% 
+## 1.026604 1.095969
+```
+]
+
+--
+
+.pull-right[
+
+```
+## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
+## "none")` instead.
+```
+
+![](class_11_files/figure-html/unnamed-chunk-27-1.png)&lt;!-- --&gt;
+]
+
+---
+## Bootstrap Method: ejemplo empírico
+
+.content-box-blue[
+.bold[Calculemos ahora IC al 95% para el Average Marginal Effect de"years of marriage" sobre la probabilidad de ser infiel]
+]
+
+--
+
+Bootstrapeando ...
+
+.img-bottom-right[
+![easy](easy.gif)
+]
+
+
+---
+## Bootstrap Method: ejemplo empírico
+
+.content-box-blue[
+.bold[Calculemos ahora IC al 95% para el Average Marginal Effect de"years of marriage" sobre la probabilidad de ser infiel]
+]
+
+
+Bootstrapeando ...
+
+
+```r
+# Escribir una función que ejecute re-sampling y la estimación
+bs_ame_ym  &lt;- function(x) {
+  data_b   &lt;- sample_n(affairsdata,size=nrow(affairsdata),replace=TRUE)
+  logit_b  &lt;- glm(everaffair_d ~ factor(sex) + ym, family=binomial(link="logit"), data=data_b)
+  beta2_b  &lt;- logit_b$coefficients[3]
+  p_hat_b  &lt;- predict(logit_b, type = "response")
+  me_ym_b   &lt;- beta2_b*p_hat_b*(1-p_hat_b)
+  return(ame_ym_b = mean(me_ym_b))
+}
+
+# Iterar función y almacenar resultados 
+nreps =1200 
+ame_ym_bs &lt;- replicate(nreps,bs_ame_ym()); head(ame_ym_bs)
+```
+
+```
+## [1] 0.011260633 0.007484463 0.013557477 0.017086481 0.008868199 0.002306213
+```
+
+
+---
+## Bootstrap Method: ejemplo empírico
+
+.pull-left[
+
+```r
+p_hat   &lt;- predict(logit_affairs_sex_ym, type = "response")
+me_ym   &lt;- beta2*p_hat*(1-p_hat)
+ame_ym  &lt;- mean(me_ym); ame_ym
+```
+
+```
+## [1] 0.01070277
+```
+
+```r
+se_ame_ym_bs &lt;- sd(ame_ym_bs)
+se_ame_ym_bs
+```
+
+```
+## [1] 0.002948286
+```
+
+```r
+ci_ame_ym_bs &lt;- 
+  quantile(ame_ym_bs, p=c(0.025,0.975))
+  ci_ame_ym_bs
+```
+
+```
+##        2.5%       97.5% 
+## 0.004963437 0.016395597
+```
+]
+
+--
+
+.pull-right[
+
+```
+## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
+## "none")` instead.
+```
+
+![](class_11_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+]
+
+---
+## Bootstrap Method: más ... 
+
+
+
+.pull-left[
+![](class_11_files/figure-html/unnamed-chunk-32-1.png)&lt;!-- --&gt;
+]
+
+--
+
+.pull-right[
+![](class_11_files/figure-html/unnamed-chunk-33-1.png)&lt;!-- --&gt;
+]
+
+---
+class: inverse, center, middle
+
+.huge[
+**Hasta la próxima clase. Gracias!**
+]
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

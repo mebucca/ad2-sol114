@@ -1,0 +1,278 @@
+---
+title: "Análisis de Datos Categóricos (SOC3070)"
+subtitle: "Clase #1"
+author: "<br> Mauricio Bucca<br> Profesor Asistente, Sociología UC"
+date: "[github.com/mebucca](https://github.com/mebucca)"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default","default-fonts","gentle-r.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  chunk_output_type: console
+---
+class: inverse, center, middle
+
+#Probabilidades
+
+---
+
+## Experimentos aleatorios
+
+ Un  .bold[experimento aleatorio] es un experimento - real o hipotético - en el que todos los posibles resultados son conocidos *a priori*.
+
+<br>
+--
+
+Ejemplo:
+- Experimento: Tirar un dado
+- Posibles resultados: números enteros entre 1 y 6
+
+<br>
+--
+
+El conjunto de todos los posibles resultados de un experimento se llama "espacio muestral",  $\Omega$. 
+
+En este caso: 
+
+$$\Omega: \{1,2,3,4,5,6 \}$$
+
+<br>
+--
+
+En palabras, $\Omega: \{1,2,3,4,5,6 \}$ significa que nuestro experimento, consistente en tirar un dado, puede resultar en: "1 o 2 o 3... o 6"
+
+---
+
+## Eventos
+
+Un .bold[evento] es un subconjunto bien definido de los posibles resultados de un experimento. 
+
+<br>
+--
+
+Ejemplo:
+- Experimento: Tirar un dado
+- "A" es el evento de "obtener un 1 o un 5"  
+
+<br>
+
+--
+
+Formalmente,
+
+$$A :  \text{dado=1 o dado=5}$$
+
+---
+
+## Probabilidad 
+
+Para cualquier .bold[*evento*] es posible asociar un número que cuantifique la .bold[probabilidad] de ocurrencia de tal evento. 
+
+<br>
+--
+
+Continuando con nuestro ejemplo,
+
+- Experimento: Tirar un dado
+- Espacio muestral, $\Omega: \{1,2,3,4,5,6\}$
+- A es el evento de "obtener un 1 o un 5"
+
+
+¿Cuál es la probabilidad de que ocurra A? 
+
+<br>
+--
+Formalmente,  
+
+$$\mathbb{P}(A) = \mathbb{P}(\text{dado=1 o dado=5})$$
+<br>
+donde $\mathbb{P}(.)$ refiere a la probabilidad de ocurrencia del evento y $\mathbb{P}(.) \in [0,1]$
+
+---
+
+## Probabilidad 
+
+.bold[Ejercicio rápido]:
+
+* Supuesto: el dado es "justo", es decir, todos los valores tienen la misma probabilidad de ocurrencia
+
+--
+
+.full-width[.content-box-red[
+.bold[Preguntas]:
+
+1) ¿Cuál es la probabilidad de ocurrencia de cada valor en el espacio muestral?
+
+2) ¿Cuál es la probabilidad de ocurrencia del evento A (obtener un 1 o un 5)?
+]
+]
+
+--
+.bold[Respuestas:]
+
+1) $\frac{1}{6}$ 
+
+2) $\frac{2}{6}$ 
+
+--
+
+Detrás de estas respuestas hay una comprensión intuitiva de algunas propiedades importantes de la probabilidad.
+
+---
+
+### Reglas básicas de probabilidad
+
+1) Las probabilidades están limitadas entre cero y uno. Si A es un evento, entonces:
+
+$$0 \leq \mathbb{P}(A) \leq 1$$
+<br>
+--
+
+2) La probabilidad de que dos eventos mutuamente excluyentes ocurran al mismo tiempo es cero. Si A y B son eventos mutuamente excluyentes, entonces:
+
+$$\mathbb{P}(A \text{ y }B) = 0$$
+Por ejemplo, 
+  - si $A:\text{dado=1 o dado=5}$ 
+  - y $B:\text{dado=6}$
+  
+<br>
+--
+entonces $\mathbb{P}(A \text{ y } B) = 0$
+
+
+---
+
+### Reglas básicas de probabilidad
+
+3) Si A y B son dos eventos la probabilidad de que *al menos* uno de los dos ocurra es llamada la "unión" de ambos eventos y viene dada por:
+
+$$\mathbb{P}(A \text{ o } B) = \mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \text{ y } B)$$
+<br>
+--
+
+Por ejemplo,    
+  - si $A: \text{dado=1 o dado=5}$ 
+  - y $B:\text{dado=5 o dado=6}$
+  
+entonces, 
+
+$$\mathbb{P}(A \text{ o } B) = \mathbb{P}(\text{dado=1 o dado=5}) + \mathbb{P}(\text{dado=5 o dado=6}) - \mathbb{P}(\text{dado=5})$$
+---
+
+### Reglas básicas de probabilidad
+
+
+.bold[Ejercicio rápido]:
+
+- Experimento: tirar un dado
+- Supuesto: el dado es "justo", es decir, todos los valores tienen la misma probabilidad de ocurrencia
+
+<br>
+--
+
+.full-width[.content-box-red[
+.bold[Pregunta]:
+
+¿Cuál es la probabilidad de obtener un 3 o un 4?
+
+]
+]
+
+
+--
+
+.full-width[.content-box-blue[
+.bold[Respuesta]:
+\begin{align}
+\mathbb{P}(\text{dado=3 o dado=4}) &= \mathbb{P}(\text{dado=3}) +  \mathbb{P}(\text{dado=4}) - \mathbb{P}(\text{dado=3 y dado=4}) \\
+&= \frac{1}{6} +  \frac{1}{6} - 0 = \frac{2}{6}
+\end{align}
+]
+]
+
+---
+
+### Reglas básicas de probabilidad
+
+4) De los puntos 2 y 3 se deduce que la probabilidad de la unión de dos eventos desunidos, A y B, viene dada por:
+
+$$\mathbb{P}(A \text{ or } B) = \mathbb{P}(A) + \mathbb{P}(B)$$
+---
+
+### Reglas básicas de probabilidad
+
+5) La probabilidad del espacio muestral es uno. 
+
+<br>
+--
+
+Formalmente, si denotamos cada posible resultado de un experimento como $A_{i}$, entonces:
+
+$$\mathbb{P}(\Omega) = \mathbb{P}(A_{1} \text{ o } A_{2} \dots \text{ o } A_{n})  = \sum_{i} \mathbb{P}(A_{i}) = 1$$
+<br>
+--
+
+Por ejemplo
+  - Experimento: tirar un dado justo
+
+Entonces, 
+
+\begin{align}
+\mathbb{P}(\Omega) &= \mathbb{P}(\text{dado=1  o ... o dado=6})  \\ \\
+ &= \mathbb{P}(\text{dado=1}) + \dots + \mathbb{P}(\text{dado=6}) \\ \\
+ &= \frac{1}{6} + \dots + \frac{1}{6} = 1
+\end{align}
+
+---
+
+### Reglas básicas de probabilidad
+
+6) Se sigue de (5) que si dos eventos A y B dividen el espacio muestral en dos particiones mutuamente excluyentes entonces sus probabilidades son complementarias. 
+
+<br>
+--
+
+Formalmente,
+
+$$\mathbb{P}(A) = 1 - \mathbb{P}(B)$$
+
+<br>
+--
+
+Por ejemplo
+  - Experimento: tirar un dado justo
+  - $A: \text{dado < 3}$ 
+  - $B:\text{dado} \geq 3$
+
+Entonces, 
+
+\begin{align}
+\mathbb{P}(A) &= 1 - \mathbb{P}(B) \\
+&= 1 - \frac{4}{6} \\
+&= \frac{2}{6}
+\end{align}
+
+
+---
+
+class: inverse, center, middle
+
+.huge[
+**Hasta la próxima clase. Gracias!**
+]
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+
+

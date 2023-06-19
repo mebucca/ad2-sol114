@@ -1,0 +1,1733 @@
+---
+title: "Análisis de Datos Categóricos (SOC3070)"
+subtitle: "Clase #14"
+author: "<br> Mauricio Bucca<br> Profesor Asistente, Sociología UC"
+date: "[github.com/mebucca](https://github.com/mebucca)"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default","default-fonts","gentle-r.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  chunk_output_type: console
+---
+class: inverse, center, middle
+# Regresión Logística (Multinomial) Ordenada
+
+
+---
+## Estructura de un modelo de regresión logística multinomial ordenada 
+
+$$\newcommand{\vect}[1]{\boldsymbol{#1}}$$
+Un modelo de regresión logística ordenada generaliza la regresión logística (binomial) a situaciones en que la variable dependiente es una  variable discreta con .bold[ dos o más valores ordenados] (ejemplo: "muy de acuerdo", "algo de acuerdo", "poco de acuerdo", etc..).
+
+<br>
+--
+
+.bold[Configuración]
+
+- Tenemos $n$ observaciones (individuos) independientes: $i = 1, \dots, n$
+
+--
+
+- Para cada observación observamos datos $y_{i}, \dots , y_{n}$ que actúan como variable dependiente, donde $y_{i} \in \{j:1,2, \cdots, J\}$
+  
+  - Las $J$ categorías de $y_{i}$ siguen un orden.
+
+--
+
+- Asumimos que estos datos son realizaciones de $n$ variables aleatoriascon probabilidades $\{p_{1}, p_{2}, \dots, p_{J}\}$
+
+--
+
+- Dichas probabilidades varían de individuo en individuo en función de ciertas covariables.
+
+
+
+---
+class: inverse, center, middle
+
+## Fundamentos teóricos
+### Interpretación de regresión logística en términos de variable latente
+
+
+---
+## Regresión logística binomial, variable latente
+
+
+Una regresión logística binomial $y_{i} \in {0,1}$
+
+--
+.pull-left[
+$$y_{i} \sim \text{Bernoulli}\big(p_{i} = e^{\eta_{i}}/(1 + e^{\eta_{i}})\big)$$
+] 
+
+
+.pull-right[
+donde $\quad \eta_{i} = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}$
+]
+
+--
+
+<br>
+Ejemplo: si $\eta_{i}=0$, entonces: $p_{i}=1/(1+1)=0.5$
+
+
+<br>
+--
+
+Una formulación alternativa describe la variable dependiente $y$ como una .bold[manifestación discreta] de una .bold[variable latente] (inobservada) continua, $y^{*}$.
+
+.pull-left[
+\begin{align}
+y_{i} = \begin{cases}
+1 \quad \text{si} \quad y^{*}_{i} > 0 \\
+0 \quad \text{si} \quad y^{*}_{i} < 0
+\end{cases}
+\end{align}
+]
+
+.pull-right[
+$y^{*}_{i} = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki} + \epsilon_{i}$
+]
+
+
+- $\epsilon_{i}$ sigue una distribución de probabilidad .bold[logística]: $\epsilon_{i} \sim \text{logistic}(\mu=0,\sigma=\pi/\sqrt{3}) \approx \mathcal{N}(0,1.6)$
+
+```{css, echo=FALSE}
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+```
+
+---
+## Regresión logística binomial, variable latente
+
+<br>
+<br>
+.bold[Distribución] de error aleatorio en regresión logística con variable latente:
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10.5}
+# load data on extra-marital affairs from package "Ecdat"
+library("tidyverse")
+library("Ecdat")
+library("viridis")
+library("modelr")
+library("MASS")
+library("cowplot")
+library("margins")
+
+theme_set(theme_cowplot())
+
+mydata <- data_frame(x = seq(from = -5, to = 5, by =0.01), logistic = dlogis(x), normal = dnorm(x,0,1.6) ) %>%
+          pivot_longer(-x)
+
+plot <- ggplot(data = mydata, mapping = aes(x = x)) +
+    ## Entire curve
+    geom_path(aes(y=value, group=name, colour=name), size=1.5, alpha=0.8) +
+  labs(title="Densidad de probabilidad", x="e ~ logistic(0,pi/sqrt(3))", colour="Distribución", y="f(.)") +
+     scale_color_viridis_d() +
+      geom_vline(xintercept = 0, color = "blue", size=1.5) +
+      theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+      axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+      legend.text = element_text(size = 18)) 
+print(plot)
+```
+]
+
+.pull-right[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10.5}
+# load data on extra-marital affairs from package "Ecdat"
+
+mydata <- data_frame(x = seq(from = -5, to = 5, by =0.01), logistic = plogis(x), normal = pnorm(x,0,1.6) ) %>%
+          pivot_longer(-x)
+
+plot <- ggplot(data = mydata, mapping = aes(x = x)) +
+    ## Entire curve
+    geom_path(aes(y=value, group=name, colour=name), size=1.5, alpha=0.8) +
+  labs(title="Probabilidad acumulada", x="e ~ logistic(0,pi/sqrt(3))", colour="Distribución", y="F(.)") +
+     scale_color_viridis_d() +
+        geom_vline(xintercept = 0, color = "blue", size=1.5) +
+        geom_hline(yintercept = 0.5, color = "blue", size=1.5, linetype="dotted") +
+        theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+      axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+      legend.text = element_text(size = 18)) 
+print(plot)
+```
+]
+
+
+---
+## Regresión logística binomial, variable latente
+
+
+.pull-left[
+\begin{align}
+y_{i} = \begin{cases}
+  1 \quad \text{si} \quad y^{*}_{i} > 0 \\
+  0 \quad \text{si} \quad y^{*}_{i} < 0
+  \end{cases}
+\end{align}
+]
+
+
+--
+.pull-right[
+$y^{*}_{i} = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki} + \epsilon_{i}$
+]
+
+
+- $\epsilon_{i} \sim \text{logistic}(\mu=0,\sigma=\pi/\sqrt{3})$
+
+
+--
+
+
+\begin{align}
+\mathbb{P}(y_{i}=0) &= \mathbb{P}(y^{*}_{i}<0) \\  \\
+&= \mathbb{P}(\beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki} + \epsilon_{i}  < 0) \\ \\
+&= \mathbb{P}(\epsilon_{i} < -(\beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})) \\ \\
+&= F_{\epsilon_{i}}(-(\beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})) \quad \text{ i.e. función de probabilidad acumulada} \\ \\ 
+&= \text{logit}^{-1}(-(\beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))
+\end{align}
+
+
+---
+## Regresión logística binomial, variable latente
+
+Ajustando el siguiente modelo: $\text{logit(everaffair}_{i}) = \beta_{0} + \beta_{1}*\text{rate}_{i}$ obtenemos:
+
+<br>
+
+.pull-left[
+```{r,  include=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+
+data(Fair)
+affairsdata <- Fair %>% as_tibble()
+
+# create a binary variable indicating wether persons has ever had an affair
+affairsdata <- affairsdata %>% 
+  mutate(everaffair = case_when(nbaffairs == 0 ~ "Never", nbaffairs > 0 ~ "At least once") ) %>%
+  # map into 0/1 code
+  mutate(everaffair_d = case_when(nbaffairs == 0 ~ 0, nbaffairs > 0 ~ 1))
+
+logit_affairs_rate <- glm(everaffair_d ~ rate, family=binomial(link="logit"), data=affairsdata)
+summary(logit_affairs_rate)$coefficients[,1]
+
+```
+
+```{r,  include=TRUE, warning=FALSE, message=FALSE}
+xb_1 = 0.83 - 0.5*1
+plogis(-xb_1,0,1)
+inv_logit = 1/(1 + exp(xb_1)); inv_logit
+```
+]
+
+--
+
+.pull-right[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=8.5}
+mydata <- data_frame(x = seq(from = -5, to = 5, by =0.01), logit = plogis(x) )
+plot <- ggplot(data = mydata, mapping = aes(x = x)) +
+    ## Entire curve
+    geom_path(aes(y=logit,color=""), size=1.5, alpha=0.8) +
+  labs(y="P(e < -xb)", x="e") +
+     scale_color_viridis_d() +
+      theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+      axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+      legend.text = element_text(size = 18), legend.position="none") +
+      geom_vline(xintercept = -xb_1, color = "blue", size=1.5) +
+      geom_hline(yintercept = plogis(-xb_1,0,1), color = "blue", size=1.5, linetype="dotted") +
+        annotate(geom="text", x= xb_1 + 2.2, y=0.1, label='bold("xb_1 =  -(0.83 - 0.5)")', color="black", parse=TRUE, size=8)
+print(plot)
+```
+]
+
+
+---
+class: inverse, center, middle
+
+## Regresión logística (multinomial) ordenada
+
+
+
+---
+## Regresión logística (multinomial) ordenada, variable latente
+
+La formulación con variable latente se puede generalizar al caso en que a variable dependiente toma $J$ valores ordenados, tal que $y \in \{1,2,\dots,J\}$
+
+--
+
+.pull-left[
+$$y^{*}_{i} = \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki} + \epsilon_{i}$$
+]
+
+.pull-right[
+$$\epsilon_{i} \sim \text{logistic}(\mu=0,\sigma=\pi/\sqrt{3})$$
+]
+
+<br>
+--
+
+En este caso la variable latente $y^{*}$ es dividida en $J$ intervalos usando $J-1$ .bold[cutoff points]:  $\alpha_{1} < \alpha_{2} < \dots < \alpha_{J-1} < \alpha_{J}$ 
+
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10.5}
+
+mydata <- data_frame(x = seq(from = -5, to = 5, by =0.01), logistic = dlogis(x))
+plot <- ggplot(data = mydata, mapping = aes(x = x)) +
+    ## Entire curve
+    geom_path(aes(y=logistic), size=1.5, alpha=0.8) +
+  labs(title="Densidad de probabilidad", x="y*", colour="Distribución", y="f(.)") +
+     scale_color_viridis_d() +
+      geom_vline(xintercept = c(-2.1,0.4), color = "blue", size=1.5) +
+      geom_vline(xintercept = 1.3, color = "red", size=1.5) +
+      theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+      axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+      legend.text = element_text(size = 18))  +
+      annotate(geom="text", x= 1.8, y=1, label='bold("y*_i")', color="red", parse=TRUE, size=8) +
+      annotate(geom="text", x= -2.4, y=1, label='bold("a1")', color="blue", parse=TRUE, size=8) +
+      annotate(geom="text", x= 0.1, y=1, label='bold("a2")', color="blue", parse=TRUE, size=8) +
+  theme( axis.text.x=element_blank(), axis.ticks.x=element_blank())
+
+print(plot)
+```
+]
+
+.pull-right[
+\begin{align}
+y_{i}=1 \quad \text{si }&  y^{*}_{i} < \alpha_{1} \\  \\  
+y_{i}=2 \quad \text{si }&  \alpha_{1} < y^{*}_{i} < \alpha_{2} \\ \\  
+& \vdots \\  \\  
+y_{i}=J \quad \text{si }&  y^{*}_{i} > \alpha_{J-1}
+\end{align}
+]
+
+```{css, echo=FALSE}
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+```
+
+---
+## Regresión logística (multinomial) ordenada, variable latente
+
+Esta paramatrización implica que:
+
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10.5}
+
+mydata <- data_frame(x = seq(from = -5, to = 5, by =0.01), logistic = dlogis(x))
+plot <- ggplot(data = mydata, mapping = aes(x = x)) +
+    ## Entire curve
+    geom_path(aes(y=logistic), size=1.5, alpha=0.8) +
+  labs(title="Densidad de probabilidad", x="y*", colour="Distribución", y="f(.)") +
+     scale_color_viridis_d() +
+      geom_vline(xintercept = c(-2.1,0.4), color = "blue", size=1.5) +
+      geom_vline(xintercept = 1.3, color = "red", size=1.5) +
+      theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+      axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+      legend.text = element_text(size = 18))  +
+      annotate(geom="text", x= 1.8, y=1, label='bold("y*_i")', color="red", parse=TRUE, size=8) +
+      annotate(geom="text", x= -2.4, y=1, label='bold("a1")', color="blue", parse=TRUE, size=8) +
+      annotate(geom="text", x= 0.1, y=1, label='bold("a2")', color="blue", parse=TRUE, size=8) +
+      theme( axis.text.x=element_blank(), axis.ticks.x=element_blank())
+
+
+print(plot)
+```
+]
+
+.pull-right[
+\begin{align}
+\mathbb{P}(y_{i}\leq 1) &= \mathbb{P}(y^{*}_{i}< \alpha_{1}) \\  \\
+&= \mathbb{P}(\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki} + \epsilon_{i}  < \alpha_{1}) \\ \\
+&= \mathbb{P}(\epsilon_{i} < \alpha_{1} -(\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})) \\ \\
+&= F_{\epsilon_{i}}(\alpha_{1} -(\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))  \\ \\ 
+&= \text{logit}^{-1}(\alpha_{1} -(\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))
+\end{align}
+]
+
+```{css, echo=FALSE}
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+```
+
+
+---
+## Regresión logística (multinomial) ordenada, variable latente
+
+
+Asimismo,
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10.5}
+
+mydata <- data_frame(x = seq(from = -5, to = 5, by =0.01), logistic = dlogis(x))
+plot <- ggplot(data = mydata, mapping = aes(x = x)) +
+    ## Entire curve
+    geom_path(aes(y=logistic), size=1.5, alpha=0.8) +
+  labs(title="Densidad de probabilidad", x="y*", colour="Distribución", y="f(.)") +
+     scale_color_viridis_d() +
+      geom_vline(xintercept = c(-2.1,0.4), color = "blue", size=1.5) +
+      geom_vline(xintercept = 1.3, color = "red", size=1.5) +
+      theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+      axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+      legend.text = element_text(size = 18))  +
+      annotate(geom="text", x= 1.8, y=1, label='bold("y*_i")', color="red", parse=TRUE, size=8) +
+      annotate(geom="text", x= -2.4, y=1, label='bold("a1")', color="blue", parse=TRUE, size=8) +
+      annotate(geom="text", x= 0.1, y=1, label='bold("a2")', color="blue", parse=TRUE, size=8) +
+     theme( axis.text.x=element_blank(), axis.ticks.x=element_blank())
+
+print(plot)
+```
+]
+
+.pull-right[
+\begin{align}
+\mathbb{P}(y_{i}\leq 2) &= \mathbb{P}(y^{*}_{i}< \alpha_{2}) \\  \\
+&= \mathbb{P}(\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki} + \epsilon_{i}  < \alpha_{2}) \\ \\
+&= \mathbb{P}(\epsilon_{i} < \alpha_{2} -(\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})) \\ \\
+&= F_{\epsilon_{i}}(\alpha_{2} -(\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))  \\ \\ 
+&= \text{logit}^{-1}(\alpha_{2} -(\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))
+\end{align}
+]
+
+<br>
+--
+
+y así sucesivamente ...
+ 
+```{css, echo=FALSE}
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+```
+
+
+
+
+---
+## Regresión logística (multinomial) ordenada, variable latente
+
+Reiterando, las probabilidades "acumuladas" en cada valor sucesivo de la variable $y$ vienen dadas por: 
+
+
+$$\mathbb{P}(y_{i} \leq 1) = \text{logit}^{-1}(\alpha_{1} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))$$
+
+<br>
+--
+
+
+$$\mathbb{P}(y_{i} \leq 2) = \text{logit}^{-1}(\alpha_{2} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))$$
+$$\vdots$$
+
+<br>
+--
+
+$$\mathbb{P}(y_{i} \leq J-1) = \text{logit}^{-1}(\alpha_{J-1} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))$$
+donde
+--
+
+
+- $\alpha_{1}, \alpha_{2}, \dots, \alpha_{j-1}$ son .bold[cutoff points] que dividen la variable latente $y^{*}$
+
+- Valores más alto de $y^{*}$ implican una mayor probabilidad de obtener valores en la variable discreta $y$
+
+
+---
+## Regresión logística (multinomial) ordenada, variable latente
+
+Sintéticamente:
+
+.content-box-yellow[
+$$\mathbb{P}(y_{i} \leq j) = \text{logit}^{-1}(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))$$
+]
+
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10.5}
+
+mydata <- data_frame(x = seq(from = -5, to = 5, by =0.01), logistic = dlogis(x))
+plot <- ggplot(data = mydata, mapping = aes(x = x)) +
+    ## Entire curve
+    geom_path(aes(y=logistic), size=1.5, alpha=0.8) +
+  labs(title="Densidad de probabilidad", x="y*", colour="Distribución", y="f(.)") +
+     scale_color_viridis_d() +
+      geom_vline(xintercept = c(-2.1,0.4), color = "blue", size=1.5) +
+      geom_vline(xintercept = 1.3, color = "red", size=1.5) +
+      theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+      axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+      legend.text = element_text(size = 18))  +
+      annotate(geom="text", x= 1.8, y=1, label='bold("y*_i")', color="red", parse=TRUE, size=8) +
+      annotate(geom="text", x= -2.4, y=1, label='bold("a1")', color="blue", parse=TRUE, size=8) +
+      annotate(geom="text", x= 0.1, y=1, label='bold("a2")', color="blue", parse=TRUE, size=8) +
+     theme( axis.text.x=element_blank(), axis.ticks.x=element_blank())
+
+
+print(plot)
+```
+]
+
+.pull-right[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10.5}
+
+mydata <- data_frame(x = seq(from = -5, to = 5, by =0.01), logistic = plogis(x)) 
+
+plot <- ggplot(data = mydata, mapping = aes(x = x)) +
+    ## Entire curve
+    geom_path(aes(y=logistic), size=1.5, alpha=0.8) +
+  labs(title="Probabilidad acumulada", x="e", colour="Distribución", y="F(.)") +
+     scale_color_viridis_d() +
+        geom_vline(xintercept = -2.1 - 1.3, color = "red", size=1.5) +
+        geom_vline(xintercept = 0.4 - 1.3, color = "red", size=1.5) +
+        theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+      axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+      legend.text = element_text(size = 18)) +
+      annotate(geom="text", x= -2.7 - 1.6, y=1, label='bold("a1 - xb")', color="red", parse=TRUE, size=8) +
+      annotate(geom="text", x=  - 1.8, y=1, label='bold("a2 - xb")', color="red", parse=TRUE, size=8) +
+      geom_hline(yintercept = plogis(-2.1 - 1.3,0,1), color = "red", size=1.5, linetype="dotted") +
+      geom_hline(yintercept = plogis(0.4 - 1.3,0,1), color = "red", size=1.5, linetype="dotted") 
+
+print(plot)
+```
+]
+
+---
+## Regresión logística (multinomial) ordenada
+
+
+La función de probabilidad acumulada 
+$$\mathbb{P}(y_{i} \leq j) = \text{logit}^{-1}(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))$$
+<br>
+
+puede ser re-expresada como regresión logística aplicando logit link a ambos lados obtenemos:
+
+--
+<br>
+
+$$\text{logit}[ \mathbb{P}(y_{i} \leq j)] = \alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})$$
+
+es decir,
+<br>
+--
+
+
+.content-box-blue[
+$$\ln \frac{\mathbb{P}(y_{i} \leq j)}{1 - \mathbb{P}(y_{i} \leq j)}  = \ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} > j)} = \alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})$$
+]
+
+
+---
+## Regresión logística (multinomial) ordenada en la práctica
+
+Continuando con los datos de infidelidad, pero ahora considerando infidelidad como una variable discreta ordenada:
+
+```{r,  include=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+data(Fair)
+affairsdata <- Fair %>% as_tibble()
+
+# create a binary variable indicating wether persons has ever had an affair
+affairsdata <- affairsdata %>% 
+  mutate(affairs = case_when(nbaffairs == 0 ~ "fiel",
+                             nbaffairs > 0  & nbaffairs <=3 ~ "ocasional",
+                             nbaffairs >= 7  ~ "compulsivo")) 
+
+affairsdata
+print("affairs:")
+unique(affairsdata$affairs)
+```
+
+---
+## Regresión logística (multinomial) ordenada en la práctica
+
+.pull-left[
+Variable latente (fiel --> infiel compulsivo)
+$$y^{*} = \beta_{1}\text{rate}_{i} + \epsilon_{i}$$
+]
+.pull-right[
+Logit acumulado:
+$$\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} > j)} = \alpha_{j} - \beta_{1}\text{rate}_{i}$$
+]
+
+```{r,warning=FALSE, message=FALSE}
+affairsdata$affairs <- ordered(affairsdata$affairs, c("fiel","ocasional","compulsivo"))
+ologit_affairs_rate <- polr(affairs ~ rate, data=affairsdata)
+
+```
+
+.pull-left[
+```{r}
+summary(ologit_affairs_rate)$coefficients[,c(1,2)]
+```
+]
+
+.pull-right[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10.5}
+ grid <- affairsdata %>% data_grid(rate=seq(-5,10),.model = ologit_affairs_rate)
+
+predictions <- grid %>% mutate(y_latente = ologit_affairs_rate$coefficients*rate)
+
+predictions %>% 
+  ggplot(aes(x=rate, y=y_latente, colour="")) +
+  geom_path(alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="none") +
+  labs(x="rate marriage", y="y*")
+
+```
+]
+
+
+---
+## Regresión logística (multinomial) ordenada en la práctica
+
+.pull-left[
+Variable latente (fiel --> infiel compulsivo)
+$$y^{*} = \beta_{1}\text{rate}_{i} + \epsilon_{i}$$
+]
+.pull-right[
+Logit acumulado:
+$$\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} > j)} = \alpha_{j} - \beta_{1}\text{rate}_{i}$$
+]
+
+```{r,warning=FALSE, message=FALSE}
+affairsdata$affairs <- ordered(affairsdata$affairs, c("fiel","ocasional","compulsivo"))
+ologit_affairs_rate <- polr(affairs ~ rate, data=affairsdata)
+
+```
+
+.pull-left[
+```{r}
+summary(ologit_affairs_rate)$coefficients[,c(1,2)]
+```
+]
+
+.pull-right[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10.5}
+ grid <- affairsdata %>% data_grid(rate=seq(-5,10),.model = ologit_affairs_rate)
+
+predictions <- cbind(grid,predict(ologit_affairs_rate, newdata=grid, type="prob")) %>%
+              pivot_longer(-rate, names_to="outcome",values_to="p" ) %>%
+              mutate(p_outcome = paste0("p_",outcome)) %>% dplyr::select(-outcome) %>%
+              pivot_wider(names_from = p_outcome, values_from=p) %>%
+              mutate(logit_fiel = log(p_fiel/(p_ocasional + p_compulsivo)),
+                     logit_ocasional = log((p_fiel + p_ocasional)/p_compulsivo)
+                     ) %>% 
+              dplyr::select(rate,starts_with("logit")) %>%
+              pivot_longer(-rate, names_to="quant", values_to="est")
+
+
+predictions %>% 
+  ggplot(aes(x=rate, y=est, group=quant, colour=quant)) +
+  geom_path(alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="top") +
+  labs(x="rate marriage", y="log-odds affairs <= j")
+
+```
+]
+
+---
+## Regresión logística (multinomial) ordenada en la práctica
+
+.pull-left[
+Nuestro modelo: $\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} > j)} = \alpha_{j} - \beta_{1}\text{rate}_{i}$
+]
+.pull-right[
+```{r,echo=F, message=FALSE}
+summary(ologit_affairs_rate)$coefficients[,c(1,2)]
+```
+]
+
+
+.pull-left[
+```{r, echo=FALSE, fig.height=5, fig.width=6}
+grid <- affairsdata %>% data_grid(rate=seq(-5,10),.model = ologit_affairs_rate)
+
+predictions <- cbind(grid,predict(ologit_affairs_rate, newdata=grid, type="prob")) %>%
+              pivot_longer(-rate, names_to="outcome",values_to="p" ) %>%
+              mutate(p_outcome = paste0("p_",outcome)) %>% dplyr::select(-outcome) %>%
+              pivot_wider(names_from = p_outcome, values_from=p) %>%
+              mutate(logit_fiel = log(p_fiel/(p_ocasional + p_compulsivo)),
+                     logit_ocasional = log((p_fiel + p_ocasional)/p_compulsivo)
+                     ) %>% 
+              dplyr::select(rate,starts_with("logit")) %>%
+              pivot_longer(-rate, names_to="quant", values_to="est")
+
+
+predictions %>% 
+  ggplot(aes(x=rate, y=est, group=quant, colour=quant)) +
+  geom_path(alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="top") +
+  labs(x="rate marriage", y="log-odds affairs <= j")
+  
+
+```
+]
+
+
+.pull-right[
+```{r, echo=FALSE, fig.height=5, fig.width=6}
+grid <- affairsdata %>% data_grid(rate=seq(-5,10),.model = ologit_affairs_rate)
+
+predictions <- cbind(grid,predict(ologit_affairs_rate, newdata=grid, type="prob")) %>%
+              pivot_longer(-rate, names_to="outcome",values_to="p" ) %>%
+              mutate(p_outcome = paste0("p_",outcome)) %>% dplyr::select(-outcome) %>%
+              pivot_wider(names_from = p_outcome, values_from=p) %>%
+              mutate(p_ocasional_less = p_fiel + p_ocasional, p_compulsivo_less = p_fiel + p_ocasional + p_compulsivo) %>%
+              pivot_longer(-rate, names_to="quant", values_to="est")
+
+
+predictions %>% filter(quant=="p_fiel"  | quant=="p_ocasional_less" ) %>% 
+  ggplot(aes(x=rate, y=est, group=quant, colour=quant)) +
+  geom_path(alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="top") +
+  labs(x="rate marriage", y="P(affairs <= j)")
+  
+
+```
+]
+
+
+```{css, echo=FALSE}
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+```
+
+---
+
+## Regresión logística (multinomial) ordenada en la práctica
+
+Podemos calcular los valores de la variable latente a partir del output del modelo. Usemos el caso de un individuo con `rate=1`
+
+.pull-left[
+Nuestro modelo: $y^{*} =  \beta_{1}\text{rate}_{i}$
+]
+.pull-right[
+```{r,echo=F, message=FALSE}
+summary(ologit_affairs_rate)$coefficients[,c(1,2)]
+```
+]
+
+.pull-left[
+```{r}
+y_latente_1 <- -0.53; y_latente_1
+```
+
+]
+
+.pull-right[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10.5}
+
+
+ grid <- affairsdata %>% data_grid(rate=seq(-5,10),.model = ologit_affairs_rate)
+
+predictions <- grid %>% mutate(y_latente = ologit_affairs_rate$coefficients*rate)
+
+predictions %>% 
+  ggplot(aes(x=rate, y=y_latente, colour="")) +
+  geom_path(alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="none") +
+  labs(x="rate marriage", y="y*") + 
+  geom_hline(yintercept = y_latente_1, color = "red", size=1.5) +
+  annotate(geom="text", x= y_latente_1 + 3, y=0.15, label='bold("y* = -0.53*1")', color="black", parse=TRUE, size=8) 
+```
+]
+
+
+```{css, echo=FALSE}
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+```
+
+
+---
+
+## Regresión logística (multinomial) ordenada en la práctica
+
+Igualmente podemos calcular las probabilidades acumuladas a partir del output del modelo. Usemos el caso de un individuo con `rate=1`
+
+.pull-left[
+Nuestro modelo: $\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} > j)} = \alpha_{j} - \beta_{1}\text{rate}_{i}$
+]
+.pull-right[
+```{r,echo=F, message=FALSE}
+summary(ologit_affairs_rate)$coefficients[,c(1,2)]
+```
+]
+
+
+.pull-left[
+```{r}
+logit_fiel <- -0.9 - (- 0.52*1)
+logit_ocasional <- -0.07 - (-0.52*1)
+pcum_fiel <- 1/(1 + exp(-logit_fiel))
+pcum_ocasional <- 1/(1 + exp(-logit_ocasional))
+```
+```{r, echo=FALSE}
+c(pcum_fiel = pcum_fiel, pcum_ocasional=pcum_ocasional)
+```
+
+Equivalente:
+```{r}
+c(plogis(logit_fiel), plogis(logit_ocasional))
+```
+]
+
+.pull-right[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10.5}
+
+
+mydata <- data_frame(x = seq(from = -5, to = 5, by =0.01), logistic = plogis(x) )
+
+plot <- ggplot(data = mydata, mapping = aes(x = x)) +
+    ## Entire curve
+    geom_path(aes(y=logistic, colour=""), size=1.5, alpha=0.8) +
+    geom_vline(xintercept = logit_fiel, color = "blue", size=1.5) +
+    geom_vline(xintercept = logit_ocasional, color = "red", size=1.5) +
+      labs(y="P(e < a_j- xb)", x="e") +
+     scale_color_viridis_d() +
+      theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+      axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+      legend.text = element_text(size = 18), legend.position = "none") +
+      annotate(geom="text", x= logit_fiel - 2.3, y=0.5, label='bold("logit_fiel =  -0.9 + 0.53")', color="black", parse=TRUE, size=8) +
+        annotate(geom="text", x= logit_ocasional + 2.3, y=0.2, label='bold("logit_ocasional =  -0.07 + 0.53")', color="black", parse=TRUE, size=8) 
+
+
+print(plot)
+```
+]
+
+
+```{css, echo=FALSE}
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+```
+
+---
+## Regresión logística (multinomial) ordenada: probabilidad de categoria $j$
+
+
+$$\text{Dado} \quad \mathbb{P}(y_{i} \leq j) = \text{logit}^{-1}(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))$$
+<br>
+
+Podemos calcular la probabilidad de ocurrencia de la categoría $j$ como sigue:
+
+<br>
+--
+
+\begin{align}
+\mathbb{P}(y_{i} = j) &= \mathbb{P}(y_{i}<j) - \mathbb{P}(y_{i}< j-1) \\ \\
+&= \text{logit}^{-1}(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}) ) - \text{logit}^{-1}(\alpha_{j-1} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})) \\ \\
+&= \frac{1}{1 + e^{-(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}) )}} - \frac{1}{1 + e^{-(\alpha_{j-1} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))}}
+\end{align}
+
+
+---
+## Regresión logística (multinomial) ordenada en la práctica
+
+.pull-left[
+Nuestro modelo: $\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} > j)} = \alpha_{j} - \beta_{1}\text{rate}_{i}$
+]
+.pull-right[
+```{r,echo=F, message=FALSE}
+summary(ologit_affairs_rate)$coefficients[,c(1,2)]
+```
+]
+
+
+.pull-left[
+```{r, echo=FALSE, fig.height=5, fig.width=6}
+grid <- affairsdata %>% data_grid(rate=seq(-5,10),.model = ologit_affairs_rate)
+
+predictions <- cbind(grid,predict(ologit_affairs_rate, newdata=grid, type="prob")) %>%
+              pivot_longer(-rate, names_to="outcome",values_to="p" ) %>%
+              mutate(p_outcome = paste0("p_",outcome)) %>% dplyr::select(-outcome) %>%
+              pivot_wider(names_from = p_outcome, values_from=p) %>%
+              mutate(logit_fiel = log(p_fiel/(p_ocasional + p_compulsivo)),
+                     logit_ocasional = log((p_fiel + p_ocasional)/p_compulsivo)
+                     ) %>% 
+              dplyr::select(rate,starts_with("logit")) %>%
+              pivot_longer(-rate, names_to="quant", values_to="est")
+
+
+predictions %>% 
+  ggplot(aes(x=rate, y=est, group=quant, colour=quant)) +
+  geom_path(alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="top") +
+  labs(x="rate marriage", y="log-odds affairs <= j")
+  
+
+```
+]
+
+
+.pull-right[
+```{r, echo=FALSE, fig.height=5, fig.width=6}
+grid <- affairsdata %>% data_grid(rate=seq(-5,10),.model = ologit_affairs_rate)
+
+predictions <- cbind(grid,predict(ologit_affairs_rate, newdata=grid, type="prob")) %>%
+              pivot_longer(-rate, names_to="outcome",values_to="p" ) %>%
+              mutate(p_outcome = paste0("p_",outcome)) %>% dplyr::select(-outcome) %>%
+              pivot_wider(names_from = p_outcome, values_from=p) %>%
+              mutate(p_ocasional_less = p_fiel + p_ocasional, p_compulsivo_less = p_fiel + p_ocasional + p_compulsivo) %>%
+              pivot_longer(-rate, names_to="quant", values_to="est")
+
+
+predictions %>% filter(quant=="p_fiel"  | quant=="p_ocasional" | quant=="p_compulsivo" ) %>% 
+  ggplot(aes(x=rate, y=est, group=quant, colour=quant)) +
+  geom_path(alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="top") +
+  labs(x="rate marriage", y="P(affairs <= j)")
+  
+
+```
+]
+
+
+```{css, echo=FALSE}
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+```
+
+
+
+---
+## Regresión logística (multinomial) ordenada en la práctica
+
+Usando $\mathbb{P}(y_{i} = j) = \text{logit}^{-1}(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})) - \text{logit}^{-1}(\alpha_{j-1} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))$ calculamos las probabilidades a partir del output del modelo. Para un individuo con `rate=1`:
+
+--
+
+.pull-left[
+```{r,  include=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+summary(ologit_affairs_rate)$coefficients[,c(1,2)]
+```
+
+
+```{r}
+logit_fiel <- -0.9 - (- 0.52*1)
+logit_ocasional <- -0.07 - (-0.52*1)
+pcum_fiel <- 1/(1 + exp(-logit_fiel))
+pcum_ocasional <- 1/(1 + exp(-logit_ocasional))
+```
+```{r, echo=FALSE}
+c(pcum_fiel = pcum_fiel, pcum_ocasional=pcum_ocasional)
+```
+
+]
+
+.pull-right[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10.5}
+
+mydata <- data_frame(x = seq(from = -5, to = 5, by =0.01), logistic = plogis(x) )
+
+plot <- ggplot(data = mydata, mapping = aes(x = x, y=logistic)) +
+    ## Entire curve
+    geom_path(aes(colour=""), size=1.5, alpha=0.8) +
+    geom_vline(xintercept = logit_fiel, color = "blue", size=1.5) +
+    geom_vline(xintercept = logit_ocasional, color = "red", size=1.5) +
+      labs(y="P(e < xb)", x="e") +
+     scale_color_viridis_d() +
+      theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+      axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+      legend.text = element_text(size = 18), legend.position = "none")  +
+      geom_hline(yintercept = plogis(logit_fiel,0,1), color = "blue", size=1.5, linetype="dotted") +
+      geom_hline(yintercept = plogis(logit_ocasional,0,1), color = "red", size=1.5, linetype="dotted") 
+print(plot)
+```
+]
+
+--
+
+```{r}
+c(p_fiel= pcum_fiel, p_ocasional = pcum_ocasional - pcum_fiel, 
+  p_compulsivo=1-pcum_ocasional)
+```
+
+---
+## Regresión logística (multinomial) ordenada en la práctica
+
+$$\mathbb{P}(y_{i} = j) = \text{logit}^{-1}(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})) - \text{logit}^{-1}(\alpha_{j-1} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))$$
+
+.pull-left[
+
+```{r}
+# probabilidades
+c(p_fiel= pcum_fiel, p_ocasional = pcum_ocasional - pcum_fiel, 
+  p_compulsivo=1-pcum_ocasional)
+
+# versión automática
+predict(ologit_affairs_rate, 
+        newdata = data_frame(rate=1), type="probs" )
+
+predict(ologit_affairs_rate, 
+        newdata = data_frame(rate=1), type="class" )
+```
+
+]
+
+
+.pull-right[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10.5}
+
+mydata <- data_frame(x = seq(from = -5, to = 5, by =0.01), logistic = plogis(x) )
+
+plot <- ggplot(data = mydata, mapping = aes(x = x, y=logistic)) +
+    ## Entire curve
+    geom_path(aes(colour=""), size=1.5, alpha=0.8) +
+    geom_vline(xintercept = logit_fiel, color = "blue", size=1.5) +
+    geom_vline(xintercept = logit_ocasional, color = "red", size=1.5) +
+      labs(y="P(e < xb)", x="e") +
+     scale_color_viridis_d() +
+      theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+      axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+      legend.text = element_text(size = 18), legend.position = "none")  +
+      geom_hline(yintercept = plogis(logit_fiel,0,1), color = "blue", size=1.5, linetype="dotted") +
+      geom_hline(yintercept = plogis(logit_ocasional,0,1), color = "red", size=1.5, linetype="dotted") 
+print(plot)
+```
+]
+
+
+---
+class: inverse, center, middle
+
+## Estimación
+
+---
+## Estimación
+
+
+<br>
+--
+
+- Coeficientes y cutoff points son estimados via MLE
+
+--
+
+- En `R` usaremos función `MASS::polr` para ajustar estos modelos.
+
+  - Estima coeficientes correspondientes a efectos sobre la variable latente $y^{*}$
+  
+  - Estima cutoff points
+
+
+---
+class: inverse, center, middle
+
+## Interpretación
+
+---
+class:center, middle
+
+## Efectos marginales sobre el logit 
+
+
+---
+## Un ejemplo empírico
+
+.pull-left[
+Continuando con los datos de infidelidad, ajustaremos el siguiente modelo:
+
+$$\underbrace{\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} > j) } }_{\text{logit}(\mathbb{P}(y_{i} \leq j))}= \alpha_{j} - (\beta_{1}\text{rate}_{i} + \beta_{2}\text{male}_{i})$$
+
+donde:
+
+- $y_{i} \in \{\text{"fiel"},\text{"ocasional"}, \text{"compulsivo"}\}$
+
+- Probabilidades  son una función de evaluación del matrimonio (rate) y género (male)
+
+]
+
+--
+.pull-right[
+```{r}
+ologit_affairs_rate_sex <- 
+  polr(affairs ~ rate + sex, data=affairsdata)
+summary(ologit_affairs_rate_sex)
+```
+]
+
+---
+## Efectos marginales sobre el logit 
+
+Dado el siguiente modelo de regresión logística ordenada:
+
+<br>
+
+$$y^{*}= \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}$$
+
+y
+
+$$\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} > j) } = \alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})$$
+
+--
+
+
+<br>
+
+- El efecto marginal de $x_{k}$ sobre la variable latente $y^{*}$  está dado por:
+
+
+.pull-left[
+.content-box-blue[
+$$\frac{\partial y^{*} }{\partial x_{k}} = \beta_{k}$$
+]
+]
+.pull-right[
+.content-box-yellow[
+"Un aumento en $\Delta$ unidades de $x_{k}$ se traduce en un cambio en $\Delta  \beta_{k}$ unidades la variable latente $y^{*}$"
+] 
+]
+
+
+---
+## Efectos marginales sobre el logit 
+
+Asimismo, dado
+
+$$\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} > j) } = \alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})$$
+
+--
+
+- los puntos de corte $\alpha_{j}$ corresponden al logit de la probabilidad que $y_{i}$ tome un valor menor o igual que $j$ (en vez mayor que $j$),  cuando $x_{1} = \dots = x_{k} = 0$
+
+
+--
+
+- El efecto marginal de $x_{k}$ sobre el logit de la probabilidad que $y_{i}$ tome un valor menor o igual que $j$ está dado por:
+
+
+.pull-left[
+.content-box-blue[
+$$\frac{\partial\text{logit}[\mathbb{P}(y_{i} \leq j)]}{\partial x_{k}} = -\beta_{k}$$
+]
+]
+.pull-right[
+.content-box-yellow[
+"Un aumento en $\Delta$ unidades de $x_{k}$ se traduce en un cambio en $-\beta_{k}\Delta$ unidades en el logit de la probabilidad que $y_{i}$ sean menor o igual que $j$ "
+] 
+]
+
+.bold[Importante:] El efecto marginal sobre la variable latente ( $\beta_{k}$ ) y sobre el logit ( $-\beta_{k}$ ), es el mismo para cualquier valor de $j$.
+
+---
+## Efectos marginales sobre el logit 
+
+En nuestro ejemplo: $\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} > j)}= \alpha_{j} - (\beta_{1}\text{rate}_{i} + \beta_{2}\text{male}_{i})$
+
+<br>
+
+.pull-left[
+```{r, echo=FALSE}
+summary(ologit_affairs_rate_sex)$coefficients[,c(1,2)]
+```
+]
+.pull-right[
+```{r, echo=FALSE, fig.width=6, fig.height=5}
+grid <- affairsdata %>% data_grid(rate,sex, .model = ologit_affairs_rate_sex)
+
+predictions <- cbind(grid,predict(ologit_affairs_rate_sex, newdata=grid, type="prob")) %>%
+              pivot_longer(-c(rate,sex), names_to="outcome",values_to="p" ) %>%
+              mutate(p_outcome = paste0("p_",outcome)) %>% dplyr::select(-outcome) %>%
+              pivot_wider(names_from = p_outcome, values_from=p) %>%
+              mutate(logit_fiel = log(p_fiel/(p_ocasional + p_compulsivo)),
+                     logit_ocasional = log((p_fiel + p_ocasional)/p_compulsivo)
+                     ) %>% 
+              dplyr::select(rate,sex,starts_with("logit")) %>%
+              pivot_longer(-c(rate,sex), names_to="quant", values_to="est")
+
+predictions %>% 
+  ggplot(aes(x=rate, y=est, group=interaction(quant,sex), colour=quant)) +
+  geom_path(aes(linetype=sex), alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="top") +
+  labs(x="rate marriage", y="log-odds affairs <= j")
+  
+```
+]
+
+---
+## Efectos marginales sobre el logit 
+
+.pull-left[
+```{r, echo=FALSE}
+summary(ologit_affairs_rate_sex)$coefficients[,c(1,2)]
+```
+]
+
+.pull-right[
+Si `rate=1` y `male=1`, entonces `logit(p_fiel)` y `logit(p_ocasional)` son=
+```{r}
+c(fiel= -0.8 - (-0.53*1 + 0.21*1),
+  ocasional= 0.03 - (-0.53*1 + 0.21*1))
+```
+
+Si `rate=2` y `male=1`, entonces `logit(p_fiel)` y `logit(p_ocasional)` son=
+```{r}
+c(fiel= -0.8 - (-0.53*2 + 0.21*1),
+  ocasional= 0.03 - (-0.53*2 + 0.21*1))
+```
+]
+
+
+---
+## Efectos marginales sobre el logit 
+
+.pull-left[
+```{r, echo=FALSE}
+summary(ologit_affairs_rate_sex)$coefficients[,c(1,2)]
+```
+
+<br>
+Por tanto, el efecto sobre el logit ( $-\beta_{rate}$ ) es:
+
+
+```{r}
+c(
+coef_rate_fiel = (-0.8 - (-0.53*2 + 0.21*1))-(-0.8 - (-0.53*1 + 0.21*1)),
+coef_rate_ocasional = (0.03 - (-0.53*2 + 0.21*1))-(0.03 - (-0.53*1 + 0.21*1))
+)
+```
+
+]
+
+.pull-right[
+Si `rate=1` y `male=1`, entonces `logit(p_fiel)` y `logit(p_ocasional)` son=
+```{r}
+c(fiel= -0.8 -( -0.53*1 + 0.21*1),
+  ocasional= 0.03 -( -0.53*1 + 0.21*1))
+```
+
+Si `rate=2` y `male=1`, entonces `logit(p_fiel)` y `logit(p_ocasional)` son=
+```{r}
+c(fiel= -0.8 -( -0.53*2 + 0.21*1),
+  ocasional= 0.03 -( -0.53*2 + 0.21*1))
+```
+]
+
+---
+class:center, middle
+
+## Efectos multiplicativos sobre las odds 
+
+
+---
+## Efectos multiplicativos sobre las odds 
+
+Dado el siguiente modelo de regresión logística ordinal: 
+
+
+$$\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} > j) } = \alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})$$
+
+<br>
+--
+
+exponenciando a ambos lados obtenemos 
+
+$$\frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} > j) } = e^{\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})}$$
+
+--
+
+equivalentemente
+
+.content-box-blue[
+$$\frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} > j) } = e^{\alpha_{j}}\cdot e^{-\beta_{1} x_{i1}}  \cdots e^{-\beta_{k} x_{ik}}$$
+]
+
+---
+## Efectos multiplicativos sobre las odds: odds ratios
+
+Considera la situación en que $i$ y $i^{´}$ son dos observaciones con $x_{k}=c$ y $x_{k}=c+1$, respectivamente. El resto de las covariables toman valores idénticos. 
+--
+ Las odds de observar $\mathbb{P}(y \leq j)$ vs $\mathbb{P}(y > j)$ son:
+
+
+- $\mathbb{P}(y_{i} \leq j)/\mathbb{P}(y_{i} > j) = e^{\alpha_{j}} \cdot e^{-\beta_{1} x_{i1}}  \cdots (e^{-\beta_{k}})^{c}$
+
+- $\mathbb{P}(y_i^{´} \leq j)/\mathbb{P}(y_i^{´} > j)= e^{\alpha_{j}} \cdot e^{-\beta_{1} x_{i^{´}1}}  \cdots (e^{-\beta_{k}})^{c+1}$
+
+
+<br>
+--
+
+El ratio de las odds entre $i^{´}$ e $i$ está dado por:
+
+\begin{align}
+\frac{\mathbb{P}(y_i^{´} \leq j)/\mathbb{P}(y_i^{´} > j)}{\mathbb{P}(y_{i} \leq j)/\mathbb{P}(y_{i} > j)} &= \frac{e^{\alpha_{j}} \cdot e^{-\beta_{1} x_{i^{´}1}}  \cdots (e^{-\beta_{k}})^{c+1}}{e^{\alpha_{j}} \cdot e^{-\beta_{1} x_{i1}}  \cdots (e^{-\beta_{k}})^{c}} = e^{-\beta_{k}}
+\end{align}
+
+
+<br>
+En otras palabras, manteniendo otros factores constantes, $e^{-\beta_{k}}$ representa la odds ratio de $\mathbb{P}(y \leq j)$ vs $\mathbb{P}(y > j)$ entre el caso con $x_{k}$ aumentado en una unidad, y el caso con $x_{k}$ en un nivel basal dado. 
+
+
+.bold[Importante:] La misma odd-ratio aplica para la probabilidad acumula de cualquier $j$. Por esta razón el modelo logístico ordenado tambien es conocidos como .bold[proportional odds model]. 
+
+
+---
+## Efectos multiplicativos sobre las odds 
+
+.content-box-yellow[
+"Un cambio en $\Delta$ unidades de $x_{k}$ multiplica el ratio entre $\mathbb{P}(y<j)$ vs $\mathbb{P}(y>j)$ por $e^{- \beta_{k}\Delta}$"
+] 
+
+<br>
+.bold[Propiedades]:
+
+--
+
+- $e^{-\beta_{k}}$ está restringido al rango $[0,\infty+)$. Es una constante que "comprime" o amplifica el ratio entre las probabilidades de $\mathbb{P}(y<j)$ vs $\mathbb{P}(y>j)$
+
+--
+
+- Si $-\beta_{k} < 0  \to  (0 < e^{-\beta_{k}} < 1)$. Es decir, un aumento en $x_{k}$ está asociado con una reducción (multiplicativa) del ratio entre las probabilidades de  $\mathbb{P}(y<j)$ vs $\mathbb{P}(y>j)$
+
+--
+
+- Si $-\beta_{k} = 0  \to  (e^{-\beta_{k}} =1)$. Es decir, un cambio en $x_{k}$ está asociado a un cambio nulo en el ratio entre las probabilidades de $\mathbb{P}(y<j)$ vs $\mathbb{P}(y>j)$
+
+--
+
+- Si $-\beta_{k} > 0  \to  (e^{-\beta_{k}} > 1)$. Es decir, un aumento en $x_{k}$ está asociado a aumento (multiplicativo) en el ratio entre las probabilidades de $\mathbb{P}(y<j)$ vs $\mathbb{P}(y>j)$
+
+
+---
+## Efectos multiplicativos sobre las odds 
+
+En nuestro ejemplo: $\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} > j)}= \alpha_{j} - (\beta_{1}\text{rate}_{i} + \beta_{2}\text{male}_{i})$, donde 
+
+$\frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} > j)}= e^{\alpha_{j}} \cdot e^{-\beta_{1}\text{rate}_{i}} \cdot e^{-\beta_{2}\text{male}_{i}}$
+<br>
+
+.pull-left[
+```{r, message=FALSE}
+#coeffs
+coefs <- summary(ologit_affairs_rate_sex)$coefficients[1:2,c(1,2)]; coefs
+
+#exp(-coeffs)
+exp(-coefs)[,c(1,NA)]
+```
+
+]
+
+.pull-right[
+```{r, echo=FALSE, fig.width=6, fig.height=5}
+grid <- affairsdata %>% data_grid(rate,sex, .model = ologit_affairs_rate_sex)
+
+predictions <- cbind(grid,predict(ologit_affairs_rate_sex, newdata=grid, type="prob")) %>%
+              pivot_longer(-c(rate,sex), names_to="outcome",values_to="p" ) %>%
+              mutate(p_outcome = paste0("p_",outcome)) %>% dplyr::select(-outcome) %>%
+              pivot_wider(names_from = p_outcome, values_from=p) %>%
+              mutate(logit_fiel = log(p_fiel/(p_ocasional + p_compulsivo)),
+                     logit_ocasional = log((p_fiel + p_ocasional)/p_compulsivo)
+                     ) %>% 
+              mutate(odd_fiel = exp(logit_fiel), odd_ocasional = exp(logit_ocasional) ) %>%
+              dplyr::select(rate,sex,starts_with("odd")) %>%
+              pivot_longer(-c(rate,sex), names_to="quant", values_to="est")
+
+predictions %>% 
+  ggplot(aes(x=rate, y=est, group=interaction(quant,sex), colour=quant)) +
+  geom_path(aes(linetype=sex), alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="top") +
+  labs(x="rate marriage", y="Odds affairs <= j")
+  
+```
+]
+
+---
+## Efectos multiplicativos sobre las odds 
+
+.pull-left[
+```{r, echo=FALSE, message=F}
+cbind(beta=coefs[,1] , `exp(-beta)`=exp(-coefs)[,1] )
+```
+
+
+]
+
+.pull-right[
+Si `rate=1` y `male=1`, entonces `odds(p_fiel)` y `odds(p_ocasional)` son=
+```{r}
+c(fiel= exp(-0.8 - (-0.53*1 + 0.21*1)),
+  ocasional= exp(0.03 - (-0.53*1 + 0.21*1)))
+```
+
+--
+
+Si `rate=2` y `male=1`, entonces `odds(p_fiel)` y `odds(p_ocasional)` son=
+```{r}
+c(fiel= exp(-0.8 - (-0.53*2 + 0.21*1)),
+  ocasional= exp(0.03 - (-0.53*2 + 0.21*1)))
+```
+]
+
+
+---
+## Efectos multiplicativos sobre las odds 
+
+.pull-left[
+```{r, echo=FALSE, message=F}
+cbind(beta=coefs[,1] , `exp(-beta)`=exp(-coefs)[,1] )
+```
+
+
+<br>
+Por tanto, la odds ratio ( $e^{-\beta_{rate}}$)  es:
+
+
+```{r}
+c(
+or_rate_fiel = exp(-0.8 - (-0.53*2 + 0.21*1))/exp(-0.8 - (-0.53*1 + 0.21*1)),
+or_rate_ocasional = exp(0.03 - (-0.53*2 + 0.21*1))/exp(0.03 - (-0.53*1 + 0.21*1))
+)
+```
+
+]
+
+.pull-right[
+Si `rate=1` y `male=1`, entonces `odds(p_fiel)` y `odds(p_ocasional)` son=
+```{r}
+c(fiel= exp(-0.8 - (-0.53*1 + 0.21*1)),
+  ocasional= exp(0.03 - (-0.53*1 + 0.21*1)))
+```
+
+
+Si `rate=2` y `male=1`, entonces `odds(p_fiel)` y `odds(p_ocasional)` son=
+```{r}
+c(fiel= exp(-0.8 - (-0.53*2 + 0.21*1)),
+  ocasional= exp(0.03 - (-0.53*2 + 0.21*1)))
+```
+]
+
+---
+class:center, middle
+
+## Efectos marginales sobre la probabilidad de la categoría $j$
+
+
+---
+## Efectos marginales sobre la probabilidad de la categoría $j$
+
+--
+
+Dado el siguiente modelo de regresión logística multinomial: 
+
+
+$$\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} > j) } = \alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})$$
+y
+
+\begin{align}
+\mathbb{P}(y_{i} = j) &= \mathbb{P}(y_{i}<j) - \mathbb{P}(y_{i}< j-1) \\ \\
+&= \frac{1}{1 + e^{-(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}) )}} - \frac{1}{1 + e^{-(\alpha_{j-1} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))}}
+\end{align}
+
+<br>
+--
+Queremos saber el .bold[efecto marginal] de los predictores sobre la .bold[probabilidad] de observar cada categoría $j: \{1, \dots, J\}$. Formalmente:
+
+<br>
+--
+
+$$\frac{\partial \mathbb{P}(y_{i} = j)}{\partial x_{k}} = \cdots$$
+
+---
+## Efectos marginales sobre la probabilidad de la categoría $j$
+
+Después de varios pasos, obtenemos:
+
+<br>
+.content-box-yellow[
+$$\frac{\partial \mathbb{P}(y_{i} = j)}{\partial x_{k}} = -\beta_{k} \cdot  \bigg( \mathbb{P}(y_{i} \leq j) \cdot (1 - \mathbb{P}(y_{i} \leq j))  -  \mathbb{P}(y_{i} \leq j-1) \cdot (1 - \mathbb{P}(y_{i} \leq j-1)) \bigg)$$
+]
+
+donde:
+
+$$\mathbb{P}(y_{i} \leq j) = \text{logit}^{-1}(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki})) \quad \text{para todo } j$$
+
+---
+## Efectos marginales sobre la probabilidad de la categoría $j$
+
+Para los casos especiales $j=1$ y $j=J$ observamos que 
+
+<br>
+
+- $\frac{\partial \mathbb{P}(y_{i} = 1)}{\partial x_{k}} = -\beta_{k} \cdot \bigg( \mathbb{P}(y_{i} \leq 1) \cdot (1 - \mathbb{P}(y_{i} \leq 1)) - 0\bigg)$
+
+
+- $\frac{\partial \mathbb{P}(y_{i} = J)}{\partial x_{k}} = - \beta_{k} \cdot \bigg( 0 -  \mathbb{P}(y_{i} \leq J-1) \cdot (1 - \mathbb{P}(y_{i} \leq J-1))\bigg) = \beta_{k} \cdot \bigg( \mathbb{P}(y_{i} \leq J-1) \cdot (1 - \mathbb{P}(y_{i} \leq J-1))\bigg)$
+
+<br>
+--
+
+
+Por tanto,:
+
+- Para $j=1$ el efecto marginal sobre la probabilidad $\mathbb{P}(y=1)$ tiene el .bold[signo contrario] que efecto sobre la variable latente $y^{*}$, $\beta_k$. 
+
+- Para $j=J$ el efecto marginal sobre la probabilidad $\mathbb{P}(y=J)$ tiene el .bold[mismo signo] que efecto sobre la variable latente $y^{*}$, $\beta_k$. 
+
+
+
+---
+## Efectos marginales sobre la probabilidad de la categoría $j$
+
+Para las categorías intermedias, en cambio:
+
+<br>
+
+$$\frac{\partial \mathbb{P}(y_{i} = j)}{\partial x_{k}} = -\beta_{k} \cdot  \bigg( \mathbb{P}(y_{i} \leq j) \cdot (1 - \mathbb{P}(y_{i} \leq j))  -  \mathbb{P}(y_{i} \leq j-1) \cdot (1 - \mathbb{P}(y_{i} \leq j-1)) \bigg)$$
+
+
+<br>
+--
+
+Podemos notar que:
+
+- Siempre $\mathbb{P}(y_{i} \leq j) > \mathbb{P}(y_{i} \leq j-1)$ (e.j. 0.8 > 0.7)
+
+
+- Pero $\bigg( \mathbb{P}(y_{i} \leq j) \cdot (1 - \mathbb{P}(y_{i} \leq j))  -  \mathbb{P}(y_{i} \leq j-1) \cdot (1 - \mathbb{P}(y_{i} \leq j-1)) \bigg)$ puede ser positivo o negativo. (e.j. $0.8*(0.2) - 0.7*(0.3) = -0.05$ ) 
+
+
+- Por tanto, para las categorias $j$ intermedias el signo del efecto marginal sobre la probabilidad .bold[no necesariamente coincide] con el signo del efecto sobre la variable latente $y^{*}$, $\beta_k$.
+
+---
+## Efectos marginales sobre la probabilidad de la categoría $j$
+
+En nuestro ejemplo: $\ln \frac{\mathbb{P}(y_{i} \leq j)}{\mathbb{P}(y_{i} > j)}= \alpha_{j} - (\beta_{1}\text{rate}_{i} + \beta_{2}\text{male}_{i})$, donde 
+
+
+$$\mathbb{P}(y_{i} = j) = \mathbb{P}(y_{i}<j) - \mathbb{P}(y_{i}< j-1) = \frac{1}{1 + e^{-(\alpha_{j} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}) )}} - \frac{1}{1 + e^{-(\alpha_{j-1} - (\beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}))}}$$
+
+.pull-left[
+```{r, message=FALSE}
+#coeffs
+coefs <- summary(ologit_affairs_rate_sex)$coefficients[1:2,c(1,2)]; coefs
+```
+
+]
+
+.pull-right[
+```{r, echo=FALSE, fig.width=6, fig.height=5}
+grid <- affairsdata %>% data_grid(rate,sex, .model = ologit_affairs_rate_sex)
+
+predictions <- cbind(grid,predict(ologit_affairs_rate_sex, newdata=grid, type="prob")) %>%
+              pivot_longer(-c(rate,sex), names_to="outcome",values_to="p" )
+
+predictions %>% 
+  ggplot(aes(x=rate, y=p, group=interaction(outcome,sex), colour=outcome)) +
+  geom_path(aes(linetype=sex), alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="top") +
+  labs(x="rate marriage", y="P( y= j)")
+  
+```
+]
+
+
+
+---
+## Efectos marginales sobre la probabilidad de la categoría $j$
+
+.pull-left[
+$$\mathbb{P}(y_{i} = j) = \mathbb{P}(y_{i}<j) - \mathbb{P}(y_{i}< j-1)$$ 
+]
+
+.pull-right[
+$$\frac{\partial \mathbb{P}(y_{i} = j)}{\partial x_{k}}$$
+]
+
+.pull-left[
+```{r, echo=FALSE, fig.width=6, fig.height=5}
+grid <- affairsdata %>% data_grid(rate,sex, .model = ologit_affairs_rate_sex)
+
+predictions <- cbind(grid,predict(ologit_affairs_rate_sex, newdata=grid, type="prob")) %>%
+              pivot_longer(-c(rate,sex), names_to="outcome",values_to="p" )
+
+predictions %>% 
+  ggplot(aes(x=rate, y=p, group=interaction(outcome,sex), colour=outcome)) +
+  geom_path(aes(linetype=sex), alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="top") +
+  labs(x="rate marriage", y="P( y= j)")
+  
+```
+]
+
+
+.pull-right[
+```{r, echo=FALSE, fig.width=6, fig.height=5}
+beta_rate = ologit_affairs_rate_sex$coefficients[1]
+
+grid <- affairsdata %>% data_grid(rate,sex, .model = ologit_affairs_rate_sex)
+
+predictions <- cbind(grid,predict(ologit_affairs_rate_sex, newdata=grid, type="prob")) %>%
+               mutate(me_fiel = -beta_rate*fiel*(1-fiel)) %>%
+               mutate(me_ocasional = -beta_rate*(ocasional*(1-ocasional) - fiel*(1-fiel))) %>%
+               mutate(me_compulsivo = beta_rate*compulsivo*(1-compulsivo)) %>%
+               dplyr::select(rate,sex,starts_with("me")) %>%
+               pivot_longer(-c(rate,sex), names_to="outcome",values_to="p" ) 
+
+predictions %>% 
+  ggplot(aes(x=rate, y=p, group=interaction(outcome,sex), colour=outcome)) +
+  geom_path(aes(linetype=sex), alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="top") +
+  labs(x="rate marriage", y="marginal effect sobre P(y= j)") +
+  geom_hline(yintercept = 0, color = "black", size=1.5)
+  
+```
+]
+
+```{css, echo=FALSE}
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+```
+
+---
+## Efectos marginales sobre la probabilidad de la categoría $j$
+
+- Efectos marginales son _esencialmente_ heterogéneos. No hay un efecto sino muchos. 
+
+--
+
+- Heterogeneidad crece con la complejidad del modelo: número de predictores, interacciones, etc. 
+
+--
+
+- Más aún, en el caso de modelos de regresión logística multinomial/ordinal, los efectos marginales no son necesariamente monotónicos (pueden cambiar de signo).
+
+--
+
+- En la práctica, muchas veces queremos UN número que resuma el efecto marginal. 
+
+<br>
+--
+.pull-left[
+![For god sakes just give me the damn number](https://i.makeagif.com/media/8-29-2018/ior4IF.gif)
+]
+
+--
+
+Cantidades de interes:
+.pull-right[
+
+* Average Marginal Effects (AME)
+
+* Marginal Effects at the Mean (MEM)
+
+* Marginal Effects at Representative Values (MER)
+
+]
+
+
+---
+## Efectos marginales sobre la probabilidad de la categoría $j$: AME
+
+--
+
+$$\text{Aproximación numérica:} \quad \frac{1}{n} \sum_{i} \frac{\partial p_{ij}}{\partial x_{k}} \approx  \frac{1}{n} \sum_{i}  \frac{p_{ij}(x_{1}, \dots ,x_{k} = c + \delta) - p_{ij}(x_{1}, \dots ,x_{k} = c )}{\delta}$$
+--
+
+AME de rate:
+```{r}
+delta = 0.1
+p_hat <- predict(ologit_affairs_rate_sex, type="probs") %>% as_tibble()  %>% mutate(id = row_number()) %>% 
+         pivot_longer(-id, names_to="affair", values_to="prob") 
+
+affairsdata_delta <- affairsdata %>% mutate(rate = rate + delta) 
+p_hat_delta <- predict(ologit_affairs_rate_sex, newdata=affairsdata_delta ,type="probs")  %>% as_tibble() %>% mutate(id = row_number()) %>% pivot_longer(-id, names_to="affair", values_to="prob_delta") 
+
+p_hat_delta <- p_hat_delta %>% left_join(p_hat, by=c("id","affair")) %>% mutate(me_rate = (prob_delta  - prob)/delta) %>% dplyr::select(id,affair,me_rate) %>% pivot_wider(names_from = "affair", values_from = "me_rate") %>% drop_na()
+```
+
+--
+
+.pull-left[
+```{r}
+p_hat_delta %>% dplyr::summarise(across(fiel:compulsivo, ~ mean(.x)))
+
+```
+]
+.pull-right[
+```{r}
+summary(margins(ologit_affairs_rate_sex, variables = "rate"))
+```
+]
+
+---
+## Efectos marginales sobre la probabilidad de la categoría $j$: MEM
+
+$$\text{Aproximación numérica:} \quad \frac{\partial p_{ij}}{\partial x_{k}} \approx  \frac{p_{ij}(x_{1}=\bar{x_{1}}, \dots ,x_{k} = \bar{x_{k}} + \delta) - p_{ij}(x_{1}=\bar{x_{1}}, \dots ,x_{k} =\bar{x_{k}} )}{\delta}$$
+--
+
+MEM de rate:
+
+```{r}
+delta = 0.1
+grid <- affairsdata %>% data_grid(sex, .model=ologit_affairs_rate_sex)
+grid_delta <- affairsdata %>% data_grid(sex, .model=ologit_affairs_rate_sex) %>% mutate(rate = rate + delta)
+
+p_hat <- predict(ologit_affairs_rate_sex, type="probs", newdata =grid) %>% as_tibble() %>% 
+  mutate(id = c("F","M"))%>% pivot_longer(-id, names_to="affair", values_to="prob") 
+
+p_hat_delta <- predict(ologit_affairs_rate_sex, type="probs", newdata =grid_delta) %>% as_tibble() %>% 
+  mutate(id = c("F","M")) %>% pivot_longer(-id, names_to="affair", values_to="prob_delta") 
+
+p_hat_delta <- p_hat_delta %>% left_join(p_hat, by=c("id","affair")) %>% mutate(me_rate = (prob_delta  - prob)/delta) %>% dplyr::select(id,affair,me_rate) %>% pivot_wider(names_from = "affair", values_from = "me_rate") %>% drop_na(); p_hat_delta
+```
+
+---
+class: inverse, center, middle
+
+.huge[
+**Hasta la próxima clase. Gracias!**
+]
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+
+

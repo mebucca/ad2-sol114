@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análisis de Datos Categóricos (SOC3070)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca  Profesor Asistente, Sociología UC" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Análisis de Datos Categóricos (SOC3070)
+## Clase #16
+### <br> Mauricio Bucca<br> Profesor Asistente, Sociología UC
+### <a href="https://github.com/mebucca">github.com/mebucca</a>
+
+---
+
+class: inverse, center, middle
+# Análisis de datos categóricos 
+## visión panorámica 
+
+
+---
+## Tipos de datos categóricos
+
+Distintas miradas a los datos de infidelidad:
+
+.center[
+
+
+![](class_16_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+]
+
+---
+class: inverse, center, middle
+
+## Datos dicotómicos
+### Linear Probability Model y Regresión Logística
+
+---
+## Linear Probability Model
+
+
+```r
+lpm_1 &lt;- lm(affairs_binary ~ ym,  data=affairsdata)
+lpm_2 &lt;- lm(affairs_binary ~ ym + rate,  data=affairsdata)
+```
+
+&lt;br&gt;
+--
+.pull-left[
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+&lt;tr&gt;
+&lt;th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; "&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;affairs binary&lt;/th&gt;
+&lt;th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;affairs binary&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; "&gt;Predictors&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Estimates&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Estimates&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;(Intercept)&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.16 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.56 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;ym&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.01 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.01 &lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;rate&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.09 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;"&gt;Observations&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1"&gt;601&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1"&gt;601&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;"&gt;R&lt;sup&gt;2&lt;/sup&gt; / R&lt;sup&gt;2&lt;/sup&gt; adjusted&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1"&gt;0.020 / 0.018&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1"&gt;0.071 / 0.068&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan="3" style="font-style:italic; border-top:double black; text-align:right;"&gt;* p&amp;lt;0.05&amp;nbsp;&amp;nbsp;&amp;nbsp;** p&amp;lt;0.01&amp;nbsp;&amp;nbsp;&amp;nbsp;*** p&amp;lt;0.001&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+]
+
+--
+
+.pull-right[
+- En un modelo lineal estándar al agregar una variable:
+
+ - cambio en coeficientes reflejan correlación entre predictores (ej. "confounding")
+ 
+ - reducción de varianza residual
+ 
+]
+
+---
+## Regresión Logística
+
+
+```r
+logistic_1 &lt;- glm(affairs_binary ~ ym,  family="binomial", data=affairsdata)
+logistic_2 &lt;- glm(affairs_binary ~ ym + rate, family="binomial",  data=affairsdata)
+```
+
+
+&lt;br&gt;
+--
+.pull-left[
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+&lt;tr&gt;
+&lt;th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; "&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;affairs binary&lt;/th&gt;
+&lt;th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;affairs binary&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; "&gt;Predictors&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Log-Odds&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Log-Odds&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;(Intercept)&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;1.61 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.35 &lt;sup&gt;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;ym&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.06 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.04 &lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;rate&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.47 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;"&gt;Observations&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1"&gt;601&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1"&gt;601&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;"&gt;R&lt;sup&gt;2&lt;/sup&gt; Tjur&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1"&gt;0.019&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1"&gt;0.071&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan="3" style="font-style:italic; border-top:double black; text-align:right;"&gt;* p&amp;lt;0.05&amp;nbsp;&amp;nbsp;&amp;nbsp;** p&amp;lt;0.01&amp;nbsp;&amp;nbsp;&amp;nbsp;*** p&amp;lt;0.001&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+]
+
+--
+
+.pull-right[
+
+En un modelo de regresión logística .bold[NO ES POSIBLE] sacar conclusiones sustantivas de cambios en coeficientes en modelos anidados!
+ 
+]
+
+&lt;br&gt;
+--
+
+¿Por que?
+
+---
+## Regresión Logística: varianza no identificables
+
+Recordar formulación de regresión logística en términos de variable latente, donde la variable dependiente `\(y\)`  es una .bold[manifestación dicotómica] de una .bold[variable latente] (inobservada) continua, `\(y^{*}\)`.
+
+.pull-left[
+`\begin{align}
+y_{i} = \begin{cases}
+1 \quad \text{si} \quad y^{*}_{i} &gt; 0 \\
+0 \quad \text{si} \quad y^{*}_{i} &lt; 0
+\end{cases}`
+\end{align}`
+]
+
+.pull-right[
+`\(y^{*}_{i} = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki} + \epsilon_{i}\)`
+]
+
+- donde `\(e_{i}\)` sigue una distribución logística.
+
+--
+
+- En este modelo no es posible estimar los coeficientes y la varianza conjuntamente. Es necesario fijar uno para estima el otro. 
+
+--
+
+- Para estimar los coeficientes del modelo es necesario fijar el valor de la varianza.
+
+--
+
+-  Usualmente: `\(\epsilon_{i} \sim \text{logistic}(\mu=0,\sigma=\pi/\sqrt{3})\)`
+
+
+---
+## Regresión Logística: efectos no comparables entre modelos anidados
+
+En consequencia ....
+
+&lt;br&gt;
+--
+
+
+|                     |   Varianza variable dependiente   |             Varianza residual             |
+|---------------------|:---------------------------------:|:-----------------------------------------:|
+| Regresión lineal    |     `\(\sigma^{2}_{y}\)` es observado     | `\(\sigma^{2}_{\epsilon}\)` dependende del modelo |
+| Regresión logística |  `\(\sigma^{2}_{y*}\)` depende del modelo |        `\(\sigma^{2}_{\epsilon}\)` es fijo        |
+
+
+&lt;br&gt;
+--
+
+.bold[Efecto de agregar un predictor adicional:]
+
+|                     |   Varianza variable dependiente   |             Varianza residual             |
+|---------------------|:---------------------------------:|:-----------------------------------------:|
+| Regresión lineal    |     `\(\sigma^{2}_{y}\)` no cambia    | `\(\sigma^{2}_{\epsilon}\)` disminuye |
+| Regresión logística |  `\(\sigma^{2}_{y*}\)` aumenta |        `\(\sigma^{2}_{\epsilon}\)` no cambia        |
+
+
+&lt;br&gt;
+--
+
+Esencialmente, `\(y^{*}\)` es .bold[re-escalado], y por tanto también los coeficientes son re-escalados.
+
+
+---
+## Regresión Logística: efectos no comparables entre modelos anidados
+
+
+.pull-left[
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+&lt;tr&gt;
+&lt;th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; "&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;affairs binary&lt;/th&gt;
+&lt;th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;affairs binary&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; "&gt;Predictors&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Log-Odds&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Log-Odds&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;(Intercept)&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;1.61 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.35 &lt;sup&gt;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;ym&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.06 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.04 &lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;rate&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.47 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;"&gt;Observations&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1"&gt;601&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1"&gt;601&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;"&gt;R&lt;sup&gt;2&lt;/sup&gt; Tjur&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1"&gt;0.019&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1"&gt;0.071&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan="3" style="font-style:italic; border-top:double black; text-align:right;"&gt;* p&amp;lt;0.05&amp;nbsp;&amp;nbsp;&amp;nbsp;** p&amp;lt;0.01&amp;nbsp;&amp;nbsp;&amp;nbsp;*** p&amp;lt;0.001&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+]
+
+.pull-right[
+En un modelo de regresión logística cambios en los coeficientes al agregar una variable pueden deberse a:
+
+ - correlación entre predictores (ej. "confounding")
+ 
+ - re-escalamiento de la variable dependiente
+ 
+ - .bold[ambos!]
+ 
+]
+
+&lt;br&gt;
+--
+
+- Este problema es usualmente desconocido o ignorado. 
+
+--
+
+- Cientos de artículos científicos extren interpretaciones erróneas de cambio en coeficientes a través de modelos.
+
+--
+
+- Seriedad del problema varía caso a caso
+
+---
+## Regresión Logística: efectos no comparables entre modelos anidados
+
+--
+
+Una posible solución: .bold[KHB method]
+
+--
+
+.pull-left[
+![kristan](kristian.png)
+- Paquete disponible en `Stata` y `R`
+
+
+]
+.pull-right[
+![khb](khb.png)
+
+]
+
+
+---
+class: inverse, center, middle
+
+## Datos politómicos
+###  Regresión Logística Multinomial y Ordenada
+
+
+---
+## Regresión Logística Multinomial
+
+
+```r
+mlogistic_1 &lt;- multinom(affairs_order ~ ym,  trace=F, data=affairsdata)
+mlogistic_2 &lt;- multinom(affairs_order ~ ym + rate, trace=F,  data=affairsdata)
+```
+
+.pull-left[
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+&lt;tr&gt;
+&lt;th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; "&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th colspan="2" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;affairs order&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; "&gt;Predictors&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Log-Odds&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Response&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;(Intercept)&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;2.01 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;ocasional&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;ym&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.02 &lt;sup&gt;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;ocasional&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;(Intercept)&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;2.62 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;compulsivo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;ym&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.10 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;compulsivo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;"&gt;Observations&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="2"&gt;601&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;"&gt;R&lt;sup&gt;2&lt;/sup&gt; Nagelkerke&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="2"&gt;0.040&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan="3" style="font-style:italic; border-top:double black; text-align:right;"&gt;* p&amp;lt;0.05&amp;nbsp;&amp;nbsp;&amp;nbsp;** p&amp;lt;0.01&amp;nbsp;&amp;nbsp;&amp;nbsp;*** p&amp;lt;0.001&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+]
+
+.pull-right[
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+&lt;tr&gt;
+&lt;th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; "&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th colspan="2" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;affairs order&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; "&gt;Predictors&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Log-Odds&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Response&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;(Intercept)&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.54 &lt;sup&gt;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;ocasional&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;ym&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.00 &lt;sup&gt;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;ocasional&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;rate&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.35 &lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;ocasional&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;(Intercept)&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.27 &lt;sup&gt;&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;compulsivo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;ym&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.07 &lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;compulsivo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;rate&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.57 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;compulsivo&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;"&gt;Observations&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="2"&gt;601&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;"&gt;R&lt;sup&gt;2&lt;/sup&gt; Nagelkerke&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="2"&gt;0.105&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan="3" style="font-style:italic; border-top:double black; text-align:right;"&gt;* p&amp;lt;0.05&amp;nbsp;&amp;nbsp;&amp;nbsp;** p&amp;lt;0.01&amp;nbsp;&amp;nbsp;&amp;nbsp;*** p&amp;lt;0.001&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+]
+
+---
+## Regresión Logística Ordenada
+
+
+```r
+ologistic_1 &lt;- polr(affairs_order ~ ym, data=affairsdata)
+ologistic_2 &lt;- polr(affairs_order ~ ym + rate, data=affairsdata)
+```
+
+&lt;br&gt;
+
+.pull-left[
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+&lt;tr&gt;
+&lt;th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; "&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;affairs order&lt;/th&gt;
+&lt;th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;affairs order&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; "&gt;Predictors&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Log-Odds&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Log-Odds&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;fiel|ocasional&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;1.65 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.35 &lt;sup&gt;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;ocasional|compulsivo&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;2.43 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.48 &lt;sup&gt;&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;ym&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.06 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.04 &lt;sup&gt;*&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;rate&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.48 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;"&gt;Observations&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1"&gt;601&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1"&gt;601&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;"&gt;R&lt;sup&gt;2&lt;/sup&gt; Nagelkerke&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1"&gt;0.030&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1"&gt;0.098&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan="3" style="font-style:italic; border-top:double black; text-align:right;"&gt;* p&amp;lt;0.05&amp;nbsp;&amp;nbsp;&amp;nbsp;** p&amp;lt;0.01&amp;nbsp;&amp;nbsp;&amp;nbsp;*** p&amp;lt;0.001&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+]
+
+--
+
+.pull-right[
+
+- Menos parámetros pero más supuestos.
+
+- "Parallel regression assumption" (o proportional odds): predictores tienen los mismos efectos para cualquier "transición" entre una categoría y otra. 
+
+
+]
+
+---
+## Regresión Logística Ordenada
+
+Podemos testear este supuesto usando el "Brant test". 
+
+
+```r
+library("brant")
+```
+
+.pull-left[
+
+```r
+brant(ologistic_1)
+```
+
+```
+## -------------------------------------------- 
+## Test for	X2	df	probability 
+## -------------------------------------------- 
+## Omnibus		3.99	1	0.05
+## ym		3.99	1	0.05
+## -------------------------------------------- 
+## 
+## H0: Parallel Regression Assumption holds
+```
+]
+
+.pull-right[
+
+```r
+brant(ologistic_2)
+```
+
+```
+## -------------------------------------------- 
+## Test for	X2	df	probability 
+## -------------------------------------------- 
+## Omnibus		3.89	2	0.14
+## ym		3.16	1	0.08
+## rate		0.3	1	0.58
+## -------------------------------------------- 
+## 
+## H0: Parallel Regression Assumption holds
+```
+]
+
+--
+
+- Evalua si los coeficientes son iguales al estimarlos en regresiones separadas.
+
+- p-values grandes indican que la "parallel regression assumption" se cumple.
+
+
+---
+class: inverse, center, middle
+
+## Datos de recuento
+###  Regresión Poisson y Quasi-Poisson
+
+---
+## Regresión Poisson
+
+
+```r
+poisson_1 &lt;- glm(affairs_count ~ ym, family=poisson(link="log"), data=affairsdata)
+poisson_2 &lt;- glm(affairs_count ~ ym + rate, family=poisson(link="log"), data=affairsdata)
+```
+
+&lt;br&gt;
+
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+&lt;tr&gt;
+&lt;th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; "&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;affairs count&lt;/th&gt;
+&lt;th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;affairs count&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; "&gt;Predictors&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Log-Mean&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Log-Mean&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;(Intercept)&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.36 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;1.37 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;ym&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.08 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.06 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;rate&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.42 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;"&gt;Observations&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1"&gt;601&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1"&gt;601&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;"&gt;R&lt;sup&gt;2&lt;/sup&gt; Nagelkerke&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1"&gt;0.234&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1"&gt;0.474&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan="3" style="font-style:italic; border-top:double black; text-align:right;"&gt;* p&amp;lt;0.05&amp;nbsp;&amp;nbsp;&amp;nbsp;** p&amp;lt;0.01&amp;nbsp;&amp;nbsp;&amp;nbsp;*** p&amp;lt;0.001&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+
+---
+## Over-dispersion en regresión Poisson
+
+&lt;br&gt;
+--
+
+
+- En un modelo de regresión Poisson cada `\(i\)` sigue una distribución `\(y_{i} \sim \text{Poisson}(\mu_{i} = e^{X_{i}\beta})\)`
+
+
+--
+
+- No hay un parámetro adicional para la varianza. Por definición: `\(\mathbb{Var}(y_{i})=\mathbb{E}(y_{i})=\mu_{i}=e^{X_{i}\beta}\)`
+
+&lt;br&gt;
+--
+
+- Esto puede resultar en una sub-estimación o sobre-estimación de la varianza de los datos. 
+
+  - Por lo general resulta en una subestimación de la varianza de los datos.
+
+&lt;br&gt; 
+--
+
+- Este caso se conocer como "over-dispersion". Los datos son más dispersos de lo esperando de acuerdo al modelo.
+  
+  - Over-dispersion no afecta la estimación de los coeficientes pero la inferencia demasiado "liberal": errores estándar
+
+---
+## Over-dispersion en regresión Poisson
+
+--
+
+- Es posible detectar over-dispersion inspeccionando los residuos "estandarizados" de un modelo Poisson. Formalmente:
+
+`$$z_{i} = \frac{y_{i} - \mu_{i}}{\sigma_{i}} = \frac{y_{i} - \mu_{i}}{\sqrt{\mu_{i}}} = \frac{y_{i} - e^{X_{i}\beta}}{\sqrt{e^{X_{i}\beta}}}$$`
+--
+
+- Si los `\(y_{i}\)`'s distribuyen Poisson entonces `\(z_{i} \sim \mathcal{N}(0,1)\)`. Luego, la presencia de residuos grandes indican over-dispersion. La "suma de residuos al cuadrado" resume esta información:
+
+`$$\text{ssr} = \sum^{n}_{i=1} z^{2}_{i}$$`
+
+--
+
+- Si el modelo Poisson es correcto `\(\text{ssr} \sim \chi^2_{\text{df}=n-k}\)`, con valor esperado `\(\mathbb{E}(\text{ssr})=n-k\)`
+
+--
+
+- El ratio entre ambos, `\(\frac{\text{ssr}}{n-k}\)`, es un estimado del "factor de dispersión".
+
+--
+
+- Obtenemos la inferencia correcta multiplicando los SE's por `\(\sqrt{\frac{\text{ssr}}{n-k}}\)`.
+
+
+---
+## Over-dispersion en regresión Poisson
+
+--
+
+En nuestro modelo Poisson más complejo:
+
+
+```r
+n = length(poisson_2$fitted.values); k = poisson_2$rank
+yhat &lt;- predict(poisson_2, type="response")
+z &lt;- (affairsdata$affairs_count - yhat)/sqrt(yhat)
+rss = sum(z^2)
+```
+
+```
+## rss =  4172.6  , rss esperado =  598
+```
+
+&lt;br&gt;
+--
+
+En este caso el factor de over-dispersion es:
+
+
+```r
+cat("factor de dispersión = ", rss/(n-k))
+```
+
+```
+## factor de dispersión =  6.977591
+```
+
+---
+## Regressión Quasi-Poisson 
+
+La regressión quasi-Poisson incorpora explícitamente el factor de dispersión y corrige la inferenciadel modelo.
+
+--
+
+`$$y_{i} \sim \text{quasi-Poisson}(\mu_{i} = e^{X_{i}\beta}, \sigma= \sqrt{\omega \cdot  e^{X_{i}\beta}})$$`
+
+&lt;br&gt;
+donde `\(\omega\)` es el factor de dispersion.
+
+--
+
+  - Regressión Poisson es un caso especial de quasi-Poisson ( `\(\omega=1\)` ).
+  
+&lt;br&gt;
+--
+
+Implementación en `R`:
+
+
+```r
+qpoisson_2 &lt;- glm(affairs_count ~ ym + rate, family=quasipoisson(link="log"), data=affairsdata)
+```
+
+
+```
+##                Estimate Std. Error   t value     Pr(&gt;|t|)
+## (Intercept)  1.36592517 0.34532278  3.955503 8.553030e-05
+## ym           0.05575781 0.01757849  3.171935 1.591856e-03
+## rate        -0.42036507 0.07268757 -5.783177 1.181990e-08
+```
+
+```
+## dispersion =  6.977591
+```
+
+---
+## Quasi-Poisson
+
+
+```r
+qpoisson_2 &lt;- glm(affairs_count ~ ym + rate, family=quasipoisson(link="log"), data=affairsdata)
+```
+
+&lt;br&gt;
+
+&lt;table style="border-collapse:collapse; border:none;"&gt;
+&lt;tr&gt;
+&lt;th style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm;  text-align:left; "&gt;&amp;nbsp;&lt;/th&gt;
+&lt;th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;affairs count&lt;/th&gt;
+&lt;th colspan="1" style="border-top: double; text-align:center; font-style:normal; font-weight:bold; padding:0.2cm; "&gt;affairs count&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  text-align:left; "&gt;Predictors&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Log-Mean&lt;/td&gt;
+&lt;td style=" text-align:center; border-bottom:1px solid; font-style:italic; font-weight:normal;  "&gt;Log-Mean&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;(Intercept)&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;1.37 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;1.37 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;ym&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.06 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;0.06 &lt;sup&gt;**&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; "&gt;rate&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.42 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:center;  "&gt;&amp;#45;0.42 &lt;sup&gt;***&lt;/sup&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm; border-top:1px solid;"&gt;Observations&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1"&gt;601&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left; border-top:1px solid;" colspan="1"&gt;601&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; text-align:left; padding-top:0.1cm; padding-bottom:0.1cm;"&gt;R&lt;sup&gt;2&lt;/sup&gt; Nagelkerke&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1"&gt;0.474&lt;/td&gt;
+&lt;td style=" padding:0.2cm; text-align:left; vertical-align:top; padding-top:0.1cm; padding-bottom:0.1cm; text-align:left;" colspan="1"&gt;0.474&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td colspan="3" style="font-style:italic; border-top:double black; text-align:right;"&gt;* p&amp;lt;0.05&amp;nbsp;&amp;nbsp;&amp;nbsp;** p&amp;lt;0.01&amp;nbsp;&amp;nbsp;&amp;nbsp;*** p&amp;lt;0.001&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;/table&gt;
+
+---
+class: inverse, center, middle
+
+## Inferencia
+
+---
+## Inferencia para los coeficientes
+
+- Los coeficientes de los modelos cubiertos son estimados via MLE.
+
+--
+
+- `\(\hat{\beta} \sim \mathcal{N}(\beta, \frac{\sigma_{\beta}}{\sqrt{n}})\)`, donde `\(\frac{\sigma_{\beta}}{\sqrt{n}}\)` es el "standard error" (SE) de `\(\beta\)`.
+
+
+--
+
+
+- Es posible construir un intervalo de confianza para los coeficientes. Por ejemplo, un IC para `\(\beta\)` al 95% de confianza está dado por:
+
+`$$95\% \text{ CI}_{\hat{\beta}} = \hat{\beta} \pm 1.96 \cdot  \text{SE}$$`
+--
+
+Por ejemplo, en el modelo Poisson más complejo:
+
+.pull-left[
+
+```
+##                Estimate  Std. Error
+## (Intercept)  1.36592517 0.130729157
+## ym           0.05575781 0.006654703
+## rate        -0.42036507 0.027517398
+```
+]
+
+.pull-right[
+
+```r
+ic = -0.42 + c(-1.96,1.96)*0.028
+cat("95% IC rate: (",ic[1],",",ic[2],")")
+```
+
+```
+## 95% IC rate: ( -0.47488 , -0.36512 )
+```
+]
+
+
+---
+## Inferencia para funciones de los coeficientes de un modelo
+
+En muchas situaciones nos interesa realizar inferencia para cantidad de interés derivadas de un modelo. 
+
+--
+
+.bold[Ejemplo]: predicciones sobre "probabilidad de ser infiel" arrojadas por diferentes modelos
+
+.pull-left[
+
+```r
+grid &lt;- affairsdata %&gt;% data_grid(ym=median(ym),rate)
+grid &lt;- grid %&gt;% mutate(lpm = predict(lpm_2, newdata=grid),
+                logistic = predict(logistic_2, newdata=grid, type="response"),
+                mlogistic = 1- predict(mlogistic_2,newdata=grid, type="probs")[,1],
+                ologistic = 1- predict(ologistic_2,newdata=grid, type="probs")[,1]
+                )
+```
+]
+
+
+
+
+
+.pull-right[
+![](class_16_files/figure-html/plot1-out-1.png)&lt;!-- --&gt;
+]
+
+---
+## Inferencia para funciones de los coeficientes de un modelo: Bootstrap
+
+Cuando cantidades de interés son funciones complejas de los coeficientes los métodos de simulación y re-sampling pueden ser de gran utilidad.
+
+--
+
+
+```r
+bs  &lt;- function(x) {
+  grid &lt;- affairsdata %&gt;% data_grid(ym=median(ym),rate)
+  
+  #data_b   &lt;- sample_n(affairsdata,size=nrow(affairsdata),replace=TRUE)
+
+  lpm_2_b &lt;- lm(affairs_binary ~ ym + rate,  data=x)
+  logistic_2_b &lt;- glm(affairs_binary ~ ym + rate, family="binomial",  data=x)
+  mlogistic_2_b &lt;- multinom(affairs_order ~ ym + rate, trace=F,  data=x)
+  ologistic_2_b &lt;- polr(affairs_order ~ ym + rate, data=x)
+
+  
+  grid &lt;- grid %&gt;% mutate(lpm = predict(lpm_2_b, newdata=grid),
+                logistic = predict(logistic_2_b, newdata=grid, type="response"),
+                mlogistic = 1- predict(mlogistic_2_b,newdata=grid, type="probs")[,1],
+                ologistic = 1- predict(ologistic_2_b,newdata=grid, type="probs")[,1]
+                )
+}
+```
+
+---
+## Inferencia para funciones de los coeficientes de un modelo: Bootstrap
+
+
+
+```r
+# aplica función bootstrap
+grid &lt;- affairsdata %&gt;% bootstrap(500) %&gt;% mutate(pred = map(strap, ~ bs(.x))) %&gt;% 
+  dplyr::select(.id,pred) %&gt;% unnest()
+```
+
+
+![](class_16_files/figure-html/unnamed-chunk-30-1.png)&lt;!-- --&gt;
+
+---
+class: inverse, center, middle
+
+## Comparación entre modelos
+###  Bondad de ajuste y predicción
+
+
+---
+## Bondad de ajuste
+
+Medidas de bondad de ajusto para modelos no anidados y con penalización por cantidad de parámetros:
+
+.pull-left[
+
+```r
+AIC(lpm_1, lpm_2, 
+    logistic_1,logistic_2, 
+    mlogistic_1,mlogistic_2,
+    ologistic_1,ologistic_2, 
+    poisson_1, poisson_2)
+```
+
+```
+##             df       AIC
+## lpm_1        3  692.8884
+## lpm_2        4  662.5836
+## logistic_1   2  667.5002
+## logistic_2   3  639.8786
+## mlogistic_1  4  872.0740
+## mlogistic_2  6  843.8824
+## ologistic_1  3  874.3844
+## ologistic_2  4  843.6135
+## poisson_1    2 3264.8188
+## poisson_2    3 3043.9881
+```
+]
+
+.pull-right[
+
+```r
+BIC(lpm_1, lpm_2, 
+    logistic_1,logistic_2, 
+    mlogistic_1,mlogistic_2,
+    ologistic_1,ologistic_2, 
+    poisson_1, poisson_2)
+```
+
+```
+##             df       BIC
+## lpm_1        3  706.0841
+## lpm_2        4  680.1780
+## logistic_1   2  676.2974
+## logistic_2   3  653.0744
+## mlogistic_1  4  889.6684
+## mlogistic_2  6  870.2740
+## ologistic_1  3  887.5802
+## ologistic_2  4  861.2079
+## poisson_1    2 3273.6160
+## poisson_2    3 3057.1839
+```
+]
+
+---
+## Capacidad predictiva "out-of-sample"
+
+--
+
+- Principio básico: estimar el modelo en un dataset (training set) y  evalúarlo en un dataset distinto (test set)
+
+--
+
+- .bold[K-fold Cross-validation:]
+
+.img-right-top[
+![kfold](kfold_cv.gif)
+
+]
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+--
+
+
+```r
+library("caret")
+# especifica tipo de cross-validation
+ctrl &lt;- trainControl(method = "repeatedcv", number = 10, savePredictions = TRUE)
+
+cv_mlogistic2 &lt;- train(affairs_order ~ ym + rate,  data=affairsdata, 
+      method=c("multinom"),
+      trControl = ctrl)
+```
+
+```
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 376.570153
+## iter  20 value 376.415370
+## final  value 376.415361 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 376.825243
+## iter  20 value 376.508438
+## iter  20 value 376.508435
+## iter  20 value 376.508435
+## final  value 376.508435 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 376.570385
+## iter  20 value 376.415466
+## final  value 376.415456 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 370.918817
+## iter  20 value 370.276029
+## final  value 370.276012 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 370.949819
+## iter  20 value 370.344844
+## final  value 370.344763 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 370.918829
+## iter  20 value 370.276099
+## final  value 370.276081 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 374.956948
+## final  value 374.103041 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 374.912063
+## final  value 374.160021 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 374.956881
+## final  value 374.103099 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 372.243034
+## final  value 372.102791 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 372.316197
+## iter  20 value 372.178446
+## final  value 372.178394 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 372.243097
+## final  value 372.102867 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 375.402338
+## iter  20 value 374.919036
+## final  value 374.918950 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 375.462246
+## iter  20 value 374.996270
+## final  value 374.996066 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 375.402396
+## iter  20 value 374.919115
+## final  value 374.919029 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 375.601835
+## iter  20 value 375.304420
+## iter  20 value 375.304417
+## iter  20 value 375.304417
+## final  value 375.304417 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 375.767850
+## final  value 375.409946 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 375.601981
+## iter  20 value 375.304530
+## iter  20 value 375.304526
+## iter  20 value 375.304526
+## final  value 375.304526 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 374.746708
+## iter  20 value 373.881914
+## final  value 373.881837 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 374.764376
+## iter  20 value 373.952100
+## final  value 373.952039 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 374.746718
+## iter  20 value 373.881985
+## final  value 373.881908 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 374.900075
+## iter  20 value 373.912917
+## iter  20 value 373.912916
+## iter  20 value 373.912916
+## final  value 373.912916 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 375.488249
+## final  value 374.012514 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 374.900589
+## iter  20 value 373.913020
+## iter  20 value 373.913019
+## iter  20 value 373.913019
+## final  value 373.913019 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 373.817107
+## iter  20 value 373.279998
+## final  value 373.279314 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 373.585156
+## iter  20 value 373.381527
+## final  value 373.381481 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 594.349248 
+## iter  10 value 373.816619
+## iter  20 value 373.280104
+## final  value 373.279420 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 593.250636 
+## iter  10 value 378.778874
+## iter  20 value 377.826508
+## final  value 377.826391 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 593.250636 
+## iter  10 value 378.623249
+## iter  20 value 377.931917
+## final  value 377.931791 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 593.250636 
+## iter  10 value 378.778707
+## iter  20 value 377.826618
+## final  value 377.826500 
+## converged
+## # weights:  12 (6 variable)
+## initial  value 660.265985 
+## iter  10 value 417.057097
+## iter  20 value 416.021385
+## final  value 416.021290 
+## converged
+```
+
+```r
+cv_ologistic2 &lt;- train(affairs_order ~ ym + rate,  data=affairsdata, 
+      method=c("polr"),
+      trControl = ctrl)
+```
+
+---
+## Capacidad predictiva "out-of-sample"
+
+
+.pull-left[
+
+```r
+confusionMatrix(cv_mlogistic2)
+```
+
+```
+## Cross-Validated (10 fold, repeated 1 times) Confusion Matrix 
+## 
+## (entries are percentual average cell counts across resamples)
+##  
+##             Reference
+## Prediction   fiel ocasional compulsivo
+##   fiel       74.0      11.3       12.6
+##   ocasional   0.0       0.0        0.0
+##   compulsivo  1.0       0.3        0.7
+##                             
+##  Accuracy (average) : 0.7471
+```
+]
+
+--
+
+.pull-right[
+
+```r
+confusionMatrix(cv_ologistic2)
+```
+
+```
+## Cross-Validated (10 fold, repeated 1 times) Confusion Matrix 
+## 
+## (entries are percentual average cell counts across resamples)
+##  
+##             Reference
+## Prediction   fiel ocasional compulsivo
+##   fiel       74.4      11.5       12.8
+##   ocasional   0.0       0.0        0.0
+##   compulsivo  0.7       0.2        0.5
+##                             
+##  Accuracy (average) : 0.7488
+```
+]
+
+---
+## En el tintero ..
+
+.pull-left[
+![tintero](tintero)
+]
+
+--
+
+.pull-right[
+
+- Probit
+
+- Choice models: e.g., conditional logit
+
+- Zero-inflated Poisson 
+
+- Log-linear models para tablas de contingencia
+
+-  etc
+]
+
+
+
+---
+class: inverse, center, middle
+
+.huge[
+**Fin. Gracias!**
+]
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

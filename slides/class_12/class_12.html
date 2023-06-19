@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análisis de Datos Categóricos (SOC3070)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca  Profesor Asistente, Sociología UC" />
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Análisis de Datos Categóricos (SOC3070)
+## Clase #12
+### <br> Mauricio Bucca<br> Profesor Asistente, Sociología UC
+### <a href="https://github.com/mebucca">github.com/mebucca</a>
+
+---
+
+class: inverse, center, middle
+#Ajuste y Predicción
+
+---
+
+## (Estimación + Inferencia) vs Predicción
+
+&lt;br&gt;
+--
+
+Mullainathan and Spiess (2017) llaman esta distinción:
+
+&lt;br&gt;
+
+.huge[
+.center[
+`\(\hat{\beta}-\text{problems} \quad\)` vs `\(\quad \hat{y}-\text{problems}\)`
+]
+]
+
+
+---
+class: inverse, center, middle
+
+## Bondad de ajuste en regresión logística (y GLM's)
+
+---
+
+## Ejemplo empírico
+
+`$$\newcommand{\vect}[1]{\boldsymbol{#1}}$$`
+
+
+
+Continuando con el ejemplo de clases anteriores, ajustamos el siguiente modelo:
+
+`$$\ln \frac{p_{i}}{1-p_{i}} = \beta_{0} + \beta_{1}\text{ym}_{i} + \beta_{2}\text{male}_{i} + \beta_{3}\text{rate}_{i} + \beta_{4}\text{rate}^{2}_{i}$$`
+
+Llamemos a este modelo, modelo `\(M_1\)`:
+
+&lt;br&gt;
+
+
+```
+##                     Estimate Std. Error    z value   Pr(&gt;|z|)
+## (Intercept)      0.149861306 0.82300610  0.1820902 0.85551198
+## ym               0.037699456 0.01813912  2.0783503 0.03767711
+## factor(sex)male  0.249972343 0.19690565  1.2695032 0.20426166
+## rate            -0.411820264 0.50252200 -0.8195069 0.41249725
+## I(rate^2)       -0.008931688 0.07364745 -0.1212763 0.90347221
+```
+
+```
+## [1] "log-likelihood: -316.105 Deviance: 632.21"
+```
+
+```
+## [1] "AIC: 642.21 BIC: 664.202"
+```
+
+---
+## Likelihood
+
+Recordar que la likelihood es: `\(\mathcal{L}(\vect{\beta} \mid \text{ Datos}) = \mathbb{P}(\text{ Datos } \mid \vect{\beta})\)`.
+--
+ En el caso de un modelo de regresión logística los datos distribuyen Bernoulli.
+
+
+- Por tanto, la probabilidad conjunta de las `\(n\)` observaciones es:
+
+`$$\mathbb{P}(y_{1}, \dots, y_{1}) = \Pi_{i=1}^{n} p_{i}^{y_{i}}(1-p_{i})^{1-y_{i}}$$`
+
+&lt;br&gt;
+--
+
+- Por tanto, la .bold[likelihood function] de `\(p_{i}\)` es:
+
+`$$\mathcal{L}(p_{i} \mid y_{1}, \dots, y_{1}) = \Pi_{i=1}^{n} p_{i}^{y_{i}}(1-p_{i})^{1-y_{i}}$$`
+
+&lt;br&gt;
+--
+
+- La .bold[log likelihood function] de `\(p_{i}\)` es:
+
+
+`$$\ell\ell(p_{i} \mid y_{1}, \dots, y_{1}) = \sum_{i=1}^{n} \bigg( y_{i} \ln p_{i} + (1-y_{i}) \ln(1-p_{i}) \bigg)$$`
+
+
+donde: `\(p_{i} =\frac{1}{1 + e^{-(\beta_{0} + \beta_{1}x_{i} + \dots \beta_{k}x_{k}})}\)`
+
+
+---
+## Likelihood de nuestro modelo, `\(M_1\)`
+
+
+```r
+ll &lt;- function(b0,b1,b2,b3,b4) {
+  y = affairsdata$everaffair_d
+  eta = b0  + b1*affairsdata$ym + b2*I(1*(affairsdata$sex=="male")) + b3*affairsdata$rate + b4*I((affairsdata$rate)^2)
+  ell = sum( y*log(1/(1 + exp(-eta))) +  (1-y)*log(1 - (1/(1 + exp(-eta)))))
+  return(ll = ell)
+}
+```
+
+--
+.pull-left[
+
+```r
+ll(b0=1.2,b1=0.7,b2=1, b3=0.3,b4=0.1)
+```
+
+```
+## [1] -4545.561
+```
+]
+
+.pull-right[
+
+```r
+ll(b0=0.15,b1=0.04,b2=0.25, b3=-0.41,b4=-0.01)
+```
+
+```
+## [1] -316.1242
+```
+]
+
+&lt;br&gt;
+--
+
+.bold[Maximum Likelihood Estimators]: los parámetros estimados son aquellos que maximizan la likelihood function. La likelihood maximizada en este caso es:
+
+
+```r
+ll_m &lt;- logLik(logit_affairs); print(c(Likelihood=exp(ll_m[1]), log_likelihood=ll_m[1]))
+```
+
+```
+##     Likelihood log_likelihood 
+##  5.217357e-138  -3.161048e+02
+```
+
+---
+## Modelo "saturado"
+
+--
+
+- .bold[Modelo saturado] ( `\(M_S\)` ): es el modelo que asume que cada observación tiene sus propios parámetros, es decir, estima  `\(n\)`-parámetros.
+
+--
+
+  -  El modelo saturado describe perfectamente los datos: mejor "fit" posible, pero el menos "parsimonioso".
+
+--
+
+  - Si `\(\vect{\beta}_{S}\)` son los estimadores MLE para este modelo, la likelihood maximizada del modelo es `\(\mathcal{L}_{S}: \mathcal{L}(\vect{\beta}_{S} | \vect{y})\)`.
+
+--
+
+  - `\(\mathcal{L}_{S}\)` es mayor que la likelihood de cualquier otro modelo para los mismos datos, asumiendo misma distribución y misma función de enlace.
+  
+--
+
+
+```r
+# modelo saturado 
+id = seq(1:length(affairsdata$everaffair_d))
+logit_affairs_sex_sat &lt;-  glm(everaffair_d ~ factor(id) , family=binomial(link="logit"), 
+                              data=affairsdata)
+
+ll_sat &lt;- logLik(logit_affairs_sex_sat); print(c(Likelihood=exp(ll_sat[1]), log_likelihood=ll_sat[1]))
+```
+
+```
+##     Likelihood log_likelihood 
+##   1.000000e+00  -1.743274e-09
+```
+
+---
+## Modelo "nulo"
+
+
+- .bold[Modelo nulo] ( `\(M_N\)` ): es el modelo en el que todas las observaciones son descritas por un único parámetro, correspondiente a la media/probabilidad incondicional. 
+
+--
+
+  -  El modelo nulo tiene el peor "fit" posible pero es el más "parsimonioso".
+
+--
+
+  - Si `\(\beta_{0}\)` es el parámetro estimado via MLE para este modelo, la likelihood maximizada del modelo es `\(\mathcal{L}_{N}: \mathcal{L}(\beta_{0} | \vect{y})\)`.
+
+--
+
+  - `\(\mathcal{L}_{N}\)` es menor que la likelihood de cualquier otro modelo para los mismos datos, asumiendo misma distribución y misma función de enlace.
+  
+&lt;br&gt;
+--
+
+
+```r
+# modelo nulo 
+logit_affairs_sex_null &lt;- glm(everaffair_d ~ 1 , family=binomial(link="logit"), data=affairsdata)
+
+ll_null &lt;- logLik(logit_affairs_sex_null); print(c(Likelihood=exp(ll_null[1]), log_likelihood=ll_null[1]))
+```
+
+```
+##     Likelihood log_likelihood 
+##  2.206742e-147  -3.376885e+02
+```
+
+---
+## Modelo nulo, modelo saturado y modelo de interés, `\(M_1\)` 
+
+.center[
+![dev](models.png)
+]
+
+---
+## Test de Likelihood ratio 
+
+--
+
+El modelo nulo y el modelo saturado sirven como referencia para evaluar el fit de otros modelos.
+
+--
+
+- El .bold[likelihood ratio test] (LR) corresponde a la ratio entre la likelihood maximizada entre el modelo saturado -- `\(\mathcal{L}_{S}\)` -- y la likelihood maximizada de un modelo dado, `\(\mathcal{L}_{M_1}\)`
+
+&lt;br&gt;
+
+`$$\text{LR}: \frac{\mathcal{L}_{M_1}}{\mathcal{L}_{S}}$$`
+
+&lt;br&gt;
+--
+
+- A partir de `\(LR\)` obtenemos los .bold[log-likelihood ratio] como sigue:
+
+--
+&lt;br&gt;
+
+`$$\log \text{LR} : \log \frac{\mathcal{L}_{M_1}}{\mathcal{L}_{S}} = \log\mathcal{L}_{M_1} - \log \mathcal{L}_{S} \leq 0$$`
+
+---
+## Residual Deviance y Null Deviance
+
+A su vez, para facilitar la inferencia, el log-likelihood ratio viene re-expresado como "Deviance".
+--
+ Hay dos tipos de deviance involucrados en la evaluación del fit de un modelo:
+
+--
+
+- .bold[Residual Deviance: ] `\(\quad D = -2 \cdot  \log \text{LR} = -2 \cdot (\log\mathcal{L}_{M_1} - \log \mathcal{L}_{S})\)`
+
+ - Mide ajuste del modelo `\(M_1\)`
+
+--
+
+- .bold[Null Deviance: ] `\(\quad D_{N} = -2 \cdot  \log \text{LR} = 2 \cdot (\log\mathcal{L}_{0} - \log \mathcal{L}_{S})\)`
+
+  - Mide cuanto es posible explicar (análogo a "varianza total"*)
+
+&lt;br&gt;
+--
+
+.bold[Sampling distribution de la Residual Deviance:]
+
+`$$D \sim \chi^{2}(\hat{D},\text{df = }n-k), \quad \text{ k es el número de parámetros en modelo } M_1$$`
+&lt;br&gt;
+--
+
+- Un valor alto de `\(D\)` (y p-value bajo) indica problemas de ajuste
+ 
+- Un valor bajo de `\(D\)` (y p-value alto) indica que los parámetros extra del `\(M_{S}\)` son innecesarios.
+ 
+
+---
+## Residual Deviance y Null Deviance
+
+.center[
+![dev](deviances.png)
+]
+
+---
+## Residual Deviance: ejemplo empírico
+
+
+```
+##                     Estimate Std. Error    z value   Pr(&gt;|z|)
+## (Intercept)      0.149861306 0.82300610  0.1820902 0.85551198
+## ym               0.037699456 0.01813912  2.0783503 0.03767711
+## factor(sex)male  0.249972343 0.19690565  1.2695032 0.20426166
+## rate            -0.411820264 0.50252200 -0.8195069 0.41249725
+## I(rate^2)       -0.008931688 0.07364745 -0.1212763 0.90347221
+```
+
+```
+## [1] "Null Deviance: 675.377 Residual Deviance: 632.21"
+```
+
+&lt;br&gt;
+--
+
+.bold[Residual deviance]:
+
+```r
+D &lt;- -2*(logLik(logit_affairs)[1] - logLik(logit_affairs_sex_sat)[1]); D
+```
+
+```
+## [1] 632.2095
+```
+
+```r
+#pvalue
+df &lt;- length(logit_affairs$fitted.values) - logit_affairs$rank
+pvalue = 1 - pchisq(D,df); pvalue
+```
+
+```
+## [1] 0.1474395
+```
+
+
+
+
+---
+## Comparación entre modelos via Deviance
+
+-  Supongamos que `\(M_1\)` es un modelo dado y `\(M_0\)` es un sub-modelo: `\(M_0 \subset M_1\)`
+
+--
+
+- Podemos usar la Deviance para testear si los parámetros extra en `\(M_1\)` significativamente mejoran el fit del modelo, respecto al modelo más simple `\(M_0\)`.
+
+&lt;br&gt;
+--
+
+`\begin{align}
+D_{01} &amp;= \\ 
+&amp;= -2 \cdot (\log\mathcal{L}_{0} - \log \mathcal{L}_{1}) \\
+&amp;= -2 \cdot \{ (\log\mathcal{L}_{0} - \log \mathcal{L}_{S}) -   (\log\mathcal{L}_{1} - \log \mathcal{L}_{S}) \} \\
+  &amp;= D_{0} - D_{1}
+\end{align}`
+
+&lt;br&gt;
+--
+
+.bold[Sampling distribution de la Deviance entre M0 y M1:]
+
+`$$D_{01} \sim \chi^{2}(\hat{D}_{01},\text{df = }k1-k0), \quad \text{ k1 y k0 es el número de parámetros en M1 y M0 respectivamente}$$`
+
+--
+
+- Un valor alto de `\(D_{01}\)` (y p-value bajo) indica que el modelo más simple tiene un ajuste significativamente más pobre que el más complejo.
+
+---
+## Comparación entre modelos via Deviance: ejemplo empírico
+
+.pull-left[
+.bold[M0]
+
+```
+##                    Estimate Std. Error
+## (Intercept)      0.23664899 0.40705428
+## ym               0.03775502 0.01813476
+## factor(sex)male  0.25206250 0.19618073
+## rate            -0.47185722 0.08719513
+```
+
+```
+## [1] "log-likelihood: -316.112"
+```
+]
+.pull-right[
+.bold[M1]
+
+```
+##                     Estimate Std. Error
+## (Intercept)      0.149861306 0.82300610
+## ym               0.037699456 0.01813912
+## factor(sex)male  0.249972343 0.19690565
+## rate            -0.411820264 0.50252200
+## I(rate^2)       -0.008931688 0.07364745
+```
+
+```
+## [1] "log-likelihood: -316.105"
+```
+]
+
+El modelo más complejo es "mejor" que el modelo más simple, pero ... ¿es .bold[significativamente] mejor?
+
+--
+
+
+```r
+D01 &lt;- logit_affairs0$deviance - logit_affairs$deviance
+
+#pvalue
+df &lt;- logit_affairs$rank - logit_affairs0$rank
+pvalue = 1 - pchisq(D01,df); pvalue
+```
+
+```
+## [1] 0.9034976
+```
+
+--
+
+.bold[Respuesta:] el modelo más complejo no es significativamente mejor.
+ 
+---
+## Pseudo - `\(R^2\)`
+
+&lt;br&gt;
+--
+
+- En modelos OLS es común medir ajuste usando el coeficiente `\(R^2\)`, es decir, % de varianza explicada por el modelo.
+
+--
+
+- En GLM's la varianza no es separable de la media, por tanto no se puede descomponer.
+
+--
+
+- Existe una variedad de alternativas al `\(R^2\)`, llamadas genéricamente pseudo - `\(R^2\)`. Uno de los más comunes es:
+
+&lt;br&gt;
+--
+
+`$$\text{McFadden’s } R^{2} = 1 - \frac{D}{D_{0}} = 1 - \frac{(\log\mathcal{L}_{S} - \log \mathcal{L}_{M})}{ (\log\mathcal{L}_{S} - \log \mathcal{L}_{N})}$$`
+&lt;br&gt;
+--
+
+.bold[Intuición:]  fracción del total del "explicable" del likelihood que es explicado por el modelo `\(M\)`.
+
+  - `\(R^{2} \in [0,1]\)`, donde 0 indica el peor fit posible y 1 indica el mejor fit posible. 
+
+---
+## Pseudo - `\(R^2\)`: ejemplo empírico
+
+
+```
+##                     Estimate Std. Error    z value   Pr(&gt;|z|)
+## (Intercept)      0.149861306 0.82300610  0.1820902 0.85551198
+## ym               0.037699456 0.01813912  2.0783503 0.03767711
+## factor(sex)male  0.249972343 0.19690565  1.2695032 0.20426166
+## rate            -0.411820264 0.50252200 -0.8195069 0.41249725
+## I(rate^2)       -0.008931688 0.07364745 -0.1212763 0.90347221
+```
+
+&lt;br&gt;
+--
+
+.bold[Residual deviance]:
+
+```r
+R2 &lt;- 1 - logit_affairs$deviance/logit_affairs$null.deviance; R2
+```
+
+```
+## [1] 0.06391612
+```
+
+```r
+# versión automática
+PseudoR2(logit_affairs, which="McFadden")
+```
+
+```
+##   McFadden 
+## 0.06391612
+```
+
+---
+## Clasificación
+
+Un modelo de regresión logística puede ser utilizado como una herramienta de *clasificación*:
+
+--
+
+- Nuestra variable de interés `\(y_{i}\)` mide la ausencia o presencia de un determinado atributo. Alternativamente, se puede interpretar como la pertenencia a una determinada "clase" (0/1) 
+
+
+--
+
+
+- Nuestro modelo entrega una predicción sobre la probabilidad de dicha pertenencia: `\(p_{i} = \mathbb{P}(y_{i} = 1)\)`
+
+
+--
+
+- Podemos transformar nuestro modelo en un algoritmo de clasificación estableciendo un regla que asigne cada observación a una "clase" en función del valor estimado de `\(\hat{p}_i\)`.
+
+&lt;br&gt;
+--
+
+Específicamente:
+
+`\begin{align}
+  \hat{y}_{i} =
+  \begin{cases}
+    1  &amp; \quad \text{si } \hat{p}_{i} &gt; 1/2\\
+    0  &amp; \quad \text{si }\hat{p}_{i} &lt; 1/2
+  \end{cases}
+\end{align}`
+
+
+
+---
+## Clasificación y Confusion matrix
+
+.pull-left[
+![conf](conf_mat.png)
+]
+
+--
+
+.pull-right[
+- .bold[Accuracy]: % Clasificación correcta, (TP+TN)/total 
+
+- .bold[Misclassification Rate]: % Clasificación incorrecta, (FP+FN)/total
+
+- .bold[True Positive Rate] o "Sensitivity": TP/(TP+FN) 
+
+- .bold[False Positive Rate]: FP/(FP+TN) 
+
+- .bold[True Negative Rate] o "Specificity": TN/(FP+TN)
+
+- .bold[Precision]: TP/(TP+FP) 
+
+- .bold[Prevalence]: (TP+FN)/total 
+]
+
+&lt;br&gt;
+--
+
+- Podemos evaluar la capacidad predictiva de un modelo usando estas métricas de clasificación
+
+- Podemos usar estas métricas para comparar diferentes modelos
+
+---
+## Clasificación y Confusion matrix: ejemplo empírico
+
+
+```r
+p_hat &lt;- predict(logit_affairs, type = "response")
+y_hat &lt;- if_else(p_hat&gt;0.5,1,0)
+#confussion matrix
+conf_mat &lt;- confusionMatrix(factor(y_hat),factor(logit_affairs$model$everaffair_d), dnn = c("Prediction", "True value"))
+```
+
+
+```
+##           True value
+## Prediction   0   1
+##          0 438 137
+##          1  13  13
+```
+
+```
+##       Accuracy          Kappa  AccuracyLower  AccuracyUpper   AccuracyNull AccuracyPValue  McnemarPValue 
+##          0.750          0.080          0.714          0.785          0.750          0.522          0.000
+```
+
+```
+##          Sensitivity          Specificity       Pos Pred Value       Neg Pred Value            Precision 
+##                0.971                0.087                0.762                0.500                0.762 
+##               Recall                   F1           Prevalence       Detection Rate Detection Prevalence 
+##                0.971                0.854                0.750                0.729                0.957 
+##    Balanced Accuracy 
+##                0.529
+```
+
+
+---
+class: inverse, center, middle
+
+## Predicción y el problema de "overfitting" 
+
+
+---
+## Overfitting
+
+.bold[Desafíos para el desarrollo de un modelo predictivo]
+
+--
+
+- El modelo debe predecir adecuadamente los datos (bajo sesgo)
+
+--
+
+- El modelo debe ser parsimonioso (pocos parámetros)
+
+--
+
+- Debe tener un desempeño consistente en diferentes muestras (baja varianza)
+
+&lt;br&gt;
+--
+.bold[Problema: trade-off entre sesgo y varianza]
+
+.center[
+![overfitting](underfit_right_overfit.png)
+]
+
+
+---
+## Information Criteria
+
+--
+
+
+- Information Criteria fueron desarrollados con el fin de prevenir problemas de over-fitting.
+
+
+--
+
+
+- Information Criteria miden la capacidad predictiva de un modelo pero incluyen una .bold[penalty] por el número de parámetros.
+
+--
+
+- .bold[Intuición]: entre dos modelos con "similar" capacidad preferimos el más parsimonioso (menos parámetros).
+
+
+--
+
+- Ventaja sobre .bold[Deviance] y .bold[LRT]: Information Criteria pueden comparar modelos no-anidados. 
+
+&lt;br&gt;
+--
+
+.pull-left[
+.center[Forma general,]
+]
+
+.pull-righ[
+`\(IC: \overbrace{-2 \log \mathcal{L}_{M_1}}^{\text{fit}} + \underbrace{k \cdot q}_{\text{parsimonia}}\)`
+
+]
+
+--
+
+- `\(\mathcal{L}_{M_1}\)` es la likelihood maximizada del modelo `\(M_1\)`
+- `\(k\)` es el número de parámetros del modelo `\(M_1\)`
+- `\(q\)` es una constante que "penaliza" la cantidad de parámetros
+
+---
+## Information Criteria: AIC y BIC
+
+
+Dos Information Criteria son especialmente relevantes:
+
+--
+
+
+.bold[Akaike Information Criterion (AIC)]
+
+.content-box-blue[
+`$$\text{AIC} =  -2\log \mathcal{L}_{M_1} + 2k$$`
+]
+
+--
+
+
+.bold[Bayesian Information Criterion (BIC)] 
+
+.content-box-blue[
+`$$\text{BIC} =  -2\log \mathcal{L}_{M_1} +  \log(n)k$$`
+]
+
+--
+
+- Un número más bajo en AIC y BIC indica mejor ajuste
+
+--
+
+- Por lo general `\(2 &lt; \log(n)\)`, por tanto BIC tiende a preferir modelos más simples comparado con AIC
+
+
+
+
+---
+## Information Criteria, AIC y BIC: ejemplo empírico
+
+.pull-left[
+.bold[M0]
+
+```
+##                     Estimate Std. Error
+## (Intercept)       0.15392342 0.42235014
+## ym                0.02151079 0.02128940
+## factor(child)yes  0.40748669 0.28317859
+## rate             -0.46156942 0.08716552
+```
+]
+.pull-right[
+.bold[M1]
+
+```
+##                  Estimate Std. Error
+## (Intercept)  -0.266307697 1.23046679
+## ym            0.323852015 0.34131053
+## rate         -0.440911381 0.29923262
+## I(ym^2)      -0.017675977 0.01850644
+## ym:rate      -0.024816327 0.08519081
+## rate:I(ym^2)  0.001767463 0.00468650
+```
+]
+
+¿Más .bold[complejo] mejor?
+
+--
+
+
+```r
+inf_crit &lt;- function(m) { aic = -2*logLik(m)[1] + 2*m$rank
+  bic = -2*logLik(m)[1] + log(length(m$fitted.values))*m$rank
+  return(c(AIC=aic,BIC=bic))
+}
+```
+
+--
+
+.pull-left[
+
+```
+##      AIC      BIC 
+## 639.7727 657.3671
+```
+]
+.pull-right[
+
+```
+##      AIC      BIC 
+## 640.3737 666.7653
+```
+]
+
+.bold[Respuesta:] el modelo más simple es preferible. 
+--
+ *(nota: pueden usar funciones `AIC()` y `BIC()` en `R`)
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+
+---
+## In-sample vs out-of-sample
+
+&lt;br&gt;
+--
+
+- Information criteria penaliza la complejidad del modelo para prevenir "over-fitting".
+--
+ Todavía hay un problema ...
+
+&lt;br&gt;
+--
+
+- Todos los estadísticos que hemos visto (incluyendo AIC y BIC) evalúan los modelos en la .bold[misma muestra] en que son estimados
+  
+  - No conocemos el desempeño del modelo .bold[fuera de la muestra]. Riesgo de "over-fitting".
+
+&lt;br&gt;  
+--
+
+- Evaluación de un modelo fuera de muestra se conoce como .bold[cross-validación].
+
+ - Herramienta estándar para evaluación de modelos predictivos.
+
+---
+## In-sample vs out-of-sample
+
+&lt;br&gt;
+
+.center[
+![cross](https://miro.medium.com/max/1224/1*hPDx1TYs9oMrbZRf-VYSUw.jpeg)
+]
+
+---
+## Cross-Validation
+
+--
+
+.img-right[![churros](churros.png)]
+
+- Principio básico de cross-validation: .bold["no double dipping!"]
+
+--
+
+  - estima el modelo en un dataset (training set)
+
+--
+
+  - evalúa el modelo en un dataset distinto (test set)
+
+&lt;br&gt;
+
+.pull-left[
+![train_test](train_test.png)
+
+]
+
+---
+## k-fold cross-Validation
+
+.img-right-top[
+![kfold](kfold_cv.gif)
+
+]
+
+.bold[Algoritmo:]
+--
+
+- (1) Divide los datos en `\(k\)` grupos (folds) del mismo tamaño. 
+
+  - (1.1) Reserva la `\(i\)`-fold como test set.
+
+  - (1.2) Ajusta el modelo en las restantes `\(k-1\)` folds (training set). 
+
+&lt;br&gt;
+--
+- (2) Usa el modelo ajustado en el training set `\(i\)` (1.2) para predecir el outcome de interés en el test set (1.1)
+  
+  - (2.1) Calcula una medida de error predictivo ("test error"), `\(E_{i}\)`
+
+&lt;br&gt;
+--
+- (3) Repite (1) y (2) `\(k\)`-veces, produciendo `\(\{E_{1}, E_{2}, \dots , E_{k}\}\)`
+
+
+--
+- (4) Calcula el .bold[k-fold cross-validation error] promediando el error a través de las `\(k\)`-folds.:
+
+`$$\text{CV-error} =  \frac{1}{k} \sum_{i=1}^{k} E_{i}$$`
+---
+## k-fold cross-Validation: ejemplo empírico
+
+.pull-left[
+.bold[M0]
+
+```
+##                     Estimate Std. Error
+## (Intercept)       0.15392342 0.42235014
+## ym                0.02151079 0.02128940
+## factor(child)yes  0.40748669 0.28317859
+## rate             -0.46156942 0.08716552
+```
+]
+.pull-right[
+.bold[M1]
+
+```
+##                  Estimate Std. Error
+## (Intercept)  -0.266307697 1.23046679
+## ym            0.323852015 0.34131053
+## rate         -0.440911381 0.29923262
+## I(ym^2)      -0.017675977 0.01850644
+## ym:rate      -0.024816327 0.08519081
+## rate:I(ym^2)  0.001767463 0.00468650
+```
+]
+
+&lt;br&gt;
+
+¿Más .bold[complejo] mejor?
+--
+ Usando funciones paquete `caret()` 
+ 
+
+```r
+# especifica tipo de cross-validation
+ctrl &lt;- trainControl(method = "repeatedcv", number = 10, savePredictions = TRUE)
+
+# cross-valida M0
+cv_logit_affairs0 &lt;- train(factor(everaffair_d) ~ ym + factor(child) + rate,  data=affairsdata, method="glm", family="binomial", trControl = ctrl)
+
+# cross-valida M1
+cv_logit_affairs1 &lt;- train(factor(everaffair_d) ~ factor(child)*ym*rate +  factor(child)*I(ym^2)*rate,  data=affairsdata, method="glm", family="binomial", trControl = ctrl)
+```
+
+---
+## k-fold cross-Validation: ejemplo empírico
+
+.pull-left[
+.bold[M0]
+
+```r
+confusionMatrix(cv_logit_affairs0)
+```
+
+```
+## Cross-Validated (10 fold, repeated 1 times) Confusion Matrix 
+## 
+## (entries are percentual average cell counts across resamples)
+##  
+##           Reference
+## Prediction    0    1
+##          0 73.5 24.0
+##          1  1.5  1.0
+##                             
+##  Accuracy (average) : 0.7454
+```
+]
+
+.pull-right[
+.bold[M1]
+
+```r
+confusionMatrix(cv_logit_affairs1)
+```
+
+```
+## Cross-Validated (10 fold, repeated 1 times) Confusion Matrix 
+## 
+## (entries are percentual average cell counts across resamples)
+##  
+##           Reference
+## Prediction    0    1
+##          0 71.5 22.8
+##          1  3.5  2.2
+##                             
+##  Accuracy (average) : 0.7371
+```
+]
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+
+---
+class: inverse, center, middle
+
+.huge[
+**Hasta la próxima clase. Gracias!**
+]
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

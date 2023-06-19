@@ -1,0 +1,199 @@
+---
+title: "Análisis de Datos Categóricos"
+author: "Ayudantía 8 "
+date: Felipe Olivares
+output: 
+  beamer_presentation:
+    theme: "Copenhagen"
+    colortheme: "dolphin"
+    fonttheme: "structurebold"
+    keep_tex: true
+fontsize: 8pt
+---
+
+
+
+```{r setup, include=FALSE}
+def.chunk.hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- def.chunk.hook(x, options)
+  paste0("\n \\", "tiny","\n\n", x, "\n\n \\normalsize")
+})
+```
+
+
+## Contenido
+
+
+ 1. Regresión multinomial
+ 
+
+
+
+## Regresión Multinomial
+
+
+
+**¿Qué es una regresión Multinomial?**
+
+Es una generalización de la regresión logística binomial, que busca hacerse cargo de la situación de una variable discreta que no necesariamente pueden estar ordenada y que tiene más de dos valores (cuestión que la regresión logística no puede cubrir).  Un ejemplo clásico es cuándo se hace investigación sobre participación electorar. Tomemos el caso del voto por candidatos (cuándo hay más de dos candidatos, por ejemplo, en una primera vuelta electoral).
+
+La regresión logística multinomial es una extensión simple de la regresión logística binaria que permite más de dos categorías de la variable dependiente o de resultado. Al igual que regresión logística, la regresión logística multinomial utiliza la estimación de máxima verosimilitud (MLE)
+
+``` {r echo=FALSE,include=FALSE}
+#Subset base de datos OCS
+load(url("https://github.com/mebucca/cda_soc3070/blob/master/ta/ta_8/data_OCS_3.Rdata?raw=true"))
+library(ggplot2) # cargamos la librería que vamos a utilizar
+library(tidyverse)
+library(nnet) # paquete multinomial
+
+```
+
+
+
+## Regresión Multinomial
+
+Para efecto de la regresión que vamos a utilizar, vamos a modelar la función de las formas de control de la protesta para distintas categorías de esta. Por lo tanto, es importante que definamos nuestra variable de referencia (o de contraste) respecto de las categorías de interés. En una regresión multinomial las estimaciones se obtienen respecto de una categoría 
+
+
+
+```{r echo=TRUE, comment='#'}
+# agregamos la variable de participantes a otro subset de datos
+df2 <- df1 %>% dplyr::select(apolicial,disruptiva,trabajadores, p11) %>%
+  mutate( disruptiva = if_else(disruptiva=="Sí",1,0),
+         trabajadores = if_else(trabajadores=="Sí",1,0),
+         participantes = p11)  %>%
+  mutate( participantes = as.numeric(participantes), 
+         disruptiva = as.numeric(disruptiva),
+         trabajadores= as.numeric(trabajadores))  %>%
+  na.omit(df2)
+
+
+
+```
+
+
+## Regresión Multinomial
+
+Revisemos los datos nuevamente...
+
+```{r echo=TRUE, comment='#'}
+
+head(df2)
+```
+
+
+
+
+
+## Regresión Multinomial
+
+
+
+Formalmente:
+
+\tiny
+$$\underbrace{\ln \frac{p_{ij}}{ 1 - p_{iJ}}}_{\text{logit}(p_{ij})}    = \beta_{0j} + \beta_{j1}\text{x}_{i1} + ... + \beta_{jk}\text{x}_{ik}$$
+
+Importante: Los coeficientes y sus transformaciones entregan información sobre las probabilidades relativas de los diferentes $j´s$. Esto siempre respecto de una variable de referencia anteriormente seleccionada (para este caso presencia policial)
+
+## Regresión Multinomial
+
+
+
+
+```{r echo=TRUE, comment='#'}
+
+mlogit1 <- multinom(apolicial ~ participantes + trabajadores, trace=F, data=df2)
+summary(mlogit1)
+
+```
+
+
+
+## Regresión Multinomial
+
+Interpretación de los coeficientes de la variable trabajadores:
+
+1) El logaritmo de un control con acciones preventivas versus un control de presencia policial aumenta en 0.0001 puntos de log odds por cada aumento que exista en el número de participantes de una protesta. 
+
+2) El logaritmo de un control con enfrentamientos directos versus un control de presencia policial disminuye en -0,53 puntos de log odds si existe presencia de trabajadores durante una manifestación. 
+
+3) Un aumento en 1 unidad de número de participantes se traduce en un aumento de 0.0001 unidades en el logit de un control violento de la protesta versus un control de presencial policial. El logaritmo de un control violento de la protesta versus un control de presencia policial aumenta en 0.0001 puntos de log odds por cada aumento que exista en el número de participantes. 
+
+
+## Regresión Multinomial
+
+Cálculemos efectos marginales de los logit de un control con enfrentamientos directos y de un control violento.
+
+```{r echo=TRUE, comment='#'}
+#Efecto 100 participantes
+c(E= 0.07 + 0.001*100  -0.42*1, 
+  V= -0.52+ 0.001*100 -0.16*1)
+
+#Efecto 10000 participantes
+c(E= 0.07 + 0.001*1000 -0.42*1, 
+  V= -0.52 + 0.001*1000 -0.16*1)
+
+#Beta enfrentamientos directos
+0.65 - 0.25
+
+#Beta Violencia policial
+0.32 - 0.58
+
+```
+Manteniendo todo constante, el aumento en 1000 participantes se traducen un aumento de 0.4 puntos de log odds para el control con enfrentamientos directos respecto de un conrol con presencia policial. 
+
+Manteniendo todo constante, el aumento en 1000 participantes se traduce en una disminución de 0.26 en el logaritmo de las odds de un control violento de la protesta versus un control de presencia policial. 
+
+
+## Regresión Multinomial - Efectos multiplicativos
+
+La trasformación de probabilidades a odds es monotónica, si la probabilidad aumenta también lo hacen los odds, y viceversa. El rango de valores que pueden tomar los odds es de $(0,\infty+)$. Dado que el valor de una probabilidad está acotado entre (0,1)
+
+donde:
+
+- $e^{\beta_{jk}}$ está restringido al rango $[0,\infty+)$. Es una constante que "comprime" o amplifica el ratio entre las probabilidades de $j$ respecto de $J$.
+
+- Si $\beta_{jk} < 0  \to  (0 < e^{\beta_{jk}} < 1)$. Es decir, un aumento en $x_{k}$ está asociado con una reducción (multiplicativa) del ratio entre las probabilidades de $j$ versus $J$. 
+
+- Si $\beta_{jk} = 0  \to  (e^{\beta_{jk}} =1)$. Es decir, un cambio en $x_{k}$ está asociado a un cambio nulo en el ratio entre las probabilidades de $j$ versus $J$. 
+
+- Si $\beta_{jk} > 0  \to  (e^{\beta_{jk}} > 1)$. Es decir, un aumento en $x_{k}$ está asociado a aumento (multiplicativo) del ratio entre las probabilidades de $j$ versus $J$. 
+
+## Regresión Multinomial - Efectos multiplicativos
+
+```{r echo=TRUE, comment='#'}
+#Log odds
+summary(mlogit1)$coefficients
+
+#Odds ratio
+exp(summary(mlogit1)$coefficients)
+
+
+```
+
+## Regresión Multinomial 
+
+Precauciones en el uso de modelos multinomiales:
+
+1. Efectos marginales son heterogéneos (multiplicidad de efectos)
+
+2. Efectos heterogéneos se vuelven más complejo con la inclusión de predictores
+
+3. Los efectos muchas veces no son monotónicos (pueden variar de signo)   
+
+
+
+## Regresión Multinomial 
+
+Cambiando la categoría de referencia
+
+```{r echo=TRUE, comment='#'}
+
+df2$apolicial2 <- relevel(df2$apolicial, ref = "Enfrentamientos directos") # 1° de cambiar valor de referencia
+
+mlogit2 <- multinom(apolicial2 ~ participantes + trabajadores, trace=F, data=df2)
+summary(mlogit2)
+
+```

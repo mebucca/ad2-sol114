@@ -1,0 +1,201 @@
+---
+title: "Análisis de Datos II (SOC3070)"
+subtitle: "Probabilidad e Inferencia Estadística"
+author: "<br> Mauricio Bucca<br> Profesor Asistente, Sociología UC"
+date: "[github.com/mebucca](https://github.com/mebucca)"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default","default-fonts","gentle-r.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  chunk_output_type: console
+---
+class: inverse, center, middle
+
+.huge[
+**Presentación del curso**
+]
+
+---
+
+## Sobre mi
+
+  - Profesor Asistente, Sociología UC
+
+--
+
+  - PhD en Sociología, Cornell University, NY
+    - PhD Minor en Estadística, Departamento de Estadística, Cornell University
+
+--
+
+  - Investigación: movilidad social intergeneracional,  desigualdades en el mercado laboral, creencias sobre las desigualdades, métodos cuantitativos
+  
+  - Métodos: modelación estadística, estrategias empíricas para inferencia causal, métodos experimentales y computacionales
+    - Datos categóricos: desarrollos en "log-linear models"
+
+<br>
+--
+
+.bold[Información de contacto]
+ - mail: mebucca@uc.cl
+ - webpage: https://mebucca.github.io/
+
+---
+## Ayudantes
+
+<br>
+
+.pull-left[
+.bold[Felipe Olivares]
+
+- Historiador y Sociólogo UC
+
+- Licenciado en Historia UC
+
+- Magíster en Sociología UC
+
+- Coordinador Observatorio de Conflictos COES
+
+- Investigación: Control de la protesta social, agencia policial, Conflictos sociales y políticos, Movimientos sociales y teoría social 
+
+- Métodos: Modelos estadísticos multinivel, multinomial, logístico y lineal. 
+
+]
+.figure-right[
+![ayudante](https://64.media.tumblr.com/2c764e7a70f2d8eec7a72cd5c44b1f00/tumblr_pe8yj3wJUb1tad247o2_r1_540.gif)
+]
+
+---
+## Ayudantes
+
+<br>
+
+.pull-left[
+.bold[Matías Deneken]
+
+- Historiador y Sociólogo UC
+
+- Licenciado en Historia UC
+
+- Magíster en Sociología UC
+
+- Coordinador Observatorio de Conflictos COES
+
+- Investigación: Control de la protesta social, agencia policial, Conflictos sociales y políticos, Movimientos sociales y teoría social 
+
+- Métodos: Modelos estadísticos multinivel, multinomial, logístico y lineal. 
+
+]
+.figure-right[
+![ayudante](https://64.media.tumblr.com/2c764e7a70f2d8eec7a72cd5c44b1f00/tumblr_pe8yj3wJUb1tad247o2_r1_540.gif)
+]
+
+---
+## Enseñanza de métodos cuantitativos
+
+--
+
+.pull-left[
+- Los "atajos" estadísticos, tarde o temprano, dificultan el aprendizaje
+
+]
+.figure-right[
+![pvalue](pvalue.png)
+
+]
+--
+
+- Hay contenidos que hay que saber, la intuición no basta
+
+--
+
+$$e^{\alpha+\beta x} = e^{a} e^{\beta x}$$
+--
+
+- Muchas cosas parecen más difíciles de lo que son (notación, desconocimiento, miedo, etc.)
+
+
+--
+
+$$\mu = \int xf(x)dx$$
+
+--
+
+- Cosas aparentemente sencillas son más profundas de lo que parecen
+
+--
+
+$$ X \sim \mathcal{N}(\mu,\sigma)$$
+
+---
+## Enseñanza de métodos cuantitativos
+
+.pull-top[
+.pull-left[
+- Es más importante tener fundamentos sólidos que "conocer" muchos métodos distintos 
+
+  - ej. logistic regression, ordered logistic regression, rank-order logistic regression, generalized ordered logistic regression ...
+  ]
+
+.pull-right[
+![tweet](tweet.png)
+]
+]
+
+<br>
+--
+
+.pull-bottom[
+.pull-left[
+- Los conceptos teóricos se aprenden poniéndolos en práctica, a mano
+]
+]
+
+<br>
+--
+
+.pull-bottom[
+.pull-left[
+- Curso difícil en contenido, no en forma de evaluación
+]
+]
+
+
+---
+
+## Material del curso
+
+Todo el material del curso será almacenado y actualizado regularmente en repositorio `Github`:
+
+<br>
+.center[
+
+![github](github.jpg)
+
+https://github.com/mebucca/cda_soc3070
+]
+
+
+---
+class: inverse, center, middle
+
+.huge[
+**Hasta la próxima clase. Gracias!**
+]
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+
+

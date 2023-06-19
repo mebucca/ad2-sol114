@@ -1,0 +1,1108 @@
+---
+title: "Análisis de Datos Categóricos (SOC3070)"
+subtitle: "Clase #13"
+author: "<br> Mauricio Bucca<br> Profesor Asistente, Sociología UC"
+date: "[github.com/mebucca](https://github.com/mebucca)"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["default","default-fonts","gentle-r.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  chunk_output_type: console
+---
+class: inverse, center, middle
+# Regresión Logística Multinomial
+
+
+---
+## Estructura de un modelo de regresión logística multinomial 
+
+$$\newcommand{\vect}[1]{\boldsymbol{#1}}$$
+Un modelo de regresión logística multinomial generaliza la regresión logística (binomial) a situaciones en que la variable dependiente es una .bold[variable discreta con dos o más valores no ordenados] (ejemplo: voto entre tres candidatos, elección de barrio, etc).
+
+<br>
+--
+
+.bold[Configuración]
+
+- Tenemos $n$ observaciones (individuos) independientes: $i = 1, \dots, n$
+
+--
+
+- Para cada observación observamos datos $y_{i}, \dots , y_{n}$ que actúan como variable dependiente, donde $y_{i} \in \{j:1,2, \cdots, J\}$
+  
+  - Las $J$ categorías de $y_{i}$ no siguen necesariamente un orden.
+
+--
+
+- Asumimos que estos datos son realizaciones de $n$ variables aleatorias que siguen una distribución Multinomial con probabilidades desconocidas: $Y_{i} \sim \text{Multinomial}(\vect{p_{i}}: p_{1}, \dots, p_{J})$
+
+--
+
+- Dichas probabilidades, $\vect{p_{i}}$, varían de individuo en individuo en función de ciertas covariables.
+
+
+---
+## Distribución Multinomial
+
+<br>
+.bold[Distribución Multinomial:]
+
+- Dado un experimento con resultados posibles $\{1,2, \dots, J\}$, con respectiva probabilidad de "éxito" $\{p_1,p_2, \dots, p_J\}$ 
+
+--
+
+- Si repetimos el experimento $n$ veces: ¿Cuál es la probabilidad de obtener la siguiente cantidad de éxitos en cada categoría: $\{n_1,n_2, \dots, n_J\}$, donde $n_1 + n_2 + \dots + n_J =n$?
+  
+<br>
+--
+
+.bold[Ejemplo]: Al tirar un dado justo 12 veces, ¿cuál es la probabilidad de obtener cada lado 2 veces?
+
+```{r}
+dmultinom(x=c(2,2,2,2,2,2), size=12 ,p=c(1/6,1/6,1/6,1/6,1/6,1/6))
+```
+
+---
+## Distribución Multinomial (n=1)
+
+
+.bold[Distribución Multinoulli o Categórica:]
+
+Si la cantidad de intentos es igual a 1 (n=1), la probabilidad de éxito en una de las categorías (y fracaso en todas las otras) viene definida por la siguiente función de probabilidad:
+ 
+--
+
+$$\quad \mathbb{P}(Y = j ) = p_{1}^{1[y=1]}p_{2}^{1[y=2]} \cdots p_{J}^{1[y=J]}    \quad \text{ donde } \quad y_{j} \in \{0,1\} \quad \text{y} \quad \sum^{J}_{j=1}1[y=j]=1$$
+
+--
+
+.bold[Ejemplo]: Al tirar un dado justo 1 vez, ¿cuál es la probabilidad de obtener el número 4?
+
+```{r}
+dmultinom(x=c(0,0,0,1,0,0), size=1 ,p=c(1/6,1/6,1/6,1/6,1/6,1/6))
+```
+
+--
+
+- En una regresión logística multinomial cada observación en la variable dependiente ( $y_{i}$ ) viene de una distribución Multinoulli.
+
+--
+
+- Observamos los resultados ( $y_{i}=j$ ) y queremos estimar las probabilidades que los generan, ( $p_{ij}$ ).
+
+--
+ 
+- Específicamente, queremos estimar ( $p_{ij}$ ) como un función de covariables , usando número de parámetros $k$, tal que $k<n$.
+
+
+
+---
+## Regresión logística binomial
+
+
+Una regresión logística binomial $y_{i} \in {0,1}$
+
+.content-box-yellow[
+$$\ln \frac{\mathbb{P}(y_{i}=1)}{\mathbb{P}(y_{i}=0)} =   \ln \frac{p_{i}}{1 - p_{i}} = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}$$] 
+
+
+<br>
+--
+
+Equivalentemente, podemos re-escribir el modelo como
+
+<br>
+
+$$\ln \frac{\mathbb{P}(y_{i}=1)}{\mathbb{P}(y_{i}=0)} =   \ln \frac{p_{1i}}{p_{0i}} =  \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}$$
+<br>
+--
+
+Dado que $p_{0} + p_{1} = 1$, sólo necesitamos estimar una equación.
+
+
+---
+## Regresión logística multinomial, 3 categorías 
+
+
+Si la variable dependiente toma tres valores, $y \in \{1,2,3\}$, y las probabilidades de obtener estos resultados son $p_{1},p_{2},p_{3}$, entonces podemos estimar estas tres probabilidades con dos modelos de regresión logística:
+
+<br>
+--
+
+Usando $p_{3}$ como categoría de referencia:
+
+
+$$(1) \quad \ln \frac{\mathbb{P}(y_{i}=1)}{\mathbb{P}(y_{i}=3)} =   \ln \frac{p_{1i}}{p_{3i}} =  \beta_{10} + \beta_{11}x_{1i} + \dots + \beta_{1k}x_{ki}$$
+--
+<br> y
+
+$$(2) \quad \ln \frac{\mathbb{P}(y_{i}=2)}{\mathbb{P}(y_{i}=3)} =   \ln \frac{p_{2i}}{p_{3i}} =  \beta_{20} + \beta_{21}x_{1i} + \dots + \beta_{2k}x_{ki}$$
+<br>
+--
+
+Describimos $\{(p_{1},p_{2},p_{3})_{i}, \quad  \dots \quad ,(p_{1},p_{2},p_{3})_{n}\}$ con $2(k + 1)$ parámetros.
+
+---
+## Regresión logística multinomial, J-categorías 
+
+Generalizando, si la variable dependiente toma, $J$ valores -- $y \in \{1,2,\dots,J\}$ -- , y las probabilidades de obtener estos resultados son $p_{1},p_{2},\dots,p_{J}$, entonces podemos estimar estas $J$ probabilidades con  $J-1$ modelos de regresión logística:
+
+--
+
+Usando $p_{J}$ como categoría de referencia:
+
+$$(1) \quad \ln \frac{\mathbb{P}(y_{i}=1)}{\mathbb{P}(y_{i}=J)} =   \ln \frac{p_{1i}}{p_{Ji}} =  \beta_{10} + \beta_{11}x_{1i} + \dots + \beta_{1k}x_{ki}$$
+--
+
+$$(2) \quad \ln \frac{\mathbb{P}(y_{i}=2)}{\mathbb{P}(y_{i}=J)} =   \ln \frac{p_{2i}}{p_{Ji}} =  \beta_{20} + \beta_{21}x_{1i} + \dots + \beta_{2k}x_{ki}$$
+--
+
+$$\vdots$$
+--
+
+$$(J-1) \quad \ln \frac{\mathbb{P}(y_{i}=J-1)}{\mathbb{P}(y_{i}=J)} =   \ln \frac{p_{(J-1)i}}{p_{Ji}} =  \beta_{(J-1)0} + \beta_{(J-1)1}x_{1i} + \dots + \beta_{(J-1)k}x_{ki}$$
+
+---
+## Regresión logística multinomial, J-categorías 
+
+Una versión más compacta de lo expresado anteriormente lleva a la formulación estándar de un modelo de regresión multinomial:
+
+<br>
+--
+
+.content-box-yellow[
+$$\underbrace{\ln \frac{\mathbb{P}(y_{i}=j)}{\mathbb{P}(y_{i}=J)}}_{\text{log odds = log relative probability}}=   \ln \frac{p_{ji}}{p_{Ji}} = \overbrace{ \beta_{j0} + \beta_{j1}x_{1i} + \dots + \beta_{jk}x_{ki}}^{\text{predictor lineal }j}$$
+]
+
+<br>
+--
+
+Describimos $\{(p_{1},\dots,p_{J})_{i}, \quad  \dots \quad ,(p_{1},\dots,p_{J})_{n}\}$ con $(J-1)(k+1)$ parámetros.
+
+---
+## Regresión logística multinomial, J-categorías 
+
+De la formulación anterior es posible derivar el contraste en todos los restantes pares de categorías.
+--
+
+ Consideremos las categorías $a$ y $b$:
+
+--
+
+$$\ln \frac{p_{ai}}{p_{bi}} =  \ln \frac{p_{ai}/p_{Ji}}{p_{bi}/p_{Ji}} = \ln \frac{p_{ai}}{p_{Ji}} - \ln \frac{p_{bi}}{p_{Ji}}$$
+--
+Por tanto,
+
+
+$$\ln \frac{p_{ai}}{p_{bi}} =  (\beta_{a0} + \beta_{a1}x_{1i} + \dots + \beta_{ak}x_{ki}) - (\beta_{b0} + \beta_{b1}x_{1i} + \dots + \beta_{bk}x_{ki})$$
+--
+En resumen:
+
+.content-box-yellow[
+$$\ln \frac{p_{ai}}{p_{bi}} =  (\beta_{a0} -\beta_{b0}) + (\beta_{a1} - \beta_{b1}) x_{1i} + \dots + (\beta_{ak} - \beta_{bk}) x_{ki}$$
+]
+
+donde cada $(\beta_{ak} -\beta_{bk})$ es un coeficiente en si mismo.
+---
+## Regresión logística multinomial expresada como probabilidades
+
+Dado
+
+$$\ln \frac{p_{ji}}{p_{Ji}} =  \beta_{j0} + \beta_{j1}x_{1i} + \dots + \beta_{jk}x_{ki}$$
+<br>
+--
+
+-  Exponenciando en ambos lados obtenemos la probabilidad "relativa" entre las categorías $j$ y $J$:
+
+$$\frac{p_{ji}}{p_{Ji}} =  e^{\beta_{j0} + \beta_{j1}x_{1i} + \dots + \beta_{jk}x_{ki}}$$
+<br>
+--
+
+- Luego, la probabilidad de obtener la categoría $j$ puede ser expresada como sigue:
+
+$$p_{ji}  =  p_{Ji} \cdot e^{\beta_{j0} + \beta_{j1}x_{1i} + \dots + \beta_{jk}x_{ki}}$$
+
+---
+## Regresión logística multinomial expresada como probabilidades
+
+La expresión $p_{ji}  =  p_{Ji} \cdot e^{\beta_{j0} + \beta_{j1}x_{1i} + \dots + \beta_{jk}x_{ki}}$ significa que:
+
+
+<br>
+--
+
+
+$$p_{1i}  =  p_{Ji} \cdot e^{\beta_{10} + \beta_{11}x_{1i} + \dots + \beta_{1k}x_{ki}}$$
+<br>
+--
+
+
+$$p_{2i}  =  p_{Ji} \cdot e^{\beta_{20} + \beta_{21}x_{1i} + \dots + \beta_{2k}x_{ki}}$$
+<br>
+--
+
+$$\vdots$$
+<br>
+--
+$$p_{(J-1)i}  =  p_{Ji} \cdot e^{\beta_{(J-1)0} + \beta_{(J-1)1}x_{1i} + \dots + \beta_{(J-1)k}x_{ki}}$$
+
+<br>
+--
+
+
+Luego, falta sólo determinar $p_{Ji}$.
+
+---
+## Regresión logística multinomial expresada como probabilidades
+
+
+Para determinar $p_{Ji}$ usamos los siguientes hechos:
+
+--
+
+.pull-left[
+$$\text{(1)} \quad p_{ji}  =  p_{Ji} \cdot e^{\beta_{j0} + \beta_{j1}x_{1i} + \dots + \beta_{jk}x_{ki}}$$
+]
+
+.pull-right[
+$$\text{(2)} \quad   p_{1i} + p_{2i} + \dots + p_{Ji} = 1$$
+]
+
+<br>
+--
+
+Combinando (1) y (2) obtenemos que:
+
+$$\sum^{J-1}_{j=1} p_{Ji} \cdot e^{\beta_{j0} + \beta_{j1}x_{1i} + \dots + \beta_{jk}x_{ki}} + p_{Ji} = 1, \quad \text{luego ... }$$
+--
+
+
+$$p_{Ji} \bigg(\sum^{J-1}_{j=1}  e^{\beta_{j0} + \beta_{j1}x_{1i} + \dots + \beta_{jk}x_{ki}} + 1 \bigg) = 1, \quad \text{por tanto ... }$$
+
+--
+
+.content-box-yellow[
+$$p_{Ji} =\frac{1}{1 + \sum^{J-1}_{j=1}  e^{\beta_{j0} + \beta_{j1}x_{1i} + \dots + \beta_{jk}x_{ki}}}$$
+]
+
+---
+## Regresión logística multinomial expresada como probabilidades
+
+Ahora sabemos que:
+
+--
+
+- $p_{Ji} =\frac{1}{1 + \sum^{J-1}_{j=1}  e^{\beta_{j0} + \beta_{j1}x_{1i} + \dots + \beta_{jk}x_{ki}}}$ 
+
+- $p_{ji}  =  p_{Ji} \cdot e^{\beta_{j0} + \beta_{j1}x_{1i} + \dots + \beta_{jk}x_{ki}}$
+
+<br>
+--
+Combinando ambos resultados obtenemos:
+
+
+.content-box-yellow[
+$$p_{ji} =\frac{e^{\beta_{j0} + \beta_{j1}x_{1i} + \dots + \beta_{jk}x_{ki}}}{1 + \sum^{J-1}_{j=1}  e^{\beta_{j0} + \beta_{j1}x_{1i} + \dots + \beta_{jk}x_{ki}}}$$
+]
+
+---
+## Regresión logística multinomial en la práctica
+
+Para ejemplificar el uso de regresión logística multinomial trabajaremos con los datos de intención de voto en el plebiscito de 1988. 
+
+```{r,  include=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+# load data on extra-marital affairs from package "Ecdat"
+library("Ecdat")
+library("viridis")
+library("tidyverse")
+library("modelr")
+library("cowplot")
+library("rsample")
+library("arm")
+library("DescTools")
+library("caret")
+library("carData")
+library("nnet")
+library("margins")
+
+
+theme_set(theme_cowplot())
+
+data(Chile)
+plebs_1988 <- Chile %>% as_tibble()
+
+# display the data as a tibble
+plebs_1988 %>% arrange(statusquo)
+```
+
+<br>
+`vote`: (A) Abstención; (N) NO; (U) Indecisa; (Y) SI
+
+`statusquo`: apoyo al status-quo (+)
+
+---
+## Regresión logística multinomial en la práctica
+
+```{r, message=F, warning=F}
+mlogit_vote_sq <- multinom(vote ~ statusquo, trace=F, data=plebs_1988); 
+summary(mlogit_vote_sq)
+```
+
+---
+## Regresión logística multinomial en la práctica
+
+
+.pull-left[
+```{r, echo=FALSE}
+# plot the result
+grid <- plebs_1988  %>% data_grid(statusquo=seq_range(statusquo,30),.model=mlogit_vote_sq)
+
+predictions <- cbind(grid,predict(mlogit_vote_sq, newdata=grid, type="prob")) %>%
+              pivot_longer(-statusquo, names_to="outcome",values_to="p" ) %>%
+              mutate(p_outcome = paste0("p_",outcome)) %>% dplyr::select(-outcome) %>%
+              pivot_wider(names_from = p_outcome, values_from=p) %>%
+              mutate(across(p_N:p_Y, ~  log(.x/p_A), .names = "logit_{.col}" )) %>%
+              pivot_longer(-statusquo, names_to="quant", values_to="est")
+
+predictions %>% filter(str_detect(quant, "^l")) %>% separate(quant,sep=8, into=c("quant","vote")) %>%
+  ggplot(aes(x=statusquo, y=est, colour=vote, group=vote)) +
+  geom_path(alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="top") +
+  labs(x="Support status-quo", y="Logit(Vote=j)", colour="vote")
+```
+]
+
+--
+
+.pull-right[
+```{r, echo=FALSE}
+predictions %>% filter(str_detect(quant, "^p")) %>%  separate(quant,sep=2, into=c("quant","vote")) %>%
+  ggplot(aes(x=statusquo, y=est, colour=vote, group=vote)) +
+  geom_path(alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="top") +
+  labs(x="Support status-quo", y="P(Vote=j)", colour="vote")
+```
+]
+
+---
+class: inverse, center, middle
+
+## Estimación
+
+---
+## Estimación
+
+
+<br>
+--
+
+- Parámetros son estimados via MLE
+
+--
+
+- Alternativamente, minimizando función $softmax$  (ej, paquete `nnet` en `R`)
+
+--
+
+- Las $J-1$ equaciones del modelo de regresión logística son estimadas simultáneamente, imponiendo la restricción: $\sum_{j}p_{i} = 1$  ("constrained optimization")
+
+--
+
+- Es posible estimar $J-1$ regresiones logísticas separadamente pero no garantiza que $\sum_{j}p_{i} = 1$.
+
+
+---
+class: inverse, center, middle
+
+## Interpretación
+
+---
+class:center, middle
+
+## Efectos marginales sobre el logit 
+
+
+---
+## Un ejemplo empírico
+
+.pull-left[
+Continuando con los datos del plebiscito de 1988, ajustaremos el siguiente modelo:
+
+$$\ln \frac{p_{ij}}{p_{iJ}} = \beta_{j0} + \beta_{j1}\text{statusquo}_{i} + \beta_{j2}\text{male}_{i}$$
+
+donde:
+
+- $p_{iJ} =\mathbb{P}(\text{vote}_{i}=\text{A})$
+
+- $p_{ij} =\mathbb{P}(\text{vote}_{i}=j), \quad j \in \{\text{N},\text{U},\text{Y}\}$
+
+- $\text{logit}(p_{ij})$ es el .bold[log odds] de votar N/U/Y vs A.
+
+- $p_{ij}$'s  son una función de apoyo al status-quo (statusquo) y género (sex)
+
+]
+
+--
+.pull-right[
+```{r}
+mlogit_vote_sq_sex <- multinom(vote ~ statusquo + sex, trace=F, data=plebs_1988); 
+summary(mlogit_vote_sq_sex)
+```
+]
+
+---
+## Efectos marginales sobre el logit
+
+Un modelo de regresión logística multinomial consiste de $J-1$ ecuaciones:
+
+$$\text{logit}(p_{ij}) = \ln \frac{p_{ij}}{p_{iJ}} = \beta_{j0} + \beta_{j1} x_{i1} + \dots + \beta_{jk} x_{ik}$$
+--
+
+- El intercepto $\beta_{j0}$ corresponde al log del ratio entre la probabilidad de obtener $j$ en vez de $J$ -- $\text{logit}(p_{j})$ --, cuando $x_{1} = \dots = x_{k} = 0$
+
+--
+
+- El efecto marginal de $x_{k}$ sobre el $\text{logit}(p_{j})$ por:
+
+
+.pull-left[
+.content-box-blue[
+$$\frac{\partial\text{logit}(p_{ij})}{\partial x_{k}} = \beta_{jk}$$
+]
+]
+.pull-right[
+.content-box-yellow[
+"Un cambio infinitesimal en $x_{k}$  ( $\partial x_{k}$ ) se traduce en un cambio en $\partial x_{k} \beta_{jk}$ unidades en el $\text{logit}(p_{j})$"
+] 
+]
+
+--
+
+.bold[Importante:] los coeficientes y sus transformaciones entregan información sobre las probabilidades .bold[relativas] de los diferentes $j$'s (con respecto a categoría de referencia).
+
+---
+## Efectos marginales sobre el logit 
+
+En nuestro ejemplo: $\ln \frac{p_{ij}}{p_{iJ}} = \beta_{j0} + \beta_{j1}\text{statusquo}_{i} + \beta_{j2}\text{male}_{i}$
+
+<br>
+
+.pull-left[
+```{r, echo=FALSE}
+summary(mlogit_vote_sq_sex)$coefficients
+```
+]
+.pull-right[
+```{r, echo=FALSE, fig.width=6, fig.height=5}
+# plot the result
+grid <- plebs_1988  %>% data_grid(statusquo=seq_range(statusquo,30),sex,.model=mlogit_vote_sq_sex)
+
+predictions <- cbind(grid,predict(mlogit_vote_sq_sex, newdata=grid, type="prob")) %>%
+              pivot_longer(-c(statusquo,sex), names_to="outcome",values_to="p" ) %>%
+              mutate(p_outcome = paste0("p_",outcome)) %>% dplyr::select(-outcome) %>%
+              pivot_wider(names_from = p_outcome, values_from=p) %>%
+              mutate(across(p_N:p_Y, ~  log(.x/p_A), .names = "logit_{.col}" )) %>%
+              pivot_longer(-c(statusquo,sex), names_to="quant", values_to="est")
+
+predictions %>% filter(str_detect(quant, "^l")) %>% separate(quant,sep=8, into=c("quant","vote")) %>%
+  ggplot(aes(x=statusquo, y=est, colour=vote, group=interaction(vote,sex))) +
+  geom_path(aes(linetype=sex), alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="top") +
+  labs(x="Support status-quo", y="Logit(Vote=j)") 
+  
+```
+]
+
+
+---
+## Efectos marginales sobre el logit 
+
+.pull-left[
+```{r, echo=FALSE}
+summary(mlogit_vote_sq_sex)$coefficients
+```
+]
+
+.pull-right[
+Si `male=1` y `statusquo=0`, entonces `logit(p_N)` y `logit(p_Y)` son=
+```{r}
+c(N=0.11 -1.76*0 + 0.7*1,
+  Y=0.78  + 1.9*0 + -0.11*1)
+```
+
+Si `male=1` y `statusquo=1`, entonces `logit(p_N)` y `logit(p_Y)` son=
+```{r}
+c(N=0.11 -1.76*1 + 0.7*1,
+  Y=0.78  + 1.9*1 + -0.11*1)
+```
+]
+
+
+---
+## Efectos marginales sobre el logit 
+
+.pull-left[
+```{r, echo=FALSE}
+summary(mlogit_vote_sq_sex)$coefficients
+```
+
+<br>
+Por tanto, $\beta_{N1}$ y $\beta_{Y1}$ son=
+
+
+```{r}
+c(
+betaN1 = (0.11 -1.76*1 + 0.7*1)-(0.11 -1.76*0 + 0.7*1),
+betaY1 = (0.78 + 1.9*1 -0.11*1)-(0.78 + 1.9*0 -0.11*1)
+)
+```
+
+]
+
+.pull-right[
+Si `male=1` y `statusquo=0`, entonces `logit(p_N)` y `logit(p_Y)` son=
+```{r}
+c(N=0.11 -1.76*0 + 0.7*1,
+  Y=0.78  + 1.9*0 + -0.11*1)
+```
+
+Si `male=1` y `statusquo=1`, entonces `logit(p_N)` y `logit(p_Y)` son=
+```{r}
+c(N=0.11 -1.76*1 + 0.7*1,
+  Y=0.78  + 1.9*1 + -0.11*1)
+```
+]
+
+---
+class:center, middle
+
+## Efectos multiplicativos sobre las odds 
+
+
+---
+## Efectos multiplicativos sobre las odds 
+
+Dado el siguiente modelo de regresión logística multinomial: 
+
+
+$$\text{logit}(p_{ij}) = \ln \frac{p_{ij}}{p_{iJ}} = \beta_{j0} + \beta_{j1} x_{i1} + \dots + \beta_{jk} x_{ik}$$
+
+<br>
+--
+
+exponenciando a ambos lados obtenemos 
+
+$$\frac{p_{ij}}{p_{iJ}} = e^{\beta_{j0} + \beta_{j1} x_{i1} + \dots + \beta_{jk} x_{ik}}$$
+
+--
+
+equivalentemente
+
+.content-box-blue[
+$$\frac{p_{ij}}{p_{iJ}} =  e^{\beta_{j0}} \cdot e^{\beta_{j1} x_{i1}}  \dots e^{\beta_{jk} x_{ik}}$$
+]
+
+---
+## Efectos multiplicativos sobre las odds: odds ratios
+
+Considera la situación en que $i$ y $i^{´}$ son dos observaciones con $x_{k}=c$ y $x_{k}=c+1$, respectivamente. El resto de las covariables toman valores idénticos. 
+--
+ Las odds de observar $j$ en vez de $J$ son:
+
+
+- $p_{ij}/(p_{iJ}) = e^{\beta_{j0}} \cdot e^{\beta_{j1} x_{i1}}  \dots (e^{\beta_{jk}})^{c}$
+
+- $p_{i^{´}j}/(p_{i^{´}J}) = e^{\beta_{j0}} \cdot e^{\beta_{j1} x_{i^{´}1}}  \dots (e^{\beta_{jk}})^{c+1}$
+
+
+<br>
+--
+
+El ratio de las odd de éxito entre $i^{´}$ e $i$ está dado por:
+
+\begin{align}
+\frac{p_{i^{´}j}/p_{i^{´}J}}{p_{ij}/p_{iJ}} &= \frac{e^{\beta_{j0}} \cdot e^{\beta_{j1} x_{i^{´}1}}  \dots (e^{\beta_{jk}})^{c+1}}{e^{\beta_{j0}} \cdot e^{\beta_{j1} x_{i1}}  \dots (e^{\beta_{jk}})^{c}} = e^{\beta_{jk}}
+\end{align}
+
+<br>
+En otras palabras, manteniendo otros factores constantes, $e^{\beta_{jk}}$ representa la odds ratio de $j$ vs $J$ entre el caso con $x_{k}$ aumentado en una unidad, y el caso con $x_{k}$ en un nivel basal dado. 
+
+---
+## Efectos multiplicativos sobre las odds 
+
+
+.content-box-yellow[
+"Un cambio en $\Delta$ unidades de $x_{k}$ multiplica el ratio entre las probabilidad de obtener $j$ vs $J$ por $e^{\Delta \beta_{jk}}$"
+] 
+
+<br>
+.bold[Propiedades]:
+
+--
+
+- $e^{\beta_{jk}}$ está restringido al rango $[0,\infty+)$. Es una constante que "comprime" o amplifica el ratio entre las probabilidades de $j$ vs $J$
+
+--
+
+- Si $\beta_{jk} < 0  \to  (0 < e^{\beta_{jk}} < 1)$. Es decir, un aumento en $x_{k}$ está asociado con una reducción (multiplicativa) del ratio entre las probabilidades de  $j$ vs $J$
+
+--
+
+- Si $\beta_{jk} = 0  \to  (e^{\beta_{jk}} =1)$. Es decir, un cambio en $x_{k}$ está asociado a un cambio nulo en el ratio entre las probabilidades de  $j$ vs $J$
+
+--
+
+- Si $\beta_{jk} > 0  \to  (e^{\beta_{jk}} > 1)$. Es decir, un aumento en $x_{k}$ está asociado a aumento (multiplicativo) en el ratio entre las probabilidades de  $j$ vs $J$
+
+
+---
+## Efectos multiplicativos sobre las odds 
+
+En nuestro ejemplo: $\ln \frac{p_{ij}}{p_{iJ}} = \beta_{j0} + \beta_{j1}\text{statusquo}_{i} + \beta_{j2}\text{male}_{i}$, por tanto:
+  
+  
+.pull-left[
+  $\frac{p_{ij}}{p_{iJ}} = e^{\beta_{j0}} \cdot  e^{\beta_{j1}\text{statusquo}_{i}} \cdot e^{ \beta_{j2}\text{male}_{i} }$
+      
+```{r}
+# coeffs
+summary(mlogit_vote_sq_sex)$coefficients
+    
+# exp(coeffs)
+exp(summary(mlogit_vote_sq_sex)$coefficients)
+```
+    
+]
+
+--
+  
+.pull-right[
+  ```{r, echo=FALSE, fig.height=6}
+  
+grid <- plebs_1988  %>% data_grid(statusquo=seq_range(statusquo,30),sex,.model=mlogit_vote_sq_sex)
+
+predictions <- cbind(grid,predict(mlogit_vote_sq_sex, newdata=grid, type="prob")) %>%
+              pivot_longer(-c(statusquo,sex), names_to="outcome",values_to="p" ) %>%
+              mutate(p_outcome = paste0("p_",outcome)) %>% dplyr::select(-outcome) %>%
+              pivot_wider(names_from = p_outcome, values_from=p) %>%
+              mutate(across(p_N:p_Y, ~  log(.x/p_A), .names = "logit_{.col}" )) %>%
+              mutate(across(logit_p_N:logit_p_Y, ~  exp(.x), .names = "or_{.col}" )) %>%
+              pivot_longer(-c(statusquo,sex), names_to="quant", values_to="est")
+
+predictions %>% filter(str_detect(quant, "^or")) %>% separate(quant,sep=11, into=c("quant","vote")) %>%
+  ggplot(aes(x=statusquo, y=est, colour=vote, group=interaction(vote,sex))) +
+  geom_path(aes(linetype=sex), alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="top") +
+  labs(x="Support status-quo", y="Odds vote=j vs vote=A") 
+    
+  ```
+]
+
+---
+## Efectos multiplicativos sobre las odds
+
+.pull-left[
+```{r, echo=FALSE}
+cbind(beta1=summary(mlogit_vote_sq_sex)$coefficients[,"statusquo"],exp.beta1=exp(summary(mlogit_vote_sq_sex)$coefficients[,"statusquo"]))
+```
+]
+
+.pull-right[
+Si `male=1` y `statusquo=0`, entonces las odds de N e Y son=
+```{r}
+c(N=exp(0.11 -1.76*0 + 0.7*1),
+  Y=exp(0.78  + 1.9*0 + -0.11*1) )
+```
+
+Si `male=1` y `statusquo=1`,  entonces las odds de N e Y son=
+```{r}
+c(N=exp(0.11 -1.76*1 + 0.7*1),
+  Y=exp(0.78  + 1.9*1 + -0.11*1))
+```
+]
+
+
+---
+## Efectos multiplicativos sobre las odds
+
+.pull-left[
+```{r, echo=FALSE}
+cbind(beta1=summary(mlogit_vote_sq_sex)$coefficients[,"statusquo"],exp.beta1=exp(summary(mlogit_vote_sq_sex)$coefficients[,"statusquo"]))
+```
+
+
+<br>
+Por tanto, $e^{\beta_{N1}}$ y $e^{\beta_{Y1}}$ son=
+
+
+```{r}
+c(
+betaN1 = exp(0.11 -1.76*1 + 0.7*1)/exp(0.11 -1.76*0 + 0.7*1),
+betaY1 = exp(0.78 + 1.9*1 -0.11*1)/exp(0.78 + 1.9*0 -0.11*1)
+)
+```
+]
+
+.pull-right[
+Si `male=1` y `statusquo=0`, entonces las odds de N e Y son=
+```{r}
+c(N=exp(0.11 -1.76*0 + 0.7*1),
+  Y=exp(0.78  + 1.9*0 + -0.11*1) )
+```
+
+Si `male=1` y `statusquo=1`,  entonces las odds de N e Y son=
+```{r}
+c(N=exp(0.11 -1.76*1 + 0.7*1),
+  Y=exp(0.78  + 1.9*1 + -0.11*1))
+```
+]
+
+
+---
+class:center, middle
+
+## Efectos marginales sobre la probabilidad de la categoría $j$
+
+
+---
+## Efectos marginales sobre la probabilidad de la categoría $j$
+
+--
+
+Dado el siguiente modelo de regresión logística multinomial: 
+
+
+$$\text{logit}(p_{ij}) = \ln \frac{p_{ij}}{p_{iJ}} = \beta_{j0} + \beta_{j1} x_{i1} + \dots + \beta_{jk} x_{ik}$$
+<br>
+--
+Queremos saber el .bold[efecto marginal] de los predictores sobre la .bold[probabilidad] de observar cada categoría $j: \{1, \dots, J\}$. Formalmente
+
+<br>
+--
+
+$$\frac{\partial p_{ij}}{\partial x_{k}}$$
+--
+
+$$\vdots$$
+
+---
+## Efectos marginales sobre la probabilidad de la categoría $j$
+
+Después de varios pasos, obtenemos:
+
+<br>
+.content-box-yellow[
+$$\frac{\partial p_{ij}}{\partial x_{k}} = p_{ij} \cdot \bigg(\beta_{jk} - \sum^{J-1}_{j=1}p_{ij} \cdot \beta_{jk}\bigg)$$
+]
+
+<br>
+donde
+
+$$p_{ij} =\frac{e^{\beta_{j0} + \beta_{j1}x_{1i} + \dots + \beta_{jk}x_{ki}}}{1 + \sum^{J-1}_{j=1}  e^{\beta_{j0} + \beta_{j1}x_{1i} + \dots + \beta_{jk}x_{ki}}}$$
+---
+## Efectos marginales sobre la probabilidad de la categoría $j$
+
+
+.pull-left[
+Analizando $$\frac{\partial p_{ij}}{\partial x_{k}} = p_{ij} \cdot \bigg(\beta_{jk} - \sum^{J-1}_{j=1}p_{ij} \cdot \beta_{jk}\bigg)$$
+]
+
+--
+
+.pull-right[
+podemos notar que  $\sum^{J-1}_{j=1}p_{ij} \cdot \beta_{jk} \equiv \overline{\beta_{jk}}, \quad$ el "efecto promedio de" $x_k$. Se desprende que:
+]
+
+<br>
+--
+
+- El signo del efecto marginal de los predictores .bold[no necesariamente] corresponde al signo del parámetro estimado en la regresión. 
+--
+
+  - $\frac{\partial p_{ij}}{\partial x_{k}} > 0 \quad$  si  $\quad \beta_{jk} > \sum^{J-1}_{j=1}p_{j} \cdot \beta_{jk}$
+  
+  - $\frac{\partial p_{ij}}{\partial x_{k}} = 0 \quad$  si  $\quad \beta_{jk} = \sum^{J-1}_{j=1}p_{j} \cdot \beta_{jk}$
+
+  - $\frac{\partial p_{ij}}{\partial x_{k}} < 0 \quad$  si  $\quad \beta_{jk} < \sum^{J-1}_{j=1}p_{j} \cdot \beta_{jk}$
+
+<br>
+--
+.bold[Nota]: No tiene mucho sentido testear si efectos marginales son distintos de cero.
+
+
+---
+## Efectos marginales sobre la probabilidad de la categoría $j$
+
+.pull-left[
+si $$\frac{\partial p_{ij}}{\partial x_{k}} = p_{j} \cdot \bigg(\beta_{jk} - \sum^{J-1}_{j=1}p_{j} \cdot \beta_{jk}\bigg)$$
+]
+
+--
+
+.pull-right[
+y $$p_{ij} =\frac{e^{\beta_{j0} + \beta_{j1}x_{1i} + \dots + \beta_{jk}x_{ki}}}{1 + \sum^{J-1}_{j=1}  e^{\beta_{j0} + \beta_{j1}x_{1i} + \dots + \beta_{jk}x_{ki}}}$$ 
+]
+
+
+<br>
+--
+
+- Es claro que el efecto marginal de $x_{k}$ varía dependiendo del valor de $x_{k}$, de su coeficiente $\beta_{jk}$, y de todas las otras covariables con sus respectivos coeficientes.
+
+---
+## Efectos marginales sobre la probabilidad de la categoría $j$
+
+En nuestro ejemplo: $\ln \frac{p_{ij}}{p_{iJ}} = \beta_{j0} + \beta_{j1}\text{statusquo}_{i} + \beta_{j2}\text{male}_{i}$, por tanto:
+  
+  
+.pull-left[
+  $$p_{ij} =\frac{e^{\beta_{j0} + \beta_{j1}\text{statusquo}_{i} + \beta_{j2}\text{male}_{i}}}{1 + \sum^{J-1}_{j=1} e^{\beta_{j0} + \beta_{j1}\text{statusquo}_{i} + \beta_{j2}\text{male}_{i}}}$$
+      
+<br>      
+```{r}
+summary(mlogit_vote_sq_sex)$coefficients
+```
+    
+]
+
+
+--
+  
+.pull-right[
+```{r, echo=FALSE, fig.height=6}
+grid <- plebs_1988  %>% data_grid(statusquo=seq_range(statusquo,30),sex,.model=mlogit_vote_sq_sex)
+
+
+predictions <- cbind(grid,predict(mlogit_vote_sq_sex, newdata=grid, type="prob")) %>%
+              pivot_longer(-c(statusquo,sex), names_to="outcome",values_to="p" ) %>%
+              mutate(p_outcome = paste0("p_",outcome)) %>% dplyr::select(-outcome) %>%
+              pivot_wider(names_from = p_outcome, values_from=p) %>%
+              mutate(across(p_N:p_Y, ~  log(.x/p_A), .names = "logit_{.col}" )) %>%
+              mutate(across(logit_p_N:logit_p_Y, ~  exp(.x), .names = "or_{.col}" )) %>%
+              pivot_longer(-c(statusquo,sex), names_to="quant", values_to="est")
+
+predictions %>% filter(str_detect(quant, "^p")) %>% separate(quant,sep="_", into=c("quant","vote")) %>%
+  ggplot(aes(x=statusquo, y=est, colour=vote, group=interaction(vote,sex))) +
+  geom_path(aes(linetype=sex), alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="top") +
+  labs(x="Support status-quo", y="P(vote=j)") 
+```
+]
+
+---
+## Efectos marginales sobre la probabilidad de la categoría $j$
+
+
+.pull-left[
+$$p_{ij} =\frac{e^{\beta_{j0} + \beta_{j1}\text{statusquo}_{i} + \beta_{j2}\text{male}_{i}}}{1 + \sum^{J-1}_{j=1} e^{\beta_{j0} + \beta_{j1}\text{statusquo}_{i} + \beta_{j2}\text{male}_{i}}}$$
+
+```{r, echo=FALSE, fig.width=6, fig.height=5}
+predictions %>% filter(str_detect(quant, "^p")) %>% separate(quant,sep="_", into=c("quant","vote")) %>%
+  ggplot(aes(x=statusquo, y=est, colour=vote, group=interaction(vote,sex))) +
+  geom_path(aes(linetype=sex), alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="top") +
+  labs(x="Support status-quo", y="P(vote=j)") 
+```
+]
+
+.pull-right[
+$$\frac{\partial p_{ij}}{\partial x_{k}} = p_{j} \cdot \bigg(\beta_{jk} - \sum^{J-1}_{j=1}p_{j} \cdot \beta_{jk}\bigg)$$
+
+```{r, echo=FALSE, fig.width=6, fig.height=5, warning=F}
+
+predictions <- predictions %>% filter(str_detect(quant, "^p")) %>% separate(quant,sep="_", into=c("quant","vote")) 
+ 
+coefs <- summary(mlogit_vote_sq_sex)$coefficients %>% as_tibble() %>% mutate(vote = c("N","U","Y")) %>%
+  rename(beta_0 = `(Intercept)`, beta_sq = statusquo, beta_sex = sexM)
+
+ predictions %>% left_join(coefs, by="vote") %>% 
+  replace_na(list(beta_0 = 0, beta_sq = 0, beta_sex = 0)) %>%
+  mutate(beta_sq_prob = beta_sq*est) %>% group_by(statusquo,sex) %>%
+  mutate(average_beta_sq = sum(beta_sq_prob, na.rm = T)) %>%
+  ungroup() %>% mutate(me_sq = est*(beta_sq -average_beta_sq)) %>%
+  ggplot(aes(x=statusquo, y=me_sq, colour=vote, group=interaction(vote,sex))) +
+  geom_path(aes(linetype=sex), alpha=0.5, size=1.5) +
+  scale_color_viridis_d() +  scale_fill_viridis_d() +
+  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
+  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
+  legend.text = element_text(size = 18), legend.position="top") +
+  labs(x="Support status-quo", y="Efecto marginal de status quo") +
+  geom_hline(yintercept = 0, size=1.5)
+```
+]
+
+---
+## Efectos marginales sobre la probabilidad de la categoría $j$
+
+- Efectos marginales son _esencialmente_ heterogéneos. No hay un efecto sino muchos. 
+
+--
+
+- Heterogeneidad crece con la complejidad del modelo: número de predictores, interacciones, etc. 
+
+--
+
+- Más aún, en el caso de modelos de regresión logística multinomial, los efectos marginales no son necesariamente monotónicos (pueden cambiar de signo).
+
+--
+
+- En la práctica, muchas veces queremos UN número que resuma el efecto marginal. 
+
+<br>
+--
+.pull-left[
+![For god sakes just give me the damn number](https://i.makeagif.com/media/8-29-2018/ior4IF.gif)
+]
+
+--
+
+Cantidades de interes:
+.pull-right[
+
+* Average Marginal Effects (AME)
+
+* Marginal Effects at the Mean (MEM)
+
+* Marginal Effects at Representative Values (MER)
+
+]
+
+
+---
+## Efectos marginales sobre la probabilidad de la categoría $j$: AME
+
+--
+
+$$\text{Aproximación numérica:} \quad \frac{1}{n} \sum_{i} \frac{\partial p_{ij}}{\partial x_{k}} \approx  \frac{1}{n} \sum_{i}  \frac{p_{ij}(x_{1}, \dots ,x_{k} = c + \delta) - p_{ij}(x_{1}, \dots ,x_{k} = c )}{\delta}$$
+--
+
+AME de apoyo al status-quo:
+```{r}
+delta = 0.1
+p_hat <- predict(mlogit_vote_sq_sex, type="probs") %>% as_tibble()  %>% mutate(id = row_number()) %>% 
+         pivot_longer(-id, names_to="vote", values_to="prob") 
+
+plebs_1988_delta <- plebs_1988 %>% mutate(statusquo = statusquo + delta) 
+p_hat_delta <- predict(mlogit_vote_sq_sex, newdata=plebs_1988_delta ,type="probs")  %>% as_tibble() %>% mutate(id = row_number()) %>% pivot_longer(-id, names_to="vote", values_to="prob_delta") 
+
+p_hat_delta <- p_hat_delta %>% left_join(p_hat, by=c("id","vote")) %>% mutate(me_sq = (prob_delta  - prob)/delta) %>% dplyr::select(id,vote,me_sq) %>% pivot_wider(names_from = "vote", values_from = "me_sq") %>% drop_na()
+```
+
+--
+
+
+```{r}
+p_hat_delta %>% dplyr::summarise(across(A:Y, ~ mean(.x)))
+```
+
+---
+## Efectos marginales sobre la probabilidad de la categoría $j$: MEM
+
+$$\text{Aproximación numérica:} \quad \frac{\partial p_{ij}}{\partial x_{k}} \approx  \frac{p_{ij}(x_{1}=\bar{x_{1}}, \dots ,x_{k} = \bar{x_{k}} + \delta) - p_{ij}(x_{1}=\bar{x_{1}}, \dots ,x_{k} =\bar{x_{k}} )}{\delta}$$
+--
+MEM de apoyo al status-quo:
+```{r}
+delta = 0.1
+grid <- plebs_1988 %>% data_grid(sex, .model=mlogit_vote_sq_sex)
+grid_delta <- plebs_1988 %>% data_grid(sex, .model=mlogit_vote_sq_sex) %>% mutate(statusquo = statusquo + delta)
+
+p_hat <- predict(mlogit_vote_sq_sex, type="probs", newdata =grid) %>% as_tibble() %>% 
+  mutate(id = c("F","M"))%>% pivot_longer(-id, names_to="vote", values_to="prob") 
+
+p_hat_delta <- predict(mlogit_vote_sq_sex, type="probs", newdata =grid_delta) %>% as_tibble() %>% 
+  mutate(id = c("F","M")) %>% pivot_longer(-id, names_to="vote", values_to="prob_delta") 
+
+p_hat_delta <- p_hat_delta %>% left_join(p_hat, by=c("id","vote")) %>% mutate(me_sq = (prob_delta  - prob)/delta) %>% dplyr::select(id,vote,me_sq) %>% pivot_wider(names_from = "vote", values_from = "me_sq") %>% drop_na(); p_hat_delta
+```
+
+---
+class: inverse, center, middle
+
+## Independence of Irrelevant Alternatives (IIA)
+
+
+---
+## Independence of Irrelevant Alternatives (IIA)
+
+--
+
+- Cuando regresión logística Multinomial es utilizada para modelar decisiones (choice), el modelo descansa en el supuesto implícito de IIA
+
+--
+
+- IIA: las odds (probabilidades relativas) de seleccionar cualquiera de las $J$ alternativas no son afectadas por la existencia de alternativas irrelavantes.
+
+<br>
+--
+.bold[Ejemplo] (McFadden’s 1974):
+
+-  Una persona puede viajar al trabajo en: $\{\text{auto}, \text{ bus rojo}\}$
+-  $\mathbb{P}(\text{auto}) =  \mathbb{P}(\text{ bus rojo}) = 1/2$. Odds=1.
+
+--
+
+- Supongamos se amplía el conjunto de alternativas: $\{\text{auto}, \text{ bus rojo},  \text{ bus azul}\}$
+
+--
+
+- Dado que los buses sólo difieren en color, esperaríamos que $\mathbb{P}(\text{ bus rojo}) = \mathbb{P}(\text{bus azul})$
+
+- Único modo de retener Odds entre auto y bus rojo es si: $\mathbb{P}(\text{auto}) =  \mathbb{P}(\text{ bus rojo}) = \mathbb{P}(\text{bus azul}) = 1/3$
+
+--
+
+- Sería más realista esperar que $\mathbb{P}(\text{auto}) = 1/2)$ y $\quad \mathbb{P}(\text{ bus rojo}) = \mathbb{P}(\text{bus azul}) = 1/4$
+
+ - Sin embargo, violaría IIA porque las odds entre auto y bus rojo serían (1/2)/(1/4)=2.
+
+---
+## Independence of Irrelevante Alternatives (IIA)
+
+Existe una variedad de tests para el supuesto de IIA, pero ninguno ha mostrado ser concluyente:
+
+.center[
+![iia](iia.png)
+]
+
+
+---
+class: inverse, center, middle
+
+.huge[
+**Hasta la próxima clase. Gracias!**
+]
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+
+

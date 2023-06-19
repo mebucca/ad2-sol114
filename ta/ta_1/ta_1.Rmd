@@ -1,0 +1,149 @@
+---
+title: "Análisis de Datos Categóricos"
+author: "Ayudantía 1: Tutorial R"
+date: Felipe Olivares
+output: 
+  beamer_presentation:
+    theme: "Copenhagen"
+    colortheme: "dolphin"
+    fonttheme: "structurebold"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## ¿Qué es R? 
+
+
+• Un software de acceso libre y gratuito creado por **R**obert Gentleman y **R**oss Ihaka (**R**), que tuvo su origen en 1993 como resultado del desarrollo del lenguaje de programación estadística S.
+
+• El software fue desarrollado sobre la base del lenguaje homónimo, el cual se encuentra enfocado al **manejo y análisis estadístico, minería de datos, visualización de información.**
+
+• En términos de experiencia de usuario, R es definido como un lenguaje de programación **orientado a objetos**, más que bases de datos (como SPSS o Stata).
+
+## ¿Qué es R? 
+
+• Para el uso de todo el potencial analítico de esta herramienta, el trabajo de manipulación y estimación de datos y representaciones gráficas se realiza en base a **paquetes o librerías** gratuitas y comunitarias descargables desde el mismo programa. 
+
+• Actualmente existen más de **3000 librerías disponibles**, muchas de ellas creadas por destacades académicos de las ciencias sociales.
+
+## Ventajas de R
+
+• Software libre y disponible en cualquier plataforma.
+
+• Funciona en una variedad de sistemas operativos (Linux, MacOS, Windows, entre otros).
+
+• Permite trabajar con datos que poseen diferentes formatos (SPSS, Stata, SAS, Excel, etc.).
+
+• Algunas técnicas avanzadas y robustas solo pueden realizarse con este software.
+
+
+
+## Ventajas de R
+
+• Crea gráﬁcos de alta calidad.
+
+• Crea ﬂujos de trabajo (informes reproductibles dinámicos).
+
+• Contiene un módulo base de herramientas estadísticas que permiten a R interactuar con otros lenguajes: Python, Pearl, C, C++, etc.
+
+• Capacidad gráﬁca de alto rendimiento. Funciona muy bien con LATEX.
+
+• R forma parte de un proyecto colaborativo y abierto, en cuya base hay una comunidad académica activa.
+
+
+## ¿Qué es RStudio?
+
+• La consola inicial de trabajo para el lenguaje R es poco intuitiva, por lo que se recomienda utilizan una interface gráﬁca. 
+
+• La interface más utilizada es **RStudio**, y es la que estaremos usando en el curso. Existen otras interfaces gráﬁcas como Anaconda o R Commander, etc.
+
+• El diseño de **RStudio** es muy fluido e interactivo debido a la visualización simultánea de varios elementos: **código, gráﬁco, consola y objetos.**
+
+## ¿Qué es RStudio?
+
+![](i1_1.png)
+
+## Installación
+
+PASO 1 - INSTALACIÓN R (lenguaje)
+
+Para Windows:
+
+1. Descargar la última versión desde https://cran.r-project.org/bin/windows/base/
+
+2. Abrir el archivo ejecutable (.exe) y seguir las instrucciones para instalar el software.
+
+Para Mac:
+
+1. Descargar la última versión desde https://cran.r-project.org/bin/macosx/
+
+2. Abrir el archivo ejecutable (.pkg) y seguir las instrucciones para instalar el software.
+
+
+## Installación
+
+PASO 2 - INSTALACIÓN RStudio (editor)
+
+1. Descargar la última versión del software desde https://www.rstudio.com/products/rstudio/download/
+
+2. Seguir las instrucciones para instalar el software.
+
+3. A partir de ahora utilice esta interfaz para usar R.
+
+## Explorando R Studio
+
+![](i2_2.png)
+
+## Explorando R Studio
+
+La consola de RStudio está dividida en cuatro ventanas o paneles que se describen a continuación:
+
+1. **Editor/Source**: para escribir, editar y guardar los scripts (códigos computacionales) que son creados por el usuario.
+
+2. **Environment**: en donde aparecen todos los objetos que son creados en la sesión junto con su estructura.
+
+3. **Console**: donde se encuentran los resultados ejecutados desde el panel Editor/Source. También es posible hacer cómputos directamente en esta consola.
+
+4. **Assistence**: en donde se visualizan los gráﬁcos, las bases de datos, los directorios del sistema, así como la ayuda de las funciones de las librerías.
+
+
+## Directorio de trabajo en RStudio
+
+Para editar y ejecutar un nuevo código desde RStudio siga las siguiente instrucciones:
+
+1. Crear un nuevo archivo de R: File -> New File -> R Script.
+
+2. Escribir los comandos en el panel de código.
+
+3. Ubicar el cursor en la línea que desea compilar (seleccionar las líneas) y ejecutar con los comandos Ctrl + Enter (command + Enter en mac).
+
+4. Guardar el archivo en la carpeta deseada: File -> Save
+
+
+
+
+## Breve tarea
+
+1. Instalar R y RStudio.
+
+2. Abrir y guardar un directorio de trabajo para ejercitar con la interface.
+
+3. Explorar los distintos paneles de la interface.
+
+## Referencias
+
+• Garrett Grolemund (2014). *Hands-On Programming with R. O’Reilly*. Media, Inc.,s.
+
+• Hadley Wickham (2015). *Advanced R*, CRC Press, Taylor & Francis Group, Boca Raton, FL. En https://adv-r.hadley.nz/
+
+• Hadley Wickham and Garrett Grolemund (2017). *R for Data Science*. Import, Tidy, Transform, Visualize, and Model Data. O’Reilly Media, Inc.. En https://r4ds.had.co.nz/
+
+• R Project: https://www.r-project.org/
+
+• RStudio: https://rstudio.com/
+
+
+
+

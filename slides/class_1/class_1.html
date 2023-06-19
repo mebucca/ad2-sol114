@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análisis de Datos Categóricos (SOC3070)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca  Profesor Asistente, Sociología UC" />
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Análisis de Datos Categóricos (SOC3070)
+## Clase #1
+### <br> Mauricio Bucca<br> Profesor Asistente, Sociología UC
+### <a href="https://github.com/mebucca">github.com/mebucca</a>
+
+---
+
+class: inverse, center, middle
+
+#Probabilidades
+
+---
+
+## Experimentos aleatorios
+
+ Un  .bold[experimento aleatorio] es un experimento - real o hipotético - en el que todos los posibles resultados son conocidos *a priori*.
+
+&lt;br&gt;
+--
+
+Ejemplo:
+- Experimento: Tirar un dado
+- Posibles resultados: números enteros entre 1 y 6
+
+&lt;br&gt;
+--
+
+El conjunto de todos los posibles resultados de un experimento se llama "espacio muestral",  `\(\Omega\)`. 
+
+En este caso: 
+
+`$$\Omega: \{1,2,3,4,5,6 \}$$`
+
+&lt;br&gt;
+--
+
+En palabras, `\(\Omega: \{1,2,3,4,5,6 \}\)` significa que nuestro experimento, consistente en tirar un dado, puede resultar en: "1 o 2 o 3... o 6"
+
+---
+
+## Eventos
+
+Un .bold[evento] es un subconjunto bien definido de los posibles resultados de un experimento. 
+
+&lt;br&gt;
+--
+
+Ejemplo:
+- Experimento: Tirar un dado
+- "A" es el evento de "obtener un 1 o un 5"  
+
+&lt;br&gt;
+
+--
+
+Formalmente,
+
+`$$A :  \text{dado=1 o dado=5}$$`
+
+---
+
+## Probabilidad 
+
+Para cualquier .bold[*evento*] es posible asociar un número que cuantifique la .bold[probabilidad] de ocurrencia de tal evento. 
+
+&lt;br&gt;
+--
+
+Continuando con nuestro ejemplo,
+
+- Experimento: Tirar un dado
+- Espacio muestral, `\(\Omega: \{1,2,3,4,5,6\}\)`
+- A es el evento de "obtener un 1 o un 5"
+
+
+¿Cuál es la probabilidad de que ocurra A? 
+
+&lt;br&gt;
+--
+Formalmente,  
+
+`$$\mathbb{P}(A) = \mathbb{P}(\text{dado=1 o dado=5})$$`
+&lt;br&gt;
+donde `\(\mathbb{P}(.)\)` refiere a la probabilidad de ocurrencia del evento y `\(\mathbb{P}(.) \in [0,1]\)`
+
+---
+
+## Probabilidad 
+
+.bold[Ejercicio rápido]:
+
+* Supuesto: el dado es "justo", es decir, todos los valores tienen la misma probabilidad de ocurrencia
+
+--
+
+.full-width[.content-box-red[
+.bold[Preguntas]:
+
+1) ¿Cuál es la probabilidad de ocurrencia de cada valor en el espacio muestral?
+
+2) ¿Cuál es la probabilidad de ocurrencia del evento A (obtener un 1 o un 5)?
+]
+]
+
+--
+.bold[Respuestas:]
+
+1) `\(\frac{1}{6}\)` 
+
+2) `\(\frac{2}{6}\)` 
+
+--
+
+Detrás de estas respuestas hay una comprensión intuitiva de algunas propiedades importantes de la probabilidad.
+
+---
+
+### Reglas básicas de probabilidad
+
+1) Las probabilidades están limitadas entre cero y uno. Si A es un evento, entonces:
+
+`$$0 \leq \mathbb{P}(A) \leq 1$$`
+&lt;br&gt;
+--
+
+2) La probabilidad de que dos eventos mutuamente excluyentes ocurran al mismo tiempo es cero. Si A y B son eventos mutuamente excluyentes, entonces:
+
+`$$\mathbb{P}(A \text{ y }B) = 0$$`
+Por ejemplo, 
+  - si `\(A:\text{dado=1 o dado=5}\)` 
+  - y `\(B:\text{dado=6}\)`
+  
+&lt;br&gt;
+--
+entonces `\(\mathbb{P}(A \text{ y } B) = 0\)`
+
+
+---
+
+### Reglas básicas de probabilidad
+
+3) Si A y B son dos eventos la probabilidad de que *al menos* uno de los dos ocurra es llamada la "unión" de ambos eventos y viene dada por:
+
+`$$\mathbb{P}(A \text{ o } B) = \mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \text{ y } B)$$`
+&lt;br&gt;
+--
+
+Por ejemplo,    
+  - si `\(A: \text{dado=1 o dado=5}\)` 
+  - y `\(B:\text{dado=5 o dado=6}\)`
+  
+entonces, 
+
+`$$\mathbb{P}(A \text{ o } B) = \mathbb{P}(\text{dado=1 o dado=5}) + \mathbb{P}(\text{dado=5 o dado=6}) - \mathbb{P}(\text{dado=5})$$`
+---
+
+### Reglas básicas de probabilidad
+
+
+.bold[Ejercicio rápido]:
+
+- Experimento: tirar un dado
+- Supuesto: el dado es "justo", es decir, todos los valores tienen la misma probabilidad de ocurrencia
+
+&lt;br&gt;
+--
+
+.full-width[.content-box-red[
+.bold[Pregunta]:
+
+¿Cuál es la probabilidad de obtener un 3 o un 4?
+
+]
+]
+
+
+--
+
+.full-width[.content-box-blue[
+.bold[Respuesta]:
+`\begin{align}
+\mathbb{P}(\text{dado=3 o dado=4}) &amp;= \mathbb{P}(\text{dado=3}) +  \mathbb{P}(\text{dado=4}) - \mathbb{P}(\text{dado=3 y dado=4}) \\
+&amp;= \frac{1}{6} +  \frac{1}{6} - 0 = \frac{2}{6}
+\end{align}`
+]
+]
+
+---
+
+### Reglas básicas de probabilidad
+
+4) De los puntos 2 y 3 se deduce que la probabilidad de la unión de dos eventos desunidos, A y B, viene dada por:
+
+`$$\mathbb{P}(A \text{ or } B) = \mathbb{P}(A) + \mathbb{P}(B)$$`
+---
+
+### Reglas básicas de probabilidad
+
+5) La probabilidad del espacio muestral es uno. 
+
+&lt;br&gt;
+--
+
+Formalmente, si denotamos cada posible resultado de un experimento como `\(A_{i}\)`, entonces:
+
+`$$\mathbb{P}(\Omega) = \mathbb{P}(A_{1} \text{ o } A_{2} \dots \text{ o } A_{n})  = \sum_{i} \mathbb{P}(A_{i}) = 1$$`
+&lt;br&gt;
+--
+
+Por ejemplo
+  - Experimento: tirar un dado justo
+
+Entonces, 
+
+`\begin{align}
+\mathbb{P}(\Omega) &amp;= \mathbb{P}(\text{dado=1  o ... o dado=6})  \\ \\
+ &amp;= \mathbb{P}(\text{dado=1}) + \dots + \mathbb{P}(\text{dado=6}) \\ \\
+ &amp;= \frac{1}{6} + \dots + \frac{1}{6} = 1
+\end{align}`
+
+---
+
+### Reglas básicas de probabilidad
+
+6) Se sigue de (5) que si dos eventos A y B dividen el espacio muestral en dos particiones mutuamente excluyentes entonces sus probabilidades son complementarias. 
+
+&lt;br&gt;
+--
+
+Formalmente,
+
+`$$\mathbb{P}(A) = 1 - \mathbb{P}(B)$$`
+
+&lt;br&gt;
+--
+
+Por ejemplo
+  - Experimento: tirar un dado justo
+  - `\(A: \text{dado &lt; 3}\)` 
+  - `\(B:\text{dado} \geq 3\)`
+
+Entonces, 
+
+`\begin{align}
+\mathbb{P}(A) &amp;= 1 - \mathbb{P}(B) \\
+&amp;= 1 - \frac{4}{6} \\
+&amp;= \frac{2}{6}
+\end{align}`
+
+
+---
+
+class: inverse, center, middle
+
+.huge[
+**Hasta la próxima clase. Gracias!**
+]
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análisis de Datos Categóricos (SOC3070)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca  Profesor Asistente, Sociología UC" />
+    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Análisis de Datos Categóricos (SOC3070)
+]
+.subtitle[
+## Clase #9
+]
+.author[
+### <br> Mauricio Bucca<br> Profesor Asistente, Sociología UC
+]
+.date[
+### <a href="https://github.com/mebucca">github.com/mebucca</a>
+]
+
+---
+
+class: inverse, center, middle
+
+#Modelos Lineales Generalizados (GLM)
+
+---
+## Más allá del modelo de regresión lineal (LM) 
+
+LM es un marco muy útil y productivo, pero hay situaciones en las que no proporciona una descripción adecuada de los datos. En particular:
+
+&lt;br&gt;
+
+--
+
+- Cuando `\(Y\)` no se distribuye normalmente
+
+--
+
+- Cuando el rango de `\(Y\)` está restringido (por ejemplo, binario, recuento)
+
+--
+
+- Cuando la variación de `\(Y\)` no es independiente de la media de `\(Y\)`.
+
+&lt;br&gt;
+--
+
+GLM ofrece un marco mucho más general y flexible que incorpora y amplía el LM para abordar estas cuestiones.
+
+---
+## Estructura de los modelos lineales generalizados
+
+Un modelo lineal generalizado tiene cuatro componentes:
+
+.pull-left[
+
+- Un _componente aleatorio_
+
+- Un _componente sistemático_ 
+
+- Una _función de enlace_ (link).
+
+]
+
+---
+### Componente aleatorio
+
+`$$\newcommand{\vect}[1]{\boldsymbol{#1}}$$`
+
+- El componente aleatorio de un GLM identifica la .bold[distribución de probabilidad de la variable dependiente].
+
+--
+
+- Mientras que la LM asume que la variable dependiente sigue una distribución normal, GLM abarca un conjunto más amplio de distribuciones, .bold[tanto continuas como discretas], siempre y cuando pertenezcan a la clase más general de la [_familia exponencial de distribuciones_](https://en.wikipedia.org/wiki/Exponential_family).  
+
+
+![Some distributions of the exponential family and their relationship](expo_fam.png)
+
+
+---
+## Componente Sistemático
+
+El componente sistemático de un GLM especifica las variables explicativas, es decir, las `\(x\)`'s en el lado derecho de la ecuación
+
+&lt;br&gt;
+
+`$$\eta_{i} = \beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}$$`
+&lt;br&gt;
+--
+
+ - En terminología GLM `\(\eta\)` se denomina _predictor lineal_.
+ 
+ - `\(\eta\)` es lineal "en parámetros": no vamos a encontrar términos del tipo `\(\beta_{0}*\beta_{1}\)` o `\(\beta_{1}^{\beta_{0}}\)`.
+ 
+
+---
+## Función de enlace (link)
+
+En el LM estándar, la media condicional del resultado `\(\mu_{i}\)` está linealmente relacionada con los predictores del modelo.
+
+`$$\underbrace{\mathbb{E}(y_{i} \mid  x_{1}, \dots x_{k} )}_{\mu_{i}} = \underbrace{\beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}}_{\eta_{i}}$$`
+
+--
+
+- GLM permiten una relación más general y flexible entre estos dos términos. 
+
+--
+
+- En un GLM el componente sistemático `\(\eta_{i}\)` debe estar relacionado linealmente (en parámetros) con una función `\(g(\cdot)\)` de `\(\mu_{i}\)`. Dicha función se denomina *función de enlace*. Formalmente,
+
+`$$g(\mathbb{E}(y_{i} \mid  x_{1}, \dots x_{k})) =  g(\mu_{i}) = \eta_{i}$$`
+--
+
+Ejemplo, si `\(g(\cdot) = \ln(\cdot)\)`, entonces
+
+
+`$$\ln \mathbb{E}(y_{i} \mid  x_{1}, \dots x_{k}) =  \ln \mu_{i} = \eta_{i}$$`
+
+&lt;br&gt;
+--
+
+- La _función de enlace_ cumple un objetivo importante: mantener `\(\mu_{i}\)` dentro de su rango natural. 
+
+  - Ejemplo: si `\(y_{i}\)` es estrictamente positivo (ingreso), `\(\eta_{i} \in (-\infty, \infty+)\)` pero `\(\mu_{i} = e^{\eta_{i}} \in  (0, \infty+)\)`
+
+
+---
+## Función de enlace (link)
+
+Más allá de este ejemplo, hay una variedad de posibles funciones de enlace:
+
+
+![Some commonly used link functions](link_fn.png)
+- `\(g(\cdot)\)` debe ser "smooth" y monotónica
+
+
+---
+## Definiendo un GLM
+
+La estructura básica de un GLM se especifica mediante la elección de dos componentes: (1) la distribución de la variable dependiente (componente sistemático) y (2) la función de enlace. 
+
+&lt;br&gt;
+`\begin{align}
+  GLM:
+	\begin{cases}
+	&amp;y_{i} \sim f(\mu_{i},\sigma_{i}) \\ \\
+	&amp; g(\mu_{i}) = \eta_{i}
+	\end{cases}
+\end{align}`
+
+&lt;br&gt;
+--
+
+Cualquier combinación de estos componentes definirá un GLM diferente. Algunas de estas combinaciones son especialmente relevantes:
+
+
+| Distribution         | Canonical Link: `\(\eta = g(\mu)\)` | Link name             | Model name           |
+| -----------------    | ------------------              | --------------------- | -------------------- |
+| Normal (Gaussian)    | `\(\eta = \mu\)`                    | identity              | Standard regression  |
+| Poisson              | `\(\eta = \log(\mu)\)`              | logarithm             | Poisson regression   |
+| Bernoulli / Binomial | `\(\eta = \log(\mu/(1-\mu))\)`      | logit                 | Logistic regression  |
+| Gamma                | `\(\eta = (1/\mu)\)`                | reciprocal            | Gamma regression     |
+
+
+---
+class: inverse, center, middle
+
+#Regresión Logística
+
+---
+## Estructura de un modelo de regresión logística
+
+Podemos pensar en un modelo de regresión logística de la siguiente forma:
+
+&lt;br&gt;
+--
+
+.bold[Configuración]
+
+- Tenemos `\(n\)` observaciones (individuos) independientes: `\(i = 1, \dots, n\)`
+
+--
+
+- Para cada observación observamos datos `\(y_{i}, \dots , y_{n}\)` que actuan como variable dependiente, donde `\(y_{i} \in \{0,1\}\)`
+
+--
+
+- Asumimos que estos datos son realizaciones de `\(n\)` variables aleatorias Bernoulli con probabilidades desconocidas: `\(Y_{i} \sim \text{Bernoulli}(p_{i})\)`
+
+  - Alternativamente, recuento de éxitos puede tratarse como una variable Binomial. 
+
+--
+
+- Asumimos que dichas probabilidades pueden variar de individuo en individuo.
+
+  - Un modelo con un `\(p_{i}\)` para cada observación `\(i\)` es un modelo "just-identified" (o saturado). Posible, pero no es un "modelo".
+
+---
+## Estructura de un modelo de regresión logística
+
+Formalmente,
+
+`$$Y_{i} \sim \text{Bernoulli}(p_{i})$$`
+ 
+
+es decir
+
+`$$\quad \mathbb{P}(Y_{i}= y) = p_{i}^{y}(1-p_{i})^{1-y} \quad \text{ donde } \quad y \in \{0,1\}$$`
+
+&lt;br&gt;
+&lt;br&gt;
+--
+
+La pregunta es: ¿como estimamos `\(p_{i}\)` de tal manera que ... ?
+
+
+&lt;br&gt;
+--
+
+- Describamos `\(p_{i}\)` con un número de parámetros `\(k&lt;n\)`
+
+--
+
+- `\(\hat{p}_{i} \in [0,1]\)`
+
+
+
+
+---
+## Estructura de un modelo de regresión logística
+
+El modelo de regresión logística aborda este problema de la siguiente manera:
+
+.content-box-blue[
+`$$p_{i} = \frac{e^{\eta_{i}}}{1 + e^{\eta_{i}}} \quad \quad  \text{donde} \quad \quad \eta_{i} = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}$$`
+]
+
+
+
+&lt;br&gt;
+--
+
+.bold[Importante] notar que:
+
+--
+
+- Esta función (llamada *sigmoide*) tiene la propiedad clave de estar restringida al intervalo `\([0, 1]\)`.
+
+  - `\(e^{\eta_{i}} &gt; 0\)`, de tal manera que el numerador es siempre menor que el denominador. Por lo tanto,  `\(0 &lt; p_{i} &lt;1\)`.
+
+--
+
+- `\(x_{1} \dots x_{k}\)` son predictores o variables independientes 
+
+--
+
+- `\(\beta_{1} \dots \beta_{k}\)` son los respectivos "efectos" de los predictores sobre `\(\eta_{i}\)`
+
+--
+
+- `\(p_{i}\)` .bold[no está relacionado linealmente] con sus predictores 
+
+---
+## Estructura de un modelo de regresión logística
+
+Sin embargo, `\(\eta_{i} = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}\)` si es una función lineal de los predictores.
+
+--
+
+Por tanto, es conveniente expresar `\(\eta\)` en función de `\(p\)` ...
+--
+ Paso a paso:
+
+.img-right[
+![mostaza](mostaza-merlo.jpg)
+]
+
+
+--
+
+`\(p_{i} = \frac{e^{\eta_{i}}}{1 + e^{\eta_{i}}} = \frac{1}{e^{- \eta_{i}} + 1}\)`
+
+--
+
+`\(e^{-\eta_{i}} + 1 = \frac{1}{p_{i}}\)`
+
+
+--
+
+`\(e^{- \eta_{i}} = \frac{1}{p_{i}} - 1 =  \frac{1 - p_{i}}{p_{i}}\)`
+
+--
+
+`\(e^{\eta_{i}} = \frac{p_{i}}{1 - p_{i}}\)`
+
+--
+
+`\(\eta_{i} = \ln \frac{p_{i}}{1 - p_{i}} \quad \quad\)`
+--
+es decir, el log de las odds o log-odds
+
+--
+
+.content-box-yellow[
+`$$\text{Por tanto} \quad \quad  \ln \frac{p_{i}}{1 - p_{i}} = \eta_{i} = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}$$`
+] 
+
+---
+## Estructura de un modelo de regresión logística
+
+![](class_9_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+
+---
+## Regresión Logística es un tipo de GLM
+
+
+Regresión Logística es un GLM con componente aleatorio .bold[Bernoulli/Binomial] y función de enlace .bold[logit]. 
+
+
+&lt;br&gt;
+--
+
+- Componente aleatorio: `\(y_{1}, \dots y_{n}\)` son `\(n\)` variables independientes con distribución `\(\text{Bernoulli}(p_{i})\)`
+
+  - donde `\(p_{i} \equiv \mu_{i}\)`
+
+
+--
+
+- Función de enlace: `\(\text{logit}(x) = \ln \frac{x}{1 - x}\)`
+
+
+--
+
+- Componente sistemático: `\(\ln \frac{p_{i}}{1 - p_{i}} = \eta_{i} = \beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}\)`
+
+--
+
+- Función media: `\(p_{i} = \text{logit}^{-1}(\eta_{i}) = \frac{e^{\eta_{i}}}{1 + e^{\eta_{i}}}\)`
+
+
+
+---
+## Regresión Logística es un tipo de GLM
+
+
+- Varianza `\(\mathbb{Var}(y_{i}) = \phi V(p_{i}), \quad\)` 
+--
+  `\(\text{donde} \quad V(p_{i})= \frac{dp_{i}}{d\eta_{i}}\)`.
+
+--
+
+- `\(\eta_{i} = \ln \frac{p_{i}}{1 - p_{i}}  =  \ln(p_{i}) - \ln(1 - p_{i})\)`
+
+--
+
+- `\(\frac{d \eta_{i}}{d p_{i}} = \frac{1}{p_{i}} + \frac{1}{1 - p_{i}} = \frac{1}{p_{i}(1 - p_{i})}\)` 
+
+--
+
+- `\(\frac{d p_{i}}{d \eta_{i}} = p_{i}(1 - p_{i})\)`
+
+--
+
+Por tanto, `\(\mathbb{Var}(y_{i}) = \phi V(p_{i}) = \phi p_{i}(1 - p_{i})\)`, con `\(\phi=1\)`
+
+&lt;br&gt;
+En resumen, en un modelo de regresión logística
+
+.content-box-blue[
+`$$y_{i} \sim \text{Bernoulli}\Bigg(p_{i} = \frac{e^{\eta_{i}}}{1 + e^{\eta_{i}}}\Bigg)$$`
+
+]
+
+---
+## Regresión Logística en la práctica 
+
+Para ejemplificar el uso de regresión logística continuaremos trabajando con los datos de infidelidad. 
+
+
+```
+## # A tibble: 15 × 10
+##    sex      age    ym child religious education  rate nbaffairs everaf…¹ evera…²
+##    &lt;fct&gt;  &lt;dbl&gt; &lt;dbl&gt; &lt;fct&gt;     &lt;int&gt;     &lt;dbl&gt; &lt;int&gt;     &lt;dbl&gt; &lt;chr&gt;      &lt;dbl&gt;
+##  1 male      57    15 yes           4        20     4         0 Never          0
+##  2 female    57    15 yes           4        16     4         0 Never          0
+##  3 female    57    15 yes           2        18     2         0 Never          0
+##  4 male      57    15 yes           4         9     2         0 Never          0
+##  5 male      57    15 yes           4        20     5         0 Never          0
+##  6 male      57    15 yes           2        20     4         0 Never          0
+##  7 male      57    15 yes           4         9     4         0 Never          0
+##  8 male      57    15 yes           4        17     5         0 Never          0
+##  9 male      57    15 yes           5        18     2         0 Never          0
+## 10 female    57    15 yes           3        18     2         0 Never          0
+## 11 male      57    15 no            4         9     1         0 Never          0
+## 12 female    57    15 no            4        20     5         0 Never          0
+## 13 female    57    15 yes           1        18     4         2 At leas…       1
+## 14 male      57    15 yes           1        17     4         2 At leas…       1
+## 15 male      57    15 yes           5        20     5         7 At leas…       1
+## # … with abbreviated variable names ¹​everaffair, ²​everaffair_d
+```
+
+
+---
+## Regresión Logística en la práctica 
+
+Ajustaremos el siguiente modelo: `\(\text{logit(everaffair}_{i}) = \beta_{0} + \beta_{1}*\text{rate}_{i}\)`, que modela el log de la odd de tener un affair como función de la auto-evaluación del matrimonio, desde 1 (muy infeliz) a 5 (muy feliz).
+
+
+```r
+logit_affairs_rate &lt;- glm(everaffair_d ~ rate, family=binomial(link="logit"), data=affairsdata); summary(logit_affairs_rate)
+```
+
+```
+## 
+## Call:
+## glm(formula = everaffair_d ~ rate, family = binomial(link = "logit"), 
+##     data = affairsdata)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.3147  -0.7233  -0.5751  -0.5751   1.9396  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  0.82539    0.32548   2.536   0.0112 *  
+## rate        -0.50822    0.08469  -6.001 1.96e-09 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 675.38  on 600  degrees of freedom
+## Residual deviance: 638.28  on 599  degrees of freedom
+## AIC: 642.28
+## 
+## Number of Fisher Scoring iterations: 4
+```
+
+---
+## Regresión Logística en la práctica 
+
+.pull-left[
+
+```
+## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
+## "none")` instead.
+```
+
+![](class_9_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+]
+
+--
+
+.pull-right[
+
+```
+## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; =
+## "none")` instead.
+```
+
+![](class_9_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+]
+
+
+---
+
+class: inverse, center, middle
+
+## Estimación (MLE)
+
+---
+## Estimación (MLE)
+
+Retomando  nuestro ejemplo anterior,
+
+.pull-left[
+
+```
+## 
+## Call:
+## glm(formula = everaffair_d ~ rate, family = binomial(link = "logit"), 
+##     data = affairsdata)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.3147  -0.7233  -0.5751  -0.5751   1.9396  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  0.82539    0.32548   2.536   0.0112 *  
+## rate        -0.50822    0.08469  -6.001 1.96e-09 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 675.38  on 600  degrees of freedom
+## Residual deviance: 638.28  on 599  degrees of freedom
+## AIC: 642.28
+## 
+## Number of Fisher Scoring iterations: 4
+```
+]
+
+--
+
+.pull-right[
+.bold[¿De donde vienen estos números?]
+]
+
+---
+## Estimación (MLE)
+
+Recordar que cada observación es una manifestación de una variable Bernoulli:
+
+--
+
+`\(Y_{i} \sim \text{Bernoulli}(p_{i}) \quad \text{ es decir } \quad \mathbb{P}(Y_{i}= y) = p_{i}^{y}(1-p_{i})^{1-y} \quad \text{ donde } \quad y \in \{0,1\}\)`
+
+--
+
+Por tanto, la probabilidad de observar estos datos es descrita por la siguiente función:
+
+`$$\mathbb{P}(y_{1}, \dots, y_{1}) = \Pi_{i=1}^{n} p_{i}^{y_{i}}(1-p_{i})^{1-y_{i}}$$`
+&lt;br&gt;
+--
+
+En consecuencia, la .bold[likelihood function] de `\(p_{i}\)` es:
+
+`$$\mathcal{L}(p_{i} \mid y_{1}, \dots, y_{1}) = \Pi_{i=1}^{n} p_{i}^{y_{i}}(1-p_{i})^{1-y_{i}}$$`
+
+--
+
+y la .bold[log likelihood function] de `\(p_{i}\)` es:
+
+
+`$$\ell\ell(p_{i} \mid y_{1}, \dots, y_{1}) = \sum_{i=1}^{n} \bigg( y_{i} \ln p_{i} + (1-y_{i}) \ln(1-p_{i}) \bigg)$$`
+---
+## Estimación (MLE)
+
+La .bold[log likelihood function] de `\(p\)` es:
+
+`$$\ell\ell(p_{i} \mid y_{1}, \dots, y_{1}) = \sum_{i=1}^{n} \bigg( y_{i} \ln p_{i} + (1-y_{i}) \ln(1-p_{i}) \bigg)$$`
+--
+
+Pero no estamos estimando `\(p_{i}\)` directamente, sino que lo modelamos como un función de otros predictores.
+
+--
+
+específicamente: `\(p_{i} =\frac{1}{1 + e^{-(\beta_{0} + \beta_{1}\text{rate}_{i}})}\)`
+
+--
+
+por tanto, 
+`$$\ell\ell(\beta_{0},\beta_{1} \mid y_{1}, \dots, y_{1}) = \sum_{i=1}^{n} \bigg( y_{i} \ln \frac{1}{1 + e^{-(\beta_{0} + \beta_{1}\text{rate}_{i})}} + (1-y_{i}) \ln(1-\frac{1}{1 + e^{-(\beta_{0} + \beta_{1}\text{rate}_{i})}}) \bigg)$$`
+
+En definitiva, nuestros MLE son:
+
+`$$\hat{\beta_{0}},\hat{\beta_{1}} = \underset{\beta_{0},\beta_{1}}{\arg\max\ } \sum_{i=1}^{n} \bigg( y_{i} \ln \frac{1}{1 + e^{-(\beta_{0} + \beta_{1}\text{rate}_{i})}} + (1-y_{i}) \ln(1-\frac{1}{1 + e^{-(\beta_{0} + \beta_{1}\text{rate}_{i})}}) \bigg)$$`
+---
+## Estimación (MLE)
+
+- No hay solución analítica (en general) para esta maximización. Típicamente se usa Fisher’s Scoring Method  (un algoritmo de búsqueda) para obtener los MLE. 
+
+-  Para ejemplificar  podemos implementar una optimización numérica simple e ineficiente para buscar los MLE.
+--
+ Para acelerar la búsqueda usaremos valores en la proximidad de las estimaciones reportadas arriba (que normalmente no conoceríamos):
+ 
+
+.bold[Implentación en] `R`:
+ 
+
+```r
+ll &lt;- function(b0,b1) {
+  y = affairsdata$everaffair_d
+  eta = b0 + b1*affairsdata$rate
+  ell = sum( y*log(1/(1 + exp(-eta))) +  (1-y)*log(1 - (1/(1 + exp(-eta)))))
+  return(ll = ell)
+}
+```
+
+--
+
+
+```r
+ll(b0=0,b1=0); ll(b0=-1,b1=2)
+```
+
+```
+## [1] -416.5815
+```
+
+```
+## [1] -3250.049
+```
+
+---
+## Estimación (MLE)
+
+.bold[Implentación en] `R`:
+
+
+```r
+# Evaluar la log-likelihood function  para muchas combinaciones de posibles valores de  b0 y b1
+parameter_space &lt;- expand.grid(beta0 = seq(-1,1,length.out=500), beta1 = seq(-1,1,length.out=500)) %&gt;% 
+  rowwise() %&gt;% mutate(loglik = ll(beta0,beta1)) 
+
+# Encuentra el par de valores b0,b1 que dan el mayor valor para la log-likelihood function
+
+m &lt;- parameter_space %&gt;% as.matrix()
+m[which.max(m[,3]),]
+```
+
+```
+##        beta0        beta1       loglik 
+##    0.8196393   -0.5070140 -319.1405929
+```
+
+---
+## Estimación (MLE)
+
+.pull-left[
+![](class_9_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+]
+
+--
+
+.pull-right[
+
+```
+## 
+## Call:
+## glm(formula = everaffair_d ~ rate, family = binomial(link = "logit"), 
+##     data = affairsdata)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -1.3147  -0.7233  -0.5751  -0.5751   1.9396  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)  0.82539    0.32548   2.536   0.0112 *  
+## rate        -0.50822    0.08469  -6.001 1.96e-09 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 675.38  on 600  degrees of freedom
+## Residual deviance: 638.28  on 599  degrees of freedom
+## AIC: 642.28
+## 
+## Number of Fisher Scoring iterations: 4
+```
+]
+
+
+---
+class: inverse, center, middle
+
+.huge[
+**Hasta la próxima clase. Gracias!**
+]
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

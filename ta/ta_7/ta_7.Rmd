@@ -1,0 +1,254 @@
+---
+title: "Análisis de Datos Categóricos"
+author: "Ayudantía 7 "
+date: Felipe Olivares
+output: 
+  beamer_presentation:
+    theme: "Copenhagen"
+    colortheme: "dolphin"
+    fonttheme: "structurebold"
+    keep_tex: true
+fontsize: 8pt
+---
+
+
+
+```{r setup, include=FALSE}
+def.chunk.hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- def.chunk.hook(x, options)
+  paste0("\n \\", "tiny","\n\n", x, "\n\n \\normalsize")
+})
+```
+
+
+## Contenido
+
+
+ 1. Bootstrap
+ 
+
+
+
+## Bootstrap method
+
+
+
+**¿Que ocurre si tomamos una muestra de nuestra muestra?**
+
+Es decir, una muestra aleatoria de nuestra muestra sucesivamente y muchas veces.  Lo que busca el *boostrap method* es estimar un subconjunto de nuestros datos para obtener una estimación. Luego tomamos otro subconjunto y así muchas veces vamos a repetir este ejercicio. Es decir, en vez de simular los datos (como en el caso de Montecarlo), tomemos una muestra repitiendo las estimaciones varias veces. Así tendremos un comportamiento de nuestro estimador. 
+
+
+Revisaremos los mismos datos de la ayudantía anterior para crear un modelo de regresión logística en base a predictores que ya hemos utilizado.
+
+``` {r echo=FALSE,include=FALSE}
+#Subset base de datos OCS
+load(url("https://github.com/mebucca/cda_soc3070/blob/master/ta/ta_6/data_OCS_2.RData?raw=true"))
+library(ggplot2) # cargamos la librería que vamos a utilizar
+library(tidyverse)
+
+```
+
+
+
+## Bootstrap method
+
+Para efecto de la regresión que modelaremos la función de un control violento de la protesta respecto de un control negociado. Por lo tanto, es importante que el control negociado de la protesta=0 y control violento de la protesta=1 (consideren lo dicho previamente respecto del sentido del efecto que queremos estimar)
+
+
+```{r, include=FALSE}
+# agregamos la variable de participantes a otro subset de datos
+df2 <- df1 %>% select(apolicial,ppolicial,educacion,estudiantes,,disruptiva,trabajadores, participantes) %>%
+  mutate(apolicial = if_else(apolicial=="Violencia Policial",1,0),
+         educacion = if_else(educacion=="Sí",1,0),
+                  estudiantes= if_else(estudiantes=="Sí",1,0),
+         disruptiva = if_else(disruptiva=="Sí",1,0),
+         trabajadores = if_else(trabajadores=="Sí",1,0))  %>%
+  mutate(apolicial = as.numeric(apolicial),
+         educacion = as.numeric(educacion),
+                 estudiantes = as.numeric(estudiantes), 
+         disruptiva = as.numeric(disruptiva),
+         trabajadores= as.numeric(trabajadores))  %>%
+  na.omit(df2)
+
+
+```
+
+
+## Bootstrap method
+
+Revisemos los datos nuevamente...
+
+```{r echo=TRUE, comment='#'}
+
+head(df2)
+```
+
+
+
+
+
+## Bootstrap method
+
+
+**Ajuste un modelo de regresión logística que predice el control violento de la protesta como función de distinas covariables: educación, estudiantes y tácticas disruptivas.** 
+
+Formalmente:
+
+\tiny
+$$\underbrace{\ln \frac{p_{i}}{ 1 - p_{i}}}_{\text{logit}(p_{i})}    = \beta_{0} + \beta_{1}\text{demandas por educación}_{i} + \beta_{2}\text{presencia de estudiantes}_{i} + \beta_{3}\text{presencia de tácticas disruptivas}_{i} + \beta_{4}\text{ N° de manifestantes}_{i}$$
+
+
+
+## Bootstrap method
+
+La trasformación de probabilidades a odds es monotónica, si la probabilidad aumenta también lo hacen los odds, y viceversa. El rango de valores que pueden tomar los odds es de $(0,\infty+)$. Dado que el valor de una probabilidad está acotado entre (0,1)
+
+donde:
+
+- $e^{\beta_{k}}$ está restringido al rango $[0,\infty+)$. Es una constante que "comprime" o amplifica las odds de éxito.
+
+- Si $\beta_{k} < 0  \to  (0 < e^{\beta_{k}} < 1)$. Es decir, un aumento en $x_{k}$ está asociado con una reducción (multiplicativa) de las odds de éxito. 
+
+- Si $\beta_{k} = 0  \to  (e^{\beta_{k}} =1)$. Es decir, un cambio en $x_{k}$ está asociado a un cambio nulo en las odds de éxito.
+
+- Si $\beta_{k} > 0  \to  (e^{\beta_{k}} > 1)$. Es decir, un aumento en $x_{k}$ está asociado a aumento (multiplicativo) en de las odds de éxito.
+
+
+
+## Bootstrap method
+
+
+```{r echo=TRUE, comment='#'}
+
+logit1 <- glm(apolicial ~ educacion + estudiantes + disruptiva + participantes, family = binomial(link=logit), data=df2)
+summary(logit1)
+
+
+```
+
+
+```{r echo=TRUE, comment='#'}
+#Estimación de GLM (Regresión logística)
+ exp(summary(logit1)$coefficients[,1]) # en odds
+
+```
+
+
+
+## Bootstrap method
+
+
+A partir del modelo estimado: 
+
+$\frac{p_i}{1-p_i}=\beta_{0} + \beta_{Educación} + \beta_{estudiantes} + \beta_{disruptiva} + \beta_{participantes}$ )
+
+calcule un IC al 95% para efecto de estudiantes como "odds ratio", utilizando el Bootstrap Method.
+
+**Recuerde que el Bootstrap Method**:
+
+1. Asume que la distribución empírica del los datos refleja la distribución de probabilidad de las variables de interés.
+
+2. A partir de la muestra obtenén una muestra aleatoria del mismo tamaño que la muestra original (N), con reemplazo:  $(y_{b},X_{b})$
+
+3. Regresiona $y_{b}$ y $X_{b}$ para obtener el estimate $\hat{\theta}_{b}$ 
+
+4. Repite los pasos 2 y 3 un gran número de veces B.
+
+5. El conjunto de B resultados obtenidos corresponde a la "Bootstrap distribution" del estimate.
+
+6. Evalúa la distribución del estimate (SE,CI, etc) o de cualquier cantidad derivada de éste.
+
+
+
+## Bootstrap method
+
+$\frac{p_i}{1-p_i}=\beta_{0} + \beta_{Educación} + \beta_{estudiantes} + \beta_{disruptiva} + \beta_{participantes}$ )
+
+
+
+```{r echo=TRUE, comment='#', warning = FALSE}
+
+# Función de resampling y estimación de modelo
+bs_expedad  <- function(x) {
+  data_bs  <- sample_n(df2,size=nrow(df2),replace=TRUE) # tomar el tamaño original de la muestra que tenemos
+  rl_bs <- glm(apolicial ~ educacion + estudiantes + disruptiva + participantes, family = binomial(link=logit), data=data_bs) 
+  expbeta_bs <- exp(rl_bs$coefficients[3])#coeficientes de interés que queremos resamplear
+  return(expbeta_bs)}
+
+# Iterar función y almacenar resultados
+nreps = 400 # cantidad de veces que queremos iterar
+expbetas_bs <- replicate(nreps,bs_expedad()); head(expbetas_bs)
+```
+
+## Bootstrap method
+
+A partir del modelo estimado:  
+
+$\frac{p_i}{1-p_i}=\beta_{0} + \beta_{Educación} + \beta_{estudiantes} + \beta_{disruptiva} + \beta_{participantes}$
+
+calcular un IC al 95% para efecto de estudiantes como "odds ratio", utilizando el Bootstrap Method.
+
+```{r echo=TRUE, comment='#'}
+# Sintaxis
+# Cálculo de Standard Errors en base a Bootstrap Distribution
+se_expbeta_bs <- sd(expbetas_bs)
+se_expbeta_bs
+```
+
+```{r echo=TRUE, comment='#'}
+# Sintaxis
+# Cálculo de Intervalos de Confianza
+ci_expbeta_bs <- 
+  quantile(expbetas_bs, p=c(0.025,0.975))
+ci_expbeta_bs
+
+```
+\newpage
+
+## Bootstrap method
+Calcule un IC al 95% para  el Average Marginal Effect de edad sobre la probabilidad de un manejo violento de la protesta, utilizando el Bootstrap Method.
+
+Recordar...
+
+El efecto marginal en la media (AME) se calcula ajustando los valores de todas las covariables a sus medias dentro de la muestra. Es decir, 
+el AME es el efecto parcial de la variable dependiente ($Y$) condicionado a un regresor ($X$) después de establecer todas las demás covariables en sus medias. En otras palabras, el MEM es la diferencia en el efecto de $X$ sobre $Y$ cuando todas las demás covariables  están en su media.
+
+```{r echo=TRUE, comment='#', warning = FALSE}
+# Sintaxis
+# Función de resampling y estimación de modelo
+bs_ame_estudiantes  <- function(x) {
+  data_bs  <- sample_n(df2,size=nrow(df2),replace=TRUE)
+  rl_bs <- glm(apolicial ~ educacion + estudiantes + disruptiva + participantes, family = binomial(link=logit), data=data_bs)
+  beta_bs <- rl_bs$coefficients[3]
+  p_hat_b  <- predict(rl_bs, type = "response") #los valores predichos del modelo
+  me_estudiantes_b   <- beta_bs*p_hat_b*(1-p_hat_b) # p * 1-p
+  return(ame_estudiantes_b = mean(me_estudiantes_b))
+}
+  
+# Iterar función y almacenar resultados
+nreps = 400 
+ame_estudiantes_bs <- replicate(nreps,bs_ame_estudiantes()); head(ame_estudiantes_bs) #calcula, remuestrea y guarda cada vez
+
+```
+
+## Bootstrap method
+
+Calcule un IC al 95% para  el Average Marginal Effect de edad sobre la probabilidad de un manejo violento de la protesta por parte de las policías, utilizando el Bootstrap Method.**
+
+```{r echo=TRUE, comment='#'}
+# Sintaxis
+# Cálculo de Standard Errors en base a Bootstrap Distribution
+se_ame_estudiantes_bs <- sd(ame_estudiantes_bs)
+se_ame_estudiantes_bs
+```
+
+```{r echo=TRUE, comment='#'}
+# Sintaxis
+# Cálculo de Intervalos de Confianza
+ci_ame_estudiantes_bs <- 
+  quantile(ame_estudiantes_bs, p=c(0.025,0.975))
+  ci_ame_estudiantes_bs
+
+```
+

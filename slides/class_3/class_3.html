@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análisis de Datos Categóricos (SOC3070)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca  Profesor Asistente, Sociología UC" />
+    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Análisis de Datos Categóricos (SOC3070)
+]
+.subtitle[
+## Clase #3
+]
+.author[
+### <br> Mauricio Bucca<br> Profesor Asistente, Sociología UC
+]
+.date[
+### <a href="https://github.com/mebucca">github.com/mebucca</a>
+]
+
+---
+
+class: inverse, center, middle
+
+#Variables Aleatorias
+
+---
+
+## Variables Aleatorias
+
+Una .bold[variable aleatoria] es una variable cuyos valores son el resultado de un fenómeno aleatorio.
+
+Si `\(\Omega\)` es el espacio muestral de un experimento, una variable aleatoria es una función que _mapea_ el espacio muestral a los números reales: `\(\Omega \to \mathbb{R}\)`.
+
+&lt;br&gt;
+--
+Ejemplo:
+- Experimento: tirar 2 dados simultáneamente
+- Espacio muestral: `\(\{(1;1),(1;2), \dots, (5;6),(6;6)\}\)`
+
+
+&lt;br&gt;
+--
+A partir de un experimento es posible definir una variedad de variables aleatorias. Por ejemplo:
+
+--
+
+1) `\(X\)` es la variable que resulta de registrar el valor de los dados (el experimento tal como es): 
+* `\(X: \{(1;1),(1;2), \dots, (5;6),(6;6)\}\)`
+
+--
+
+2) `\(Y\)` es la variable que resulta de sumar el resultado de ambos dados:
+* `\(Y: \{2,3, \dots, 11,12 \}\)`
+
+
+---
+
+## Variables Aleatorias
+
+Cada valor posible de una variable aleatoria tiene una cierta probabilidad de ocurrencia, denotada como `\(\mathbb{P}(Y=y)\)`.
+
+.bold[Ejercicio rápido]:
+
+- Experimento: tirar 2 dados justos simultáneamente
+- `\(Y\)` es la variable que resulta de sumar el resultado de ambos dados
+
+--
+
+.full-width[.content-box-red[
+.bold[Pregunta]:
+¿Cuál es la probabilidad que la variable `\(Y\)` tome valor 12?
+]
+]
+
+--
+
+.full-width[.content-box-blue[
+.bold[Respuesta]:
+`$$\mathbb{P}(Y=12) = \frac{1}{36}$$`
+]
+]
+
+---
+
+### Distribución de una variable aleatoria
+
+Cada valor posible de una variable aleatoria tiene una cierta probabilidad de ocurrencia. El conjunto de estas probabilidades se denomina la .bold[distribución] de la variable.
+
+&lt;br&gt;
+--
+
+#### Función de probabilidad
+La función que describe la distribución de una variable aleatoria se denomina .bold[función de probabilidad (pf)], denotada `\(f_{X}(x)\)`. 
+
+--
+
+- En el caso de variables discretas la función de probabilidad `\(f_{X}(x)\)` entrega la probabilidad de que la variable `\(X\)` tome valor `\(x\)`. Formalmente
+
+`$$f_{X}(x) = \mathbb{P}(X=x)$$`
+
+---
+### Distribución de una variable aleatoria
+
+Dos características cruciales de una distribución de probabilidad son:
+
+&lt;br&gt;
+--
+
+- densidad/masa no negativa: `\(f(x) \geq 0\)`
+
+--
+
+- suma a 1: si `\(x_{1}, x_{2}, \dots, x_{n}\)` son todos los valores posibles de una variable discreta `\(X\)`, entonces
+
+--
+
+`$$\sum^{\infty}_{i=1} f(x_{i}) = 1$$`
+
+--
+
+Análogamente, si `\(X\)` es continua, entonces
+
+`$$\int ^{+\infty}_{-\infty} f(x)dx = 1$$`
+
+
+---
+### Distribución de una variable aleatoria
+
+Continuando con nuestro ejemplo:
+
+- `\(Y\)` es la variable que resulta de sumar el resultado de tirar dos dados justos
+
+.pull-left[
+
+|y  | P(Y=y) |
+|:--|:------:|
+|2  |  0.03  |
+|3  |  0.06  |
+|4  |  0.08  |
+|5  |  0.11  |
+|6  |  0.14  |
+|7  |  0.17  |
+|8  |  0.14  |
+|9  |  0.11  |
+|10 |  0.08  |
+|11 |  0.06  |
+|12 |  0.03  |
+]
+
+--
+
+.pull-right[
+`\begin{align}
+  f_{Y}(y) =
+  \begin{cases}
+    \frac{1}{36}  &amp; \quad \text{si } y=2 \text{ o } y=12\\
+    \frac{2}{36}  &amp; \quad \text{si } y=3 \text{ o } y=11\\
+    \frac{3}{36}  &amp; \quad \text{si } y=4 \text{ o } y=10\\
+    \frac{4}{36}  &amp; \quad \text{si } y=5 \text{ o } y=9\\
+    \frac{5}{36}  &amp; \quad \text{si } y=6 \text{ o } y=8\\
+    \frac{6}{36}  &amp; \quad \text{si } y=7 \\
+    0             &amp; \quad \text{otherwise}
+  \end{cases}
+\end{align}`
+]
+
+---
+
+### Distribuciones discretas (categóricas)
+
+&lt;br&gt;
+
+- Una .bold[variable discreta] es una variable que sólo puede tomar un número contable de valores
+
+--
+
+- La función de probabilidad de las variables aleatorias discretas se denomina "función de masa de probabilidad" (pmf) 
+
+--
+  - En el caso de las variables continuas, la función de probabilidad se denomina "función de densidad de probabilidad" (pdf)
+
+--
+
+- En lo que sigue cubriremos las distribuciones discretas fundamentales: .bold[Bernoulli] y .bold[Binomial]
+
+
+---
+
+### Distribución Bernoulli
+
+Una variable aleatoria sigue una distribución de Bernoulli si solo puede tomar valores 0 o 1, con probabilidad `\(p\)` y `\(q=1-p\)`, respectivamente.
+
+--
+
+Por ejemplo,
+- Experimento: tirar una moneda
+- Definamos la variable `\(X\)` tal que `\(X=1\)` si obtenemos Cara y `\(X=0\)` si obtenemos Sello
+
+--
+
+`\(X\)` es una variable Bernoulli con función de probabilidad:
+
+`\begin{align}
+f_{X}(x) =
+  \begin{cases}
+    p  &amp; \quad \text{si } x=1\\
+    1 - p  &amp; \quad \text{si } x=0 \\
+    0 &amp; \quad \text{otherwise}
+  \end{cases}
+\end{align}`
+
+--
+
+En modo más sintético:
+
+`$$f_{X}(x) = p^{x}(1-p)^{1-x}  \quad \text{si } x=1 \text{ o } x=0$$`
+---
+
+### Distribución Bernoulli
+
+.bold[Ilustración via simulación en] `R`
+
+
+Tiremos una moneda con probabilidad de obtener "Cara" ( `\(1\)` ) de 70% ( `\(p=0.7\)` )
+
+
+```r
+set.seed(12345)
+moneda &lt;- rbinom(n=1, size=1, p=0.7)
+print(moneda)
+```
+
+```
+## [1] 0
+```
+
+--
+
+Repitamos el proceso 100 veces ...
+
+
+```r
+set.seed(12345)
+monedas &lt;- rbinom(n=100, size=1, p=0.7)
+print(monedas)
+```
+
+```
+##   [1] 0 0 0 0 1 1 1 1 0 0 1 1 0 1 1 1 1 1 1 0 1 1 0 0 1 1 1 1 1 1 0 1 1 1 1 1 0
+##  [38] 0 1 1 0 1 0 0 1 1 1 1 1 1 0 0 1 1 0 1 0 1 1 1 0 1 0 0 0 1 0 1 1 0 1 1 1 1
+##  [75] 1 1 0 1 1 1 0 1 1 1 1 1 0 1 0 1 0 0 1 1 0 1 0 0 1 1
+```
+
+---
+
+### Distribución Bernoulli
+
+.bold[Ejercicio rápido]:
+
+- Experimento: tirar la misma moneda 2 veces
+
+- Denotemos cada tiro como variables `\(X\)` e `\(Y\)`
+
+- `\(X\)` e `\(Y\)` distribuyen Bernoulli con parámetro `\(\mathbb{P}(1)=p\)`
+
+- `\(X\)` e `\(Y\)` son independientes 
+
+&lt;br&gt;
+--
+
+.content-box-red[
+.bold[Pregunta]:
+¿Cuál es la probabilidad de obtener "Sello" (0) en ambas ocasiones?
+]
+
+
+---
+
+### Distribución Bernoulli
+
+* Ambas variables siguen misma distribución, `\(X\)` e `\(Y \sim \text{Bernoulli}(p)\)`
+&lt;br&gt;
+
+`$$p^{x}(1-p)^{1-x} = p^{y}(1-p)^{1-y}$$`
+
+--
+
+* Dado que `\(X \bot Y\)`
+&lt;br&gt;
+`$$\mathbb{P}(X=x,Y=y) = \mathbb{P}(X=x)\mathbb{P}(Y=y)$$`
+--
+
+* Combinando 
+&lt;br&gt;
+`$$\mathbb{P}(X=x,Y=y) = p^{x}(1-p)^{1-x} \times p^{y}(1-p)^{1-y}$$`
+--
+
+.content-box-blue[
+.bold[Respuesta]:
+`$$\mathbb{P}(X=0,Y=0) = p^{0}(1-p)^{1} \times p^{0}(1-p)^{1} = (1-p)^{2}$$`
+
+]
+
+---
+
+### Distribución Binomial 
+
+La distribución binomial es la distribución de la suma de variables Bernoulli *independientes y con distribución idéntica* (.bold[iid]). 
+
+&lt;br&gt;
+--
+
+Ejemplo,
+
+- Supongamos que `\(X\)` es una variable de Bernoulli que toma el valor 1 cuando se obtiene "Cara" al lanzar una moneda
+
+- `\(\mathbb{P}(X=1)=p\)` 
+
+--
+
+- Ahora, supongamos que lanzamos la misma moneda 3 veces. Llamamos a estas variables `\(X_{1}, X_{2}, X_{3}\)`
+
+- Definamos `\(Y = X_{1} + X_{2} + X_{3}\)` 
+
+--
+
+- `\(Y \sim \text{Binomial()}\)`
+
+---
+### Distribución Binomial 
+
+
+.bold[Ejercicio rápido]:
+
+&lt;br&gt;
+
+.content-box-red[
+.bold[Pregunta 1]:
+¿Cuál es la probabilidad de obtener tres "Caras"? Es decir, ¿Cuál es la probabilidad de que `\(Y=3\)`?]
+
+--
+
+.content-box-blue[
+- Dado que los 3 ensayos son independientes podemos expresar esta probabilidad como:
+
+`$$\mathbb{P}(Y=3) =  \mathbb{P}(X_{1}=1,X_{2}=1,X_{3}=1) = \mathbb{P}(X_{1}=1)\mathbb{P}(X_{2}=1)\mathbb{P}(X_{3}=1)$$`
+&lt;br&gt;
+
+- Y dado que las tres variables distribuyen Bernoulli con la misma probabilidad `\(p\)`, obtenemos: 
+
+`$$\mathbb{P}(Y=3) = p \times p \times p =  p^{3}$$`
+]
+---
+### Distribución Binomial 
+
+.content-box-red[
+.bold[Pregunta 2]:
+¿Cuál es la probabilidad de obtener 2 "Caras" con 3 tiros? Es decir, ¿Cuál es la probabilidad de que `\(Y=2\)`?
+]
+
+--
+
+- Por simpleza, consideremos la siguiente secuencia: `\(\{X_{1}=1,X_{2}=1,X_{3}=0\}\)`, que satisface `\(Y=2\)`
+
+--
+
+- La probabilidad de obtener esta secuencia es:
+
+`\begin{align}
+  \mathbb{P}(X_{1}=1,X_{2}=1,X_{3}=0)  &amp;= \mathbb{P}(X_{1}=1) \times \mathbb{P}(X_{2}=1) \times \mathbb{P}(X_{3}=0)  \\
+                              &amp;= p \times p \times (1-p) =  p^{2}(1-p)
+\end{align}`
+
+--
+
+- Sin embargo, hay 3 secuencias que satisfacen `\(Y=2\)`.
+--
+ También `\(\{X_{1}=1,X_{2}=0,X_{3}=1\}\)` y `\(\{X_{1}=0,X_{2}=1,X_{3}=1\}\)`, cada una con probabilidad de ocurrencia `\(p^{2}(1-p)^{1}\)`. Por tanto:
+
+--
+
+.content-box-blue[
+.bold[Respuesta]: la probabilidad de conseguir 2 "Caras" con 3 tiros es:
+`$$\mathbb{P}(Y=2) = 3 \times  p^{2}(1-p)^{1}$$`
+]
+
+---
+
+### Distribución Binomial 
+
+Generalización: lanzamos la misma moneda `\(n\)` veces y la variable `\(Y\)` cuantifica el número de "Caras" (1) obtenidas.
+
+`$$Y = \sum^{n}_{i=1} X_{i}$$`
+--
+
+.content-box-red[
+.bold[Pregunta]:
+¿Cuál es la probabilidad de conseguir `\(y\)` "Caras" con `\(n\)` tiros?
+]
+
+--
+
+* La probabilidad de obtener una secuencia particular con `\(y\)` "Caras" a partir de `\(n\)` lanzamientos es `\(p^{y}(1-p)^{n-y}\)` 
+
+* Existen `\({n \choose y} = \frac{n!}{y! (n-y)!}\)` secuencias de este tipo...
+
+--
+Por tanto,
+
+`$$\mathbb{P}(Y=y) = f_{Y}(y) = \frac{n!}{y! (n-y)!} \times p^{y} (1-p)^{n-y}$$`
+--
+En otras palabras, `\(Y\)` distribuye binomial con .bold[parámetros] `\(n\)` y `\(p\)`: `\(Y \sim \text{Binomial}(n,p)\)`
+
+---
+### Distribución Binomial 
+
+En práctica ...
+--
+ Supongamos que supiéramos que la moneda es justa ( `\(p=0.5\)` )
+
+--
+
+  - ¿Cuál es la probabilidad de obtener 3 "Caras" con 10 lanzamientos?
+
+--
+
+`$$\mathbb{P}(Y=3) =  \frac{10!}{3! 7!} \times (0.5)^{3} \times (1-0.5)^{7} = 120 \times (0.5)^{10} = 0.12$$`
+--
+
+- ¿Cuál es la probabilidad de obtener 5 "Caras" con 10 lanzamientos?
+
+--
+
+`$$\mathbb{P}(Y=5) =  \frac{10!}{5! 5!} \times (0.5)^{5} \times (1-0.5)^{5} = 252 \times (0.5)^{10} = 0.25$$`
+&lt;br&gt;
+--
+
+Si la probabilidad de obtener "Cara" es 90% ( `\(p=0.9\)` ) ...
+
+- ¿Cuál es la probabilidad de obtener 5 "Caras" con 10 lanzamientos? 
+
+--
+
+`$$\mathbb{P}(Y=5) =   \frac{10!}{5! 5!} \times (0.9)^{5} \times (0.1)^{5} = 252 \times \text{número muy chico}= 0.0015$$`
+---
+### Distribución Binomial 
+
+Puedes comprobar estos cálculos en `R`:
+
+
+```r
+# Probability of getting 5 successes out of 10 trials if probability of success is 0.9 
+
+#Manually
+choose(10,5)*(0.9^5)*(0.1^5) 
+```
+
+```
+## [1] 0.001488035
+```
+
+```r
+# Using random variable distribution functions
+dbinom(x=5,size=10,prob=0.9)
+```
+
+```
+## [1] 0.001488035
+```
+
+
+---
+### Distribución Binomial 
+
+Veamos cómo se ve la distribución completa para diferentes valores de `\(p\)`, y `\(n=100\)`.
+
+--
+
+![](class_3_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+
+
+Más detalles: https://seeing-theory.brown.edu/es.html
+
+---
+### Bernoulli es Binomial con un "intento" (n=1)
+
+Si `\(Y \sim \text{Binomial}(p,n)\)` su función de probabilidad es:
+
+`$$\mathbb{P}(Y=y) = f_{Y}(y) = \frac{n!}{y! (n-y)!}  p^{y} (1-p)^{n-y}$$`
+La función describe la probabilidad de obtener `\(y\)` éxitos con `\(n\)` intentos.
+
+&lt;br&gt;
+--
+
+Cual es la probabilidad de obtener `\(y\)` éxitos con `\(1\)` intento? ( `\(y \in [0,1]\)` )? Evaluemos la .bold[pf] para `\(n=1\)`:
+
+&lt;br&gt;
+--
+
+`$$\mathbb{P}(Y=y) = f_{Y}(y) = \begin{cases}
+  \frac{1!}{0!1!} \text{ } p^{0} (1-p)^{1}  = (1-p) &amp;\quad \text{si } y=0 \\ \\
+  \frac{1!}{1!0!} \text{ } p^{1} (1-p)^{0}  = p &amp;\quad \text{si } y=1 
+\end{cases}$$`
+
+
+---
+### Bernoulli/Binomial
+
+.bold[Recordatorio:] Como toda distribución de probabilidad 
+
+
+`$$\sum_{\text{all }y} \mathbb{P}(Y=y) = \sum_{\text{all }y}  f_{Y}(y) = \frac{n!}{y! (n-y)!}  p^{y} (1-p)^{n-y} = 1$$`
+--
+
+E.j, evaluemos la suma para el caso el caso con 2 intentos `\(n=2\)`.
+
+&lt;br&gt;
+--
+
+`$$\sum_{\text{de 0 a 2}}  f_{Y}(y) = \frac{n!}{y! (n-y)!}  p^{y} (1-p)^{n-y}$$`
+&lt;br&gt;
+--
+
+$$ \frac{2!}{0!2!}  p^{0} (1-p)^{2} + \frac{2!}{1!1!}  p^{1} (1-p)^{1} + \frac{2!}{2!0!}  p^{2} (1-p)^{0}$$
+&lt;br&gt;
+--
+
+$$ (1-p)^{2} + 2p(1-p) + p^{2}  = 1 - 2p + p^{2} + 2p - 2p^{2} + p^{2} = 1$$
+---
+class: inverse, center, middle
+
+#Estimación
+##Maximum Likelihood Estimation (MLE)
+
+---
+
+##Estimación 
+
+.bold[Modelos de probabilidad]: ¿Cuál es la probabilidad de observar los *datos* dado los *parámetros* que conocemos?
+
+Ej. ¿Cuán probable es que obtengamos 9 "Caras" (1) si lanzamos una moneda "justa" ( `\(p=0.5\)` ) 10 veces? 
+
+
+```r
+dbinom(x=9,size=10,prob=0.5)
+```
+
+```
+## [1] 0.009765625
+```
+
+---
+##Estimación 
+
+.bold[Modelos estadísticos]:  ¿Cuáles son los valores más .bold[plausibles][1].footnote[[1] Notar que no dice "más probables"!] de los *parámetros* dado los *datos* que observamos? 
+
+
+Ej. Supongamos que alguien lanza 100 veces la misma moneda y registra los resultados en una base de datos. Los datos se ven así:  
+
+.pull-left[
+![](class_3_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+
+--
+
+.pull-right[
+
+- Lo que vemos en la izquierda son .bold[datos]
+
+- Datos: realización de `\(n\)` variables aleatorias 
+
+- Normalmente *no conocemos* la distribución de las variables
+
+- Datos nos dan una pista sobre cuál podría ser esa distribución
+
+- .bold[Estadística]: aprender de los datos para .bold[*estimar*] los parámetros que los generan
+
+]
+
+---
+##Estimación via Maximum Likelihood (MLE) 
+
+Previamente lanzamos la misma moneda 100 veces y obtuvimos "Cara" (1) 82 veces.
+--
+ ¿Qué valor de `\(p\)` es más plausible ("likely") que genere estos datos?
+
+MLE es justamente la formalización de esta pregunta. Pasos:
+
+--
+
+1) Decidir sobre la distribución subyacente que genera los datos. En este caso, podemos asumir que: 
+
+  * Cada lanzamiento `\(X_{1}, X_{2}, \dots X_{100} \sim \text{Bernoulli}(p)\)`, donde X's son `\(iid\)` 
+
+--
+
+2)  Escribir una función que cuantifique la plausibilidad de diferentes valores del parámetro. Dicha función se denomina .bold[likelihood function]: 
+
+&lt;br&gt;
+  * `\(\mathcal{L}(p \mid \text{ Datos}) = \mathbb{P}(\text{ Datos : \{1,0,1,1,....0,1\}} | \text{ } p)\)`
+
+&lt;br&gt;
+--
+
+  * `\(\mathcal{L}(p \mid \text{ Datos}) = \mathbb{P}(x_{1})\mathbb{P}(x_{2}) \dots \mathbb{P}(x_{100}) = p^{82}(1-p)^{18}\)`
+
+
+---
+##Estimación via Maximum Likelihood (MLE) 
+
+Podemos inspeccionar visualmente la "likelihood" de diferentes valores `\(p\)`.
+
+![](class_3_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
+Intuitivamente: habiendo obtenido 82 caras, `\(p=0.82\)` es el valor más plausible de `\(p\)`
+
+
+---
+
+##Estimación via Maximum Likelihood (MLE) 
+
+3) Encontrar matemáticamente el valor de `\(p\)` que maximiza `\(\mathcal{L}(p \mid \text{ Datos})\)`.
+
+
+- `\(\mathcal{L}(p \mid \text{ Datos}) = \mathbb{P}(x_{1})\mathbb{P}(x_{2}) \dots \mathbb{P}(x_{n}) =\prod_{i=1}^{n} f(x_{i}) =  p^{k}(1-p)^{n-k} \quad \text{   donde  } k= \sum x_{i}\)`
+
+--
+
+- Para facilitar el cálculo tomamos logaritmo natural en ambos lados (.bold[log-likelihood])
+
+  - `\(\ell\ell(p) = \ln \mathcal{L}(p \mid \text{ Datos})  = k \ln(p) + (n - k) \ln(1-p)\)` 
+
+--
+-  Calcular la primera* derivada de `\(\ell\ell(p)\)` con respecto a `\(p\)`: pendiente de la curva en cada valor de `\(p\)`.
+
+  - `\(\ell\ell^{\text{ '}}(p) = \frac{k}{p} -  \frac{n-k}{1-p}\)`
+
+--
+
+- Encontrar el máximo de la función `\(\ell\ell(p)\)`: valor de `\(p\)` en el cual la curva no cambia, es decir cuando `\(\ell\ell^{\text{ '}}(p)=0\)` 
+
+  - `\(\frac{k}{p} -  \frac{n-k}{1-p} = 0\)`
+  
+--
+
+- Después de resolver por `\(p\)` obtenemos:
+  
+   `$$p = \frac{k}{n} = \frac{\sum x_{i}}{n}$$`
+
+
+---
+##Estimación via Maximum Likelihood (MLE) 
+
+&lt;br&gt;
+
+- El estimador ML de `\(p\)` es ....
+
+
+- `\(\hat{p} = \frac{\sum x_{i}}{n}\)`
+
+
+- Es decir, el porcentaje de 1's en la muestra!
+
+--
+
+- Intuitivo y elegante
+
+
+---
+
+.bold["Optimización" numérica en R]
+
+
+```r
+# log-likelihood function
+ll &lt;- function(p,n,k) {
+  ell = k * log(p) + (n - k)*log(1-p)
+  return(ll = ell)
+}
+
+
+# Evaluate the log-likelihood function for some arbitrary values
+ll(p=0.1,n=100,k=82); ll(p=0.7,n=100,k=82)
+```
+
+```
+## [1] -190.7085
+```
+
+```
+## [1] -50.91886
+```
+--
+
+
+```r
+# Evaluate the log-likelihood function for many possible values of p
+
+parameter_space &lt;- tibble(p=seq(0,1,by=0.01)) %&gt;% 
+  rowwise() %&gt;% mutate(loglik = ll(p,n=100,k=82)) 
+
+# Find the value of p that yield the largest value for the log-likelihood function
+
+parameter_space %&gt;% as.matrix() -&gt; m
+m[which.max(m[,2]),]
+```
+
+```
+##         p    loglik 
+##   0.82000 -47.13935
+```
+
+---
+.bold["Optimización" numérica en R]
+
+.center[
+![](class_3_files/figure-html/loglik_density-1.png)&lt;!-- --&gt;
+]
+
+---
+##Estimación via Maximum Likelihood (MLE) 
+
+.bold[Generalización]
+
+&lt;br&gt;
+
+
+`$$\hat{\boldsymbol{\beta}}_{MLE} = \underset{\beta}{\arg\max\ } \mathcal{L}(\boldsymbol{\beta} \mid \boldsymbol{X})$$`
+`\(\hat{\boldsymbol{\beta}}\)` es el MLE de `\(\boldsymbol{\beta}\)` si es el(los) valor(es) que maximiza(n) la "likelihood function", condicional en los datos observados.
+
+&lt;br&gt;
+--
+
+- Recordar que   `\(\mathcal{L}(\boldsymbol{\beta} \mid \boldsymbol{X}) = \mathbb{P}(\boldsymbol{X} \mid \boldsymbol{\beta})\)`.
+  
+--
+
+- Requiere especificar de antemano la distribución conjunta de las observaciones (dif. de OLS, por ejemplo).
+
+--
+
+- ML es probablemente el approach de estimación más popular. 
+
+--
+
+- Intuitivo, pero, por lo general, no tan simple como el ejemplo que vimos hoy.
+
+--
+
+- Normalmente la maximización se realiza numéricamente (ej. método Newton–Raphson)
+
+---
+class: fullscreen,left, top, text-white
+background-image: url(valdorcia.jpeg)
+
+##Estimación via Maximum Likelihood (MLE) 
+
+
+---
+class: inverse, center, middle
+
+.huge[
+**Hasta la próxima clase. Gracias!**
+]
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

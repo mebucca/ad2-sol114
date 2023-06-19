@@ -1,0 +1,1417 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análisis de Datos Categóricos (SOC3070)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca  Profesor Asistente, Sociología UC" />
+    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Análisis de Datos Categóricos (SOC3070)
+## Clase #15
+### <br> Mauricio Bucca<br> Profesor Asistente, Sociología UC
+### <a href="https://github.com/mebucca">github.com/mebucca</a>
+
+---
+
+class: inverse, center, middle
+# Regresión Poisson
+
+
+---
+class: inverse, center, middle
+
+## Distribución Poisson
+
+---
+## Distribución Poisson
+
+--
+
+En las primarias presidenciales 2021 Gabriel Boric obtuvo 1.814.809 votos.
+
+--
+
+- Asumamos que este recuento es una manifestación de una variable aleatoria: si repitieramos la elección, bajo exácmente las mismas condiciones, el número de votos no sería exáctamente el mismo.
+
+--
+
+- Llamemos `\(Y\)` la variable aleatoria consistente en la "cantidad de votos para Boric". 
+
+
+--
+
+- `\(Y\)` puede ser descrita con una distribución Poisson: `\(Y \sim \text{Poisson}(\mu)\)`
+
+--
+
+- donde `\(\mu\)` corresponde al valor esperado de la variable: el número de votos promedio obtenido por Boric.
+
+  - Supongamos que el `\(\mu=1.814.800\)`
+
+--
+
+
+&lt;br&gt;
+--
+
+.bold[Pregunta]: ¿Cuál es la probabilidad de observar un determinado número `\(y\)` de votos?
+
+
+--
+
+.content-box-yellow[
+`$$\quad  \quad \mathbb{P}(Y=y) = \frac{\mu^{y}}{y!}  e^{-\mu}, \quad \text{donde } \quad y \in \{0,1, 2, 3, \dots \} \quad \text{y } \mu&gt;0$$`
+]
+
+---
+## Distribución Poisson
+
+
+$$ \text{En nuestro caso: } \quad \mathbb{P}(Y=y) = \frac{\mu^{y}}{y!}  e^{-\mu} = \frac{1.814.800^{y}}{y!}  e^{1.814.800} $$
+.center[
+![](class_15_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+]
+
+&lt;br&gt;
+--
+
+Por ejemplo: `\(P(Y=1) = \frac{1.814.800^{1}}{1!}  e^{-1.814.800} \approx 0\)`
+
+---
+## Distribución Poisson
+
+-  José Antonio Kast obtuvo 1.961.122 votos en las primarias presidenciales 2021.
+
+--
+
+- ¿Cuál es la probabilidad de que Boric hubiera obtenido 1.961.122 votos si su votación es una manifestación de una variable aleatoria `\(Y \sim \text{Poisson}(\mu=1.814.800)\)`?
+
+--
+
+`\(P(Y=1.961.122) = \frac{1.814.800^{1.961.122}}{1.961.122!}  e^{-1.814.800} \approx 0\)`
+
+
+.center[
+![](class_15_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+]
+
+
+---
+## Distribución Poisson
+
+.img-left[
+![](class_15_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+]
+
+--
+
+.pull-right[
+
+Algunas características:
+
+
+- Sesgado hacia la derecha, pero sesgo decrece cuando aumenta `\(\mu\)`
+
+
+- Centrado en torno a `\(\mu\)`.
+
+
+- Dispersión aumenta cuando aumenta `\(\mu\)`.
+
+]
+
+--
+
+.pull-right[
+
+Específicamente,
+
+- Si `\(Y_{i} \sim \text{Poisson}(\mu)\)`, entonces:
+
+-  `\(\mathbb{E}(Y) =  \mu\)`
+
+- `\(\mathbb{Var}(Y) =  \mu\)` y, por tanto, `\(\sigma= \sqrt{\mu}\)`.
+
+]
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+---
+class: inverse, center, middle
+
+## Fundamentos teóricos de regresión Poisson
+
+---
+## Estructura de un modelo de regresión Poisson 
+
+Regresión Poisson es la herramienta estándar para modelar variables de conteo (e.j. cantidad de accidentes, tiempos de espera en línea, etc.). 
+--
+ Podemos pensar en un modelo de regresión Poisson de la siguiente forma:
+
+&lt;br&gt;
+--
+
+.bold[Configuración]
+
+- Tenemos `\(n\)` observaciones independientes: `\(i = 1, \dots, n\)`
+
+--
+
+- Para cada observación observamos datos `\(y_{i}, \dots , y_{n}\)` que actúan como variable dependiente.
+
+--
+
+- `\(y_{i} \in \mathbb{Z}^{*}\)`, es decir, es un entero no-negativo, tal que: `\(y_{i} \in \{0,1, 2, 3, \dots \}\)`
+
+--
+
+- Asumimos que estos datos son realizaciones de `\(n\)` variables aleatorias Poisson con parámetros desconocidos: `\(Y_{i} \sim \text{Poisson}(\mu_{i})\)`
+
+
+--
+
+- Asumimos que dichos parámetros (media) pueden variar de observación en observación.
+
+  - Podemos describir estos parámetros en función de covariables.
+
+---
+## Estructura de un modelo de regresión Poisson
+
+Específicamente, una regresión Poisson modela la media condicional de una variable de recuento de la siguiente manera:
+
+.content-box-yellow[
+`$$\mathbb{E}(y_{i} \mid x_{1i}, \dots, x_{ki}) = \mu_{i} = e^{\eta_{i}} \quad \quad  \text{donde} \quad \quad \eta_{i} = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}$$`
+]
+
+
+&lt;br&gt;
+--
+
+.bold[Importante] notar que:
+
+--
+
+- El rango de la función exponencial, `\(e^x \in (0, \infty+)\)`, asegura que la media condicional predicha por un modelo de regresión Poisson siempre sea .bold[estrictamente positiva].
+
+--
+
+- `\(x_{1} \dots x_{k}\)` son predictores o variables independientes 
+
+--
+
+- `\(\beta_{1} \dots \beta_{k}\)` son los respectivos "efectos" de los predictores sobre `\(\eta_{i}\)`
+
+--
+
+- `\(\mu_{i}\)` .bold[no está relacionado linealmente] con sus predictores. 
+
+
+---
+## Estructura de un modelo de regresión Poisson
+
+Sin embargo, `\(\eta_{i} = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}\)` si es una función lineal de los predictores.
+
+&lt;br&gt;
+--
+
+Por tanto, es conveniente expresar `\(\eta_{i}\)` en función de `\(\mu_{i}\)` ...
+
+--
+.img-right-top[
+![facile](https://i.gifer.com/5gf.gif)
+]
+
+&lt;br&gt;
+--
+
+Si `\(\mu_{i} = e^{\eta_{i}}\)`, entonces ...
+
+--
+
+.pull-left[
+.content-box-yellow[
+`$$\quad \quad  \ln \mu_{i} = \eta_{i} = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}$$`
+]
+]
+
+.pull-right[
+
+]
+
+--
+&lt;br&gt;
+
+- En resumen, un modelo de regressión Poisson describe `\(\ln \mathbb{E}(y_{i} \mid x_{1i}, \dots, x_{ki}) = \ln \mu_{i}\)`.
+
+--
+
+- Recordar que esto es distinto de  modelar el logaritmo de la variable dependiente: `\(\mathbb{E}(\ln y_{i} \mid x_{1i}, \dots, x_{ki})\)`
+
+---
+## Regresión Poisson para modelar "tasas" 
+
+Si bien la regresión Poisson es una herramienta para modelar conteos, muchas veces el verdadero fenómeno de interés es una "tasa".
+
+
+.pull-left[
+![bici](bici.png)
+]
+
+--
+
+.pull-right[
+Aumento en número de accidentes en bicicleta puede reflejar dos cosas (no excluyentes):
+
+- Aumento de la propensión a sufrir un accidente ("tasa")
+ 
+- Aumento de la cantidad de ciclistas ("exposure")
+
+&lt;br&gt;
+Formalmente:
+
+`$$\mu_{i} = \underbrace{n_{i}}_{\text{exposición}} \cdot \underbrace{\theta_{i}}_{\text{tasa}}$$` 
+
+]
+
+---
+## Regresión Poisson para modelar "tasas" 
+
+Usando la definición de tasa: `\(\theta_{i} = \frac{\mu_{i}}{n_{i}}\)`
+
+--
+
+Podemos modelar la tasa de occurrencia de un evento de la siguiente manera:
+
+--
+
+`$$\ln(\theta_{i}) = \ln \bigg(\frac{\mu_{i}}{n_{i}}\bigg) = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}$$`
+
+--
+
+
+`$$\ln(\theta_{i})  = \ln(\mu_{i}) - \ln(n_{i}) = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}$$`
+
+&lt;br&gt;
+--
+
+El modelo para la "tasa" puede ser re-expresado como un modelo de conteo:
+
+--
+
+.content-box-yellow[
+`$$\ln(\mu_{i}) = \ln(\theta_{i}) + \ln(n_{i}) = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki} + \ln(n_{i})$$`
+]
+
+--
+
+En jerga GLM `\(n_{i}\)` es comúnmente referido como .bold["exposure"] y `\(\ln(n_{i})\)` como .bold["offset"].
+
+
+---
+## Regresión Poisson para modelar "tasas" 
+
+Dado
+
+`$$\ln(\mu_{i})  = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki} + \ln(n_{i})$$`
+
+&lt;br&gt;
+--
+
+exponenciando en ambos lados de la ecuación obtenemos:
+
+--
+
+`$$\mu_{i}  = n_{i} \cdot \underbrace{e^{\beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}}}_{\theta_{i}}$$`
+
+
+--
+
+En resumen:
+
+--
+
+
+- En un modelo de regresión Poisson para .bold[conteos]:
+
+
+`$$\mathbb{E}(y_{i} \mid x_{1i}, \dots, x_{ki}) = \mu_{i} = e^{\beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}} \quad \quad  \text{donde} \quad y_{i} \sim \text{Poisson}(\mu_{i})$$`
+
+--
+
+&lt;br&gt;
+
+- En un modelo de regresión Poisson para .bold[tasas]:
+
+
+`$$\mathbb{E}(y_{i} \mid x_{1i}, \dots, x_{ki}) = \mu_{i} = n_{i} \cdot  e^{\beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}} \quad \quad  \text{donde} \quad y_{i} \sim \text{Poisson}(\mu_{i})$$`
+
+---
+## Regresión Poisson es un tipo de GLM
+
+
+&lt;br&gt;
+
+Regresión Poisson es un GLM con componente aleatorio .bold[Poisson] y función de enlace .bold[log]. 
+
+
+&lt;br&gt;
+--
+
+- Componente aleatorio: `\(y_{1}, \dots y_{n}\)` son `\(n\)` variables independientes con distribución `\(\text{Poisson}(\mu_{i})\)`
+
+
+--
+
+- Función de enlace: `\(\ln( x )\)`
+
+
+--
+
+- Componente sistemático: `\(\ln(\mu_{i}) = \eta_{i} = \beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}\)`
+
+--
+
+- Función media: `\(\mu_{i} = {e^{\eta_{i}}}\)` (para conteos), o `\(\mu_{i} = n_{i} \cdot {e^{\eta_{i}}}\)` (para tasas)
+
+
+--
+
+
+- Varianza: `\(\mathbb{Var}(y_{i}) = \overbrace{\phi}^{\text{dispersion = 1 }} \overbrace{V(\mu)}^{\text{ función varianza}} = \phi \frac{d\mu_{i}}{d\eta_{i}} = \phi e^{\eta_{i}} = \mu_{i}\)`
+
+
+---
+## Regresión Logística en la práctica 
+
+Para ejemplificar el uso de regresión Poisson trabajaremos con [datos mundiales de Covid-19](https://github.com/owid/covid-19-data/tree/master/public/data) disponibles al día 17 de Noviembre 2020.
+
+Hasell, J., Mathieu, E., Beltekian, D. et al. A cross-country database of COVID-19 testing. Sci Data 7, 345 (2020). https://doi.org/10.1038/s41597-020-00688-8
+
+
+
+```
+## Rows: 210
+## Columns: 12
+## $ continent                  &lt;chr&gt; "Asia", "Europe", "Africa", "Europe", "Afri…
+## $ location                   &lt;chr&gt; "Afghanistan", "Albania", "Algeria", "Andor…
+## $ total_cases                &lt;dbl&gt; 43468, 28432, 68589, 5914, 13451, 3, 134, 1…
+## $ total_deaths               &lt;dbl&gt; 1632, 631, 2168, 76, 322, NA, 4, 35727, 181…
+## $ total_tests                &lt;lgl&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA,…
+## $ population                 &lt;dbl&gt; 38928341, 2877800, 43851043, 77265, 3286626…
+## $ population_density         &lt;dbl&gt; 54.422, 104.871, 17.348, 163.755, 23.890, N…
+## $ median_age                 &lt;dbl&gt; 18.6, 38.0, 29.1, NA, 16.8, NA, 32.1, 31.9,…
+## $ gdp_per_capita             &lt;dbl&gt; 1803.987, 11803.431, 13913.839, NA, 5819.49…
+## $ human_development_index    &lt;dbl&gt; 498.00, 785.00, 754.00, 858.00, 581.00, NA,…
+## $ diabetes_prevalence        &lt;dbl&gt; 9.59, 10.08, 6.73, 7.97, 3.94, NA, 13.17, 5…
+## $ hospital_beds_per_thousand &lt;dbl&gt; 0.50, 2.89, 1.90, NA, NA, NA, 3.80, 5.00, 4…
+```
+
+---
+## Regresión Logística para conteos (sin offset)
+
+Ajustaremos el siguiente modelo: `\(\ln(\mu_{i}) = \beta_{0} + \beta_{1}\text{medianage}_{i}\)`.
+
+
+```r
+poisson_death_age &lt;- glm(total_deaths ~ median_age, family=poisson(link="log"), 
+                         data=covid_subdata); summary(poisson_death_age)
+```
+
+```
+## 
+## Call:
+## glm(formula = total_deaths ~ median_age, family = poisson(link = "log"), 
+##     data = covid_subdata)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -155.63  -114.28   -84.81   -59.10  1059.99  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) 7.3136542  0.0036197  2020.5   &lt;2e-16 ***
+## median_age  0.0488613  0.0001017   480.4   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 4990626  on 171  degrees of freedom
+## Residual deviance: 4747916  on 170  degrees of freedom
+##   (38 observations deleted due to missingness)
+## AIC: 4749300
+## 
+## Number of Fisher Scoring iterations: 7
+```
+
+
+---
+## Regresión Logística para conteos (sin offset) en la práctica 
+
+.pull-left[
+Nuestro modelo:
+`\(\ln(\mu_{i}) = \beta_{0} + \beta_{1}\text{medianage}_{i}\)`
+]
+.pull-right[
+
+```
+##               Estimate   Std. Error
+## (Intercept) 7.31365418 0.0036197220
+## median_age  0.04886131 0.0001017095
+```
+]
+
+
+.pull-left[
+![](class_15_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+]
+
+
+.pull-right[
+![](class_15_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+]
+
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+---
+## Regresión Logística para tasas (con offset) 
+
+Ajustaremos el siguiente modelo: `\(\ln(\mu_{i}) = \beta_{0} + \beta_{1}\text{medianage}_{i} + \ln(\text{population}_{i})\)`.
+
+
+```r
+poisson_death_age_rate &lt;- glm(total_deaths ~ median_age, family=poisson(link="log"), 
+                         offset=log(population), data=covid_subdata); summary(poisson_death_age_rate )
+```
+
+```
+## 
+## Call:
+## glm(formula = total_deaths ~ median_age, family = poisson(link = "log"), 
+##     data = covid_subdata, offset = log(population))
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -766.73   -41.87   -12.39     7.13   510.29  
+## 
+## Coefficients:
+##               Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -1.037e+01  4.068e-03 -2548.7   &lt;2e-16 ***
+## median_age   5.047e-02  1.151e-04   438.6   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for poisson family taken to be 1)
+## 
+##     Null deviance: 2348786  on 171  degrees of freedom
+## Residual deviance: 2149159  on 170  degrees of freedom
+##   (38 observations deleted due to missingness)
+## AIC: 2150543
+## 
+## Number of Fisher Scoring iterations: 6
+```
+
+
+---
+## Regresión Logística para tasas (con offset) en la práctica 
+
+.pull-left[
+Nuestro modelo:
+`\(\ln(\mu_{i}) = \beta_{0} + \beta_{1}\text{medianage}_{i} + \ln(\text{population}_{i})\)`
+]
+.pull-right[
+
+```
+##                 Estimate   Std. Error
+## (Intercept) -10.36880335 0.0040682535
+## median_age    0.05047125 0.0001150741
+```
+]
+
+
+.pull-left[
+![](class_15_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+]
+
+
+.pull-right[
+![](class_15_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
+]
+
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+
+---
+class: inverse, center, middle
+
+## Estimación
+
+---
+## Estimación
+
+--
+
+- Coeficientes del modelo de regresión Poisson son estimados via MLE
+
+  - maximización via algoritmo Newton-Rapson 
+
+&lt;br&gt;
+--
+
+- (si han estudiado) ustedes pueden derivar la log-likelihood function a maximizar ...
+
+.center[
+![nash](https://64.media.tumblr.com/c807572bd6dc6a9b07ff049703393e35/tumblr_inline_nzgt94ZG9c1r4j8j1_500.gif)
+]
+
+---
+class: inverse, center, middle
+
+## Interpretación
+
+
+---
+## Un ejemplo empírico: media de muertes Covid-19 por país
+
+
+.pull-left[
+![](class_15_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+![](class_15_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+]
+
+---
+## Un ejemplo empírico: cantidad esperada de muertes Covid-19 por país (conteo)
+
+
+`$$\ln(\mu_{i}) = \beta_{0} + \beta_{1}\text{medianage}_{i} + \sum_{j} \mathbb{1}\{\text{continent}=j\}\beta_{j}$$`
+
+donde: cantidad esperada de muertes por Covid-19 es función de edad mediana del país (median age) y continente (continent)
+
+
+--
+
+
+```r
+poisson_death_agecont_mean &lt;- glm(total_deaths ~ median_age + factor(continent),
+                                  family=poisson(link="log"), data=covid_subdata)
+```
+
+
+```
+##                                   Estimate   Std. Error   z value Pr(&gt;|z|)
+## (Intercept)                     5.91028375 0.0059130362 999.53452        0
+## median_age                      0.04154286 0.0001701993 244.08366        0
+## factor(continent)Asia           1.55672484 0.0053010784 293.66192        0
+## factor(continent)Europe         1.21076511 0.0060636198 199.67695        0
+## factor(continent)North America  2.36538293 0.0053490369 442.20726        0
+## factor(continent)Oceania       -2.05306073 0.0306634165 -66.95473        0
+## factor(continent)South America  2.98656178 0.0051400142 581.04154        0
+```
+
+
+---
+## Un ejemplo empírico: tasa de muertes Covid-19 por país (tasa)
+
+
+`$$\ln(\mu_{i}) = \beta_{0} + \beta_{1}\text{medianage}_{i} + \sum_{j} \mathbb{1}\{\text{continent}=j\}\beta_{j} + \ln \text{(population}_{i})$$`
+
+donde: tasa esperada de muertes por Covid-19 es función de edad mediana del país (median age) y continente (continent)
+
+
+
+--
+
+
+```r
+poisson_death_agecont_rate &lt;- glm(total_deaths ~ median_age + factor(continent),
+                                  offset=log(population), family=poisson(link="log"), 
+                                  data=covid_subdata)
+```
+
+
+```
+##                                   Estimate   Std. Error      z value
+## (Intercept)                    -9.98240679 0.0060333313 -1654.543124
+## median_age                     -0.01290758 0.0001963744   -65.729405
+## factor(continent)Asia           0.65343822 0.0054896987   119.029887
+## factor(continent)Europe         2.68065121 0.0066570633   402.677741
+## factor(continent)North America  3.06765697 0.0056584765   542.134789
+## factor(continent)Oceania       -0.10274536 0.0307247656    -3.344057
+## factor(continent)South America  3.16225729 0.0054570847   579.477403
+##                                    Pr(&gt;|z|)
+## (Intercept)                    0.0000000000
+## median_age                     0.0000000000
+## factor(continent)Asia          0.0000000000
+## factor(continent)Europe        0.0000000000
+## factor(continent)North America 0.0000000000
+## factor(continent)Oceania       0.0008256284
+## factor(continent)South America 0.0000000000
+```
+
+
+---
+class:center, middle
+
+## Efectos marginales sobre `\(\ln(\mu)\)`
+
+---
+## Efectos marginales sobre `\(\ln(\mu)\)`, recuentos
+
+--
+
+Dado el siguiente modelo de regresión Poisson para recuentos: 
+
+&lt;br&gt;
+
+`$$\ln(\mu_{i})= \beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}$$`
+
+&lt;br&gt;
+--
+
+- El intercepto `\(\beta_{0}\)` corresponde al logaritmo natural del recuento esperado cuando `\(x_{1} = \dots = x_{k} = 0\)`
+
+--
+
+- El efecto marginal de `\(x_{k}\)` sobre el logaritmo natural del recuento esperado, `\(\ln(\mu)\)`, está dado por:
+
+
+.pull-left[
+.content-box-yellow[
+`$$\frac{\partial \ln(\mu)}{\partial x_{k}} = \beta_{k}$$`
+]
+]
+.pull-right[
+.content-box-yellow[
+"Un cambio (infinitesimal) en `\(\Delta\)` unidades de `\(x_{k}\)` se traduce en un cambio en `\(\Delta \beta_{k}\)` unidades en `\(\ln(\mu)\)`"
+] 
+]
+
+
+---
+## Efectos marginales sobre `\(\ln(\mu)\)`, recuentos
+
+Nuestro modelo: `\(\ln(\mu_{i}) = \beta_{0} + \beta_{1}\text{medianage}_{i} + \sum_{j} \mathbb{1}\{\text{continent}=j\}\beta_{j}\)`
+
+
+.pull-left[
+
+```
+##                                   Estimate   Std. Error
+## (Intercept)                     5.91028375 0.0059130362
+## median_age                      0.04154286 0.0001701993
+## factor(continent)Asia           1.55672484 0.0053010784
+## factor(continent)Europe         1.21076511 0.0060636198
+## factor(continent)North America  2.36538293 0.0053490369
+## factor(continent)Oceania       -2.05306073 0.0306634165
+## factor(continent)South America  2.98656178 0.0051400142
+```
+]
+.pull-right[
+![](class_15_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
+]
+
+
+---
+## Efectos marginales sobre `\(\ln(\mu)\)`, tasas
+
+--
+
+Dado el siguiente modelo de regresión Poisson para tasas: 
+
+&lt;br&gt;
+
+`$$\ln(\mu_{i})= \beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik} + \ln(n_{i})$$`
+&lt;br&gt;
+--
+
+- El intercepto `\(\beta_{0}\)` corresponde al logaritmo natural de la tasa esperada cuando `\(x_{1} = \dots = x_{k} = 0\)` y `\(n_{i}=1\)`
+
+--
+
+- El efecto marginal de `\(x_{k}\)` sobre el logaritmo natural de la tasa esperada, `\(\ln(\mu)\)`, está dado por:
+
+
+.pull-left[
+.content-box-yellow[
+`$$\frac{\partial \ln(\mu)}{\partial x_{k}} = \beta_{k}$$`
+]
+]
+.pull-right[
+.content-box-yellow[
+"Un cambio (infinitesimal) en `\(\Delta\)` unidades de `\(x_{k}\)` se traduce en un cambio en `\(\Delta \beta_{k}\)` unidades en `\(\ln(\mu)\)`"
+] 
+]
+
+---
+## Efectos marginales sobre `\(\ln(\mu)\)`, tasas
+
+Nuestro modelo: `\(\ln(\mu_{i}) = \beta_{0} + \beta_{1}\text{medianage}_{i} + \sum_{j} \mathbb{1}\{\text{continent}=j\}\beta_{j} + \ln(n_{i})\)`
+
+
+.pull-left[
+
+```
+##                                   Estimate   Std. Error
+## (Intercept)                    -9.98240679 0.0060333313
+## median_age                     -0.01290758 0.0001963744
+## factor(continent)Asia           0.65343822 0.0054896987
+## factor(continent)Europe         2.68065121 0.0066570633
+## factor(continent)North America  3.06765697 0.0056584765
+## factor(continent)Oceania       -0.10274536 0.0307247656
+## factor(continent)South America  3.16225729 0.0054570847
+```
+]
+.pull-right[
+![](class_15_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
+]
+
+
+---
+## Efectos marginales sobre `\(\ln(\mu)\)`: ilustración
+
+
+```
+##                                   Estimate   Std. Error
+## (Intercept)                    -9.98240679 0.0060333313
+## median_age                     -0.01290758 0.0001963744
+## factor(continent)Asia           0.65343822 0.0054896987
+## factor(continent)Europe         2.68065121 0.0066570633
+## factor(continent)North America  3.06765697 0.0056584765
+## factor(continent)Oceania       -0.10274536 0.0307247656
+## factor(continent)South America  3.16225729 0.0054570847
+```
+
+
+.pull-left[
+Si `continent="South America"` y `median_age=20`, entonces `ln(mu)` es:
+
+```r
+ln_mu_sa20= -9.98 +  3.16 - 0.0129*20; ln_mu_sa20
+```
+
+```
+## [1] -7.078
+```
+
+Si `continent="South America"` y `median_age=21`, entonces `ln(mu)` es:
+
+```r
+ln_mu_sa21= -9.98 +  3.16 - 0.0129*21; ln_mu_sa21
+```
+
+```
+## [1] -7.0909
+```
+]
+
+.pull-right[
+Por tanto, el efecto de `median_age` es:
+
+```r
+ln_mu_sa21-ln_mu_sa20
+```
+
+```
+## [1] -0.0129
+```
+]
+
+
+---
+class:center, middle
+
+## Efectos multiplicativos sobre `\(\mu\)`
+
+---
+## Efectos multiplicativos sobre `\(\mu\)`, recuentos
+
+--
+
+Dado el siguiente modelo de regresión Poisson para recuentos: 
+
+&lt;br&gt;
+`$$\ln(\mu_{i})= \beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}$$`
+
+&lt;br&gt;
+--
+
+exponenciando a ambos lados obtenemos 
+
+`$$\mu_{i} = e^{\beta_{0}} \cdot e^{\beta_{1} x_{i1}}  \cdots e^{\beta_{k} x_{ik}}$$`
+
+&lt;br&gt;
+--
+
+Examinando esta ecuación observamos que cuando `\(x_1 = \dots = x_k = 0\)`, 
+
+
+`$$\mu_{i} = e^{\beta_{0}}$$`
+
+Es decir, `\(e^{\beta_{0}}\)` es el recuento esperado cuando `\(x_1 = \dots = x_k = 0\)`.
+
+---
+## Efectos multiplicativos sobre `\(\mu\)`, recuentos
+
+--
+
+Considera la situación en que `\(i\)` y `\(i'\)` son dos observaciones con `\(x_{k}=c\)` y `\(x_{k}=c+1\)`, respectivamente. El resto de las covariables toman valores idénticos. 
+
+
+--
+
+El ratio entre el recuento esperado de `\(i'\)` e `\(i\)` está dado por:
+
+`\begin{align}
+\mu_{i'}/\mu_{i} &amp;= \frac{e^{\beta_{0}} \cdot e^{\beta_{1} x_{i'1}}  \dots (e^{\beta_{k}})^{c+1}}{e^{\beta_{0}} \cdot e^{\beta_{1} x_{i1}}  \dots (e^{\beta_{k}})^{c}} \\ \\
+&amp;= e^{\beta_{k}}
+\end{align}`
+
+--
+
+En otras palabras,
+
+.content-box-yellow[
+"Un cambio en `\(\Delta\)` unidades de `\(x_{k}\)` multiplica el recuento esperado por `\(e^{\Delta \beta_{k}}\)`"
+] 
+
+
+---
+## Efectos multiplicativos sobre `\(\mu\)`, tasas
+
+--
+
+Dado el siguiente modelo de regresión Poisson para tasas: 
+
+
+`$$\ln(\mu_{i})= \beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik} + \ln(n_{i})$$`
+
+
+&lt;br&gt;
+--
+
+exponenciando a ambos lados obtenemos 
+
+
+`$$\mu_{i} = e^{\beta_{0}} \cdot e^{\beta_{1} x_{i1}}  \cdots e^{\beta_{k} x_{ik}} \cdot n_{i}$$`
+&lt;br&gt;
+
+&lt;br&gt;
+--
+
+Examinando esta ecuación observamos que cuando `\(x_1 = \dots = x_k = 0\)`, 
+
+
+`$$\mu_{i} = e^{\beta_{0}} \cdot n_{i}$$`
+
+--
+
+Es decir:
+
+- `\(e^{\beta_{0}}\)` corresponde a la "tasa" de ocurrencia del evento cuando `\(x_1 = \dots = x_k = 0\)`
+
+- `\(e^{\beta_{0}} \cdot n_{i}\)` es el recuento esperado cuando `\(x_1 = \dots = x_k = 0\)`.
+
+
+---
+## Efectos multiplicativos sobre `\(\mu\)`, tasas
+
+
+Asimismo, si `\(i\)` y `\(j\)` son dos observaciones con `\(x_{k}=c\)` y `\(x_{k}=c+1\)` respectivamente, el ratio entre el recuento esperado de `\(i'\)` e `\(i\)` (otros factores constantes) está dado por:
+
+&lt;br&gt;
+
+`\begin{align}
+\mu_{i'}/\mu_{i} &amp;= \frac{ n_{i'} \cdot e^{\beta_{0}} \cdot e^{\beta_{1} x_{i'1}}  \dots (e^{\beta_{k}})^{c+1}}{n_{i} \cdot e^{\beta_{0}} \cdot e^{\beta_{1} x_{i1}}  \dots (e^{\beta_{k}})^{c}} \\ \\
+&amp;= e^{\beta_{k}}
+\end{align}`
+
+--
+
+En otras palabras, 
+
+.content-box-yellow[
+"Un cambio en `\(\Delta\)` unidades de `\(x_{k}\)` multiplica la tasa de ocurrencia por `\(e^{\Delta \beta_{k}}\)`"
+] 
+
+---
+##Efectos multiplicativos sobre `\(\mu\)`: ilustración
+
+
+
+```
+##                                      betas     expbetas
+## (Intercept)                    -9.98240679 4.620573e-05
+## median_age                     -0.01290758 9.871754e-01
+## factor(continent)Asia           0.65343822 1.922138e+00
+## factor(continent)Europe         2.68065121 1.459459e+01
+## factor(continent)North America  3.06765697 2.149149e+01
+## factor(continent)Oceania       -0.10274536 9.023567e-01
+## factor(continent)South America  3.16225729 2.362386e+01
+```
+
+
+.pull-left[
+Si `continent="South America"` y `median_age=20`, entonces `ln(mu)` es:
+
+```r
+mu_sa20= exp(-9.98 +  3.16 - 0.0129*20); mu_sa20
+```
+
+```
+## [1] 0.0008434584
+```
+
+Si `continent="South America"` y `median_age=21`, entonces `ln(mu)` es:
+
+```r
+mu_sa21= exp(-9.98 +  3.16 - 0.0129*21); mu_sa21
+```
+
+```
+## [1] 0.0008326476
+```
+]
+
+.pull-right[
+Por tanto, el efecto multiplicativo de `median_age` es:
+
+```r
+mu_sa21/mu_sa20
+```
+
+```
+## [1] 0.9871828
+```
+]
+
+
+---
+class:center, middle
+
+
+## Efectos marginales sobre `\(\mu\)`
+
+---
+## Efectos marginales sobre `\(\mu\)`, recuentos
+
+--
+
+Dado el siguiente modelo de regresión Poisson para recuentos: 
+
+&lt;br&gt;
+
+`$$\mu_{i}= e^{\beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}}$$`
+
+&lt;br&gt;
+--
+
+Queremos saber el .bold[efecto marginal] de los predictores sobre el recuento esperado. Formalmente:
+
+&lt;br&gt;
+--
+
+`\begin{align}
+\frac{\partial \mu_{i}}{\partial x_{k}} &amp;=  \beta_{k} \cdot  e^{\beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}} \\ \\
+\frac{\partial \mu_{i}}{\partial x_{k}} &amp;=  \beta_{k} \cdot  \mu_{i}
+\end{align}`
+
+&lt;br&gt;
+--
+
+- Dado que `\(\mu_{i}\)` es estrictamente positivo, el efecto marginal y el coeficiente `\(\beta_{k}\)` tienen el mismo signo.
+
+---
+## Efectos marginales sobre `\(\mu\)`, recuentos
+
+Nuestro modelo: `\(\ln(\mu_{i}) = \beta_{0} + \beta_{1}\text{medianage}_{i} + \sum_{j} \mathbb{1}\{\text{continent}=j\}\beta_{j}\)`
+
+
+.pull-left[
+
+```
+##                                   Estimate   Std. Error
+## (Intercept)                     5.91028375 0.0059130362
+## median_age                      0.04154286 0.0001701993
+## factor(continent)Asia           1.55672484 0.0053010784
+## factor(continent)Europe         1.21076511 0.0060636198
+## factor(continent)North America  2.36538293 0.0053490369
+## factor(continent)Oceania       -2.05306073 0.0306634165
+## factor(continent)South America  2.98656178 0.0051400142
+```
+]
+.pull-right[
+![](class_15_files/figure-html/unnamed-chunk-35-1.png)&lt;!-- --&gt;
+]
+
+---
+## Efectos marginales sobre `\(\mu\)`, recuentos
+
+.pull-left[
+`$$\mu_{i}= e^{\beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}}$$`
+]
+
+.pull-right[
+`$$\frac{\partial \mu_{i}}{\partial x_{k}} =  \beta_{k} \cdot  \mu_{i}$$`
+]
+
+.pull-left[
+![](class_15_files/figure-html/unnamed-chunk-36-1.png)&lt;!-- --&gt;
+]
+
+
+.pull-left[
+![](class_15_files/figure-html/unnamed-chunk-37-1.png)&lt;!-- --&gt;
+]
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+---
+## Efectos marginales sobre `\(\mu\)`, tasas
+
+--
+
+Dado el siguiente modelo de regresión Poisson para tasas: 
+
+&lt;br&gt;
+
+`$$\mu_{i}= n_{i} \cdot  \underbrace{e^{\beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki}}}_{\theta_{i}}$$`
+
+--
+
+Queremos saber el .bold[efecto marginal] de los predictores sobre el recuento esperado. Formalmente:
+
+&lt;br&gt;
+--
+
+`\begin{align}
+\frac{\partial \mu_{i}}{\partial x_{k}} &amp;=  \beta_{k} \cdot  n_{i} \cdot  e^{\beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}} \\ \\
+\frac{\partial \mu_{i}}{\partial x_{k}} &amp;=  \beta_{k} \cdot  n_{i} \cdot  \theta_{i}
+\end{align}`
+
+&lt;br&gt;
+--
+
+- Dado que `\(\theta_{i}\)` y `\(n_{i}\)` son estrictamente positivos, el efecto marginal y el coeficiente `\(\beta_{k}\)` tienen el mismo signo.
+
+---
+## Efectos marginales sobre `\(\mu\)`, tasas
+
+Nuestro modelo: `\(\ln(\mu_{i}) = \beta_{0} + \beta_{1}\text{medianage}_{i} + \sum_{j} \mathbb{1}\{\text{continent}=j\}\beta_{j} + \ln(\text{population}_{i})\)`
+
+
+.pull-left[
+
+```
+##                                   Estimate   Std. Error
+## (Intercept)                    -9.98240679 0.0060333313
+## median_age                     -0.01290758 0.0001963744
+## factor(continent)Asia           0.65343822 0.0054896987
+## factor(continent)Europe         2.68065121 0.0066570633
+## factor(continent)North America  3.06765697 0.0056584765
+## factor(continent)Oceania       -0.10274536 0.0307247656
+## factor(continent)South America  3.16225729 0.0054570847
+```
+]
+.pull-right[
+![](class_15_files/figure-html/unnamed-chunk-40-1.png)&lt;!-- --&gt;
+]
+
+---
+## Efectos marginales sobre `\(\mu\)`, tasas
+
+
+.pull-left[
+`$$\mu_{i}= n_{i} \cdot e^{\beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}}$$`
+]
+
+.pull-right[
+`$$\frac{\partial \mu_{i}}{\partial x_{k}} =  n_{i} \cdot \theta_{k} \cdot  \mu_{i}$$`
+]
+
+
+.pull-left[
+![](class_15_files/figure-html/unnamed-chunk-41-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+![](class_15_files/figure-html/unnamed-chunk-42-1.png)&lt;!-- --&gt;
+]
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+---
+## Efectos marginales sobre `\(\mu\)`, tasas
+
+
+.pull-left[
+`$$\mu_{i}= n_{i} \cdot e^{\beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}}$$`
+]
+
+.pull-right[
+`$$\frac{\partial \mu_{i}}{\partial x_{k}} =  n_{i} \cdot \theta_{k} \cdot  \mu_{i}$$`
+]
+
+
+.pull-left[
+![](class_15_files/figure-html/unnamed-chunk-44-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+![](class_15_files/figure-html/unnamed-chunk-45-1.png)&lt;!-- --&gt;
+]
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+---
+## Efectos marginales sobre `\(\mu\)`, recuentos/tasas
+
+--
+
+- Efectos marginales son _esencialmente_ heterogéneos. No hay un efecto sino muchos. 
+
+--
+
+- Heterogeneidad crece con la complejidad del modelo: número de predictores, interacciones, etc. 
+
+--
+
+- En la práctica, muchas veces queremos UN número que resuma el efecto marginal. 
+
+&lt;br&gt;
+--
+.pull-left[
+![For god sakes just give me the damn number](https://i.makeagif.com/media/8-29-2018/ior4IF.gif)
+]
+
+--
+
+Cantidades de interés:
+.pull-right[
+
+* Average Marginal Effects (AME)
+
+* Marginal Effects at the Mean (MEM)
+
+* Marginal Effects at Representative Values (MER)
+
+]
+
+---
+## Efectos marginales sobre `\(\mu\)`, recuentos/tasas
+
+Ejemplo AME de "median age" sobre "tasa de muertes por millón de habitantes". .bold[Aproximación numérica]:
+
+&lt;br&gt;
+--
+
+`$$\frac{\partial \mu_{i}}{\partial x_{k}} \approx  \frac{\mu_{i}(n_{i}=10^{6}, x_{1}, \dots ,x_{k} = c + \delta) - \mu_{i}(n_{i}=10^{6}, x_{1}, \dots ,x_{k} = c )}{\delta}$$`
+--
+
+
+```r
+delta = 0.1
+grid &lt;- covid_subdata %&gt;% dplyr::select(median_age,continent,population) %&gt;% mutate(population = 10^6)
+grid_delta &lt;- covid_subdata %&gt;% dplyr::select(median_age,continent,population) %&gt;% mutate(population = 10^6) %&gt;% mutate(median_age = median_age + delta) 
+
+predictions &lt;- grid %&gt;% mutate(mu_hat = predict(poisson_death_agecont_rate, newdata=grid, type="response"))
+predictions_delta &lt;- grid_delta %&gt;% mutate(mu_hat_delta = predict(poisson_death_agecont_rate, newdata=grid_delta, type="response"))
+
+mes &lt;- tibble(mu_hat = predictions$mu_hat, mu_hat_delta = predictions_delta$mu_hat_delta) %&gt;%
+  mutate(me = (mu_hat_delta-mu_hat)/delta)
+```
+
+--
+
+.pull-left[
+
+```r
+ame = round(mean(mes$me, na.rm=T),2)
+ame
+```
+
+```
+## [1] -3.13
+```
+]
+.pull-right[
+
+```r
+summary(
+  margins(poisson_death_agecont_rate, at = list(population = 10^6)))[6,3]
+```
+
+```
+## median_age 
+##  -3.210944
+```
+]
+
+---
+class: inverse, center, middle
+
+.huge[
+**Hasta la próxima clase. Gracias!**
+]
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
