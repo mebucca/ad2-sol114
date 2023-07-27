@@ -20,20 +20,20 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | Dia          | Mes  | Contenido                                             | Presentaciones | Entregas            | 
 | ---:         | ---: | :---------------------------------------------------- | :------------- | :-------------      | 
 | Lunes 8      | 8    | Presentación del curso                                | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_0/class_0#1) [`[Código]`](slides/class_0/class_0.Rmd)                 |                     |
-| Lunes 8      | 8    | Basics teoría de la Probabilidad                      | [`[Presentación]`](https://mebucca.github.io/cda_soc3070/slides/class_1/class_1#1) [`[Código]`](slides/class_1/class_1.Rmd)                |                     |
+| Lunes 8      | 8    | Basics teoría de la Probabilidad                      | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_1/class_1#1) [`[Código]`](slides/class_1/class_1.Rmd)                |                     |
 | Martes 16     | 8    |             |                | Tarea corta 1 (6%)  |
-| Lunes 22     | 8    | Probabilidad Condicional y Teorema Bayes              |   [`[Presentación]`](https://mebucca.github.io/cda_soc3070/slides/class_2/class_2#1) [`[Código]`](slides/class_2/class_2.Rmd)             | |
-| Lunes 29     | 8    | Variables Aleatorias, Distribuciones Discretas y MLE  |    [`[Presentación]`](https://mebucca.github.io/cda_soc3070/slides/class_3/class_3#1) [`[Código]`](slides/class_3/class_3.Rmd)    [`[Bonus]`](https://mebucca.github.io/cda_soc3070/slides/class_4/class_4#1)        | Tarea corta 2 (6%)  |
-| Lunes 5      | 9    | Tablas de contingencia                                |[`[Presentación]`](https://mebucca.github.io/cda_soc3070/slides/class_5/class_5#1) [`[Código]`](slides/class_5/class_5.Rmd)                | Tarea corta 3 (6%)  |                  
-| Lunes 12     | 9    | Modelo Lineal de Probabilidad (LPM)                   | [`[Presentación]`](https://mebucca.github.io/cda_soc3070/slides/class_7/class_7#1) [`[Código]`](slides/class_7/class_7.Rmd)                 | Tarea corta 4 (6%)  |
-| Lunes 26     | 9    | Regresión Logística: estructura teórica y MLE         | [`[Presentación]`](https://mebucca.github.io/cda_soc3070/slides/class_9/class_9#1) [`[Código]`](slides/class_9/class_9.Rmd)               |                     |
-| Lunes 3      | 10   | Regresión Logística: interpretación de efectos        | [`[Presentación]`](https://mebucca.github.io/cda_soc3070/slides/class_10/class_10#1) [`[Código]`](slides/class_10/class_10.Rmd)               |                     |
-| Lunes 17     | 10   | Regresión Logística: inferencia                       | [`[Presentación]`](https://mebucca.github.io/cda_soc3070/slides/class_11/class_11#1) [`[Código]`](slides/class_11/class_11.Rmd)               |  Trabajo 1 (20%)    |
-| Lunes 24     | 10   | Regresión Logística: ajuste y predicción              | [`[Presentación]`](https://mebucca.github.io/cda_soc3070/slides/class_12/class_12#1) [`[Código]`](slides/class_12/class_12.Rmd)               |  Tarea corta 5 (6%) |
-| Lunes 7      | 11   | Regresión Logística Multinomial                       | [`[Presentación]`](https://mebucca.github.io/cda_soc3070/slides/class_13/class_13#1) [`[Código]`](slides/class_13/class_13.Rmd)               |                     |
-|              |      | Regresión Logística Ordenada                          | [`[Presentación]`](https://mebucca.github.io/cda_soc3070/slides/class_14/class_14#1) [`[Código]`](slides/class_14/class_14.Rmd)               |                     |
-| Lunes 14     | 11   | Regresión Poisson                                     | [`[Presentación]`](https://mebucca.github.io/cda_soc3070/slides/class_15/class_15#1) [`[Código]`](slides/class_15/class_15.Rmd)               |                     |
-| Lunes 21     | 11   | Consideraciones Finales                               | [`[Presentación]`](https://mebucca.github.io/cda_soc3070/slides/class_16/class_16#1) [`[Código]`](slides/class_16/class_16.Rmd)               |  Trabajo 2 (20%)    |
+| Lunes 22     | 8    | Probabilidad Condicional y Teorema Bayes              |   [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_2/class_2#1) [`[Código]`](slides/class_2/class_2.Rmd)             | |
+| Lunes 29     | 8    | Variables Aleatorias, Distribuciones Discretas y MLE  |    [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_3/class_3#1) [`[Código]`](slides/class_3/class_3.Rmd)    [`[Bonus]`](https://mebucca.github.io/ad2-sol114/slides/class_4/class_4#1)        | Tarea corta 2 (6%)  |
+| Lunes 5      | 9    | Tablas de contingencia                                |[`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_5/class_5#1) [`[Código]`](slides/class_5/class_5.Rmd)                | Tarea corta 3 (6%)  |                  
+| Lunes 12     | 9    | Modelo Lineal de Probabilidad (LPM)                   | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_7/class_7#1) [`[Código]`](slides/class_7/class_7.Rmd)                 | Tarea corta 4 (6%)  |
+| Lunes 26     | 9    | Regresión Logística: estructura teórica y MLE         | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_9/class_9#1) [`[Código]`](slides/class_9/class_9.Rmd)               |                     |
+| Lunes 3      | 10   | Regresión Logística: interpretación de efectos        | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_10/class_10#1) [`[Código]`](slides/class_10/class_10.Rmd)               |                     |
+| Lunes 17     | 10   | Regresión Logística: inferencia                       | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_11/class_11#1) [`[Código]`](slides/class_11/class_11.Rmd)               |  Trabajo 1 (20%)    |
+| Lunes 24     | 10   | Regresión Logística: ajuste y predicción              | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_12/class_12#1) [`[Código]`](slides/class_12/class_12.Rmd)               |  Tarea corta 5 (6%) |
+| Lunes 7      | 11   | Regresión Logística Multinomial                       | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_13/class_13#1) [`[Código]`](slides/class_13/class_13.Rmd)               |                     |
+|              |      | Regresión Logística Ordenada                          | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_14/class_14#1) [`[Código]`](slides/class_14/class_14.Rmd)               |                     |
+| Lunes 14     | 11   | Regresión Poisson                                     | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_15/class_15#1) [`[Código]`](slides/class_15/class_15.Rmd)               |                     |
+| Lunes 21     | 11   | Consideraciones Finales                               | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_16/class_16#1) [`[Código]`](slides/class_16/class_16.Rmd)               |  Trabajo 2 (20%)    |
 | Domingo 4    | 12   |                                                       |                | Trabajo Final (30%) |
 
 
@@ -51,7 +51,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | Miércoles 19 | 10   | Bootstrap en R                                  | [`[Presentación]`](ta/ta_7/ta_7.pdf) [`[Código]`](ta/ta_7/ta_7.Rmd)               | [`[Zoom]`](https://us02web.zoom.us/j/83035144157?pwd=T2V0d2d2YmxYbDduVTlSQ1F1Q2M1dz09) [`[Descarga video]`](https://us02web.zoom.us/rec/share/Dj3NcZp8NV2U5-huLYtFncr38tF8k6SrFLBrrzcb_T4f-ql1V2Mo96fNuFmWxxJP.iwy9vvY0s4b2f03K)|
 | Miércoles 9  | 11   | Regresión logística multinomial                 | [`[Presentación]`](ta/ta_8/ta_8.pdf) [`[Código]`](ta/ta_8/ta_8.Rmd)  [`[Base de datos]`](ta/ta_8/data_OCS_3.Rdata)    |  [`[Zoom]`](https://us02web.zoom.us/j/86481086541?pwd=c0tQWGFkRzEwN0NIWFpBanNOOTRCdz09) |
 | Miércoles 16 | 11   | Regresión Poisson                               | [`[Presentación]`](ta/ta_9/ta_9.pdf) [`[Código]`](ta/ta_9/ta_9.Rmd)  [`[Base de datos]`](ta/ta_9/nonmel.Rdata)              | [`[Zoom]`](https://us02web.zoom.us/j/86471530210)|
-| Miércoles 30 | 11   | "Elevator speech" Trabajo final                 |      [`[Ejemplo "Elevator speech"]`](https://mebucca.github.io/cda_soc3070/homework/tf/elevator_speech#1)   | [`[Zoom]`](https://us02web.zoom.us/j/86071029391?pwd=dVFGN1VPMTNSSmYyQXhFUEN2MHdmZz09)|
+| Miércoles 30 | 11   | "Elevator speech" Trabajo final                 |      [`[Ejemplo "Elevator speech"]`](https://mebucca.github.io/ad2-sol114/homework/tf/elevator_speech#1)   | [`[Zoom]`](https://us02web.zoom.us/j/86071029391?pwd=dVFGN1VPMTNSSmYyQXhFUEN2MHdmZz09)|
 
 
 ---
@@ -68,13 +68,13 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 
 #### Trabajos
 
-- Trabajo 1: [`[T1]`](https://mebucca.github.io/cda_soc3070/homework/t_1/t_1#1) [`[Soluciones T1]`](https://mebucca.github.io/cda_soc3070/homework/t_1/t_1_answers#1) [`[Soluciones T1.Rmd]`](homework/t_1/t_1_answers.Rmd)
-- Trabajo 2: [`[T2]`](https://mebucca.github.io/cda_soc3070/homework/t_2/t_2#1) [`[Paper]`](homework/t_1/paper.pdf) [`[Supplementary Materials]`](homework/t_1/sm.pdf) [`[Database]`](homework/t_2/data_t_2.csv) [`[Soluciones T2]`](homework/t_2/t_2_answers.pdf) [`[Soluciones T2.Rmd]`](homework/t_2/t_2_answers.Rmd)
+- Trabajo 1: [`[T1]`](https://mebucca.github.io/ad2-sol114/homework/t_1/t_1#1) [`[Soluciones T1]`](https://mebucca.github.io/ad2-sol114/homework/t_1/t_1_answers#1) [`[Soluciones T1.Rmd]`](homework/t_1/t_1_answers.Rmd)
+- Trabajo 2: [`[T2]`](https://mebucca.github.io/ad2-sol114/homework/t_2/t_2#1) [`[Paper]`](homework/t_1/paper.pdf) [`[Supplementary Materials]`](homework/t_1/sm.pdf) [`[Database]`](homework/t_2/data_t_2.csv) [`[Soluciones T2]`](homework/t_2/t_2_answers.pdf) [`[Soluciones T2.Rmd]`](homework/t_2/t_2_answers.Rmd)
 
 #### Trabajo Final
 
-- Trabajo Final: [`[TF]`](https://mebucca.github.io/cda_soc3070/homework/tf/tf#1) [`[Paper 2018]`](homework/tf/Silberzahn-etal-2018.pdf) [`[Paper 2021]`](homework/tf/Auspurg-Bruderl-2021.pdf) [`[Database]`](homework/tf/redcard_data.csv)
-    - Ejemplo ayudantía "elevator speech": [`[presentación]`](https://mebucca.github.io/cda_soc3070/homework/tf/elevator_speech#1) 
+- Trabajo Final: [`[TF]`](https://mebucca.github.io/ad2-sol114/homework/tf/tf#1) [`[Paper 2018]`](homework/tf/Silberzahn-etal-2018.pdf) [`[Paper 2021]`](homework/tf/Auspurg-Bruderl-2021.pdf) [`[Database]`](homework/tf/redcard_data.csv)
+    - Ejemplo ayudantía "elevator speech": [`[presentación]`](https://mebucca.github.io/ad2-sol114/homework/tf/elevator_speech#1) 
 
 ---
 
