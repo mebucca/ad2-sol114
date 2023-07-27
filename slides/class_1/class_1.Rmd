@@ -1,12 +1,12 @@
 ---
-title: "Análisis de Datos Categóricos (SOC3070)"
-subtitle: "Clase #1"
-author: "<br> Mauricio Bucca<br> Profesor Asistente, Sociología UC"
-date: "[github.com/mebucca](https://github.com/mebucca)"
+title: "Probabilidad e Inferencia Estadística (SOL114)"
+subtitle: "Clase #1: Fundamentos de Teoría de la Probabilidad"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: ["default","default-fonts","gentle-r.css"]
+    css: ["gentle-r.css","xaringan-themer.css"]
     df_print: default
     nature:
       ratio: 16:9
@@ -16,8 +16,24 @@ output:
       slideNumberFormat: "%current%"
 editor_options: 
   chunk_output_type: console
----
+  
+---  
 class: inverse, center, middle
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_duo_accent(primary_color = "#33583a", secondary_color = "#ee592c",
+                 white_color = lighten_color("#ee592c", 0.9),
+                 black_color = darken_color("#33583a", 0.3),
+                 background_color = "#f8f7f3",
+                 header_font_google = google_font("Fira Sans"),
+                 text_font_google   = google_font("Slabo 27px"), 
+                 link_color="#7ed694"
+
+)
+
+```
+
 
 #Probabilidades
 
@@ -57,9 +73,13 @@ Un .bold[evento] es un subconjunto bien definido de los posibles resultados de u
 <br>
 --
 
-Ejemplo:
+.pull-left[Ejemplo:
 - Experimento: Tirar un dado
-- "A" es el evento de "obtener un 1 o un 5"  
+- "A" es el evento de "obtener un 1 o un 5" ]
+
+.pull-right[
+![dice](dice.png)
+]
 
 <br>
 
@@ -105,7 +125,7 @@ donde $\mathbb{P}(.)$ refiere a la probabilidad de ocurrencia del evento y $\mat
 
 --
 
-.full-width[.content-box-red[
+.full-width[.content-box-green[
 .bold[Preguntas]:
 
 1) ¿Cuál es la probabilidad de ocurrencia de cada valor en el espacio muestral?
@@ -115,11 +135,15 @@ donde $\mathbb{P}(.)$ refiere a la probabilidad de ocurrencia del evento y $\mat
 ]
 
 --
+.full-width[.content-box-yellow[
+
 .bold[Respuestas:]
 
 1) $\frac{1}{6}$ 
 
 2) $\frac{2}{6}$ 
+]
+]
 
 --
 
@@ -174,10 +198,9 @@ $$\mathbb{P}(A \text{ o } B) = \mathbb{P}(\text{dado=1 o dado=5}) + \mathbb{P}(\
 - Experimento: tirar un dado
 - Supuesto: el dado es "justo", es decir, todos los valores tienen la misma probabilidad de ocurrencia
 
-<br>
 --
 
-.full-width[.content-box-red[
+.full-width[.content-box-green[
 .bold[Pregunta]:
 
 ¿Cuál es la probabilidad de obtener un 3 o un 4?
@@ -188,7 +211,7 @@ $$\mathbb{P}(A \text{ o } B) = \mathbb{P}(\text{dado=1 o dado=5}) + \mathbb{P}(\
 
 --
 
-.full-width[.content-box-blue[
+.full-width[.content-box-yellow[
 .bold[Respuesta]:
 \begin{align}
 \mathbb{P}(\text{dado=3 o dado=4}) &= \mathbb{P}(\text{dado=3}) +  \mathbb{P}(\text{dado=4}) - \mathbb{P}(\text{dado=3 y dado=4}) \\
@@ -261,12 +284,11 @@ Entonces,
 
 
 ---
-
 class: inverse, center, middle
 
-.huge[
-**Hasta la próxima clase. Gracias!**
-]
+
+##Hasta la próxima clase. Gracias!
+
 
 <br>
 Mauricio Bucca <br>

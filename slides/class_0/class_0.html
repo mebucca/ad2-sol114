@@ -1,183 +1,209 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Análisis de Datos Categóricos (SOC3070)</title>
+    <title>Análisis de Datos II (SOL114)   Probabilidad e Inferencia Estadística</title>
     <meta charset="utf-8" />
-    <meta name="author" content="  Mauricio Bucca  Profesor Asistente, Sociología UC" />
-    <script src="libs/header-attrs-2.14/header-attrs.js"></script>
-    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
+    <script src="libs/header-attrs-2.23/header-attrs.js"></script>
     <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
 .title[
-# Análisis de Datos Categóricos (SOC3070)
+# <del>Análisis de Datos II (SOL114)</del> <br> Probabilidad e Inferencia Estadística
 ]
 .subtitle[
-## Clase #0
+## Presentación del curso
 ]
 .author[
-### <br> Mauricio Bucca<br> Profesor Asistente, Sociología UC
+### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
 ]
 .date[
-### <a href="https://github.com/mebucca">github.com/mebucca</a>
+### 27 July, 2023
 ]
 
 ---
 
+
+
+
+## Probabilidad &amp; Estadística
+
+
+--
+
+.center[![prob](prob.png)]
+
+
+---
+## Probabilidad &amp; Estadística
+
+--
+.center[![stats](stats.png)]
+
+
+
+
+---
 class: inverse, center, middle
 
-.huge[
-**Presentación del curso**
-]
+
+
+#Equipo de trabajo
+
 
 ---
 
-## Sobre mi
-
-  - Profesor Asistente, Sociología UC
-
---
-
-  - Max Weber Postdoctoral Fellow, European University Institute, Firenze
-  
-  - PhD en Sociología, Cornell University, NY
-    - PhD Minor en Estadística, Departamento de Estadística, Cornell University
-
---
-
-  - Investigación: movilidad social intergeneracional,  desigualdades en el mercado laboral, creencias sobre las desigualdades, métodos cuantitativos
-  
-  - Métodos: modelación estadística, estrategias empíricas para inferencia causal, métodos experimentales y computacionales
-    - Datos categóricos: desarrollos en "log-linear models"
+## Profesor
 
 &lt;br&gt;
+
+  - Mauricio Bucca, Profesor Asistente - Sociología UC
+  
+  - PhD en Sociología &amp; PhD Minor en Estadística, Cornell University
+
 --
 
-.bold[Información de contacto]
- - mail: mebucca@uc.cl
- - webpage: https://mebucca.github.io/
+  - .bold[Investigación:] movilidad social intergeneracional,  desigualdades en el mercado laboral, creencias sobre las desigualdades, métodos cuantitativos
+  
+
+  - .bold[Métodos]: modelación estadística, inferencia causal, métodos experimentales y computacionales
 
 ---
-## Ayudantía
+## Ayudantes
+
 
 &lt;br&gt;
 
 .pull-left[
-.bold[Felipe Olivares]
+.bold[Rebeca Orellana]
 
-- Historiador y Sociólogo UC
+- Socióloga Universidad de Chile
 
-- Licenciado en Historia UC
+- Estudiante Magíster en Sociología UC
 
-- Magíster en Sociología UC
+- Investigación:  Dinámicas en internet, movimientos sociales, opinión pública
 
-- Coordinador Observatorio de Conflictos COES
-
-- Investigación: Control de la protesta social, agencia policial, Conflictos sociales y políticos, Movimientos sociales y teoría social 
-
-- Métodos: Modelos estadísticos multinivel, multinomial, logístico y lineal. 
+- Métodos: Redes, procesamiento de lenguaje natural, teoría fundada.
 
 ]
 .figure-right[
-![ayudante](https://64.media.tumblr.com/2c764e7a70f2d8eec7a72cd5c44b1f00/tumblr_pe8yj3wJUb1tad247o2_r1_540.gif)
+![rebeca](rebeca.jpeg)
 ]
 
 ---
-## Enseñanza de métodos cuantitativos
+## Ayudantes
+
+&lt;br&gt;
+
+.pull-left[
+.bold[Matías Deneken]
+
+- Sociólogo Universidad de Concepción
+
+- Estudiante Magíster en Sociología UC
+
+- Investigación:  Orientación a la dominancia social en personas mapuches y no- mapuches.
+
+- Métodos: Ecuaciones estructurales y modelos de efectos fijos.
+
+]
+
+.pull-right[
+![deneken](deneken.jpg)
+]
+
+---
+class: inverse, center, middle
+
+## Filosofía de enseñanza de métodos cuantitativos
+
+---
+### 1. Los "atajos" estadísticos dificultan el aprendizaje
 
 --
 
-.pull-left[
-- Los "atajos" estadísticos, tarde o temprano, dificultan el aprendizaje
-
-]
-.figure-right[
+.center[
 ![pvalue](pvalue.png)
 
 ]
---
-
-- Hay contenidos que hay que saber, la intuición no basta
-
---
-
-`$$e^{\alpha+\beta x} = e^{a} e^{\beta x}$$`
---
-
-- Muchas cosas parecen más difíciles de lo que son (notación, desconocimiento, miedo, etc.)
-
-
---
-
-`$$\mu = \int xf(x)dx$$`
-
---
-
-- Cosas aparentemente sencillas son más profundas de lo que parecen
-
---
-
-$$ X \sim \mathcal{N}(\mu,\sigma)$$
 
 ---
-## Enseñanza de métodos cuantitativos
+### 2. La sola intuición no es suficiente
 
-.pull-top[
+--
+
 .pull-left[
-- Es más importante tener fundamentos sólidos que "conocer" muchos métodos distintos 
+.bold[Muchas cosas parecen más difíciles de lo que son]
+.huge[$$\int xf(x)dx := \mu $$]
+]
 
-  - ej. logistic regression, ordered logistic regression, rank-order logistic regression, generalized ordered logistic regression ...
-  ]
+--
 
 .pull-right[
-![tweet](tweet.png)
-]
+.bold[Otras parecen más simples de lo que son]
+.huge[ `$$X   \text{ es una variable}$$`]
+
 ]
 
-&lt;br&gt;
 --
-
-.pull-bottom[
-.pull-left[
-- Los conceptos teóricos se aprenden poniéndolos en práctica, a mano
-]
-]
-
 &lt;br&gt;
---
 
-.pull-bottom[
-.pull-left[
-- Curso difícil en contenido, no en forma de evaluación
-]
-]
+- Vacíos de conocimiento, notación, poca exposición a las matemáticas.
 
+- Este curso nivela estos vacíos activamente. No hay carta bajo la manga.
 
 ---
 
-## Material del curso
+### 3. Menos es más
+
+--
+
+.pull-left[.bold[Muchos métodos]
+![methods](methods.png)
+]
+
+--
+
+.pull-right[.bold[Fundamentos sólidos]
+![methods](foundations.jpg)]
+
+
+
+---
+class: inverse, center, middle
+
+## Recursos
+
+---
+
+## Repositorio Github
 
 Todo el material del curso será almacenado y actualizado regularmente en repositorio `Github`:
 
 &lt;br&gt;
 .center[
 
-![github](github.jpg)
+![github](github.png)
 
-https://github.com/mebucca/cda_soc3070
+.bold[https://github.com/mebucca/ad2-sol114]
+
 ]
 
+---
+## Horario de consulta y ayudantías
+
+
+.center[![officehours](officehours.jpg)]
 
 ---
 class: inverse, center, middle
 
-.huge[
-**Hasta la próxima clase. Gracias!**
-]
+
+##Hasta la próxima clase. Gracias!
 
 &lt;br&gt;
 Mauricio Bucca &lt;br&gt;

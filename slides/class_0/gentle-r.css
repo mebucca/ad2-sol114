@@ -1,3 +1,4 @@
+
 body {
   font-size: 1.1em;
 }
@@ -10,6 +11,10 @@ strong {
   color: #23373;
   font-weight: 500;
 }
+
+.bold { font-weight: bold; }
+.bolder { font-weight: bolder; }
+
 
 .title-slide {
   /*background-image: url(images/tidylogos.png);*/
@@ -68,6 +73,9 @@ strong {
   padding-left: 1%;
 }
 
+.large {
+  font-size: 1.45em;
+}
 .huge {
   font-size: 1.8em;
 }
@@ -182,7 +190,7 @@ strong {
 }
 
 .content-box-grey {
-	background-color: #F5F5F5;
+	background-color: #5e6a7d
 }
 
 .content-box-army {
@@ -196,7 +204,7 @@ strong {
 .content-box-purple {
 	background-color: #e2e2f9;
 }
-
+<br>
 .content-box-red {
 	background-color: #f9dbdb;
 }
@@ -311,6 +319,4 @@ strong {
 .gray { color: gray; }
 .grey { color: gray; }
 
-.bold { font-weight: bold; }
-.bolder { font-weight: bolder; }
 
