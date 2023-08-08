@@ -16,30 +16,39 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 
 ## Calendario Clases
 
-| Dia          | Mes  | Contenido                                             | Presentaciones | Entregas            | 
-| ---:         | ---: | :---------------------------------------------------- | :------------- | :-------------      | 
-| Lunes 8      | 8    | Presentación del curso                                | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_0/class_0#1) [`[Código]`](slides/class_0/class_0.Rmd)                 |                     |
-| Lunes 8      | 8    | Basics teoría de la Probabilidad                      | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_1/class_1#1) [`[Código]`](slides/class_1/class_1.Rmd)                |                     |
-| Martes 16     | 8    |             |                | Tarea corta 1 (6%)  |
-| Lunes 22     | 8    | Probabilidad Condicional y Teorema Bayes              |   [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_2/class_2#1) [`[Código]`](slides/class_2/class_2.Rmd)             | |
-| Lunes 29     | 8    | Variables Aleatorias, Distribuciones Discretas y MLE  |    [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_3/class_3#1) [`[Código]`](slides/class_3/class_3.Rmd)    [`[Bonus]`](https://mebucca.github.io/ad2-sol114/slides/class_4/class_4#1)        | Tarea corta 2 (6%)  |
-| Lunes 5      | 9    | Tablas de contingencia                                |[`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_5/class_5#1) [`[Código]`](slides/class_5/class_5.Rmd)                | Tarea corta 3 (6%)  |                  
-| Lunes 12     | 9    | Modelo Lineal de Probabilidad (LPM)                   | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_7/class_7#1) [`[Código]`](slides/class_7/class_7.Rmd)                 | Tarea corta 4 (6%)  |
-| Lunes 26     | 9    | Regresión Logística: estructura teórica y MLE         | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_9/class_9#1) [`[Código]`](slides/class_9/class_9.Rmd)               |                     |
-| Lunes 3      | 10   | Regresión Logística: interpretación de efectos        | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_10/class_10#1) [`[Código]`](slides/class_10/class_10.Rmd)               |                     |
-| Lunes 17     | 10   | Regresión Logística: inferencia                       | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_11/class_11#1) [`[Código]`](slides/class_11/class_11.Rmd)               |  Trabajo 1 (20%)    |
-| Lunes 24     | 10   | Regresión Logística: ajuste y predicción              | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_12/class_12#1) [`[Código]`](slides/class_12/class_12.Rmd)               |  Tarea corta 5 (6%) |
-| Lunes 7      | 11   | Regresión Logística Multinomial                       | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_13/class_13#1) [`[Código]`](slides/class_13/class_13.Rmd)               |                     |
-|              |      | Regresión Logística Ordenada                          | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_14/class_14#1) [`[Código]`](slides/class_14/class_14.Rmd)               |                     |
-| Lunes 14     | 11   | Regresión Poisson                                     | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_15/class_15#1) [`[Código]`](slides/class_15/class_15.Rmd)               |                     |
-| Lunes 21     | 11   | Consideraciones Finales                               | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_16/class_16#1) [`[Código]`](slides/class_16/class_16.Rmd)               |  Trabajo 2 (20%)    |
-| Domingo 4    | 12   |                                                       |                | Trabajo Final (30%) |
-
-
+| Día | Mes       | Contenido                                                     | Presentación                                                                                                    |
+|-----|-----------|---------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| 7   | Agosto   | Introducción                                                  | [`[Presentación]`](https://mebucca.github.io/cda_soc3070/slides/class_0/class_0#1) [`[Código]`](slides/class_0/class_0.Rmd) |
+| 9   | Agosto   | Experimentos aleatorios, eventos, probabilidades              |                                                                                                                 |
+| 16  | Agosto   | Probabilidad condicional, teorema de Bayes                    |                                                                                                                 |
+| 21  | Agosto   | Variables aleatorias y distribuciones discretas (Bernoulli y Binomial) |                                                                                                                 |
+| 28  | Agosto   | Distribuciones continuas (Uniforme y Normal)                  |                                                                                                                 |
+| 30  | Agosto   | Distribución Normal                                          |                                                                                                                 |
+| 4   | Septiembre | Momentos: valor esperado, propiedades                        |                                                                                                                 |
+| 6   | Septiembre | Momentos: varianza, propiedades                              |                                                                                                                 |
+| 11  | Septiembre | Ley grandes numeros y teorema limite central                 |                                                                                                                 |
+| 13  | Septiembre | Estimacion puntual, estimadores                              |                                                                                                                 |
+| 20  | Septiembre | Distribución muestral de un estimador, sesgo y varianza      |                                                                                                                 |
+| 25  | Septiembre | Distribución muestral, Bootstrap                             |                                                                                                                 |
+| 27  | Septiembre | Estimacion de intervalos, intervalos de confianza             |                                                                                                                 |
+| 11  | Octubre   | Error tipo 1 y Error tipo 2                                  |                                                                                                                 |
+| 16  | Octubre   | Significación Estadística                                    |                                                                                                                 |
+| 18  | Octubre   | Distribución nula                                            |                                                                                                                 |
+| 23  | Octubre   | Valores p                                                    |                                                                                                                 |
+| 25  | Octubre   | Test de hipótesis                                            |                                                                                                                 |
+| 30  | Octubre   | Test de media y proporciones en 1 muestra                    |                                                                                                                 |
+| 6   | Noviembre | Test de media y proporciones en 2 muestras                   |                                                                                                                 |
+| 8   | Noviembre | ANOVA                                                        |                                                                                                                 |
+| 13  | Noviembre | ANOVA                                                        |                                                                                                                 |
+| 15  | Noviembre | Asociación entre variables continuas: exploración gráfica     |                                                                                                                 |
+| 20  | Noviembre | Asociación entre variables continuas: correlación de pearson  |                                                                                                                 |
+| 22  | Noviembre | Tablas de contingencia (distribuciones marginales y condicional) |                                                                                                                 |
+| 27  | Noviembre | Asociación en tablas de contingencia: test de                 |                                                                                                                 |
+| 29  | Noviembre | Repaso                                                       |                                                                                                                 |
 
 ## Ayudantías
 
-
+[`[Por definir]`]()
 
 ---
 
