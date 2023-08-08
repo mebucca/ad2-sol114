@@ -1,0 +1,90 @@
+---
+title: "SOL114 Análisis de Datos II"
+author: "Tarea corta 1"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r, echo=FALSE}
+# Escribir install.packages("tinytex") en la consola para instalar "tinytex"
+# Carga "tinytex" para compilar PDF
+library("tinytex")
+```
+
+Ponderación: 6% de la nota final del curso.
+
+<br>
+
+*Notar*:
+
+-   $e$ corresponde al exponente natural
+
+<br>
+
+**1) Funciones**
+
+Grafica la función en el intervalo \([-3, 3]\):
+\[f(x) = x^2 - 4\]
+
+
+
+**2) Funciones Exponenciales**
+
+a) Resuelve por x:
+\[2^x = 16\]
+
+
+
+b) Simplifica:
+\[ (3^2) \times (3^3) \]
+
+
+c) Resuelve por x:
+\[3^{x} = 27\]
+
+
+d) Simplifica usando propiedades de exponentes:
+\[ e^{x} \times e^{2x} \]
+
+
+
+e) Resuelve por x:
+\[ e^{2x} = e^{x+3} \]
+
+
+f) Simplifica:
+\[ \frac{e^{5x}}{e^{3x}} \]
+
+
+**3) Sumatoria**
+
+Calcula la sumatoria de \((a \cdot i^2 + b)\)  desde \(i = 1\) hasta \(4\) .
+
+
+
+**4) Derivadas**
+
+a) ¿Qué representa una derivada?
+
+
+
+b) Encuentra la derivada de:
+\[f(x) = 3x^3 - 4x^2 + 5\]
+
+
+
+
+**5) Aproximación Discreta de Integrales**
+
+Aproxima la integral de \(f(x) = x^2\) desde 0 hasta 2 usando 4 rectángulos. Específicamente: divide el intervalo de desde 0 hasta 2 en 4 subintervalos de igual tamaño y luego evaluar la función en el punto más a la izquierda de cada subintervalo. Ejemplo, para el intervalo entre 0.5 y 1 usa valor \( x = 0.5\), y por tanto \( f(x) = f(0.5)\).
+
+
+
+
+**6) Integral Continua**
+
+Evalúa la integral:
+\[ \int_{0}^{2} x^2 \, dx \]
+
