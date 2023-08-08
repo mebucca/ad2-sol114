@@ -60,7 +60,7 @@ Here's the markdown table with aligned columns:
 
 ## Horario de Consulta
 
-- Reuniones individuales de aproximadamente 15 minutos cada día Lunes entre 15:00 y 16:00pm. [`[Agendar]`](
+- Reuniones individuales de aproximadamente 15 minutos cada día Miércoles entre 15:00 y 16:00pm. [`[Agendar]`](
 https://calendar.app.google/U4mohxA18LCZmexr7)
 
 
