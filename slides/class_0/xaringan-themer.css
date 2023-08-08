@@ -19,7 +19,7 @@
  *
  * ------------------------------------------------------- */
 @import url(https://fonts.googleapis.com/css?family=Inconsolata&display=swap);
-@import url(https://fonts.googleapis.com/css?family=Fira+Sans&display=swap);
+@import url(https://fonts.googleapis.com/css?family=Archivo&display=swap);
 @import url(https://fonts.googleapis.com/css?family=Source+Code+Pro:400,700&display=swap);
 
 
@@ -29,7 +29,7 @@
   --text-font-is-google: 1;
   --text-font-family-fallback: -apple-system, BlinkMacSystemFont, avenir next, avenir, helvetica neue, helvetica, Ubuntu, roboto, noto, segoe ui, arial;
   --text-font-base: sans-serif;
-  --header-font-family: 'Fira Sans';
+  --header-font-family: Archivo;
   --header-font-is-google: 1;
   --header-font-family-fallback: Georgia, serif;
   --code-font-family: 'Source Code Pro';
@@ -44,7 +44,7 @@
 
   /* Colors */
   --text-color: #000000;
-  --header-color: #63415a;
+  --header-color: #972D15;
   --background-color: #f8f7f3;
   --link-color: #7ed694;
   --text-bold-color: #1f2026;
@@ -53,11 +53,11 @@
   --inverse-background-color: #1f2026;
   --inverse-header-color: #FFFFFF;
   --inverse-link-color: #7ed694;
-  --title-slide-background-color: #63415a;
+  --title-slide-background-color: #972D15;
   --title-slide-text-color: #FFFFFF;
-  --header-background-color: #63415a;
+  --header-background-color: #972D15;
   --header-background-text-color: #f8f7f3;
-  --primary: #63415a;
+  --primary: #972D15;
   --secondary: #1f2026;
   --white: #FFFFFF;
   --black: #000000;
@@ -104,7 +104,7 @@ h1, h2, h3 {
   color: #1f2026;
 }
 .remark-slide-number {
-  color: #63415a;
+  color: #972D15;
   opacity: 1;
   font-size: 0.9rem;
 }
@@ -152,10 +152,10 @@ a, a > code {
   float: left;
 }
 .left-column h2, .left-column h3 {
-  color: #63415a99;
+  color: #972D1599;
 }
 .left-column h2:last-of-type, .left-column h3:last-child {
-  color: #63415a;
+  color: #972D15;
 }
 .right-column {
   width: 75%;

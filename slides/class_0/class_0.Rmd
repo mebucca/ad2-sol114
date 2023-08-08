@@ -16,13 +16,12 @@ output:
       slideNumberFormat: "%current%"
 editor_options: 
   chunk_output_type: console
-
 ---
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
-style_duo_accent(primary_color = "#63415a", secondary_color = "#1f2026",
+style_duo_accent(primary_color = "#972D15", secondary_color = "#1f2026",
                  background_color = "#f8f7f3",
-                 header_font_google = google_font("Fira Sans"),
+                 header_font_google = google_font("Archivo"),
                  text_font_google   = google_font("Inconsolata"), 
                  link_color="#7ed694"
 
@@ -32,6 +31,12 @@ style_duo_accent(primary_color = "#63415a", secondary_color = "#1f2026",
 ```
 
 
+---
+class: inverse, center, middle
+
+# Probabilidad & Estadística
+
+---
 ## Probabilidad & Estadística
 
 
@@ -121,7 +126,7 @@ class: inverse, center, middle
 ---
 class: inverse, center, middle
 
-## Filosofía de enseñanza de métodos cuantitativos
+# Filosofía de enseñanza
 
 ---
 ### 1. Los "atajos" estadísticos dificultan el aprendizaje
@@ -178,7 +183,7 @@ class: inverse, center, middle
 ---
 class: inverse, center, middle
 
-## Recursos
+# Recursos
 
 ---
 

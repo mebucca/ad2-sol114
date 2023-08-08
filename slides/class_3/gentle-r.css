@@ -311,6 +311,6 @@ strong {
 .gray { color: gray; }
 .grey { color: gray; }
 
-.bold { font-weight: bold; }
+.bold { font-weight: bolder;   color: var(--header-color);}
 .bolder { font-weight: bolder; }
 

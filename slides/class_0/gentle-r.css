@@ -320,3 +320,5 @@ strong {
 .grey { color: gray; }
 
 
+.bold { font-weight: bolder;   color: var(--header-color);}
+

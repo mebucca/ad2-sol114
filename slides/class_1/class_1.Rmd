@@ -1,6 +1,6 @@
 ---
-title: "Probabilidad e Inferencia Estadística (SOL114)"
-subtitle: "Clase #1: Fundamentos de Teoría de la Probabilidad"
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#1: Fundamentos de Teoría de la Probabilidad"
 author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -15,24 +15,22 @@ output:
       countIncrementalSlides: true
       slideNumberFormat: "%current%"
 editor_options: 
-  chunk_output_type: console
   
+  chunk_output_type: console
 ---  
 class: inverse, center, middle
 
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
-style_duo_accent(primary_color = "#33583a", secondary_color = "#ee592c",
-                 white_color = lighten_color("#ee592c", 0.9),
-                 black_color = darken_color("#33583a", 0.3),
+style_duo_accent(primary_color = "#CEAB07", secondary_color = "#0B775E",
                  background_color = "#f8f7f3",
-                 header_font_google = google_font("Fira Sans"),
-                 text_font_google   = google_font("Slabo 27px"), 
-                 link_color="#7ed694"
+                 header_font_google = google_font("Archivo"),
+                 text_font_google   = google_font("Inconsolata"), 
+                 link_color="#ABDDDE"
 
 )
-
 ```
+
 
 
 #Probabilidades
@@ -65,7 +63,6 @@ $$\Omega: \{1,2,3,4,5,6 \}$$
 En palabras, $\Omega: \{1,2,3,4,5,6 \}$ significa que nuestro experimento, consistente en tirar un dado, puede resultar en: "1 o 2 o 3... o 6"
 
 ---
-
 ## Eventos
 
 Un .bold[evento] es un subconjunto bien definido de los posibles resultados de un experimento. 
