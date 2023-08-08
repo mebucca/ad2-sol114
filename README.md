@@ -16,35 +16,40 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 
 ## Calendario Clases
 
-| Día | Mes       | Contenido                                                     | Presentación                                                                                                    |
-|-----|-----------|---------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| 7   | Agosto   | Introducción                                                  | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_0/class_0#1) [`[Código]`](slides/class_0/class_0.Rmd) |
-| 9   | Agosto   | Experimentos aleatorios, eventos, probabilidades              |                                                                                                                 |
-| 16  | Agosto   | Probabilidad condicional, teorema de Bayes                    |                                                                                                                 |
-| 21  | Agosto   | Variables aleatorias y distribuciones discretas (Bernoulli y Binomial) |                                                                                                                 |
-| 28  | Agosto   | Distribuciones continuas (Uniforme y Normal)                  |                                                                                                                 |
-| 30  | Agosto   | Distribución Normal                                          |                                                                                                                 |
-| 4   | Septiembre | Momentos: valor esperado, propiedades                        |                                                                                                                 |
-| 6   | Septiembre | Momentos: varianza, propiedades                              |                                                                                                                 |
-| 11  | Septiembre | Ley grandes numeros y teorema limite central                 |                                                                                                                 |
-| 13  | Septiembre | Estimacion puntual, estimadores                              |                                                                                                                 |
-| 20  | Septiembre | Distribución muestral de un estimador, sesgo y varianza      |                                                                                                                 |
-| 25  | Septiembre | Distribución muestral, Bootstrap                             |                                                                                                                 |
-| 27  | Septiembre | Estimacion de intervalos, intervalos de confianza             |                                                                                                                 |
-| 11  | Octubre   | Error tipo 1 y Error tipo 2                                  |                                                                                                                 |
-| 16  | Octubre   | Significación Estadística                                    |                                                                                                                 |
-| 18  | Octubre   | Distribución nula                                            |                                                                                                                 |
-| 23  | Octubre   | Valores p                                                    |                                                                                                                 |
-| 25  | Octubre   | Test de hipótesis                                            |                                                                                                                 |
-| 30  | Octubre   | Test de media y proporciones en 1 muestra                    |                                                                                                                 |
-| 6   | Noviembre | Test de media y proporciones en 2 muestras                   |                                                                                                                 |
-| 8   | Noviembre | ANOVA                                                        |                                                                                                                 |
-| 13  | Noviembre | ANOVA                                                        |                                                                                                                 |
-| 15  | Noviembre | Asociación entre variables continuas: exploración gráfica     |                                                                                                                 |
-| 20  | Noviembre | Asociación entre variables continuas: correlación de pearson  |                                                                                                                 |
-| 22  | Noviembre | Tablas de contingencia (distribuciones marginales y condicional) |                                                                                                                 |
-| 27  | Noviembre | Asociación en tablas de contingencia: test de                 |                                                                                                                 |
-| 29  | Noviembre | Repaso                                                       |                                                                                                                 |
+
+Certainly! Here's the aligned and compressed table with abbreviated month names:
+
+Here's the markdown table with aligned columns:
+
+| Día | Mes | Contenido                                        | Presentación                                                                                                              |
+|-----|-----|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
+| 7   | Ago | Introducción                                     | [Presentación](https://mebucca.github.io/ad2-sol114/slides/class_0/class_0#1) [Código](slides/class_0/class_0.Rmd)       |
+| 9   | Ago | Fundamento de probabilidades                     |                                                                                                                          |
+| 16  | Ago | Probabilidad condicional, teorema de Bayes      |                                                                                                                          |
+| 21  | Ago | Variables aleatorias y distribuciones discretas |                                                                                                                          |
+| 28  | Ago | Distribuciones continuas                         |                                                                                                                          |
+| 30  | Ago | Distribución Normal                              |                                                                                                                          |
+| 4   | Sep | Momentos: valor esperado                         |                                                                                                                          |
+| 6   | Sep | Momentos: varianza                               |                                                                                                                          |
+| 11  | Sep | Ley grandes números y teorema límite central    |                                                                                                                          |
+| 13  | Sep | Estimación puntual                               |                                                                                                                          |
+| 20  | Sep | Distribución muestral, sesgo y varianza         |                                                                                                                          |
+| 25  | Sep | Bootstrap                                        |                                                                                                                          |
+| 27  | Sep | Estimación de intervalos                         |                                                                                                                          |
+| 11  | Oct | Error tipo I y II                                |                                                                                                                          |
+| 16  | Oct | Significación Estadística                        |                                                                                                                          |
+| 18  | Oct | Distribución nula                                |                                                                                                                          |
+| 23  | Oct | Valores p                                        |                                                                                                                          |
+| 25  | Oct | Test de hipótesis                                |                                                                                                                          |
+| 30  | Oct | Test de media/proporciones en 1 muestra          |                                                                                                                          |
+| 6   | Nov | Test de media/proporciones en 2 muestras         |                                                                                                                          |
+| 8   | Nov | Asociación variables continuas                    |                                                                                                                          |
+| 13  | Nov | Correlación de Pearson                           |                                                                                                                          |
+| 15  | Nov | ANOVA                                            |                                                                                                                          |
+| 20  | Nov | ANOVA                                            |                                                                                                                          |
+| 22  | Nov | Tablas de contingencia                           |                                                                                                                          |
+| 27  | Nov | Test de χ²                                       |                                                                                                                          |
+| 29  | Nov | Repaso                                           |                                                                                                                          |
 
 ## Ayudantías
 
