@@ -18,7 +18,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 
 | Día | Mes       | Contenido                                                     | Presentación                                                                                                    |
 |-----|-----------|---------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
-| 7   | Agosto   | Introducción                                                  | [`[Presentación]`](https://mebucca.github.io/cda_soc3070/slides/class_0/class_0#1) [`[Código]`](slides/class_0/class_0.Rmd) |
+| 7   | Agosto   | Introducción                                                  | [`[Presentación]`](https://mebucca.github.io/ad2-sol114/slides/class_0/class_0#1) [`[Código]`](slides/class_0/class_0.Rmd) |
 | 9   | Agosto   | Experimentos aleatorios, eventos, probabilidades              |                                                                                                                 |
 | 16  | Agosto   | Probabilidad condicional, teorema de Bayes                    |                                                                                                                 |
 | 21  | Agosto   | Variables aleatorias y distribuciones discretas (Bernoulli y Binomial) |                                                                                                                 |
