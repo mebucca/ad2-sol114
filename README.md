@@ -24,7 +24,7 @@ Here's the markdown table with aligned columns:
 | Día | Mes | Contenido                                        | Presentación                                                                                                              |
 |-----|-----|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|
 | 7   | Ago | Introducción                                     | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_0/class_0#1) [`[Code]`](slides/class_0/class_0.Rmd)       |
-| 9   | Ago | Fundamento de probabilidades                     |                                                                                                                          |
+| 9   | Ago | Fundamento de probabilidades                     |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_1/class_1#1) [`[Code]`](slides/class_1/class_1.Rmd)                                                                                                                         |
 | 16  | Ago | Probabilidad condicional, teorema de Bayes      |                                                                                                                          |
 | 21  | Ago | Variables aleatorias y distribuciones discretas |                                                                                                                          |
 | 28  | Ago | Distribuciones continuas                         |                                                                                                                          |
