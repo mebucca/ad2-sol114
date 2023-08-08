@@ -1,7 +1,9 @@
 # Probabilidad e Inferencia Estadística (SOL114)
 
-Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Probabilidad e Inferencia Estadística)
-, dictado el segundo semestre 2023 a estudiantes de pregrado del Departamento de Sociología de la Universidad Católica de Chile. Para mayores detalles ver el [`[programa]`](files/syllabus_soc3070.pdf) y [`[calendario]`](#Calendario) del curso.
+Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Probabilidad e Inferencia Estadística), dictado el segundo semestre 2023 a estudiantes de pregrado del Departamento de Sociología de la Universidad Católica de Chile. Para mayores detalles ver el [`[programa]`](files/syllabus_sol114.pdf) y [`[calendario]`](#Calendario) del curso.
+
+
+![class](files/oppie.jpg)
 
 ## Contenidos
 
@@ -9,10 +11,6 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 
 - El concepto de integral, "Calculus Made Easy", 1910: [`[calculus]`](files/calculus_easy.jpg)
 - Tutorial: [`[tutorial]`](files/tutorial.pdf) 
-
-
-
-![class](files/board.jpeg)
 
 ---
 
@@ -51,6 +49,15 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 ## Ayudantías
 
 [`[Por definir]`]()
+
+---
+
+
+## Horario de Consulta
+
+- Reuniones individuales de aproximadamente 15 minutos cada día Lunes entre 15:00 y 16:00pm. [`[Agendar]`](
+https://calendar.app.google/U4mohxA18LCZmexr7)
+
 
 ---
 
