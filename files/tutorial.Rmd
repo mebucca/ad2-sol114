@@ -2,8 +2,8 @@
 title: "Tutorial de Cálculo para Probabilidad y Estadística"
 author: "Mauricio Bucca"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 ---
 
 ## 1. Funciones
