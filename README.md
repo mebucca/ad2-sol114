@@ -8,7 +8,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 ### Nivelación Matemática
 
 - El concepto de integral, "Calculus Made Easy", 1910: [`[calculus]`](files/calculus_easy.jpg)
-- Tutorial: [`[texto]`](files/tutorial#1).
+- Tutorial: [`[tutorial]`](files/tutorial.html).
 
 ![class](files/board.jpeg)
 
