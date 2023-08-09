@@ -12,6 +12,10 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 - El concepto de integral, "Calculus Made Easy", 1910: [`[calculus]`](files/calculus_easy.jpg)
 - Tutorial: [`[tutorial]`](files/tutorial.pdf) 
 
+### Bibliografía mínima
+
+- Muy bueno este libro: [`[libro]`](files/kimai.pdf)
+
 ---
 
 ## Calendario Clases
