@@ -20,7 +20,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 
 ## Calendario Clases
 
-```
+
 | Día | Mes | Contenido                                        | Presentación                                                                                                              | Cap. QSS |
 |-----|-----|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|----------|
 | 7   | Ago | Introducción                                     | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_0/class_0#1) [`[Code]`](slides/class_0/class_0.Rmd)       |          |
@@ -50,7 +50,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 22  | Nov | Tablas de contingencia                           |                                                                                                                          |          |
 | 27  | Nov | Test de χ²                                       |                                                                                                                          |          |
 | 29  | Nov | Repaso                                           |                                                                                                                          |          |
-```
+
 
 ## Ayudantías
 
