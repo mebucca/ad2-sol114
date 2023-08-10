@@ -176,11 +176,17 @@ strong {
 
 
 .content-box-primary {
-    background-color: var(--primary);
+    --transparency: 80;  /* HEX for 50% opacity */
+    background: linear-gradient(to bottom, #var(--primary)var(--transparency), #var(--primary)var(--transparency));
+    color: var(--black); /* Ensures text remains opaque */
+
 }
+
+
 
 .content-box-secondary {
     background-color: var(--secondary);
+    color: var(--black); /* Ensures text remains opaque */
 }
 
 .content-box-blue {
