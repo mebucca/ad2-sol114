@@ -5,6 +5,8 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 
 ![mc](files/mc.png)
 
+---
+
 ## Contenidos
 
 ### Nivelación Matemática
@@ -51,6 +53,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 27  | Nov | Test de χ²                                       |                                                                                                                          |          |
 | 29  | Nov | Repaso                                           |                                                                                                                          |          |
 
+---
 
 ## Ayudantías
 
