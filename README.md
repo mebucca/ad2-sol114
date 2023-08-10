@@ -18,8 +18,6 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 
 - Muy bueno este libro: [`[libro]`](files/kimai.pdf)
 
----
-
 ## Calendario
 
 
