@@ -18,7 +18,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 
 ---
 
-## Calendario Clases
+## Calendario
 
 
 | Día | Mes | Contenido                                        | Presentación                                                                                                              | Cap. QSS |
