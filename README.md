@@ -5,6 +5,8 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 
 ![mc](files/mc.png)
 
+---
+
 ## Contenidos
 
 ### Nivelación Matemática
@@ -15,8 +17,6 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 ### Bibliografía mínima
 
 - Muy bueno este libro: [`[libro]`](files/kimai.pdf)
-
----
 
 ## Calendario
 
@@ -51,10 +51,29 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 27  | Nov | Test de χ²                                       |                                                                                                                          |          |
 | 29  | Nov | Repaso                                           |                                                                                                                          |          |
 
+---
 
 ## Ayudantías
 
-[`[Por definir]`]()
+| Día | Fecha           | Contenido                                 | Material |
+|-----|-----------------|-------------------------------------------|----------|
+| 1   | 15 de agosto    | R                                         |          |
+| 2   | 22 de agosto    | R                                         |          |
+| 3   | 29 de agosto    |                                           |          |
+| 4   | 5 de septiembre | variables aleatorias                      |          |
+| 5   | 12 de septiembre| variables aleatorias                      |          |
+| 6   | 19 de septiembre|                                           |          |
+| 7   | 26 de septiembre| error estándar e intervalos de confianza  |          |
+| 8   | 3 de octubre    | repaso                                    |          |
+| 9   | 10 de octubre   |                                           |          |
+| 10  | 17 de octubre   |                                           |          |
+| 11  | 24 de octubre   | test de hipótesis                         |          |
+| 12  | 31 de octubre   | repaso                                    |          |
+| 13  | 7 de noviembre  |                                           |          |
+| 14  | 14 de noviembre | gráficos ridge y ANOVA                    |          |
+| 15  | 21 de noviembre | scatterplot y correlaciones               |          |
+| 16  | 28 de noviembre | tablas de contingencia y Chi2             |          |
+
 
 ---
 
@@ -64,14 +83,21 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 - Reuniones individuales de aproximadamente 15 minutos cada día Miércoles entre 15:00 y 16:00pm. [`[Agendar]`](
 https://calendar.app.google/U4mohxA18LCZmexr7)
 
-
 ---
 
 ## Evaluaciones
 
-#### Tareas cortas
-
-- Tarea 1: [`[TC1]`](homework/tc_1.pdf) [`[TC1.Rmd]`](homework/tc_1.Rmd) 
+| Asignación       | Entrega        | Devolución     | Material                                                                       |
+|------------------|----------------|----------------|--------------------------------------------------------------------------------|
+| Tarea corta 1    | 9 agosto       | 16 agosto      | [`[TC1]`](homework/tc_1.pdf) [`[TC1.Rmd]`](homework/tc_1.Rmd)                  |
+| Tarea corta 2    | 16 agosto      | 23 agosto      |                                                                                |
+| Tarea corta 3    | 6 septiembre   | 13 septiembre  |                                                                                |
+| Tarea corta 4    | 25 septiembre  | 2 octubre      |                                                                                |
+| Prueba 1         | 11 octubre     |                |                                                                                |
+| Tarea corta 5    | 23 octubre     | 30 octubre     |                                                                                |
+| Prueba 2         | 8 noviembre    |                |                                                                                |
+| Tarea corta 6    | 20 noviembre   | 27 noviembre   |                                                                                |
+| Examen final     | 13 diciembre   |                |                                                                                |
 
 
 ---
