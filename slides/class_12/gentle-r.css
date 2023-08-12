@@ -99,52 +99,12 @@ strong {
   color: #0099ff;
 }
 
+
 .img-right{
   height: 300px;
   width: 300px;
   top: 34%;
   left: 65%;
-  position: absolute;
-}
-
-.img-right-top{
-  height: 300px;
-  width: 300px;
-  top: 24%;
-  left: 65%;
-  position: absolute;
-}
-
-.img-right-small{
-  height: 130px;
-  width: 130px;
-  top: 14%;
-  left: 65%;
-  position: absolute;
-}
-
-
-.img-right-bottom{
-  height: 200px;
-  width: 200px;
-  top: 69%;
-  left: 65%;
-  position: absolute;
-}
-
-.img-bottom-right{
-  height: 250px;
-  width: 250px;
-  top: 54%;
-  left: 65%;
-  position: absolute;
-}
-
-.img-right-bottom2{
-  height: 200px;
-  width: 200px;
-  top: 5%;
-  left: 75%;
   position: absolute;
 }
 
@@ -196,7 +156,8 @@ strong {
      Content box height: 80px */
 }
 
-
+.content-box-primary,
+.content-box-secondary,
 .content-box-blue,
 .content-box-gray,
 .content-box-grey,
@@ -205,11 +166,23 @@ strong {
 .content-box-purple,
 .content-box-red,
 .content-box-yellow {
-    border-radius: 15px;
+    /*border-radius: 15px; */
     margin: 0 0 25px;
     overflow: hidden;
     padding: 20px;
     width: 100%;
+}
+
+
+.content-box-primary {
+	background-color: var(--primary);
+
+}
+
+
+.content-box-secondary {
+	background-color: var(--secondary);
+
 }
 
 .content-box-blue {
@@ -351,6 +324,5 @@ strong {
 .gray { color: gray; }
 .grey { color: gray; }
 
-.bold { font-weight: bold; }
-.bolder { font-weight: bolder; }
-
+.bold { font-weight: bolder;   color: var(--header-color);}
+.bolder { font-weight: bolder; color: var(--link-color);}

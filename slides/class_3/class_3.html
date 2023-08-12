@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
 ]
 .date[
-### 04 August, 2023
+### 11 August, 2023
 ]
 
 ---
@@ -158,7 +158,7 @@ Podemos caracterizar la distribución de X con una función:
 
 .pull-right[
 ![](class_3_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
-.bold[Importante]: `\(\sum_{i=2}^{12} \mathbb{P}(X=i) = 1\)`
+.bold[Importante:] `\(\sum_{i=2}^{12} \mathbb{P}(X=i) = 1\)`
 
 ]
 
@@ -176,14 +176,14 @@ class: inverse, center, middle
 &lt;br&gt;
 --
 
-- .bold[Variables discretas]: variables que solo pueden tomar un número contable de valores distintos y separados, sin valores intermedios posibles entre ellos. Usualmente medidas con números enteros. 
+- .bold[Variables discretas:] variables que solo pueden tomar un número contable de valores distintos y separados, sin valores intermedios posibles entre ellos. Usualmente medidas con números enteros. 
 
 Ejemplo: cara/sello, número de accidentes de tránsito, etc.
 
 &lt;br&gt;
 --
 
-- .bold[Variables continuas]: variables que pueden tomar cualquier valor dentro de un rango especificado. Estas variables tienen un número infinito de posibles resultados y no están limitadas a valores aislados. 
+- .bold[Variables continuas:] variables que pueden tomar cualquier valor dentro de un rango especificado. Estas variables tienen un número infinito de posibles resultados y no están limitadas a valores aislados. 
 
 Ejemplo: Los ingresos de una persona pueden tomar cualquier valor entre 0 y `\(\infty\)`+.
 
@@ -194,33 +194,31 @@ Ejemplo: Los ingresos de una persona pueden tomar cualquier valor entre 0 y `\(\
 
 El conjunto de las probabilidades asociadas a cada posible resultado de una variable aleatoria se denomina la .bold[distribución] de la variable.
 
+&lt;br&gt; &lt;br&gt;
+--
+
+La distribución de una variable se puede caracterizar de manera .bold[única] de (al menos) dos maneras:
+
+- .bold[Función de masa/densidad de probabilidad] (pmf/pdf): `\(f(x)\)`
+
+   - En el caso de variables discretas `\(f(x) = \mathbb{P}(X=x)\)`. 
+   
+   - Ejemplo, evaluando `\(f(5)\)` obtenemos la probabilidad de que `\(X\)` tome valor 5.
+
 &lt;br&gt;
 --
 
-La distribución de una variable se puede caracterizar de tres modos:
+- .bold[Función de distribución acumulada] (cdf): `\(F(x) = \mathbb{P}(X \leq x)\)`
 
-- .bold[Función de densidad/masa de probabilidad] (pdf): `\(f(x)\)`
+  - Ejemplo, evaluando `\(F(5)\)` obtenemos la probabilidad de que `\(X\)` tome un valor igual o menor a 5.
 
-   - En el caso de variables discretas `\(f(x) = \mathbb{P}(X=x)\)`. Ejemplo, evaluando `\(f(5)\)` obtenemos la probabilidad de que `\(X\)` tome valor 5.
-
---
-
-- .bold[Función densidad/masa de probabilidad acumulada] (cdf): `\(F(x) = \mathbb{P}(X \leq x)\)`
-
-  - Ejemplo, evaluando `\(F(5)\)` obtenemos la probabilidad de que `\(X\)` tome un valor igual o menor 5.
-
---
-
-- .bold[Función cuantil]: `\(Q(p) = F^{-1}(p)\)`
-
-  - Ejemplo, evaluando `\(Q(0.1)\)` obtenemos el valor de `\(x\)` tal que la probabilidad de que `\(X\)` tome un valor igual o menor a `\(x\)` es 10\%.
 
 
 ---
 class: inverse, center, middle
 
 ## Distribuciones discretas
-### Bernoulli &amp; Binomial
+### Distribución Bernoulli
 
 
 ---
@@ -241,7 +239,9 @@ class: inverse, center, middle
 
 .pull-right[
 
-.bold[Función de densidad probabilistica (pdf):]
+.bold[Función de masa probabilistica (pmf):]
+
+&lt;br&gt;
 
 X es una variable aleatoria Bernoulli, es decir
 
@@ -255,6 +255,8 @@ f(x) =
 \end{align}`
 
 &lt;br&gt;
+&lt;br&gt;
+
 En modo más sintético:
 
 `$$f(x) = p^{x}(1-p)^{1-x}  \quad \text{si } x=1 \text{ o } x=0$$`
@@ -273,7 +275,7 @@ Tiremos una moneda con probabilidad de obtener "Cara" ( `\(1\)` ) de 70% ( `\(p=
 
 
 ```r
-set.seed(12345)
+set.seed(12347)
 moneda &lt;- rbinom(n=1, size=1, p=0.7)
 print(moneda)
 ```
@@ -282,28 +284,31 @@ print(moneda)
 ## [1] 0
 ```
 
+&lt;br&gt;
 --
 
-Repitamos el proceso 100 veces ...
+Repitamos el proceso 1000 veces ...
 
 
 ```r
-set.seed(12345)
-monedas &lt;- rbinom(n=100, size=1, p=0.7)
-print(monedas)
+set.seed(12347)
+monedas &lt;- rbinom(n=1000, size=1, p=0.7)
+```
+
+
+```
+##  [1] 0 1 0 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 ```
 
 ```
-##   [1] 0 0 0 0 1 1 1 1 0 0 1 1 0 1 1 1 1 1 1 0 1 1 0 0 1 1 1 1 1 1 0 1 1 1 1 1 0 0 1 1 0
-##  [42] 1 0 0 1 1 1 1 1 1 0 0 1 1 0 1 0 1 1 1 0 1 0 0 0 1 0 1 1 0 1 1 1 1 1 1 0 1 1 1 0 1
-##  [83] 1 1 1 1 0 1 0 1 0 0 1 1 0 1 0 0 1 1
+## [1] "P(Cara) =  0.714"
 ```
 
 ---
 
 ### Distribución Bernoulli
 
-.bold[Ejercicio rápido]:
+.bold[Ejercicio rápido:]
 
 - Experimento: tirar la misma moneda 2 veces
 
@@ -311,13 +316,13 @@ print(monedas)
 
 - `\(X\)` e `\(Y\)` distribuyen Bernoulli con parámetro `\(\mathbb{P}(1)=p\)`
 
-- `\(X\)` e `\(Y\)` son independientes 
+- `\(X\)` e `\(Y\)` son independientes (formalmente, `\(X \bot Y\)`) 
 
 &lt;br&gt;
 --
 
-.content-box-red[
-.bold[Pregunta]:
+.content-box-primary[
+.bolder[Pregunta:]
 ¿Cuál es la probabilidad de obtener "Sello" (0) en ambas ocasiones?
 ]
 
@@ -341,13 +346,22 @@ print(monedas)
 * Combinando 
 &lt;br&gt;
 `$$\mathbb{P}(X=x,Y=y) = p^{x}(1-p)^{1-x} \times p^{y}(1-p)^{1-y}$$`
+
+&lt;br&gt;
 --
 
-.content-box-blue[
-.bold[Respuesta]:
+.content-box-secondary[
+.bolder[Respuesta:]
 `$$\mathbb{P}(X=0,Y=0) = p^{0}(1-p)^{1} \times p^{0}(1-p)^{1} = (1-p)^{2}$$`
 
 ]
+
+---
+class: inverse, center, middle
+
+## Distribuciones discretas
+### Distribución Binomial
+
 
 ---
 
@@ -364,6 +378,7 @@ Ejemplo,
 
 - `\(\mathbb{P}(X=1)=p\)` 
 
+&lt;br&gt;
 --
 
 - Ahora, supongamos que lanzamos la misma moneda 3 veces. Llamamos a estas variables `\(X_{1}, X_{2}, X_{3}\)`
@@ -372,23 +387,23 @@ Ejemplo,
 
 --
 
-- `\(Y \sim \text{Binomial()}\)`
+- `\(Y\)` sigue una distribución Binomial, o `\(Y \sim \text{Binomial}\)`
 
 ---
 ### Distribución Binomial 
 
 
-.bold[Ejercicio rápido]:
+.bold[Ejercicio rápido:]
 
 &lt;br&gt;
 
-.content-box-red[
-.bold[Pregunta 1]:
+.content-box-primary[
+.bolder[Pregunta 1:]
 ¿Cuál es la probabilidad de obtener tres "Caras"? Es decir, ¿Cuál es la probabilidad de que `\(Y=3\)`?]
 
 --
 
-.content-box-blue[
+.content-box-secondary[
 - Dado que los 3 ensayos son independientes podemos expresar esta probabilidad como:
 
 `$$\mathbb{P}(Y=3) =  \mathbb{P}(X_{1}=1,X_{2}=1,X_{3}=1) = \mathbb{P}(X_{1}=1)\mathbb{P}(X_{2}=1)\mathbb{P}(X_{3}=1)$$`
@@ -401,8 +416,9 @@ Ejemplo,
 ---
 ### Distribución Binomial 
 
-.content-box-red[
-.bold[Pregunta 2]:
+
+.content-box-primary[
+.bolder[Pregunta 2:]
 ¿Cuál es la probabilidad de obtener 2 "Caras" con 3 tiros? Es decir, ¿Cuál es la probabilidad de que `\(Y=2\)`?
 ]
 
@@ -427,8 +443,8 @@ Ejemplo,
 
 --
 
-.content-box-blue[
-.bold[Respuesta]: la probabilidad de conseguir 2 "Caras" con 3 tiros es:
+.content-box-secondary[
+.bolder[Respuesta:] la probabilidad de conseguir 2 "Caras" con 3 tiros es:
 `$$\mathbb{P}(Y=2) = 3 \times  p^{2}(1-p)^{1}$$`
 ]
 
@@ -441,8 +457,8 @@ Generalización: lanzamos la misma moneda `\(n\)` veces y la variable `\(Y\)` cu
 `$$Y = \sum^{n}_{i=1} X_{i}$$`
 --
 
-.content-box-red[
-.bold[Pregunta]:
+.content-box-primary[
+.bolder[Pregunta:]
 ¿Cuál es la probabilidad de conseguir `\(y\)` "Caras" con `\(n\)` tiros?
 ]
 
@@ -516,6 +532,15 @@ dbinom(x=5,size=10,prob=0.9)
 ## [1] 0.001488035
 ```
 
+---
+### Distribución Binomial 
+
+Veamos cómo se ve la distribución completa para diferentes valores de `\(p\)`, y `\(n=100\)`.
+
+--
+
+![](class_3_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
 
 ---
 ### Distribución Binomial 
@@ -524,10 +549,8 @@ Veamos cómo se ve la distribución completa para diferentes valores de `\(p\)`,
 
 --
 
-![](class_3_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+![](class_3_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 
-
-Más detalles: https://seeing-theory.brown.edu/es.html
 
 ---
 ### Bernoulli es Binomial con un "intento" (n=1)
@@ -564,7 +587,7 @@ class: inverse, center, middle
 Los meteorólogos predicen que la temperatura mañana se encontrará entre 25 y 30 grados, donde todas las temperaturas en ese rango son igualmente probables
 
 
-![](class_3_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+![](class_3_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -593,7 +616,7 @@ En este caso `\(b=30\)` y `\(a=25\)`.
 
 ¿Cual es la probabilidad de que la temperatura esté por debajo de los 28 grados?
 
-![](class_3_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+![](class_3_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
 
 ]
 
