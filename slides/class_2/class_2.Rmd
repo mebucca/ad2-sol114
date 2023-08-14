@@ -429,9 +429,7 @@ class: inverse, center, middle
 
 ### Independencia
 
-.bold[Ilustración via Monte Carlo Simulation]
-
-Experimento: Tiramos dos monedas simultáneamente, una justa y una moneda cargada (90% prob. Cara)
+.bold[Experimento]: Tiramos dos monedas simultáneamente, una justa y una moneda cargada (90% prob. Cara)
 
 --
 
@@ -441,19 +439,16 @@ Si ambos lanzamientos son efectivamente independientes la probabilidad de obtene
 
 .pull-left[
 ```{r, echo=FALSE, message=FALSE}
-set.seed(232)
 library("tidyverse")
 ```
 ```{r}
 # lanzamos ambas monedas 100000 veces
-coin1 <- rbinom(100000,1, prob = 0.5)
-coin2 <- rbinom(100000,1, prob = 0.9)
+coin1 <- rbinom(1000,1, prob = 0.5)
+coin2 <- rbinom(1000,1, prob = 0.9)
+data_coins <- tibble(coin1=coin1,coin2=coin2)
 
-glimpse(coin1)
+print(data_coins, n=7)
 
-#  probabilidad de obtener Cara
-p1 = mean(coin1)
-p2 = mean(coin2); print(c(p1=p1, p2=p2))
 ```
 ]
 
@@ -462,13 +457,19 @@ p2 = mean(coin2); print(c(p1=p1, p2=p2))
 .pull-right[
 ```{r}
 # definimos evento exitoso: dos Caras
-cc <- ifelse(coin1==1 & coin2==1,1,0)
+data_coins <- data_coins %>%
+    mutate(cc = if_else(
+      coin1==1 & coin2==1,
+      "CC","Otro"))
+
 
 #  probabilidad de obtener 2 Caras
-p_cc = mean(cc); p_cc
 
-# test independencia
-p1*p2
+knitr::kable(prop.table(
+  table(data_coins$cc)),
+  col.names = c("Resultado","Probabilidad"))
+
+
 
 
 ```
