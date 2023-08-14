@@ -21,11 +21,11 @@ editor_options:
 class: inverse, center, middle
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
-style_duo_accent(primary_color = "#719379", secondary_color = "#c3aef2" ,
+style_duo_accent(primary_color = "#ff7377", secondary_color = "#ffec73" ,
                  background_color = "#f8f7f3",
                  header_font_google = google_font("Archivo"),
                  text_font_google   = google_font("Inconsolata"), 
-                 link_color="#F6FBC1"
+                 link_color="white"
 
 )
 ```
@@ -109,12 +109,12 @@ PMF_df <- data.frame(x = x_values, PMF = PMF_values)
 # Create the ggplot with "Set1" color palette and transparency
 
 ggplot(data = PMF_df, aes(x = factor(x), y = PMF)) +
-  geom_bar(stat = "identity", color = "black", fill = "#c3aef2", width = 1, alpha=0.8) +
+  geom_bar(stat = "identity", color = "black", fill = "#ffec73", width = 1, alpha=0.8) +
   labs(x = "Outcome",
        y = "P(X = x)") +
   scale_x_discrete(labels = c("Sello (0)", "Cara (1)")) +
-  scale_color_manual(values = "#c3aef2") +
-  scale_fill_manual(values = "#c3aef2") +
+  scale_color_manual(values = "#ffec73") +
+  scale_fill_manual(values = "#ffec73") +
   theme_minimal() +
   theme(panel.background = element_rect(color = "black", fill = NA, size = 1))  # This line adds the inner border
 
@@ -424,12 +424,12 @@ PMF_df <- data.frame(x = x_values, PMF = PMF_values)
 
 # Create the ggplot with "Set1" color palette and transparency
 ggplot(data = PMF_df, aes(x = factor(x), y = PMF)) +
-  geom_bar(stat = "identity", color = "black", fill = "#c3aef2", width = 1, alpha=0.8) +
+  geom_bar(stat = "identity", color = "black", fill = "#ffec73", width = 1, alpha=0.8) +
   labs(x = "Number of Successes",
        y = "P(X = x)") +
   scale_x_discrete(labels = as.character(0:10)) +
   scale_color_manual(values = "black") +
-  scale_fill_manual(values = "#c3aef2") +
+  scale_fill_manual(values = "#ffec73") +
   theme_minimal() +
   theme(panel.background = element_rect(color = "black", fill = NA, size = 1))  # This line adds the inner border
 
@@ -481,13 +481,13 @@ overlay_df <- subset(PMF_df, x <= 5)
 
 # Create the ggplot with "Set1" color palette and transparency
 ggplot(data = PMF_df, aes(x = factor(x), y = PMF)) +
-  geom_bar(stat = "identity", color = "black", fill = "#c3aef2", width = 1, alpha=0.8) +
-  geom_bar(data = overlay_df, aes(x = factor(x), y = PMF), stat = "identity", color = "black", fill = "#719379", width = 1, alpha=0.6) +
+  geom_bar(stat = "identity", color = "black", fill = "#ffec73", width = 1, alpha=0.8) +
+  geom_bar(data = overlay_df, aes(x = factor(x), y = PMF), stat = "identity", color = "black", fill = "#ff7377", width = 1, alpha=0.6) +
   labs(x = "Number of Successes",
        y = "P(X = x)") +
   scale_x_discrete(labels = as.character(0:10)) +
   scale_color_manual(values = "black") +
-  scale_fill_manual(values = c("#c3aef2", "#719379")) +
+  scale_fill_manual(values = c("#ffec73", "#ff7377")) +
   theme_minimal() +
   theme(panel.background = element_rect(color = "black", fill = NA, size = 1))  # This line adds the inner border
 
@@ -551,14 +551,14 @@ overlay_df <- subset(CDF_df, x <= 5)
 ggplot() +
   # Horizontal segments for CDF
   geom_hline(yintercept=0.1501822, linetype = "dashed",  size = 1) + 
-  geom_segment(data = CDF_df, aes(x = start_x, y = CDF, xend = x, yend = CDF), color = "#c3aef2", size = 1.2) +
+  geom_segment(data = CDF_df, aes(x = start_x, y = CDF, xend = x, yend = CDF), color = "#ffec73", size = 1.2) +
   # Vertical segments for CDF
-  geom_segment(data = CDF_df, aes(x = x-1, y = start_CDF, xend = x-1, yend = CDF), color = "#c3aef2", size = 1.2) +
+  geom_segment(data = CDF_df, aes(x = x-1, y = start_CDF, xend = x-1, yend = CDF), color = "#ffec73", size = 1.2) +
   
   # Horizontal segments for the overlay
-  geom_segment(data = overlay_df, aes(x = start_x, y = CDF, xend = x, yend = CDF), color = "#719379", size = 1.2, alpha = 0.6) +
+  geom_segment(data = overlay_df, aes(x = start_x, y = CDF, xend = x, yend = CDF), color = "#ff7377", size = 1.2, alpha = 0.6) +
   # Vertical segments for the overlay
-  geom_segment(data = overlay_df, aes(x = x-1, y = start_CDF, xend = x-1, yend = CDF), color = "#719379", size = 1.2, alpha = 0.6) +
+  geom_segment(data = overlay_df, aes(x = x-1, y = start_CDF, xend = x-1, yend = CDF), color = "#ff7377", size = 1.2, alpha = 0.6) +
 
   labs(x = "Number of Successes", y = "P(X ≤ x)") +
   scale_x_continuous(breaks = 0:n) +
@@ -752,18 +752,18 @@ PDF_df <- data.frame(x = x_values, PDF = PDF_values)
 
 # Create the ggplot with "Set1" color palette and transparency
 ggplot(data = PDF_df, aes(x = x, y = PDF)) +
-  geom_area(fill = "#c3aef2") + # This line adds the colored area
+  geom_area(fill = "#ffec73") + # This line adds the colored area
   geom_line(color = "black", size = 1) +
   labs(x = "Temperatura predicha",
        y = "f(x): densidad probabilistica") +
   scale_color_manual(values = "black") +
-  scale_fill_manual(values = "#c3aef2") +
+  scale_fill_manual(values = "#ffec73") +
   theme_minimal() + 
   theme(legend.position="none",
         panel.border = element_rect(color = "black", fill = NA, size = 1))
 ```
 
-In this code, `geom_area` is used to fill the area under the curve with the color `#c3aef2` and an alpha value of `0.3` for transparency. The rest of the code remains the same as the one you provided.
+In this code, `geom_area` is used to fill the area under the curve with the color `#ffec73` and an alpha value of `0.3` for transparency. The rest of the code remains the same as the one you provided.
 
 ```
 
@@ -817,7 +817,7 @@ PDF_df <- data.frame(x = x_values, PDF = PDF_values)
 # Create the ggplot
 ggplot(data = PDF_df, aes(x = x, y = PDF)) +
   geom_rect(aes(xmin = a, xmax = b, ymin = 0, ymax = 1 / (c - a))) +
-  geom_area(fill="#c3aef2", alpha=0.8) +
+  geom_area(fill="#ffec73", alpha=0.8) +
     geom_line(color = "black", size = 1) +
   geom_vline(xintercept = b, linetype = "dashed",  size = 1) +
   geom_text(aes(x = b + 0.3 , y = 0.15, label = "x = 28"), hjust = 0) +

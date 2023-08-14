@@ -213,7 +213,7 @@ class: inverse, center, middle
 ---
 ### Thomas Bayes
 
-.middle[.center[![bayes](tbayes.jpg)]]
+.middle[.center[![bayes](tbayes.png)]]
 
 ---
 ### Teorema de Bayes
