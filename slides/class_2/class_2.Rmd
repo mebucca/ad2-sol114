@@ -419,14 +419,11 @@ Si A y B son eventos independientes entonces deberíamos esperar que $\mathbb{P}
 ]
 ]
 
+
 ---
-### Independencia
+class: inverse, center, middle
 
-.bold[Ilustración via Monte Carlo Simulation] .footnote[[1] En su versión más simple posible!]
-
-.center[
-![mc](montecarlo.jpg)
-]
+## Simulación Monte Carlo
 
 ---
 
@@ -434,7 +431,7 @@ Si A y B son eventos independientes entonces deberíamos esperar que $\mathbb{P}
 
 .bold[Ilustración via Monte Carlo Simulation]
 
-Experimento: Tiramos dos monedas simultáneamente, una justa y una moneda sesgada (90% prob. Cara)
+Experimento: Tiramos dos monedas simultáneamente, una justa y una moneda cargada (90% prob. Cara)
 
 --
 

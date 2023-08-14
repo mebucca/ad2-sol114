@@ -145,6 +145,9 @@ knitr::kable(ditrib_X, format = "markdown", align = 'lc')
 .pull-left[
 
 Podemos caracterizar la distribución de X con una función:
+
+<br>
+
 \begin{align}
   f(x) =
   \begin{cases}
@@ -161,6 +164,9 @@ Podemos caracterizar la distribución de X con una función:
 ]
 
 .pull-right[
+
+<br>
+
 ```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
 library(tidyverse,knitr)
 library(RColorBrewer)
@@ -181,16 +187,19 @@ table(X) %>%
   as_tibble() %>% 
   mutate(p=round(n/sum(n),2)) %>% 
   select(-n) %>%
-  ggplot(aes(x=factor(as.numeric(X)), y=p, fill="hola" )) +
-  geom_bar(stat= "identity") +
+  ggplot(aes(x=factor(as.numeric(X)), y=p, fill="hola", color="black")) +
+  geom_bar(stat= "identity", width=1, alpha=0.8) +
   labs(x="X", y="P(X=x)") +
-  scale_color_manual(values = brewer.pal(9, "Set1")[1]) +
-  scale_fill_manual(values = brewer.pal(9, "Set1")[1]) +
+  scale_color_manual(values = "black") +
+  scale_fill_manual(values = "#FBA72A") +
   theme_minimal() +
   theme(legend.position="none",
         panel.border = element_rect(color = "black", fill = NA, size = 1)) # This line adds the inner box
 
 ```
+
+<br>
+
 .bold[Importante:] $\sum_{i=2}^{12} \mathbb{P}(X=i) = 1$
 
 ]
@@ -232,7 +241,7 @@ El conjunto de las probabilidades asociadas a cada posible resultado de una vari
 
 La distribución de una variable se puede caracterizar de manera .bold[única] de (al menos) dos maneras:
 
-- .bold[Función de masa/densidad de probabilidad] (pmf/pdf): $f(x)$
+- .bold[Función de masa/densidad de probabilidad] (PMF/PDF): $f(x)$
 
    - En el caso de variables discretas $f(x) = \mathbb{P}(X=x)$. 
    
@@ -241,7 +250,7 @@ La distribución de una variable se puede caracterizar de manera .bold[única] d
 <br>
 --
 
-- .bold[Función de distribución acumulada] (cdf): $F(x) = \mathbb{P}(X \leq x)$
+- .bold[Función de distribución acumulada] (CDF): $F(x) = \mathbb{P}(X \leq x)$
 
   - Ejemplo, evaluando $F(5)$ obtenemos la probabilidad de que $X$ tome un valor igual o menor a 5.
 
@@ -260,20 +269,20 @@ class: inverse, center, middle
 
 
 .pull-left[
-- Experimento: tiramos una moneda al aire con resultado posible Cara o Sello. 
+- Experimento: tiramos una moneda al aire. 
 
-- $X$ es una variable aleatoria tal que $X=1$ (si Cara) o $X=0$ (si Sello).
+- $X$ es una variable aleatoria tal que $X=1$ (Cara) o $X=0$ (Sello).
 
 - La probabilidad de obtener Cara es $p=0.7$ y la de Sello es $1-p = 0.3$
 
-```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=5, fig.height=4}
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
 
 # Load necessary libraries
 library(ggplot2)
 library(RColorBrewer)
 
 # Function to calculate the probability mass function (PMF) of a Bernoulli distribution
-pmf_bernoulli <- function(x, p) {
+PMF_bernoulli <- function(x, p) {
   ifelse(x == 1, p, 1 - p)
 }
 
@@ -282,18 +291,18 @@ p <- 0.7      # Probability of success
 
 # Create a data frame for plotting the PMF
 x_values <- c(0, 1)  # Only two possible outcomes: 0 and 1
-pmf_values <- pmf_bernoulli(x_values, p)
-pmf_df <- data.frame(x = x_values, pmf = pmf_values)
+PMF_values <- PMF_bernoulli(x_values, p)
+PMF_df <- data.frame(x = x_values, PMF = PMF_values)
 
 # Create the ggplot with "Set1" color palette and transparency
 
-ggplot(data = pmf_df, aes(x = factor(x), y = pmf)) +
-  geom_bar(stat = "identity", color = brewer.pal(9, "Set1")[1], fill = brewer.pal(9, "Set1")[1], width = 0.5) +
+ggplot(data = PMF_df, aes(x = factor(x), y = PMF)) +
+  geom_bar(stat = "identity", color = "black", fill = "#FBA72A", width = 1, alpha=0.8) +
   labs(x = "Outcome",
        y = "P(X = x)") +
   scale_x_discrete(labels = c("Sello (0)", "Cara (1)")) +
-  scale_color_manual(values = brewer.pal(9, "Set1")[1]) +
-  scale_fill_manual(values = brewer.pal(9, "Set1")[1]) +
+  scale_color_manual(values = "#FBA72A") +
+  scale_fill_manual(values = "#FBA72A") +
   theme_minimal() +
   theme(panel.background = element_rect(color = "black", fill = NA, size = 1))  # This line adds the inner border
 
@@ -304,7 +313,7 @@ ggplot(data = pmf_df, aes(x = factor(x), y = pmf)) +
 
 .pull-right[
 
-.bold[Función de masa probabilistica (pmf):]
+.bold[Función de masa probabilistica (PMF):]
 
 <br>
 
@@ -339,7 +348,7 @@ $$f(x) = p^{x}(1-p)^{1-x}  \quad \text{si } x=1 \text{ o } x=0$$
 Tiremos una moneda con probabilidad de obtener "Cara" ( $1$ ) de 70% ( $p=0.7$ )
 
 ```{r}
-set.seed(12347)
+#set.seed(12347)
 moneda <- rbinom(n=1, size=1, p=0.7)
 print(moneda)
 ```
@@ -350,12 +359,12 @@ print(moneda)
 Repitamos el proceso 1000 veces ...
 
 ```{r}
-set.seed(12347)
+#set.seed(12347)
 monedas <- rbinom(n=1000, size=1, p=0.7)
 ```
 
 ```{r, echo=FALSE}
-set.seed(12347)
+#set.seed(12347)
 monedas <- rbinom(n=1000, size=1, p=0.7)
 print(head(monedas,20))
 print(paste("P(Cara) = ",mean(monedas)))
@@ -509,7 +518,7 @@ $$\mathbb{P}(Y=2) = 3 \times  p^{2}(1-p)^{1}$$
 
 ### Distribución Binomial 
 
-Generalización: lanzamos la misma moneda $n$ veces y la variable $Y$ cuantifica el número de "Caras" (1) obtenidas.
+.bold[Generalización]: lanzamos la misma moneda $n$ veces y la variable $Y$ cuantifica el número de "Caras" (1) obtenidas.
 
 $$Y = \sum^{n}_{i=1} X_{i}$$
 --
@@ -528,9 +537,10 @@ $$Y = \sum^{n}_{i=1} X_{i}$$
 --
 Por tanto,
 
-$$\mathbb{P}(Y=y) = f_{Y}(y) = \frac{n!}{y! (n-y)!} \times p^{y} (1-p)^{n-y}$$
+$$\mathbb{P}(Y=y) = f(y) = \frac{n!}{y! (n-y)!} \times p^{y} (1-p)^{n-y}$$
 --
 En otras palabras, $Y$ distribuye binomial con .bold[parámetros] $n$ y $p$: $Y \sim \text{Binomial}(n,p)$
+
 
 ---
 ### Distribución Binomial 
@@ -563,133 +573,323 @@ Si la probabilidad de obtener "Cara" es 90% ( $p=0.9$ ) ...
 --
 
 $$\mathbb{P}(Y=5) =   \frac{10!}{5! 5!} \times (0.9)^{5} \times (0.1)^{5} = 252 \times \text{número muy chico}= 0.0015$$
----
-### Distribución Binomial 
-
-Puedes comprobar estos cálculos en `R`:
-
-```{r}
-# Probability of getting 5 successes out of 10 trials if probability of success is 0.9 
-
-#Manually
-choose(10,5)*(0.9^5)*(0.1^5) 
-
-# Using random variable distribution functions
-dbinom(x=5,size=10,prob=0.9)
-```
 
 ---
-### Distribución Binomial 
 
-Veamos cómo se ve la distribución completa para diferentes valores de $p$, y $n=100$.
+### Distribución Binomial
 
---
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10}
+.pull-left[
+- Experimento: tiramos 10 monedas cargadas con $p=0.7$ 
+
+- La probabilidad de obtener $0, 1, \dots, 10$ caras es:
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
+
+# Load necessary libraries
 library(ggplot2)
 library(RColorBrewer)
 
-# Binomial distribution function
-binom_distrib <- function(p, n, y) choose(n, y) * (p^y) * ((1-p)^(n-y))
+# Parameters for the binomial distribution
+n <- 10       # Number of trials
+p <- 0.7      # Probability of success
 
-plot <- ggplot(data = data.frame(y = 0), mapping = aes(Y = y)) 
+# Create a data frame for plotting the PMF
+x_values <- 0:n  # Possible outcomes range from 0 to n
+PMF_values <- dbinom(x_values, n, p)  # PMF for binomial distribution
+PMF_df <- data.frame(x = x_values, PMF = PMF_values)
 
-plot <- plot + 
-  stat_function(fun = binom_distrib, args = list(n= 2, p= 0.5), 
-                aes(color=brewer.pal(9, "Set1")[1]), size=1.5) + # Notice the change in color to match the Set1 palette.
-  stat_function(fun = binom_distrib, args = list(n= 10, p= 0.5), 
-                aes(color=brewer.pal(9, "Set1")[2]), size=1.5) + 
-  stat_function(fun = binom_distrib, args = list(n= 30, p= 0.5), 
-                aes(color=brewer.pal(9, "Set1")[3]), size=1.5) + 
-  xlim(0, 30) + 
-  labs(y="P(Y=y)", title="Probability function of Y, f(y | n=100, p)") + 
-  scale_color_manual(name = "Probability (p)", 
-                     values = c(brewer.pal(9, "Set1")[1], 
-                                brewer.pal(9, "Set1")[2], 
-                                brewer.pal(9, "Set1")[3]), 
-                     breaks = c(brewer.pal(9, "Set1")[1], 
-                                brewer.pal(9, "Set1")[2], 
-                                brewer.pal(9, "Set1")[3]), 
-                     labels = c("p=0.2", "p=0.5", "p=0.8")) +
-  theme_minimal() + 
-  theme(panel.background = element_rect(color = "black", fill = NA, size = 1), 
-        axis.text.y = element_text(size = 22), 
-        axis.text.x = element_text(size = 22), 
-        axis.title.y = element_text(size = 24), 
-        axis.title.x = element_text(size = 24), 
-        legend.text = element_text(size = 18), 
-        legend.position="bottom")
+# Create the ggplot with "Set1" color palette and transparency
+ggplot(data = PMF_df, aes(x = factor(x), y = PMF)) +
+  geom_bar(stat = "identity", color = "black", fill = "#FBA72A", width = 1, alpha=0.8) +
+  labs(x = "Number of Successes",
+       y = "P(X = x)") +
+  scale_x_discrete(labels = as.character(0:10)) +
+  scale_color_manual(values = "black") +
+  scale_fill_manual(values = "#FBA72A") +
+  theme_minimal() +
+  theme(panel.background = element_rect(color = "black", fill = NA, size = 1))  # This line adds the inner border
 
-print(plot)
 ```
+
+]
+
+.pull-right[
+
+.bold[Función de masa probabilistica (PMF):]
+
+<br>
+
+X es una variable aleatoria Binomial, es decir
+
+\begin{align}
+\mathbb{P}(X=x) = f(x) = \frac{n!}{x! (n-x)!}  p^{x} (1-p)^{n-x}
+\end{align}
+
+<br>
+
+En este caso,
+
+$n=10$ y $p=0.7$
+
+]
+
+---
+### Distribución Binomial
+
+.pull-left[
+- Experimento: tiramos 10 monedas cargadas con $p=0.7$ 
+
+- ¿Cual es la probabilidad de obtener 5 monedas o menos?
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
+
+# Parameters for the binomial distribution
+n <- 10       # Number of trials
+p <- 0.7      # Probability of success
+
+# Create a data frame for plotting the PMF
+x_values <- 0:n  # Possible outcomes range from 0 to n
+PMF_values <- dbinom(x_values, n, p)  # PMF for binomial distribution
+PMF_df <- data.frame(x = x_values, PMF = PMF_values)
+
+# Filter the dataframe to get bars from 0 to 5
+overlay_df <- subset(PMF_df, x <= 5)
+
+# Create the ggplot with "Set1" color palette and transparency
+ggplot(data = PMF_df, aes(x = factor(x), y = PMF)) +
+  geom_bar(stat = "identity", color = "black", fill = "#FBA72A", width = 1, alpha=0.8) +
+  geom_bar(data = overlay_df, aes(x = factor(x), y = PMF), stat = "identity", color = "black", fill = "blue", width = 1, alpha=0.6) +
+  labs(x = "Number of Successes",
+       y = "P(X = x)") +
+  scale_x_discrete(labels = as.character(0:10)) +
+  scale_color_manual(values = "black") +
+  scale_fill_manual(values = c("#FBA72A", "blue")) +
+  theme_minimal() +
+  theme(panel.background = element_rect(color = "black", fill = NA, size = 1))  # This line adds the inner border
+
+
+```
+
+]
+
+.pull-right[
+
+.bold[Función de distribución acumulada (CDF):]
+
+<br>
+
+X es una variable aleatoria Binomial, es decir
+
+\begin{align}
+F(k; n, p) &= \sum_{i=0}^{k} \mathbb{P}(X=i) \\ \\
+           &= \frac{n!}{i! (n-i)!}  p^i (1-p)^{n-i} 
+\end{align}
+
+
+En este caso,
+
+\begin{align}
+F(k=5; n=10, p=0.7) &=  \mathbb{P}(X=0) + \dots + \mathbb{P}(X=5) \\ \\
+                    &\approx 0.1501822
+\end{align}
+
+]
+
+---
+### Distribución Binomial
+
+
+.pull-left[
+- Experimento: tiramos 10 monedas cargadas con $p=0.7$ 
+
+- ¿Cual es la probabilidad de obtener 5 monedas o menos?
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
+
+# Parameters for the binomial distribution
+n <- 10       # Number of trials
+p <- 0.7      # Probability of success
+
+# Create a data frame for plotting the CDF
+x_values <- 0:n  # Possible outcomes range from 0 to n
+CDF_values <- pbinom(x_values, n, p)  # CDF for binomial distribution
+CDF_df <- data.frame(x = x_values, CDF = CDF_values)
+
+# Modify the dataframe to create segments for stepwise representation
+CDF_df$start_x <- c(NA, head(CDF_df$x, -1))
+CDF_df$start_CDF <- c(0, head(CDF_df$CDF, -1))
+
+# Filter the dataframe to get values from 0 to 5 for the overlay
+overlay_df <- subset(CDF_df, x <= 5)
+
+# Create the ggplot
+ggplot() +
+  # Horizontal segments for CDF
+  geom_hline(yintercept=0.1501822, linetype = "dashed",  size = 1) + 
+  geom_segment(data = CDF_df, aes(x = start_x, y = CDF, xend = x, yend = CDF), color = "#FBA72A", size = 1.2) +
+  # Vertical segments for CDF
+  geom_segment(data = CDF_df, aes(x = x-1, y = start_CDF, xend = x-1, yend = CDF), color = "#FBA72A", size = 1.2) +
+  
+  # Horizontal segments for the overlay
+  geom_segment(data = overlay_df, aes(x = start_x, y = CDF, xend = x, yend = CDF), color = "blue", size = 1.2, alpha = 0.6) +
+  # Vertical segments for the overlay
+  geom_segment(data = overlay_df, aes(x = x-1, y = start_CDF, xend = x-1, yend = CDF), color = "blue", size = 1.2, alpha = 0.6) +
+
+  labs(x = "Number of Successes", y = "P(X ≤ x)") +
+  scale_x_continuous(breaks = 0:n) +
+  theme_minimal() +
+  theme(panel.background = element_rect(color = "black", fill = NA, size = 1))  # This line adds the inner border
+
+```
+
+]
+
+.pull-right[
+
+.bold[Función de distribución acumulada (CDF):]
+
+<br>
+
+X es una variable aleatoria Binomial, es decir
+
+\begin{align}
+F(k; n, p) &= \sum_{i=0}^{k} \mathbb{P}(X=i) \\ \\
+           &= \frac{n!}{i! (n-i)!}  p^i (1-p)^{n-i} 
+\end{align}
+
+
+En este caso,
+
+\begin{align}
+F(k=5; n=10, p=0.7) &=  \mathbb{P}(X=0) + \dots + \mathbb{P}(X=5) \\ \\
+                    &\approx 0.1501822
+\end{align}
+
+]
 
 
 ---
-### Distribución Binomial 
+class: inverse, center, middle
 
-Veamos cómo se ve la distribución completa para diferentes valores de $p$, y $n=100$.
-
---
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=10}
-library(ggplot2)
-library(RColorBrewer)
-
-# Binomial distribution function
-binom_distrib <- function(p, n, y) choose(n, y) * (p^y) * ((1-p)^(n-y))
-
-plot <- ggplot(data = data.frame(y = 0), mapping = aes(Y = y)) 
-
-plot <- plot + 
-  stat_function(fun = binom_distrib, args = list(n= 100, p= 0.2), 
-                aes(color=brewer.pal(9, "Set1")[1]), size=1.5) + # Notice the change in color to match the Set1 palette.
-  stat_function(fun = binom_distrib, args = list(n= 100, p= 0.5), 
-                aes(color=brewer.pal(9, "Set1")[2]), size=1.5) + 
-  stat_function(fun = binom_distrib, args = list(n= 100, p= 0.8), 
-                aes(color=brewer.pal(9, "Set1")[3]), size=1.5) + 
-  xlim(0, 100) + 
-  labs(y="P(Y=y)", title="Probability function of Y, f(y | n=100, p)") + 
-  scale_color_manual(name = "Probability (p)", 
-                     values = c(brewer.pal(9, "Set1")[1], 
-                                brewer.pal(9, "Set1")[2], 
-                                brewer.pal(9, "Set1")[3]), 
-                     breaks = c(brewer.pal(9, "Set1")[1], 
-                                brewer.pal(9, "Set1")[2], 
-                                brewer.pal(9, "Set1")[3]), 
-                     labels = c("p=0.2", "p=0.5", "p=0.8")) +
-  theme_minimal() + 
-  theme(panel.background = element_rect(color = "black", fill = NA, size = 1), 
-        axis.text.y = element_text(size = 22), 
-        axis.text.x = element_text(size = 22), 
-        axis.title.y = element_text(size = 24), 
-        axis.title.x = element_text(size = 24), 
-        legend.text = element_text(size = 18), 
-        legend.position="bottom")
-
-print(plot)
-```
-
+## Ronda de Penales
+### Simulación Monte Carlo
 
 ---
-### Bernoulli es Binomial con un "intento" (n=1)
+## Ronda de Penales
 
-Si $Y \sim \text{Binomial}(p,n)$ su función de probabilidad es:
+- Primeros 5 penales: $\mathbb{P}(\text{Gol Brasil}) = 0.8$ y $\mathbb{P}(\text{Gol Chile}) = 0.75$
 
-$$\mathbb{P}(Y=y) = f_{Y}(y) = \frac{n!}{y! (n-y)!}  p^{y} (1-p)^{n-y}$$
-La función describe la probabilidad de obtener $y$ éxitos con $n$ intentos.
+- Después del 5to penal: $\mathbb{P}(\text{Gol Brasil}) = \mathbb{P}(\text{Gol Chile}) = 0.5$
+
+.middle[.center[![penales](penales.jpg)]]
+
+---
+## Simulación Monte Carlo 
 
 <br>
 --
 
-Cual es la probabilidad de obtener $y$ éxitos con $1$ intento? ( $y \in [0,1]$ )? Evaluemos la .bold[pf] para $n=1$:
+Si no hay empate en los primeros cinco tiros:
+
+- Goles Brasil = variable binomial(n=5,p=0.8) 
+
+- Goles Brasil = variable binomial(n=5,p=0.75) 
 
 <br>
 --
 
-$$\mathbb{P}(Y=y) = f_{Y}(y) = \begin{cases}
-  \frac{1!}{0!1!} \text{ } p^{0} (1-p)^{1}  = (1-p) &\quad \text{si } y=0 \\ \\
-  \frac{1!}{1!0!} \text{ } p^{1} (1-p)^{0}  = p &\quad \text{si } y=1 
-\end{cases}$$
+Si hay empate en los primeros cinco tiros:
+
+- Goles Brasil = variable binomial(n=5,p=0.8) + variable bernoulli(p=0.5)
+
+- Goles Brasil = variable binomial(n=5,p=0.75) + variable bernoulli(p=0.5)
+
+
+<br>
+--
+
+  - Si Goles Brasil > Goles Chile $\to$ Gana Brasil
+  
+  - Si Goles Brasil < Goles Chile $\to$ Gana Chile
+
+---
+## Simulación Monte Carlo
+
+```{r, echo=TRUE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+library("tidyverse")
+library("knitr")
+
+p_chile  = 0.75
+p_brasil = 0.8
+
+ronda_penales <- function() {
+  goles_chile  <- rbinom(1,size=5,prob=p_chile)
+  goles_brasil <- rbinom(1,size=5,prob=p_brasil)
+  
+  # Si los dos equipos están empatados después de los primeros cinco tiros, 
+  # pasan gol de oro
+
+  while (goles_chile == goles_brasil) {
+    goles_chile  <- goles_chile  + rbinom(1,size=1,prob=0.5)
+    goles_brasil <- goles_brasil + rbinom(1,size=1,prob=0.5)
+  }
+  
+  return(c(chile = goles_chile, brasil = goles_brasil))
+
+}
+```
+
+---
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+# Running the simulation
+
+resultados <- t(replicate(n=1,ronda_penales())) %>% as_tibble() %>%
+  mutate(gana = if_else(chile>brasil,"Chile","Brasil"))
+
+if (resultados$gana[1] == "Chile") {
+  print(resultados)
+  include_graphics("/Users/Mauricio/Library/Mobile Documents/com~apple~CloudDocs/Teaching/ISUC/2023_2_data_analysis2/repo/slides/class_3/chile.jpg")
+} else {
+  print(resultados)
+  include_graphics("/Users/Mauricio/Library/Mobile Documents/com~apple~CloudDocs/Teaching/ISUC/2023_2_data_analysis2/repo/slides/class_3/brasil.jpg")
+}
+
+```
+
+---
+## Simulación Monte Carlo - Multiverso
+
+```{r, echo=TRUE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+# Running the simulation
+
+resultados <- t(replicate(n=10000,ronda_penales())) %>% as_tibble() %>%
+  mutate(gana = if_else(chile>brasil,"Chile","Brasil"))
+
+knitr::kable(prop.table(table(resultados$gana)), col.names = c("País","Probabilidad de Ganar"))
+
+```
+
+
+
+---
+class: inverse, center, middle
+
+.huge[
+**Hasta la próxima clase. Gracias!**
+]
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+---
 
 
 ---
@@ -712,7 +912,7 @@ library(ggplot2)
 library(RColorBrewer)
 
 # Function to calculate the PDF of a uniform distribution
-pdf_uniform <- function(x, min, max) {
+PDF_uniform <- function(x, min, max) {
   ifelse(x >= min & x <= max, 1 / (max - min), 0)
 }
 
@@ -722,19 +922,23 @@ c <- 30
 
 # Create a data frame for plotting the PDF
 x_values <- seq(a - 2, c + 2, 0.01)
-pdf_values <- pdf_uniform(x_values, a, c)
-pdf_df <- data.frame(x = x_values, pdf = pdf_values)
+PDF_values <- PDF_uniform(x_values, a, c)
+PDF_df <- data.frame(x = x_values, PDF = PDF_values)
 
 # Create the ggplot with "Set1" color palette and transparency
-ggplot(data = pdf_df, aes(x = x, y = pdf)) +
-  geom_line(color = brewer.pal(9, "Set1")[1], size = 1) +
+ggplot(data = PDF_df, aes(x = x, y = PDF)) +
+  geom_area(fill = "#FBA72A") + # This line adds the colored area
+  geom_line(color = "black", size = 1) +
   labs(x = "Temperatura predicha",
        y = "f(x): densidad probabilistica") +
-  scale_color_manual(values = brewer.pal(9, "Set1")[1]) +
-  scale_fill_manual(values = brewer.pal(9, "Set1")[1]) +
+  scale_color_manual(values = "black") +
+  scale_fill_manual(values = "#FBA72A") +
   theme_minimal() + 
   theme(legend.position="none",
-        panel.border = element_rect(color = "black", fill = NA, size = 1)) # This line adds the inner box
+        panel.border = element_rect(color = "black", fill = NA, size = 1))
+```
+
+In this code, `geom_area` is used to fill the area under the curve with the color `#FBA72A` and an alpha value of `0.3` for transparency. The rest of the code remains the same as the one you provided.
 
 ```
 
@@ -742,10 +946,9 @@ ggplot(data = pdf_df, aes(x = x, y = pdf)) +
 
 --
 
-
 .pull-rigth[
 
-.bold[Función de densidad probabilistica (pdf):]
+.bold[Función de densidad probabilistica (PDF):]
 
 \begin{align}
 f(x) = 
@@ -772,36 +975,29 @@ library(ggplot2)
 library(RColorBrewer)
 
 # Function to calculate the PDF of a uniform distribution
-pdf_uniform <- function(x, min, max) {
+PDF_uniform <- function(x, min, max) {
   ifelse(x >= min & x <= max, 1 / (max - min), 0)
 }
 
-# Define the values for a and c
+# Define the values for a, b, and c
 a <- 25
 b <- 28
 c <- 30
 
 # Create a data frame for plotting the PDF
 x_values <- seq(a - 2, c + 2, 0.01)
-pdf_values <- pdf_uniform(x_values, a, c)
-pdf_df <- data.frame(x = x_values, pdf = pdf_values)
+PDF_values <- PDF_uniform(x_values, a, c)
+PDF_df <- data.frame(x = x_values, PDF = PDF_values)
 
-# Create a data frame for the shaded area between 25 and 27
-shaded_area_df <- data.frame(
-  x = c(25, 25, b, b),
-  y = c(0, pdf_uniform(25, a, c), pdf_uniform(27, a, c), 0)
-)
-
-# Create the ggplot with "Set1" color palette and transparency
-ggplot(data = pdf_df, aes(x = x, y = pdf)) +
-  geom_line(color = brewer.pal(9, "Set1")[1], size = 1) +
-  geom_polygon(data = shaded_area_df, aes(x = x, y = y), fill = brewer.pal(9, "Set1")[1], alpha = 0.25) +
+# Create the ggplot
+ggplot(data = PDF_df, aes(x = x, y = PDF)) +
+  geom_rect(aes(xmin = a, xmax = b, ymin = 0, ymax = 1 / (c - a))) +
+  geom_area(fill="#FBA72A", alpha=0.8) +
+    geom_line(color = "black", size = 1) +
   geom_vline(xintercept = b, linetype = "dashed",  size = 1) +
-  geom_text(aes(x = b + 0.3 , y = 0.15, label = "x = 28", size=1.5), hjust = 0) +
+  geom_text(aes(x = b + 0.3 , y = 0.15, label = "x = 28"), hjust = 0) +
   labs(x = "Temperatura predicha",
        y = "f(x): densidad probabilistica") +
-  scale_color_manual(values = brewer.pal(9, "Set1")[1]) +
-  scale_fill_manual(values = brewer.pal(9, "Set1")[1]) +
   theme_minimal() + 
   theme(legend.position="none",
         panel.border = element_rect(color = "black", fill = NA, size = 1)) # This line adds the inner box
@@ -814,7 +1010,7 @@ ggplot(data = pdf_df, aes(x = x, y = pdf)) +
 
 .pull-rigth[
 
-.bold[Función de densidad probabilistica acumulada (cdf):]
+.bold[Función de densidad probabilistica acumulada (CDF):]
 
 \begin{align}
 F(x) &= \mathbb{P}(X \leq x) \\
@@ -832,21 +1028,6 @@ En este caso $b=30$ y $a=25$.
 
 $\int f(x) = \int \frac{1}{b-a} dx =  \frac{1}{b-a} \int  dx = \frac{x}{b-a}$
 
-
-
-
-
----
-class: inverse, center, middle
-
-.huge[
-**Hasta la próxima clase. Gracias!**
-]
-
-<br>
-Mauricio Bucca <br>
-https://mebucca.github.io/ <br>
-github.com/mebucca
 
 
 
