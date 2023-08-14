@@ -1,12 +1,12 @@
 ---
-title: "Análisis de Datos Categóricos (SOC3070)"
-subtitle: "Clase #4"
-author: "<br> Mauricio Bucca<br> Profesor Asistente, Sociología UC"
-date: "[github.com/mebucca](https://github.com/mebucca)"
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#4: Distribuciones Continuas"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: ["default","default-fonts","gentle-r.css"]
+    css: ["gentle-r.css","xaringan-themer.css"]
     df_print: default
     nature:
       ratio: 16:9
@@ -15,803 +15,693 @@ output:
       countIncrementalSlides: true
       slideNumberFormat: "%current%"
 editor_options: 
+  
   chunk_output_type: console
----
-
+---  
 class: inverse, center, middle
-
-#Valor Esperado y Varianza de variables discretas
-
-```{r, echo=FALSE, message=FALSE}
-library("tidyverse")
-library("viridis")
-```
----
-## Valor Esperado
-
-El valor esperado de una variable es el análogo teórico de un promedio. Los posibles valores de la variable se ponderan por su probabilidad de ocurrencia. En el caso de variables discretas:
-
-<br>
---
-
-\begin{align}
-\mathbb{E}(X) &= \sum_{i} x_{i} \times \mathbb{P}(X=x_{i}) \\
-&\equiv  \sum_{i} x_{i} \times f_{X}(x_{i})
-\end{align}
-
-<br>
---
-Es teórico porque esta información la podemos saber *a priori*, sin necesidad de datos. 
-
---
-
-Análogamente, para variables continuas:
-
-\begin{align}
-\mathbb{E}(X) =  \int x f(x)dx
-\end{align}
-
----
-## Valor Esperado
-
-Por ejemplo, supongamos que $Y$ es una variable que resulta de tirar un dado "justo".  ¿Cuál es el valor esperado de $Y$?
-
-<br>
---
-
-\begin{align}
-\mathbb{E}(Y) &= \sum_{i}y_{i} \times \mathbb{P}(Y=y_{i})  \\ \\
-     &=  1 \times  \frac{1}{6}+ 2 \times \frac{1}{6} + \dots + 6 \times \frac{1}{6}  \\ \\
-     &= 3.5
-\end{align}
-
-
----
-## Valor Esperado, algunas propiedades útiles  
-
-<br>
---
-
-1) El valor esperado de una constante es una constante.
-
-$$\mathbb{E}(c)=c$$
-<br>
---
-
-2) Si $X$ es una variable aleatoria y $c$ una constante, entonces 
-
-$$\mathbb{E}(c X)= c \mathbb{E}(X)$$
-<br>
---
-
-3) Si $X$ e $Y$ son variables aleatorias (sin importar si $X \bot Y$ o no), entonces
-
-$$\mathbb{E}(X + Y)=  \mathbb{E}(X) + \mathbb{E}(Y)$$
-
----
-
-## Valor Esperado, ejemplo
-
-Por ejemplo, supongamos que $X_{i}$ es la variable que resulta de tirar un dado "justo". Participamos de un concurso que consiste en tirar el mismo dado 100 veces. El premio (G) es $ $1000$ de base, más el resultado de cada dado $i$ multiplicado por 10.
---
-
- ¿Cuánto es el premio esperado?
-
---
-
-$$G = 1000 + \sum^{n=100}_{i=1} X_{i} \times 10 \quad \text{ por tanto,}$$
---
-
-$$\mathbb{E}(G) = \mathbb{E}(1000 + \sum^{n=100}_{i=1} X_{i} \times 10)$$
-
---
-
-$$\mathbb{E}(G) = 1000 + 10 \times \sum^{n=100}_{i=1}\mathbb{E}(X_{i})$$
-
---
-
-$$\mathbb{E}(G) = 1000 + 10 (3.5 + 3.5 + \dots + 3.5)) = 1000 + 10 \times 100 \times 3.5 = \$4500$$ 
-
----
-
-## Valor Esperado de variables discretas
-
-###  Bernoulli
-
-Si X es una variable Bernoulli, su valor esperado viene dado por:
-
-\begin{align}
-\mathbb{E}(X) = \sum_{i} x_{i} \times \mathbb{P}(X=x_{i}) &= \sum_{i} x_{i} \times p^{x_{i}}(1-p)^{1 - x_{i}} \\ 
-     &= 1 \times p + 0 \times (1-p) \\ 
-     &= p
-\end{align}
-
---
-
-### Binomial
-
-Si X es una variable Binomial, su valor esperado viene dado por:
-
-\begin{align}
-\mathbb{E}(X) = np
-\end{align}
-
---
-.bold[Pregunta]: ¿Cuántas "Caras" debo esperar si tiro 200 monedas "justas"?
-
---
-
-.bold[Respuesta]: $np = 200 \times 0.5 = 100$
-
-
----
-## Varianza 
-
-La varianza de una variable aleatoria es el análogo teórico de la varianza de los datos.
---
- Mide cuánta dispersión existe en torno al centro (la media). Formalmente, en el caso de variables aleatorias discretas:
-
-<br>
-
-$$\mathbb{Var}(X) = \sum_{i} \bigg( x_{i} - \mathbb{E}(X) \bigg)^{2} \times f_{X}(x_{i})$$
-<br>
---
-
-Análogamente, para variables continuas:
-
-\begin{align}
-\mathbb{Var}(X) =  \int \bigg(x -  \mathbb{E}(X)\bigg)^{2} f(x)dx
-\end{align}
-
----
-## Varianza
-Por ejemplo, si $Y$ es una variable que resulta de tirar un dado "justo", ¿cuál es la varianza de $Y$?
-
-<br>
---
-
-\begin{align}
-\mathbb{Var}(Y) &= \sum_{i} \bigg( y_{i} - \mathbb{E}(Y) \bigg)^{2} \times f_{Y}(y_{i})   \\ \\
-     &=  (1 - 3.5)^{2} \times  \frac{1}{6} + (2-3.5)^{2} \times \frac{1}{6} + \dots + (6-3.5)^{2} \times \frac{1}{6}  \\ \\
-     &= 2.91
-\end{align}
-
-
----
-## Varianza, algunas propiedades útiles  
-
-
-<br>
---
-
-1) La varianza de una constante es cero.
-
-$$\mathbb{Var}(c)=0$$
-<br>
---
-
-2) Si $X$ es una variable aleatoria y $c$ una constante, entonces 
-
-$$\mathbb{Var}(c X)= c^{2} \mathbb{Var}(X)$$
-<br>
---
-
-3) Si $X$ e $Y$ son dos variables aleatorias independientes, entonces
-
-$$\mathbb{Var}(X \pm Y) =  \mathbb{Var}(X) + \mathbb{Var}(Y)$$
-
-
----
-## Varianza, ejemplo  
-
-Por ejemplo, supongamos que $X_{i}$ es la variable que resulta de tirar un dado "justo". Participamos de un concurso que consiste en tirar el mismo dado 100 veces. El premio (G) es $ $1000$ de base, más el resultado de cada dado $i$ multiplicado por 10.
---
- ¿Cuánto es la desviación estándar del premio?
-
---
-
-$$G = 1000 + \sum^{n=100}_{i=1} X_{i} \times 10 \quad \text{ por tanto,}$$
-
---
-
-$$\mathbb{Var}(G) = \mathbb{Var}(1000 + \sum^{n=100}_{i=1} X_{i} \times 10)$$
-
---
-
-$$\mathbb{Var}(G) = \mathbb{Var}(1000) + 10^{2} \times \sum^{n=100}_{i=1}\mathbb{Var}(X_{i})$$
-
---
-
-$$\mathbb{Var}(G) =  0 +  10^{2} \times 100 \times 2.91 = \$29100$$ 
-
---
-
-$$\sigma_{G} = \sqrt{0 + 100 \times 100 \times 2.91} = \$ 170.6$$
----
-## Varianza de variables discretas
-
-### Bernoulli
-
-Si X es una variable Bernoulli, su varianza viene dada por:
-
-\begin{align}
-\mathbb{Var}(X) &= \sum_{i} \bigg( x_{i} - \mathbb{E}(X) \bigg)^{2} \times f_{X}(x_{i})  \\ \\
- &= (1 - \mathbb{E}(X))^{2} \times \mathbb{P}(X=1) + (0 - \mathbb{E}(X))^{2} \times \mathbb{P}(X=0) \\ \\
- &= (1 - p)^{2} \times p +  (0 - p)^{2} \times (1-p) \\ \\
- &=p^{2} − p^{3} + p − 2p^{2} + p^{3} \\ \\
- &=p(1-p)
-\end{align}
-
----
-## Varianza de variables discretas
-
-### Binomial
-
-Si X es una variable Binomial, su varianza viene dada por:
-
-\begin{align}
-\mathbb{Var}(X) = n \times p(1-p)
-\end{align}
-
-<br>
---
-.bold[Pregunta]: ¿Cuánta variabilidad debo esperar en el número de "Caras" si tiro 200 monedas "justas"?
-
---
-
-.bold[Respuesta]: varianza es $n \times p(1-p) = 200 \times 0.5 \times 0.5 = 50$. La desviación estándar es $\sqrt{50} = 7.01$.
-
----
-## Varianza de variables Binomial
-
-.bold[Ilustración via Monte Carlo simulation]
-
-```{r}
-
-# Repeat experiment of tossing 200 coins 10000 times
-coins200 <- rbinom(10000, size=200, p=0.5)
-glimpse(coins200)
-moments = list(mean=mean(coins200), var=var(coins200))
-print(moments)
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_duo_accent(primary_color = "#719379", secondary_color = "#c3aef2" ,
+                 background_color = "#f8f7f3",
+                 header_font_google = google_font("Archivo"),
+                 text_font_google   = google_font("Inconsolata"), 
+                 link_color="#F6FBC1"
+
+)
 ```
 
----
-## Varianza de variables Binomial
-
-
-```{r, echo=FALSE, fig.height=8, fig.width=12, message=FALSE}
-library("cowplot")
-theme_set(theme_cowplot())
-
-plot <- ggplot(data = data.frame(p = 0), mapping = aes(x = p, color=""))
-var_binom <- function(p,n) n*p*(1-p)
-
-plot + stat_function(fun =var_binom, args = list(n= 1000), size=1.5) + 
-  xlim(0,1) + labs(title="Varianza Binomial(n,p)", x="p", y=expression(paste(n,p,(1-p))) ) +
-    scale_color_viridis_d() + 
-    guides(fill=FALSE, color=FALSE) +
-    theme(axis.text.y = element_text(size = 10), axis.text.x = element_text(size = 16),
-    axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
-    legend.text = element_text(size = 12), legend.position="bottom") +
-    geom_point(aes(x=0.5,y=1000/4), color="green", size=2.5) +
-   annotate(geom="text", x=0.5, y=1040/4, label='bold("n/4")', color="black", parse=TRUE, size=8) 
-```
-
+##Distribuciones Continuas
+### Intuición
 
 ---
-## Distribución Binomial es asintóticamente Normal
+### Tiro de penal
+
+Final de la Copa Mundial de la FIFA 1994. Roberto Baggio va a tirar su penal ...
+
 
 .pull-left[
 
-
-- Si $X \sim \text{Binomial}(n,p)$, entonces:
-
-$$ X \xrightarrow[]{d} \mathcal{N}(\mu=np, \sigma= \sqrt{np(1-p)})$$
-(cuando $n \to \infty$ )
-
-
-- guideline: $\min \{np,  n(1-p) \} \geq 5$ 
-
-- Resultado muy conveniente
-
-
-]
-
-.pull-right[
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8}
-library("tidyverse")
-
-n = 25
-p = 0.4
-
-mydata <- data_frame(x = seq(from = 0, to = n, by = 1),
-                    norm = dnorm(x,mean=n*p,sd=sqrt(n*p*(1-p))),
-                    binom = dbinom(x,size=n,prob = p))
-
-plot <- ggplot(data = mydata, mapping = aes(x = x)) +
-    ## Entire curve
-    geom_path(aes(y=binom,color="red"), size=1.5, alpha=0.8) +
-    geom_path(aes(y=norm,color="blue"), size=1.5, alpha=0.7) +
-  labs(y="f(y)", x="y", title="Probability function of Y | n=25, p=0.4") +
-     scale_color_viridis_d(name = "",
-                          breaks = c("red", "blue"),
-                          labels = c("Binomial(n,p)", "N(mean=np,var=np(1-p))"),
-                          guide = "legend") +
-      theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
-      axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
-      legend.text = element_text(size = 18), legend.position="bottom") 
-print(plot)
-```
-]
-
----
-## Distribución Binomial es asintóticamente Normal
-
-.pull-left[
-
-
-- Si $X \sim \text{Binomial}(n,p)$, entonces:
-
-$$\frac{X - np}{\sqrt{np(1-p)}}  \xrightarrow[]{d} \mathcal{N}(\mu=0, \sigma= 1)$$
-
-(cuando $n \to \infty$ )
-
+<br>
 <br>
 
-- Distribución "Standard Normal"
+.bold[Número finito de resultados posibles]:
 
-- La base de casi todas las aproximaciones para inferencia estadística
+- Gol
+- Fallo
+
+<br>
+.bold[Evento aleatorio]:
+
+- Existe una probabilidad asociada a cada resultado 
 
 ]
+
+--
 
 .pull-right[
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=8}
-library("tidyverse")
-
-sims = 5000
-n = 1000
-p = 0.5
-
-mydata <- data_frame(
-              binom = ((rbinom(sims,size=n,prob=p) - n*p)/(sqrt(n*p*(1-p)))), 
-              normal = rnorm(sims)
-                    )
-
-data_bin  <- with(density(mydata$binom), data.frame(x, y))
-data_norm <- with(density(mydata$normal), data.frame(x, y))
-
-plot <- data_bin %>% ggplot(aes(x=x)) +
-    geom_line(aes(y=y, color="red"), size=1.5, alpha=0.8) +
-    geom_line(data =data_norm, aes(y=y, color="blue"), size=1.5, alpha=0.7) +
-    xlim(-4,4) +
-    labs(y="f(y)", x="y", title="Probability function of Y") +
-     scale_color_viridis_d(name = "",
-                          breaks = c("red", "blue"),
-                          labels = c("(Binomial(np) - np)/sqrt(np(1-p))", "N(0,1)"),
-                          guide = "legend") +
-      theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
-      axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
-      legend.text = element_text(size = 16), legend.position="bottom") 
-
-
-print(plot)
-```
+<br>
+<br>
+<br>
+.center[![baggio](baggio.gif)]
 ]
+
+
+
+
 
 ---
 class: inverse, center, middle
 
-#Estimación
-##Maximum Likelihood Estimation (MLE)
+## Distribuciones discretas
+### Distribución Bernoulli
+
 
 ---
+### Distribución Bernoulli
 
-##Estimación 
-
-.bold[Modelos de probabilidad]: ¿Cuál es la probabilidad de observar los *datos* dado los *parámetros* que conocemos?
-
-Ej. ¿Cuán probable es que obtengamos 9 "Caras" (1) si lanzamos una moneda "justa" ( $p=0.5$ ) 10 veces? 
-
-```{r}
-dbinom(x=9,size=10,prob=0.5)
-```
-
----
-##Estimación 
-
-.bold[Modelos estadísticos]:  ¿Cuáles son los valores más .bold[plausibles][1].footnote[[1] Notar que no dice "más probables"!] de los *parámetros* dado los *datos* que observamos? 
-
-
-Ej. Supongamos que alguien lanza 100 veces la misma moneda y registra los resultados en una base de datos. Los datos se ven así:  
 
 .pull-left[
-```{r, echo=FALSE, fig.height=5, fig.width=6, message=FALSE}
-library("tidyverse")
-set.seed(481)
-data_coins <- data.frame(X = rbinom(n=100, size=1, prob=0.8))
+- Experimento: tiramos una moneda al aire. 
 
-data_coins %>% ggplot(aes(x=factor(X), fill="")) + 
-    geom_bar() +
-    geom_text(aes(label=..count..), stat='count', vjust=-0.2) +
-    scale_fill_viridis_d() + 
-    guides(fill=FALSE, color=FALSE) + labs(x="") +
-    theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
-    axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
-    legend.text = element_text(size = 18), legend.position="bottom") 
-```
-]
+- $X$ es una variable aleatoria tal que $X=1$ (Cara) o $X=0$ (Sello).
 
---
+- La probabilidad de obtener Cara es $p=0.7$ y la de Sello es $1-p = 0.3$
 
-.pull-right[
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
 
-- Lo que vemos en la izquierda son .bold[datos]
+# Load necessary libraries
+library(ggplot2)
+library(RColorBrewer)
 
-- Datos: realización de $n$ variables aleatorias 
-
-- Normalmente *no conocemos* la distribución de las variables
-
-- Datos nos dan una pista sobre cuál podría ser esa distribución
-
-- .bold[Estadística]: aprender de los datos para .bold[*estimar*] los parámetros que los generan
-
-]
-
----
-##Estimación via Maximum Likelihood (MLE) 
-
-Previamente lanzamos la misma moneda 100 veces y obtuvimos "Cara" (1) 82 veces.
---
- ¿Qué valor de $p$ es más plausible ("likely") que genere estos datos?
-
-MLE es justamente la formalización de esta pregunta. Pasos:
-
---
-
-1) Decidir sobre la distribución subyacente que genera los datos. En este caso, podemos asumir que: 
-
-  * Cada lanzamiento $X_{1}, X_{2}, \dots X_{100} \sim \text{Bernoulli}(p)$, donde X's son $iid$ 
-
---
-
-2)  Escribir una función que cuantifique la plausibilidad de diferentes valores del parámetro. Dicha función se denomina .bold[likelihood function]: 
-
-<br>
-  * $\mathcal{L}(p \mid \text{ Datos}) = \mathbb{P}(\text{ Datos : \{1,0,1,1,....0,1\}} | \text{ } p)$
-
-<br>
---
-
-  * $\mathcal{L}(p \mid \text{ Datos}) = \mathbb{P}(x_{1})\mathbb{P}(x_{2}) \dots \mathbb{P}(x_{100}) = p^{82}(1-p)^{18}$
-
-
----
-##Estimación via Maximum Likelihood (MLE) 
-
-Podemos inspeccionar visualmente la "likelihood" de diferentes valores $p$.
-
-```{r, echo=FALSE, fig.height=5, fig.width=9, message=FALSE}
-plot <- ggplot(data = data.frame(p = 0), mapping = aes(x = p, color=""))
-binom_distrib <- function(p,n,k) (p^(k))*((1-p)^(n-k))
-
-plot + stat_function(fun = binom_distrib, args = list(n= 100, k= 82), size=1.5) + 
-  xlim(0,1) + labs(title="Likelihood of p", x="p", y=expression(paste(p^{82}, (1-p)^{18})) ) +
-    scale_color_viridis_d() + 
-    guides(fill=FALSE, color=FALSE) +
-    theme(axis.text.y = element_text(size = 10), axis.text.x = element_text(size = 16),
-    axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
-    legend.text = element_text(size = 12), legend.position="bottom") 
-```
-
-Intuitivamente: habiendo obtenido 82 caras, $p=0.82$ es el valor más plausible de $p$
-
-
----
-
-##Estimación via Maximum Likelihood (MLE) 
-
-3) Encontrar matemáticamente el valor de $p$ que maximiza $\mathcal{L}(p \mid \text{ Datos})$.
-
-
-- $\mathcal{L}(p \mid \text{ Datos}) = \mathbb{P}(x_{1})\mathbb{P}(x_{2}) \dots \mathbb{P}(x_{n}) =\prod_{i=1}^{n} f(x_{i}) =  p^{k}(1-p)^{n-k} \quad \text{   donde  } k= \sum x_{i}$
-
---
-
-- Para facilitar el cálculo tomamos logaritmo natural en ambos lados (.bold[log-likelihood])
-
-  - $\ell\ell(p) = \ln \mathcal{L}(p \mid \text{ Datos})  = k \ln(p) + (n - k) \ln(1-p)$ 
-
---
--  Calcular la primera* derivada de $\ell\ell(p)$ con respecto a $p$: pendiente de la curva en cada valor de $p$.
-
-  - $\ell\ell^{\text{ '}}(p) = \frac{k}{p} -  \frac{n-k}{1-p}$
-
---
-
-- Encontrar el máximo de la función $\ell\ell(p)$: valor de $p$ en el cual la curva no cambia, es decir cuando $\ell\ell^{\text{ '}}(p)=0$ 
-
-  - $\frac{k}{p} -  \frac{n-k}{1-p} = 0$
-  
---
-
-- Después de resolver por $p$ obtenemos:
-  
-   $$p = \frac{k}{n} = \frac{\sum x_{i}}{n}$$
-
-
----
-##Estimación via Maximum Likelihood (MLE) 
-
-<br>
-
-- El estimador ML de $p$ es ....
-
-
-- $\hat{p} = \frac{\sum x_{i}}{n}$
-
-
-- Es decir, el porcentaje de 1's en la muestra!
-
---
-
-- Intuitivo y elegante
-
-
----
-
-.bold["Optimización" numérica en R]
-
-```{r, include=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
-
-# log-likelihood function
-ll <- function(p,n,k) {
-  ell = k * log(p) + (n - k)*log(1-p)
-  return(ll = ell)
+# Function to calculate the probability mass function (PMF) of a Bernoulli distribution
+PMF_bernoulli <- function(x, p) {
+  ifelse(x == 1, p, 1 - p)
 }
 
+# Define the parameter for the Bernoulli distribution
+p <- 0.7      # Probability of success
 
-# Evaluate the log-likelihood function for some arbitrary values
-ll(p=0.1,n=100,k=82); ll(p=0.7,n=100,k=82)
+# Create a data frame for plotting the PMF
+x_values <- c(0, 1)  # Only two possible outcomes: 0 and 1
+PMF_values <- PMF_bernoulli(x_values, p)
+PMF_df <- data.frame(x = x_values, PMF = PMF_values)
+
+# Create the ggplot with "Set1" color palette and transparency
+
+ggplot(data = PMF_df, aes(x = factor(x), y = PMF)) +
+  geom_bar(stat = "identity", color = "black", fill = "#c3aef2", width = 1, alpha=0.8) +
+  labs(x = "Outcome",
+       y = "P(X = x)") +
+  scale_x_discrete(labels = c("Sello (0)", "Cara (1)")) +
+  scale_color_manual(values = "#c3aef2") +
+  scale_fill_manual(values = "#c3aef2") +
+  theme_minimal() +
+  theme(panel.background = element_rect(color = "black", fill = NA, size = 1))  # This line adds the inner border
+
+
 ```
+
+]
+
+.pull-right[
+
+.bold[Función de masa probabilistica (PMF):]
+
+<br>
+
+X es una variable aleatoria Bernoulli, es decir
+
+\begin{align}
+f(x) =
+  \begin{cases}
+    p  & \quad \text{si } x=1\\
+    1 - p  & \quad \text{si } x=0 \\
+    0 & \quad \text{otro}
+  \end{cases}
+\end{align}
+
+<br>
+<br>
+
+En modo más sintético:
+
+$$f(x) = p^{x}(1-p)^{1-x}  \quad \text{si } x=1 \text{ o } x=0$$
+
+]
+
+
+---
+
+### Distribución Bernoulli
+
+.bold[Ilustración via simulación en] `R`
+
+
+Tiremos una moneda con probabilidad de obtener "Cara" ( $1$ ) de 70% ( $p=0.7$ )
+
+```{r}
+#set.seed(12347)
+moneda <- rbinom(n=1, size=1, p=0.7)
+print(moneda)
+```
+
+<br>
 --
 
-```{r, include=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
+Repitamos el proceso 1000 veces ...
 
-# Evaluate the log-likelihood function for many possible values of p
+```{r}
+#set.seed(12347)
+monedas <- rbinom(n=1000, size=1, p=0.7)
+```
 
-parameter_space <- tibble(p=seq(0,1,by=0.01)) %>% 
-  rowwise() %>% mutate(loglik = ll(p,n=100,k=82)) 
-
-# Find the value of p that yield the largest value for the log-likelihood function
-
-parameter_space %>% as.matrix() -> m
-m[which.max(m[,2]),]
+```{r, echo=FALSE}
+#set.seed(12347)
+monedas <- rbinom(n=1000, size=1, p=0.7)
+print(head(monedas,20))
+print(paste("P(Cara) = ",mean(monedas)))
 ```
 
 ---
-.bold["Optimización" numérica en R]
 
-.center[
-```{r loglik_density,  include=TRUE, echo=FALSE, warning=FALSE, message=FALSE, fig.height=10, fig.width=12}
-parameter_space %>% as.data.frame() %>% ggplot(aes(x=p, y=loglik, colour=loglik)) + 
-geom_line(size=1.5) + geom_point(aes(x=m[which.max(m[,2]),1], m[which.max(m[,2]),2]), size=2.5) +
-scale_color_viridis() + guides(fill=FALSE, color=FALSE) + labs(title="Log-likelihood function",x="p", y="82*log(p) + (100 - 82)*log(1-p)") +
-annotate(geom="text", x=0.82, y=-35, label='bold("0.82")', color="black", parse=TRUE, size=8) +
-theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
-axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), title=element_text(size = 24),
-legend.text = element_text(size = 18), legend.position="bottom") 
-```
+### Distribución Bernoulli
+
+.bold[Ejercicio rápido:]
+
+- Experimento: tirar la misma moneda 2 veces
+
+- Denotemos cada tiro como variables $X$ e $Y$
+
+- $X$ e $Y$ distribuyen Bernoulli con parámetro $\mathbb{P}(1)=p$
+
+- $X$ e $Y$ son independientes (formalmente, $X \bot Y$) 
+
+<br>
+--
+
+.content-box-primary[
+.bolder[Pregunta:]
+¿Cuál es la probabilidad de obtener "Sello" (0) en ambas ocasiones?
+]
+
+
+---
+
+### Distribución Bernoulli
+
+* Ambas variables siguen misma distribución, $X$ e $Y \sim \text{Bernoulli}(p)$
+<br>
+
+$$p^{x}(1-p)^{1-x} = p^{y}(1-p)^{1-y}$$
+
+--
+
+* Dado que $X \bot Y$
+<br>
+$$\mathbb{P}(X=x,Y=y) = \mathbb{P}(X=x)\mathbb{P}(Y=y)$$
+--
+
+* Combinando 
+<br>
+$$\mathbb{P}(X=x,Y=y) = p^{x}(1-p)^{1-x} \times p^{y}(1-p)^{1-y}$$
+
+<br>
+--
+
+.content-box-secondary[
+.bolder[Respuesta:]
+$$\mathbb{P}(X=0,Y=0) = p^{0}(1-p)^{1} \times p^{0}(1-p)^{1} = (1-p)^{2}$$
+
 ]
 
 ---
-##Estimación via Maximum Likelihood (MLE) 
+class: inverse, center, middle
 
-.bold[Generalización]
+## Distribuciones discretas
+### Distribución Binomial
 
-<br>
-
-
-$$\hat{\boldsymbol{\beta}}_{MLE} = \underset{\beta}{\arg\max\ } \mathcal{L}(\boldsymbol{\beta} \mid \boldsymbol{X})$$
-$\hat{\boldsymbol{\beta}}$ es el MLE de $\boldsymbol{\beta}$ si es el(los) valor(es) que maximiza(n) la "likelihood function", condicional en los datos observados.
-
-<br>
---
-
-- Recordar que   $\mathcal{L}(\boldsymbol{\beta} \mid \boldsymbol{X}) = \mathbb{P}(\boldsymbol{X} \mid \boldsymbol{\beta})$.
-  
---
-
-- Requiere especificar de antemano la distribución conjunta de las observaciones (dif. de OLS, por ejemplo).
-
---
-
-- ML es probablemente el approach de estimación más popular. 
-
---
-
-- Intuitivo, pero, por lo general, no tan simple como el ejemplo que vimos hoy.
-
---
-
-- Normalmente la maximización se realiza numéricamente (ej. método Newton–Raphson)
 
 ---
-class: fullscreen,left, top, text-white
-background-image: url(valdorcia.jpeg)
 
-##Estimación via Maximum Likelihood (MLE) 
+### Distribución Binomial 
+
+La distribución binomial es la distribución de la suma de variables Bernoulli *independientes y con distribución idéntica* (.bold[iid]). 
+
+<br>
+--
+
+Ejemplo,
+
+- Supongamos que $X$ es una variable de Bernoulli que toma el valor 1 cuando se obtiene "Cara" al lanzar una moneda
+
+- $\mathbb{P}(X=1)=p$ 
+
+<br>
+--
+
+- Ahora, supongamos que lanzamos la misma moneda 3 veces. Llamamos a estas variables $X_{1}, X_{2}, X_{3}$
+
+- Definamos $Y = X_{1} + X_{2} + X_{3}$ 
+
+--
+
+- $Y$ sigue una distribución Binomial, o $Y \sim \text{Binomial}$
+
+---
+### Distribución Binomial 
+
+
+.bold[Ejercicio rápido:]
+
+<br>
+
+.content-box-primary[
+.bolder[Pregunta 1:]
+¿Cuál es la probabilidad de obtener tres "Caras"? Es decir, ¿Cuál es la probabilidad de que $Y=3$?]
+
+--
+
+.content-box-secondary[
+- Dado que los 3 ensayos son independientes podemos expresar esta probabilidad como:
+
+$$\mathbb{P}(Y=3) =  \mathbb{P}(X_{1}=1,X_{2}=1,X_{3}=1) = \mathbb{P}(X_{1}=1)\mathbb{P}(X_{2}=1)\mathbb{P}(X_{3}=1)$$
+<br>
+
+- Y dado que las tres variables distribuyen Bernoulli con la misma probabilidad $p$, obtenemos: 
+
+$$\mathbb{P}(Y=3) = p \times p \times p =  p^{3}$$
+]
+---
+### Distribución Binomial 
+
+
+.content-box-primary[
+.bolder[Pregunta 2:]
+¿Cuál es la probabilidad de obtener 2 "Caras" con 3 tiros? Es decir, ¿Cuál es la probabilidad de que $Y=2$?
+]
+
+--
+
+- Por simpleza, consideremos la siguiente secuencia: $\{X_{1}=1,X_{2}=1,X_{3}=0\}$, que satisface $Y=2$
+
+--
+
+- La probabilidad de obtener esta secuencia es:
+
+\begin{align}
+  \mathbb{P}(X_{1}=1,X_{2}=1,X_{3}=0)  &= \mathbb{P}(X_{1}=1) \times \mathbb{P}(X_{2}=1) \times \mathbb{P}(X_{3}=0)  \\
+                              &= p \times p \times (1-p) =  p^{2}(1-p)
+\end{align}
+
+--
+
+- Sin embargo, hay 3 secuencias que satisfacen $Y=2$.
+--
+ También $\{X_{1}=1,X_{2}=0,X_{3}=1\}$ y $\{X_{1}=0,X_{2}=1,X_{3}=1\}$, cada una con probabilidad de ocurrencia $p^{2}(1-p)^{1}$. Por tanto:
+
+--
+
+.content-box-secondary[
+.bolder[Respuesta:] la probabilidad de conseguir 2 "Caras" con 3 tiros es:
+$$\mathbb{P}(Y=2) = 3 \times  p^{2}(1-p)^{1}$$
+]
+
+---
+
+### Distribución Binomial 
+
+.bold[Generalización]: lanzamos la misma moneda $n$ veces y la variable $Y$ cuantifica el número de "Caras" (1) obtenidas.
+
+$$Y = \sum^{n}_{i=1} X_{i}$$
+--
+
+.content-box-primary[
+.bolder[Pregunta:]
+¿Cuál es la probabilidad de conseguir $x$ "Caras" con $n$ tiros?
+]
+
+--
+
+* La probabilidad de obtener una secuencia particular con $x$ "Caras" a partir de $n$ lanzamientos es $p^{x}(1-p)^{n-x}$ 
+
+* Existen ${n \choose x} = \frac{n!}{x! (n-x)!}$ secuencias de este tipo...
+
+--
+Por tanto,
+
+$$\mathbb{P}(Y=x) = f(x) = \frac{n!}{x! (n-x)!} \times p^{x} (1-p)^{n-x}$$
+--
+En otras palabras, $X$ distribuye binomial con .bold[parámetros] $n$ y $p$: $X \sim \text{Binomial}(n,p)$
+
+
+---
+### Distribución Binomial 
+
+En práctica ...
+<br>
+
+--
+
+ - **Contexto**: Tenemos una moneda que, cuando se lanza, tiene una probabilidad de $p = 0.6$ de caer en "Cara" y una probabilidad de $1-p = 0.4$ de caer en "Sello".
+
+--
+
+- **Problema**:¿Cuál es la probabilidad de obtener 3 "Caras" con 10 lanzamientos?
+
+--
+
+- **Solución**: $X \sim \text{Binomial}(n=10,p=0.6)$
+
+<br>
+--
+
+$\quad \quad \quad \mathbb{P}(Y=3) = \binom{10}{3} \times (0.6)^3 \times (0.4)^{10-3}$
+
+<br>
+--
+
+$\quad \quad \quad \mathbb{P}(Y=3) = \frac{10!}{3! \times 7!} \times (0.6)^3 \times (0.4)^7$
+
+<br>
+--
+
+$\quad \quad \quad \mathbb{P}(Y=3) = \frac{10 \times 9 \times \dots 1}{(3 \times 2 \times1) \times (7 \times 6 \times \dots 1 )} \times (0.6)^3 \times (0.4)^7$
+
+<br>
+--
+
+$\quad \quad \quad \mathbb{P}(Y=3) = 120 \times 0.216 \times 0.0028$
+
+<br>
+--
+
+$\quad \quad \quad \mathbb{P}(Y=3) \approx 0.072$
+
+---
+
+### Distribución Binomial
+
+
+.pull-left[
+- Experimento: tiramos 10 monedas cargadas con $p=0.7$ 
+
+- La probabilidad de obtener $0, 1, \dots, 10$ caras es:
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
+
+# Load necessary libraries
+library(ggplot2)
+library(RColorBrewer)
+
+# Parameters for the binomial distribution
+n <- 10       # Number of trials
+p <- 0.7      # Probability of success
+
+# Create a data frame for plotting the PMF
+x_values <- 0:n  # Possible outcomes range from 0 to n
+PMF_values <- dbinom(x_values, n, p)  # PMF for binomial distribution
+PMF_df <- data.frame(x = x_values, PMF = PMF_values)
+
+# Create the ggplot with "Set1" color palette and transparency
+ggplot(data = PMF_df, aes(x = factor(x), y = PMF)) +
+  geom_bar(stat = "identity", color = "black", fill = "#c3aef2", width = 1, alpha=0.8) +
+  labs(x = "Number of Successes",
+       y = "P(X = x)") +
+  scale_x_discrete(labels = as.character(0:10)) +
+  scale_color_manual(values = "black") +
+  scale_fill_manual(values = "#c3aef2") +
+  theme_minimal() +
+  theme(panel.background = element_rect(color = "black", fill = NA, size = 1))  # This line adds the inner border
+
+```
+
+]
+
+.pull-right[
+
+.bold[Función de masa probabilistica (PMF):]
+
+<br>
+
+X es una variable aleatoria Binomial, es decir
+
+\begin{align}
+\mathbb{P}(X=x) = f(x) = \frac{n!}{x! (n-x)!}  p^{x} (1-p)^{n-x}
+\end{align}
+
+<br>
+
+En este caso,
+
+$n=10$ y $p=0.7$
+
+]
+
+---
+### Distribución Binomial
+
+.pull-left[
+- Experimento: tiramos 10 monedas cargadas con $p=0.7$ 
+
+- ¿Cual es la probabilidad de obtener 5 monedas o menos?
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
+
+# Parameters for the binomial distribution
+n <- 10       # Number of trials
+p <- 0.7      # Probability of success
+
+# Create a data frame for plotting the PMF
+x_values <- 0:n  # Possible outcomes range from 0 to n
+PMF_values <- dbinom(x_values, n, p)  # PMF for binomial distribution
+PMF_df <- data.frame(x = x_values, PMF = PMF_values)
+
+# Filter the dataframe to get bars from 0 to 5
+overlay_df <- subset(PMF_df, x <= 5)
+
+# Create the ggplot with "Set1" color palette and transparency
+ggplot(data = PMF_df, aes(x = factor(x), y = PMF)) +
+  geom_bar(stat = "identity", color = "black", fill = "#c3aef2", width = 1, alpha=0.8) +
+  geom_bar(data = overlay_df, aes(x = factor(x), y = PMF), stat = "identity", color = "black", fill = "#719379", width = 1, alpha=0.6) +
+  labs(x = "Number of Successes",
+       y = "P(X = x)") +
+  scale_x_discrete(labels = as.character(0:10)) +
+  scale_color_manual(values = "black") +
+  scale_fill_manual(values = c("#c3aef2", "#719379")) +
+  theme_minimal() +
+  theme(panel.background = element_rect(color = "black", fill = NA, size = 1))  # This line adds the inner border
+
+
+```
+
+]
+
+.pull-right[
+
+.bold[Función de distribución acumulada (CDF):]
+
+<br>
+
+X es una variable aleatoria Binomial, es decir
+
+\begin{align}
+F(k; n, p) &= P(X \leq k) \\ \\
+           &= \sum_{i=0}^{k} \mathbb{P}(X=i) \\ \\
+           &= \frac{n!}{i! (n-i)!}  p^i (1-p)^{n-i} 
+\end{align}
+
+
+En este caso,
+
+\begin{align}
+F(k=5; n=10, p=0.7) &=  \mathbb{P}(X=0) + \dots + \mathbb{P}(X=5) \\ \\
+                    &\approx 0.1501822
+\end{align}
+
+]
+
+---
+### Distribución Binomial
+
+
+.pull-left[
+- Experimento: tiramos 10 monedas cargadas con $p=0.7$ 
+
+- ¿Cual es la probabilidad de obtener 5 monedas o menos?
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
+
+# Parameters for the binomial distribution
+n <- 10       # Number of trials
+p <- 0.7      # Probability of success
+
+# Create a data frame for plotting the CDF
+x_values <- 0:n  # Possible outcomes range from 0 to n
+CDF_values <- pbinom(x_values, n, p)  # CDF for binomial distribution
+CDF_df <- data.frame(x = x_values, CDF = CDF_values)
+
+# Modify the dataframe to create segments for stepwise representation
+CDF_df$start_x <- c(NA, head(CDF_df$x, -1))
+CDF_df$start_CDF <- c(0, head(CDF_df$CDF, -1))
+
+# Filter the dataframe to get values from 0 to 5 for the overlay
+overlay_df <- subset(CDF_df, x <= 5)
+
+# Create the ggplot
+ggplot() +
+  # Horizontal segments for CDF
+  geom_hline(yintercept=0.1501822, linetype = "dashed",  size = 1) + 
+  geom_segment(data = CDF_df, aes(x = start_x, y = CDF, xend = x, yend = CDF), color = "#c3aef2", size = 1.2) +
+  # Vertical segments for CDF
+  geom_segment(data = CDF_df, aes(x = x-1, y = start_CDF, xend = x-1, yend = CDF), color = "#c3aef2", size = 1.2) +
+  
+  # Horizontal segments for the overlay
+  geom_segment(data = overlay_df, aes(x = start_x, y = CDF, xend = x, yend = CDF), color = "#719379", size = 1.2, alpha = 0.6) +
+  # Vertical segments for the overlay
+  geom_segment(data = overlay_df, aes(x = x-1, y = start_CDF, xend = x-1, yend = CDF), color = "#719379", size = 1.2, alpha = 0.6) +
+
+  labs(x = "Number of Successes", y = "P(X ≤ x)") +
+  scale_x_continuous(breaks = 0:n) +
+  theme_minimal() +
+  theme(panel.background = element_rect(color = "black", fill = NA, size = 1))  # This line adds the inner border
+
+```
+
+]
+
+.pull-right[
+
+.bold[Función de distribución acumulada (CDF):]
+
+<br>
+
+X es una variable aleatoria Binomial, es decir
+
+\begin{align}
+F(k; n, p) &= P(X \leq k) \\ \\
+           &= \sum_{i=0}^{k} \mathbb{P}(X=i) \\ \\
+           &= \frac{n!}{i! (n-i)!}  p^i (1-p)^{n-i} 
+\end{align}
+
+
+En este caso,
+
+\begin{align}
+F(k=5; n=10, p=0.7) &=  \mathbb{P}(X=0) + \dots + \mathbb{P}(X=5) \\ \\
+                    &\approx 0.1501822
+\end{align}
+
+]
 
 
 ---
 class: inverse, center, middle
 
-#Inferencia
-##Inferencia Estadística para una proporción
+## Ronda de Penales
+### Simulación Monte Carlo
 
 ---
-##"Sampling distribution" de una proporción
+## Ronda de Penales
 
+- Primeros 5 penales: $\mathbb{P}(\text{Gol Brasil}) = 0.8$ y $\mathbb{P}(\text{Gol Chile}) = 0.75$
 
-- Nuestro MLE para una poporción es $\hat{p} = \frac{\sum x_{i}}{n}$
+- Después del 5to penal: $\mathbb{P}(\text{Gol Brasil}) = \mathbb{P}(\text{Gol Chile}) = 0.5$
 
-  - Donde $x_{i} \sim \text{Bernoulli}(p)$
+.middle[.center[![penales](penales.jpg)]]
+
+---
+## Simulación Monte Carlo 
 
 <br>
 --
 
-- ¿Cómo podemos cuantificar la incertidumbre en torno a nuestras estimaciones?
+Si no hay empate en los primeros cinco tiros:
 
-  - En ejemplo anterior $\hat{p} = 0.82$, pero los datos fueron simulados con $p=0.8$ (pámetro verdadero)
+- Goles Brasil = variable binomial(n=5,p=0.8) 
+
+- Goles Brasil = variable binomial(n=5,p=0.75) 
+
+<br>
+--
+
+Si hay empate en los primeros cinco tiros:
+
+- Goles Brasil = variable binomial(n=5,p=0.8) + variable bernoulli(p=0.5)
+
+- Goles Brasil = variable binomial(n=5,p=0.75) + variable bernoulli(p=0.5)
 
 
 <br>
 --
 
-- Para responder esta pregunta debemos conocer la .bold[sampling distribution] de nuestro estimador, especialmente su _variabilidad_.
-
- - El estimador, aplicado a diferentes muestras, produce distintos resultados, pero sigue una distribución
-
-
----
-##"Sampling distribution" de una proporción
-
-
-- $\mathbb{Var}\big(\hat{p}\big)$ o  $\sqrt{\mathbb{Var}\big(\hat{p}\big)}$ "Error Estándar" (SE)?
-
-
---
-
-  - $\mathbb{Var}\big(\hat{p}\big) = \mathbb{Var}\Big( \frac{\sum_{i} x_{i}}{n} \Big) = \mathbb{Var}\Big(\frac{x_{i} + ... + x_{n}}{n}\Big)$
-
---
-
-  - $\mathbb{Var}\big(\hat{p}\big) = \frac{1}{n^2} \Big(\mathbb{Var}(x_{i}) + ... + \mathbb{Var}(x_{n})\Big)$
-
---
-
-  - $\mathbb{Var}\big(\hat{p}\big) = \frac{1}{n^2}( \sigma^2 + ... + \sigma^2 ) = \frac{n\sigma^2}{n^2} = \frac{\sigma^2}{n} = \frac{p(1-p)}{n}$
-
-<br>
---
-
-.content-box-blue[
-$$\sigma_{\hat{p}} =  \frac{\sigma}{\sqrt{n}} =  \sqrt{\frac{p(1-p)}{n}}$$
-]
+  - Si Goles Brasil > Goles Chile $\to$ Gana Brasil
+  
+  - Si Goles Brasil < Goles Chile $\to$ Gana Chile
 
 ---
-##"Sampling distribution" de una proporción
+## Simulación Monte Carlo
 
-  - $\mathbb{E}\big(\hat{p}\big) = \mathbb{E}\Big( \frac{\sum_{i} x_{i}}{n} \Big) =  \frac{1}{n} \sum_{i} \mathbb{E}(x_{i}) =  \frac{1}{n}\sum_{i} p = \frac{np}{n} = p$
+```{r, echo=TRUE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
 
+library("tidyverse")
+library("knitr")
 
---
+p_chile  = 0.75
+p_brasil = 0.8
 
-- Importante resultado teórico: la sampling distribution de $\hat{p}$ es _asintóticamente_ normal:
+ronda_penales <- function() {
+  goles_chile  <- rbinom(1,size=5,prob=p_chile)
+  goles_brasil <- rbinom(1,size=5,prob=p_brasil)
+  
+  # Si los dos equipos están empatados después de los primeros cinco tiros, 
+  # pasan gol de oro
 
-$$\hat{p} \sim \mathcal{N}(\mu,\sigma) \quad \text{ con }   \quad \mu = p \quad \text{ y } \quad \sigma = \sqrt{\frac{p(1-p)}{n}}$$
+  while (goles_chile == goles_brasil) {
+    goles_chile  <- goles_chile  + rbinom(1,size=1,prob=0.5)
+    goles_brasil <- goles_brasil + rbinom(1,size=1,prob=0.5)
+  }
+  
+  return(c(chile = goles_chile, brasil = goles_brasil))
 
---
-
-Podemos usar este resultado para construir un intervalo de confianza para $\hat{p}$, al (1 - $\alpha$)% de confianza. Para un nivel de significación estadística de $\alpha=0.05$,
-
-\begin{align}
-  95\% \text{ CI}_{\hat{p}} &= \hat{p} \pm 1.96 \times SE \\ \\
-          &=\hat{p} \pm 1.96  \sqrt{\frac{p(1-p)}{n}} 
-\end{align}
-
-<br>
---
-
-.bold[Nota importante]: cuando no conocemos los _verdaderos_ parámetros (casi siempre!), reemplazamos por sus valores estimados en la muestra (en este caso, $\hat{p}$ en vez de $p$).
-
----
-##"Sampling distribution" de una proporción
-
-.bold[Ilustración via Monte Carlo simulation]
-
-```{r}
-# Theoretical parameters of Bernoulli random variable X: "tosing a coin"
-p = 0.35
-
-# Our sample: a random sample of 500 coin toses 
-n = 500
-our_sample <- rbinom(n,size=1,prob=p); our_sample %>% glimpse()
-p_hat <- mean(our_sample); p_hat
-
-```
-
----
-##"Sampling distribution" de una proporción
-
-.bold[Ilustración via Monte Carlo simulation]
-
-```{r}
-#  Demonstration of the distrution of p_hat across 1000 samples of size 500.
-p_hat_n = NULL
-for (i in 1:1000) {
-  a_sample <- rbinom(n,size=1,prob=p)
-  p_hat_n[i] <- mean(a_sample)
 }
 ```
-```{r,echo=FALSE}
-p_hat_n %>% glimpse()
-```
-
---
-
-```{r}
-# mean of p_hat_n  = p
-moment_1 <- c(mean_samp_dis = mean(p_hat_n), our_estimate_p= p_hat)
-```
-```{r,echo=FALSE} 
-print(moment_1) 
-```
-
---
-
-```{r}
-# sd of p_hat_n  = sqrt(p*(1-p)/n)
-moment_2 <- c(sd_samp_dis = sd(p_hat_n), our_estimate_sd= sqrt((p_hat*(1-p_hat))/n))
-```
-```{r,echo=FALSE} 
-print(moment_2) 
-```
-
----
-##"Sampling distribution" de una proporción
-
-.bold[Ilustración via Monte Carlo simulation]
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=12}
-library("tidyverse")
-
-# our estimate, z-score
-
-ci_ll = p_hat - 1.96*(((p_hat*(1-p_hat))/n)^(1/2))
-ci_ul = p_hat + 1.96*(((p_hat*(1-p_hat))/n)^(1/2))
-
-samp_distrib <- with(density(p_hat_n), data.frame(x, y)) 
-
-plot <- samp_distrib %>% ggplot(aes(x=x, y=y)) +
-    geom_line(aes(color=""), size=1.5, alpha=0.8) +
-    geom_ribbon(data = samp_distrib %>% as_tibble() %>% filter(x >= ci_ul), aes(ymin = 0, ymax = y), alpha=0.5) +
-    geom_ribbon(data = samp_distrib %>% as_tibble() %>% filter(x <= ci_ll), aes(ymin = 0, ymax = y), alpha=0.5) +
-    labs(y="f(y)", x="y", title="Sampling Distribution p_hat") +
-    scale_color_viridis_d() +
-    theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
-    axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
-    legend.text = element_text(size = 16), legend.position="none") +
-    geom_vline(xintercept = p_hat, color = "blue", size=1.5) +
-    annotate(geom="text", x=p_hat+0.017, y=20, label='bold("nuestro p_hat")', color="black", parse=TRUE, size=8) 
-
-print(plot)
-```
 
 ---
 
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
 
+# Running the simulation
+
+resultados <- t(replicate(n=1,ronda_penales())) %>% as_tibble() %>%
+  mutate(gana = if_else(chile>brasil,"Chile","Brasil"))
+
+if (resultados$gana[1] == "Chile") {
+  print(resultados)
+  include_graphics("/Users/Mauricio/Library/Mobile Documents/com~apple~CloudDocs/Teaching/ISUC/2023_2_data_analysis2/repo/slides/class_3/chile.jpg")
+} else {
+  print(resultados)
+  include_graphics("/Users/Mauricio/Library/Mobile Documents/com~apple~CloudDocs/Teaching/ISUC/2023_2_data_analysis2/repo/slides/class_3/brasil.jpg")
+}
+
+```
+
+---
+## Simulación Monte Carlo - Multiverso
+
+```{r, echo=TRUE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+# Running the simulation
+
+resultados <- t(replicate(n=10000,ronda_penales())) %>% as_tibble() %>%
+  mutate(gana = if_else(chile>brasil,"Chile","Brasil"))
+
+knitr::kable(prop.table(table(resultados$gana)), col.names = c("País","Probabilidad de Ganar"))
+
+```
+
+
+
+---
 class: inverse, center, middle
 
 .huge[
@@ -822,6 +712,147 @@ class: inverse, center, middle
 Mauricio Bucca <br>
 https://mebucca.github.io/ <br>
 github.com/mebucca
+
+
+---
+
+
+---
+class: inverse, center, middle
+
+## Distribuciones Uniforme
+
+---
+### Distribución uniforme
+
+.pull-left[
+
+Los meteorólogos predicen que la temperatura mañana se encontrará entre 25 y 30 grados, donde todas las temperaturas en ese rango son igualmente probables
+
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+# Load necessary libraries
+library(ggplot2)
+library(RColorBrewer)
+
+# Function to calculate the PDF of a uniform distribution
+PDF_uniform <- function(x, min, max) {
+  ifelse(x >= min & x <= max, 1 / (max - min), 0)
+}
+
+# Define the values for a and c
+a <- 25
+c <- 30
+
+# Create a data frame for plotting the PDF
+x_values <- seq(a - 2, c + 2, 0.01)
+PDF_values <- PDF_uniform(x_values, a, c)
+PDF_df <- data.frame(x = x_values, PDF = PDF_values)
+
+# Create the ggplot with "Set1" color palette and transparency
+ggplot(data = PDF_df, aes(x = x, y = PDF)) +
+  geom_area(fill = "#c3aef2") + # This line adds the colored area
+  geom_line(color = "black", size = 1) +
+  labs(x = "Temperatura predicha",
+       y = "f(x): densidad probabilistica") +
+  scale_color_manual(values = "black") +
+  scale_fill_manual(values = "#c3aef2") +
+  theme_minimal() + 
+  theme(legend.position="none",
+        panel.border = element_rect(color = "black", fill = NA, size = 1))
+```
+
+In this code, `geom_area` is used to fill the area under the curve with the color `#c3aef2` and an alpha value of `0.3` for transparency. The rest of the code remains the same as the one you provided.
+
+```
+
+]
+
+--
+
+.pull-rigth[
+
+.bold[Función de densidad probabilistica (PDF):]
+
+\begin{align}
+f(x) = 
+  \begin{cases} 
+   \frac{1}{b-a} & \text{si } \quad b \leq x \leq a  \\
+   0       &  x < a \quad \text{  o } \quad x > b 
+  \end{cases}
+\end{align}
+
+En este caso $b=30$ y $a=25$.
+]
+
+---
+### Distribución uniforme
+
+.pull-left[
+
+¿Cual es la probabilidad de que la temperatura esté por debajo de los 28 grados?
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+# Load necessary libraries
+library(ggplot2)
+library(RColorBrewer)
+
+# Function to calculate the PDF of a uniform distribution
+PDF_uniform <- function(x, min, max) {
+  ifelse(x >= min & x <= max, 1 / (max - min), 0)
+}
+
+# Define the values for a, b, and c
+a <- 25
+b <- 28
+c <- 30
+
+# Create a data frame for plotting the PDF
+x_values <- seq(a - 2, c + 2, 0.01)
+PDF_values <- PDF_uniform(x_values, a, c)
+PDF_df <- data.frame(x = x_values, PDF = PDF_values)
+
+# Create the ggplot
+ggplot(data = PDF_df, aes(x = x, y = PDF)) +
+  geom_rect(aes(xmin = a, xmax = b, ymin = 0, ymax = 1 / (c - a))) +
+  geom_area(fill="#c3aef2", alpha=0.8) +
+    geom_line(color = "black", size = 1) +
+  geom_vline(xintercept = b, linetype = "dashed",  size = 1) +
+  geom_text(aes(x = b + 0.3 , y = 0.15, label = "x = 28"), hjust = 0) +
+  labs(x = "Temperatura predicha",
+       y = "f(x): densidad probabilistica") +
+  theme_minimal() + 
+  theme(legend.position="none",
+        panel.border = element_rect(color = "black", fill = NA, size = 1)) # This line adds the inner box
+
+
+```
+
+]
+
+
+.pull-rigth[
+
+.bold[Función de densidad probabilistica acumulada (CDF):]
+
+\begin{align}
+F(x) &= \mathbb{P}(X \leq x) \\
+    &=  \int_{-\infty}^{x} f(u) du \\
+    &=  \int \frac{1}{b-a} dx
+    &=  \frac{1}{b-a}
+\end{align}
+
+En este caso $b=30$ y $a=25$.
+]
+
+
+--
+
+
+$\int f(x) = \int \frac{1}{b-a} dx =  \frac{1}{b-a} \int  dx = \frac{x}{b-a}$
+
 
 
 

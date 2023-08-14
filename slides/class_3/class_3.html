@@ -22,10 +22,11 @@ class: center, middle, inverse, title-slide
 ### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
 ]
 .date[
-### 13 August, 2023
+### 14 August, 2023
 ]
 
 ---
+
 
 class: inverse, center, middle
 
@@ -226,6 +227,45 @@ La distribución de una variable se puede caracterizar de manera .bold[única] d
 ---
 class: inverse, center, middle
 
+##Distribuciones Discretas
+### Intuición
+
+---
+### Tiro de penal
+
+Final de la Copa Mundial de la FIFA 1994. Roberto Baggio va a tirar su penal ...
+
+
+.pull-left[
+
+&lt;br&gt;
+&lt;br&gt;
+
+.bold[Número finito de resultados posibles]:
+
+- Gol
+- Fallo
+
+&lt;br&gt;
+.bold[Evento aleatorio]:
+
+- Existe una probabilidad asociada a cada resultado 
+
+]
+
+--
+
+.pull-right[
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.center[![baggio](baggio.gif)]
+]
+
+
+---
+class: inverse, center, middle
+
 ## Distribuciones discretas
 ### Distribución Bernoulli
 
@@ -306,11 +346,11 @@ monedas &lt;- rbinom(n=1000, size=1, p=0.7)
 
 
 ```
-##  [1] 1 0 1 1 1 0 1 1 1 1 1 0 0 1 1 1 1 1 1 0
+##  [1] 1 0 1 1 1 1 0 1 0 0 0 0 1 0 0 1 0 1 1 1
 ```
 
 ```
-## [1] "P(Cara) =  0.684"
+## [1] "P(Cara) =  0.703"
 ```
 
 ---
@@ -489,33 +529,44 @@ En otras palabras, `\(Y\)` distribuye binomial con .bold[parámetros] `\(n\)` y 
 ### Distribución Binomial 
 
 En práctica ...
---
- Supongamos que supiéramos que la moneda es justa ( `\(p=0.5\)` )
+&lt;br&gt;
 
 --
 
-  - ¿Cuál es la probabilidad de obtener 3 "Caras" con 10 lanzamientos?
+ - **Contexto**: Tenemos una moneda que, cuando se lanza, tiene una probabilidad de `\(p = 0.6\)` de caer en "Cara" y una probabilidad de `\(1-p = 0.4\)` de caer en "Sello".
 
 --
 
-`$$\mathbb{P}(Y=3) =  \frac{10!}{3! 7!} \times (0.5)^{3} \times (1-0.5)^{7} = 120 \times (0.5)^{10} = 0.12$$`
---
-
-- ¿Cuál es la probabilidad de obtener 5 "Caras" con 10 lanzamientos?
+- **Problema**:¿Cuál es la probabilidad de obtener 3 "Caras" con 10 lanzamientos?
 
 --
 
-`$$\mathbb{P}(Y=5) =  \frac{10!}{5! 5!} \times (0.5)^{5} \times (1-0.5)^{5} = 252 \times (0.5)^{10} = 0.25$$`
+- **Solución**: `\(X \sim \text{Binomial}(n=10,p=0.6)\)`
+
 &lt;br&gt;
 --
 
-Si la probabilidad de obtener "Cara" es 90% ( `\(p=0.9\)` ) ...
+`\(\quad \quad \quad \mathbb{P}(Y=3) = \binom{10}{3} \times (0.6)^3 \times (0.4)^{10-3}\)`
 
-- ¿Cuál es la probabilidad de obtener 5 "Caras" con 10 lanzamientos? 
-
+&lt;br&gt;
 --
 
-`$$\mathbb{P}(Y=5) =   \frac{10!}{5! 5!} \times (0.9)^{5} \times (0.1)^{5} = 252 \times \text{número muy chico}= 0.0015$$`
+`\(\quad \quad \quad \mathbb{P}(Y=3) = \frac{10!}{3! \times 7!} \times (0.6)^3 \times (0.4)^7\)`
+
+&lt;br&gt;
+--
+
+`\(\quad \quad \quad \mathbb{P}(Y=3) = \frac{10 \times 9 \times \dots 1}{(3 \times 2 \times1) \times (7 \times 6 \times \dots 1 )} \times (0.6)^3 \times (0.4)^7\)`
+
+&lt;br&gt;
+--
+
+`\(\quad \quad \quad \mathbb{P}(Y=3) = 120 \times 0.216 \times 0.0028\)`
+
+&lt;br&gt;
+--
+
+`\(\quad \quad \quad \mathbb{P}(Y=3) \approx 0.072\)`
 
 ---
 
@@ -700,12 +751,12 @@ ronda_penales &lt;- function() {
 
 ```
 ## # A tibble: 1 × 3
-##   chile brasil gana  
-##   &lt;int&gt;  &lt;int&gt; &lt;chr&gt; 
-## 1     4      5 Brasil
+##   chile brasil gana 
+##   &lt;int&gt;  &lt;int&gt; &lt;chr&gt;
+## 1     4      3 Chile
 ```
 
-&lt;img src="brasil.jpg" width="1000" /&gt;
+&lt;img src="chile.jpg" width="829" /&gt;
 
 ---
 ## Simulación Monte Carlo - Multiverso
@@ -724,8 +775,8 @@ knitr::kable(prop.table(table(resultados$gana)), col.names = c("País","Probabil
 
 |País   | Probabilidad de Ganar|
 |:------|---------------------:|
-|Brasil |                0.5768|
-|Chile  |                0.4232|
+|Brasil |                0.5681|
+|Chile  |                0.4319|
 
 
 
@@ -740,84 +791,6 @@ class: inverse, center, middle
 Mauricio Bucca &lt;br&gt;
 https://mebucca.github.io/ &lt;br&gt;
 github.com/mebucca
-
-
----
-
-
----
-class: inverse, center, middle
-
-## Distribuciones Uniforme
-
----
-### Distribución uniforme
-
-.pull-left[
-
-Los meteorólogos predicen que la temperatura mañana se encontrará entre 25 y 30 grados, donde todas las temperaturas en ese rango son igualmente probables
-
-
-![](class_3_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
-
-In this code, `geom_area` is used to fill the area under the curve with the color `#FBA72A` and an alpha value of `0.3` for transparency. The rest of the code remains the same as the one you provided.
-
-```
-
-]
-
---
-
-.pull-rigth[
-
-.bold[Función de densidad probabilistica (PDF):]
-
-`\begin{align}
-f(x) = 
-  \begin{cases} 
-   \frac{1}{b-a} &amp; \text{si } \quad b \leq x \leq a  \\
-   0       &amp;  x &lt; a \quad \text{  o } \quad x &gt; b 
-  \end{cases}
-\end{align}`
-
-En este caso `\(b=30\)` y `\(a=25\)`.
-]
-
----
-### Distribución uniforme
-
-.pull-left[
-
-¿Cual es la probabilidad de que la temperatura esté por debajo de los 28 grados?
-
-![](class_3_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
-
-]
-
-
-.pull-rigth[
-
-.bold[Función de densidad probabilistica acumulada (CDF):]
-
-`\begin{align}
-F(x) &amp;= \mathbb{P}(X \leq x) \\
-    &amp;=  \int_{-\infty}^{x} f(u) du \\
-    &amp;=  \int \frac{1}{b-a} dx
-    &amp;=  \frac{1}{b-a}
-\end{align}`
-
-En este caso `\(b=30\)` y `\(a=25\)`.
-]
-
-
---
-
-
-`\(\int f(x) = \int \frac{1}{b-a} dx =  \frac{1}{b-a} \int  dx = \frac{x}{b-a}\)`
-
-
-
-
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

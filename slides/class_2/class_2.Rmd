@@ -21,11 +21,11 @@ editor_options:
 class: inverse, center, middle
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(xaringanthemer)
-style_duo_accent(primary_color = "#7294D4", secondary_color = "#E6A0C4" ,
+style_duo_accent(primary_color = "#a57688", secondary_color = "#6fbbca",
                  background_color = "#f8f7f3",
                  header_font_google = google_font("Archivo"),
                  text_font_google   = google_font("Inconsolata"), 
-                 link_color="#E2D200"
+                 link_color="#f7cb46"
 
 )
 ```
@@ -209,6 +209,11 @@ pero el .bold[Teorema de Bayes] nos dice cómo transformar uno en el otro.
 class: inverse, center, middle
 
 ## Teorema de Bayes
+
+---
+### Thomas Bayes
+
+.middle[.center[![bayes](tbayes.jpg)]]
 
 ---
 ### Teorema de Bayes
