@@ -90,7 +90,7 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 | Asignación       | Entrega        | Devolución     | Material                                                                       |
 |------------------|----------------|----------------|--------------------------------------------------------------------------------|
 | Tarea corta 1    | 9 agosto       | 16 agosto      | [`[TC1]`](homework/tc_1.pdf) [`[TC1.Rmd]`](homework/tc_1.Rmd)                  |
-| Tarea corta 2    | 16 agosto      | 23 agosto      | [`[TC2]`](https://mebucca.github.io/ad2-sol114/homework/tc_2.html) [`[TC1.Rmd]`](homework/tc_2.Rmd)                  |
+| Tarea corta 2    | 16 agosto      | 23 agosto      | [`[TC2]`](https://mebucca.github.io/ad2-sol114/homework/tc_2.html) [`[TC2.Rmd]`](homework/tc_2.Rmd)                  |
 | Tarea corta 3    | 6 septiembre   | 13 septiembre  |                                                                                |
 | Tarea corta 4    | 25 septiembre  | 2 octubre      |                                                                                |
 | Prueba 1         | 11 octubre     |                |                                                                                |
