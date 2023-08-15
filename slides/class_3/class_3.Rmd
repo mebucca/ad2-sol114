@@ -735,12 +735,6 @@ ggplot() +
   geom_segment(data = CDF_df, aes(x = start_x, y = CDF, xend = x, yend = CDF), color = "#c3aef2", size = 1.2) +
   # Vertical segments for CDF
   geom_segment(data = CDF_df, aes(x = x-1, y = start_CDF, xend = x-1, yend = CDF), color = "#c3aef2", size = 1.2) +
-  
-  # Horizontal segments for the overlay
-  geom_segment(data = overlay_df, aes(x = start_x, y = CDF, xend = x, yend = CDF), color = "blue", size = 1.2, alpha = 0.6) +
-  # Vertical segments for the overlay
-  geom_segment(data = overlay_df, aes(x = x-1, y = start_CDF, xend = x-1, yend = CDF), color = "blue", size = 1.2, alpha = 0.6) +
-
   labs(x = "Number of Successes", y = "P(X ≤ x)") +
   scale_x_continuous(breaks = 0:n) +
   theme_minimal() +

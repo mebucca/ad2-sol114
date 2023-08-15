@@ -348,11 +348,11 @@ monedas &lt;- rbinom(n=1000, size=1, p=0.7)
 
 
 ```
-##  [1] 1 0 0 1 1 1 1 0 1 1 1 0 0 1 1 0 0 0 1 1
+##  [1] 1 1 1 0 0 1 0 0 0 1 1 1 0 1 1 0 1 0 1 1
 ```
 
 ```
-## [1] "P(Cara) =  0.717"
+## [1] "P(Cara) =  0.707"
 ```
 
 
@@ -706,12 +706,12 @@ ronda_penales &lt;- function() {
 
 ```
 ## # A tibble: 1 × 3
-##   chile brasil gana 
-##   &lt;int&gt;  &lt;int&gt; &lt;chr&gt;
-## 1     4      3 Chile
+##   chile brasil gana  
+##   &lt;int&gt;  &lt;int&gt; &lt;chr&gt; 
+## 1     3      5 Brasil
 ```
 
-&lt;img src="chile.jpg" width="829" /&gt;
+&lt;img src="brasil.jpg" width="800" /&gt;
 
 ---
 ## Simulación Monte Carlo - Multiverso
@@ -730,8 +730,8 @@ knitr::kable(prop.table(table(resultados$gana)), col.names = c("País","Probabil
 
 |País   | Probabilidad de Ganar|
 |:------|---------------------:|
-|Brasil |                0.5763|
-|Chile  |                0.4237|
+|Brasil |                0.5799|
+|Chile  |                0.4201|
 
 
 

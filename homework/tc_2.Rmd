@@ -1,0 +1,79 @@
+---
+title: "SOL114 Análisis de Datos II"
+author: "Tarea corta 2, respuestas"
+output:
+  html_document:
+    df_print: paged
+  word_document: default
+  pdf_document: default
+---
+
+```{r, echo=FALSE}
+# Escribir install.packages("tinytex") en la consola para instalar "tinytex"
+# Carga "tinytex" para compilar PDF
+library("tinytex")
+options(scipen=999)
+```
+
+Ponderacion: $6\%$ de la nota final del curso.
+
+**Problema 1:**
+
+Tras escuchar en las noticias sobre un brote de una nueva enfermedad llamada "COVID", decides realizarte un test para determinar si estás contagiado con el virus o no. Luego de recibir tus resultados, te informan que has dado positivo. Recientemente, leíste un artículo en [Nature](https://www.nature.com) donde se detalla que:
+
+- La "sensibilidad" del test es del \(85\%\) (probabilidad de que una persona contagiada obtenga un test positivo).
+
+- La tasa de falsos positivos del test es del \(10\%\) (probabilidad de que una persona no contagiada obtenga un test positivo).
+
+- La prevalencia de la enfermedad es del \(10\%\) (probabilidad de que una persona esté contagiada con el virus).
+
+
+**Pregunta 1:**
+
+¿Cuál es la probabilidad de que realmente estés contagiado con el "COVID" si recibes un test positivo?
+
+
+
+<br>
+
+<br>
+
+**Problema 2:**
+
+Un aplicado sociólogo toma una muestra aleatoria de aproximádamente un millón de personas, todas de la misma población (o sea, con idénticos parámetros) y reporta los hallazgos en la siguiente tabla:
+
+
+```{r, echo=FALSE}
+set.seed(23468)
+# Parámetros dados
+N <- 1000000
+sensibilidad <- 0.8
+falso_positivo <- 0.10
+prevalencia <- 0.10
+
+# Cálculos
+contagiados <- (N * prevalencia) + round(rnorm(1,0,100),0)
+no_contagiados <- N - contagiados + round(rnorm(1,0,100),0)
+
+verdaderos_positivos <- round(contagiados * sensibilidad,0)
+falsos_positivos <- round(no_contagiados * falso_positivo,0) 
+
+verdaderos_negativos <- no_contagiados - falsos_positivos
+falsos_negativos <- contagiados - verdaderos_positivos
+
+# Creación de la tabla de contingencia
+tabla <- matrix(c(verdaderos_positivos, falsos_positivos,
+                 falsos_negativos, verdaderos_negativos),
+                nrow = 2, byrow = TRUE,
+                dimnames = list(c("Test Positivo", "Test Negativo"),
+                                c("Contagiado", "No Contagiado")))
+
+print(tabla)
+```
+
+
+**Pregunta 2:**
+
+Usando los datos provistos por el sociólogo, **estima** $\mathbb{P}(\text{Contagiado}$ sin usar el teorema de Bayes.
+
+

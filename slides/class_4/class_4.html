@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
 ]
 .date[
-### 14 August, 2023
+### 15 August, 2023
 ]
 
 ---
@@ -75,7 +75,7 @@ Copa Mundial de la FIFA 1974. Carlos Caszely se prepara para un importante penal
 class: inverse, center, middle
 
 ##Distribuciones Continuas
-### Distribuciones Uniforme
+### Distribución Uniforme
 
 ---
 ### Distribución uniforme
@@ -87,14 +87,11 @@ Los meteorólogos predicen que la temperatura mañana se encontrará entre 25 y 
 
 ![](class_4_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
 
-
-```
-
 ]
 
 --
 
-.pull-rigth[
+.pull-right[
 
 .bold[Función de densidad probabilistica (PDF):]
 
@@ -106,7 +103,57 @@ f(x) =
   \end{cases}
 \end{align}`
 
+&lt;br&gt;
 En este caso `\(b=30\)` y `\(a=25\)`.
+]
+
+---
+### Distribución uniforme
+
+.pull-left[
+
+Los meteorólogos predicen que la temperatura mañana se encontrará entre 25 y 30 grados, donde todas las temperaturas en ese rango son igualmente probables
+
+
+![](class_4_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+
+```
+
+]
+
+
+.pull-right[
+
+.bold[Función de densidad probabilistica (PDF):]
+
+`\begin{align}
+f(x) = 
+  \begin{cases} 
+   \frac{1}{b-a} &amp; \text{si } \quad b \leq x \leq a  \\
+   0       &amp;  x &lt; a \quad \text{  o } \quad x &gt; b 
+  \end{cases}
+\end{align}`
+
+&lt;br&gt;
+En este caso `\(b=30\)` y `\(a=25\)`.
+
+&lt;br&gt;
+.bold[Importante:]
+
+`\begin{align}
+f(x) \neq \mathbb{P}(X=x) 
+\end{align}`
+
+&lt;br&gt;
+
+por ejemplo,
+
+`\(f(27.3)\)` = 27.3/(30-25) = 5.46 
+
+y
+
+`\(\mathbb{P}(X=27.3) = 0\)`
 ]
 
 ---
@@ -116,33 +163,71 @@ En este caso `\(b=30\)` y `\(a=25\)`.
 
 ¿Cual es la probabilidad de que la temperatura esté por debajo de los 28 grados?
 
-![](class_4_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+&lt;br&gt;
+
+![](class_4_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+]
+
+--
+
+.pull-rigth[
+
+.bold[Función de distribución acumulada (CDF):]
+
+
+`\begin{align}
+F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
+     &amp;= \int_{a}^{k} f(x) dx \\ \\
+     &amp;= \int_{a}^{k} \frac{1}{b-a} dx \\ \\
+     &amp;= \left. \frac{x}{b-a} \right|_a^k \\ \\
+     &amp;= \frac{k-a}{b-a}
+\end{align}`
+
+&lt;br&gt;
+En este caso `\(a=25\)` y `\(k=28\)`.
+]
+
+---
+### Distribución uniforme
+
+.pull-left[
+
+¿Cual es la probabilidad de que la temperatura esté por debajo de los 28 grados?
+
+&lt;br&gt;
+
+![](class_4_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 
 ]
 
 
 .pull-rigth[
 
-.bold[Función de densidad probabilistica acumulada (CDF):]
+.bold[Función de distribución acumulada (CDF):]
+
 
 `\begin{align}
-F(x) &amp;= \mathbb{P}(X \leq x) \\
-    &amp;=  \int_{-\infty}^{x} f(u) du \\
-    &amp;=  \int \frac{1}{b-a} dx
-    &amp;=  \frac{1}{b-a}
+F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
+     &amp;= \int_{a}^{k} f(x) dx \\ \\
+     &amp;= \int_{a}^{k} \frac{1}{b-a} dx \\ \\
+     &amp;= \left. \frac{x}{b-a} \right|_a^k \\ \\
+     &amp;= \frac{k-a}{b-a}
 \end{align}`
 
-En este caso `\(b=30\)` y `\(a=25\)`.
+&lt;br&gt;
+En este caso `\(a=25\)` y `\(k=28\)`.
 ]
 
 
---
+---
+class: inverse, center, middle
 
+##Distribuciones Continuas
+### Distribución Normal
 
-`\(\int f(x) = \int \frac{1}{b-a} dx =  \frac{1}{b-a} \int  dx = \frac{x}{b-a}\)`
-
-
-
+---
+### Distribución Normal
 
 
 ---
