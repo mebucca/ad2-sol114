@@ -74,6 +74,5 @@ print(tabla)
 
 **Pregunta 2:**
 
-Usando los datos provistos por el sociólogo, **estima** $\mathbb{P}(\text{Contagiado}$ sin usar el teorema de Bayes.
-
+Usando los datos provistos por el sociólogo, **estima** $\mathbb{P}(\text{Contagiado} | \text{Test Positivo})$ sin usar el teorema de Bayes.
 
