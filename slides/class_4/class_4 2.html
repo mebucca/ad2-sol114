@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análisis de Datos Categóricos (SOC3070)</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca  Profesor Asistente, Sociología UC" />
+    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
+    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
+    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+# Análisis de Datos Categóricos (SOC3070)
+## Clase #4
+### <br> Mauricio Bucca<br> Profesor Asistente, Sociología UC
+### <a href="https://github.com/mebucca">github.com/mebucca</a>
+
+---
+
+
+class: inverse, center, middle
+
+#Valor Esperado y Varianza de variables discretas
+
+
+---
+## Valor Esperado
+
+El valor esperado de una variable es el análogo teórico de un promedio. Los posibles valores de la variable se ponderan por su probabilidad de ocurrencia. En el caso de variables discretas:
+
+&lt;br&gt;
+--
+
+`\begin{align}
+\mathbb{E}(X) &amp;= \sum_{i} x_{i} \times \mathbb{P}(X=x_{i}) \\
+&amp;\equiv  \sum_{i} x_{i} \times f_{X}(x_{i})
+\end{align}`
+
+&lt;br&gt;
+--
+Es teórico porque esta información la podemos saber *a priori*, sin necesidad de datos. 
+
+--
+
+Análogamente, para variables continuas:
+
+`\begin{align}
+\mathbb{E}(X) =  \int x f(x)dx
+\end{align}`
+
+---
+## Valor Esperado
+
+Por ejemplo, supongamos que `\(Y\)` es una variable que resulta de tirar un dado "justo".  ¿Cuál es el valor esperado de `\(Y\)`?
+
+&lt;br&gt;
+--
+
+`\begin{align}
+\mathbb{E}(Y) &amp;= \sum_{i}y_{i} \times \mathbb{P}(Y=y_{i})  \\ \\
+     &amp;=  1 \times  \frac{1}{6}+ 2 \times \frac{1}{6} + \dots + 6 \times \frac{1}{6}  \\ \\
+     &amp;= 3.5
+\end{align}`
+
+
+---
+## Valor Esperado, algunas propiedades útiles  
+
+&lt;br&gt;
+--
+
+1) El valor esperado de una constante es una constante.
+
+`$$\mathbb{E}(c)=c$$`
+&lt;br&gt;
+--
+
+2) Si `\(X\)` es una variable aleatoria y `\(c\)` una constante, entonces 
+
+`$$\mathbb{E}(c X)= c \mathbb{E}(X)$$`
+&lt;br&gt;
+--
+
+3) Si `\(X\)` e `\(Y\)` son variables aleatorias (sin importar si `\(X \bot Y\)` o no), entonces
+
+`$$\mathbb{E}(X + Y)=  \mathbb{E}(X) + \mathbb{E}(Y)$$`
+
+---
+
+## Valor Esperado, ejemplo
+
+Por ejemplo, supongamos que `\(X_{i}\)` es la variable que resulta de tirar un dado "justo". Participamos de un concurso que consiste en tirar el mismo dado 100 veces. El premio (G) es $ `\(1000\)` de base, más el resultado de cada dado `\(i\)` multiplicado por 10.
+--
+
+ ¿Cuánto es el premio esperado?
+
+--
+
+`$$G = 1000 + \sum^{n=100}_{i=1} X_{i} \times 10 \quad \text{ por tanto,}$$`
+--
+
+`$$\mathbb{E}(G) = \mathbb{E}(1000 + \sum^{n=100}_{i=1} X_{i} \times 10)$$`
+
+--
+
+`$$\mathbb{E}(G) = 1000 + 10 \times \sum^{n=100}_{i=1}\mathbb{E}(X_{i})$$`
+
+--
+
+$$\mathbb{E}(G) = 1000 + 10 (3.5 + 3.5 + \dots + 3.5)) = 1000 + 10 \times 100 \times 3.5 = \$4500$$ 
+
+---
+
+## Valor Esperado de variables discretas
+
+###  Bernoulli
+
+Si X es una variable Bernoulli, su valor esperado viene dado por:
+
+`\begin{align}
+\mathbb{E}(X) = \sum_{i} x_{i} \times \mathbb{P}(X=x_{i}) &amp;= \sum_{i} x_{i} \times p^{x_{i}}(1-p)^{1 - x_{i}} \\ 
+     &amp;= 1 \times p + 0 \times (1-p) \\ 
+     &amp;= p
+\end{align}`
+
+--
+
+### Binomial
+
+Si X es una variable Binomial, su valor esperado viene dado por:
+
+`\begin{align}
+\mathbb{E}(X) = np
+\end{align}`
+
+--
+.bold[Pregunta]: ¿Cuántas "Caras" debo esperar si tiro 200 monedas "justas"?
+
+--
+
+.bold[Respuesta]: `\(np = 200 \times 0.5 = 100\)`
+
+
+---
+## Varianza 
+
+La varianza de una variable aleatoria es el análogo teórico de la varianza de los datos.
+--
+ Mide cuánta dispersión existe en torno al centro (la media). Formalmente, en el caso de variables aleatorias discretas:
+
+&lt;br&gt;
+
+`$$\mathbb{Var}(X) = \sum_{i} \bigg( x_{i} - \mathbb{E}(X) \bigg)^{2} \times f_{X}(x_{i})$$`
+&lt;br&gt;
+--
+
+Análogamente, para variables continuas:
+
+`\begin{align}
+\mathbb{Var}(X) =  \int \bigg(x -  \mathbb{E}(X)\bigg)^{2} f(x)dx
+\end{align}`
+
+---
+## Varianza
+Por ejemplo, si `\(Y\)` es una variable que resulta de tirar un dado "justo", ¿cuál es la varianza de `\(Y\)`?
+
+&lt;br&gt;
+--
+
+`\begin{align}
+\mathbb{Var}(Y) &amp;= \sum_{i} \bigg( y_{i} - \mathbb{E}(Y) \bigg)^{2} \times f_{Y}(y_{i})   \\ \\
+     &amp;=  (1 - 3.5)^{2} \times  \frac{1}{6} + (2-3.5)^{2} \times \frac{1}{6} + \dots + (6-3.5)^{2} \times \frac{1}{6}  \\ \\
+     &amp;= 2.91
+\end{align}`
+
+
+---
+## Varianza, algunas propiedades útiles  
+
+
+&lt;br&gt;
+--
+
+1) La varianza de una constante es cero.
+
+`$$\mathbb{Var}(c)=0$$`
+&lt;br&gt;
+--
+
+2) Si `\(X\)` es una variable aleatoria y `\(c\)` una constante, entonces 
+
+`$$\mathbb{Var}(c X)= c^{2} \mathbb{Var}(X)$$`
+&lt;br&gt;
+--
+
+3) Si `\(X\)` e `\(Y\)` son dos variables aleatorias independientes, entonces
+
+`$$\mathbb{Var}(X \pm Y) =  \mathbb{Var}(X) + \mathbb{Var}(Y)$$`
+
+
+---
+## Varianza, ejemplo  
+
+Por ejemplo, supongamos que `\(X_{i}\)` es la variable que resulta de tirar un dado "justo". Participamos de un concurso que consiste en tirar el mismo dado 100 veces. El premio (G) es $ `\(1000\)` de base, más el resultado de cada dado `\(i\)` multiplicado por 10.
+--
+ ¿Cuánto es la desviación estándar del premio?
+
+--
+
+`$$G = 1000 + \sum^{n=100}_{i=1} X_{i} \times 10 \quad \text{ por tanto,}$$`
+
+--
+
+`$$\mathbb{Var}(G) = \mathbb{Var}(1000 + \sum^{n=100}_{i=1} X_{i} \times 10)$$`
+
+--
+
+`$$\mathbb{Var}(G) = \mathbb{Var}(1000) + 10^{2} \times \sum^{n=100}_{i=1}\mathbb{Var}(X_{i})$$`
+
+--
+
+$$\mathbb{Var}(G) =  0 +  10^{2} \times 100 \times 2.91 = \$29100$$ 
+
+--
+
+$$\sigma_{G} = \sqrt{0 + 100 \times 100 \times 2.91} = \$ 170.6$$
+---
+## Varianza de variables discretas
+
+### Bernoulli
+
+Si X es una variable Bernoulli, su varianza viene dada por:
+
+`\begin{align}
+\mathbb{Var}(X) &amp;= \sum_{i} \bigg( x_{i} - \mathbb{E}(X) \bigg)^{2} \times f_{X}(x_{i})  \\ \\
+ &amp;= (1 - \mathbb{E}(X))^{2} \times \mathbb{P}(X=1) + (0 - \mathbb{E}(X))^{2} \times \mathbb{P}(X=0) \\ \\
+ &amp;= (1 - p)^{2} \times p +  (0 - p)^{2} \times (1-p) \\ \\
+ &amp;=p^{2} − p^{3} + p − 2p^{2} + p^{3} \\ \\
+ &amp;=p(1-p)
+\end{align}`
+
+---
+## Varianza de variables discretas
+
+### Binomial
+
+Si X es una variable Binomial, su varianza viene dada por:
+
+`\begin{align}
+\mathbb{Var}(X) = n \times p(1-p)
+\end{align}`
+
+&lt;br&gt;
+--
+.bold[Pregunta]: ¿Cuánta variabilidad debo esperar en el número de "Caras" si tiro 200 monedas "justas"?
+
+--
+
+.bold[Respuesta]: varianza es `\(n \times p(1-p) = 200 \times 0.5 \times 0.5 = 50\)`. La desviación estándar es `\(\sqrt{50} = 7.01\)`.
+
+---
+## Varianza de variables Binomial
+
+.bold[Ilustración via Monte Carlo simulation]
+
+
+```r
+# Repeat experiment of tossing 200 coins 10000 times
+coins200 &lt;- rbinom(10000, size=200, p=0.5)
+glimpse(coins200)
+```
+
+```
+##  int [1:10000] 90 104 103 97 103 102 96 90 98 105 ...
+```
+
+```r
+moments = list(mean=mean(coins200), var=var(coins200))
+print(moments)
+```
+
+```
+## $mean
+## [1] 100.0124
+## 
+## $var
+## [1] 49.19397
+```
+
+---
+## Varianza de variables Binomial
+
+
+
+```
+## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.
+```
+
+![](class_4_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+
+
+---
+## Distribución Binomial es asintóticamente Normal
+
+.pull-left[
+
+
+- Si `\(X \sim \text{Binomial}(n,p)\)`, entonces:
+
+$$ X \xrightarrow[]{d} \mathcal{N}(\mu=np, \sigma= \sqrt{np(1-p)})$$
+(cuando `\(n \to \infty\)` )
+
+
+- guideline: `\(\min \{np,  n(1-p) \} \geq 5\)` 
+
+- Resultado muy conveniente
+
+
+]
+
+.pull-right[
+
+![](class_4_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+]
+
+---
+## Distribución Binomial es asintóticamente Normal
+
+.pull-left[
+
+
+- Si `\(X \sim \text{Binomial}(n,p)\)`, entonces:
+
+`$$\frac{X - np}{\sqrt{np(1-p)}}  \xrightarrow[]{d} \mathcal{N}(\mu=0, \sigma= 1)$$`
+
+(cuando `\(n \to \infty\)` )
+
+&lt;br&gt;
+
+- Distribución "Standard Normal"
+
+- La base de casi todas las aproximaciones para inferencia estadística
+
+]
+
+.pull-right[
+
+![](class_4_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+]
+
+---
+class: inverse, center, middle
+
+#Estimación
+##Maximum Likelihood Estimation (MLE)
+
+---
+
+##Estimación 
+
+.bold[Modelos de probabilidad]: ¿Cuál es la probabilidad de observar los *datos* dado los *parámetros* que conocemos?
+
+Ej. ¿Cuán probable es que obtengamos 9 "Caras" (1) si lanzamos una moneda "justa" ( `\(p=0.5\)` ) 10 veces? 
+
+
+```r
+dbinom(x=9,size=10,prob=0.5)
+```
+
+```
+## [1] 0.009765625
+```
+
+---
+##Estimación 
+
+.bold[Modelos estadísticos]:  ¿Cuáles son los valores más .bold[plausibles][1].footnote[[1] Notar que no dice "más probables"!] de los *parámetros* dado los *datos* que observamos? 
+
+
+Ej. Supongamos que alguien lanza 100 veces la misma moneda y registra los resultados en una base de datos. Los datos se ven así:  
+
+.pull-left[
+
+```
+## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.
+```
+
+![](class_4_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+
+--
+
+.pull-right[
+
+- Lo que vemos en la izquierda son .bold[datos]
+
+- Datos: realización de `\(n\)` variables aleatorias 
+
+- Normalmente *no conocemos* la distribución de las variables
+
+- Datos nos dan una pista sobre cuál podría ser esa distribución
+
+- .bold[Estadística]: aprender de los datos para .bold[*estimar*] los parámetros que los generan
+
+]
+
+---
+##Estimación via Maximum Likelihood (MLE) 
+
+Previamente lanzamos la misma moneda 100 veces y obtuvimos "Cara" (1) 82 veces.
+--
+ ¿Qué valor de `\(p\)` es más plausible ("likely") que genere estos datos?
+
+MLE es justamente la formalización de esta pregunta. Pasos:
+
+--
+
+1) Decidir sobre la distribución subyacente que genera los datos. En este caso, podemos asumir que: 
+
+  * Cada lanzamiento `\(X_{1}, X_{2}, \dots X_{100} \sim \text{Bernoulli}(p)\)`, donde X's son `\(iid\)` 
+
+--
+
+2)  Escribir una función que cuantifique la plausibilidad de diferentes valores del parámetro. Dicha función se denomina .bold[likelihood function]: 
+
+&lt;br&gt;
+  * `\(\mathcal{L}(p \mid \text{ Datos}) = \mathbb{P}(\text{ Datos : \{1,0,1,1,....0,1\}} | \text{ } p)\)`
+
+&lt;br&gt;
+--
+
+  * `\(\mathcal{L}(p \mid \text{ Datos}) = \mathbb{P}(x_{1})\mathbb{P}(x_{2}) \dots \mathbb{P}(x_{100}) = p^{82}(1-p)^{18}\)`
+
+
+---
+##Estimación via Maximum Likelihood (MLE) 
+
+Podemos inspeccionar visualmente la "likelihood" de diferentes valores `\(p\)`.
+
+
+```
+## Warning: `guides(&lt;scale&gt; = FALSE)` is deprecated. Please use `guides(&lt;scale&gt; = "none")` instead.
+```
+
+![](class_4_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
+Intuitivamente: habiendo obtenido 82 caras, `\(p=0.82\)` es el valor más plausible de `\(p\)`
+
+
+---
+
+##Estimación via Maximum Likelihood (MLE) 
+
+3) Encontrar matemáticamente el valor de `\(p\)` que maximiza `\(\mathcal{L}(p \mid \text{ Datos})\)`.
+
+
+- `\(\mathcal{L}(p \mid \text{ Datos}) = \mathbb{P}(x_{1})\mathbb{P}(x_{2}) \dots \mathbb{P}(x_{n}) =\prod_{i=1}^{n} f(x_{i}) =  p^{k}(1-p)^{n-k} \quad \text{   donde  } k= \sum x_{i}\)`
+
+--
+
+- Para facilitar el cálculo tomamos logaritmo natural en ambos lados (.bold[log-likelihood])
+
+  - `\(\ell\ell(p) = \ln \mathcal{L}(p \mid \text{ Datos})  = k \ln(p) + (n - k) \ln(1-p)\)` 
+
+--
+-  Calcular la primera* derivada de `\(\ell\ell(p)\)` con respecto a `\(p\)`: pendiente de la curva en cada valor de `\(p\)`.
+
+  - `\(\ell\ell^{\text{ '}}(p) = \frac{k}{p} -  \frac{n-k}{1-p}\)`
+
+--
+
+- Encontrar el máximo de la función `\(\ell\ell(p)\)`: valor de `\(p\)` en el cual la curva no cambia, es decir cuando `\(\ell\ell^{\text{ '}}(p)=0\)` 
+
+  - `\(\frac{k}{p} -  \frac{n-k}{1-p} = 0\)`
+  
+--
+
+- Después de resolver por `\(p\)` obtenemos:
+  
+   `$$p = \frac{k}{n} = \frac{\sum x_{i}}{n}$$`
+
+
+---
+##Estimación via Maximum Likelihood (MLE) 
+
+&lt;br&gt;
+
+- El estimador ML de `\(p\)` es ....
+
+
+- `\(\hat{p} = \frac{\sum x_{i}}{n}\)`
+
+
+- Es decir, el porcentaje de 1's en la muestra!
+
+--
+
+- Intuitivo y elegante
+
+
+---
+
+.bold["Optimización" numérica en R]
+
+
+```r
+# log-likelihood function
+ll &lt;- function(p,n,k) {
+  ell = k * log(p) + (n - k)*log(1-p)
+  return(ll = ell)
+}
+
+
+# Evaluate the log-likelihood function for some arbitrary values
+ll(p=0.1,n=100,k=82); ll(p=0.7,n=100,k=82)
+```
+
+```
+## [1] -190.7085
+```
+
+```
+## [1] -50.91886
+```
+--
+
+
+```r
+# Evaluate the log-likelihood function for many possible values of p
+
+parameter_space &lt;- tibble(p=seq(0,1,by=0.01)) %&gt;% 
+  rowwise() %&gt;% mutate(loglik = ll(p,n=100,k=82)) 
+
+# Find the value of p that yield the largest value for the log-likelihood function
+
+parameter_space %&gt;% as.matrix() -&gt; m
+m[which.max(m[,2]),]
+```
+
+```
+##         p    loglik 
+##   0.82000 -47.13935
+```
+
+---
+.bold["Optimización" numérica en R]
+
+.center[
+![](class_4_files/figure-html/loglik_density-1.png)&lt;!-- --&gt;
+]
+
+---
+##Estimación via Maximum Likelihood (MLE) 
+
+.bold[Generalización]
+
+&lt;br&gt;
+
+
+`$$\hat{\boldsymbol{\beta}}_{MLE} = \underset{\beta}{\arg\max\ } \mathcal{L}(\boldsymbol{\beta} \mid \boldsymbol{X})$$`
+`\(\hat{\boldsymbol{\beta}}\)` es el MLE de `\(\boldsymbol{\beta}\)` si es el(los) valor(es) que maximiza(n) la "likelihood function", condicional en los datos observados.
+
+&lt;br&gt;
+--
+
+- Recordar que   `\(\mathcal{L}(\boldsymbol{\beta} \mid \boldsymbol{X}) = \mathbb{P}(\boldsymbol{X} \mid \boldsymbol{\beta})\)`.
+  
+--
+
+- Requiere especificar de antemano la distribución conjunta de las observaciones (dif. de OLS, por ejemplo).
+
+--
+
+- ML es probablemente el approach de estimación más popular. 
+
+--
+
+- Intuitivo, pero, por lo general, no tan simple como el ejemplo que vimos hoy.
+
+--
+
+- Normalmente la maximización se realiza numéricamente (ej. método Newton–Raphson)
+
+---
+class: fullscreen,left, top, text-white
+background-image: url(valdorcia.jpeg)
+
+##Estimación via Maximum Likelihood (MLE) 
+
+
+---
+class: inverse, center, middle
+
+#Inferencia
+##Inferencia Estadística para una proporción
+
+---
+##"Sampling distribution" de una proporción
+
+
+- Nuestro MLE para una poporción es `\(\hat{p} = \frac{\sum x_{i}}{n}\)`
+
+  - Donde `\(x_{i} \sim \text{Bernoulli}(p)\)`
+
+&lt;br&gt;
+--
+
+- ¿Cómo podemos cuantificar la incertidumbre en torno a nuestras estimaciones?
+
+  - En ejemplo anterior `\(\hat{p} = 0.82\)`, pero los datos fueron simulados con `\(p=0.8\)` (pámetro verdadero)
+
+
+&lt;br&gt;
+--
+
+- Para responder esta pregunta debemos conocer la .bold[sampling distribution] de nuestro estimador, especialmente su _variabilidad_.
+
+ - El estimador, aplicado a diferentes muestras, produce distintos resultados, pero sigue una distribución
+
+
+---
+##"Sampling distribution" de una proporción
+
+
+- `\(\mathbb{Var}\big(\hat{p}\big)\)` o  `\(\sqrt{\mathbb{Var}\big(\hat{p}\big)}\)` "Error Estándar" (SE)?
+
+
+--
+
+  - `\(\mathbb{Var}\big(\hat{p}\big) = \mathbb{Var}\Big( \frac{\sum_{i} x_{i}}{n} \Big) = \mathbb{Var}\Big(\frac{x_{i} + ... + x_{n}}{n}\Big)\)`
+
+--
+
+  - `\(\mathbb{Var}\big(\hat{p}\big) = \frac{1}{n^2} \Big(\mathbb{Var}(x_{i}) + ... + \mathbb{Var}(x_{n})\Big)\)`
+
+--
+
+  - `\(\mathbb{Var}\big(\hat{p}\big) = \frac{1}{n^2}( \sigma^2 + ... + \sigma^2 ) = \frac{n\sigma^2}{n^2} = \frac{\sigma^2}{n} = \frac{p(1-p)}{n}\)`
+
+&lt;br&gt;
+--
+
+.content-box-blue[
+`$$\sigma_{\hat{p}} =  \frac{\sigma}{\sqrt{n}} =  \sqrt{\frac{p(1-p)}{n}}$$`
+]
+
+---
+##"Sampling distribution" de una proporción
+
+  - `\(\mathbb{E}\big(\hat{p}\big) = \mathbb{E}\Big( \frac{\sum_{i} x_{i}}{n} \Big) =  \frac{1}{n} \sum_{i} \mathbb{E}(x_{i}) =  \frac{1}{n}\sum_{i} p = \frac{np}{n} = p\)`
+
+
+--
+
+- Importante resultado teórico: la sampling distribution de `\(\hat{p}\)` es _asintóticamente_ normal:
+
+`$$\hat{p} \sim \mathcal{N}(\mu,\sigma) \quad \text{ con }   \quad \mu = p \quad \text{ y } \quad \sigma = \sqrt{\frac{p(1-p)}{n}}$$`
+
+--
+
+Podemos usar este resultado para construir un intervalo de confianza para `\(\hat{p}\)`, al (1 - `\(\alpha\)`)% de confianza. Para un nivel de significación estadística de `\(\alpha=0.05\)`,
+
+`\begin{align}
+  95\% \text{ CI}_{\hat{p}} &amp;= \hat{p} \pm 1.96 \times SE \\ \\
+          &amp;=\hat{p} \pm 1.96  \sqrt{\frac{p(1-p)}{n}} 
+\end{align}`
+
+&lt;br&gt;
+--
+
+.bold[Nota importante]: cuando no conocemos los _verdaderos_ parámetros (casi siempre!), reemplazamos por sus valores estimados en la muestra (en este caso, `\(\hat{p}\)` en vez de `\(p\)`).
+
+---
+##"Sampling distribution" de una proporción
+
+.bold[Ilustración via Monte Carlo simulation]
+
+
+```r
+# Theoretical parameters of Bernoulli random variable X: "tosing a coin"
+p = 0.35
+
+# Our sample: a random sample of 500 coin toses 
+n = 500
+our_sample &lt;- rbinom(n,size=1,prob=p); our_sample %&gt;% glimpse()
+```
+
+```
+##  int [1:500] 1 0 0 0 0 1 1 0 1 0 ...
+```
+
+```r
+p_hat &lt;- mean(our_sample); p_hat
+```
+
+```
+## [1] 0.348
+```
+
+---
+##"Sampling distribution" de una proporción
+
+.bold[Ilustración via Monte Carlo simulation]
+
+
+```r
+#  Demonstration of the distrution of p_hat across 1000 samples of size 500.
+p_hat_n = NULL
+for (i in 1:1000) {
+  a_sample &lt;- rbinom(n,size=1,prob=p)
+  p_hat_n[i] &lt;- mean(a_sample)
+}
+```
+
+```
+##  num [1:1000] 0.342 0.334 0.33 0.372 0.34 0.346 0.37 0.356 0.324 0.35 ...
+```
+
+--
+
+
+```r
+# mean of p_hat_n  = p
+moment_1 &lt;- c(mean_samp_dis = mean(p_hat_n), our_estimate_p= p_hat)
+```
+
+```
+##  mean_samp_dis our_estimate_p 
+##       0.349816       0.348000
+```
+
+--
+
+
+```r
+# sd of p_hat_n  = sqrt(p*(1-p)/n)
+moment_2 &lt;- c(sd_samp_dis = sd(p_hat_n), our_estimate_sd= sqrt((p_hat*(1-p_hat))/n))
+```
+
+```
+##     sd_samp_dis our_estimate_sd 
+##      0.02050587      0.02130239
+```
+
+---
+##"Sampling distribution" de una proporción
+
+.bold[Ilustración via Monte Carlo simulation]
+
+![](class_4_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
+
+---
+
+
+class: inverse, center, middle
+
+.huge[
+**Hasta la próxima clase. Gracias!**
+]
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
