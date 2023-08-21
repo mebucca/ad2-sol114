@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
 ]
 .date[
-### 16 August, 2023
+### 21 August, 2023
 ]
 
 ---
@@ -347,11 +347,11 @@ monedas &lt;- rbinom(n=1000, size=1, p=0.7)
 
 
 ```
-##  [1] 1 1 1 1 1 0 0 0 1 1 1 0 1 1 1 1 1 1 1 0
+##  [1] 1 1 0 1 0 1 1 0 0 1 1 0 0 1 1 1 1 0 1 1
 ```
 
 ```
-## [1] "P(Cara) =  0.675"
+## [1] "P(Cara) =  0.69"
 ```
 
 
@@ -707,7 +707,7 @@ ronda_penales &lt;- function() {
 ## # A tibble: 1 × 3
 ##   chile brasil gana 
 ##   &lt;int&gt;  &lt;int&gt; &lt;chr&gt;
-## 1     5      2 Chile
+## 1     5      3 Chile
 ```
 
 &lt;img src="chile.jpg" width="829" /&gt;
@@ -729,8 +729,8 @@ knitr::kable(prop.table(table(resultados$gana)), col.names = c("País","Probabil
 
 |País   | Probabilidad de Ganar|
 |:------|---------------------:|
-|Brasil |                0.5675|
-|Chile  |                0.4325|
+|Brasil |                0.5723|
+|Chile  |                0.4277|
 
 
 
