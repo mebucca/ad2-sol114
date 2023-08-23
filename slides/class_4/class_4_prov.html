@@ -87,7 +87,7 @@ class: inverse, center, middle
 Los meteorólogos predicen que la temperatura mañana se encontrará entre 25 y 30 grados, donde todas las temperaturas en ese rango son igualmente probables
 
 
-![](class_4_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+![](class_4_prov_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -117,7 +117,7 @@ En este caso `\(b=30\)` y `\(a=25\)`.
 Los meteorólogos predicen que la temperatura mañana se encontrará entre 25 y 30 grados, donde todas las temperaturas en ese rango son igualmente probables
 
 
-![](class_4_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+![](class_4_prov_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
 
 
 ]
@@ -165,7 +165,7 @@ y
 
 &lt;br&gt;
 
-![](class_4_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+![](class_4_prov_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
 ]
 
 --
@@ -195,7 +195,7 @@ En este caso `\(b=30\)`, `\(a=25\)` y `\(k=28\)`.
 
 &lt;br&gt;
 
-![](class_4_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+![](class_4_prov_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 ]
 
 --
@@ -226,7 +226,7 @@ En este caso `\(b=30\)`, `\(a=25\)` y `\(k=28\)`.
 
 &lt;br&gt;
 
-![](class_4_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+![](class_4_prov_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -255,7 +255,7 @@ En este caso `\(b=30\)`, `\(a=25\)` y `\(k=28\)`.
 
 &lt;br&gt;
 
-![](class_4_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+![](class_4_prov_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -285,7 +285,6 @@ En este caso:
 \end{align}`
 ]
 
-
 ---
 class: inverse, center, middle
 
@@ -300,18 +299,13 @@ class: center, middle
 ![meme_norm](meme_norm.jpg)
 
 ---
-class: center, middle
-
-![gauss](gauss.jpeg)
-
----
 ### Distribución Normal
 
 .pull-left[
 
 Según los meteorólogos la temperatura más probable mañana es de 27.5 grados. Otras temperaturas también son probables, pero son menos probable mientrás más se alejan de  27.5
 
-![](class_4_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+![](class_4_prov_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -347,7 +341,7 @@ En este caso, `\(\mu=27.5\)` y `\(\sigma=1.5\)`.
 
 Un grupo alterativo de meteorólogos señala que la temperatura más probable es de 26 grados pero expresa mucho menos certeza en su predicción.
 
-![](class_4_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+![](class_4_prov_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -381,7 +375,7 @@ En base al modelo del primer grupo de meteorólogos, ¿cuál es la probabilidad 
 
 &lt;br&gt;
 
-![](class_4_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+![](class_4_prov_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -412,7 +406,7 @@ En base al modelo del primer grupo de meteorólogos, ¿cuál es la probabilidad 
 
 &lt;br&gt;
 
-![](class_4_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+![](class_4_prov_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -454,7 +448,7 @@ En base al modelo del primer grupo de meteorólogos, ¿cuál es la probabilidad 
 
 &lt;br&gt;
 
-![](class_4_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+![](class_4_prov_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -483,52 +477,7 @@ pnorm(q=28, mean=27.5, sd=1.5)
 
 ]
 
----
-### Distribución normal
 
-.pull-left[
-¿Cuál es la probabilidad de que la temperatura esté entre 26 y 28 grados?
-
-&lt;br&gt;
-
-![](class_4_files/figure-html/unnamed-chunk-14-1.png)&lt;!-- --&gt;
-
-]
-
---
-
-.pull-right[
-
-.bold[Función de distribución acumulada (CDF):]
-
-`\begin{align}
-  F(k) = \mathbb{P}(X \leq k) = \int_{-\infty}^{k} f(x) dx
-\end{align}`
-
-
-.bold[Probabilidad en un intervalo:]
-
-`$$\mathbb{P}(k_1 \leq X \leq k_2) = F(k_2) - F(k_1)$$`
-&lt;br&gt;
-En este caso:
-
-`\begin{align}
-  \mathbb{P}(26 \leq X \leq 28) =  F(28) - F(26) 
-\end{align}`
-
-En `R`:  
-
-```r
-pnorm(q=28, mean=27.5, sd=1.5) - 
-  pnorm(q=26, mean=27.5, sd=1.5)
-```
-
-```
-## [1] 0.4719034
-```
-
-
-]
 
 ---
 class: inverse, center, middle
@@ -541,12 +490,6 @@ class: inverse, center, middle
 Mauricio Bucca &lt;br&gt;
 https://mebucca.github.io/ &lt;br&gt;
 github.com/mebucca
-
-
-
-
-
-
 
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>

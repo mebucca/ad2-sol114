@@ -4,7 +4,7 @@
     <title>Probabilidad e Inferencia Estadística</title>
     <meta charset="utf-8" />
     <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
-    <script src="libs/header-attrs-2.23/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.24/header-attrs.js"></script>
     <link rel="stylesheet" href="gentle-r.css" type="text/css" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
 ]
 .date[
-### 21 August, 2023
+### 22 August, 2023
 ]
 
 ---
@@ -331,7 +331,7 @@ print(moneda)
 ```
 
 ```
-## [1] 1
+## [1] 0
 ```
 
 &lt;br&gt;
@@ -347,11 +347,11 @@ monedas &lt;- rbinom(n=1000, size=1, p=0.7)
 
 
 ```
-##  [1] 1 1 0 1 0 1 1 0 0 1 1 0 0 1 1 1 1 0 1 1
+##  [1] 1 1 1 1 1 0 0 0 1 0 0 1 0 1 0 1 1 1 0 0
 ```
 
 ```
-## [1] "P(Cara) =  0.69"
+## [1] "P(Cara) =  0.717"
 ```
 
 
@@ -577,7 +577,7 @@ X es una variable aleatoria Binomial, es decir
 `\begin{align}
 F(k; n, p) &amp;= \mathbb{P}(X \leq k) \\ \\
            &amp;= \sum_{i=0}^{k} \mathbb{P}(X=i) \\ \\
-           &amp;= \frac{n!}{i! (n-i)!}  p^i (1-p)^{n-i} 
+           &amp;= \sum_{i=0}^{k} \frac{n!}{i! (n-i)!}  p^i (1-p)^{n-i} 
 \end{align}`
 
 
@@ -614,7 +614,7 @@ X es una variable aleatoria Binomial, es decir
 `\begin{align}
 F(k; n, p) &amp;= \mathbb{P}(X \leq k) \\ \\
            &amp;= \sum_{i=0}^{k} \mathbb{P}(X=i) \\ \\
-           &amp;= \frac{n!}{i! (n-i)!}  p^i (1-p)^{n-i} 
+           &amp;= \sum_{i=0}^{k} \frac{n!}{i! (n-i)!}  p^i (1-p)^{n-i} 
 \end{align}`
 
 
@@ -653,7 +653,7 @@ Si no hay empate en los primeros cinco tiros:
 
 - Goles Brasil = variable binomial(n=5,p=0.8) 
 
-- Goles Brasil = variable binomial(n=5,p=0.75) 
+- Goles Chile = variable binomial(n=5,p=0.75) 
 
 &lt;br&gt;
 --
@@ -662,7 +662,7 @@ Si hay empate en los primeros cinco tiros:
 
 - Goles Brasil = variable binomial(n=5,p=0.8) + variable bernoulli(p=0.5)
 
-- Goles Brasil = variable binomial(n=5,p=0.75) + variable bernoulli(p=0.5)
+- Goles Chile = variable binomial(n=5,p=0.75) + variable bernoulli(p=0.5)
 
 
 &lt;br&gt;
@@ -705,12 +705,12 @@ ronda_penales &lt;- function() {
 
 ```
 ## # A tibble: 1 × 3
-##   chile brasil gana 
-##   &lt;int&gt;  &lt;int&gt; &lt;chr&gt;
-## 1     5      3 Chile
+##   chile brasil gana  
+##   &lt;int&gt;  &lt;int&gt; &lt;chr&gt; 
+## 1     4      5 Brasil
 ```
 
-&lt;img src="chile.jpg" width="829" /&gt;
+&lt;img src="brasil.jpg" width="800" /&gt;
 
 ---
 ## Simulación Monte Carlo - Multiverso
@@ -729,10 +729,8 @@ knitr::kable(prop.table(table(resultados$gana)), col.names = c("País","Probabil
 
 |País   | Probabilidad de Ganar|
 |:------|---------------------:|
-|Brasil |                0.5723|
-|Chile  |                0.4277|
-
-
+|Brasil |                0.5695|
+|Chile  |                0.4305|
 
 ---
 class: inverse, center, middle

@@ -481,7 +481,6 @@ En este caso:
 \end{align}
 ]
 
-
 ---
 class: inverse, center, middle
 
@@ -494,11 +493,6 @@ class: center, middle
 
 
 ![meme_norm](meme_norm.jpg)
-
----
-class: center, middle
-
-![gauss](gauss.jpeg)
 
 ---
 ### Distribución Normal
@@ -843,79 +837,7 @@ pnorm(q=28, mean=27.5, sd=1.5)
 
 ]
 
----
-### Distribución normal
 
-.pull-left[
-¿Cuál es la probabilidad de que la temperatura esté entre 26 y 28 grados?
-
-<br>
-
-```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
-
-# Load necessary libraries
-library(ggplot2)
-library(RColorBrewer)
-
-# Function to calculate the PDF of a normal distribution
-PDF_normal <- function(x, mean, sd) {
-  dnorm(x, mean, sd)
-}
-
-# Define the values for the range and mean and sd
-mean_val <- 27.5
-sd_val <- 1.5
-x_range <- seq(mean_val - 4*sd_val, mean_val + 4*sd_val, 0.01)
-PDF_values <- PDF_normal(x_range, mean_val, sd_val)
-PDF_df <- data.frame(x = x_range, PDF = PDF_values)
-
-# Create the ggplot
-ggplot(data = PDF_df, aes(x = x, y = PDF)) +
-      geom_area(fill = "#ffec73", alpha = 0.8) + # This line adds the colored area
-    geom_area(data = subset(PDF_df, x >= 26 & x <= 28), aes(x=x, y=PDF), fill="#c6c1af", alpha=0.8) +
-    geom_line(color = "black", size = 1) +
-  geom_vline(xintercept = 26, linetype = "dashed",  size = 1) +
-  geom_vline(xintercept = 28, linetype = "dashed",  size = 1) +
-  geom_text(aes(x = 30 , y = max(PDF) * 0.7, label = "26 ≤ X ≤ 28"), hjust = 0.5, size=5) +
-  labs(x = "Temperatura predicha",
-       y = "f(x): densidad probabilistica") +
-  theme_minimal() + 
-  theme(legend.position="none",
-        panel.border = element_rect(color = "black", fill = NA, size = 1))
-
-```
-
-]
-
---
-
-.pull-right[
-
-.bold[Función de distribución acumulada (CDF):]
-
-\begin{align}
-  F(k) = \mathbb{P}(X \leq k) = \int_{-\infty}^{k} f(x) dx
-\end{align}
-
-
-.bold[Probabilidad en un intervalo:]
-
-$$\mathbb{P}(k_1 \leq X \leq k_2) = F(k_2) - F(k_1)$$
-<br>
-En este caso:
-
-\begin{align}
-  \mathbb{P}(26 \leq X \leq 28) =  F(28) - F(26) 
-\end{align}
-
-En `R`:  
-```{r} 
-pnorm(q=28, mean=27.5, sd=1.5) - 
-  pnorm(q=26, mean=27.5, sd=1.5)
-```
-
-
-]
 
 ---
 class: inverse, center, middle
@@ -928,10 +850,4 @@ class: inverse, center, middle
 Mauricio Bucca <br>
 https://mebucca.github.io/ <br>
 github.com/mebucca
-
-
-
-
-
-
 

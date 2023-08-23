@@ -687,7 +687,7 @@ X es una variable aleatoria Binomial, es decir
 \begin{align}
 F(k; n, p) &= \mathbb{P}(X \leq k) \\ \\
            &= \sum_{i=0}^{k} \mathbb{P}(X=i) \\ \\
-           &= \frac{n!}{i! (n-i)!}  p^i (1-p)^{n-i} 
+           &= \sum_{i=0}^{k} \frac{n!}{i! (n-i)!}  p^i (1-p)^{n-i} 
 \end{align}
 
 
@@ -754,7 +754,7 @@ X es una variable aleatoria Binomial, es decir
 \begin{align}
 F(k; n, p) &= \mathbb{P}(X \leq k) \\ \\
            &= \sum_{i=0}^{k} \mathbb{P}(X=i) \\ \\
-           &= \frac{n!}{i! (n-i)!}  p^i (1-p)^{n-i} 
+           &= \sum_{i=0}^{k} \frac{n!}{i! (n-i)!}  p^i (1-p)^{n-i} 
 \end{align}
 
 
@@ -793,7 +793,7 @@ Si no hay empate en los primeros cinco tiros:
 
 - Goles Brasil = variable binomial(n=5,p=0.8) 
 
-- Goles Brasil = variable binomial(n=5,p=0.75) 
+- Goles Chile = variable binomial(n=5,p=0.75) 
 
 <br>
 --
@@ -802,7 +802,7 @@ Si hay empate en los primeros cinco tiros:
 
 - Goles Brasil = variable binomial(n=5,p=0.8) + variable bernoulli(p=0.5)
 
-- Goles Brasil = variable binomial(n=5,p=0.75) + variable bernoulli(p=0.5)
+- Goles Chile = variable binomial(n=5,p=0.75) + variable bernoulli(p=0.5)
 
 
 <br>
@@ -872,8 +872,6 @@ resultados <- t(replicate(n=10000,ronda_penales())) %>% as_tibble() %>%
 knitr::kable(prop.table(table(resultados$gana)), col.names = c("País","Probabilidad de Ganar"))
 
 ```
-
-
 
 ---
 class: inverse, center, middle
