@@ -16,7 +16,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 
 ### Bibliografía mínima
 
-- Muy bueno este libro: [`[libro]`](files/kimai.pdf)
+- Muy bueno este libro: [`[libro]`](files/imai.pdf)
 
 ## Calendario
 
@@ -28,7 +28,8 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 16  | Ago | Probabilidad condicional, teorema de Bayes      |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_2/class_2#1) [`[Code]`](slides/class_2/class_2.Rmd)                                                                                                                        |   6.2  |
 | 21  | Ago | Variables aleatorias y distribuciones discretas |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_3/class_3#1) [`[Code]`](slides/class_3/class_3.Rmd)                                                                                                                         |   6.3.1 - 6.3.3       |
 | 30  | Ago | Distribuciones continuas                         |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_4/class_4#1) [`[Code]`](slides/class_4/class_4.Rmd)                                                                                                                       |    6.3.4      |
-| 4   | Sep | Momentos: valor esperado                         |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_5/class_5#1) [`[Code]`](slides/class_5/class_5.Rmd)                                                                                                                         |          |
+| 30  | Ago | Momentos: valor esperado                         |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_5/class_5#1) [`[Code]`](slides/class_5/class_5.Rmd)                                                                                                                       |    6.3.4      |
+| 4   | Sep | Momentos: varianza                          |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_5/class_5#1) [`[Code]`](slides/class_5/class_5.Rmd)                                                                                                                         |    6.3.4      |
 | 6   | Sep | Momentos: varianza                               |                                                                                                                          |          |
 | 11  | Sep | Ley grandes números y teorema límite central    |                                                                                                                          |          |
 | 13  | Sep | Estimación puntual                               |                                                                                                                          |          |
