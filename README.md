@@ -16,7 +16,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 
 ### Bibliografía mínima
 
-- Muy bueno este libro: [`[libro]`](files/kimai.pdf)
+- Muy bueno este libro: [`[libro]`](files/imai.pdf)
 
 ## Calendario
 
