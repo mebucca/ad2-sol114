@@ -1,950 +1,444 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Análisis de Datos Categóricos (SOC3070)</title>
+    <title>Probabilidad e Inferencia Estadística</title>
     <meta charset="utf-8" />
-    <meta name="author" content="  Mauricio Bucca  Profesor Asistente, Sociología UC" />
-    <script src="libs/header-attrs-2.15/header-attrs.js"></script>
-    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
+    <script src="libs/header-attrs-2.23/header-attrs.js"></script>
     <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
 .title[
-# Análisis de Datos Categóricos (SOC3070)
+# Probabilidad e Inferencia Estadística
 ]
 .subtitle[
-## Clase #6
+## #6: Momentos de una distribución
 ]
 .author[
-### <br> Mauricio Bucca<br> Profesor Asistente, Sociología UC
+### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
 ]
 .date[
-### <a href="https://github.com/mebucca">github.com/mebucca</a>
+### 01 September, 2023
 ]
 
 ---
 
 
-class: inverse, center, middle
-
-#Tablas de Contingencia
-## Medidas de asociación
-
----
-##  Asociación en tablas de contingencia 
-
-Las variables de una tabla de contingencia están asociadas si la distribución condicional de las variables es distinta de su distribución marginal. Formalmente, 
-
-&lt;br&gt;
-
-- `\(f_{Y \mid X}(Y \mid X) \neq f_{Y}(Y)\)`
-
-y por tanto,
-
-- `\(f_{X \mid Y}(X \mid Y) \neq f_{X}(X)\)`
-
-
----
-##  Asociación en tablas de contingencia 
+class:  fullscreen, center, middle
 
 
 
-Continuando con nuestro ejemplo,
 
-.pull-left[
-`\(f(\text{everaffair} \mid \text{sex})\)`
-
-```r
-prop.table(ctable,1)
-```
-
-```
-##         everaffair
-## sex      At least once     Never
-##   female     0.2285714 0.7714286
-##   male       0.2727273 0.7272727
-```
-
-
-`\(f(\text{everaffair})\)`
-
-```r
-prop.table(apply(ctable,2,sum))
-```
-
-```
-## At least once         Never 
-##      0.249584      0.750416
-```
-
-]
-
---
-
-.pull-right[
-Al parece que los hombres tienen una mayor probabilidad que las mujeres de haber tenido un "affair".
-
-En lo que sigue vamos a usar este ejemplo para estudiar:
-
-- Diferentes formas de cuantificar la asociación (o la ausencia de la misma) entre variables de una tabla de contingencia
-
-- Evaluar si las diferencias observadas son o no más sustanciales de lo se esperaría debido al mero azar.
-]
-
+![mometos](momentos.jpg)
 ---
 class: inverse, center, middle
 
-## Medidas de Asociación
 
----
-## Diferencia de proporciones
-
-- Supongamos que tenemos una tabla de contingencia 2-ways que cruza las variables binarias `\(X\)` (independiente) y `\(Y\)` (dependiente).  Éxito se codifica con valor 1 y el fracaso con el valor 0.
-
-- Para detectar la asociación necesitamos medir diferencias en la distribución de `\(Y\)` condicional en `\(X\)`
-
---
-La diferencia de proporciones cuantifica estas diferencias de la siguiente manera:
-
-`$$\delta = \mathbb{P}(Y=1 \mid X=1) - \mathbb{P}(Y=1 \mid X=0)$$`
---
-
-Noten que `\(\delta \in [-1,1]\)` donde `\(\delta=0\)` indica proporciones iguales. 
-
---
-
-Volviendo a nuestro ejemplo, `\(\hat{p}_{H}\)`, llamemos y a la proporción de hombres que han tenido una aventura y `\(\hat{p}_{M}\)` a la proporción de mujeres que han tenido una aventura. La diferencia de proporciones se define simplemente como:
-
-`\begin{align}
-  \hat{\delta} &amp;= \hat{p}_{H} - \hat{p}_{M} \\ \\
-  &amp;= 0.273 - 0.229 \\ \\
-  &amp;= 0.044
-\end{align}`
-
----
-## Diferencia de proporciones
-
-Dos consideraciones importantes:
-
-1) La diferencia de proporciones debe estar adecuadamente definida en términos de una variable dependiente y otra independiente. La razón es que, en general:
-
-`$$\mathbb{P}(Y=1 \mid X=1) - \mathbb{P}(Y=1 \mid X=0) \neq  \mathbb{P}(X=1 \mid Y=1) - \mathbb{P}(X=1 \mid Y=0)$$`
-
---
-
-En nuestro ejemplo:
-
-
-```r
-prop.table(ctable,2)
-```
-
-```
-##         everaffair
-## sex      At least once     Never
-##   female     0.4800000 0.5388027
-##   male       0.5200000 0.4611973
-```
-
-Si tratamos género como variable dependiente y definimos "mujeres" como la categoría de éxito, la diferencia en las proporciones es `\(\delta = 0.48 - 0.54 = -0.06\)`. 
-
----
-## Diferencia de proporciones
-
-2) La diferencia de proporciones es una estadística intuitiva y fácil de interpretar, pero por sí sola puede ser engañosa cuando las proporciones son ambas cercanas a cero. Consideremos los dos casos hipotéticos siguientes:
-
-`\begin{align}
-  \text{Caso 1: } p_{1a}=0.410 \text{ and } p_{1b}=0.401  \\ \\
-  \text{aquí: } \delta_{1} = 0.009
-\end{align}`
-
---
-y
-
-`\begin{align}
-  \text{Caso 2: } p_{2a}=0.010 \text{ and } p_{2b}=0.001  \\ \\
-  \text{aquí: } \delta_{2} = 0.009
-\end{align}`
-
---
-¿Problemas? En el caso 1 ambas porciones son, según todos los indicios, casi idénticas. En el caso 2, sin embargo, ambas proporciones son similares en términos absolutos, por muy diferentes en términos relativos: `\(0.010\)` es 10 veces mayor `\(0.001\)`.
+#Segundo momento
+##Varianza
 
 
 ---
-## Odds Ratio
+## Varianza 
 
+La varianza de una variable aleatoria es el análogo teórico de la varianza de los datos.
 --
-&lt;br&gt;
-
-- Odds ratio ( `\(\theta\)` ) es una medida fundamental de asociación. 
-
---
-
-- Parámetro de interés en el modelo más importante de datos categóricos: regresión logística.
-
---
-
-- `\(\theta\)` está formulada para tablas de 2-por-2, pero también puede calcularse para tablas de mayor dimensión:
-
-  - Toda tabla `\(n\)`-ways, `\(I \cdot J\)`, puede ser re-escrita como  `\((I-1) \cdot (J-1) \cdot (n-1)\)` tablas de 2-por-2.
-
----
-### Odds
-
-La Odds Ratio es el ratio de dos "odds", donde las "odds" una variable binaria `\(Y\)` se definen como: 
+ Mide cuánta dispersión existe en torno al centro (la media). Formalmente, en el caso de variables aleatorias discretas:
 
 &lt;br&gt;
 
+`$$\mathbb{Var}(X) = \sum_{i} \bigg( x_{i} - \mathbb{E}(X) \bigg)^{2} \times f(x_{i})$$`
+&lt;br&gt;
+--
+
+Análogamente, para variables continuas:
+
 `\begin{align}
-  \text{odds} &amp;= \frac{\mathbb{P}(Y=1)}{1-\mathbb{P}(Y=1)} \\ \\
-              &amp;=  \frac{p}{1-p}
+\mathbb{Var}(X) =  \int \bigg(x -  \mathbb{E}(X)\bigg)^{2} f(x)dx
 \end{align}`
 
 &lt;br&gt;
 --
 
-Por ejemplo, si `\(Y\)` tiene una probabilidad de éxito `\(p=0.75\)`, las odds de éxito son `\(\text{odds}=\frac{0.75}{0.25} = 3\)`
+Equivalentemente, 
 
-- Esto significa que las "chances" de éxito son 3:1
-
-
+`$$\mathbb{Var}(X)  = \mathbb{E}\bigg( [ X -\mathbb{E}(X)]^{2}\bigg)$$`
 ---
-### Odds
-
-las Odds son funciones de probabilidades y, por lo tanto, las probabilidades también pueden expresarse en función de las odds. Formalmente:
-
-`$$p = \frac{\text{odds}}{1 + \text{odds}}$$`
-
---
-
-Siguiendo con ejemplo anterior, si sabemos que las odds de éxito son igual a 3, entonces la probabilidad ( `\(p\)` ) de éxito es:
-
-.pull-left[
-`\begin{align}
-p &amp;= \frac{3}{1 + 3} \\ \\
-  &amp;= 0.75
-\end{align}`
-]
-
---
-
-.pull-right[
-
-.content-box-blue[
-.tiny[.bold[Derivación]:
-`\begin{align}
-  \text{odds} &amp;= \frac{p}{1-p}  \text{  } \\ \\
-  \text{odds} &amp;= \frac{1}{\frac{1}{p} - 1}  \\ \\
-  \frac{1}{p} &amp;= \frac{1}{\text{odds}} + 1  \\  \\
-  \frac{1}{p} &amp;= \frac{1 + \text{odds}}{\text{odds}}  \\ \\
-           p  &amp;= \frac{\text{odds}}{1 + \text{odds}}
-\end{align}`
-]
-
-]
-]
-
----
-## Odds Ratio
-
-Las .bold[odds] resumen la distribución de una sola variable binaria. Para medir la asociación entre dos de estas variables en una tabla podemos calcular la .bold[odds *ratio*]. 
-
---
-
-Si `\(X\)` e `\(Y\)` son las variables binarias -- independiente y dependiente -- la distribución condicional `\(f(Y \mid X)\)` se puede resumir con dos .bold[odds]:
-
-`\begin{align}
-  \text{odds}_{0} &amp;=  \frac{\mathbb{P}(Y=1 | X=0) }{1 - \mathbb{P}(Y=1 | X=0) } \quad \text{y} \\ \\
-  \text{odds}_{1} &amp;=  \frac{\mathbb{P}(Y=1 | X=1) }{1 - \mathbb{P}(Y=1 | X=1) } 
-\end{align}`
-
---
-
-La .bold[odds *ratio*], por tanto, es:
-
-`\begin{align}
-  \theta &amp;= \frac{\text{odds}_{1}}{\text{odds}_{0}} \\ \\\
-\end{align}`
-
-
----
-## Odds Ratio
-
-Volviendo a nuestro ejemplo,
-
-
-```
-##         everaffair
-## sex      At least once     Never
-##   female     0.2285714 0.7714286
-##   male       0.2727273 0.7272727
-```
-
-Si `\(\hat{p}_{H}\)` es la proporción de hombres que han tenido una aventura y `\(\hat{p}_{M}\)` es la proporción de mujeres que han tenido una aventura. 
-
-
-`\begin{align}
-  \hat{\theta} = \frac{\text{odds}_{H}}{\text{odds}_{M}} &amp;= \\
-         &amp;= \frac{\hat{p}_{H}/(1 - \hat{p}_{H})}{\hat{p}_{M}/(1 - \hat{p}_{M})} \\ \\
-         &amp;= \frac{0.273/0.727}{0.229/0.771} \\ \\
-         &amp;= \frac{0.38}{0.30} = 1.27
-\end{align}`
-
----
-## Odds Ratio
-
-Dado que estas proporciones se *estiman* a partir de los recuentos de la tabla, `\(\hat{\theta}\)` también puede expresarse de la siguiente manera, denominada .bold[cross-product ratio].
-
-En nuestro ejemplo,
-
-.pull-left[
-
-```
-##         everaffair
-## sex      At least once Never
-##   female            72   243
-##   male              78   208
-```
-]
-
-.pull-right[
-`\begin{align}
-  \hat{\theta} &amp;= \frac{\hat{p}_{H}/(1 - \hat{p}_{H})}{\hat{p}_{M}/(1 - \hat{p}_{M})} \\ \\
-   &amp;= \frac{\frac{n_{21}}{n_{2+}} / \frac{n_{22}}{n_{2+}}}{\frac{n_{11}}{n_{1+}}/ \frac{n_{12}}{n_{1+} }} = \frac{n_{21}/n_{22}}{n_{11}/n_{12}}  \\ \\
-   &amp;= \frac{n_{21} \cdot n_{12}}{n_{22} \cdot n_{11}} \\ \\
-\end{align}`
-]
-
---
-
-
-```r
-Theta = (ctable[2,1]*ctable[1,2])/(ctable[2,2]*ctable[1,1]); Theta
-```
-
-```
-## [1] 1.265625
-```
-
----
-## Odds Ratio
-
-
-```r
-Theta = (ctable[2,1]*ctable[1,2])/(ctable[2,2]*ctable[1,1]); Theta
-```
-
-```
-## [1] 1.265625
-```
-
-.bold[Interpretación]: las odds de que un hombre tenga affair son 1,27 veces mayores que las de una mujer, es decir, 27% más altas. 
-
-Notice that:
-
-- `\(\theta \in [0,\infty+]\)`
-
---
-
-- `\(\theta=1\)` indica igualdad de odds y, por lo tanto, independencia
-
---
-
-- `\(\theta &gt; 1\)` indica que el éxito es más probable para el grupo en el numerador (hombres en este caso)
-
---
-
-- `\(\theta &lt; 1\)` indica que el éxito es más probable para el grupo en el denominador (mujeres en este caso)
-
---
-
-- Valores lejos de 1, en cualquier dirección, representan una fuerte evidencia contra independencia
-
----
-### Propiedades de la Odds Ratio
-
-1) Invirtiendo el orden de las filas o columnas obtenemos el inverso la odds ratio original.
-
-
-```
-##         everaffair
-## sex      At least once     Never
-##   female     0.2285714 0.7714286
-##   male       0.2727273 0.7272727
-```
-
-Si `\(\hat{p}_{H}\)` es la proporción de hombres que han tenido una aventura y `\(\hat{p}_{M}\)` es la proporción de mujeres que han tenido una aventura. 
-
-.pull-left[
-`\begin{align}
-  \hat{\theta}_{HM} &amp;= \frac{\hat{p}_{H}/(1 - \hat{p}_{H})}{\hat{p}_{M}/(1 - \hat{p}_{M})} \\ \\
-         &amp;= \frac{0.38}{0.30} \\ \\
-         &amp;= 1.27
-\end{align}`
-]
-
-.pull-right[
-`\begin{align}
-  \hat{\theta}_{HM} &amp;= \frac{\hat{p}_{M}/(1 - \hat{p}_{M})}{\hat{p}_{H}/(1 - \hat{p}_{H})} \\ \\
-         &amp;= \frac{0.30}{0.38} \\ \\
-         &amp;= 1/1.27 = 0.79
-\end{align}`
-]
-
-.full-width[
-Tanto `\(\theta\)` como `\(1/\theta\)` expresan el .bold[mismo grado de asociación].
-]
-
----
-### Propiedades de la Odds Ratio
-
-2) A diferencia de las otras medidas, la odds ratio no varia en función de que  variable actúa como dependiente e independiente. En otras palabras, no es necesario identificar una variable independiente para estimar correctamente `\(\theta\)`
-
---
-
-En nuestro ejemplo, tomando género como variable dependiente, donde `\(\hat{p}_{A}\)` es la probabilidad de ser hombre entre personar que han tenido un affair y `\(\hat{p}_{NA}\)` es la misma probabilidad para personas que nunca han tenido un affair, la odd-ratio de ser hombre es:
-
-.pull-left[
-
-```
-##         everaffair
-## sex      At least once     Never
-##   female     0.4800000 0.5388027
-##   male       0.5200000 0.4611973
-```
-]
-
-.pull-right[
-`\begin{align}
-  \hat{\theta} &amp;= \frac{\hat{p}_{A}/(1 - \hat{p}_{A})}{\hat{p}_{NA}/(1 - \hat{p}_{NA})} \\ \\
-         &amp;= \frac{0.52/0.48}{0.46/0.54} \\ \\
-         &amp;= \frac{1.1}{0.85} \\ \\
-         &amp;= 1.27
-\end{align}`
-]
-
----
-### Propiedades de la Odds Ratio
-
-3) La Odds Ratio es .bold[margins-free]: la odds ratio de una tabla de contingencia no se ven alteradas por el "escalamiento" (multiplicación por una constante) de filas o columnas.  
-
---
-
-.pull-top[
-.pull-left[
-.bold[Movilidad educacional 1980]
-
-```
-##          Hij@:NU Hij@:U
-## Padre:NU     160     20
-## Padres:U      20     20
-```
-]
-.pull-right[
-.bold[Movilidad educacional 2020]
-
-```
-##          Hij@:NU Hij@:U
-## Padre:NU     160     80
-## Padres:U      20     80
-```
-]
-]
-
---
-
-&lt;br&gt;
-
-.pull-bottom[
-.pull-left[
-- El .bold[13%] de los hijos padres sin estudios universitarios obtenía un grado universitario
-]
-.pull-right[
-- El .bold[33%] de los hijos padres sin estudios universitarios obtiene un grado universitario
-]
-]
+## Varianza
+Por ejemplo, si `\(Y\)` es una variable que resulta de tirar un dado "justo", ¿cuál es la varianza de `\(Y\)`?
 
 &lt;br&gt;
 --
 
-- .bold[Diferencia de proporciones]: 0.33 - 0.13 = 0.2
-- .bold[Riesgo relativo]: 0.33/0.13 = 2.5
-
---
-
-.full-width[
-.bold[Radio Duna:] _"En Chile practicamente se ha triplicado la movilidad educacional en los últimos 30 años, y aún así esta gente reclama..."_
-]
-
---
-.bold[Correcto?]
+`\begin{align}
+\mathbb{Var}(Y) &amp;= \sum_{i} \bigg( y_{i} - \mathbb{E}(Y) \bigg)^{2} \times f(y_{i})   \\ \\
+     &amp;=  (1 - 3.5)^{2} \times  \frac{1}{6} + (2-3.5)^{2} \times \frac{1}{6} + \dots + (6-3.5)^{2} \times \frac{1}{6}  \\ \\
+     &amp;= 2.91
+\end{align}`
 
 
-&lt;style type="text/css"&gt;
-.pull-right ~ * { clear: unset; }
-.pull-right + * { clear: both; }
-&lt;/style&gt;
 ---
-### Propiedades de la Odds Ratio
+## Varianza, algunas propiedades útiles  
 
-
-.bold[una verdad parcial:] el resultado refleja un .bold[cambio en la distribución marginal] de educación de los hijos, no un cambio en la asociación de las variables. 
---
- Concretamente, se cuaduplicó la cantidad de gente que termina la universidad, independiente de su origen. 
-
-.pull-top[
-
-.pull-left[
-.bold[Movilidad educacional 1980]
-
-```
-##          Hij@:NU Hij@:U
-## Padre:NU     160     20
-## Padres:U      20     20
-```
-]
-.pull-right[
-.bold[Movilidad educacional 2020]
-
-```
-##          Hij@:NU Hij@:U
-## Padre:NU     160     80
-## Padres:U      20     80
-```
-]
-
-]
 
 &lt;br&gt;
 --
 
-.pull-bottom[
+1) La varianza de una constante es cero.
 
-.full-width[La odds ratio es "inmune a cambios" en la distribución marginal de las variables, capturando sólo la asociación neta entre ellas ("margin-free association")] 
+`$$\mathbb{Var}(c)=0$$`
 
-.pull-left[
-`\(\hat{\theta}_{1980} =  \frac{160 \cdot 20}{20 \cdot 20} = 8\)`
-]
-.pull-right[
-`\(\hat{\theta}_{2020} =  \frac{160 \cdot 80}{20 \cdot 80} = \frac{160 \cdot (4 \cdot 20)}{20 \cdot (4 \cdot 20)} = 8\)`
-]
-]
- 
+&lt;br&gt;
+--
+
+2) Si `\(X\)` es una variable aleatoria y `\(c\)` una constante, entonces 
+
+
+`$$\mathbb{Var}(X + c)= \mathbb{Var}(X)$$`
+
+&lt;br&gt;
+--
+3) Si `\(X\)` es una variable aleatoria y `\(c\)` una constante, entonces 
+&lt;br&gt;
+
+`$$\mathbb{Var}(c X)= c^{2} \mathbb{Var}(X)$$`
+
+&lt;br&gt;
+--
+
+4) Si `\(X\)` e `\(Y\)` son dos variables aleatorias .bold[independientes], entonces
+
+
+`$$\mathbb{Var}(X \pm Y) =  \mathbb{Var}(X) + \mathbb{Var}(Y)$$`
+
+
+
 ---
-### Log Odds Ratio
+## Varianza, ejemplo  
 
-Como sabemos, `\(\theta \in [0,\infty+)\)`. Esto crea un problema tanto para la .bold[interpretación] como para la .bold[inferencia estadística]. Por ejemplo:
+Por ejemplo, supongamos que `\(X_{i}\)` es la variable que resulta de tirar un dado "justo". Participamos de un concurso que consiste en tirar el mismo dado 10 veces. El premio (G) es $ `\(1000\)` de base, más el resultado de cada dado `\(i\)` multiplicado por 100.
+--
 
-- Supongamos que la odds ratio (hombres a mujeres) de tener un affair es `\(\theta = 20\)`.
-- Por ende, la odds ratio (mujeres a hombres) de tener un affair es `\(\theta^{*} = 1/ \theta = 0.05\)`. 
-- Ambos resultados indican el .bold[mismo nivel de asociación], pero uno parece mucho más grande que el otro.
+ ¿Cuánto es la desviación estándar del premio?
 
 --
 
-Transformando `\(\theta\)` a escala logarítmica permite mapear  `\([0,\infty+) \to (-\infty,\infty+)\)`, creando una medida de asociación  simétrica. 
-
-`\begin{align}
-  \theta &amp;=  \frac{1}{\theta^{*}}  \quad \text{entonces} \\ \\
-  \log(\theta) &amp;= -1 \cdot \log(\theta^{*})
-\end{align}`
-
---
-En nuestro ejemplo:
-.pull-left[
-
-```r
-log(20)
-```
-
-```
-## [1] 2.995732
-```
+.center[
+![](class_6_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
 ]
 
-.pull-right[
-
-```r
-log(0.05)
-```
-
-```
-## [1] -2.995732
-```
-]
 
 ---
-### Log Odds Ratio
+## Varianza, ejemplo  
 
-.pull-left[
--  `\(\log(\theta) \in (\infty-,\infty+)\)` 
+Por ejemplo, supongamos que `\(X_{i}\)` es la variable que resulta de tirar un dado "justo". Participamos de un concurso que consiste en tirar el mismo dado 10 veces. El premio (G) es $ `\(1000\)` de base, más el resultado de cada dado `\(i\)` multiplicado por 100. ¿Cuánto es la desviación estándar del premio?
 
-- `\(\theta=0\)` indica igualdad de odds y, por lo tanto, independencia
+&lt;br&gt;
+--
 
-- `\(\log(\theta) &gt; 0\)` indica que el éxito es más probable para el grupo en el numerador
+`$$G = 1000 + \sum^{n=10}_{i=1} X_{i} \times 100 \quad \text{ por tanto,}$$`
 
-- `\(\log(\theta) &lt; 0\)` indica que el éxito es más probable para el grupo en el denominador
+--
 
-- `\(\lvert \log(\theta) \rvert\)` indica la fuerza de la asociación entre las variables
+`$$\mathbb{Var}(G) = \mathbb{Var}(1000 + \sum^{n=10}_{i=1} X_{i} \times 100)$$`
 
-- Valores lejos de 0, en cualquier dirección, representan fuerte evidencia contra independencia
+--
+
+`$$\mathbb{Var}(G) = \mathbb{Var}(1000) + 100^{2} \times \sum^{n=10}_{i=1}\mathbb{Var}(X_{i})$$`
+
+--
+
+$$\mathbb{Var}(G) =  0 +  100^{2} \times 10 \times 29167 = \$291,670$$ 
+
+
+&lt;br&gt;
+--
+
+$$\sigma_{G} = \sqrt{0 + 100 \times 100 \times 291670} = \$ 539.88$$
+
+---
+## Resumen
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+.center[
+
+|   Momento         | Notación parámetro teórico/poblacional | Intuición                    |
+|-------------------|----------------------------------------|------------------------------|
+| **Valor Esperado**| `\(\mathbb{E}(X) = \mu\)`                           | Punto de equilibrio o centro |
+| **Varianza**      | `\(\mathbb{Var}(X) = \sigma^2\)`                    | Dispersión en torno al centro|
 
 ]
 
-.pull-right[
-![](class_6_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
-]
+
+
+--
+&lt;br&gt;
+
+.bold[Ejemplo:]
+
+`$$X \sim \text{Normal}(\mu,\sigma)$$`
+
+La variable aleatoria `\(X\)` sigue una distribución Normal con valor esperado `\(\mu\)` y desviación estándard `\(\sigma\)`.
+
 
 ---
 class: inverse, center, middle
 
-## Inferencia para Medidas de Asociación
-
----
-class: middle
-## Inferencia para medidas de Asociación: cuidado!
-
-.pull-left[![pvalues1](pvalue_nature.png)]
-
-
-.pull-right[![pvalues2](pvalue.png)]
-
----
-## Inferencia para medidas de Asociación
-
-O, sobre como podemos saber si nuestros resultados no son, o no, producidos por el mero azar.
-
---
-
-- Para responder esta pregunta debemos conocer la .bold[sampling distribution] de nuestro estimador, especialmente su _variabilidad_.
-
-- Los parámetros que "generan" los datos no varían pero nuestra estimaciones si: de muestra en muestra.
-
---
-
-&lt;br&gt;
-
-.bold[Caso canónico] es el _promedio muestral_, para el cual sabemos que: `\(\bar{X} \sim \text{Normal}(\mu,\frac{\sigma}{\sqrt{n}})\)`
- - La desviación estándar del .bold[estimador] (en este caso, `\(\frac{\sigma}{\sqrt{n}}\)` ) es lo que denominamos .bold[error estándar (SE)].
-
---
-
- - Por qué? Si `\(x_1, \dots, x_n\)` son _iid_, entonces:
-`\begin{align}
-\mathbb{Var}\big(\bar{X}\big) &amp;= \mathbb{Var}\Big(\frac{x_{i} + ... + x_{n}}{n}\Big) = \frac{1}{n^2} \Big(\mathbb{Var}(x_{i}) + ... + \mathbb{Var}(x_{n})\Big) \\
- &amp;= \frac{1}{n^2}( \sigma^2 + ... + \sigma^2 ) = \frac{n\sigma^2}{n^2} = \frac{\sigma^2}{n} 
-\end{align}`
-
+#Estandarización
+##(puntaje Z)
 
 
 ---
-### Inferencia para Diferencia de proporciones
+## Puntaje Z
 
-Como recordarán de clases anteriores, asintóticamente, la "sampling distribution" de una proporción es:
-
-`$$\hat{p} \sim \text{Normal}(\mu,\sigma) \quad \quad \text{ donde }\mu = p \quad \text{ y }\quad \sigma^2 = p(1-p)/n$$`
-
---
-
-Por tanto, la "sampling distribution" de la diferencia entre dos proporciones _independientes_,  `\(\hat{\delta} = \hat{p}_{1} - \hat{p}_{2}\)`, es:
-
-
-`$$\text{Normal}\Big(\mu_{1} = p_{1}, \sigma_{1} = \sqrt{p_{1}(1-p_{1})/n_{1}}\Big) - \text{Normal}\Big(\mu_{2} = p_{2},  \sigma_{2} = \sqrt{p_{2}(1-p_{2})/n_{2}}\Big)$$`
---
-
-dado que para variables independiente X e Y: 
-  - `\(\mathbb{E}(X - Y)  = E(X) -  E(Y)\)` y `\(\mathbb{Var}(X - Y)  = \mathbb{Var}(X) + \mathbb{Var}(Y)\)`
-
---
-
-  - `\(\text{Normal}() \pm \text{Normal}() \sim \text{Normal}()\)`,  entonces:
-
---
-
-.content-box-blue[
-`$$\hat{p}_{1} - \hat{p}_{2} \sim \text{Normal}\Big(\mu_{\delta} = p_{1} - p_{2}, \sigma_{\delta} = \sqrt{p_{1}(1-p_{1})/n_{1} + p_{2}(1-p_{2})/n_{2}}\Big)$$`
-]
-
----
-### Inferencia para Diferencia de proporciones
-
-.bold[Intervalo de confianza]
-Podemos usar este resultado para construir un intervalo de confianza para `\(\hat{\delta} = \hat{p_{1}} - \hat{p_{2}}\)`, al (1 - `\(\alpha\)`)% de confianza. Para un nivel de significación estadística de `\(\alpha=0.05\)`,
-
-`\begin{align}
-  95\% \text{ CI}_{\hat{\delta}} &amp;= \hat{\delta} \pm 2 \times SE \\ \\
-          &amp;= (\hat{p_{1}} - \hat{p_{2}}) \pm 2  \sqrt{p_{1}(1-p_{1})/n_{1} + p_{2}(1-p_{2})/n_{2}}
-\end{align}`
-
-&lt;br&gt;
-.bold[Nota importante]: cuando no conocemos los _verdaderos_ parámetros reemplazamos por sus valores estimados  (en este caso, `\(\hat{p_{1}}\)` y `\(\hat{p_{2}}\)` en vez de `\(p_{1}\)` y `\(p_{2}\)`).
-
-
----
-### Inferencia para Diferencia de proporciones
-
-`$$95\% \text{ CI}_{\hat{\delta}} = (\hat{p_{1}} - \hat{p_{2}}) \pm 2  \sqrt{p_{1}(1-p_{1})/n_{1} + p_{2}(1-p_{2})/n_{2}}$$`
-
-En nuestro ejemplo,
-
-.pull-left[
-
-```r
-print(ctable)
-```
-
-```
-##         everaffair
-## sex      At least once Never
-##   female            72   243
-##   male              78   208
-```
-]
-
-.pull-right[
-
-```r
-n1 = sum(ctable[2,])
-n2 = sum(ctable[1,])
-p1_hat = ctable[2,1]/n1
-p2_hat = ctable[1,1]/n2
-```
-]
-
-
-
-```r
-delta_hat = p1_hat - p2_hat
-se = sqrt((p1_hat*(1 - p1_hat))/n1 +  (p2_hat*(1 - p2_hat))/n2)
-ci95_delta= c(ll=(delta_hat - 2*se), ul=(delta_hat + 2*se)); print(ci95_delta)
-```
-
---
-
-.pull-left[
-Nuestro 95% CI:
-
-```
-##          ll          ul 
-## -0.02664777  0.11495946
-```
-]
-
-.pull-right[
-Versión automática con `prop.test()` en `R`:
-
-```
-## [1] -0.02523043  0.11354212
-```
-]
-
-&lt;style type="text/css"&gt;
-.pull-right ~ * { clear: unset; }
-.pull-right + * { clear: both; }
-&lt;/style&gt;
-
-
----
-### Inferencia para Diferencia de proporciones
-
-.bold[Test de hipótesis]
-
---
-
-1) ¿Cuál es la distribución de `\(\hat{p}_{1} - \hat{p}_{2}\)` si la hipótesis nula es verdadera?
-  - `\(H_{0}: \tilde{\delta} = \hat{p}_{1} - \hat{p}_{2}=0\)` 
-
---
-
-.content-box-blue[
-`$$\tilde{\delta} =  \hat{p}_{1} - \hat{p}_{2} \sim \text{Normal}\Big(\mu_{\delta} = 0, \sigma_{\delta} = \sqrt{p(1-p)(1/n_{1}+1/n_{2})}\Big)$$`
-]
-
-
-- Típicamente `\(p\)` se reemplaza por el promedio ponderado de `\(\hat{p_{1}}\)` y `\(\hat{p_{2}}\)`  
 
 &lt;br&gt;
 --
 
-2) Calcular .bold[p-value] (1 colas)
-
-
-.content-box-blue[
-`$$\mathbb{P}(\delta  &gt; \hat{\delta} \mid H_{0})$$`
-]
-
-&lt;style type="text/css"&gt;
-.pull-right ~ * { clear: unset; }
-.pull-right + * { clear: both; }
-&lt;/style&gt;
-
----
-### Inferencia para Diferencia de proporciones
-
-.bold[Test de hipótesis]
-
-1) ¿Cuál es la distribución de `\(\hat{p}_{1} - \hat{p}_{2}\)` si la hipótesis nula es verdadera?
-  - `\(H_{0}: \tilde{\delta} = \hat{p}_{1} - \hat{p}_{2}=0\)` 
-
-
-.content-box-blue[
-`$$\tilde{\delta} =  \hat{p}_{1} - \hat{p}_{2} \sim \text{Normal}\Big(\mu_{\delta} = 0, \sigma_{\delta} = \sqrt{p(1-p)(1/n_{1}+1/n_{2})}\Big)$$`
-]
-
-
-- Típicamente `\(p\)` se reemplaza por el promedio ponderado de `\(\hat{p_{1}}\)` y `\(\hat{p_{2}}\)`  
+Sea `\(X\)` es una variable aleatorial, tal que:
 
 &lt;br&gt;
 
-2) Calcular .bold[p-value] (1 colas)
-
-
-.content-box-blue[
-`$$\mathbb{P}(\delta  &gt; \hat{\delta} \mid H_{0}): \mathbb{P}(\text{Normal}(\mu_{\delta} = 0, \sigma_{\delta} = \sqrt{p(1-p)(1/n_{1}+1/n_{2})}) &gt; \hat{\delta} )$$`
-]
-
----
-
-### Inferencia para Diferencia de proporciones
-
-.bold[Test de hipótesis]
-
-
-.pull-left[
-
-
-```r
-p_null = p1_hat*(n1/(n1+n2)) + p2_hat*(n2/(n1+n2))
-se_null = sqrt(p_null*(1 - p_null)*(1/n1 + 1/n2))
-```
-
-
-```r
-1 - pnorm(delta_hat,mean=0,sd=se_null)
-```
-
-```
-## [1] 0.1057971
-```
-]
-
-
-.pull-right[
-![](class_6_files/figure-html/unnamed-chunk-26-1.png)&lt;!-- --&gt;
-]
-
-.bold[p-value] (1 cola):
-
-`$$\mathbb{P}( \delta \geq 0.044 \mid H_{0})  = 0.106$$`
-
-
----
-### Inferencia para la Odds Ratio
-
-- Cual es la .bold[sampling distribucion] de `\(\hat{\theta}\)`? 
-
---
-
-  - Si para un proporción sabemos que `\(\hat{p} \sim \text{Normal}(\mu,\sigma) \quad \quad \text{ donde }\mu = p \quad \text{ y }\quad \sigma^2 = p(1-p)/n\)`
+  - `\(\mathbb{E}(X) = \mu\)` 
   
+  - `\(\mathbb{Var}(X) = \sigma^2\)`. Equivalentemente, `\(\sqrt{\mathbb{Var}(X)} = \sigma\)`  
+
 
 &lt;br&gt;
-La sampling distribution de `\(\hat{\theta}\)` debe ser ...
-
 --
 
+El puntaje Z de dicha variable se define como:
+
+&lt;br&gt;
+
+
+`\begin{align}
+    Z &amp;= \frac{X - \mathbb{E}(X)}{\sqrt{\mathbb{Var}(X)}} \\  \\
+    &amp;= \frac{X - \mu}{\sigma}
+\end{align}`
+
+
+---
+## Valor esperado de Z
+
+El valor esperado de una variable Z es 0:
+
+&lt;br&gt;
+
+$$
+`\begin{aligned}
+    \mathbb{E}(Z) &amp;= \mathbb{E}\left(\frac{X - \mu}{\sigma}\right) \\ \\
+    &amp;= \frac{1}{\sigma} \mathbb{E}(X - \mu) \\ \\
+    &amp;= \frac{1}{\sigma} ( \mathbb{E}(X) - \mathbb{E}(\mu) )  \\ \\
+    &amp;= \frac{\mu - \mu}{\sigma}  = 0
+\end{aligned}`
+$$
+
+--
+&lt;br&gt;
+.bold[Des-centrar una variable:] cada valor individual `\(x\)` se desplaza por la misma cantidad, `\(-\mu\)` .
+
+---
+## Varianza de Z
+
+
+La varianza (y desviación standard) de una variable Z es 1:
+
+&lt;br&gt;
+
+
+`\begin{aligned}
+\mathbb{Var}(Z) &amp;= \mathbb{Var}\left(\frac{X - \mu}{\sigma}\right) \\ \\
+                &amp;= \frac{1}{\sigma^2} \mathbb{Var}(X - \mu) \\ \\
+                &amp;= \frac{1}{\sigma^2} ( \mathbb{Var}(X) -  \mathbb{Var}(\mu) ) \\ \\
+                &amp;= \frac{\sigma^2 - 0}{\sigma^2} = 1
+\end{aligned}`
+
+--
+&lt;br&gt;
+.bold[Re-escalamiento de una variable:] cada valor individual `\(x\)` se escala por `\(\frac{1}{\sigma}\)`
+
+---
+## Propiedades variable en pje. Z
+
+&lt;br&gt;
 
 .pull-left[
-`$$\hat{\theta} = \frac{\hat{p}_{1}/(1 - \hat{p}_{1})}{\hat{p}_{2}/(1 - \hat{p}_{2})}  \sim \frac{\frac{\text{Normal}(\mu_{1},\sigma_{1})}{1 - \text{Normal}(\mu_{1},\sigma_{1})}}{\frac{\text{Normal}(\mu_{2},\sigma_{2})}{1 - \text{Normal}(\mu_{2},\sigma_{2})}}$$`  
-]
 
---
-.pull-right[
-![meme](meme.png)
-
-Complicado ...
-]
-
-
-
-  
-  
----
-### Inferencia para la Odds Ratio
-
-- Más conveniente hacer inferencia sobre `\(\log \hat{\theta}\)`
-
-- Usando la definición de `\(\hat{\theta}\)` como cross-product, obtenemos:
-
-
-  `$$\log \hat{\theta} = \log \frac{n_{11}n_{22}}{n_{12}n_{21}} = \log n_{11} + \log n_{22} - \log n_{12} - \log n_{21}$$`
+- .bold[Sin unidad:] Toda variable en puntaje Z tiene la misma media y la misma desviación estándar. Útil para comparar valores que provienen de distintas distribuciones ("estandarizar").
 
 &lt;br&gt;
---
 
-Importante resultado teórico: la sampling distribution de `\(\log \hat{\theta}\)` es _asintóticamente_ normal:
-
-`$$\log(\hat{\theta}) \sim \text{Normal}(\mu,\sigma)$$`
-con parámetros _estimados_ por:
-
- - `\(\hat{\mu} = \log \hat{\theta}\)` 
- 
- - `\(\hat{\sigma} = \sqrt{ \frac{1}{n_{11}} + \frac{1}{n_{12}} + \frac{1}{n_{21}} + \frac{1}{n_{22}}}\)`
-
----
-### Inferencia para la Odds Ratio
-
-#### Intervalo de confianza para log Odds ratio
-
-Podemos usar este resultado para construir un intervalo de confianza para el log Odds ratio, al (1 - `\(\alpha\)`) de confianza. Para un nivel de significación estadística de `\(\alpha=0.05\)`,
-
-`\begin{align}
-  95\% \text{ CI}_{\log \hat{\theta}} &amp;= \log \hat{\theta} \pm 2 \cdot SE \\ \\
-          &amp;= \log \hat{\theta} \pm 2 \cdot \sqrt{ \frac{1}{n_{11}} + \frac{1}{n_{12}} + \frac{1}{n_{21}} + \frac{1}{n_{22}} } 
-\end{align}`
-
---
-
-#### Intervalo de confianza para Odds ratio
-
-Podemos obtener un intervalo de confianza estándar para la Odds ratio, al (1 - `\(\alpha\)`) de confianza tomando el exponencial del intervalo obtenido para `\(\log \hat{\theta}\)`.
-
-`\begin{align}
-  95\% \text{ CI}_{\hat{\theta}} &amp;= e^{\log \hat{\theta} \pm 2 \cdot \sqrt{ \frac{1}{n_{11}} + \frac{1}{n_{12}} + \frac{1}{n_{21}} + \frac{1}{n_{22}}} } 
-\end{align}`
-
----
-### Inferencia para la Odds Ratio
-#### Ilustración via Monte Carlo simulation
-
-Escenario:
-- Conocemos las verdaderas probabilidad `\(Y \mid X\)` (ambas binarias).
-- A partir de ellas calculamos  `\(\theta\)` y `\(\log \theta\)`.
-- Estos son los parámetros "verdaderos", no estimaciones. 
+- .bold[Preserva forma:] des-centramiento y re-escalamiento no cambia la forma de la distribución original.
+]
 
 
 
+.pull-right[
 
-```
-##      [,1] [,2]
-## [1,]  0.6  0.4
-## [2,]  0.4  0.6
-```
-
-```
-## [1] "Theta= 2.25; log Theta = 0.81"
-```
-
+![](class_6_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+]
 
 ---
 class: inverse, center, middle
 
-.huge[
-**Hasta la próxima clase. Gracias!**
+#Ejemplo
+##Altura en dos "poblaciones"
+
+
+---
+## Altura en dos "poblaciones"
+
+&lt;br&gt;
+&lt;br&gt;
+
+.center[
+  ![faroe](faroe.png)
 ]
+
+
+---
+## Altura en dos "poblaciones"
+
+.bold[Proceso "generador" de datos]
+
+Supongamo que acuerdo a determinantes genèticos, la altura de un hombre de Islas Faroe y la de una mujer de Filipinas pueden describirse respectivamente como una .bold[realización de las siguientes variables aleatorias:
+
+.pull-left[
+
+&lt;br&gt;
+
+-  Hombre Islas Faroe
+
+`$$A_{HIF}\sim \text{Normal}(\mu = 179,\sigma = 5)$$`
+
+
+&lt;br&gt;
+
+- Mujer Filipinas
+
+`$$A_{MF}\sim \text{Normal}(\mu = 150,\sigma = 7)$$`
+
+
+
+]
+
+.pull-right[
+
+![](class_6_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+]
+
+
+---
+## Altura en dos "poblaciones"
+
+
+```r
+mu_faroe=179; sigma_faroe=5
+mu_filip=150; sigma_filip=7
+
+hombres_faroe &lt;- rnorm(n=53000, mean = mu_faroe, sd=sigma_faroe)
+mujeres_filip &lt;- rnorm(n=113000000, mean = mu_filip, sd=sigma_filip)
+
+hombres_faroe_z &lt;- (hombres_faroe - mu_faroe)/sigma_faroe
+mujeres_filip_z &lt;- (mujeres_filip - mu_filip)/sigma_filip
+
+datos_faroe &lt;- data_frame(altura = hombres_faroe, z=hombres_faroe_z)
+datos_filip &lt;- data_frame(altura = mujeres_filip, z=mujeres_filip_z)
+```
+
+--
+
+.pull-left[
+
+```
+## # A tibble: 6 × 2
+##   altura       z
+##    &lt;dbl&gt;   &lt;dbl&gt;
+## 1   168. -2.25  
+## 2   177. -0.368 
+## 3   177. -0.426 
+## 4   179.  0.0688
+## 5   179. -0.0152
+## 6   182.  0.625
+```
+]
+
+
+.pull-right[
+
+```
+## # A tibble: 6 × 2
+##   altura       z
+##    &lt;dbl&gt;   &lt;dbl&gt;
+## 1   150. -0.0561
+## 2   153.  0.419 
+## 3   153.  0.492 
+## 4   147. -0.403 
+## 5   150.  0.0699
+## 6   130. -2.87
+```
+]
+
+
+
+---
+## Altura en dos "poblaciones"
+
+
+.pull-left[
+
+.bold[Población simulada]
+
+
+
+|    País     | Género |   Población   | Altura Promedio (cms) |
+|:-----------:|:------:|:-------------:|:---------------------:|
+| Islas Feroe |   H    |    ~53,000    |        179.02         |
+|  Filipinas  |   M    | ~113 millones |        150.00         |
+
+
+&lt;br&gt;
+
+.bold[Población existente]
+
+
+| País          |   Género   |   Población   | Altura Promedio (cms) |
+|:-------------:|:----------:|:-------------:|:--------------------:|
+| Islas Feroe   |     H      |   ~53,000    |         179.00     |
+| Filipinas     |     M      | ~113 millones |         150.00          |
+
+
+]
+
+
+
+.pull-right[
+&lt;br&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+&lt;br&gt;&lt;br&gt;
+
+![faroe](faroe.png)
+]
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
 
 &lt;br&gt;
 Mauricio Bucca &lt;br&gt;

@@ -4,7 +4,7 @@
     <title>Probabilidad e Inferencia Estadística</title>
     <meta charset="utf-8" />
     <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
-    <script src="libs/header-attrs-2.24/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.23/header-attrs.js"></script>
     <link rel="stylesheet" href="gentle-r.css" type="text/css" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -86,7 +86,7 @@ Por ejemplo, supongamos que `\(Y\)` es una variable que resulta de tirar un dado
 
 
 
-&lt;iframe src="https://mebucca.shinyapps.io/class_5/" style="width: 100%; height:100%;"&gt;&lt;/iframe&gt;
+&lt;iframe src="https://mebucca.shinyapps.io/class_5/" style="width: 120%; height:100%;"&gt;&lt;/iframe&gt;
 
 ---
 ## Valor Esperado, algunas propiedades útiles  
@@ -102,11 +102,18 @@ Por ejemplo, supongamos que `\(Y\)` es una variable que resulta de tirar un dado
 
 2) Si `\(X\)` es una variable aleatoria y `\(c\)` una constante, entonces 
 
+`$$\mathbb{E}(X + c)= \mathbb{E}(X) + c$$`
+
+&lt;br&gt;
+--
+
+3) Si `\(X\)` es una variable aleatoria y `\(c\)` una constante, entonces 
+
 `$$\mathbb{E}(c X)= c \mathbb{E}(X)$$`
 &lt;br&gt;
 --
 
-3) Si `\(X\)` e `\(Y\)` son variables aleatorias (sin importar si `\(X \bot Y\)` o no), entonces
+4) Si `\(X\)` e `\(Y\)` son variables aleatorias (sin importar si `\(X \bot Y\)` o no), entonces
 
 `$$\mathbb{E}(X + Y)=  \mathbb{E}(X) + \mathbb{E}(Y)$$`
 
