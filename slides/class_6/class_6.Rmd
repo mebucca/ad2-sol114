@@ -205,13 +205,13 @@ $$\mathbb{Var}(G) = \mathbb{Var}(1000) + 100^{2} \times \sum^{n=10}_{i=1}\mathbb
 
 --
 
-$$\mathbb{Var}(G) =  0 +  100^{2} \times 10 \times 29167 = \$291,670$$ 
+$$\mathbb{Var}(G) =  0 +  100^{2} \times 10 \times 2.9167 = \$291,670$$ 
 
 
 <br>
 --
 
-$$\sigma_{G} = \sqrt{0 + 100 \times 100 \times 291670} = \$ 539.88$$
+$$\sigma_{G} = \sqrt{0 + 100 \times 100 \times 2.91670} = \$ 539.88$$
 
 ---
 ## Resumen
