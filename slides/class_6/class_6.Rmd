@@ -458,7 +458,7 @@ class: inverse, center, middle
 
 .bold[Proceso "generador" de datos]
 
-Supongamo que acuerdo a determinantes genèticos, la altura de un hombre de Islas Faroe y la de una mujer de Filipinas pueden describirse respectivamente como una .bold[realización de las siguientes variables aleatorias:
+Supongamo que acuerdo a determinantes genèticos, la altura de un hombre de Islas Faroe y la de una mujer de Filipinas pueden describirse respectivamente como una .bold[realización] de las siguientes variables aleatorias:
 
 .pull-left[
 
