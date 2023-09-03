@@ -1,0 +1,42 @@
+---
+title: "SOL114 Análisis de Datos II"
+author: "Tarea corta 3"
+format: pdf
+editor: visual
+---
+
+## Problema 1
+
+Una estudiante recién egresada de 4to medio debe decidir entre estudiar sociología ($S$) o ingeniería eléctrica ($I$).
+Para ello sólo tomará en consideración el salario asociado a carrera -- $S_{S}$ y $S_{I}$, respectivamente.
+
+Luego de recopilar información la estudiante concluye que una persona con educación superior incompleta (independiente de la carrera a la que ingresa) gana $\$500.000$ mensules.
+Además, el retorno de egresar de sociología es de $\$1.000.000$ adicional al mes, mientra que el retorno mensual de egresar de ingeniería eléctrica es de $\$2.000.000$.
+La estudiante resume esta información en las siguientes ecuaciones.
+
+$$S_S = \$500.000 + \$1.000.000 \times G_S$$
+
+$$S_I = \$500.000 + \$2.000.000 \times G_I$$
+
+donde $G_S$ y $G_I$ son variables aleatorias Bernoulli que corresponden a los eventos de egresar de sociología e ingeniería, respectivamente.
+La estudiante además averigua que la probabilidad de egreso de un estudiante de sociología es de 0.75 y la de un estudiante de ingeniería eléctrica es de 0.45.
+
+Con esta información la estudiante decidirá ingresar a la carrera con mayor salario esperado.
+
+**Calcula el salario esperado de cada carrera e indica cual será la decisión de la estudiante.**
+
+## Problema 2
+
+La estudiante tiene una preferencia marcada por la sociología y no por la ingeniería.
+La estudiante, por tanto, razona que como socióloga probablemente reciba un salario por sobre el promedio de un sociólogo, mientras que su salario como ingeniera será menor que el salario promedio de un ingeniero eléctrico.
+
+Decide que Ingresará a sociología sólo si ubicándose 1 desviación estándar por sobre el salario medio de un sociólogo ganara más que si recibiera un sueldo que la posicione 1 desviación estándar por debajo del salario medio de un ingeniero.
+De lo contrario, estudiará ingeniería eléctrica.
+
+**Calcula el la desviación estándar del salario de carrera e indica cual será la decisión de la estudiante con este segundo criterio.**
+
+## Problema 3:
+
+Si la estudiante ganara un sueldo mensual de $\$1,300,000$
+
+**¿A cuántas desviaciones estándar se encontraría respecto del salario promedio de un sociólogo y de un ingeniero eléctrico, respectivamente?**
