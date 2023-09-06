@@ -55,7 +55,6 @@ Certainly, aligning a table helps in making it more readable. Below is your tabl
 | 29  | Nov | Repaso                                     |                                                                                                                        |            |
 
 
-I hope this helps to make your table easier to read!
 ---
 
 ## Ayudantías
