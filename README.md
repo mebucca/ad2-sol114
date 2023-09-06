@@ -23,7 +23,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 
 Certainly, aligning a table helps in making it more readable. Below is your table with better alignment:
 
-```markdown
+
 | Día | Mes | Contenido                                 | Presentación                                                                                                            | Cap. QSS   |
 |-----|-----|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|------------|
 |  7  | Ago | Introducción                              | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_0/class_0#1) [`[Code]`](slides/class_0/class_0.Rmd)        |            |
@@ -53,7 +53,7 @@ Certainly, aligning a table helps in making it more readable. Below is your tabl
 | 22  | Nov | Tablas de contingencia                     |                                                                                                                        |            |
 | 27  | Nov | Test de χ²                                 |                                                                                                                        |            |
 | 29  | Nov | Repaso                                     |                                                                                                                        |            |
-```
+
 
 I hope this helps to make your table easier to read!
 ---
