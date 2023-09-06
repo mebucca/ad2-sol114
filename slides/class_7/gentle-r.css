@@ -324,5 +324,5 @@ strong {
 .gray { color: gray; }
 .grey { color: gray; }
 
-.bold { font-weight: bolder;   color: var(--header-color);}
-.bolder { font-weight: bolder; color: var(--link-color);}
+.bold { font-weight: bolder;   color: var(--link-color);}
+.bolder { font-weight: bolder; color: var(--header-color);}
