@@ -21,36 +21,41 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 ## Calendario
 
 
-| Día | Mes | Contenido                                        | Presentación                                                                                                              | Cap. QSS |
-|-----|-----|--------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------|----------|
-| 7   | Ago | Introducción                                     | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_0/class_0#1) [`[Code]`](slides/class_0/class_0.Rmd)       |          |
-| 9   | Ago | Fundamento de probabilidades                     |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_1/class_1#1) [`[Code]`](slides/class_1/class_1.Rmd)      |   6.1    |
-| 16  | Ago | Probabilidad condicional, teorema de Bayes      |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_2/class_2#1) [`[Code]`](slides/class_2/class_2.Rmd)                                                                                                                        |   6.2  |
-| 21  | Ago | Variables aleatorias y distribuciones discretas |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_3/class_3#1) [`[Code]`](slides/class_3/class_3.Rmd)                                                                                                                         |   6.3.1 - 6.3.3       |
-| 30  | Ago | Distribuciones continuas                         |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_4/class_4#1) [`[Code]`](slides/class_4/class_4.Rmd)                                                                                                                       |    6.3.4      |
-| 30  | Ago | Momentos: valor esperado                         |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_5/class_5#1) [`[Code]`](slides/class_5/class_5.Rmd)                                                                                                                       |    6.3.5      |
-| 4   | Sep | Momentos: varianza, Puntaje-Z                          |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_6/class_6#1) [`[Code]`](slides/class_6/class_6.Rmd)                                                                                                                         |    6.3.5      |
-| 6   | Sep |                                |                                                                                                                          |          |
-| 11  | Sep | Distribución Normal Standard    |    [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_7/class_7#1) [`[Code]`](slides/class_7/class_7.Rmd)                                                                                                                       |          |
-| 13  | Sep | Estimación puntual                               |                                                                                                                          |          |
-| 20  | Sep | Distribución muestral, sesgo y varianza         |                                                                                                                          |          |
-| 25  | Sep | Bootstrap                                        |                                                                                                                          |          |
-| 27  | Sep | Estimación de intervalos                         |                                                                                                                          |          |
-| 11  | Oct | Error tipo I y II                                |                                                                                                                          |          |
-| 16  | Oct | Significación Estadística                        |                                                                                                                          |          |
-| 18  | Oct | Distribución nula                                |                                                                                                                          |          |
-| 23  | Oct | Valores p                                        |                                                                                                                          |          |
-| 25  | Oct | Test de hipótesis                                |                                                                                                                          |          |
-| 30  | Oct | Test de media/proporciones en 1 muestra          |                                                                                                                          |          |
-| 6   | Nov | Test de media/proporciones en 2 muestras         |                                                                                                                          |          |
-| 8   | Nov | Asociación variables continuas                   |                                                                                                                          |          |
-| 13  | Nov | Correlación de Pearson                           |                                                                                                                          |          |
-| 15  | Nov | ANOVA                                            |                                                                                                                          |          |
-| 20  | Nov | ANOVA                                            |                                                                                                                          |          |
-| 22  | Nov | Tablas de contingencia                           |                                                                                                                          |          |
-| 27  | Nov | Test de χ²                                       |                                                                                                                          |          |
-| 29  | Nov | Repaso                                           |                                                                                                                          |          |
+Certainly, aligning a table helps in making it more readable. Below is your table with better alignment:
 
+```markdown
+| Día | Mes | Contenido                                 | Presentación                                                                                                            | Cap. QSS   |
+|-----|-----|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|------------|
+|  7  | Ago | Introducción                              | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_0/class_0#1) [`[Code]`](slides/class_0/class_0.Rmd)        |            |
+|  9  | Ago | Fundamento de probabilidades              | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_1/class_1#1) [`[Code]`](slides/class_1/class_1.Rmd)        | 6.1        |
+| 16  | Ago | Probabilidad condicional, teorema de Bayes | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_2/class_2#1) [`[Code]`](slides/class_2/class_2.Rmd)       | 6.2        |
+| 21  | Ago | Variables aleatorias y distrib. discretas  | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_3/class_3#1) [`[Code]`](slides/class_3/class_3.Rmd)       | 6.3.1-6.3.3|
+| 30  | Ago | Distribuciones continuas                   | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_4/class_4#1) [`[Code]`](slides/class_4/class_4.Rmd)       | 6.3.4      |
+| 30  | Ago | Momentos: valor esperado                   | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_5/class_5#1) [`[Code]`](slides/class_5/class_5.Rmd)       | 6.3.5      |
+|  4  | Sep | Momentos: varianza, Puntaje-Z              | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_6/class_6#1) [`[Code]`](slides/class_6/class_6.Rmd)       | 6.3.5      |
+|  6  | Sep | Distribución Normal Standard               | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_7/class_7#1) [`[Code]`](slides/class_7/class_7.Rmd)       |            |
+| 11  | Sep | Teoremas Asintóticos                       |                                                                                                                        |            |
+| 13  | Sep | Estimación puntual                         |                                                                                                                        |            |
+| 20  | Sep | Distribución muestral, sesgo y varianza    |                                                                                                                        |            |
+| 25  | Sep | Bootstrap                                  |                                                                                                                        |            |
+| 27  | Sep | Estimación de intervalos                   |                                                                                                                        |            |
+| 11  | Oct | Error tipo I y II                          |                                                                                                                        |            |
+| 16  | Oct | Significación Estadística                  |                                                                                                                        |            |
+| 18  | Oct | Distribución nula                          |                                                                                                                        |            |
+| 23  | Oct | Valores p                                  |                                                                                                                        |            |
+| 25  | Oct | Test de hipótesis                          |                                                                                                                        |            |
+| 30  | Oct | Test de media/proporciones en 1 muestra    |                                                                                                                        |            |
+|  6  | Nov | Test de media/proporciones en 2 muestras   |                                                                                                                        |            |
+|  8  | Nov | Asociación variables continuas             |                                                                                                                        |            |
+| 13  | Nov | Correlación de Pearson                     |                                                                                                                        |            |
+| 15  | Nov | ANOVA                                      |                                                                                                                        |            |
+| 20  | Nov | ANOVA                                      |                                                                                                                        |            |
+| 22  | Nov | Tablas de contingencia                     |                                                                                                                        |            |
+| 27  | Nov | Test de χ²                                 |                                                                                                                        |            |
+| 29  | Nov | Repaso                                     |                                                                                                                        |            |
+```
+
+I hope this helps to make your table easier to read!
 ---
 
 ## Ayudantías
