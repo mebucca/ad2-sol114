@@ -4,7 +4,7 @@
     <title>Probabilidad e Inferencia Estadística</title>
     <meta charset="utf-8" />
     <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
-    <script src="libs/header-attrs-2.24/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.23/header-attrs.js"></script>
     <link rel="stylesheet" href="gentle-r.css" type="text/css" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 # Probabilidad e Inferencia Estadística
 ]
 .subtitle[
-## #7: Teoremas Asintóticos
+## #7: Distribución Normal Standard
 ]
 .author[
 ### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
@@ -383,96 +383,170 @@ Si sabemos que `\(Z \sim \text{Normal}(0,1)\)`, ¿Cual es la distrubución de `\
 &lt;br&gt;
 --
 
-`$$X \sim \mu + \sigma \times \text{Normal}(0,1)$$`
-
 
 `$$X \sim  \text{Normal}(\mu,\sigma)$$`
 
 
 ---
-### De Normal Standard a Normal con parámetros arbitrarios
+### Función de probabilidad acumulada
 
-.bold[Función de probabilidad acumulada]
-
-
-- Si conocemos `\(\mathbb{P}(Z \leq z) = \Phi(z)\)`
-
-- y `\(X = \mu + \sigma Z\)`
-
---
-
-.content-box-secondary[
-.bolder[Entonces:]
-`$$\mathbb{P}(X \leq \mu + \sigma z ) = F_{X}( \mu + \sigma z) = \Phi(z)$$`
-]
-
---
 
 .pull-left[
-.bold[Ejemplo:]
 
-- Sabemos que `\(\Phi(2) \approx 0.98\)`
+`\(X \leq x \implies  \frac{X-\mu}{\sigma} \leq  \frac{x-\mu}{\sigma}\)`
 
-- Si `\(X \sim  \text{Normal}(\mu=5,\sigma=3)\)`
+`\(X \leq x \implies  Z \leq  z\)`
 
-- `\(F_{X}(\underbrace{5 + 3 \times 2}_{11}) = \Phi(2) \approx 0.98\)`
+&lt;br&gt;
+
+Dado que `\(x = \mu + \sigma z \quad\)` entonces:
 
 
+`$$\mathbb{P}(X \leq  x ) = \mathbb{P}(X \leq \mu + \sigma z ) =  \mathbb{P}(Z \leq z)$$`
+&lt;br&gt;
+- Sabemos que `\(\mathbb{P}(Z \leq z) = \Phi(z)\)`
+
+.content-box-secondary[
+.bolder[Por tanto:]
+`$$F_{X}(x) = F_{X}( \mu + \sigma z) = \Phi(z)$$`
 ]
 
+]
 
 .pull-right[
 
-```r
-pnorm(2, mean=0, sd=1)
-```
-
-```
-## [1] 0.9772499
-```
-
-```r
-pnorm(5 + 3*2, mean=5, sd=3)
-```
-
-```
-## [1] 0.9772499
-```
+![](class_7_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
 
 ]
 
 ---
-### De Normal Standard a Normal con parámetros arbitrarios
+###  Función de probabilidad acumulada
 
-.bold[Función de probabilidad acumulada inversa]
 
-- Si conocemos `\(\Phi^{-1}(p)=z\)`
+.bold[Ejemplo:]
 
-- y `\(X = \mu + \sigma Z\)`
+- Si `\(X \sim  \text{Normal}(\mu=5,\sigma=3)\)`
+
+- ¿Cuanta es la probabilidad de obtener un valor `\(X \leq 3.48\)`?
 
 --
+
+.bold[Respuesta:]
+
+
+- Sabemos que: `\(F_{X}(x) = F_{X}( \mu + \sigma z) = \Phi(z)\)`, por tanto,
+
+`$$F_{X}(3.48) = \Phi\Big( (3.48 - 5)/3 \Big) = 0.306$$`
+
+
+--
+
+.pull-left[
+.bolder[En `R`]:
+
+```r
+z  &lt;- (3.48 - 5)/3
+p &lt;- pnorm(z); print(p)
+```
+
+```
+## [1] 0.3061944
+```
+
+]
+
+--
+
+.pull-right[
+&lt;br&gt;
+.bolder[Chequeamos el resultado]
+
+```r
+pnorm(3.48, mean=5, sd=3)
+```
+
+```
+## [1] 0.3061944
+```
+]
+
+---
+###  Función de probabilidad acumulada inversa
+
+
+.pull-left[- Si `\(\Phi^{-1}(p)=z\)` y
+
+- `\(x = \mu + \sigma z\)`
+
+- `\(x = \mu + \sigma \Phi^{-1}(p)\)`
+
+
+&lt;br&gt;
 
 .content-box-secondary[
 .bolder[Entonces:]
 `$$F^{-1}_{X}(p) = \mu + \sigma \Phi^{-1}(p)$$`
 ]
 
---
+]
 
-.pull-left[
-.bold[Ejemplo:]
+.pull-right[
 
-- Si `\(X \sim  \text{Normal}(\mu=5,\sigma=3)\)`
-
-- ¿Bajo que valor de `\(X\)` se acumula el 30% de la prob.?
-
-- `\(F^{-1}_{X}(0.3) = 5 + 3 \Phi^{-1}(0.3) = 3.48\)`
-
+![](class_7_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
 
 ]
 
 
+
+
+---
+###  Función de probabilidad acumulada inversa
+
+
+.bold[Ejemplo:]
+
+- Si `\(X \sim  \text{Normal}(\mu=5,\sigma=3)\)`
+
+- ¿Bajo que valor de `\(X\)` se acumula el 30% de la densidad probabilística?
+
+--
+
+.bold[Respuesta:]
+
+
+- Sabemos que: `\(F^{-1}_{X}(p) = \mu + \sigma \Phi^{-1}(p)\)`, por tanto,
+
+`$$F^{-1}_{X}(0.3) = 5 + 3 \Phi^{-1}(0.3) = 3.43$$`
+
+
+--
+
+.pull-left[
+.bolder[En `R`]:
+
+```r
+z_30 &lt;- qnorm(0.3); print(z_30)
+```
+
+```
+## [1] -0.5244005
+```
+
+```r
+x_30 &lt;- 5 + 3*z_30; print(x_30 )
+```
+
+```
+## [1] 3.426798
+```
+
+]
+
+--
+
 .pull-right[
+&lt;br&gt;
+.bolder[Chequeamos el resultado]
 
 ```r
 qnorm(p=0.3, mean=5, sd=3)
@@ -481,110 +555,95 @@ qnorm(p=0.3, mean=5, sd=3)
 ```
 ## [1] 3.426798
 ```
-
-```r
-5 + 3*qnorm(p=0.3, mean=0, sd=1)
-```
-
-```
-## [1] 3.426798
-```
-
 ]
 
----
-class: inverse, center, middle
-
-
-##Hasta la próxima clase. Gracias!
-
-
-&lt;br&gt;
-Mauricio Bucca &lt;br&gt;
-https://mebucca.github.io/ &lt;br&gt;
-github.com/mebucca
 
 ---
-### De Normal Standard a Normal con parámetros arbitrarios
+### Contrucción de Intervalos
 
-.bold[Contrucción de Intervalos]
-
-Si `\(X \sim  \text{Normal}(\mu=5,\sigma=3)\)`, ¿Cuales son los valores `\(-x\)` y `\(x\)` tales que `\(\mathbb{P}( -x \leq X \leq x) = p\)` ?
-
-
+Si `\(X \sim  \text{Normal}(\mu,\sigma)\)`, ¿Cuales son los valores `\(x_1\)` y `\(x_2\)` tales que `\(\mathbb{P}( x_1 \leq X \leq x_2) = p\)` ?
 
 .pull-left[
-![](class_7_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+![](class_7_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
 ]
-
 
 .pull-right[
 
+.bold[Despejando por] `\(x_1\)`:
 
-- `\(\frac\)`
-`$$F_{X}(-x) = p/2$$`
+`\begin{align}
+F_{X}(x_1) &amp;= (1-p)/2  \quad \text{ aplicando función inversa (quantiles)} \\
+          x_1 &amp;= F^{-1}_{X}\Big( (1-p)/2 \Big)
+\end{align}`
 
-`\(-x = F_{X}(-x)\)`
-
-$$q/2=  F_{X}(-x) $$
-$$F-1_{X}(q/2)= -x $$
-
-`$$F_{X}(x) =  1-q/2$$`
-`$$x =  F-1(1-q/2) = u + asdawsd$$`
-
-
-]
-
-
-
----
-class: inverse, center, middle
-
-#Ley de los Grandes Números
-## Convergencia en Probabilidad
-
-
----
-## Ley de los Grandes Números
-
-.bold[Set-up:]
-
-- `\(X\)` es una variable aleatoria con primer momento `\(\mathbb{E}(X) = \mu\)`
-
-- `\(\{X_{1},X_{2}, \dots, X_{n}\}\)` es una muestra de tamaño `\(n\)` donde:
-  
-    - Cada `\(X_{i}\)` sigue la misma distribución que la variable aleatoria `\(X\)`
-    - Las `\(X_{i}\)`'s son independientes entre si
-    
-- La media aritmética en .bold[esta muestra] es  `\(\bar{X} = \frac{1}{n}\sum_{i=1}^{n}X_i\)`
-
+Dado que  `\(F^{-1}_{X}(q) =  \mu + \sigma \Phi^{-1}(q)\)`, concluimos que 
+`$$x_1 = F^{-1}_{X}\Big( (1-p)/2 \Big) = \mu + \sigma \Phi^{-1}\Big((1-p)/2\Big)$$`
 
 &lt;br&gt;
---
+.bold[En este caso]:
 
-.bold[Ley de los Grandes Números] establece que, a medida que el tamaño de una muestra aleatoria crece, la media aritmética de la muestra se acerca al promedio teórico/poblacional: `\(\bar{X} \to \mathbb{E}(X)\)`.
+```r
+z_5 &lt;- qnorm( 0.1/2 ); print(z_5) 
+```
 
-Matemáticamente,
+```
+## [1] -1.644854
+```
 
-.content-box-secondary[
-`$$\lim_{n \to \infty}\mathbb{P}\left( \left| \bar{X} - \mu \right| \geq \epsilon \right) = 0$$`
+```r
+x1 &lt;- 5 + 3*z_5; print(x1)
+```
+
+```
+## [1] 0.06543912
+```
+
 ]
 
 
 ---
-## Ley de los Grandes Números
+### Contrucción de Intervalos
 
-.bold[Ilustración]
+Si `\(X \sim  \text{Normal}(\mu,\sigma)\)`, ¿Cuales son los valores `\(x_1\)` y `\(x_2\)` tales que `\(\mathbb{P}( x_1 \leq X \leq x_2) = p\)` ?
 
-.center[
-![](class_7_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+.pull-left[
+![](class_7_files/figure-html/unnamed-chunk-25-1.png)&lt;!-- --&gt;
 ]
 
----  
-class: inverse, center, middle
+.pull-right[
 
-#Teorema del Límite Central
-## Convergencia en Distribución
+.bold[Despejando por] `\(x_2\)`:
+
+`\begin{align}
+1 - F_{X}(x_2) &amp;=  (1-p)/2 \\
+          1 - (1-p)/2  &amp;= F_{X}(x_2)  \\
+          F^{-1}_{X}\Big( 1-  (1-p)/2 \Big) &amp;= x_2
+\end{align}`
+
+Dado que  `\(F^{-1}_{X}(q) =  \mu + \sigma \Phi^{-1}(q)\)`, concluimos que 
+`$$x_2 = F^{-1}_{X}\Big( 1- (1-p)/2 \Big) = \mu + \sigma \Phi^{-1}\Big( 1- (1-p)/2 \Big)$$`
+
+
+.bold[En este caso]:
+
+```r
+z_95 &lt;- qnorm( 1 - 0.1/2 ); print(z) 
+```
+
+```
+## [1] -0.5066667
+```
+
+```r
+x2 &lt;- 5 + 3*z_95; print(x2)
+```
+
+```
+## [1] 9.934561
+```
+
+]
+
 
 ---
 class: inverse, center, middle
