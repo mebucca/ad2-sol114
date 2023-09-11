@@ -1,0 +1,182 @@
+---
+title: "SOL114 Análisis de Datos II"
+author: "Tarea corta 1, respuestas"
+format: pdf
+editor: visual
+---
+
+```{r, echo=FALSE}
+# Escribir install.packages("tinytex") en la consola para instalar "tinytex"
+# Carga "tinytex" para compilar PDF
+library("tinytex")
+```
+
+Ponderación: 6% de la nota final del curso.
+
+<br>
+
+*Notar*:
+
+-   $e$ corresponde al exponente natural
+
+<br>
+
+**1) Funciones**
+
+Grafica la función en el intervalo $[-3, 3]$:
+$$f(x) = x^2 - 4$$
+
+**Solución usando ggplot2:**
+
+```{r, warning=FALSE, message=FALSE}
+library(ggplot2)
+
+# Define the function
+f <- function(x) x^2 - 4
+
+# Generate the data
+data <- data.frame(x = seq(-3, 3, by = 0.1))
+data$y <- f(data$x)
+
+# Create the plot using a cool color palette
+ggplot(data, aes(x, y)) + 
+  geom_line(aes(color = y), size = 1) +
+  scale_color_viridis_c() +
+  labs(title = "f(x) = x^2 - 4", x = "x", y = "f(x)") +
+  theme_minimal() +
+  theme(legend.position= "none")
+
+```
+
+
+**2) Funciones Exponenciales**
+
+a) Resuelve por x:
+$$2^x = 16$$
+
+**Solución:**
+$$2^x = 2^4$$
+Igualando los exponentes,
+$$x = 4$$
+
+b) Simplifica:
+$$(3^2) \times (3^3)$$
+
+**Solución:**
+Usando la regla de exponentes $a^m \times a^n = a^{m+n}$,
+$$(3^2) \times (3^3) = 3^{2+3} = 3^5 = 243$$
+
+c) Resuelve por x:
+$$3^{x} = 27$$
+
+**Solución:**
+$$3^x = 3^3$$
+Igualando los exponentes,
+$$x = 3$$
+
+d) Simplifica usando propiedades de exponentes:
+$$e^{x} \times e^{2x}$$
+**Solución:**
+$$e^{x+2x} = e^{3x}$$
+
+e) Resuelve por x:
+$$e^{2x} = e^{x+3}$$
+**Solución:**
+Igualando los exponentes, $2x = x + 3$
+$$x = 3$$
+
+f) Simplifica:
+$$\frac{e^{5x}}{e^{3x}}$$
+**Solución:**
+Usando la regla de exponentes $a^m / a^n = a^{m-n}$,
+$$\frac{e^{5x}}{e^{3x}} = e^{5x-3x} = e^{2x}$$
+
+
+**3) Sumatoria**
+
+Calcula la sumatoria de $(a \cdot i^2 + b)$  desde $i = 1$ hasta $4$ .
+
+**Solución:**
+
+Usando las propiedades de las sumatorias, podemos escribirlo de la siguiente manera:
+
+$$\Sigma_{i=1}^{4} (a \cdot i^2 + b) = \Sigma_{i=1}^{4} a \cdot i^2 + \Sigma_{i=1}^{4} b$$
+
+Ahora calculemos cada sumatoria por separado:
+
+1. $\Sigma_{i=1}^{4} a \cdot i^2$:
+$$= a \cdot \Sigma_{i=1}^{4} i^2$$
+
+La suma $\Sigma_{i=1}^{4} i^2$ es la suma de los cuadrados de los números desde $1$ hasta $4$, que ya hemos calculado anteriormente y es igual a $30$. Por lo tanto:
+$$a \cdot \Sigma_{i=1}^{4} i^2 = a \cdot 30 = 30a$$
+
+2. $\Sigma_{i=1}^{4} b$:
+$$= b + b + b + b = 4b$$
+
+Ahora podemos juntar ambas sumatorias:
+$$\Sigma_{i=1}^{4} (a \cdot i^2 + b) = 30a + 4b$$
+
+Por lo tanto, la sumatoria desde $i = 1$ hasta $4$ de $(a \cdot i^2 + b)$ es igual a $30a + 4b$.
+
+
+**4) Derivadas**
+
+a) ¿Qué representa una derivada?
+
+**Respuesta:** Una derivada representa la tasa de cambio instantáneo de una función en relación a una de sus variables.
+
+b) Encuentra la derivada de:
+$$f(x) = 3x^3 - 4x^2 + 5$$
+
+**Solución:**
+Usando las reglas básicas de derivación:
+$$f'(x) = 9x^2 - 8x$$
+
+
+**5) Aproximación Discreta de Integrales**
+
+Aproxima la integral de $f(x) = x^2$ desde 0 hasta 2 usando 4 rectángulos. Específicamente: divide el intervalo de desde 0 hasta 2 en 4 subintervalos de igual tamaño y luego evaluar la función en el punto más a la izquierda de cada subintervalo. Ejemplo, para el intervalo entre 0.5 y 1 usa valor $ x = 0.5$, y por tanto $ f(x) = f(0.5)$.
+
+**Solución:**
+
+Ancho de cada rectángulo, $\Delta x = \frac{2-0}{4} = 0.5$.
+
+Alturas (usando punto extremo izquierdo):
+$$f(0), f(0.5), f(1), f(1.5) = 0, 0.25, 1, 2.25$$
+
+Área $\approx $ suma de las áreas de los 4 rectángulos:
+$$= 0.5(0) + 0.5(0.25) + 0.5(1) + 0.5(2.25)$$
+$$= 0 + 0.125 + 0.5 + 1.125$$
+$$= 1.75$$
+
+
+**6) Integral Continua**
+
+
+Evalúa la integral:
+$$\int_{0}^{2} x^2 \, dx$$
+
+
+**Solución:**
+
+Para evaluar la integral $\int_{0}^{2} x^2 \, dx$, primero debemos encontrar la antiderivada de la función $x^2$ y luego aplicar el Teorema Fundamental del Cálculo para evaluarla en los límites de integración.
+
+
+1. Encontrar la antiderivada de $x^2$:
+
+Buscamos una función $F(x)$ cuya derivada sea igual a $x^2$. La antiderivada de $x^2$ es $\frac{x^3}{3}$.
+
+2. Aplicar el Teorema Fundamental del Cálculo:
+
+El Teorema Fundamental del Cálculo establece que si $F(x)$ es la antiderivada de $f(x)$, entonces la integral definida de $f(x)$ desde $a$ hasta $b$ se puede calcular evaluando $F(x)$ en los límites $b$ y $a$ y luego tomando la diferencia:
+
+$$\int_{a}^{b} f(x) \, dx = F(b) - F(a)$$
+
+3. Evaluar la integral $\int_{0}^{2} x^2 \, dx$:
+
+Sustituimos $F(x) = \frac{x^3}{3}$ en la fórmula del Teorema Fundamental del Cálculo y evaluamos en los límites $b = 2$ y $a = 0$:
+
+$$\int_{0}^{2} x^2 \, dx = \frac{x^3}{3} \Big|_0^2 = \left(\frac{2^3}{3}\right) - \left(\frac{0^3}{3}\right) = \frac{8}{3} - 0 = \frac{8}{3}$$
+
+Por lo tanto, la integral definida $\int_{0}^{2} x^2 \, dx$ tiene un valor de $\frac{8}{3}$.
+
