@@ -93,8 +93,8 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 
 | Asignación       | Entrega        | Devolución     | Material                                                                       |
 |------------------|----------------|----------------|--------------------------------------------------------------------------------|
-| Tarea corta 1    | 9 agosto       | 16 agosto      | [`[TC1]`](homework/tc_1.pdf) [`[TC1.Rmd]`](homework/tc_1.Rmd)                  |
-| Tarea corta 2    | 16 agosto      | 23 agosto      | [`[TC2]`](homework/tc_2.pdf) [`[TC2.Rmd]`](homework/tc_2.Rmd)                  |
+| Tarea corta 1    | 9 agosto       | 16 agosto      | [`[Respuestas TC1]`](homework/tc_1_answers.pdf) [`[Respuestas TC1.Rmd]`](homework/tc_1_answers.Rmd)                  |
+| Tarea corta 2    | 16 agosto      | 23 agosto      | [`[Respuestas TC2]`](homework/tc_2_answers.pdf) [`[Respuestas TC2.Rmd]`](homework/tc_2_answers.Rmd)                  |
 | Tarea corta 3    | 4 septiembre   | 11 septiembre  | [`[TC3]`](homework/tc_3.pdf) [`[TC3.qmd]`](homework/tc_3.qmd)                  |
 | Tarea corta 4    | 25 septiembre  | 2 octubre      |                                                                                |
 | Prueba 1         | 11 octubre     |                |                                                                                |
