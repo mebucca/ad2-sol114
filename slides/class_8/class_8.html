@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
 ]
 .date[
-### 08 September, 2023
+### 12 September, 2023
 ]
 
 ---
@@ -69,7 +69,7 @@ class: inverse, center, middle
 
 
 
-.content-box-secondary[
+.content-box-primary[
 .bolder[Matemáticamente,]
 `$$\color{white}{\lim_{n \to \infty}\mathbb{P}\left( \left| \bar{X} - \mu \right| \geq \epsilon \right) = 0}$$`
 ]
@@ -223,6 +223,8 @@ class: inverse, center, middle
 ---
 ## Teorema del Límite Central
 
+&lt;br&gt;
+
 
 - `\(X\)` es una variable aleatoria con primer momento `\(\mathbb{E}(X) = \mu\)`
 
@@ -234,47 +236,115 @@ class: inverse, center, middle
 
 --
 
-###Teorema del Límite Central (parte 1)
+- .bold[¿Cual es la distribución de] `\(\bar{X}_{n}\)`?
+
+---
+##Teorema del Límite Central (parte 1)
 A medida que el tamaño de una muestra crece, la media aritmética de la muestra .bold[converge en distribución] a un distribución normal con los siguientes parámetros.
 
 
 
-.content-box-secondary[
+.content-box-primary[
 `$$\color{white}{\bar{X} \overset{d}{\to}
  \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)}$$`
 ]
 
----
-## Teorema del Límite Central
+&lt;br&gt;
+--
+Específicamente,
 
-.bold[Teorema del Límite Central (parte 1)]: `\(\bar{X} \sim \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)\)`
+- .bold[Convergencia en distribución]: A medida que `\(n\)` aumenta `\(\bar{X}\)` tiende a seguir una .bold[distribución normal], .bold[sin importar la distribución original de las variables aleatorias].
+
+- .bold[Inmediatez de la convergencia]: Si las variables originales distribuyen normal la distribución de las medias muestrales será normal, independient del tamaño de la muestra.
+
+- .bold[Variable degenerada en µ]:  A medida que `\(n \to \infty\)`, `\(\bar{X}\)` tiende a transformarse en una constante (variable "degenerada").labs(x=expression(hat(p)), y="Frecuencia")
+labs(x=expression(hat(p)), y="Frecuencia")
+
+
+
+---
+##Teorema del Límite Central (parte 1)
+
 
 &lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+.bold[Gráficamente,]
 
 ![](class_8_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
 
-- A medida que `\(n\)` aumenta `\(\bar{X}\)` tiende a seguir una .bold[distribución normal], .bold[sin importar la distribución original de las variables aleatorias].
-
-- A medida que `\(n \to \infty\)`, `\(\bar{X}\)` tiende a transformarse en una constante (variable "degenerada").
+&lt;br&gt;
 
 
 ---
-## Teorema del Límite Central
+##Teorema del Límite Central (parte 1)
 
-.bold[Teorema del Límite Central (parte 2)]: 
+.bold[¿Por qué]: `\(\bar{X} \sim \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)\)`?
+
+--
 &lt;br&gt;
+
+.img-right[
 .center[
 ![magic](https://media.tenor.com/SWKI18Zs_H8AAAAd/magic-meme.gif)
+]
 ]
 
 
 ---
-## Teorema del Límite Central
+##Teorema del Límite Central (parte 1)
 
-.bold[Teorema del Límite Central (parte 2)]: Si `\(\bar{X} \sim \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)\)`
+.bold[¿Por qué]: `\(\bar{X} \sim \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)\)`?
 
+
+Recordemos que `\(\bar{X}\)` es la suma de variables aleatorias `\(\frac{1}{n}(X_{1} + X_{2} + \dots + X_{n} )\)`
+
+--
+&lt;br&gt;
+&lt;br&gt;
 &lt;br&gt;
 
+![](class_8_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+
+
+---
+##Teorema del Límite Central (parte 2)
+
+.bold[Teorema del Límite Central (parte 1)]: Si `\(\bar{X} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)\)`, entonces
+
+.content-box-primary[
+`$$\color{white}{ \frac{\sqrt{n}(\bar{X} - \mu)}{\sigma}  \sim
+ \text{Normal}(0, 1)}$$`
+]
+
+--
+
+.bold[¿Por qué?]
+
+--
+
+.pull-left[
+`\begin{align}
+\frac{(\bar{X} - \mu)}{\frac{\sigma}{\sqrt{n}}} &amp;= \frac{n (\bar{X} - \mu)}{\sqrt{n}\sigma}  \\ 
+&amp;=\frac{  (X_{1} + X_{2} + \dots + X_{n} ) - (\mu + \mu +  \dots + \mu )}{\sqrt{n}\sigma} \\
+&amp;= \frac{1}{\sqrt{n}} \sum_{i=1}^{n}{Z_{i}} \quad \text{ donde } Z_{i} \sim \text{Normal}(0, 1)
+\end{align}`
+]
+
+--
+
+.pull-left[
+
+`\(\quad \quad \quad \quad \quad \quad \quad \quad \mathbb{E}(\sum_{i=1}^{n}{Z_{i}}) = 0, \quad \mathbb{Var}(\sum_{i=1}^{n}{Z_{i}}) = n\)`
+
+&lt;br&gt; 
+`\(\quad \quad \quad \quad \quad \quad \quad \quad \sqrt{\mathbb{Var}(\sum_{i=1}^{n}{Z_{i}})} = \sqrt{n}\)` 
+
+&lt;br&gt;
+`\(\quad \quad \quad \quad\)` Por tanto `\(\frac{1}{\sqrt{n}} \sum_{i=1}^{n}{Z_{i}} \sim \text{Normal}(0, 1)\)` 
+
+]
 
 
 ---
