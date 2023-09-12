@@ -655,9 +655,7 @@ Específicamente,
 
 - .bold[Inmediatez de la convergencia]: Si las variables originales distribuyen normal la distribución de las medias muestrales será normal, independient del tamaño de la muestra.
 
-- .bold[Variable degenerada en µ]:  A medida que $n \to \infty$, $\bar{X}$ tiende a transformarse en una constante (variable "degenerada").labs(x=expression(hat(p)), y="Frecuencia")
-labs(x=expression(hat(p)), y="Frecuencia")
-
+- .bold[Variable degenerada en µ]:  A medida que $n \to \infty$, $\bar{X}$ tiende a transformarse en una constante (variable "degenerada").
 
 
 ---
@@ -703,7 +701,7 @@ plot_n7 <- ggplot(data_n7, aes(sample_mean)) +
   xlim(2.5, 4.5) +
   ggtitle("n = 7") +
   theme_minimal() +
-  labs(x=expression(bar(X)), y="Density") + 
+  labs(x=expression(bar(X)), y="Densidad") + 
   theme(
     axis.text.y = element_text(size = 22),
     axis.text.x = element_text(size = 22),
@@ -806,11 +804,11 @@ data_n5 <- generate_sum_data(5)
 data_n10 <- generate_sum_data(10)
 
 # Create individual plots
-plot_n2 <- ggplot(data_n2, aes(sample_sum)) + 
+plot_n2 <- ggplot(data_n2, aes(x=sample_sum, y=..density..)) + 
   geom_histogram(fill = "#D15F3E", bins = 11, color = "black", alpha=0.7) +
   ggtitle("2 dados") +
   theme_minimal() +
-  labs(x="Suma 2 dados", y="Frecuencia") +
+  labs(x="Suma 2 dados", y="Densidad") +
   theme(
     axis.text.y = element_text(size = 22),
     axis.text.x = element_text(size = 22),
@@ -820,7 +818,7 @@ plot_n2 <- ggplot(data_n2, aes(sample_sum)) +
     legend.position = "none" # Turn off legend
   )
 
-plot_n5 <- ggplot(data_n5, aes(sample_sum)) + 
+plot_n5 <- ggplot(data_n5, aes(x=sample_sum, y=..density..)) + 
   geom_histogram(fill = "#D15F3E", bins = 25, color = "black", alpha=0.7) +
   ggtitle("5 dados") +
   theme_minimal() +
@@ -834,7 +832,7 @@ plot_n5 <- ggplot(data_n5, aes(sample_sum)) +
     legend.position = "none" # Turn off legend
   )
 
-plot_n10 <- ggplot(data_n10, aes(sample_sum)) + 
+plot_n10 <- ggplot(data_n10, aes(x=sample_sum, y=..density..)) + 
   geom_histogram(fill = "#D15F3E", bins = 50, color = "black", alpha=0.7) +
   ggtitle("10 dados") +
   theme_minimal() +
