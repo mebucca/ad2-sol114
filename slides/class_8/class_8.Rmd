@@ -70,7 +70,7 @@ class: inverse, center, middle
 
 
 
-.content-box-secondary[
+.content-box-primary[
 .bolder[Matemáticamente,]
 $$\color{white}{\lim_{n \to \infty}\mathbb{P}\left( \left| \bar{X} - \mu \right| \geq \epsilon \right) = 0}$$
 ]
@@ -304,8 +304,8 @@ for (sample_size in sample_sizes) {
 
 # Plotting
 ggplot() +
-  geom_line(data = averages_data, aes(x = sample_size, y = 3.5, color = "a"), size = 1) +   
-  geom_line(data = averages_data, aes(x = sample_size, y = avg_sample_mean, color = "b"), size = 1, alpha=0.5) +
+  geom_line(data = averages_data, aes(x = sample_size, y = 3.5, color = "a"), size = 1.5) +   
+  geom_line(data = averages_data, aes(x = sample_size, y = avg_sample_mean, color = "b"), size = 1.5, alpha=0.5) +
   scale_color_manual(
     values = c("a" = "#3A7CA5", "b" = "#D15F3E"), 
     labels = c(expression(E(bar(X)[n]) == mu), expression(paste("Promedio de ",bar(X)[n],"'s"))
@@ -621,6 +621,8 @@ class: inverse, center, middle
 ---
 ## Teorema del Límite Central
 
+<br>
+
 
 - $X$ es una variable aleatoria con primer momento $\mathbb{E}(X) = \mu$
 
@@ -632,22 +634,41 @@ class: inverse, center, middle
 
 --
 
-###Teorema del Límite Central (parte 1)
+- .bold[¿Cual es la distribución de] $\bar{X}_{n}$?
+
+---
+##Teorema del Límite Central (parte 1)
 A medida que el tamaño de una muestra crece, la media aritmética de la muestra .bold[converge en distribución] a un distribución normal con los siguientes parámetros.
 
 
 
-.content-box-secondary[
+.content-box-primary[
 $$\color{white}{\bar{X} \overset{d}{\to}
  \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)}$$
 ]
 
----
-## Teorema del Límite Central
+<br>
+--
+Específicamente,
 
-.bold[Teorema del Límite Central (parte 1)]: $\bar{X} \sim \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)$
+- .bold[Convergencia en distribución]: A medida que $n$ aumenta $\bar{X}$ tiende a seguir una .bold[distribución normal], .bold[sin importar la distribución original de las variables aleatorias].
+
+- .bold[Inmediatez de la convergencia]: Si las variables originales distribuyen normal la distribución de las medias muestrales será normal, independient del tamaño de la muestra.
+
+- .bold[Variable degenerada en µ]:  A medida que $n \to \infty$, $\bar{X}$ tiende a transformarse en una constante (variable "degenerada").labs(x=expression(hat(p)), y="Frecuencia")
+labs(x=expression(hat(p)), y="Frecuencia")
+
+
+
+---
+##Teorema del Límite Central (parte 1)
+
 
 <br>
+<br>
+<br>
+
+.bold[Gráficamente,]
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=4, fig.width=15}
 
@@ -656,6 +677,7 @@ library(ggplot2)
 library(gridExtra)
 
 set.seed(1919)
+
 # Function to generate data for the plot
 generate_data <- function(n, n_sims=1000) {
   sample_means <- numeric(n_sims)
@@ -670,48 +692,40 @@ generate_data <- function(n, n_sims=1000) {
   return(data.frame(sample_mean = sample_means))
 }
 
+# Generate data for each sample size
+data_n7 <- generate_data(7)
+data_n50 <- generate_data(50)
+data_n1000 <- generate_data(1000)
+
 # Create individual plots
 plot_n7 <- ggplot(data_n7, aes(sample_mean)) + 
   geom_density(fill = "#D15F3E", alpha = 0.7) +
   xlim(2.5, 4.5) +
   ggtitle("n = 7") +
   theme_minimal() +
-  labs(x="Sample mean", y="Density") + # Added y label
+  labs(x=expression(bar(X)), y="Density") + 
   theme(
     axis.text.y = element_text(size = 22),
     axis.text.x = element_text(size = 22),
     axis.title.y = element_text(size = 24),
     axis.title.x = element_text(size = 24),
     panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
-    legend.position = c(0.95, 0.95),
-    legend.justification = c("right", "top"),
-    legend.background = element_blank(),
-    legend.box.background = element_rect(color="transparent", fill = "transparent"),
-    legend.box.margin = margin(0,0,0,0),
-    legend.title = element_blank(),
-    legend.key = element_blank() # Removes the border around the legend items
+    legend.position = "none" # Turn off legend
   )
 
-# For plot_n50 and plot_n1000, remove y-axis label by setting axis.title.y = element_blank()
 plot_n50 <- ggplot(data_n50, aes(sample_mean)) + 
   geom_density(fill = "#D15F3E", alpha = 0.7) +
   xlim(2.5, 4.5) +
   ggtitle("n = 50") +
   theme_minimal() +
-  labs(x="Sample mean") +
+  labs(x=expression(bar(X))) + # Updated here
   theme(
     axis.text.y = element_text(size = 22),
     axis.text.x = element_text(size = 22),
-    axis.title.y = element_blank(), # Remove y label
+    axis.title.y = element_blank(),
     axis.title.x = element_text(size = 24),
     panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
-    legend.position = c(0.95, 0.95),
-    legend.justification = c("right", "top"),
-    legend.background = element_blank(),
-    legend.box.background = element_rect(color="transparent", fill = "transparent"),
-    legend.box.margin = margin(0,0,0,0),
-    legend.title = element_blank(),
-    legend.key = element_blank() # Removes the border around the legend items
+    legend.position = "none" # Turn off legend
   )
 
 plot_n1000 <- ggplot(data_n1000, aes(sample_mean)) + 
@@ -719,20 +733,14 @@ plot_n1000 <- ggplot(data_n1000, aes(sample_mean)) +
   xlim(2.5, 4.5) +
   ggtitle("n = 1000") +
   theme_minimal() +
-  labs(x="Sample mean") +
+  labs(x=expression(bar(X))) + 
   theme(
     axis.text.y = element_text(size = 22),
     axis.text.x = element_text(size = 22),
-    axis.title.y = element_blank(), # Remove y label
+    axis.title.y = element_blank(),
     axis.title.x = element_text(size = 24),
     panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
-    legend.position = c(0.95, 0.95),
-    legend.justification = c("right", "top"),
-    legend.background = element_blank(),
-    legend.box.background = element_rect(color="transparent", fill = "transparent"),
-    legend.box.margin = margin(0,0,0,0),
-    legend.title = element_blank(),
-    legend.key = element_blank() # Removes the border around the legend items
+    legend.position = "none" # Turn off legend
   )
 
 # Combine the plots horizontally
@@ -740,28 +748,149 @@ grid.arrange(plot_n7, plot_n50, plot_n1000, ncol = 3)
 
 ```
 
-- A medida que $n$ aumenta $\bar{X}$ tiende a seguir una .bold[distribución normal], .bold[sin importar la distribución original de las variables aleatorias].
-
-- A medida que $n \to \infty$, $\bar{X}$ tiende a transformarse en una constante (variable "degenerada").
+<br>
 
 
 ---
-## Teorema del Límite Central
+##Teorema del Límite Central (parte 1)
 
-.bold[Teorema del Límite Central (parte 2)]: 
+.bold[¿Por qué]: $\bar{X} \sim \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)$?
+
+--
 <br>
+
+.img-right[
 .center[
 ![magic](https://media.tenor.com/SWKI18Zs_H8AAAAd/magic-meme.gif)
+]
 ]
 
 
 ---
-## Teorema del Límite Central
+##Teorema del Límite Central (parte 1)
 
-.bold[Teorema del Límite Central (parte 2)]: Si $\bar{X} \sim \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)$
+.bold[¿Por qué]: $\bar{X} \sim \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)$?
 
+
+Recordemos que $\bar{X}$ es la suma de variables aleatorias $\frac{1}{n}(X_{1} + X_{2} + \dots + X_{n} )$
+
+--
+<br>
+<br>
 <br>
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=4, fig.width=15}
+
+library(ggplot2)
+library(gridExtra)
+
+set.seed(1919)
+
+# Function to generate data for the histogram
+generate_sum_data <- function(n, n_sims=1000) {
+  sample_sums <- numeric(n_sims)
+  
+  for (i in 1:n_sims) {
+    # Roll "n" dice for "n_sims" number of times
+    sample <- sample(1:6, size = n, replace = TRUE)
+    # Store the sample sums
+    sample_sums[i] <- sum(sample)
+  }
+  
+  return(data.frame(sample_sum = sample_sums))
+}
+
+# Generate data for each sample size
+data_n2 <- generate_sum_data(2)
+data_n5 <- generate_sum_data(5)
+data_n10 <- generate_sum_data(10)
+
+# Create individual plots
+plot_n2 <- ggplot(data_n2, aes(sample_sum)) + 
+  geom_histogram(fill = "#D15F3E", bins = 11, color = "black", alpha=0.7) +
+  ggtitle("2 dados") +
+  theme_minimal() +
+  labs(x="Suma 2 dados", y="Frecuencia") +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_blank(),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
+    legend.position = "none" # Turn off legend
+  )
+
+plot_n5 <- ggplot(data_n5, aes(sample_sum)) + 
+  geom_histogram(fill = "#D15F3E", bins = 25, color = "black", alpha=0.7) +
+  ggtitle("5 dados") +
+  theme_minimal() +
+  labs(x="Suma de 5 dados") +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_blank(),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
+    legend.position = "none" # Turn off legend
+  )
+
+plot_n10 <- ggplot(data_n10, aes(sample_sum)) + 
+  geom_histogram(fill = "#D15F3E", bins = 50, color = "black", alpha=0.7) +
+  ggtitle("10 dados") +
+  theme_minimal() +
+  labs(x="Suma de 10 dados") +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_blank(),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
+    legend.position = "none" # Turn off legend
+  )
+
+# Combine the plots horizontally
+grid.arrange(plot_n2, plot_n5, plot_n10, ncol = 3)
+
+```
+
+
+---
+##Teorema del Límite Central (parte 2)
+
+.bold[Teorema del Límite Central (parte 1)]: Si $\bar{X} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)$, entonces
+
+.content-box-primary[
+$$\color{white}{ \frac{\sqrt{n}(\bar{X} - \mu)}{\sigma}  \sim
+ \text{Normal}(0, 1)}$$
+]
+
+--
+
+.bold[¿Por qué?]
+
+--
+
+.pull-left[
+\begin{align}
+\frac{(\bar{X} - \mu)}{\frac{\sigma}{\sqrt{n}}} &= \frac{n (\bar{X} - \mu)}{\sqrt{n}\sigma}  \\ 
+&=\frac{  (X_{1} + X_{2} + \dots + X_{n} ) - (\mu + \mu +  \dots + \mu )}{\sqrt{n}\sigma} \\
+&= \frac{1}{\sqrt{n}} \sum_{i=1}^{n}{Z_{i}} \quad \text{ donde } Z_{i} \sim \text{Normal}(0, 1)
+\end{align}
+]
+
+--
+
+.pull-left[
+
+$\quad \quad \quad \quad \quad \quad \quad \quad \mathbb{E}(\sum_{i=1}^{n}{Z_{i}}) = 0, \quad \mathbb{Var}(\sum_{i=1}^{n}{Z_{i}}) = n$
+
+<br> 
+$\quad \quad \quad \quad \quad \quad \quad \quad \sqrt{\mathbb{Var}(\sum_{i=1}^{n}{Z_{i}})} = \sqrt{n}$ 
+
+<br>
+$\quad \quad \quad \quad$ Por tanto $\frac{1}{\sqrt{n}} \sum_{i=1}^{n}{Z_{i}} \sim \text{Normal}(0, 1)$ 
+
+]
 
 
 ---
