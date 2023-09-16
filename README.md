@@ -108,7 +108,7 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 
 ## Recursos estudio
 
-- Problemas desde *Fundamento de probabilidades * hasta *Teoremas Asintóticos*: [`[Problemset 1]`](problemsets/ejercicios_1.pdf) 
+- Problemas desde *Fundamento de probabilidades* hasta *Teoremas Asintóticos*: [`[Problemset 1]`](problemsets/ejercicios_1.pdf) 
 
 ---
 
