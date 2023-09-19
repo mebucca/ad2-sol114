@@ -39,117 +39,137 @@ editor: visual
     Encuentra $P(X = 2)$.
 
 12. Dada una variable aleatoria discreta $X$ con la siguiente distribución de probabilidad: $P(X = 0) = 0.2$, $P(X = 1) = 0.3$, $P(X = 2) = 0.5$.
-    Calcula $E(X)$.
+    Calcula $\text{E}(X)$.
 
-13. Usando el problema anterior, calcula $Var(X)$.
+13. Usando el problema anterior, calcula $\text{Var}(X)$.
 
-14. Sea $Y$ el número de caras obtenidas al lanzar 4 monedas.
-    Encuentra la distribución de probabilidad de $Y$.
+14. Sean $X$ y $Y$ dos variables aleatorias con las siguientes propiedades:
 
-15. Un juego consiste en sacar una carta de un mazo.
+    \- $E[X] = 3$, $\text{Var}(X) = 4$
+
+    \- $E[Y] = 5$, $\text{Var}(Y) = 9$
+
+    Encuentra el valor esperado y la varianza para $Z = 2X - 3Y$.
+
+15. Supongamos que ($X_1, X_2, \ldots, X_5$) son variables aleatorias independientes e idénticamente distribuidas con ( \$E\[X_i\] = 4\$ ) y ( \$\text{Var}(X_i) = 6\$ ).
+
+Encuentra el valor esperado y la varianza de (\$Y = \frac{1}{5} \sum\_{i=1}\^{5} X_i\$), el promedio aritmético de las cinco variables aleatorias.
+
+16. Supongamos que tienes 3 variables aleatorias independientes: $A$, $B$ y $C$, donde:
+
+  - $E[A] = 3$, $\text{Var}(A) = 9$
+
+  - $E[B] = 5$, $\text{Var}(B) = 4$
+
+  - $E[C] = 2$, $\text{Var}(C) = 1$
+
+Calcula el valor esperado y la varianza de $Z = \frac{A + B + C}{3}$.
+
+17. Sea $Y$ el número de caras obtenidas al lanzar 4 monedas. Encuentra la distribución de probabilidad de $Y$.
+
+18. Un juego consiste en sacar una carta de un mazo.
     Si sacas un as, ganas \$50; un rey, ganas \$30; y cualquier otra carta, pierdes \$10.
     Calcula las ganancias esperadas de este juego.
 
-16. Si $Y$ es la suma de dinero ganado después de 10 extracciones, encuentra el valor esperado de $Y$.
+19. Si $Y$ es la suma de dinero ganado después de 10 extracciones, encuentra el valor esperado de $Y$.
 
-17. Una librería vende un libro de texto particular con un 30% de descuento con una probabilidad de 0.6 y un 20% de descuento con una probabilidad de 0.4.
+20. Una librería vende un libro de texto particular con un 30% de descuento con una probabilidad de 0.6 y un 20% de descuento con una probabilidad de 0.4.
     Si el precio original del libro es de \$50, encuentra el precio esperado después del descuento.
 
-18. Una empresa fabrica bombillas, el 98% de las cuales duran más de 1000 horas y el 2% falla antes de eso.
-    Si se prueban 50 bombillas, ¿cuál es la probabilidad de que al menos 3 fallen antes de las 1000 horas?
+21. Una empresa fabrica bombillas, el 98% de las cuales duran más de 1000 horas y el 2% falla antes de eso. Si se prueban 50 bombillas, ¿cuál es la probabilidad de que al menos 3 fallen antes de las 1000 horas?
 
-19. Se sacan tres cartas de un mazo de 52 cartas sin reemplazo.
+22. Se sacan tres cartas de un mazo de 52 cartas sin reemplazo.
     ¿Cuál es la probabilidad de que las tres sean ases?
 
-20. En una competición de tiro al blanco, un jugador tiene una probabilidad del 80% de acertar el blanco en cada intento.
+23. En una competición de tiro al blanco, un jugador tiene una probabilidad del 80% de acertar el blanco en cada intento.
     Si dispara 10 veces, ¿cuál es la probabilidad de que acierte al menos 7 veces pero no más de 9?
 
-21. Un estudio reveló que el 25% de los estudiantes bebe café, el 50% bebe té y el 25% bebe ambos.
+24. Un estudio reveló que el 25% de los estudiantes bebe café, el 50% bebe té y el 25% bebe ambos.
     Si se selecciona un estudiante al azar, ¿cuál es la probabilidad de que beba solo té?
 
-22. En una ciudad, el 60% de las personas usa el transporte público y el 20% camina al trabajo.
+25. En una ciudad, el 60% de las personas usa el transporte público y el 20% camina al trabajo.
     Dado que una persona camina al trabajo, hay un 5% de probabilidad de que también use el transporte público en algún punto.
     Si una persona fue vista en el transporte público, ¿cuál es la probabilidad de que también camine al trabajo?
 
-23. Un boxeador tiene un 70% de probabilidad de ganar un combate si ha tenido más de 6 meses de entrenamiento, y un 40% si ha tenido menos.
+26. Un boxeador tiene un 70% de probabilidad de ganar un combate si ha tenido más de 6 meses de entrenamiento, y un 40% si ha tenido menos.
     Si el 80% de los boxeadores han tenido más de 6 meses de entrenamiento, y se selecciona un boxeador ganador al azar, ¿cuál es la probabilidad de que haya tenido más de 6 meses de entrenamiento?
 
-24. Dada una distribución binomial con $n = 10$ y $p = 0.5$, calcula la probabilidad de que $X \leq 3$.
+27. Dada una distribución binomial con $n = 10$ y $p = 0.5$, calcula la probabilidad de que $X \leq 3$.
 
-25. Usando la función de masa de probabilidad binomial, si se lanza una moneda 6 veces, ¿cuál es la probabilidad de obtener 2 caras y 4 sellos?
+28. Usando la función de masa de probabilidad binomial, si se lanza una moneda 6 veces, ¿cuál es la probabilidad de obtener 2 caras y 4 sellos?
 
-26. Si $V$ es una variable aleatoria normal estándar, ¿cuál es la probabilidad $P(-2.33 < V < 0)$?
+29. Si $V$ es una variable aleatoria normal estándar, ¿cuál es la probabilidad $P(-2.33 < V < 0)$?
 
-27. En un juego de lanzamiento de dardos, si un jugador acierta el blanco central con una probabilidad de 0.1 y el anillo exterior con una probabilidad de 0.3, ¿cuál es la varianza de los puntos obtenidos después de 10 lanzamientos, considerando que el blanco central da 5 puntos y el anillo exterior da 2 puntos?
+30. En un juego de lanzamiento de dardos, si un jugador acierta el blanco central con una probabilidad de 0.1 y el anillo exterior con una probabilidad de 0.3, ¿cuál es la varianza de los puntos obtenidos después de 10 lanzamientos, considerando que el blanco central da 5 puntos y el anillo exterior da 2 puntos?
 
-28. Si $U$ es una variable aleatoria que sigue una distribución uniforme entre 10 y 20, encuentra $E(U)$ y $Var(U)$.
+31. Si $U$ es una variable aleatoria que sigue una distribución uniforme entre 10 y 20, encuentra $\text{E}(U)$ y $\text{Var}(U)$.
 
-29. En una caja hay 3 focos defectuosos y 7 buenos.
+32. En una caja hay 3 focos defectuosos y 7 buenos.
     Si se sacan 3 focos al azar, ¿cuál es la probabilidad de que al menos uno sea defectuoso?
 
-30. Si $Z$ es una variable aleatoria normal estándar, encuentra el valor de $z$ tal que $P(Z > z) = 0.05$.
+33. Si $Z$ es una variable aleatoria normal estándar, encuentra el valor de $z$ tal que $P(Z > z) = 0.05$.
 
-31. ¿Cuál es el valor de $z$ en una distribución $Z$ tal que $P(Z < z) = 0.10$?
+34. ¿Cuál es el valor de $z$ en una distribución $Z$ tal que $P(Z < z) = 0.10$?
 
-32. Si $Z$ es una variable aleatoria normal estándar, ¿cuál es la probabilidad $P(-1.96 < Z < 1.96)$?
+35. Si $Z$ es una variable aleatoria normal estándar, ¿cuál es la probabilidad $P(-1.96 < Z < 1.96)$?
 
-33. Explica el concepto de una función de densidad de probabilidad (pdf).
+36. Explica el concepto de una función de densidad de probabilidad (pdf).
 
-34. Las alturas de un grupo de atletas están distribuidas uniformemente entre 5.5 y 6.5 pies.
+37. Las alturas de un grupo de atletas están distribuidas uniformemente entre 5.5 y 6.5 pies.
     ¿Cuál es la probabilidad de que un atleta seleccionado al azar mida más de 6 pies?
 
-35. Un pueblo tiene personas que podrían contraer una enfermedad de un vecino enfermo.
+38. Un pueblo tiene personas que podrían contraer una enfermedad de un vecino enfermo.
     Cada día, cada persona tiene un 5% de probabilidad de enfermarse.
     ¿Qué tipo de distribución sigue el número de personas que se enferman?
     Si tenemos 200 personas, en promedio, ¿cuántas se enfermarán en un día?
     ¿Y cuánto puede variar este número?
     Dado estas 200 personas, ¿cuál es la probabilidad de que más de 15 de ellas se enfermen en un solo día?
 
-36. Una región tiene una precipitación anual promedio que puede modelarse como una variable aleatoria continua, distribuida normalmente con una media de 1000mm y una desviación estándar de 150mm.
+39. Una región tiene una precipitación anual promedio que puede modelarse como una variable aleatoria continua, distribuida normalmente con una media de 1000mm y una desviación estándar de 150mm.
     Encuentra la probabilidad de que en un año dado, la precipitación esté entre 800mm y 1200mm.
 
-37. La altura de los hombres adultos en una cierta población se distribuye normalmente con una media de 175 cm y una desviación estándar de 7 cm.
+40. La altura de los hombres adultos en una cierta población se distribuye normalmente con una media de 175 cm y una desviación estándar de 7 cm.
     ¿Qué proporción de esta población mide más de 189 cm?
 
-38. Los resultados de un examen en una clase grande se distribuyen normalmente con una media de 70 y una desviación estándar de 10.
+41. Los resultados de un examen en una clase grande se distribuyen normalmente con una media de 70 y una desviación estándar de 10.
     Si la puntuación aprobatoria es 50, ¿qué porcentaje de estudiantes reprueba el examen?
 
-39. En un estudio sobre la relación entre horas de estudio y rendimiento académico, se descubrió que el número de horas que los estudiantes estudiaban para un examen en particular se distribuía normalmente.
+42. En un estudio sobre la relación entre horas de estudio y rendimiento académico, se descubrió que el número de horas que los estudiantes estudiaban para un examen en particular se distribuía normalmente.
     El tiempo promedio de estudio era de 5 horas con una desviación estándar de 0.75 horas.
     ¿Qué porcentaje de estudiantes estudió entre 4.25 horas y 5.75 horas para el examen?
 
-40. Un país informa que el número de inmigrantes en un año se distribuye normalmente con una media de 5,000 y una desviación estándar de 800.
+43. Un país informa que el número de inmigrantes en un año se distribuye normalmente con una media de 5,000 y una desviación estándar de 800.
     También observan que el número de emigrantes (personas que abandonan el país) también se distribuye normalmente, con una media de 3,000 y una desviación estándar de 500.
     ¿En qué proporción de años la migración neta (inmigrantes - emigrantes) es positiva en más de 1000?
 
-41. Sophie tomó un examen estandarizado y obtuvo 86 de 100.
+44. Sophie tomó un examen estandarizado y obtuvo 86 de 100.
     Los resultados del examen para dos prestigiosas instituciones académicas, Harvard y la PUC, donde Sophie está considerando postular, son los siguientes: En Harvard, los resultados del examen se distribuyen normalmente con una media de 85 y una desviación estándar de 1.
     En PUC, los resultados del examen se distribuyen normalmente con una media de 83 y una desviación estándar de 15.
     Determina la puntuación Z de Sophie para ambas instituciones.
     Basándose en estas puntuaciones Z, ¿en cuál institución está Sophie relativamente mejor posicionada con respecto a otros solicitantes?
 
-42. Supongamos que las puntuaciones de crédito de los solicitantes de préstamos en un cierto banco siguen una distribución normal con una puntuación promedio de 650 y una desviación estándar de 50.
+45. Supongamos que las puntuaciones de crédito de los solicitantes de préstamos en un cierto banco siguen una distribución normal con una puntuación promedio de 650 y una desviación estándar de 50.
     Si el banco típicamente aprueba préstamos para solicitantes con puntuaciones de crédito en el 20% superior, ¿cuál es la puntuación mínima de crédito requerida para la aprobación de un préstamo?
 
-43. En un examen de admisión universitaria, las puntuaciones siguen una distribución normal con una puntuación promedio de 1200 y una desviación estándar de 100.
+46. En un examen de admisión universitaria, las puntuaciones siguen una distribución normal con una puntuación promedio de 1200 y una desviación estándar de 100.
     Si un estudiante obtiene una puntuación de 1400 en este examen, ¿en qué percentil se encuentra su puntuación entre todos los que tomaron el examen?
 
-44. Estás investigando la desigualdad de ingresos en una ciudad con una población de 50,000 hogares.
+47. Estás investigando la desigualdad de ingresos en una ciudad con una población de 50,000 hogares.
     En esta ciudad, los ingresos están distribuidos de manera altamente desigual, con la mayoría de los hogares ganando relativamente poco, mientras que unos pocos ganan significativamente más.
     El ingreso promedio de la población es de \$50,000, y la varianza es de \$30,000.
     Supongamos que recopilas datos de una muestra aleatoria de 150 hogares de esta población.
     En el contexto de esta distribución de ingresos altamente desigual, aclara por qué este intervalo de probabilidad es una herramienta valiosa para hacer inferencias sobre la desigualdad de ingresos en toda la ciudad.
 
-45. Supongamos que estás estudiando una población con una media de CI conocida de 100 y una varianza conocida de 15.
+48. Supongamos que estás estudiando una población con una media de CI conocida de 100 y una varianza conocida de 15.
     Si tomas muestras aleatorias de diferentes tamaños (por ejemplo, 30, 75, 150), discute cómo se aplica el Teorema del Límite Central (TLC) si el CI sigue una distribución uniforme.
     Incluye reflexiones sobre los efectos del tamaño de la muestra.
 
-46. Estás llevando a cabo un estudio sobre la distribución de ingresos en una ciudad.
+49. Estás llevando a cabo un estudio sobre la distribución de ingresos en una ciudad.
     En la población, se conoce que el ingreso promedio es de \$45,000, y la verdadera desviación estándar de la poblaciónes de \$8,000.
     Recopilas una muestra aleatoria de 200 hogares de la población.
     Deriva la distribución de la media muestral y calcula los valores que se encuentran a una desviación estándar por debajo y por encima del promedio de la media muestral.
 
-47. Estás llevando a cabo un estudio sobre la distribución de ingresos en una ciudad.
+50. Estás llevando a cabo un estudio sobre la distribución de ingresos en una ciudad.
     En la población, se conoce que el ingreso promedio es de \$45,000, y la verdadera desviación estándar de la poblaciónes de \$8,000.
     Recopilas una muestra aleatoria de 10,000 hogares de la población.
     Deriva la distribución de la media muestral y encuentra el percentil 10 y el percentil 90 en la distribución de la media muestral.
@@ -157,7 +177,8 @@ editor: visual
 \newpage
 
 ## Probabilidad acumulada en distribución Normal Standard (mitad positiva)
-``` {r echo=FALSE}
+
+```{r echo=FALSE}
 library(pacman)
 p_load(knitr,xtable)
 # Create a vector of values from -3 to 3 with intervals of 0.1
