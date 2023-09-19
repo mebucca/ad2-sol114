@@ -51,9 +51,9 @@ editor: visual
 
     Encuentra el valor esperado y la varianza para $Z = 2X - 3Y$.
 
-15. Supongamos que ($X_1, X_2, \ldots, X_5$) son variables aleatorias independientes e idénticamente distribuidas con ( \$E\[X_i\] = 4\$ ) y ( \$\text{Var}(X_i) = 6\$ ).
+15. Supongamos que ($X_1, X_2, \ldots, X_5$) son variables aleatorias independientes e idénticamente distribuidas con ( $E[X_i] = 4$ ) y ( $\text{Var}(X_i) = 6$ ).
 
-Encuentra el valor esperado y la varianza de ($Y = \frac{1}{5} \sum\_{i=1}\^{5} X_i$), el promedio aritmético de las cinco variables aleatorias.
+Encuentra el valor esperado y la varianza de ($Y = \frac{1}{5} \sum_{i=1}^{5} X_i$), el promedio aritmético de las cinco variables aleatorias.
 
 16. Supongamos que tienes 3 variables aleatorias independientes: $A$, $B$ y $C$, donde:
 
