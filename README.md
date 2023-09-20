@@ -34,8 +34,9 @@ Certainly, aligning a table helps in making it more readable. Below is your tabl
 | 30  | Ago | Momentos: valor esperado                   | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_5/class_5#1) [`[Code]`](slides/class_5/class_5.Rmd)       | 6.3.5      |
 |  4  | Sep | Momentos: varianza, Puntaje-Z              | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_6/class_6#1) [`[Code]`](slides/class_6/class_6.Rmd)       | 6.3.5      |
 |  6  | Sep | Distribución Normal Standard               | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_7/class_7#1) [`[Code]`](slides/class_7/class_7.Rmd)       |            |
-| 11  | Sep | Teoremas Asintóticos                       | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_8/class_8#1) [`[Code]`](slides/class_8/class_8.Rmd)       | 6.4           |
-| 13  | Sep | Estimación puntal                          | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_9/class_9#1) [`[Code]`](slides/class_9/class_9.Rmd)                                                                                                                       |            |
+| 13  | Sep | Ley de los grandes números                 | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_8/class_8#1) [`[Code]`](slides/class_8/class_8.Rmd)       | 6.4        |
+| 20  | Sep | Teorema del Límite Central                 | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_8/class_8#1) [`[Code]`](slides/class_8/class_8.Rmd)       | 6.4        |
+| 25  | Sep | Estimación puntal                          | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_9/class_9#1) [`[Code]`](slides/class_9/class_9.Rmd)       |            |
 | 20  | Sep | Distribución muestral, sesgo y varianza    |                                                                                                                        |            |
 | 25  | Sep | Bootstrap                                  |                                                                                                                        |            |
 | 27  | Sep | Estimación de intervalos                   |                                                                                                                        |            |
