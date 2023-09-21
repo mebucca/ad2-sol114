@@ -96,7 +96,7 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 |------------------|----------------|----------------|--------------------------------------------------------------------------------|
 | Tarea corta 1    | 9 agosto       | 16 agosto      | [`[Soluciones TC1]`](homework/tc_1_answers.pdf) [`[Soluciones TC1.qmd]`](homework/tc_1_answers.qmd)                  |
 | Tarea corta 2    | 16 agosto      | 23 agosto      | [`[Soluciones TC2]`](homework/tc_2_answers.pdf) [`[Soluciones TC2.qmd]`](homework/tc_2_answers.qmd)                  |
-| Tarea corta 3    | 4 septiembre   | 11 septiembre  | [`[TC3]`](homework/tc_3.pdf) [`[TC3.qmd]`](homework/tc_3.qmd)                  |
+| Tarea corta 3    | 4 septiembre   | 11 septiembre  | [`[Soluciones TC3]`](homework/tc_3_answers.pdf) [`[Soluciones TC3.qmd]`](homework/tc_3_answers.qmd)                  |
 | Tarea corta 4    | 25 septiembre  | 2 octubre      |                                                                                |
 | Prueba 1         | 11 octubre     |                |                                                                                |
 | Tarea corta 5    | 23 octubre     | 30 octubre     |                                                                                |
