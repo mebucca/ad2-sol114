@@ -1,0 +1,125 @@
+---
+title: "SOL114 Análisis de Datos II"
+author: "Tarea corta 3, respuestas"
+format: pdf
+editor: visual
+---
+
+## Problema 1
+
+Una estudiante recién egresada de 4to medio debe decidir entre estudiar sociología ($S$) o ingeniería eléctrica ($I$).
+Para ello sólo tomará en consideración el salario asociado a carrera -- $S_{S}$ y $S_{I}$, respectivamente.
+
+Luego de recopilar información la estudiante concluye que una persona con educación superior incompleta (independiente de la carrera a la que ingresa) gana $\$500.000$ mensules.
+Además, el retorno de egresar de sociología es de $\$1.000.000$ adicional al mes, mientra que el retorno mensual de egresar de ingeniería eléctrica es de $\$2.000.000$.
+La estudiante resume esta información en las siguientes ecuaciones.
+
+$$S_S = \$500.000 + \$1.000.000 \times G_S$$
+
+$$S_I = \$500.000 + \$2.000.000 \times G_I$$
+
+donde $G_S$ y $G_I$ son variables aleatorias Bernoulli que corresponden a los eventos de egresar de sociología e ingeniería, respectivamente.
+La estudiante además averigua que la probabilidad de egreso de un estudiante de sociología es de 0.75 y la de un estudiante de ingeniería eléctrica es de 0.45.
+
+Con esta información la estudiante decidirá ingresar a la carrera con mayor salario esperado.
+
+### Pregunta 1:
+
+Calcula el salario esperado de cada carrera e indica cual será la decisión de la estudiante.
+
+### Respuesta:
+
+Dado que $G_S$ y $G_I$ son variables aleatorias Bernoulli, sabemos que:
+
+$$E(G_S) = P(G_S = 1) = 0.75$$
+
+$$E(G_I) = P(G_I = 1) = 0.45$$
+
+Por lo tanto, el salario esperado $E[S_S]$ de una persona que estudia sociología es:
+
+$$E[S_S] = \$500,000 + \$1,000,000 \times 0.75$$
+
+$$E[S_S] = \$500,000 + \$750,000$$
+
+$$E[S_S] = \$1,250,000$$
+
+El salario esperado $E[S_I]$ de una persona que estudia ingeniería eléctrica es:
+
+$$E[S_I] = \$500,000 + \$2,000,000 \times 0.45$$
+
+$$E[S_I] = \$500,000 + \$900,000$$
+
+$$E[S_I] = \$1,400,000$$
+
+Por lo tanto, la decisión de la estudiante será estudiar ingeniería eléctrica ya que $E[S_I] > E[S_S]$.
+
+## Problema 2
+
+La estudiante tiene una preferencia marcada por la sociología y no por la ingeniería.
+La estudiante, por tanto, razona que como socióloga probablemente reciba un salario por sobre el promedio de un sociólogo, mientras que su salario como ingeniera será menor que el salario promedio de un ingeniero eléctrico.
+
+Decide que Ingresará a sociología sólo si ubicándose 1 desviación estándar por sobre el salario medio de un sociólogo ganara más que si recibiera un sueldo que la posicione 1 desviación estándar por debajo del salario medio de un ingeniero.
+De lo contrario, estudiará ingeniería eléctrica.
+
+### Pregunta 2:
+
+Calcula el la desviación estándar del salario de carrera e indica cual será la decisión de la estudiante con este segundo criterio.
+
+### Respuesta:
+
+**1. Varianza para sociología** $G_S$:
+
+Dada la probabilidad $p_s = 0.75$:
+
+$$\sigma^2(G_S) = p_s(1-p_s)$$ $$\Rightarrow \sigma^2(G_S) = 0.75 \times 0.25 = 0.1875$$
+
+**2. Varianza para ingeniería eléctrica** $G_I$:
+
+Dada la probabilidad $p_i = 0.45$:
+
+$$\sigma^2(G_I) = p_i(1-p_i)$$ $$\Rightarrow \sigma^2(G_I) = 0.45 \times 0.55 = 0.2475$$
+
+**Varianza y Desviación Estándar del Salario:**
+
+La varianza del salario para sociología:
+
+$$\sigma^2(S_S) = (\$1,000,000)^2 \times \sigma^2(G_S)$$ $$\Rightarrow \sigma^2(S_S) = \$1,000,000,000,000 \times 0.1875 = \$187,500,000,000$$
+
+La desviación estándar del salario de sociología:
+
+$$\sigma(S_S) = \sqrt{\sigma^2(S_S)}$$ $$\Rightarrow \sigma(S_S) = \sqrt{\$187,500,000,000} \approx \$433,013$$
+
+La varianza del salario para ingeniería eléctrica:
+
+$$\sigma^2(S_I) = (\$2,000,000)^2 \times \sigma^2(G_I)$$ $$\Rightarrow \sigma^2(S_I) = \$4,000,000,000,000 \times 0.2475 = \$990,000,000,000$$
+
+La desviación estándar del salario de ingeniería eléctrica:
+
+$$\sigma(S_I) = \sqrt{\sigma^2(S_I)}$$ $$\Rightarrow \sigma(S_I) = \sqrt{\$990,000,000,000} \approx \$994,987$$
+
+Finalmente, basándonos en la desviación estándar, calculamos los salarios ajustados:
+
+$$S_S^+ = \$1,250,000 + \$433,013 = \$1,683,013$$ $$S_I^- = \$1,400,000 - \$994,987 = \$405,013$$
+
+Dado que $S_S^+ > S_I^-$, la estudiante elegirá estudiar sociología de acuerdo con este criterio.
+
+### Pregunta 3:
+
+Si la estudiante ganara un sueldo mensual de $\$1,300,000$, ¿a cuántas desviaciones estándar se encontraría respecto del salario promedio de un sociólogo y de un ingeniero eléctrico, respectivamente?
+
+### Respuesta:
+
+Para calcular a cuántas desviaciones estándar se encontraría la estudiante respecto del salario promedio de un sociólogo y de un ingeniero eléctrico si ganara un sueldo mensual de \$1,300,000 usamos la fórmula del puntaje Z:
+
+$$Z \text{-score} = \frac{x - \mu}{\sigma}$$
+
+Donde: - $x$ es el valor observado (sueldo de la estudiante, en este caso \$1,300,000).
+- $\mu$ es el valor promedio del salario de la carrera.
+- $\sigma$ es la desviación estándar.
+Sustituyendo los valores promedio y desviaciones estándar que calculamos previamente para sociología e ingeniería eléctrica obtenemos:
+
+-   Para sociología, $$Z \text{-score para Sociología} = \frac{\$1,300,000 - \$1,250,000}{\$433,013} \approx 0.1155$$
+
+-   Para ingeniería eléctrica, $$Z \text{-score para Ingeniería Eléctrica} = \frac{\$1,300,000 - \$1,400,000}{\$994,987} \approx -0.1006$$
+
+Por tanto, si la estudiante ganara un sueldo mensual de \$1,300,000, estaría a 0.1155 desviaciones estándar por encima del salario promedio de un sociólogo y a 0.1006 desviaciones estándar por debajo del salario promedio de un ingeniero eléctrico.
