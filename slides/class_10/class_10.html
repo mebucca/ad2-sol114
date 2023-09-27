@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 # Probabilidad e Inferencia Estadística
 ]
 .subtitle[
-## #10: Distribución Muestral, Sesgo y Varianza
+## #10: Distribución Muestral, Sesgo y Error Standard
 ]
 .author[
 ### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
@@ -127,16 +127,16 @@ mimuestra %&gt;% as_tibble()
 ## # A tibble: 100 × 3
 ##    year   educ   age
 ##    &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 2014     16    63
-##  2 2000     11    32
-##  3 1991     13    21
-##  4 1978     12    51
-##  5 1990     15    50
-##  6 1987     11    20
-##  7 1988     14    43
-##  8 2004     16    57
-##  9 2010      4    40
-## 10 1990     14    32
+##  1 1994     12    43
+##  2 2008      8    80
+##  3 2016      7    75
+##  4 1987     13    20
+##  5 1987     12    30
+##  6 2014      9    57
+##  7 1996      7    55
+##  8 1993     13    35
+##  9 1989     12    66
+## 10 2004     13    21
 ## # ℹ 90 more rows
 ```
 ]
@@ -152,7 +152,7 @@ cat("Promedio Aritmético= ", mu_A)
 ```
 
 ```
-## Promedio Aritmético=  13.17
+## Promedio Aritmético=  12.93
 ```
 
 ```r
@@ -160,7 +160,7 @@ cat("Promedio Geométrico= ", mu_G)
 ```
 
 ```
-## Promedio Geométrico=  12.68061
+## Promedio Geométrico=  12.3578
 ```
 
 ```r
@@ -168,7 +168,7 @@ cat("Observación aleatoria= ", mu_S)
 ```
 
 ```
-## Observación aleatoria=  12
+## Observación aleatoria=  15
 ```
 ]
 
@@ -207,9 +207,9 @@ for (i in 1:repeats) {
 ```
 ## Rows: 5,000
 ## Columns: 3
-## $ mu_A &lt;dbl&gt; 13.07, 13.22, 13.51, 13.67, 13.27, 13.69, 13.67, 12.62, 12.93, 12…
-## $ mu_G &lt;dbl&gt; 12.45004, 12.86006, 13.11774, 13.20489, 12.87325, 13.25285, 13.36…
-## $ mu_S &lt;dbl&gt; 18, 14, 14, 16, 12, 10, 12, 15, 12, 16, 13, 12, 3, 16, 12, 15, 12…
+## $ mu_A &lt;dbl&gt; 12.78, 13.15, 13.20, 13.01, 13.48, 12.87, 13.14, 13.55, 13.18, 12…
+## $ mu_G &lt;dbl&gt; 12.33533, 12.61245, 12.68109, 12.52603, 13.15939, 12.62303, 12.65…
+## $ mu_S &lt;dbl&gt; 16, 12, 20, 11, 14, 14, 12, 12, 12, 10, 12, 11, 14, 15, 11, 16, 1…
 ```
 
 ---
@@ -224,7 +224,7 @@ for (i in 1:repeats) {
 .pull-right[
 
 - La socióloga se pregunta 
-.bold[¿cual de estos es mejor?] 
+.bold[¿cual de estos estimadores es mejor?] 
 
 ![confused](https://i.gifer.com/3RFR.gif)
 ]
@@ -258,7 +258,7 @@ Después de un poco de algebra el MSE puede ser descompuesto en dos componentes:
 
 
 ---
-## Sesgo y Varianza de un estimador
+## Sesgo y Error Standard de un estimador
 
 Por tanto, para evaluar la bondad de un estimador necesitamos conocer dos cantidades:
 
@@ -272,7 +272,7 @@ Por tanto, para evaluar la bondad de un estimador necesitamos conocer dos cantid
 --
 
 .pull-left[
-¿Cómo podemos calcular el sesgo y el error estándar de un estimador?
+¿Cómo podemos calcular el sesgo y el error estándar de un estimador? ¡No conocemos el valor verdadero de `\(\beta\)`!
 
 &lt;br&gt;
 
@@ -286,13 +286,13 @@ Por tanto, para evaluar la bondad de un estimador necesitamos conocer dos cantid
 
 
 ---
-## Sesgo y Varianza de un estimador
+## Sesgo y Error Standard de un estimador
 
-La sociólaga recuerda los .bold[teorémas asintóticos] aprendidos en .bold[SOL114] en sus años universitarios.
+La socióloga recuerda los .bold[teorémas asintóticos] aprendidos en .bold[SOL114] en sus años universitarios.
 
 --
 
-Específicamente, para la media muestal, por la .bold[Ley de los grandes números] sabemos que `\(\bar{X} \overset{p}{\to} \mathbb{E}(X)\)`, porque:
+Específicamente, recuerda que para la media muestal `\(\hat{\mu}_A\)`, por la .bold[Ley de los grandes números]  `\(\bar{X} \overset{p}{\to} \mathbb{E}(X)\)`. ¿Por qué?:
 
 --
 
@@ -320,15 +320,13 @@ Específicamente, para la media muestal, por la .bold[Ley de los grandes número
 
 
 ---
-## Sesgo y Varianza de un estimador
+## Sesgo y Error Standard de un estimador
 
-Volviendo al ejemplo,
+Entonces, para media muestral `\(\hat{\mu}_A\)` la socióloga puede estar segura de que:
 
-- La la .bold[Ley de los grandes números] muestra que:
-
-  - `\(\hat{\mu}_A\)` es insesgado: `\(\mathbb{E}(\bar{X}_{n})=\mu\)` 
+  - `\(\hat{\mu}_A\)` es .bold[insesgado]: `\(\mathbb{E}(\bar{X}_{n})=\mu\)` 
   
-  - `\(\hat{\mu}_A\)` es consistente: `\(\sqrt{\text{Var}(\bar{X})}=\frac{\sigma}{\sqrt{n}}\)` 
+  - `\(\hat{\mu}_A\)` es .bold[consistente]: `\(\sqrt{\text{Var}(\bar{X})}=\frac{\sigma}{\sqrt{n}}\)` 
 
 --
 
@@ -336,22 +334,55 @@ Volviendo al ejemplo,
 
 - Para `\(\hat{\mu}_S\)` (observación seleccionada al azar)
 
-  - `\(\hat{\mu}_S\)` es insesgado: `\(\mathbb{E}(X_{i})=\mu\)`, `\(\quad \hat{\mu}_S\)` es inconsistente: `\(\sqrt{\text{Var}(X_i)}=\sigma\)`  
+  - `\(\hat{\mu}_S\)` es .bold[insesgado]: `\(\mathbb{E}(X_{i})=\mu\)`, `\(\quad \hat{\mu}_S\)` es .bold[inconsistente]: `\(\sqrt{\text{Var}(X_i)}=\sigma\)`  
 
 --
 
-
 - Para `\(\hat{\mu}_G\)` (media geomética)
 
-  - `\(\hat{\mu}_G\)`: `\(\mathbb{E}\bigg(\left( X_1 \times X_2 \times \ldots \times X_{100} \right)^{\frac{1}{100}}\bigg)=\)` ? 
+  - `\(\hat{\mu}_G\)`: `\(\mathbb{E}\bigg(\left( X_1 \times X_2 \times \ldots \times X_{100} \right)^{\frac{1}{100}}\bigg)=\)` .bold[¿?] 
   
-  - `\(\hat{\mu}_G\)`: `\(\sqrt{\mathbb{Var}\bigg(\left( X_1 \times X_2 \times \ldots \times X_{100} \right)^{\frac{1}{100}}\bigg)}\)` ?
+  - `\(\hat{\mu}_G\)`: `\(\sqrt{\mathbb{Var}\bigg(\left( X_1 \times X_2 \times \ldots \times X_{100} \right)^{\frac{1}{100}}\bigg)}\)` .bold[¿?]
 
 .img-right-bottom[![fear](https://media.giphy.com/media/14ut8PhnIwzros/giphy.gif)]
 
 ---
-class: inverse, center, middle
+## Sesgo y Error Standard de un estimador
 
+Supongamos que la socióloga decide confiar en los resultados en los resultados entregados por la media muestral `\(\hat{\mu}_A\)`:
+
+  - Insesgado: en promedio entrega el valor correcto de la media)
+  - Consistente: para muestras grandes el valor los estimado va a ser cercado a la media verdadera
+  
+
+&lt;br&gt;
+--
+
+Específicamente, 
+
+  - `\(\mathbb{E}(\bar{X}_{n})=\mu\)` 
+  
+  - `\(\sqrt{\text{Var}(\bar{X})}=\frac{\sigma}{\sqrt{n}}\)` 
+
+&lt;br&gt;
+--
+
+.bold[Pero],
+
+--
+
+- ¿Cual es el valor de `\(\mu\)`
+
+- ¿Cual es el valor de `\(\sigma\)`
+
+
+
+.img-right-bottom[![donknow](https://media.giphy.com/media/jOpLbiGmHR9S0/giphy.gif)]
+
+
+
+---
+class: inverse, center, middle
 
 ##Hasta la próxima clase. Gracias!
 

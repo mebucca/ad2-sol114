@@ -1,6 +1,6 @@
 ---
 title: "Probabilidad e Inferencia Estadística"
-subtitle: "#10: Distribución Muestral, Sesgo y Varianza"
+subtitle: "#10: Distribución Muestral, Sesgo y Error Standard"
 author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -240,7 +240,7 @@ plot(sampling_distrib)
 .pull-right[
 
 - La socióloga se pregunta 
-.bold[¿cual de estos es mejor?] 
+.bold[¿cual de estos estimadores es mejor?] 
 
 ![confused](https://i.gifer.com/3RFR.gif)
 ]
@@ -274,7 +274,7 @@ Después de un poco de algebra el MSE puede ser descompuesto en dos componentes:
 
 
 ---
-## Sesgo y Varianza de un estimador
+## Sesgo y Error Standard de un estimador
 
 Por tanto, para evaluar la bondad de un estimador necesitamos conocer dos cantidades:
 
@@ -288,7 +288,7 @@ Por tanto, para evaluar la bondad de un estimador necesitamos conocer dos cantid
 --
 
 .pull-left[
-¿Cómo podemos calcular el sesgo y el error estándar de un estimador?
+¿Cómo podemos calcular el sesgo y el error estándar de un estimador? ¡No conocemos el valor verdadero de $\beta$!
 
 <br>
 
@@ -304,13 +304,13 @@ plot(sampling_distrib)
 
 
 ---
-## Sesgo y Varianza de un estimador
+## Sesgo y Error Standard de un estimador
 
-La sociólaga recuerda los .bold[teorémas asintóticos] aprendidos en .bold[SOL114] en sus años universitarios.
+La socióloga recuerda los .bold[teorémas asintóticos] aprendidos en .bold[SOL114] en sus años universitarios.
 
 --
 
-Específicamente, para la media muestal, por la .bold[Ley de los grandes números] sabemos que $\bar{X} \overset{p}{\to} \mathbb{E}(X)$, porque:
+Específicamente, recuerda que para la media muestal $\hat{\mu}_A$, por la .bold[Ley de los grandes números]  $\bar{X} \overset{p}{\to} \mathbb{E}(X)$. ¿Por qué?:
 
 --
 
@@ -338,15 +338,13 @@ Específicamente, para la media muestal, por la .bold[Ley de los grandes número
 
 
 ---
-## Sesgo y Varianza de un estimador
+## Sesgo y Error Standard de un estimador
 
-Volviendo al ejemplo,
+Entonces, para media muestral $\hat{\mu}_A$ la socióloga puede estar segura de que:
 
-- La la .bold[Ley de los grandes números] muestra que:
-
-  - $\hat{\mu}_A$ es insesgado: $\mathbb{E}(\bar{X}_{n})=\mu$ 
+  - $\hat{\mu}_A$ es .bold[insesgado]: $\mathbb{E}(\bar{X}_{n})=\mu$ 
   
-  - $\hat{\mu}_A$ es consistente: $\sqrt{\text{Var}(\bar{X})}=\frac{\sigma}{\sqrt{n}}$ 
+  - $\hat{\mu}_A$ es .bold[consistente]: $\sqrt{\text{Var}(\bar{X})}=\frac{\sigma}{\sqrt{n}}$ 
 
 --
 
@@ -354,22 +352,55 @@ Volviendo al ejemplo,
 
 - Para $\hat{\mu}_S$ (observación seleccionada al azar)
 
-  - $\hat{\mu}_S$ es insesgado: $\mathbb{E}(X_{i})=\mu$, $\quad \hat{\mu}_S$ es inconsistente: $\sqrt{\text{Var}(X_i)}=\sigma$  
+  - $\hat{\mu}_S$ es .bold[insesgado]: $\mathbb{E}(X_{i})=\mu$, $\quad \hat{\mu}_S$ es .bold[inconsistente]: $\sqrt{\text{Var}(X_i)}=\sigma$  
 
 --
 
-
 - Para $\hat{\mu}_G$ (media geomética)
 
-  - $\hat{\mu}_G$: $\mathbb{E}\bigg(\left( X_1 \times X_2 \times \ldots \times X_{100} \right)^{\frac{1}{100}}\bigg)=$ ? 
+  - $\hat{\mu}_G$: $\mathbb{E}\bigg(\left( X_1 \times X_2 \times \ldots \times X_{100} \right)^{\frac{1}{100}}\bigg)=$ .bold[¿?] 
   
-  - $\hat{\mu}_G$: $\sqrt{\mathbb{Var}\bigg(\left( X_1 \times X_2 \times \ldots \times X_{100} \right)^{\frac{1}{100}}\bigg)}$ ?
+  - $\hat{\mu}_G$: $\sqrt{\mathbb{Var}\bigg(\left( X_1 \times X_2 \times \ldots \times X_{100} \right)^{\frac{1}{100}}\bigg)}$ .bold[¿?]
 
 .img-right-bottom[![fear](https://media.giphy.com/media/14ut8PhnIwzros/giphy.gif)]
 
 ---
-class: inverse, center, middle
+## Sesgo y Error Standard de un estimador
 
+Supongamos que la socióloga decide confiar en los resultados en los resultados entregados por la media muestral $\hat{\mu}_A$:
+
+  - Insesgado: en promedio entrega el valor correcto de la media)
+  - Consistente: para muestras grandes el valor los estimado va a ser cercado a la media verdadera
+  
+
+<br>
+--
+
+Específicamente, 
+
+  - $\mathbb{E}(\bar{X}_{n})=\mu$ 
+  
+  - $\sqrt{\text{Var}(\bar{X})}=\frac{\sigma}{\sqrt{n}}$ 
+
+<br>
+--
+
+.bold[Pero],
+
+--
+
+- ¿Cual es el valor de $\mu$
+
+- ¿Cual es el valor de $\sigma$
+
+
+
+.img-right-bottom[![donknow](https://media.giphy.com/media/jOpLbiGmHR9S0/giphy.gif)]
+
+
+
+---
+class: inverse, center, middle
 
 ##Hasta la próxima clase. Gracias!
 
