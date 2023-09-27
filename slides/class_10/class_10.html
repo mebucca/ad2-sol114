@@ -1,931 +1,360 @@
 <!DOCTYPE html>
 <html lang="" xml:lang="">
   <head>
-    <title>Análisis de Datos Categóricos (SOC3070)</title>
+    <title>Probabilidad e Inferencia Estadística</title>
     <meta charset="utf-8" />
-    <meta name="author" content="  Mauricio Bucca  Profesor Asistente, Sociología UC" />
-    <script src="libs/header-attrs-2.10/header-attrs.js"></script>
-    <link href="libs/remark-css-0.0.1/default.css" rel="stylesheet" />
-    <link href="libs/remark-css-0.0.1/default-fonts.css" rel="stylesheet" />
+    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
+    <script src="libs/header-attrs-2.24/header-attrs.js"></script>
     <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
 class: center, middle, inverse, title-slide
 
-# Análisis de Datos Categóricos (SOC3070)
-## Clase #10
-### <br> Mauricio Bucca<br> Profesor Asistente, Sociología UC
-### <a href="https://github.com/mebucca">github.com/mebucca</a>
+.title[
+# Probabilidad e Inferencia Estadística
+]
+.subtitle[
+## #10: Distribución Muestral, Sesgo y Varianza
+]
+.author[
+### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
+]
+.date[
+### 27 September, 2023
+]
 
 ---
-
 
 class: inverse, center, middle
 
-#Regresión Logística, interpretación
+
+
+#Distribución Muestral
+
 
 ---
-##Configuración
-
---
-
-&lt;br&gt;
-
-- Tenemos `\(y_{1}, \dots y_{n}\)` son `\(n\)` variables independientes con distribución `\(\text{Bernoulli}(p_{i})\)`
-
-
---
-
-- `\(\mathbb{E}(y_{i} \mid x_{i1}, \dots,x_{ik}) = \mathbb{P}(y_{i}=1 \mid x_{i1}, \dots,x_{ik}) = p_{i}\)` 
+##Estimador y Estimado
 
 &lt;br&gt;
 --
 
-donde, 
+- Un .bold[estimador] es una función - una formula - que aplicamos a los datos para obtener una aproximación (.bold[estimado]) del parámetro teórico/poblacional que queremos conocer, `\(\beta\)`.
 
-
-`$$\ln \frac{p_{i}}{1 - p_{i}} = \beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}$$`
-
----
-##Configuración
-
-&lt;br&gt;
-
-- Tenemos `\(y_{1}, \dots y_{n}\)` son `\(n\)` variables independientes con distribución `\(\text{Bernoulli}(p_{i})\)`
-
-
-- `\(\mathbb{E}(y_{i} \mid x_{i1}, \dots,x_{ik}) = \mathbb{P}(y_{i}=1 \mid x_{i1}, \dots,x_{ik}) = p_{i}\)` 
-
-&lt;br&gt;
-
-donde, 
-
-`$$\underbrace{\ln \frac{p_{i}}{1 - p_{i}}}_{\text{Link logit}(p_{i})} = \beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}$$`
----
-##Configuración
-
-
-&lt;br&gt;
-
-- Tenemos `\(y_{1}, \dots y_{n}\)` son `\(n\)` variables independientes con distribución `\(\text{Bernoulli}(p_{i})\)`
-
-
-
-- `\(\mathbb{E}(y_{i} \mid x_{i1}, \dots,x_{ik}) = \mathbb{P}(y_{i}=1 \mid x_{i1}, \dots,x_{ik}) = p_{i}\)` 
-
-&lt;br&gt;
-
-donde, 
-
-`$$\ln \frac{p_{i}}{1 - p_{i}} = \underbrace{\beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}}_{\text{Predictor lineal  } \eta_{i}}$$`
 &lt;br&gt;
 --
 
-- Interpretación: ¿cuál es el significado de `\(\beta_{0},\beta_{1}, \dots, \beta_{k}\)`?
-
----
-## Un ejemplo empírico
-
-
-
-.pull-left[
-Continuando con los datos de infidelidad, ajustaremos el siguiente modelo:
-
-&lt;br&gt;
-`$$\underbrace{\ln \frac{p_{i}}{ 1 - p_{i}}}_{\text{logit}(p_{i})}    = \beta_{0} + \beta_{1}\text{male}_{i} + \beta_{2}\text{ym}_{i}$$`
-&lt;br&gt;
-
-donde:
-
-- `\(p_{i} =\mathbb{P}(\text{everaffair}_{i}=1)\)`
-
-- `\(\text{logit}(p_{i})\)` es el .bold[log odds] de tener un affair
-
-- `\(p_{i}\)` y `\(\text{logit}(p_{i})\)` son una función género (male) y años de matrimonio (ym).
-
-]
-
---
-.pull-right[
-
-```r
-logit_affairs_sex_ym &lt;- 
-  glm(everaffair_d ~ factor(sex) + ym, 
-      family=binomial(link="logit"), 
-      data=affairsdata)
-summary(logit_affairs_sex_ym)
-```
-
-```
-## 
-## Call:
-## glm(formula = everaffair_d ~ factor(sex) + ym, family = binomial(link = "logit"), 
-##     data = affairsdata)
-## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -0.9294  -0.8232  -0.6625  -0.5775   1.9197  
-## 
-## Coefficients:
-##                 Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept)     -1.71395    0.20633  -8.307  &lt; 2e-16 ***
-## factor(sex)male  0.22157    0.19064   1.162 0.245139    
-## ym               0.05843    0.01727   3.383 0.000718 ***
-## ---
-## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-## 
-## (Dispersion parameter for binomial family taken to be 1)
-## 
-##     Null deviance: 675.38  on 600  degrees of freedom
-## Residual deviance: 662.15  on 598  degrees of freedom
-## AIC: 668.15
-## 
-## Number of Fisher Scoring iterations: 4
-```
-]
-
----
-class: inverse, center, middle
-
-## Efectos marginales sobre el logit 
-
----
-## Efectos marginales sobre el logit 
-
-&lt;br&gt;
-&lt;br&gt;
-
-.center[ 
-![](class_10_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+.content-box-primary[
+`$$\color{white}{\text{Estimador}(\beta): f(\text{datos}) = \hat{\beta}}$$`
 ]
 
 
 ---
-## Efectos marginales sobre el logit 
-
-Dado el siguiente modelo de regresión logística: 
-
-`$$\text{logit}(p_{i}) = \ln \frac{p_{i}}{1 - p_{i}} = \beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}$$`
---
-
-- El intercepto `\(\beta_{0}\)` corresponde al logit de la probabilidad de éxito cuando `\(x_{1} = \dots = x_{k} = 0\)`
+##Distribución Muestral
 
 --
 
-- El efecto marginal de `\(x_{k}\)` sobre el logit de la probabilidad de éxito está dado por:
-
-
-.pull-left[
-.content-box-blue[
-`$$\frac{\partial\text{logit}(p_{i})}{\partial x_{k}} = \beta_{k}$$`
-]
-]
-.pull-right[
-.content-box-yellow[
-"Un cambio infinitesimal en `\(x_{k}\)` `\(\big(\partial x_{k}\big)\)` se traduce en un cambio en `\(\partial x_{k} \beta_{k}\)` unidades en el logit de p"
-] 
-]
-
---
-
-¿Por qué?
---
- Asumamos que sólo la variable `\(x_{k}\)` cambia en una unidad, de `\(x_{k}=c\)` a `\(x_{k}=c+1\)`. Entonces:
-
---
-
-`\begin{align}
-  \frac{\Delta\text{logit}(p_{i}) }{\Delta x_{k}} &amp;= (\beta_{0} + \beta_{1}x_{1} +  \dots + \beta_{k}(c+1)) - (\beta_{0} + \beta_{1}x_{1}  \dots + \beta_{k}c)  \\ 
-  &amp;=  \beta_{k}(c+1) - \beta_{k}c = \beta_{k}
-\end{align}`
-
-
----
-## Efectos marginales sobre el logit 
-
-En nuestro ejemplo: `\(\ln \frac{p_{i}}{1 -p_{i}} = \beta_{0} + \beta_{1}*\text{male}_{i} + \beta_{2}*\text{ym}_{i}\)`
-
-&lt;br&gt;
-
-.pull-left[
-
-```
-##                    Estimate Std. Error
-## (Intercept)     -1.71395429 0.20633183
-## factor(sex)male  0.22157111 0.19064190
-## ym               0.05842959 0.01727402
-```
-]
-.pull-right[
-![](class_10_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
-]
-
----
-## Efectos marginales sobre el logit 
-
-
-.pull-left[
-
-```
-##                    Estimate Std. Error
-## (Intercept)     -1.71395429 0.20633183
-## factor(sex)male  0.22157111 0.19064190
-## ym               0.05842959 0.01727402
-```
-]
-.pull-right[
-Si `male=1` y `ym=10`, entonces `logit(p)`=
-
-```r
--1.714 + 0.222*1 + 0.05843*10
-```
-
-```
-## [1] -0.9077
-```
-
-Si `male=1` y `ym=11`, entonces `logit(p)`=
-
-```r
--1.714 + 0.222*1 + 0.05843*11
-```
-
-```
-## [1] -0.84927
-```
-
-]
-
---
-
-Por tanto, `\(\beta_{ym}\)`=
-
-```r
-((-1.714 + 0.222*1 + 0.05843*11)-(-1.714 + 0.222*1 + 0.05843*10))/(11 - 10)
-```
-
-```
-## [1] 0.05843
-```
-
----
-class: inverse, center, middle
-
-## Efectos multiplicativos sobre las odds de éxito 
-
----
-## Efectos multiplicativos sobre las odds 
-
-Dado el siguiente modelo de regresión logística: 
-
-`$$\text{logit}(p_{i}) = \ln \frac{p_{i}}{1 - p_{i}} = \beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}$$`
+Si `\(\hat{\beta}\)` es un estimador definido como `\(\hat{\beta}: f(\text{datos})\)`, la **distribución muestral** de `\(\hat{\beta}\)` es la distribución de probabilidad de todos los valores posibles que `\(\hat{\beta}\)` puede tomar, calculados a partir de todas las posibles muestras de un tamaño dado `\(n\)`, tomadas a partir de la misma población o generados por el mismo proceso. 
 
 &lt;br&gt;
 --
 
-exponenciando a ambos lados obtenemos 
+.img-right[![merlo](mostaza-merlo.jpg)]
 
-`$$\frac{p_{i}}{1 - p_{i}} =  e^{\beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}}$$`
 
---
-
-equivalentemente
-
-.content-box-blue[
-`$$\frac{p_{i}}{1 - p_{i}} =  e^{\beta_{0}} \cdot e^{\beta_{1} x_{i1}}  \dots e^{\beta_{k} x_{ik}}$$`
-]
-
----
-## Efectos multiplicativos sobre las odds 
-
-`$$\frac{p_{i}}{1 - p_{i}} =  e^{\beta_{0}} \cdot e^{\beta_{1} x_{i1}}  \dots e^{\beta_{k} x_{ik}}$$`
---
-
-Examinando esta ecuación observamos que cuando `\(x_1 = \dots = x_k = 0\)`, 
-
+.bold[Paso a paso,]
 
 &lt;br&gt;
 
-
-`$$\frac{p_{i}}{1 - p_{i}}=  e^{\beta_{0}}$$`
-Es decir, cuando `\(x_1 = \dots = x_k = 0\)` las odds de éxito están dadas por `\(e^{\beta_{0}}\)`.
-
-
-&lt;br&gt;
 --
 
-Generalizando,  observamos que cuando `\(x_1 = c_1  \dots = x_k = c_k\)`,  las odds de éxito están dadas por
+- Tomamos todas las posibles muestras `\(m_{i}: \{ X_1, X_2, ..., X_n \}\)` de un tamaño  
+dado `\(n\)`, generados por el mismo proceso (o población).
 
-&lt;br&gt;
+--
 
-`$$\frac{p_{i}}{1 - p_{i}} =  e^{\beta_{0}} \cdot e^{\beta_{1} c_{1}}  \dots e^{\beta_{k} c_{k}}$$`
+- En cada `\(m_{i}\)` aplicamos nuestro estimador y obtenemos `\(\hat{\beta}_{i}\)`. Formalmente, `\(f(m_{i}) = \hat{\beta}_{i}\)`.
+
+--
+
+- La .bold[distribución muestral] del estimador `\(\hat{\beta}\)` refiere a la distribución de la colección obtenida de estimados `\(\hat{\beta}_{i}\)`.
+
+--
+
+- Como toda distribución de probabilidades, la .bold[distribución muestral] indica la probabilidad de obtener cada valor posible al aplicar el estimador `\(\hat{\beta}\)`.
 
 
 ---
-## Efectos multiplicativos sobre las odds: odds ratios
-
-Considera la situación en que `\(i\)` y `\(j\)` son dos observaciones con `\(x_{k}=c\)` y `\(x_{k}=c+1\)`, respectivamente. El resto de las covariables toman valores idénticos. 
---
- Las odds de éxito para cada caso son:
-
-
-- `\(p_{i}/(1 - p_{i}) = e^{\beta_{0}} \cdot e^{\beta_{1} x_{i1}}  \dots (e^{\beta_{k}})^{c}\)`
-
-- `\(p_{j}/(1 - p_{j}) = e^{\beta_{0}} \cdot e^{\beta_{1} x_{i1}}  \dots (e^{\beta_{k}})^{c+1}\)`
-
+##Distribución Muestral, ejemplo
 
 &lt;br&gt;
---
 
-El ratio de las odd de éxito entre `\(j\)` e `\(i\)` está dado por:
-
-`\begin{align}
-\frac{p_{j}/(1 - p_{j})}{p_{i}/(1 - p_{i})} &amp;= \frac{e^{\beta_{0}} \cdot e^{\beta_{1} x_{i1}}  \dots (e^{\beta_{k}})^{c+1}}{e^{\beta_{0}} \cdot e^{\beta_{1} x_{i1}}  \dots (e^{\beta_{k}})^{c}} \\ \\
-&amp;= e^{\beta_{k}}
-\end{align}`
-
-En otras palabras, manteniendo otros factores constantes, `\(e^{\beta_{k}}\)` representa la odds ratio entre el caso con `\(x_{k}\)` aumentado en una unidad, y el caso con `\(x_{k}\)` en un nivel basal dado. 
-
-
----
-## Efectos multiplicativos sobre las odds 
-
-
-.content-box-yellow[
-"Un cambio en `\(\Delta\)` unidades de `\(x_{k}\)` multiplica las las odds de éxito por `\(e^{\Delta \beta_{k}}\)`"
-] 
-
-&lt;br&gt;
-.bold[Propiedades]:
-
---
-
-- `\(e^{\beta_{k}}\)` está restringido al rango `\([0,\infty+)\)`. Es una constante que "comprime" o amplifica las odds de éxito.
-
---
-
-- Si `\(\beta_{k} &lt; 0  \to  (0 &lt; e^{\beta_{k}} &lt; 1)\)`. Es decir, un aumento en `\(x_{k}\)` está asociado con una reducción (multiplicativa) de las odds de éxito.
-
---
-
-- Si `\(\beta_{k} = 0  \to  (e^{\beta_{k}} =1)\)`. Es decir, un cambio en `\(x_{k}\)` está asociado a un cambio nulo en las odds de éxito.
-
---
-
-- Si `\(\beta_{k} &gt; 0  \to  (e^{\beta_{k}} &gt; 1)\)`. Es decir, un aumento en `\(x_{k}\)` está asociado a aumento (multiplicativo) en de las odds de éxito.
-
----
-## Efectos multiplicativos sobre las odds 
-
-En nuestro ejemplo: `\(\ln \frac{p_{i}}{1 -p_{i}} = \beta_{0} + \beta_{1}*\text{male}_{i} + \beta_{2}*\text{ym}_{i}\)`, por tanto:
+- Una socióloga quiere saber el promedio de años de escolaridad en USA
   
-  
-.pull-left[
-  `\(\frac{p_{i}}{1 -p_{i}} = e^{\beta_{0}} \cdot  e^{\beta_{1}*\text{male}_{i}} \cdot e^{\beta_{2}*\text{ym}_{i}}\)`
-      
+&lt;br&gt;
+--
 
-```r
-# coeffs
-summary(logit_affairs_sex_ym)$coefficients[,c(1,2)]
-```
+- El sociólogo toma una muestra aleatoria de 100 personas 
 
-```
-##                    Estimate Std. Error
-## (Intercept)     -1.71395429 0.20633183
-## factor(sex)male  0.22157111 0.19064190
-## ym               0.05842959 0.01727402
-```
+    `\(m: \{X_1, \dots, X_{100} \}\)`
 
-```r
-# exp(coeffs)
-exp(summary(logit_affairs_sex_ym)$coefficients[,c(1)])
-```
+&lt;br&gt;
+--
 
-```
-##     (Intercept) factor(sex)male              ym 
-##        0.180152        1.248036        1.060170
-```
+- Aplica tres estimadores para `\(\mu\)` en dicha muestra:
+
+  - .bold[Promedio aritmético]: `\(\hat{\mu}_A = \frac{1}{100} \sum_{i=1}^{100} X_i\)` 
+
+  - .bold[Promedio geomético]: `\(\hat{\mu}_G = \left( X_1 \times X_2 \times \ldots \times X_{100} \right)^{\frac{1}{100}}\)`
     
+  - .bold[Observación aleatoria]: `\(\hat{\mu}_S =  X_{i}\)`
+
+
+---
+##Distribución Muestral, ejemplo
+
+
+
+
+.pull-left[
+
+```r
+mimuestra %&gt;% as_tibble()
+```
+
+```
+## # A tibble: 100 × 3
+##    year   educ   age
+##    &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 2014     16    63
+##  2 2000     11    32
+##  3 1991     13    21
+##  4 1978     12    51
+##  5 1990     15    50
+##  6 1987     11    20
+##  7 1988     14    43
+##  8 2004     16    57
+##  9 2010      4    40
+## 10 1990     14    32
+## # ℹ 90 more rows
+```
+]
+
+.pull-right[
+
+```r
+mu_A &lt;- mean(mimuestra$educ,na.rm=T)
+mu_G &lt;- geometric_mean(mimuestra$educ)
+mu_S &lt;- sample(mimuestra$educ,1)
+
+cat("Promedio Aritmético= ", mu_A)
+```
+
+```
+## Promedio Aritmético=  13.17
+```
+
+```r
+cat("Promedio Geométrico= ", mu_G)
+```
+
+```
+## Promedio Geométrico=  12.68061
+```
+
+```r
+cat("Observación aleatoria= ", mu_S)
+```
+
+```
+## Observación aleatoria=  12
+```
+]
+
+&lt;br&gt;
+--
+
+La socióloga se pregunta: .bold[¿Que tanto puedo confiar en estos resultados? ¿Y si hubiera tomado otra muesta, habría obtenido los mismos resultados?]
+
+
+---
+##Distribución Muestral, ejemplo
+
+La socióloga dedica su vida a recolectar miles de muestras en la misma población y repetir la estimación 
+
+
+
+```r
+# Set parameters
+n &lt;- 100      # tamaño de la muestra
+repeats &lt;- 5000  # número de muestras
+
+# Simulation
+results &lt;- data.frame(mu_A = numeric(repeats), mu_G = numeric(repeats), mu_S = numeric(repeats))
+
+for (i in 1:repeats) {
+  mimuestra &lt;- sample_n(mipoblacion, n, replace = TRUE)
+  results$mu_A[i] &lt;- mean(mimuestra$educ, na.rm = TRUE)
+  results$mu_G[i] &lt;- geometric_mean(mimuestra$educ)
+  results$mu_S[i] &lt;- sample(mimuestra$educ,1)
+}
+```
+
+--
+
+
+```
+## Rows: 5,000
+## Columns: 3
+## $ mu_A &lt;dbl&gt; 13.07, 13.22, 13.51, 13.67, 13.27, 13.69, 13.67, 12.62, 12.93, 12…
+## $ mu_G &lt;dbl&gt; 12.45004, 12.86006, 13.11774, 13.20489, 12.87325, 13.25285, 13.36…
+## $ mu_S &lt;dbl&gt; 18, 14, 14, 16, 12, 10, 12, 15, 12, 16, 13, 12, 3, 16, 12, 15, 12…
+```
+
+---
+##Distribución Muestral, ejemplo
+
+.pull-left[
+![](class_10_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 ]
 
 --
+
+.pull-right[
+
+- La socióloga se pregunta 
+.bold[¿cual de estos es mejor?] 
+
+![confused](https://i.gifer.com/3RFR.gif)
+]
+
+---
+## Error Cuadrático Medio (MSE)
+
+
+.bold[¿Qué tan bueno es mi estimador?] Error Cuadrático Medio (MSE) es una forma de cuantificar la bondad de un estimador.
+
+&lt;br&gt;
+--
+
+.content-box-primary[
+`$$\color{white}{\text{MSE}(\hat{\beta}) = \mathbb{E}[(\hat{\beta} - \beta)^2] }$$`
+]
+
+donde `\(\hat{\beta}\)` es el estimador de `\(\beta\)`.
+
+&lt;br&gt;
+--
+
+Después de un poco de algebra el MSE puede ser descompuesto en dos componentes: 
+
+&lt;br&gt;
+
+`\begin{align}
+\text{MSE}(\hat{\beta}) &amp;= \color{#21468B}{\mathbb{E}[(\hat{\beta} - \mathbb{E}[\hat{\beta}])^2]} + \color{#AE1C28}{(\mathbb{E}[\hat{\beta} - \beta ])^2} \\ \\
+&amp;= \color{#21468B}{\mathbb{Var}(\hat{\beta})} + \color{#AE1C28}{[\text{Sesgo}(\hat{\beta})]^2}
+\end{align}`
+
+
+---
+## Sesgo y Varianza de un estimador
+
+Por tanto, para evaluar la bondad de un estimador necesitamos conocer dos cantidades:
+
+--
+
+- .bold[Sesgo]: `\(\mathbb{E}[\hat{\beta} - \beta ]\)`
+
+- .bold[Error Standard]: `\(\sqrt{\mathbb{Var}(\hat{\beta}})\)`
+
+
+--
+
+.pull-left[
+¿Cómo podemos calcular el sesgo y el error estándar de un estimador?
+
+&lt;br&gt;
+
+![confused](https://i.gifer.com/3RFR.gif)
+
+]
+
+.pull-right[
+![](class_10_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+
+
+---
+## Sesgo y Varianza de un estimador
+
+La sociólaga recuerda los .bold[teorémas asintóticos] aprendidos en .bold[SOL114] en sus años universitarios.
+
+--
+
+Específicamente, para la media muestal, por la .bold[Ley de los grandes números] sabemos que `\(\bar{X} \overset{p}{\to} \mathbb{E}(X)\)`, porque:
+
+--
+
+.pull-left[
+`\begin{align}
+\mathbb{E}(\bar{X}_{n}) &amp;= \mathbb{E}\big(\frac{1}{n} \sum^{n}_{i=1} X_{i} \big) \\ \\
+&amp;=\frac{1}{n}\mathbb{E}\big( X_{1} + X_{2} + \cdots + X_{n} \big) \\ \\
+&amp;=\frac{1}{n}\big( \mathbb{E}(X_{1}) + \mathbb{E}(X_{2}) + \cdots  + \mathbb{E}(X_{n})\big) \\ \\
+&amp;=\frac{1}{n}\big( \mu + \mu + \cdots + \mu \big) \\ \\
+&amp;=\mu
+\end{align}`
+]
+
+--
+
+.pull-right[
+`\begin{align}
+\text{Var}(\bar{X}) &amp;= \text{Var}\big(\frac{1}{n} \sum^{n}_{i=1} X_{i} \big) \\
+&amp;= \frac{1}{n^2} \text{Var}\big( \sum^{n}_{i=1} X_{i} \big) \\ \\
+&amp;=\frac{1}{n^2}\big( \text{Var}(X_{1}) + \text{Var}(X_{2}) + \cdots + \text{Var}(X_{n})\big) \\ \\
+&amp;=\frac{1}{n^2}\big( \sigma^2 + \sigma^2 + \cdots + \sigma^2 \big) \\ \\
+&amp;=\frac{\sigma^2}{n} \implies \quad \sqrt{\text{Var}(\bar{X})}  = \frac{\sigma}{\sqrt{n}}
+\end{align}`
+]
+
+
+---
+## Sesgo y Varianza de un estimador
+
+Volviendo al ejemplo,
+
+- La la .bold[Ley de los grandes números] muestra que:
+
+  - `\(\hat{\mu}_A\)` es insesgado: `\(\mathbb{E}(\bar{X}_{n})=\mu\)` 
   
-.pull-right[
-  ![](class_10_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
-]
-
----
-## Efectos multiplicativos sobre las odds 
-
-
-.pull-left[
-
-```
-##                        coef exp.coef.
-## (Intercept)     -1.71395429  0.180152
-## factor(sex)male  0.22157111  1.248036
-## ym               0.05842959  1.060170
-```
-]
-.pull-right[
-Si `male=1` y `ym=10`, entonces las odds de tener un affair =
-
-```r
-exp(-1.714 + 0.222*1 + 0.05843*10)
-```
-
-```
-## [1] 0.4034511
-```
-
-Si `male=1` y `ym=11`, entonces las odds de tener un affair =
-
-```r
-exp(-1.714 + 0.222*1 + 0.05843*11)
-```
-
-```
-## [1] 0.4277271
-```
-
-]
+  - `\(\hat{\mu}_A\)` es consistente: `\(\sqrt{\text{Var}(\bar{X})}=\frac{\sigma}{\sqrt{n}}\)` 
 
 --
 
-Por tanto, `\(e^{\beta_{ym}}\)`=
+.bold[¿Y el resto de los estimadores?]
 
-```r
-exp(-1.714 + 0.222*1 + 0.05843*11)/exp(-1.714 + 0.222*1 + 0.05843*10)
-```
+- Para `\(\hat{\mu}_S\)` (observación seleccionada al azar)
 
-```
-## [1] 1.060171
-```
- 
----
-class: inverse, center, middle
-
-## Efectos marginales sobre la probabilidad de éxito 
-
-
----
-## Efectos marginales sobre la probabilidad de éxito 
-
-&lt;br&gt;
-&lt;br&gt;
-
-.center[ 
-![](class_10_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
-]
-
-
----
-## Efectos marginales sobre la probabilidad de éxito
-
-
-Dado el siguiente modelo de regresión logística: 
-
-`$$\ln \frac{p_{i}}{1 - p_{i}} = \beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}$$`
-
-&lt;br&gt;
---
-Queremos saber el .bold[efecto marginal] de los predictores sobre la .bold[probabilidad] de éxito. Formalmente
---
-`$$\frac{\partial p_{i}}{\partial x_{k}}$$`
---
-.bold[Paso a paso...]
-
-.img-right[
-![mostaza](mostaza-merlo.jpg)
-]
-
-&lt;br&gt;
---
-
-- .bold[Paso 1]: reexpresar la ecuación de regresión como
-
-&lt;br&gt;
-
-`$$\ln(p_{i}) - \ln(1-p_{i}) = \beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}$$`
-
-
----
-## Efectos marginales sobre la probabilidad de éxito
-
-
-- .bold[Paso 1]: reexpresar la ecuación de regresión como
-
-
-`$$\ln(p_{i}) - \ln(1-p_{i}) = \beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}$$`
-
-&lt;br&gt;
---
-
-- .bold[Paso 2]: usando diferenciación implícita y tomando derivada con respecto a `\(x_{k}\)` en ambos lados, obtenemos:
-
-`$$\frac{\partial p_{i} }{\partial x_{k}} \frac{1}{p_{i}} + \frac{\partial p_{i} }{\partial x_{k}} \frac{1}{(1 - p_{i})} = \beta_{k}$$`
-&lt;br&gt;
---
-
-- .bold[Paso 3]: re-agrupando:
-
-`$$\frac{\partial p_{i} }{\partial x_{k}} \frac{1}{p_{i}(1 - p_{i})}= \beta_{k}$$`
-
----
-## Efectos marginales sobre la probabilidad de éxito
-
-
-- .bold[Paso 3]: re-agrupando:
-
-`$$\frac{\partial p_{i} }{\partial x_{k}} \frac{1}{p_{i}(1 - p_{i})}= \beta_{k}$$`
-
-&lt;br&gt;
---
-
-- .bold[Paso 4]: re-ordebando los términos obtenemos el efecto marginal que buscamos:
-
-.content-box-blue[
-`$$\frac{\partial p_{i}}{\partial x_{k}}= \beta_{k} \cdot p_{i}(1 - p_{i})$$`
-]
+  - `\(\hat{\mu}_S\)` es insesgado: `\(\mathbb{E}(X_{i})=\mu\)`, `\(\quad \hat{\mu}_S\)` es inconsistente: `\(\sqrt{\text{Var}(X_i)}=\sigma\)`  
 
 --
 
-recordar que ...
-  `$$p_{i} = \frac{1}{1 + e^{-(\beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik})}}$$`
 
----
-## Efectos marginales sobre la probabilidad de éxito
+- Para `\(\hat{\mu}_G\)` (media geomética)
 
-- .bold[Paso 5]: reemplazando,
-
-`$$\frac{\partial p_{i}}{\partial x_{k}}= \beta_{k} \cdot \Bigg(\frac{1}{1 + e^{-(\beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}})}\Bigg) \Bigg(1 - \frac{1}{1 + e^{-(\beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik})}}\Bigg)$$`
-
-&lt;br&gt;
---
-
-Corolario:
-
---
-
-- Dado que `\(p_{i}(1-p_{i})\)` es estrictamente positivo,
- - `\(\beta_{k}&gt;0\)` indica que variable `\(x_{k}\)` tienen un efecto positivo sobre la probabilidad de éxito
- - `\(\beta_{k}&lt;0\)` indica que `\(x_{k}\)` tiene un efecto negativo.
-
-&lt;br&gt;
---
-
-- El .bold[efecto marginal] de `\(x_{k}\)` no depende sólo de `\(\beta_{k}\)` sino varía dependiendo del valor de `\(x_{k}\)` y del valor de todas las otras covariables.
-
-
----
-## Efectos marginales sobre la probabilidad de éxito
-
-`$$\frac{\partial p_{i}}{\partial x_{k}}= \beta_{k} \cdot \Bigg(\frac{1}{1 + e^{-(\beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik}})}\Bigg) \Bigg(1 - \frac{1}{1 + e^{-(\beta_{0} + \beta_{1} x_{i1} + \dots + \beta_{k} x_{ik})}}\Bigg)$$`
-
-&lt;br&gt;
---
-
-Corolario, 
-
---
-
-- A medida que la `\(p_{i}\)` se aproxima a 0, `\(\frac{\partial p_{i}}{\partial x_{k}}\)` tiende a 0.
-
-- A medida que la `\(p_{i}\)` se aproxima a 1, `\(\frac{\partial p_{i}}{\partial x_{k}}\)` tiende a 0.
-
-- A medida que la `\(p_{i}\)` se acerca a 0.5, `\(\frac{\partial p_{i}}{\partial x_{k}}\)` tiende a `\(\beta_{k}/4\)`.
-
-
----
-## Efectos marginales sobre la probabilidad de éxito
-
-En nuestro ejemplo: `\(\ln \frac{p_{i}}{1 -p_{i}} = \beta_{0} + \beta_{1}*\text{male}_{i} + \beta_{2}*\text{ym}_{i}\)`, por tanto:
-`$$p_{i} = \frac{1}{1 + e^{-(\beta_{0} + \beta_{1}*\text{male}_{i} + \beta_{2}*\text{ym}_{i})} }$$`
-
-.pull-left[
-
-```
-##                    Estimate Std. Error
-## (Intercept)     -1.71395429 0.20633183
-## factor(sex)male  0.22157111 0.19064190
-## ym               0.05842959 0.01727402
-```
-]
-.pull-right[
-![](class_10_files/figure-html/unnamed-chunk-18-1.png)&lt;!-- --&gt;
-]
-
----
-## Efectos marginales sobre la probabilidad de éxito
-
-.pull-left[
-`$$p_{i} = \frac{1}{1 + e^{-(\beta_{0} + \beta_{1}*\text{male}_{i} + \beta_{2}*\text{ym}_{i})}}$$`
-
-![](class_10_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
-]
-
---
-
-.pull-right[
-`$$\frac{\partial p_{i}}{\partial \text{ym} }= \beta_{\text{ym}} \cdot p_{i}(1 - p_{i})$$`
-
-![](class_10_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
-]
----
-## Efectos marginales sobre la probabilidad de éxito
-
-- Efectos marginales son _esencialmente_ heterogeneos. No hay un efecto sino muchos. 
-
---
-
-- Heterogeneidad crece con la complejidad del modelo: número de predictores, interacciones, etc. 
-
---
-
-- En la práctica, muchas veces queremos UN número que resuma el efecto marginal. 
-
-&lt;br&gt;
---
-.pull-left[
-![For god sakes just give me the damn number](https://i.makeagif.com/media/8-29-2018/ior4IF.gif)
-]
-
---
-
-Cantidades de interes:
-.pull-right[
-
-* Average Marginal Effects (AME)
-
-* Marginal Effects at the Mean (MEM)
-
-* Marginal Effects at Representative Values (MER)
-
-]
-
----
-## Efectos marginales sobre la probabilidad de éxito: AME
-
-.bold[AME]: Efecto marginal promedio (en muestra)
-
---
-
-En `R` pueden usar el nuevo paquete `marginaleffects` (o comando `margins` en `Stata` )
-
-
-```r
-summary(marginaleffects(logit_affairs_sex_ym))
-```
-
-```
-## Average marginal effects 
-##       type            Term  Effect Std. Error z value   Pr(&gt;|z|)     2.5 %  97.5 %
-## 1 response factor(sex)male 0.04072   0.035054   1.161 0.24544014 -0.027990 0.10942
-## 2 response              ym 0.01070   0.003082   3.473 0.00051463  0.004663 0.01674
-## 
-## Model type:  glm 
-## Prediction type:  response
-```
-
---
-
-.pull-left[
-.bold[¿De donde vienen estos números?]
-
-]
-
-.img-right[
-![boric](boric.png)
-]
-
----
-## Efectos marginales sobre la probabilidad de éxito: AME
-
- .bold[(a) Solución análítica], usando 
-`$$\frac{\partial p_{i}}{\partial \text{ym} }= \beta_{\text{ym}} \cdot p_{i}(1 - p_{i})$$`
---
-
-En `R`:
-
-
-```r
-beta_ym = logit_affairs_sex_ym$coefficients[3] # coeficiente ym 
-p_hat &lt;- predict(logit_affairs_sex_ym, type="response") # prob predichas cada obs.
-me_ym = beta_ym*p_hat*(1-p_hat) # efector marginal para cada obs.
-```
-
---
-
-.pull-left[
-![](class_10_files/figure-html/unnamed-chunk-23-1.png)&lt;!-- --&gt;
-]
-
-.pull-right[
-
-```r
-ame = round(mean(me_ym),4)
-print(paste0("AME Years of Marriage: ", ame))
-```
-
-```
-## [1] "AME Years of Marriage: 0.0107"
-```
-]
-
----
-## Efectos marginales sobre la probabilidad de éxito: AME
-
-
- .bold[(b) Aproximación numérica], usando la definición la derivada:
---
-
-`$$\frac{\partial p_{i}}{\partial \text{ym}} \approx  \frac{p_{i}(x_{1}, \dots ,\text{ym} = c + \delta) - p_{i}(x_{1}, \dots ,\text{ym} = c )}{\delta}$$`
-&lt;br&gt;
---
-
-
-```r
-p_hat &lt;- predict(logit_affairs_sex_ym, type="response") # prob predichas cada obs.
-
-delta = 0.01 # cantidad cambio
-affairsdata_delta &lt;- affairsdata %&gt;% mutate(ym = ym + delta) # cambio marginal en ym
-# probabilidad predicha con ym aumentado marginalmente
-p_hat_delta &lt;- predict(logit_affairs_sex_ym, newdata=affairsdata_delta ,type="response") 
-
-me_ym_approx &lt;- (p_hat_delta - p_hat)/delta # approx. numerica marginal effect.
-
-# average marginal effect
-round(mean(me_ym_approx),4)
-```
-
-```
-## [1] 0.0107
-```
-
----
-## Efectos marginales sobre la probabilidad de éxito: MEM
-
-.bold[MEM]: Efecto marginal al valor promedio (en muestra)
-
---
-
-.pull-left[
-- ¿Qué promedio?
-
-  - ¿Promedio de "years of marriage" para cada género por separado?
+  - `\(\hat{\mu}_G\)`: `\(\mathbb{E}\bigg(\left( X_1 \times X_2 \times \ldots \times X_{100} \right)^{\frac{1}{100}}\bigg)=\)` ? 
   
-  - ¿Promedio global de "years of marriage" por cada género por separado?
-  
-  - ¿Promedio global de "years of marriage" y la media género (como var. continua)?
-]
+  - `\(\hat{\mu}_G\)`: `\(\sqrt{\mathbb{Var}\bigg(\left( X_1 \times X_2 \times \ldots \times X_{100} \right)^{\frac{1}{100}}\bigg)}\)` ?
 
---
-
-.pull-right[
-
-![ah](http://25.media.tumblr.com/tumblr_lx16y1gdGm1qls3mfo1_500.gif)
-
-
-]
-
-
---
-
-Depende de que lo que queremos ...
-
----
-## Efectos marginales sobre la probabilidad de éxito: MEM
-
-Implentamos la tercera opción usando `marginaleffects` en `R`: efecto marginal para años de matrimonio y género fijos a su promedio globa.
-
---
-
-
-```r
-affairsdata &lt;- affairsdata %&gt;% mutate(male = 1*(sex=="male"))
-logit_affairs_sex_ym2 &lt;- glm(everaffair_d ~ male + ym, family=binomial(link="logit"), 
-                             data=affairsdata)
-
-mean_male = mean(affairsdata$male);  mean_ym = mean(affairsdata$ym)
-c("Promedio ym"=mean_ym, "Promedio male"=mean_male)
-```
-
-```
-##   Promedio ym Promedio male 
-##     8.1776955     0.4758735
-```
-
---
-
-
-```r
-marginaleffects(logit_affairs_sex_ym2, newdata =  typical(male=mean_male, ym=mean_ym))
-```
-
-```
-##   rowid     type term       dydx   std.error      male       ym predicted
-## 1     1 response male 0.04087585 0.035117624 0.4758735 8.177696 0.2440329
-## 2     1 response   ym 0.01077916 0.003146584 0.4758735 8.177696 0.2440329
-```
-
----
-## Efectos marginales sobre la probabilidad de éxito: MEM
-
-.bold[Solución analística], usando 
-`$$\frac{\partial p_{i}}{\partial \text{ym} }= \beta_{\text{ym}} \cdot p_{i}(1 - p_{i})$$`
-
---
-
-
-```r
-beta_ym = logit_affairs_sex_ym$coefficients[3] # coeficiente ym 
-grid &lt;- affairsdata %&gt;% data_grid(male=mean_male, ym=mean_ym, .model=logit_affairs_sex_ym2); grid
-```
-
-```
-## # A tibble: 1 × 2
-##    male    ym
-##   &lt;dbl&gt; &lt;dbl&gt;
-## 1 0.476  8.18
-```
-
-```r
-p_hat &lt;- predict(logit_affairs_sex_ym2, newdata=grid, type="response") # prob predichas 
-
-mem_ym = beta_ym*p_hat*(1-p_hat); round(mem_ym,4) # efecto marginal 
-```
-
-```
-##     ym 
-## 0.0108
-```
-
----
-## Efectos marginales sobre la probabilidad de éxito: MEM
-
-.bold[Aproximación numérica], usando: 
-
-`$$\frac{\partial p_{i}}{\partial \text{ym}} \approx  \frac{p_{i}(x_{1}, \dots ,\text{ym} = c + \delta) - p_{i}(x_{1}, \dots ,\text{ym} = c )}{\delta}$$`
-
-&lt;br&gt;
---
-
-
-```r
-delta = 0.01 # cantidad cambio
-
-grid &lt;- affairsdata %&gt;% data_grid(male=mean_male, ym=c(mean_ym, mean_ym+ delta), .model=logit_affairs_sex_ym2)
-p_hat &lt;- predict(logit_affairs_sex_ym2, newdata=grid, type="response") # prob predichas 
-
-mem_ym_approx = (p_hat[2] - p_hat[1])/delta
-round(mem_ym_approx,4) # efecto marginal 
-```
-
-```
-##      2 
-## 0.0108
-```
-
----
-## Efectos marginales sobre la probabilidad de éxito: MER
-
-Una versión más general de MEM es calcular los efectos marginales para "valores representativos". 
-
-
-
---
-
-En `R`
-
-
-
-```r
-marginaleffects(logit_affairs_sex_ym, 
-                        newdata =  typical(sex = c("male", "female"),
-                                  ym=c(4,7,15)
-                                  )) %&gt;% filter(term=="ym")
-```
-
-```
-##   rowid     type term        dydx   std.error    sex ym predicted
-## 1     1 response   ym 0.010065840 0.002588786   male  4 0.2212038
-## 2     2 response   ym 0.008824151 0.002257825 female  4 0.1853918
-## 3     3 response   ym 0.011038863 0.003147914   male  7 0.2528677
-## 4     4 response   ym 0.009805810 0.002810060 female  7 0.2133336
-## 5     5 response   ym 0.013305083 0.004368209   male 15 0.3507056
-## 6     6 response   ym 0.012318113 0.004200075 female 15 0.3020594
-```
-
-
-
+.img-right-bottom[![fear](https://media.giphy.com/media/14ut8PhnIwzros/giphy.gif)]
 
 ---
 class: inverse, center, middle
 
-.huge[
-**Hasta la próxima clase. Gracias!**
-]
+
+##Hasta la próxima clase. Gracias!
+
 
 &lt;br&gt;
 Mauricio Bucca &lt;br&gt;
@@ -984,6 +413,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

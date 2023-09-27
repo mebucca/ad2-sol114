@@ -103,7 +103,15 @@ strong {
 .img-right{
   height: 300px;
   width: 300px;
-  top: 34%;
+  top: 37%;
+  left: 70%;
+  position: absolute;
+}
+
+.img-right-bottom{
+  height: 300px;
+  width: 300px;
+  top: 65%;
   left: 65%;
   position: absolute;
 }
