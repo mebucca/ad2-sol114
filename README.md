@@ -37,7 +37,7 @@ Certainly, aligning a table helps in making it more readable. Below is your tabl
 | 13  | Sep | Ley de los grandes números                 | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_8/class_8#1) [`[Code]`](slides/class_8/class_8.Rmd)       | 6.4        |
 | 20  | Sep | Teorema del Límite Central                 | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_8/class_8#18) [`[Code]`](slides/class_8/class_8.Rmd)       | 6.4        |
 | 25  | Sep | Estimación puntal                          | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_9/class_9#1) [`[Code]`](slides/class_9/class_9.Rmd)       |            |
-| 20  | Sep | Distribución muestral, sesgo y varianza    |                                                                                                                        |            |
+| 20  | Sep | Distribución muestral, sesgo y varianza    | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_10/class_10#1) [`[Code]`](slides/class_10/class_10.Rmd)                                                                                                                       |            |
 | 25  | Sep | Bootstrap                                  |                                                                                                                        |            |
 | 27  | Sep | Estimación de intervalos                   |                                                                                                                        |            |
 | 11  | Oct | Error tipo I y II                          |                                                                                                                        |            |
