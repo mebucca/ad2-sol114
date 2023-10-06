@@ -814,12 +814,14 @@ En resumen, el Teorema del Límite Central es aplicable en este escenario donde 
 
 Dado que tenemos una muestra aleatoria de 200 hogares de la población, la distribución de la media muestral seguirá una distribución normal, con la misma media que la población original (\$45,000) y una desviación estándar calculada como la desviación estándar de la población dividida por la raíz cuadrada del tamaño de la muestra:
 
-La desviación estándar de la media muestral
+La desviación estándar de la media muestral es $\sigma\bar{x} = \frac{\sigma}{\sqrt{n}}$, entonces:
 
-  σx̄ = σ / √n
-  σx̄ = \$8,000 / √200
-  σx̄ = \$8,000 / 14.14
-  σx̄ ≈ \$565.69
+\begin{align*}
+\sigma\bar{x} &= \frac{\$8,000}{\sqrt{200}} \\ \\
+&= \frac{\$8,000}{14.14} \\ \\
+&\approx \$565.69
+\end{align*}
+
 
 Por lo tanto, la distribución de la media muestral tendrá una media de \$45,000 y una desviación estándar de aproximadamente \$565.69.
 
@@ -836,14 +838,16 @@ Por lo tanto, aproximadamente el 68% de nuestras medias muestrales estarán dent
 
 Para encontrar los percentiles utilizando la función inversa de la distribución normal estándar (también conocida como la tabla Z o la inversa de la función de distribución acumulativa, Φ⁻¹), puedes utilizar la fórmula:
 
-Percentil = μ + Z \* σx̄
+\begin{align*}
+\text{Percentil} &= \mu + Z \cdot \sigma_{\bar{x}} \\ \\
+\text{Donde:} \\ \\
+\text{- Percentil} & \text{ es el valor que estás tratando de encontrar.} \\
+\text{- } \mu & \text{ es la media de la distribución de la media muestral (\$45,000).} \\
+\text{- } Z & \text{ es la puntuación Z correspondiente al percentil deseado.} \\
+\text{- } \sigma_{\bar{x}} & \text{ es la desviación estándar de la distribución de la media muestral (\$80).}
+\end{align*}
 
-Donde: 
 
-- Percentil es el valor que estás tratando de encontrar.
-- μ es la media de la distribución de la media muestral (\$45,000).
-- Z es la puntuación Z correspondiente al percentil deseado.
-- σx̄ es la desviación estándar de la distribución de la media muestral (\$80).
 
 Para el percentil 10 (P10), necesitas encontrar la puntuación Z asociada al percentil 10, que es -1.28 (puedes buscar esto en la tabla de la distribución normal estándar o utilizar una calculadora que proporcione la función inversa de la distribución normal estándar Φ⁻¹).
 
