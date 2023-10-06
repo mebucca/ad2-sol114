@@ -8,9 +8,9 @@ editor: visual
 1.  Se lanza una moneda y un dado. Enumera el espacio muestral.
 
 El espacio muestral para este experimento se compone de todas las posibles combinaciones de resultados de lanzar una moneda y un dado.
-El espacio muestral se denota como $S$:
+El espacio muestral se denota como $\Omega$:
 
-$$S = \{(Cara, 1), (Cara, 2), \ldots, (Cara, 6), (Sello, 1), (Sello, 2), \ldots, (Sello, 6)\}$$
+$$\Omega = \{(Cara, 1), (Cara, 2), \ldots, (Cara, 6), (Sello, 1), (Sello, 2), \ldots, (Sello, 6)\}$$
 
 Donde "Cara" y "Sello" representan los posibles resultados de lanzar la moneda, y los números del 1 al 6 representan los posibles resultados de lanzar el dado.
 
