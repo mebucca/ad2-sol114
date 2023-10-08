@@ -110,6 +110,7 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 ## Recursos estudio
 
 - Problemas desde *Fundamento de probabilidades* hasta *Teoremas Asintóticos*: [`[Respuestas Problem-set 1]`](problemsets/ejercicios_1.pdf) 
+- Problemas desde *Distribución Normal Standard* hasta *Distribución muestral, sesgo y varianza*: [`[Respuestas Problem-set 2]`](problemsets/ejercicios_2.pdf) 
 
 ---
 
