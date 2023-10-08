@@ -45,21 +45,21 @@ Para entender su relación con la convergencia en probabilidad y las propiedades
 -   **Convergencia en Probabilidad**:
 
 La idea de convergencia en probabilidad se refiere al comportamiento de una secuencia de variables aleatorias a medida que el número de observaciones se aproxima al infinito.
-Decimos que una secuencia de variables aleatorias $X_1, X_2, \ldots, X_n$ converge en probabilidad a una variable aleatoria $X$ si, para cualquier valor positivo pequeño \$ \epsilon\$:
+Decimos que una secuencia de variables aleatorias $X_1, X_2, \ldots, X_n$ converge en probabilidad a una variable aleatoria $X$ si, para cualquier valor positivo pequeño $\epsilon$:
 
 $$\lim_{n \to \infty} P(|X_n - X| > \epsilon) = 0$$
 
-En otras palabras, la probabilidad de que la diferencia entre $X_n$ y $X$ sea mayor que \$ \epsilon\$ tiende a cero a medida que \$ n\$ tiende al infinito.
+En otras palabras, la probabilidad de que la diferencia entre $X_n$ y $X$ sea mayor que $\epsilon$ tiende a cero a medida que $n$ tiende al infinito.
 
 -   **Ley de los Grandes Números**: Hay varias versiones de la LGN, pero la más comúnmente discutida es la Ley de los Grandes Números Débil (LLGN). Esta versión establece que si $X_1, X_2, \ldots$ son variables aleatorias independientes e idénticamente distribuidas con esperanza finita $E[X_i] = \mu$ y varianza finita $Var(X_i) = \sigma^2$, entonces la media muestral:
 
 $$\bar{X_n} = \frac{1}{n}(X_1 + X_2 + \ldots + X_n)$$
 
-converge en probabilidad al valor esperado \$ \mu\$:
+converge en probabilidad al valor esperado $\mu$:
 
 $$\lim_{n \to \infty} P(|\bar{X_n} - \mu| > \epsilon) = 0$$
 
-para cualquier \$\epsilon \> 0\$.
+para cualquier $\epsilon > 0$.
 
 -   **Relación con el Valor Esperado y la Varianza de la Media Muestral**:
 
@@ -192,7 +192,7 @@ La probabilidad es $0.8413 - 0.1587 = 0.6826$, o 68.26%.
 
 -   **Estandarización:** $$Z = \frac{\bar{X} - \mu}{\sigma_{\bar{X}}}$$ Con $\bar{X} = 2.48$ y (
 
-    \mu = 2.5\$: $$Z = \frac{2.48 - 2.5}{0.02} = -1$$
+    \mu = 2.5$: $$Z = \frac{2.48 - 2.5}{0.02} = -1$$
 
 -   **Uso de** $\Phi$: $$P(\bar{X} < 2.48) = \Phi(-1)$$
 
