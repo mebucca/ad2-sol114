@@ -9,7 +9,7 @@ editor: visual
 
 ```{r, echo=F, message=FALSE, warning=FALSE}
 library("pacman")
-p_load(googlesheets4, tidyverse, kableExtra)
+p_load(googlesheets4, tidyverse, kableExtra,mclust)
 
 #gs4_auth()
 
@@ -48,7 +48,6 @@ p <- ggplot(data_grades, aes(x = Nota)) +
                  fill = "blue", 
                  alpha = 0.5, 
                  bins = 30) +
-  geom_density(fill = "red", alpha = 0.3) +
   geom_vline(xintercept = media, linetype = "dashed", color = "black") +
   geom_text(aes(x = 1.1, y = limits_y[2] * 0.9, 
                 label = paste("Media =", round(media, 2))), hjust = 0) +
@@ -58,14 +57,57 @@ p <- ggplot(data_grades, aes(x = Nota)) +
                 label = paste("Max =", round(max_val, 2))), hjust = 0) +
   geom_text(aes(x = 1.1, y = limits_y[2] * 0.6, 
                 label = paste("SD =", round(sd, 2))), hjust = 0) +
-  labs(title = "Distribución of Notas",
+  labs(title = "Distribución de Notas",
        x = "Nota",
-       y = "Densi") +
+       y = "Densidad") +
   xlim(1,8) +
   theme_minimal() +
   coord_cartesian(ylim = limits_y)
 
 # Display plot
+print(p)
+```
+
+
+
+Usando un Gaussian mixture model encontramos 4 clusters de notas:
+
+```{r, echo=F, message=FALSE, warning=FALSE}
+
+# Set seed for reproducibility
+set.seed(7615)
+
+# Fit a Gaussian mixture model with the "EM" algorithm and adjusted bandwidth
+fit <- Mclust(data_grades$Nota, G = 4, adjustment = list(diagCov = TRUE))
+
+# Get the cluster assignments for each data point
+cluster_assignments <- fit$classification
+
+# Calculate the means for each cluster
+cluster_means <- tapply(data_grades$Nota, cluster_assignments, mean)
+
+# Create a ggplot without a legend, add horizontal lines, annotate cluster means, and add vertical lines
+p <- ggplot(data_grades, aes(x = Nota, fill = factor(cluster_assignments))) +
+  geom_density(alpha = 0.5) +
+  labs(title = "Gaussian Mixture Model",
+       x = "Nota",
+       y = "Density") +
+  theme_minimal() +
+  scale_fill_manual(name = "Component", 
+                    values = c("#E41A1C",  # Red
+                                "#377EB8",  # Blue
+                                "#4DAF4A",  # Green
+                                "#984EA3")) +  # Purple
+  theme(legend.position = "none") +  # Remove the legend
+  geom_hline(yintercept = 0, linetype = "dashed", color = "black") +  # Add horizontal line at y = 0
+  geom_text(data = data.frame(cluster = unique(cluster_assignments), 
+                             cluster_mean = cluster_means),
+            aes(x = cluster_mean, y = 2, label = round(cluster_mean, 1), fill = factor(cluster)),
+            vjust = -0.5, size = 3) +  # Annotate cluster means with colors and rounded values
+  geom_vline(data = data.frame(cluster_mean = cluster_means),
+             aes(xintercept = cluster_mean), color = "black", linetype = "dotted")  # Add vertical lines
+
+# Display the plot
 print(p)
 
 
