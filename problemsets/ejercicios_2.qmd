@@ -192,7 +192,7 @@ La probabilidad es $0.8413 - 0.1587 = 0.6826$, o 68.26%.
 
 -   **Estandarización:** $$Z = \frac{\bar{X} - \mu}{\sigma_{\bar{X}}}$$ Con $\bar{X} = 2.48$ y (
 
-    \mu = 2.5$: $$Z = \frac{2.48 - 2.5}{0.02} = -1$$
+    \mu = 2.5\$: $$Z = \frac{2.48 - 2.5}{0.02} = -1$$
 
 -   **Uso de** $\Phi$: $$P(\bar{X} < 2.48) = \Phi(-1)$$
 
