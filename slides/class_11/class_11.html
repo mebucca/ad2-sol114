@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
 ]
 .date[
-### 13 October, 2023
+### 15 October, 2023
 ]
 
 ---
@@ -31,7 +31,7 @@ class: inverse, center, middle
 
 
 
-# Estimación de Intervalos
+# Distribución Muestral (again)
 
 
 ---
@@ -46,10 +46,7 @@ Si `\(\hat{\beta}\)` es un estimador definido como `\(\hat{\beta}: f(\text{datos
 --
 
 
-
 .bold[Paso a paso,]
-
-&lt;br&gt;
 
 --
 
@@ -68,6 +65,460 @@ dado `\(n\)`, generados por el mismo proceso (o población).
 
 - Como toda distribución de probabilidades, la .bold[distribución muestral] indica la probabilidad de obtener cada valor posible al aplicar el estimador `\(\hat{\beta}\)`.
 
+---
+##Distribución Muestral 
+
+.bold[Simulación Monte Carlo:]
+
+- La variable `\(X\)` en la población distribuye Normal con `\(\mu=4\)` y `\(\sigma=3.464\)`.
+
+- Tomamos 5000 muestras alesatorias de tamaño 200 en una población: `\(m_{200_i}\)`
+
+- En cada muestra calculamos la media muestral de la variable `\(X\)`: `\(\bar{X}_{200_i}\)`   
+
+--
+
+.bold[Implementación en `R`:]
+
+
+```r
+# población (N=un millón, media=4, sd=3)
+x_poblacion &lt;- tibble(x = rnorm(n=10^6, mean=4, sd=3))
+
+# simulación: 
+resultados &lt;- tibble(estimado = numeric(5000))
+
+for (i in 1:5000) {
+  # tomamos 5000 muestras de tamaño 200
+  muestra_i &lt;- sample_n(x_poblacion, size=200, replace = TRUE)
+  
+  # en cada muestra calculamos media y guardamos resultado
+  resultados$estimado[i] &lt;- mean(muestra_i$x)
+}
+```
+
+---
+##Distribución Muestral
+
+La colección de estimados se ve así:
+
+.pull-left[
+
+```
+## # A tibble: 5,000 × 1
+##    estimado
+##       &lt;dbl&gt;
+##  1     3.64
+##  2     4.12
+##  3     3.59
+##  4     4.10
+##  5     3.96
+##  6     4.18
+##  7     4.12
+##  8     3.68
+##  9     3.72
+## 10     3.96
+## 11     3.99
+## 12     3.83
+## 13     4.25
+## 14     3.90
+## 15     4.23
+## # ℹ 4,985 more rows
+```
+]
+
+--
+
+.pull-right[
+
+- La estimación de la media muestral es aleatorias porque las muestras son aleatorias
+
+- ¿Cómo se distribuyen estas estimaciones?
+
+&lt;br&gt;
+- El .bold[Teoréma del Límite Central] nos dice que:
+
+  `$$\bar{X}_{n} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)$$`
+  
+]
+
+
+---
+##Distribución Muestral
+
+La colección de estimados se ve así:
+
+.pull-left[
+
+```
+## # A tibble: 5,000 × 1
+##    estimado
+##       &lt;dbl&gt;
+##  1     3.64
+##  2     4.12
+##  3     3.59
+##  4     4.10
+##  5     3.96
+##  6     4.18
+##  7     4.12
+##  8     3.68
+##  9     3.72
+## 10     3.96
+## 11     3.99
+## 12     3.83
+## 13     4.25
+## 14     3.90
+## 15     4.23
+## # ℹ 4,985 more rows
+```
+]
+
+
+.pull-right[
+
+- La estimación de la media muestral es aleatorias porque las muestras son aleatorias
+
+- ¿Cómo se distribuyen estas estimaciones?
+
+&lt;br&gt;
+- El .bold[Teoréma del Límite Central] nos dice que:
+
+  `$$\bar{X}_{n} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)$$`
+
+&lt;br&gt;
+- En nuestro caso:
+
+  `$$\bar{X}_{200} \sim \text{Normal}\bigg(4, \frac{3.464}{\sqrt{200}}\bigg)$$`
+    
+]
+
+---
+##Distribución Muestral
+
+.pull-left[
+![](class_11_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+
+- El .bold[Teoréma del Límite Central] nos dice que:
+
+&lt;br&gt;
+
+  `$$\bar{X}_{200} \sim \text{Normal}\bigg(4, \frac{3.464}{\sqrt{200}}\bigg)$$`
+
+]
+
+
+---
+##Distribución Muestral
+
+.pull-left[
+![](class_11_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+
+- El .bold[Teoréma del Límite Central] nos dice que:
+
+&lt;br&gt;
+
+  `$$\bar{X}_{200} \sim \text{Normal}\bigg(4, \frac{3.464}{\sqrt{200}}\bigg)$$`
+
+&lt;br&gt;
+
+- Nuestra simulación confirma la teoría
+
+]
+
+
+---  
+class: inverse, center, middle
+
+
+#Estimación Puntual
+
+
+---
+##Estimación Puntual
+
+
+.pull-left[
+
+
+- Cuando contamos con .bold[UNA] muestra no tenemosn una distribución de estimados
+
+- Tenemos una .bold[estimación puntual]
+
+
+&lt;br&gt;
+Por ejemplo:
+
+
+`\(\bar{X}_{200}\)` =  4.0585485
+
+&lt;br&gt;
+
+
+- Sabemos que la media muestral es un estimador insesgado de la media poblacional (es promedio coinciden)
+
+- Sin embargo, .bold[la estimación puntal no necesariamente corresponde al parámetro poblacional].
+
+- No nos tomamos este número tan enserio
+ 
+]
+
+
+.pull-right[
+![](class_11_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+
+---
+##Error en estimación
+
+¿Qué tan probable es que que nuestro estimador se equivoque? ¿en cuanto?
+
+--
+
+Definamos un nivel de error `\(e\)`.
+--
+ La probabilidad de que el estimado `\(\bar{X}_{n}\)` esté a una distancia `\(e\)` respecto del parámetro poblacional: 
+
+`$$\mathbb{P}( |\bar{X} - \mu| &lt; e) =  \quad \mathbb{P}(-e &lt; \bar{X} - \mu &lt; e)$$`
+
+&lt;br&gt;
+--
+
+dividendo por el error estándard (SE) de `\(\bar{X}\)`: `\(\quad \quad \mathbb{P}\bigg(\frac{-e }{\sigma/\sqrt{n}} &lt; Z_{\bar{X}}  &lt; \frac{e}{\sigma/\sqrt{n}}\bigg) =\)`
+
+--
+
+.pull-left[
+
+![](class_11_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+
+Usamos las propiedades de una Normal Standard para calcular esta probabilidad:
+
+&lt;br&gt;
+
+$$ = \Phi\Bigg({\frac{e }{\sigma/\sqrt{n}}}\Bigg) - \Phi\Bigg(\frac{-e }{\sigma/\sqrt{n}}\Bigg)$$
+]
+
+---
+##Error en estimación
+
+En nuestro ejemplo:   
+  - La variable `\(X\)` en la población distribuye Normal con `\(\mu=4\)` y `\(\sigma=3.464\)`.
+  - Tomamos un muestra aleaatorias de tamaño 200 y estimamos la media muestral `\(\bar{X}_{200}\)`.
+
+--
+
+.bold[¿Cual es la probabilidad de que nuestro estimado difiera como máximo en 1 punto respecto de la media problacional?] (en cualquier dirección)
+
+--
+
+`$$\mathbb{P}(-e &lt; \bar{X} - \mu &lt; e) = \mathbb{P}(-1 &lt; \bar{X} - \mu &lt; 1)$$` 
+
+&lt;br&gt;
+--
+
+Dividimos por el error estándard (SE) de `\(\bar{X}\)`, donde  `\(SE_{\bar{X}} = \sigma/\sqrt{n} =  3.464/\sqrt{200} \approx 0.245\)`
+
+--
+
+.pull-left[
+`\begin{align}
+\mathbb{P}(-1 &lt; \bar{X} - \mu &lt; 1) &amp;= \mathbb{P}\bigg(\frac{-1 }{0.245} &lt; Z_{\bar{X}}  &lt; \frac{1}{0.245}\bigg)   \\ \\
+&amp;= \mathbb{P}\bigg(−4.08 &lt; Z_{\bar{X}}  &lt; 4.08\bigg) \\ \\
+&amp;= 1 - 2 \times \Phi(−4.08) = 0.99996 \\ \\
+\end{align}`
+]
+
+
+.pull-right[
+![](class_11_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+]
+
+
+---
+class: inverse, center, middle
+
+#Estimación de intervalos
+##Intervalos de confianza
+
+
+---
+##Estimación de intervalos
+
+Anteriormente calculamos la probabilidad de que el estimado `\(\bar{X}_{n}\)` esté a una distancia `\(e\)` respecto del parámetro poblacional: 
+
+$$ \quad \mathbb{P}\bigg(-e &lt; \bar{X} - \mu &lt; e\bigg) = \mathbb{P}\bigg(\frac{-e }{\sigma/\sqrt{n}} &lt; Z_{\bar{X}}  &lt; \frac{e}{\sigma/\sqrt{n}}\bigg)$$
+
+--
+
+Proceso inverso: buscar un intervalo de valores tal que el .bold[parámetro poblacional se encontrá dentro del intervalo con una cierta probabilidad] (nivel de confianza). 
+--
+Definamos un .bold[Nivel de Confianza] = `\(1 - \alpha\)` 
+
+--
+
+.pull-left[
+
+`\(\quad \mathbb{P}( -L &lt; Z_{\bar{X}}  &lt; L) = 1 - \alpha\)`
+
+![](class_11_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+
+&lt;br&gt;
+
+- En cada cola se acumula un probabilidad de `\(\alpha/2\)`
+
+Por tanto:
+  
+- .bold[LI] = `\(\Phi^{-1}(\alpha/2)\)`
+
+- .bold[LS] = `\(\Phi^{-1}(1 - \alpha/2)\)`
+
+- Por simetría: `\(\Phi^{-1}(1 - \alpha/2) = - \Phi^{-1}(\alpha/2)\)`
+
+]
+
+---
+##Estimación de intervalos
+
+
+`\(\mathbb{P}( -L &lt; Z_{\bar{X}}  &lt; L) = 1 - \alpha\)`
+
+--
+
+`\(\mathbb{P}( \Phi^{-1}(\alpha/2) &lt; Z_{\bar{X}}  &lt; \Phi^{-1}(1 - \alpha/2)) = 1 - \alpha\)`
+
+--
+
+`\(\mathbb{P}\bigg( \Phi^{-1}(\alpha/2) &lt; \frac{\bar{X} - \mu}{\sigma/\sqrt{n}}  &lt; \Phi^{-1}(1 - \alpha/2)\bigg) = 1 - \alpha\)`
+
+--
+
+`\(\mathbb{P}\bigg( \Phi^{-1}(\alpha/2) \times \sigma/\sqrt{n} &lt; \bar{X} - \mu  &lt; \Phi^{-1}(1 - \alpha/2) \times \sigma/\sqrt{n}\bigg) = 1 - \alpha\)`
+
+--
+
+`\(\mathbb{P}\bigg( \Phi^{-1}(\alpha/2) \times \sigma/\sqrt{n} &lt;  \mu - \bar{X} &lt; \Phi^{-1}(1 - \alpha/2) \times \sigma/\sqrt{n}\bigg) = 1 - \alpha\)`
+--
+
+`\(\mathbb{P}\bigg( \bar{X} +  \Phi^{-1}(\alpha/2) \times \sigma/\sqrt{n} &lt;  \mu  &lt; \bar{X} + \Phi^{-1}(1 - \alpha/2) \times \sigma/\sqrt{n}\bigg) = 1 - \alpha\)`
+
+---
+##Estimación de intervalos
+
+.bold[Nivel de Confianza] = `\(1 - \alpha\)`
+
+
+.pull-left[
+![](class_11_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+
+
+]
+
+
+---
+##Estimación de intervalos
+
+.bold[Nivel de Confianza] = `\(1 - \alpha\)`
+
+
+.pull-left[
+![](class_11_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+
+- .bold[Límite inferior (LI)] = `\(\Phi^{-1}(\alpha/2)\)`
+
+- .bold[Límite superir (LS)] = `\(\Phi^{-1}(1 - \alpha/2)\)`
+
+- Por simetría `\(\Phi^{-1}(1 - \alpha/2) = - \Phi^{-1}(\alpha/2)\)`
+
+&lt;br&gt;
+
+Por ejemplo,
+
+
+Si `\(\alpha=0.05\)`, el .bold[nivel de confianza] es de `\(0.95\)`
+
+&lt;br&gt;
+
+Por tanto:
+
+
+- .bold[Límite inferior (LI)] = `\(\Phi^{-1}(0.05/2) = −1.96\)`
+
+- .bold[Límite superir (LS)] = `\(\Phi^{-1}(0.975) = 1.96\)`
+
+
+]
+
+
+---
+##Estimación de intervalos
+
+.pull-left[
+![](class_11_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+- .bold[Límite inferior (LI)] = `\(\Phi^{-1}(\alpha/2)\)`
+
+- .bold[Límite superir (LS)] = `\(\Phi^{-1}(1 - \alpha/2)\)`
+
+- Por simetría `\(\Phi^{-1}(1 - \alpha/2) = - \Phi^{-1}(\alpha/2)\)`
+
+
+&lt;br&gt;
+
+Por tanto,
+
+`$$\mathbb{P}\Bigg(\Phi^{-1}(\alpha/2) &lt; \frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}} }&lt; \Phi^{-1}(1 - \alpha/2) \Bigg) = 1 - \alpha$$`
+
+&lt;br&gt;
+O, usando notación más sintética,
+
+`$$\mathbb{P}\Bigg(Z_{(\alpha/2)} &lt; \frac{\bar{X} - \mu}{EE}&lt; Z_{(1 - \alpha/2)} \Bigg) = 1 - \alpha$$`
+]
+
+
+---
+##Estimación de intervalos
+
+
+Para el .bold[Nivel de Confianza] = `\(1 - \alpha\)`
+
+`$$\mathbb{P}\Bigg(Z_{(\alpha/2)} &lt; \frac{\bar{X} - \mu}{EE}&lt; Z_{(1 - \alpha/2)} \Bigg) = 1 - \alpha$$`
+
+--
+&lt;br&gt;
+
+Entonces, des-estandarizando la media muestral obtenemos:
+
+
+.content-box-primary[
+`$$\color{white}{\mathbb{P}\Bigg(\mu + Z_{(\alpha/2)}\times EE  &lt; \bar{X} &lt; \mu +  Z_{(1 - \alpha/2)}\times EE \Bigg) = 1 - \alpha}$$`
+]
+
+&lt;br&gt;
+--
+
+Luego, el .bold[intervalo al] `\(100*(1 - \alpha)\%\)` .bold[de confianza] es:
+
+`$$IC : \{LI= \mu + Z_{(\alpha/2)}\times EE, \quad LS= \mu +  Z_{(1 - \alpha/2)}\times EE\}$$`
 
 
 

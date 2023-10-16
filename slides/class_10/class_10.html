@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
 ]
 .date[
-### 27 September, 2023
+### 15 October, 2023
 ]
 
 ---
@@ -127,16 +127,16 @@ mimuestra %&gt;% as_tibble()
 ## # A tibble: 100 × 3
 ##    year   educ   age
 ##    &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 1998     12    35
-##  2 2000     16    44
-##  3 2008     17    37
-##  4 2016     18    47
-##  5 1998     13    67
-##  6 1989     13    67
-##  7 1978     12    37
-##  8 1978     12    26
-##  9 1996     13    38
-## 10 2014     18    43
+##  1 2010     12    56
+##  2 2008     14    35
+##  3 2010     11    62
+##  4 1989     16    50
+##  5 1994     12    NA
+##  6 2006     11    43
+##  7 1998      9    62
+##  8 2016     19    69
+##  9 2010      8    46
+## 10 2004     16    25
 ## # ℹ 90 more rows
 ```
 ]
@@ -152,7 +152,7 @@ cat("Promedio Aritmético= ", mu_A)
 ```
 
 ```
-## Promedio Aritmético=  13.28
+## Promedio Aritmético=  13.25
 ```
 
 ```r
@@ -160,7 +160,7 @@ cat("Promedio Geométrico= ", mu_G)
 ```
 
 ```
-## Promedio Geométrico=  12.74554
+## Promedio Geométrico=  12.98302
 ```
 
 ```r
@@ -168,7 +168,7 @@ cat("Observación aleatoria= ", mu_S)
 ```
 
 ```
-## Observación aleatoria=  10
+## Observación aleatoria=  12
 ```
 ]
 
@@ -207,9 +207,9 @@ for (i in 1:repeats) {
 ```
 ## Rows: 5,000
 ## Columns: 3
-## $ mu_A &lt;dbl&gt; 13.41, 13.50, 13.44, 13.44, 13.44, 13.92, 12.90, 13.19, 13.31, 13.30, 12.31, 13.25, 12.58, 1…
-## $ mu_G &lt;dbl&gt; 12.92011, 13.02081, 13.16023, 13.17912, 13.11233, 13.44793, 12.36819, 12.85603, 13.02351, 12…
-## $ mu_S &lt;dbl&gt; 12, 13, 8, 12, 12, 20, 16, 12, 14, 12, 12, 14, 12, 9, 7, 12, 14, 11, 9, 12, 14, 16, 16, 8, 9…
+## $ mu_A &lt;dbl&gt; 12.82, 13.33, 12.84, 13.68, 12.65, 13.10, 13.27, 12.71, 13.36, 13…
+## $ mu_G &lt;dbl&gt; 12.12887, 12.97451, 12.43634, 13.21116, 12.24572, 12.71530, 12.96…
+## $ mu_S &lt;dbl&gt; 15, 12, 14, 16, 20, 17, 14, 12, 16, 18, 16, 8, 16, 15, 14, 12, 15…
 ```
 
 ---
