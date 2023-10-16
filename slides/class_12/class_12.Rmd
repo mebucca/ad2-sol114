@@ -1,12 +1,12 @@
 ---
-title: "Análisis de Datos Categóricos (SOC3070)"
-subtitle: "Clase #12"
-author: "<br> Mauricio Bucca<br> Profesor Asistente, Sociología UC"
-date: "[github.com/mebucca](https://github.com/mebucca)"
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#11: Estimación de Intervalos"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: ["default","default-fonts","gentle-r.css"]
+    css: ["gentle-r.css","xaringan-themer.css"]
     df_print: default
     nature:
       ratio: 16:9
@@ -15,809 +15,889 @@ output:
       countIncrementalSlides: true
       slideNumberFormat: "%current%"
 editor_options: 
-  chunk_output_type: console
----
-class: inverse, center, middle
-#Ajuste y Predicción
-
----
-
-## (Estimación + Inferencia) vs Predicción
-
-<br>
---
-
-Mullainathan and Spiess (2017) llaman esta distinción:
-
-<br>
-
-.huge[
-.center[
-$\hat{\beta}-\text{problems} \quad$ vs $\quad \hat{y}-\text{problems}$
-]
-]
-
-
----
+  chunz_output_type: console
+---  
 class: inverse, center, middle
 
-## Bondad de ajuste en regresión logística (y GLM's)
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(xaringanthemer)
+style_duo_accent(primary_color ="#FF2400", secondary_color = "#FFD700",
+                 background_color = "#f8f7f3",
+                 header_font_google = google_font("Archivo"),
+                 text_font_google   = google_font("Inconsolata"), 
+                 link_color= "#A8C3E6"
 
----
-
-## Ejemplo empírico
-
-$$\newcommand{\vect}[1]{\boldsymbol{#1}}$$
-
-```{r,  include=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
-# load data on extra-marital affairs from package "Ecdat"
-library("Ecdat")
-library("viridis")
-library("tidyverse")
-library("modelr")
-library("cowplot")
-library("margins")
-library("rsample")
-library("arm")
-library("DescTools")
-library("caret")
-
-theme_set(theme_cowplot())
-
-data(Fair)
-affairsdata <- Fair %>% as_tibble()
-
-# create a binary variable indicating wether persons has ever had an affair
-affairsdata <- affairsdata %>% 
-  mutate(everaffair = case_when(nbaffairs == 0 ~ "Never", nbaffairs > 0 ~ "At least once") ) %>%
-  # map into 0/1 code
-  mutate(everaffair_d = case_when(nbaffairs == 0 ~ 0, nbaffairs > 0 ~ 1))
+)
 ```
 
-Continuando con el ejemplo de clases anteriores, ajustamos el siguiente modelo:
-
-$$\ln \frac{p_{i}}{1-p_{i}} = \beta_{0} + \beta_{1}\text{ym}_{i} + \beta_{2}\text{male}_{i} + \beta_{3}\text{rate}_{i} + \beta_{4}\text{rate}^{2}_{i}$$
-
-Llamemos a este modelo, modelo $M_1$:
-
-<br>
-
-```{r,echo=FALSE}
-logit_affairs <-  glm(everaffair_d ~ ym + factor(sex) + rate + I(rate^2) ,family=binomial(link="logit"), data=affairsdata)
-summary(logit_affairs)$coefficients
-print(paste0("log-likelihood: ",round(logLik(logit_affairs),3),
-             " Deviance: ", round(summary(logit_affairs)$deviance,3) ))
-print(paste0("AIC: ", round(summary(logit_affairs)$aic,3),
-             " BIC: ", round(BIC(logit_affairs),3) ))
-```
-
----
-## Likelihood
-
-Recordar que la likelihood es: $\mathcal{L}(\vect{\beta} \mid \text{ Datos}) = \mathbb{P}(\text{ Datos } \mid \vect{\beta})$.
---
- En el caso de un modelo de regresión logística los datos distribuyen Bernoulli.
-
-
-- Por tanto, la probabilidad conjunta de las $n$ observaciones es:
-
-$$\mathbb{P}(y_{1}, \dots, y_{1}) = \Pi_{i=1}^{n} p_{i}^{y_{i}}(1-p_{i})^{1-y_{i}}$$
-
-<br>
---
-
-- Por tanto, la .bold[likelihood function] de $p_{i}$ es:
-
-$$\mathcal{L}(p_{i} \mid y_{1}, \dots, y_{1}) = \Pi_{i=1}^{n} p_{i}^{y_{i}}(1-p_{i})^{1-y_{i}}$$
-
-<br>
---
-
-- La .bold[log likelihood function] de $p_{i}$ es:
-
-
-$$\ell\ell(p_{i} \mid y_{1}, \dots, y_{1}) = \sum_{i=1}^{n} \bigg( y_{i} \ln p_{i} + (1-y_{i}) \ln(1-p_{i}) \bigg)$$
-
-
-donde: $p_{i} =\frac{1}{1 + e^{-(\beta_{0} + \beta_{1}x_{i} + \dots \beta_{k}x_{k}})}$
+# Distribución Muestral (again)
 
 
 ---
-## Likelihood de nuestro modelo, $M_1$
+##Distribución Muestral
 
-```{r, include=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
 
-ll <- function(b0,b1,b2,b3,b4) {
-  y = affairsdata$everaffair_d
-  eta = b0  + b1*affairsdata$ym + b2*I(1*(affairsdata$sex=="male")) + b3*affairsdata$rate + b4*I((affairsdata$rate)^2)
-  ell = sum( y*log(1/(1 + exp(-eta))) +  (1-y)*log(1 - (1/(1 + exp(-eta)))))
-  return(ll = ell)
+--
+
+Si $\hat{\beta}$ es un estimador definido como $\hat{\beta}: f(\text{datos})$, la **distribución muestral** de $\hat{\beta}$ es la distribución de probabilidad de todos los valores posibles que $\hat{\beta}$ puede tomar, calculados a partir de todas las posibles muestras de un tamaño dado $n$, tomadas a partir de la misma población o generados por el mismo proceso. 
+
+<br>
+--
+
+
+.bold[Paso a paso,]
+
+--
+
+- Tomamos todas las posibles muestras $m_{i}: \{ X_1, X_2, ..., X_n \}$ de un tamaño  
+dado $n$, generados por el mismo proceso (o población).
+
+--
+
+- En cada $m_{i}$ aplicamos nuestro estimador y obtenemos $\hat{\beta}_{i}$. Formalmente, $f(m_{i}) = \hat{\beta}_{i}$.
+
+--
+
+- La .bold[distribución muestral] del estimador $\hat{\beta}$ refiere a la distribución de la colección obtenida de estimados $\hat{\beta}_{i}$.
+
+--
+
+- Como toda distribución de probabilidades, la .bold[distribución muestral] indica la probabilidad de obtener cada valor posible al aplicar el estimador $\hat{\beta}$.
+
+---
+##Distribución Muestral 
+
+.bold[Simulación Monte Carlo:]
+
+- La variable $X$ en la población distribuye Normal con $\mu=4$ y $\sigma=3.464$.
+
+- Tomamos 5000 muestras alesatorias de tamaño 200 en una población: $m_{200_i}$
+
+- En cada muestra calculamos la media muestral de la variable $X$: $\bar{X}_{200_i}$   
+
+--
+
+.bold[Implementación en `R`:]
+
+```{r, echo=T, eval=T, fig.height=8, fig.width=8,  message=FALSE, warning=FALSE}
+
+# población (N=un millón, media=4, sd=3)
+x_poblacion <- tibble(x = rnorm(n=10^6, mean=4, sd=3))
+
+# simulación: 
+resultados <- tibble(estimado = numeric(5000))
+
+for (i in 1:5000) {
+  # tomamos 5000 muestras de tamaño 200
+  muestra_i <- sample_n(x_poblacion, size=200, replace = TRUE)
+  
+  # en cada muestra calculamos media y guardamos resultado
+  resultados$estimado[i] <- mean(muestra_i$x)
 }
-```
 
---
-.pull-left[
-```{r}
-ll(b0=1.2,b1=0.7,b2=1, b3=0.3,b4=0.1)
-```
-]
-
-.pull-right[
-```{r}
-ll(b0=0.15,b1=0.04,b2=0.25, b3=-0.41,b4=-0.01)
-```
-]
-
-<br>
---
-
-.bold[Maximum Likelihood Estimators]: los parámetros estimados son aquellos que maximizan la likelihood function. La likelihood maximizada en este caso es:
-
-```{r}
-ll_m <- logLik(logit_affairs); print(c(Likelihood=exp(ll_m[1]), log_likelihood=ll_m[1]))
 ```
 
 ---
-## Modelo "saturado"
+##Distribución Muestral
+
+La colección de estimados se ve así:
+
+.pull-left[
+```{r, echo=F}
+resultados %>% as_tibble() %>% print(n=15)
+```
+]
 
 --
 
-- .bold[Modelo saturado] ( $M_S$ ): es el modelo que asume que cada observación tiene sus propios parámetros, es decir, estima  $n$-parámetros.
+.pull-right[
 
---
+- La estimación de la media muestral es aleatorias porque las muestras son aleatorias
 
-  -  El modelo saturado describe perfectamente los datos: mejor "fit" posible, pero el menos "parsimonioso".
+- ¿Cómo se distribuyen estas estimaciones?
 
---
+<br>
+- El .bold[Teoréma del Límite Central] nos dice que:
 
-  - Si $\vect{\beta}_{S}$ son los estimadores MLE para este modelo, la likelihood maximizada del modelo es $\mathcal{L}_{S}: \mathcal{L}(\vect{\beta}_{S} | \vect{y})$.
-
---
-
-  - $\mathcal{L}_{S}$ es mayor que la likelihood de cualquier otro modelo para los mismos datos, asumiendo misma distribución y misma función de enlace.
+  $$\bar{X}_{n} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)$$
   
---
+]
 
-```{r, warning=FALSE}
-# modelo saturado 
-id = seq(1:length(affairsdata$everaffair_d))
-logit_affairs_sex_sat <-  glm(everaffair_d ~ factor(id) , family=binomial(link="logit"), 
-                              data=affairsdata)
-
-ll_sat <- logLik(logit_affairs_sex_sat); print(c(Likelihood=exp(ll_sat[1]), log_likelihood=ll_sat[1]))
-```
 
 ---
-## Modelo "nulo"
+##Distribución Muestral
+
+La colección de estimados se ve así:
+
+.pull-left[
+```{r, echo=F}
+resultados %>% as_tibble() %>% print(n=15)
+```
+]
 
 
-- .bold[Modelo nulo] ( $M_N$ ): es el modelo en el que todas las observaciones son descritas por un único parámetro, correspondiente a la media/probabilidad incondicional. 
+.pull-right[
 
---
+- La estimación de la media muestral es aleatorias porque las muestras son aleatorias
 
-  -  El modelo nulo tiene el peor "fit" posible pero es el más "parsimonioso".
+- ¿Cómo se distribuyen estas estimaciones?
 
---
+<br>
+- El .bold[Teoréma del Límite Central] nos dice que:
 
-  - Si $\beta_{0}$ es el parámetro estimado via MLE para este modelo, la likelihood maximizada del modelo es $\mathcal{L}_{N}: \mathcal{L}(\beta_{0} | \vect{y})$.
+  $$\bar{X}_{n} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)$$
 
---
+<br>
+- En nuestro caso:
 
-  - $\mathcal{L}_{N}$ es menor que la likelihood de cualquier otro modelo para los mismos datos, asumiendo misma distribución y misma función de enlace.
+  $$\bar{X}_{200} \sim \text{Normal}\bigg(4, \frac{3.464}{\sqrt{200}}\bigg)$$
+    
+]
+
+---
+##Distribución Muestral
+
+.pull-left[
+```{r, echo=FALSE, fig.height=8, fig.width=8,  message=FALSE, warning=FALSE}
+
+library(ggplot2)
+
+# Color definitions
+primary_color   <- "#FF2400"
+secondary_color <- "#FFD700"
+third_color     <- "#A8C3E6" 
+
+
+# Create the normal distribution data
+x_values <- seq(2.5, 5.5, by = 0.01)
+y_values <- dnorm(x_values, mean = 4, sd = 3/sqrt(200))
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_line(color = primary_color, size = 1) +
+  labs(
+       x = expression(bar(X)),
+       y = "Densidad") +
   
-<br>
---
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
 
-```{r, warning=FALSE}
-# modelo nulo 
-logit_affairs_sex_null <- glm(everaffair_d ~ 1 , family=binomial(link="logit"), data=affairsdata)
-
-ll_null <- logLik(logit_affairs_sex_null); print(c(Likelihood=exp(ll_null[1]), log_likelihood=ll_null[1]))
-```
-
----
-## Modelo nulo, modelo saturado y modelo de interés, $M_1$ 
-
-.center[
-![dev](models.png)
-]
-
----
-## Test de Likelihood ratio 
-
---
-
-El modelo nulo y el modelo saturado sirven como referencia para evaluar el fit de otros modelos.
-
---
-
-- El .bold[likelihood ratio test] (LR) corresponde a la ratio entre la likelihood maximizada entre el modelo saturado -- $\mathcal{L}_{S}$ -- y la likelihood maximizada de un modelo dado, $\mathcal{L}_{M_1}$
-
-<br>
-
-$$\text{LR}: \frac{\mathcal{L}_{M_1}}{\mathcal{L}_{S}}$$
-
-<br>
---
-
-- A partir de $LR$ obtenemos los .bold[log-likelihood ratio] como sigue:
-
---
-<br>
-
-$$\log \text{LR} : \log \frac{\mathcal{L}_{M_1}}{\mathcal{L}_{S}} = \log\mathcal{L}_{M_1} - \log \mathcal{L}_{S} \leq 0$$
-
----
-## Residual Deviance y Null Deviance
-
-A su vez, para facilitar la inferencia, el log-likelihood ratio viene re-expresado como "Deviance".
---
- Hay dos tipos de deviance involucrados en la evaluación del fit de un modelo:
-
---
-
-- .bold[Residual Deviance: ] $\quad D = -2 \cdot  \log \text{LR} = -2 \cdot (\log\mathcal{L}_{M_1} - \log \mathcal{L}_{S})$
-
- - Mide ajuste del modelo $M_1$
-
---
-
-- .bold[Null Deviance: ] $\quad D_{N} = -2 \cdot  \log \text{LR} = 2 \cdot (\log\mathcal{L}_{0} - \log \mathcal{L}_{S})$
-
-  - Mide cuanto es posible explicar (análogo a "varianza total"*)
-
-<br>
---
-
-.bold[Sampling distribution de la Residual Deviance:]
-
-$$D \sim \chi^{2}(\hat{D},\text{df = }n-k), \quad \text{ k es el número de parámetros en modelo } M_1$$
-<br>
---
-
-- Un valor alto de $D$ (y p-value bajo) indica problemas de ajuste
- 
-- Un valor bajo de $D$ (y p-value alto) indica que los parámetros extra del $M_{S}$ son innecesarios.
- 
-
----
-## Residual Deviance y Null Deviance
-
-.center[
-![dev](deviances.png)
-]
-
----
-## Residual Deviance: ejemplo empírico
-
-```{r,echo=FALSE}
-summary(logit_affairs)$coefficients
-print(paste0("Null Deviance: ",round(logit_affairs$null.deviance,3),
-             " Residual Deviance: ", round(summary(logit_affairs)$deviance,3) ))
-```
-
-<br>
---
-
-.bold[Residual deviance]:
-```{r}
-D <- -2*(logLik(logit_affairs)[1] - logLik(logit_affairs_sex_sat)[1]); D
-
-#pvalue
-df <- length(logit_affairs$fitted.values) - logit_affairs$rank
-pvalue = 1 - pchisq(D,df); pvalue
-```
-
-
-
-
----
-## Comparación entre modelos via Deviance
-
--  Supongamos que $M_1$ es un modelo dado y $M_0$ es un sub-modelo: $M_0 \subset M_1$
-
---
-
-- Podemos usar la Deviance para testear si los parámetros extra en $M_1$ significativamente mejoran el fit del modelo, respecto al modelo más simple $M_0$.
-
-<br>
---
-
-\begin{align}
-D_{01} &= \\ 
-&= -2 \cdot (\log\mathcal{L}_{0} - \log \mathcal{L}_{1}) \\
-&= -2 \cdot \{ (\log\mathcal{L}_{0} - \log \mathcal{L}_{S}) -   (\log\mathcal{L}_{1} - \log \mathcal{L}_{S}) \} \\
-  &= D_{0} - D_{1}
-\end{align}
-
-<br>
---
-
-.bold[Sampling distribution de la Deviance entre M0 y M1:]
-
-$$D_{01} \sim \chi^{2}(\hat{D}_{01},\text{df = }k1-k0), \quad \text{ k1 y k0 es el número de parámetros en M1 y M0 respectivamente}$$
-
---
-
-- Un valor alto de $D_{01}$ (y p-value bajo) indica que el modelo más simple tiene un ajuste significativamente más pobre que el más complejo.
-
----
-## Comparación entre modelos via Deviance: ejemplo empírico
-
-.pull-left[
-.bold[M0]
-```{r,echo=FALSE}
-logit_affairs0 <-  glm(everaffair_d ~ ym + factor(sex) + rate ,family=binomial(link="logit"), data=affairsdata)
-summary(logit_affairs0)$coefficients[,1:2]
-print(paste0("log-likelihood: ",round(logLik(logit_affairs0),3)))
+# Display the plot
+print(normal_distribution_plot)
 ```
 ]
-.pull-right[
-.bold[M1]
-```{r,echo=FALSE}
-summary(logit_affairs)$coefficients[,1:2]
-print(paste0("log-likelihood: ",round(logLik(logit_affairs),3)))
-```
-]
-
-El modelo más complejo es "mejor" que el modelo más simple, pero ... ¿es .bold[significativamente] mejor?
-
---
-
-```{r}
-D01 <- logit_affairs0$deviance - logit_affairs$deviance
-
-#pvalue
-df <- logit_affairs$rank - logit_affairs0$rank
-pvalue = 1 - pchisq(D01,df); pvalue
-```
-
---
-
-.bold[Respuesta:] el modelo más complejo no es significativamente mejor.
- 
----
-## Pseudo - $R^2$
-
-<br>
---
-
-- En modelos OLS es común medir ajuste usando el coeficiente $R^2$, es decir, % de varianza explicada por el modelo.
-
---
-
-- En GLM's la varianza no es separable de la media, por tanto no se puede descomponer.
-
---
-
-- Existe una variedad de alternativas al $R^2$, llamadas genéricamente pseudo - $R^2$. Uno de los más comunes es:
-
-<br>
---
-
-$$\text{McFadden’s } R^{2} = 1 - \frac{D}{D_{0}} = 1 - \frac{(\log\mathcal{L}_{S} - \log \mathcal{L}_{M})}{ (\log\mathcal{L}_{S} - \log \mathcal{L}_{N})}$$
-<br>
---
-
-.bold[Intuición:]  fracción del total del "explicable" del likelihood que es explicado por el modelo $M$.
-
-  - $R^{2} \in [0,1]$, donde 0 indica el peor fit posible y 1 indica el mejor fit posible. 
-
----
-## Pseudo - $R^2$: ejemplo empírico
-
-```{r,echo=FALSE}
-summary(logit_affairs)$coefficients
-```
-
-<br>
---
-
-.bold[Residual deviance]:
-```{r}
-R2 <- 1 - logit_affairs$deviance/logit_affairs$null.deviance; R2
-
-# versión automática
-PseudoR2(logit_affairs, which="McFadden")
-```
-
----
-## Clasificación
-
-Un modelo de regresión logística puede ser utilizado como una herramienta de *clasificación*:
-
---
-
-- Nuestra variable de interés $y_{i}$ mide la ausencia o presencia de un determinado atributo. Alternativamente, se puede interpretar como la pertenencia a una determinada "clase" (0/1) 
-
-
---
-
-
-- Nuestro modelo entrega una predicción sobre la probabilidad de dicha pertenencia: $p_{i} = \mathbb{P}(y_{i} = 1)$
-
-
---
-
-- Podemos transformar nuestro modelo en un algoritmo de clasificación estableciendo un regla que asigne cada observación a una "clase" en función del valor estimado de $\hat{p}_i$.
-
-<br>
---
-
-Específicamente:
-
-\begin{align}
-  \hat{y}_{i} =
-  \begin{cases}
-    1  & \quad \text{si } \hat{p}_{i} > 1/2\\
-    0  & \quad \text{si }\hat{p}_{i} < 1/2
-  \end{cases}
-\end{align}
-
-
-
----
-## Clasificación y Confusion matrix
-
-.pull-left[
-![conf](conf_mat.png)
-]
-
---
 
 .pull-right[
-- .bold[Accuracy]: % Clasificación correcta, (TP+TN)/total 
 
-- .bold[Misclassification Rate]: % Clasificación incorrecta, (FP+FN)/total
+- El .bold[Teoréma del Límite Central] nos dice que:
 
-- .bold[True Positive Rate] o "Sensitivity": TP/(TP+FN) 
+<br>
 
-- .bold[False Positive Rate]: FP/(FP+TN) 
+  $$\bar{X}_{200} \sim \text{Normal}\bigg(4, \frac{3.464}{\sqrt{200}}\bigg)$$
 
-- .bold[True Negative Rate] o "Specificity": TN/(FP+TN)
-
-- .bold[Precision]: TP/(TP+FP) 
-
-- .bold[Prevalence]: (TP+FN)/total 
 ]
+
+
+---
+##Distribución Muestral
+
+.pull-left[
+```{r, echo=FALSE, fig.height=8, fig.width=8,  message=FALSE, warning=FALSE}
+
+# Color definitions
+primary_color   <- "#FF2400"
+secondary_color <- "#FFD700"
+third_color     <- "#A8C3E6" 
+
+# Create the normal distribution data
+x_values <- seq(2.5, 5.5, by = 0.01)
+y_values <- dnorm(x_values, mean = 4, sd = 3/sqrt(200))
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_histogram(data = resultados, aes(x = estimado, y = ..density..), fill = secondary_color, bins = 100, color=secondary_color, alpha = 0.4) +
+  geom_line(color = primary_color, size = 1) +
+  geom_vline(xintercept = 4, linetype = "dashed", size=1.5) +
+  annotate("text", x = 4.2, y = 0.25, label = expression(mu), size = 12) +
+  labs(
+       x = expression(bar(X)),
+       y = "Densidad") +
+  
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(normal_distribution_plot)
+
+```
+]
+
+.pull-right[
+
+- El .bold[Teoréma del Límite Central] nos dice que:
+
+<br>
+
+  $$\bar{X}_{200} \sim \text{Normal}\bigg(4, \frac{3.464}{\sqrt{200}}\bigg)$$
+
+<br>
+
+- Nuestra simulación confirma la teoría
+
+]
+
+
+---  
+class: inverse, center, middle
+
+
+#Estimación Puntual
+
+
+---
+##Estimación Puntual
+
+
+.pull-left[
+
+
+- Cuando contamos con .bold[UNA] muestra no tenemosn una distribución de estimados
+
+- Tenemos una .bold[estimación puntual]
+
+
+<br>
+Por ejemplo:
+
+```{r, echo=FALSE, fig.height=8, fig.width=8,  message=FALSE, warning=FALSE}
+set.seed(1234)  
+mi_muestra <- sample_n(x_poblacion, size=200, replace = TRUE)
+```
+$\bar{X}_{200}$ =  `r mean(mi_muestra$x)`
+
+<br>
+
+
+- Sabemos que la media muestral es un estimador insesgado de la media poblacional (es promedio coinciden)
+
+- Sin embargo, .bold[la estimación puntal no necesariamente corresponde al parámetro poblacional].
+
+- No nos tomamos este número tan enserio
+ 
+]
+
+
+.pull-right[
+```{r, echo=FALSE, fig.height=8, fig.width=8,  message=FALSE, warning=FALSE}
+
+library(ggplot2)
+
+set.seed(5001)
+
+# Color definitions
+primary_color   <- "#FF2400"
+secondary_color <- "#FFD700"
+third_color     <- "#A8C3E6" 
+
+
+# Create the normal distribution data
+x_values <- seq(2.5, 5.5, by = 0.01)
+y_values <- dnorm(x_values, mean = 4, sd = 3/sqrt(200))
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_histogram(data=resultados, aes(x=estimado, y = ..density..), fill = secondary_color, bins = 100, color=secondary_color, alpha=0.4) +
+  geom_line(color = primary_color, size = 1) +
+  geom_vline(xintercept = 4, linetype = "dashed", size=1.5) +
+  annotate("text", x = 4.2, y = 0.25, label = expression(mu), size = 12) +
+  geom_point(aes(x=mean(mi_muestra$x),y=dnorm(mean(mi_muestra$x), mean = 4, sd = 3/sqrt(200))), size=5, colour="red") +
+  labs(
+       x = expression(bar(X)),
+       y = "Densidad") +
+  
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(normal_distribution_plot)
+```
+]
+
+---
+##Error en estimación
+
+¿Qué tan probable es que que nuestro estimador se equivoque? ¿en cuanto?
+
+--
+
+Definamos un nivel de error $e$.
+--
+ La probabilidad de que el estimado $\bar{X}_{n}$ esté a una distancia $e$ respecto del parámetro poblacional: 
+
+$$\mathbb{P}( |\bar{X} - \mu| < e) =  \quad \mathbb{P}(-e < \bar{X} - \mu < e)$$
 
 <br>
 --
 
-- Podemos evaluar la capacidad predictiva de un modelo usando estas métricas de clasificación
+dividendo por el error estándard (SE) de $\bar{X}$: $\quad \quad \mathbb{P}\bigg(\frac{-e }{\sigma/\sqrt{n}} < Z_{\bar{X}}  < \frac{e}{\sigma/\sqrt{n}}\bigg) =$
 
-- Podemos usar estas métricas para comparar diferentes modelos
+--
+
+.pull-left[
+
+```{r, echo=FALSE, fig.height=3.8, fig.width=3.8,  message=FALSE, warning=FALSE}
+
+# Color definitions
+primary_color   <- "#FF2400"
+secondary_color <- "#FFD700"
+third_color     <- "#A8C3E6"
+
+# Create the normal distribution data
+x_values <- seq(-3, 3, by = 0.01)
+y_values <- dnorm(x_values)
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Define the alpha level (e.g., 0.05 for 95% confidence)
+alpha <- 0.05
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_line(color = secondary_color, size = 1) +
+  
+  # Add a shaded central 95% area
+  geom_ribbon(data = normal_data %>% 
+                filter(x >= qnorm(alpha / 2) & x <= qnorm(1 - alpha / 2)),
+              aes(x = x, ymin = 0, ymax = y),
+              fill = secondary_color, alpha = 0.4) +
+  
+  # Add vertical segments at the borders of the central area
+  geom_segment(x = qnorm(alpha / 2), xend = qnorm(alpha / 2),
+               y = 0, yend = max(normal_data$y),
+               color = primary_color) +
+  geom_segment(x = qnorm(1 - alpha / 2), xend = qnorm(1 - alpha / 2),
+               y = 0, yend = max(normal_data$y),
+               color = primary_color) +
+  # Add annotations "LI" and "LS" next to the vertical segments
+  labs(
+    x = expression(Z[bar(X)]),
+    y = "Densidad") +
+
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(normal_distribution_plot)
+
+```
+]
+
+.pull-right[
+
+Usamos las propiedades de una Normal Standard para calcular esta probabilidad:
+
+<br>
+
+$$ = \Phi\Bigg({\frac{e }{\sigma/\sqrt{n}}}\Bigg) - \Phi\Bigg(\frac{-e }{\sigma/\sqrt{n}}\Bigg)$$
+]
 
 ---
-## Clasificación y Confusion matrix: ejemplo empírico
+##Error en estimación
 
-```{r}
-p_hat <- predict(logit_affairs, type = "response")
-y_hat <- if_else(p_hat>0.5,1,0)
-#confussion matrix
-conf_mat <- confusionMatrix(factor(y_hat),factor(logit_affairs$model$everaffair_d), dnn = c("Prediction", "True value"))
-```
+En nuestro ejemplo:   
+  - La variable $X$ en la población distribuye Normal con $\mu=4$ y $\sigma=3.464$.
+  - Tomamos un muestra aleaatorias de tamaño 200 y estimamos la media muestral $\bar{X}_{200}$.
 
-```{r,echo=F}
-conf_mat$table
-conf_mat$overall %>% round(3)
-conf_mat$byClass %>% round(3)
+--
+
+.bold[¿Cual es la probabilidad de que nuestro estimado difiera como máximo en 1 punto respecto de la media problacional?] (en cualquier dirección)
+
+--
+
+$$\mathbb{P}(-e < \bar{X} - \mu < e) = \mathbb{P}(-1 < \bar{X} - \mu < 1)$$ 
+
+<br>
+--
+
+Dividimos por el error estándard (SE) de $\bar{X}$, donde  $SE_{\bar{X}} = \sigma/\sqrt{n} =  3.464/\sqrt{200} \approx 0.245$
+
+--
+
+.pull-left[
+\begin{align}
+\mathbb{P}(-1 < \bar{X} - \mu < 1) &= \mathbb{P}\bigg(\frac{-1 }{0.245} < Z_{\bar{X}}  < \frac{1}{0.245}\bigg)   \\ \\
+&= \mathbb{P}\bigg(−4.08 < Z_{\bar{X}}  < 4.08\bigg) \\ \\
+&= 1 - 2 \times \Phi(−4.08) = 0.99996 \\ \\
+\end{align}
+]
+
+
+.pull-right[
+```{r, echo=FALSE, fig.height=3, fig.width=3,  message=FALSE, warning=FALSE}
+library(ggplot2)
+
+# Color definitions
+primary_color   <- "#FF2400"
+secondary_color <- "#FFD700"
+third_color     <- "#A8C3E6"
+
+# Create the normal distribution data
+x_values <- seq(-5, 5, by = 0.01)
+y_values <- dnorm(x_values, mean = 0, sd = 1)  # Standard normal distribution
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Define the alpha level (e.g., 0.05 for 95% confidence)
+alpha <- 0.05
+
+# Calculate Z values for the shaded area
+z_lower <- -4.08
+z_upper <- 4.08
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_line(color = secondary_color, size = 1) +
+  
+  # Add a shaded central area
+  geom_ribbon(data = normal_data %>% 
+                filter(x >= z_lower & x <= z_upper),
+              aes(x = x, ymin = 0, ymax = y),
+              fill = secondary_color, alpha = 0.4) +
+  
+  # Add vertical segments at the borders of the central area
+  geom_segment(x = z_lower, xend = z_lower,
+               y = 0, yend = max(normal_data$y),
+               color = primary_color) +
+  geom_segment(x = z_upper, xend = z_upper,
+               y = 0, yend = max(normal_data$y),
+               color = primary_color) +
+  
+  # Add annotations "LI" and "LS" next to the vertical segments
+  geom_text(aes(x = z_lower - 0.4, y = max(normal_data$y) + 0.02, label = "-4.08"),
+            size = 6, hjust = 0.4) +
+  geom_text(aes(x = z_upper + 0.2, y = max(normal_data$y) + 0.02, label = "4.08"),
+            size = 6, hjust = 1.1) +
+  
+  # Add probability calculation annotation
+  geom_text(aes(x = 0, y = 0.05, label = "0.99996"), size = 5) +
+  
+  labs(
+    x = expression(Z[bar(X)]),
+    y = "Densidad",
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text = element_blank(),  
+    axis.ticks = element_blank(),  
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(normal_distribution_plot)
+
+
 ```
+]
 
 
 ---
 class: inverse, center, middle
 
-## Predicción y el problema de "overfitting" 
+#Estimación de intervalos
+##Intervalos de confianza
 
 
 ---
-## Overfitting
+##Estimación de intervalos
 
-.bold[Desafíos para el desarrollo de un modelo predictivo]
+Anteriormente calculamos la probabilidad de que el estimado $\bar{X}_{n}$ esté a una distancia $e$ respecto del parámetro poblacional: 
 
---
-
-- El modelo debe predecir adecuadamente los datos (bajo sesgo)
+$$ \quad \mathbb{P}\bigg(-e < \bar{X} - \mu < e\bigg) = \mathbb{P}\bigg(\frac{-e }{\sigma/\sqrt{n}} < Z_{\bar{X}}  < \frac{e}{\sigma/\sqrt{n}}\bigg)$$
 
 --
 
-- El modelo debe ser parsimonioso (pocos parámetros)
-
+Proceso inverso: buscar un intervalo de valores tal que el .bold[parámetro poblacional se encontrá dentro del intervalo con una cierta probabilidad] (nivel de confianza). 
 --
-
-- Debe tener un desempeño consistente en diferentes muestras (baja varianza)
-
-<br>
---
-.bold[Problema: trade-off entre sesgo y varianza]
-
-.center[
-![overfitting](underfit_right_overfit.png)
-]
-
-
----
-## Information Criteria
-
---
-
-
-- Information Criteria fueron desarrollados con el fin de prevenir problemas de over-fitting.
-
-
---
-
-
-- Information Criteria miden la capacidad predictiva de un modelo pero incluyen una .bold[penalty] por el número de parámetros.
-
---
-
-- .bold[Intuición]: entre dos modelos con "similar" capacidad preferimos el más parsimonioso (menos parámetros).
-
-
---
-
-- Ventaja sobre .bold[Deviance] y .bold[LRT]: Information Criteria pueden comparar modelos no-anidados. 
-
-<br>
---
-
-.pull-left[
-.center[Forma general,]
-]
-
-.pull-righ[
-$IC: \overbrace{-2 \log \mathcal{L}_{M_1}}^{\text{fit}} + \underbrace{k \cdot q}_{\text{parsimonia}}$
-
-]
-
---
-
-- $\mathcal{L}_{M_1}$ es la likelihood maximizada del modelo $M_1$
-- $k$ es el número de parámetros del modelo $M_1$
-- $q$ es una constante que "penaliza" la cantidad de parámetros
-
----
-## Information Criteria: AIC y BIC
-
-
-Dos Information Criteria son especialmente relevantes:
-
---
-
-
-.bold[Akaike Information Criterion (AIC)]
-
-.content-box-blue[
-$$\text{AIC} =  -2\log \mathcal{L}_{M_1} + 2k$$
-]
-
---
-
-
-.bold[Bayesian Information Criterion (BIC)] 
-
-.content-box-blue[
-$$\text{BIC} =  -2\log \mathcal{L}_{M_1} +  \log(n)k$$
-]
-
---
-
-- Un número más bajo en AIC y BIC indica mejor ajuste
-
---
-
-- Por lo general $2 < \log(n)$, por tanto BIC tiende a preferir modelos más simples comparado con AIC
-
-
-
-
----
-## Information Criteria, AIC y BIC: ejemplo empírico
-
-.pull-left[
-.bold[M0]
-```{r,echo=FALSE}
-logit_affairs0 <-  glm(everaffair_d ~ ym + factor(child) + rate ,family=binomial(link="logit"), data=affairsdata)
-summary(logit_affairs0)$coefficients[,1:2]
-```
-]
-.pull-right[
-.bold[M1]
-```{r,echo=FALSE}
-logit_affairs1 <-  glm(everaffair_d ~ ym*rate + I(ym^2)*rate, family=binomial(link="logit"), data=affairsdata)
-summary(logit_affairs1)$coefficients[,1:2]
-```
-]
-
-¿Más .bold[complejo] mejor?
-
---
-
-```{r}
-inf_crit <- function(m) { aic = -2*logLik(m)[1] + 2*m$rank
-  bic = -2*logLik(m)[1] + log(length(m$fitted.values))*m$rank
-  return(c(AIC=aic,BIC=bic))
-}
-```
+Definamos un .bold[Nivel de Confianza] = $1 - \alpha$ 
 
 --
 
 .pull-left[
-```{r,echo=FALSE}
-inf_crit(logit_affairs0)
-```
-]
-.pull-right[
-```{r,echo=FALSE}
-inf_crit(logit_affairs1)
-```
-]
 
-.bold[Respuesta:] el modelo más simple es preferible. 
---
- *(nota: pueden usar funciones `AIC()` y `BIC()` en `R`)
+$\quad \mathbb{P}( -L < Z_{\bar{X}}  < L) = 1 - \alpha$
 
-```{css, echo=FALSE}
-.pull-right ~ * { clear: unset; }
-.pull-right + * { clear: both; }
-``` 
+```{r, echo=FALSE, fig.height=3.8, fig.width=3.8,  message=FALSE, warning=FALSE}
 
+library(ggplot2)
 
----
-## In-sample vs out-of-sample
+# Color definitions
+primary_color   <- "#FF2400"
+secondary_color <- "#FFD700"
+third_color     <- "#A8C3E6"
 
-<br>
---
+# Create the normal distribution data
+x_values <- seq(-3, 3, by = 0.01)
+y_values <- dnorm(x_values)
+normal_data <- data.frame(x = x_values, y = y_values)
 
-- Information criteria penaliza la complejidad del modelo para prevenir "over-fitting".
---
- Todavía hay un problema ...
+# Define the alpha level (e.g., 0.05 for 95% confidence)
+alpha <- 0.05
 
-<br>
---
-
-- Todos los estadísticos que hemos visto (incluyendo AIC y BIC) evalúan los modelos en la .bold[misma muestra] en que son estimados
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_line(color = secondary_color, size = 1) +
   
-  - No conocemos el desempeño del modelo .bold[fuera de la muestra]. Riesgo de "over-fitting".
-
-<br>  
---
-
-- Evaluación de un modelo fuera de muestra se conoce como .bold[cross-validación].
-
- - Herramienta estándar para evaluación de modelos predictivos.
-
----
-## In-sample vs out-of-sample
-
-<br>
-
-.center[
-![cross](https://miro.medium.com/max/1224/1*hPDx1TYs9oMrbZRf-VYSUw.jpeg)
-]
-
----
-## Cross-Validation
-
---
-
-.img-right[![churros](churros.png)]
-
-- Principio básico de cross-validation: .bold["no double dipping!"]
-
---
-
-  - estima el modelo en un dataset (training set)
-
---
-
-  - evalúa el modelo en un dataset distinto (test set)
-
-<br>
-
-.pull-left[
-![train_test](train_test.png)
-
-]
-
----
-## k-fold cross-Validation
-
-.img-right-top[
-![kfold](kfold_cv.gif)
-
-]
-
-.bold[Algoritmo:]
---
-
-- (1) Divide los datos en $k$ grupos (folds) del mismo tamaño. 
-
-  - (1.1) Reserva la $i$-fold como test set.
-
-  - (1.2) Ajusta el modelo en las restantes $k-1$ folds (training set). 
-
-<br>
---
-- (2) Usa el modelo ajustado en el training set $i$ (1.2) para predecir el outcome de interés en el test set (1.1)
+  # Add a shaded central 95% area
+  geom_ribbon(data = normal_data %>% 
+                filter(x >= qnorm(alpha / 2) & x <= qnorm(1 - alpha / 2)),
+              aes(x = x, ymin = 0, ymax = y),
+              fill = secondary_color, alpha = 0.4) +
   
-  - (2.1) Calcula una medida de error predictivo ("test error"), $E_{i}$
+  # Add vertical segments at the borders of the central area
+  geom_segment(x = qnorm(alpha / 2), xend = qnorm(alpha / 2),
+               y = 0, yend = max(normal_data$y),
+               color = primary_color) +
+  geom_segment(x = qnorm(1 - alpha / 2), xend = qnorm(1 - alpha / 2),
+               y = 0, yend = max(normal_data$y),
+               color = primary_color) +
+  
+  # Add annotations "LI" and "LS" next to the vertical segments
+  geom_text(aes(x = qnorm(alpha / 2) - 0.1, y = max(normal_data$y) + 0.02, label = "-L"),
+            size = 4, hjust = -0.1) +
+  geom_text(aes(x = qnorm(1 - alpha / 2) - 0.1, y = max(normal_data$y) + 0.02, label = "L"),
+            size = 4, hjust = 1.1) +
+  
+  labs(
+    x = expression(Z[bar(X)]),
+    y = "Densidad") +
+  
+  # Annotate in the middle as 1 - alpha (in math)
+  annotate("text", x = 0, y = 0.1, label = expression(1 - alpha), size = 9) +
+  
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
 
-<br>
---
-- (3) Repite (1) y (2) $k$-veces, produciendo $\{E_{1}, E_{2}, \dots , E_{k}\}$
+# Display the plot
+print(normal_distribution_plot)
 
-
---
-- (4) Calcula el .bold[k-fold cross-validation error] promediando el error a través de las $k$-folds.:
-
-$$\text{CV-error} =  \frac{1}{k} \sum_{i=1}^{k} E_{i}$$
----
-## k-fold cross-Validation: ejemplo empírico
-
-.pull-left[
-.bold[M0]
-```{r,echo=FALSE}
-logit_affairs0 <-  glm(everaffair_d ~ ym + factor(child) + rate ,family=binomial(link="logit"), data=affairsdata)
-summary(logit_affairs0)$coefficients[,1:2]
-```
-]
-.pull-right[
-.bold[M1]
-```{r,echo=FALSE}
-logit_affairs1 <-  glm(everaffair_d ~ ym*rate + I(ym^2)*rate, family=binomial(link="logit"), data=affairsdata)
-summary(logit_affairs1)$coefficients[,1:2]
-```
-]
-
-<br>
-
-¿Más .bold[complejo] mejor?
---
- Usando funciones paquete `caret()` 
- 
-```{r}
-# especifica tipo de cross-validation
-ctrl <- trainControl(method = "repeatedcv", number = 10, savePredictions = TRUE)
-
-# cross-valida M0
-cv_logit_affairs0 <- train(factor(everaffair_d) ~ ym + factor(child) + rate,  data=affairsdata, method="glm", family="binomial", trControl = ctrl)
-
-# cross-valida M1
-cv_logit_affairs1 <- train(factor(everaffair_d) ~ factor(child)*ym*rate +  factor(child)*I(ym^2)*rate,  data=affairsdata, method="glm", family="binomial", trControl = ctrl)
-```
-
----
-## k-fold cross-Validation: ejemplo empírico
-
-.pull-left[
-.bold[M0]
-```{r}
-confusionMatrix(cv_logit_affairs0)
 ```
 ]
 
 .pull-right[
-.bold[M1]
-```{r}
-confusionMatrix(cv_logit_affairs1)
+
+<br>
+
+- En cada cola se acumula un probabilidad de $\alpha/2$
+
+Por tanto:
+  
+- .bold[LI] = $\Phi^{-1}(\alpha/2)$
+
+- .bold[LS] = $\Phi^{-1}(1 - \alpha/2)$
+
+- Por simetría: $\Phi^{-1}(1 - \alpha/2) = - \Phi^{-1}(\alpha/2)$
+
+]
+
+---
+##Estimación de intervalos
+
+
+$\mathbb{P}( -L < Z_{\bar{X}}  < L) = 1 - \alpha$
+
+--
+
+$\mathbb{P}( \Phi^{-1}(\alpha/2) < Z_{\bar{X}}  < \Phi^{-1}(1 - \alpha/2)) = 1 - \alpha$
+
+--
+
+$\mathbb{P}\bigg( \Phi^{-1}(\alpha/2) < \frac{\bar{X} - \mu}{\sigma/\sqrt{n}}  < \Phi^{-1}(1 - \alpha/2)\bigg) = 1 - \alpha$
+
+--
+
+$\mathbb{P}\bigg( \Phi^{-1}(\alpha/2) \times \sigma/\sqrt{n} < \bar{X} - \mu  < \Phi^{-1}(1 - \alpha/2) \times \sigma/\sqrt{n}\bigg) = 1 - \alpha$
+
+--
+
+$\mathbb{P}\bigg( \Phi^{-1}(\alpha/2) \times \sigma/\sqrt{n} <  \mu - \bar{X} < \Phi^{-1}(1 - \alpha/2) \times \sigma/\sqrt{n}\bigg) = 1 - \alpha$
+--
+
+$\mathbb{P}\bigg( \bar{X} +  \Phi^{-1}(\alpha/2) \times \sigma/\sqrt{n} <  \mu  < \bar{X} + \Phi^{-1}(1 - \alpha/2) \times \sigma/\sqrt{n}\bigg) = 1 - \alpha$
+
+---
+##Estimación de intervalos
+
+.bold[Nivel de Confianza] = $1 - \alpha$
+
+
+.pull-left[
+```{r, echo=FALSE, fig.height=6, fig.width=6,  message=FALSE, warning=FALSE}
+
+# Color definitions
+primary_color   <- "#FF2400"
+secondary_color <- "#FFD700"
+third_color     <- "#A8C3E6"
+
+# Create the normal distribution data
+x_values <- seq(-3, 3, by = 0.01)
+y_values <- dnorm(x_values)
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Define the alpha level (e.g., 0.05 for 95% confidence)
+alpha <- 0.05
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_line(color = secondary_color, size = 1) +
+  
+  # Add a shaded central 95% area
+  geom_ribbon(data = normal_data %>% 
+                filter(x >= qnorm(alpha / 2) & x <= qnorm(1 - alpha / 2)),
+              aes(x = x, ymin = 0, ymax = y),
+              fill = secondary_color, alpha = 0.4) +
+  
+  # Add vertical segments at the borders of the central area
+  geom_segment(x = qnorm(alpha / 2), xend = qnorm(alpha / 2),
+               y = 0, yend = max(normal_data$y),
+               color = primary_color, size = 1) +
+  geom_segment(x = qnorm(1 - alpha / 2), xend = qnorm(1 - alpha / 2),
+               y = 0, yend = max(normal_data$y),
+               color = primary_color, size = 1) +
+  
+  # Add annotations "LI" and "LS" next to the vertical segments
+  geom_text(aes(x = qnorm(alpha / 2) - 0.1, y = max(normal_data$y) + 0.02, label = "LI"),
+            size = 4, hjust = -0.1) +
+  geom_text(aes(x = qnorm(1 - alpha / 2) - 0.1, y = max(normal_data$y) + 0.02, label = "LS"),
+            size = 4, hjust = 1.1) +
+  
+  labs(
+    x = expression(Z[bar(X)]),
+    y = "Densidad") +
+  
+  # Annotate in the middle as 1 - alpha (in math)
+  annotate("text", x = 0, y = 0.1, label = expression(1 - alpha), size = 10) +
+  
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(normal_distribution_plot)
 ```
 ]
 
-```{css, echo=FALSE}
-.pull-right ~ * { clear: unset; }
-.pull-right + * { clear: both; }
-``` 
+.pull-right[
+
+
+]
+
+
+---
+##Estimación de intervalos
+
+.bold[Nivel de Confianza] = $1 - \alpha$
+
+
+.pull-left[
+```{r, echo=FALSE, fig.height=6, fig.width=6,  message=FALSE, warning=FALSE}
+
+library(ggplot2)
+
+# Color definitions
+primary_color   <- "#FF2400"
+secondary_color <- "#FFD700"
+third_color     <- "#A8C3E6"
+
+# Create the normal distribution data
+x_values <- seq(-3, 3, by = 0.01)
+y_values <- dnorm(x_values)
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Define the alpha level (e.g., 0.05 for 95% confidence)
+alpha <- 0.05
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_line(color = secondary_color, size = 1) +
+  
+  # Add a shaded central 95% area
+  geom_ribbon(data = normal_data %>% 
+                filter(x >= qnorm(alpha / 2) & x <= qnorm(1 - alpha / 2)),
+              aes(x = x, ymin = 0, ymax = y),
+              fill = secondary_color, alpha = 0.4) +
+  
+  # Add vertical segments at the borders of the central area
+  geom_segment(x = qnorm(alpha / 2), xend = qnorm(alpha / 2),
+               y = 0, yend = max(normal_data$y),
+               color = primary_color, size = 1) +
+  geom_segment(x = qnorm(1 - alpha / 2), xend = qnorm(1 - alpha / 2),
+               y = 0, yend = max(normal_data$y),
+               color = primary_color, size = 1) +
+  
+  # Add annotations "LI" and "LS" next to the vertical segments
+  geom_text(aes(x = qnorm(alpha / 2) - 0.1, y = max(normal_data$y) + 0.02, label = "LI"),
+            size = 4, hjust = -0.1) +
+  geom_text(aes(x = qnorm(1 - alpha / 2) - 0.1, y = max(normal_data$y) + 0.02, label = "LS"),
+            size = 4, hjust = 1.1) +
+  
+  labs(
+    x = expression(Z[bar(X)]),
+    y = "Densidad") +
+  
+  # Annotate in the middle as 1 - alpha (in math)
+  annotate("text", x = 0, y = 0.1, label = expression(1 - alpha), size = 10) +
+  
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(normal_distribution_plot)
+
+```
+]
+
+.pull-right[
+
+- .bold[Límite inferior (LI)] = $\Phi^{-1}(\alpha/2)$
+
+- .bold[Límite superir (LS)] = $\Phi^{-1}(1 - \alpha/2)$
+
+- Por simetría $\Phi^{-1}(1 - \alpha/2) = - \Phi^{-1}(\alpha/2)$
+
+<br>
+
+Por ejemplo,
+
+
+Si $\alpha=0.05$, el .bold[nivel de confianza] es de $0.95$
+
+<br>
+
+Por tanto:
+
+
+- .bold[Límite inferior (LI)] = $\Phi^{-1}(0.05/2) = −1.96$
+
+- .bold[Límite superir (LS)] = $\Phi^{-1}(0.975) = 1.96$
+
+
+]
+
+
+---
+##Estimación de intervalos
+
+.pull-left[
+```{r, echo=FALSE, fig.height=6, fig.width=6,  message=FALSE, warning=FALSE}
+# Display the plot
+print(normal_distribution_plot)
+```
+]
+
+.pull-right[
+- .bold[Límite inferior (LI)] = $\Phi^{-1}(\alpha/2)$
+
+- .bold[Límite superir (LS)] = $\Phi^{-1}(1 - \alpha/2)$
+
+- Por simetría $\Phi^{-1}(1 - \alpha/2) = - \Phi^{-1}(\alpha/2)$
+
+
+<br>
+
+Por tanto,
+
+$$\mathbb{P}\Bigg(\Phi^{-1}(\alpha/2) < \frac{\bar{X} - \mu}{\frac{\sigma}{\sqrt{n}} }< \Phi^{-1}(1 - \alpha/2) \Bigg) = 1 - \alpha$$
+
+<br>
+O, usando notación más sintética,
+
+$$\mathbb{P}\Bigg(Z_{(\alpha/2)} < \frac{\bar{X} - \mu}{EE}< Z_{(1 - \alpha/2)} \Bigg) = 1 - \alpha$$
+]
+
+
+---
+##Estimación de intervalos
+
+
+Para el .bold[Nivel de Confianza] = $1 - \alpha$
+
+$$\mathbb{P}\Bigg(Z_{(\alpha/2)} < \frac{\bar{X} - \mu}{EE}< Z_{(1 - \alpha/2)} \Bigg) = 1 - \alpha$$
+
+--
+<br>
+
+Entonces, des-estandarizando la media muestral obtenemos:
+
+
+.content-box-primary[
+$$\color{white}{\mathbb{P}\Bigg(\mu + Z_{(\alpha/2)}\times EE  < \bar{X} < \mu +  Z_{(1 - \alpha/2)}\times EE \Bigg) = 1 - \alpha}$$
+]
+
+<br>
+--
+
+Luego, el .bold[intervalo al] $100*(1 - \alpha)\%$ .bold[de confianza] es:
+
+$$IC : \{LI= \mu + Z_{(\alpha/2)}\times EE, \quad LS= \mu +  Z_{(1 - \alpha/2)}\times EE\}$$
+
 
 
 ---
 class: inverse, center, middle
 
-.huge[
-**Hasta la próxima clase. Gracias!**
-]
+
+##Hasta la próxima clase. Gracias!
 
 <br>
 Mauricio Bucca <br>
