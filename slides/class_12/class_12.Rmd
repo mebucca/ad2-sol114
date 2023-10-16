@@ -22,263 +22,24 @@ class: inverse, center, middle
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(tidyverse)
 library(xaringanthemer)
-style_duo_accent(primary_color ="#FF2400", secondary_color = "#FFD700",
+style_duo_accent(primary_color ="#006400", secondary_color = "#A020F0",
                  background_color = "#f8f7f3",
                  header_font_google = google_font("Archivo"),
                  text_font_google   = google_font("Inconsolata"), 
-                 link_color= "#A8C3E6"
+                 link_color= "#FFD700"
 
 )
 ```
 
-# Distribución Muestral (again)
-
-
----
-##Distribución Muestral
-
-
---
-
-Si $\hat{\beta}$ es un estimador definido como $\hat{\beta}: f(\text{datos})$, la **distribución muestral** de $\hat{\beta}$ es la distribución de probabilidad de todos los valores posibles que $\hat{\beta}$ puede tomar, calculados a partir de todas las posibles muestras de un tamaño dado $n$, tomadas a partir de la misma población o generados por el mismo proceso. 
-
-<br>
---
-
-
-.bold[Paso a paso,]
-
---
-
-- Tomamos todas las posibles muestras $m_{i}: \{ X_1, X_2, ..., X_n \}$ de un tamaño  
-dado $n$, generados por el mismo proceso (o población).
-
---
-
-- En cada $m_{i}$ aplicamos nuestro estimador y obtenemos $\hat{\beta}_{i}$. Formalmente, $f(m_{i}) = \hat{\beta}_{i}$.
-
---
-
-- La .bold[distribución muestral] del estimador $\hat{\beta}$ refiere a la distribución de la colección obtenida de estimados $\hat{\beta}_{i}$.
-
---
-
-- Como toda distribución de probabilidades, la .bold[distribución muestral] indica la probabilidad de obtener cada valor posible al aplicar el estimador $\hat{\beta}$.
-
----
-##Distribución Muestral 
-
-.bold[Simulación Monte Carlo:]
-
-- La variable $X$ en la población distribuye Normal con $\mu=4$ y $\sigma=3.464$.
-
-- Tomamos 5000 muestras alesatorias de tamaño 200 en una población: $m_{200_i}$
-
-- En cada muestra calculamos la media muestral de la variable $X$: $\bar{X}_{200_i}$   
-
---
-
-.bold[Implementación en `R`:]
-
-```{r, echo=T, eval=T, fig.height=8, fig.width=8,  message=FALSE, warning=FALSE}
-
-# población (N=un millón, media=4, sd=3)
-x_poblacion <- tibble(x = rnorm(n=10^6, mean=4, sd=3))
-
-# simulación: 
-resultados <- tibble(estimado = numeric(5000))
-
-for (i in 1:5000) {
-  # tomamos 5000 muestras de tamaño 200
-  muestra_i <- sample_n(x_poblacion, size=200, replace = TRUE)
-  
-  # en cada muestra calculamos media y guardamos resultado
-  resultados$estimado[i] <- mean(muestra_i$x)
-}
-
-```
-
----
-##Distribución Muestral
-
-La colección de estimados se ve así:
-
-.pull-left[
-```{r, echo=F}
-resultados %>% as_tibble() %>% print(n=15)
-```
-]
-
---
-
-.pull-right[
-
-- La estimación de la media muestral es aleatorias porque las muestras son aleatorias
-
-- ¿Cómo se distribuyen estas estimaciones?
-
-<br>
-- El .bold[Teoréma del Límite Central] nos dice que:
-
-  $$\bar{X}_{n} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)$$
-  
-]
-
-
----
-##Distribución Muestral
-
-La colección de estimados se ve así:
-
-.pull-left[
-```{r, echo=F}
-resultados %>% as_tibble() %>% print(n=15)
-```
-]
-
-
-.pull-right[
-
-- La estimación de la media muestral es aleatorias porque las muestras son aleatorias
-
-- ¿Cómo se distribuyen estas estimaciones?
-
-<br>
-- El .bold[Teoréma del Límite Central] nos dice que:
-
-  $$\bar{X}_{n} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)$$
-
-<br>
-- En nuestro caso:
-
-  $$\bar{X}_{200} \sim \text{Normal}\bigg(4, \frac{3.464}{\sqrt{200}}\bigg)$$
-    
-]
-
----
-##Distribución Muestral
-
-.pull-left[
-```{r, echo=FALSE, fig.height=8, fig.width=8,  message=FALSE, warning=FALSE}
-
-library(ggplot2)
-
-# Color definitions
-primary_color   <- "#FF2400"
-secondary_color <- "#FFD700"
-third_color     <- "#A8C3E6" 
-
-
-# Create the normal distribution data
-x_values <- seq(2.5, 5.5, by = 0.01)
-y_values <- dnorm(x_values, mean = 4, sd = 3/sqrt(200))
-normal_data <- data.frame(x = x_values, y = y_values)
-
-# Create the ggplot
-normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
-  geom_line(color = primary_color, size = 1) +
-  labs(
-       x = expression(bar(X)),
-       y = "Densidad") +
-  
-  theme_minimal() +
-  theme(
-    plot.title = element_text(face = "bold", size = 20),
-    axis.text.y = element_text(size = 22),
-    axis.text.x = element_text(size = 22),
-    axis.title.y = element_text(size = 24),
-    axis.title.x = element_text(size = 24),
-    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
-  )
-
-# Display the plot
-print(normal_distribution_plot)
-```
-]
-
-.pull-right[
-
-- El .bold[Teoréma del Límite Central] nos dice que:
-
-<br>
-
-  $$\bar{X}_{200} \sim \text{Normal}\bigg(4, \frac{3.464}{\sqrt{200}}\bigg)$$
-
-]
-
-
----
-##Distribución Muestral
-
-.pull-left[
-```{r, echo=FALSE, fig.height=8, fig.width=8,  message=FALSE, warning=FALSE}
-
-# Color definitions
-primary_color   <- "#FF2400"
-secondary_color <- "#FFD700"
-third_color     <- "#A8C3E6" 
-
-# Create the normal distribution data
-x_values <- seq(2.5, 5.5, by = 0.01)
-y_values <- dnorm(x_values, mean = 4, sd = 3/sqrt(200))
-normal_data <- data.frame(x = x_values, y = y_values)
-
-# Create the ggplot
-normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
-  geom_histogram(data = resultados, aes(x = estimado, y = ..density..), fill = secondary_color, bins = 100, color=secondary_color, alpha = 0.4) +
-  geom_line(color = primary_color, size = 1) +
-  geom_vline(xintercept = 4, linetype = "dashed", size=1.5) +
-  annotate("text", x = 4.2, y = 0.25, label = expression(mu), size = 12) +
-  labs(
-       x = expression(bar(X)),
-       y = "Densidad") +
-  
-  theme_minimal() +
-  theme(
-    plot.title = element_text(face = "bold", size = 20),
-    axis.text.y = element_text(size = 22),
-    axis.text.x = element_text(size = 22),
-    axis.title.y = element_text(size = 24),
-    axis.title.x = element_text(size = 24),
-    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
-  )
-
-# Display the plot
-print(normal_distribution_plot)
-
-```
-]
-
-.pull-right[
-
-- El .bold[Teoréma del Límite Central] nos dice que:
-
-<br>
-
-  $$\bar{X}_{200} \sim \text{Normal}\bigg(4, \frac{3.464}{\sqrt{200}}\bigg)$$
-
-<br>
-
-- Nuestra simulación confirma la teoría
-
-]
-
-
----  
-class: inverse, center, middle
-
-
-#Estimación Puntual
-
+# Estimación de Intervalos
 
 ---
 ##Estimación Puntual
 
-
 .pull-left[
 
 
-- Cuando contamos con .bold[UNA] muestra no tenemosn una distribución de estimados
+- Cuando contamos con .bold[UNA] muestra no tenemos una distribución de estimados
 
 - Tenemos una .bold[estimación puntual]
 
@@ -288,6 +49,7 @@ Por ejemplo:
 
 ```{r, echo=FALSE, fig.height=8, fig.width=8,  message=FALSE, warning=FALSE}
 set.seed(1234)  
+x_poblacion <- tibble(x = rnorm(n=10^6, mean=4, sd=3))
 mi_muestra <- sample_n(x_poblacion, size=200, replace = TRUE)
 ```
 $\bar{X}_{200}$ =  `r mean(mi_muestra$x)`
@@ -312,9 +74,9 @@ library(ggplot2)
 set.seed(5001)
 
 # Color definitions
-primary_color   <- "#FF2400"
-secondary_color <- "#FFD700"
-third_color     <- "#A8C3E6" 
+primary_color   <- "#006400"
+secondary_color <- "#A020F0"
+third_color     <- "#FFD700" 
 
 
 # Create the normal distribution data
@@ -324,7 +86,6 @@ normal_data <- data.frame(x = x_values, y = y_values)
 
 # Create the ggplot
 normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
-  geom_histogram(data=resultados, aes(x=estimado, y = ..density..), fill = secondary_color, bins = 100, color=secondary_color, alpha=0.4) +
   geom_line(color = primary_color, size = 1) +
   geom_vline(xintercept = 4, linetype = "dashed", size=1.5) +
   annotate("text", x = 4.2, y = 0.25, label = expression(mu), size = 12) +
@@ -348,6 +109,12 @@ print(normal_distribution_plot)
 ```
 ]
 
+
+---  
+class: inverse, center, middle
+
+#Error en estimación
+
 ---
 ##Error en estimación
 
@@ -370,12 +137,12 @@ dividendo por el error estándard (SE) de $\bar{X}$: $\quad \quad \mathbb{P}\big
 
 .pull-left[
 
-```{r, echo=FALSE, fig.height=3.8, fig.width=3.8,  message=FALSE, warning=FALSE}
+```{r, echo=FALSE, fig.height=3.8, fig.width=4.5,  message=FALSE, warning=FALSE}
 
 # Color definitions
-primary_color   <- "#FF2400"
-secondary_color <- "#FFD700"
-third_color     <- "#A8C3E6"
+primary_color   <- "#006400"
+secondary_color <- "#A020F0"
+third_color     <- "#FFD700"
 
 # Create the normal distribution data
 x_values <- seq(-3, 3, by = 0.01)
@@ -433,19 +200,18 @@ $$ = \Phi\Bigg({\frac{e }{\sigma/\sqrt{n}}}\Bigg) - \Phi\Bigg(\frac{-e }{\sigma/
 ]
 
 ---
-##Error en estimación
+##Error en estimación, ejemplo
 
-En nuestro ejemplo:   
   - La variable $X$ en la población distribuye Normal con $\mu=4$ y $\sigma=3.464$.
   - Tomamos un muestra aleaatorias de tamaño 200 y estimamos la media muestral $\bar{X}_{200}$.
+  
+--
+
+.bold[¿Cual es la probabilidad de que nuestro estimado difiera como máximo en 0.25 puntos respecto de la media poblacional?] (en cualquier dirección)
 
 --
 
-.bold[¿Cual es la probabilidad de que nuestro estimado difiera como máximo en 1 punto respecto de la media problacional?] (en cualquier dirección)
-
---
-
-$$\mathbb{P}(-e < \bar{X} - \mu < e) = \mathbb{P}(-1 < \bar{X} - \mu < 1)$$ 
+$$\mathbb{P}(-e < \bar{X} - \mu < e) = \mathbb{P}(-0.25 < \bar{X} - \mu < 0.25)$$ 
 
 <br>
 --
@@ -456,21 +222,21 @@ Dividimos por el error estándard (SE) de $\bar{X}$, donde  $SE_{\bar{X}} = \sig
 
 .pull-left[
 \begin{align}
-\mathbb{P}(-1 < \bar{X} - \mu < 1) &= \mathbb{P}\bigg(\frac{-1 }{0.245} < Z_{\bar{X}}  < \frac{1}{0.245}\bigg)   \\ \\
-&= \mathbb{P}\bigg(−4.08 < Z_{\bar{X}}  < 4.08\bigg) \\ \\
-&= 1 - 2 \times \Phi(−4.08) = 0.99996 \\ \\
+\mathbb{P}(-0.25 < \bar{X} - \mu < 0.25) &= \mathbb{P}\bigg(\frac{-0.25}{0.245} < Z_{\bar{X}}  < \frac{0.25}{0.245}\bigg)   \\ \\
+&= \mathbb{P}\bigg(−1.02 < Z_{\bar{X}}  < 1.02 \bigg) \\ \\
+&= 1 - 2 \times \Phi(−1.02) \approx 0.6922 \\ \\
 \end{align}
 ]
 
 
 .pull-right[
-```{r, echo=FALSE, fig.height=3, fig.width=3,  message=FALSE, warning=FALSE}
+```{r, echo=FALSE, fig.height=3.8, fig.width=4.5,  message=FALSE, warning=FALSE}
 library(ggplot2)
 
 # Color definitions
-primary_color   <- "#FF2400"
-secondary_color <- "#FFD700"
-third_color     <- "#A8C3E6"
+primary_color   <- "#006400"
+secondary_color <- "#A020F0"
+third_color     <- "#FFD700"
 
 # Create the normal distribution data
 x_values <- seq(-5, 5, by = 0.01)
@@ -481,8 +247,8 @@ normal_data <- data.frame(x = x_values, y = y_values)
 alpha <- 0.05
 
 # Calculate Z values for the shaded area
-z_lower <- -4.08
-z_upper <- 4.08
+z_lower <- -1.02041
+z_upper <- 1.02041
 
 # Create the ggplot
 normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
@@ -503,13 +269,13 @@ normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
                color = primary_color) +
   
   # Add annotations "LI" and "LS" next to the vertical segments
-  geom_text(aes(x = z_lower - 0.4, y = max(normal_data$y) + 0.02, label = "-4.08"),
+  geom_text(aes(x = z_lower - 0.4, y = max(normal_data$y) + 0.02, label = "-1.02"),
             size = 6, hjust = 0.4) +
-  geom_text(aes(x = z_upper + 0.2, y = max(normal_data$y) + 0.02, label = "4.08"),
+  geom_text(aes(x = z_upper + 0.6, y = max(normal_data$y) + 0.02, label = "1.02"),
             size = 6, hjust = 1.1) +
   
   # Add probability calculation annotation
-  geom_text(aes(x = 0, y = 0.05, label = "0.99996"), size = 5) +
+  geom_text(aes(x = 0, y = 0.05, label = "0.69"), size = 5) +
   
   labs(
     x = expression(Z[bar(X)]),
@@ -534,8 +300,8 @@ print(normal_distribution_plot)
 ---
 class: inverse, center, middle
 
-#Estimación de intervalos
-##Intervalos de confianza
+
+#Intervalos de confianza
 
 
 ---
@@ -562,9 +328,9 @@ $\quad \mathbb{P}( -L < Z_{\bar{X}}  < L) = 1 - \alpha$
 library(ggplot2)
 
 # Color definitions
-primary_color   <- "#FF2400"
-secondary_color <- "#FFD700"
-third_color     <- "#A8C3E6"
+primary_color   <- "#006400"
+secondary_color <- "#A020F0"
+third_color     <- "#FFD700"
 
 # Create the normal distribution data
 x_values <- seq(-3, 3, by = 0.01)
@@ -629,9 +395,9 @@ print(normal_distribution_plot)
 
 Por tanto:
   
-- .bold[LI] = $\Phi^{-1}(\alpha/2)$
+- .bold[-L] = $\Phi^{-1}(\alpha/2)$
 
-- .bold[LS] = $\Phi^{-1}(1 - \alpha/2)$
+- .bold[L] = $\Phi^{-1}(1 - \alpha/2)$
 
 - Por simetría: $\Phi^{-1}(1 - \alpha/2) = - \Phi^{-1}(\alpha/2)$
 
@@ -672,9 +438,9 @@ $\mathbb{P}\bigg( \bar{X} +  \Phi^{-1}(\alpha/2) \times \sigma/\sqrt{n} <  \mu  
 ```{r, echo=FALSE, fig.height=6, fig.width=6,  message=FALSE, warning=FALSE}
 
 # Color definitions
-primary_color   <- "#FF2400"
-secondary_color <- "#FFD700"
-third_color     <- "#A8C3E6"
+primary_color   <- "#006400"
+secondary_color <- "#A020F0"
+third_color     <- "#FFD700"
 
 # Create the normal distribution data
 x_values <- seq(-3, 3, by = 0.01)
@@ -748,9 +514,9 @@ print(normal_distribution_plot)
 library(ggplot2)
 
 # Color definitions
-primary_color   <- "#FF2400"
-secondary_color <- "#FFD700"
-third_color     <- "#A8C3E6"
+primary_color   <- "#006400"
+secondary_color <- "#A020F0"
+third_color     <- "#FFD700"
 
 # Create the normal distribution data
 x_values <- seq(-3, 3, by = 0.01)
