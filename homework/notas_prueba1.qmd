@@ -68,7 +68,6 @@ p <- ggplot(data_grades, aes(x = Nota)) +
 print(p)
 ```
 
-
 Usando un Gaussian mixture model encontramos 4 clusters de notas:
 
 ```{r, echo=F, message=FALSE, warning=FALSE}

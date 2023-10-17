@@ -22,7 +22,7 @@ class: inverse, center, middle
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(tidyverse)
 library(xaringanthemer)
-style_duo_accent(primary_color ="#006400", secondary_color = "#A020F0",
+style_duo_accent(primary_color = "#8B4513", secondary_color = "#FF6600",
                  background_color = "#f8f7f3",
                  header_font_google = google_font("Archivo"),
                  text_font_google   = google_font("Inconsolata"), 
@@ -74,8 +74,8 @@ library(ggplot2)
 set.seed(5001)
 
 # Color definitions
-primary_color   <- "#006400"
-secondary_color <- "#A020F0"
+primary_color   <- "#FF6600"
+secondary_color <- "#8B4513"
 third_color     <- "#FFD700" 
 
 
@@ -140,8 +140,8 @@ dividendo por el error estándard (SE) de $\bar{X}$: $\quad \quad \mathbb{P}\big
 ```{r, echo=FALSE, fig.height=3.8, fig.width=4.5,  message=FALSE, warning=FALSE}
 
 # Color definitions
-primary_color   <- "#006400"
-secondary_color <- "#A020F0"
+primary_color   <- "#FF6600"
+secondary_color <- "#8B4513"
 third_color     <- "#FFD700"
 
 # Create the normal distribution data
@@ -234,8 +234,8 @@ Dividimos por el error estándard (SE) de $\bar{X}$, donde  $SE_{\bar{X}} = \sig
 library(ggplot2)
 
 # Color definitions
-primary_color   <- "#006400"
-secondary_color <- "#A020F0"
+primary_color   <- "#FF6600"
+secondary_color <- "#8B4513"
 third_color     <- "#FFD700"
 
 # Create the normal distribution data
@@ -328,8 +328,8 @@ $\quad \mathbb{P}( -L < Z_{\bar{X}}  < L) = 1 - \alpha$
 library(ggplot2)
 
 # Color definitions
-primary_color   <- "#006400"
-secondary_color <- "#A020F0"
+primary_color   <- "#FF6600"
+secondary_color <- "#8B4513"
 third_color     <- "#FFD700"
 
 # Create the normal distribution data
@@ -438,8 +438,8 @@ $\mathbb{P}\bigg( \bar{X} +  \Phi^{-1}(\alpha/2) \times \sigma/\sqrt{n} <  \mu  
 ```{r, echo=FALSE, fig.height=6, fig.width=6,  message=FALSE, warning=FALSE}
 
 # Color definitions
-primary_color   <- "#006400"
-secondary_color <- "#A020F0"
+primary_color   <- "#FF6600"
+secondary_color <- "#8B4513"
 third_color     <- "#FFD700"
 
 # Create the normal distribution data
@@ -514,8 +514,8 @@ print(normal_distribution_plot)
 library(ggplot2)
 
 # Color definitions
-primary_color   <- "#006400"
-secondary_color <- "#A020F0"
+primary_color   <- "#FF6600"
+secondary_color <- "#8B4513"
 third_color     <- "#FFD700"
 
 # Create the normal distribution data
