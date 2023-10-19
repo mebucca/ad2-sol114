@@ -196,7 +196,7 @@ $$ = \Phi\Bigg({\frac{e }{\sigma/\sqrt{n}}}\Bigg) - \Phi\Bigg(\frac{-e }{\sigma/
 ---
 ##Error en estimación, ejemplo
 
-  - La variable $X$ en la población distribuye Normal con $\mu=4$ y $\sigma=3.464$.
+  - La variable $X$ en la población distribuye Normal con $\sigma=3.464$.
   - Tomamos un muestra aleaatorias de tamaño 200 y estimamos la media muestral $\bar{X}_{200}$.
   
 --
