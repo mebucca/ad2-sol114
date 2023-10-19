@@ -16,7 +16,7 @@ class: center, middle, inverse, title-slide
 # Probabilidad e Inferencia Estadística
 ]
 .subtitle[
-## #13: Intervalos de Confianza y Boostrap
+## #13: Intervalos de Confianza y Bootstrap
 ]
 .author[
 ### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
@@ -42,7 +42,7 @@ El intervalo de confianza `\(\bar{X} \pm Z_{(\alpha/2)} \cdot \sigma_{\bar{X}}\)
 
 
 .content-box-primary[
-`$$\color{black}{\mathbb{P}\bigg( \bar{X} - Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} &lt; \mu  &lt; \bar{X} + Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} \bigg) = 1 - \alpha}$$`
+`$$\color{white}{\mathbb{P}\bigg( \bar{X} - Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} &lt; \mu  &lt; \bar{X} + Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} \bigg) = 1 - \alpha}$$`
 ]
 
 
@@ -110,6 +110,40 @@ class: inverse, center, middle
 
 
 
+.center[
+
+```
+## # A tibble: 513 × 6
+##    region  sexo  edad  educ ingreso  univ
+##     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;dbl&gt;
+##  1      2     2     6     1      NA    NA
+##  2     13     2    28     6      NA     0
+##  3      4     2    56     3      NA     0
+##  4      5     2    47     6  180000     0
+##  5     13     2    69     1  145000     0
+##  6     10     2     0     0      NA    NA
+##  7     13     2    59     8  500000     0
+##  8      4     2    28     8  330000     0
+##  9      9     2    30    11  652533     1
+## 10      9     2    36     5   95000     0
+## 11     15     2    24     7   60000    NA
+## 12      5     2    43     5    2083     0
+## 13     13     2    17     3      NA    NA
+## 14     14     2    21     9      NA    NA
+## 15     14     2    86    11  450000     1
+## 16      1     2    36     1  265000     0
+## 17      2     2    27     3      NA    NA
+## 18      7     2    20     9      NA    NA
+## 19      8     2    72     7  245874     0
+## 20      8     2    28     5  350000     0
+## # ℹ 493 more rows
+```
+]
+
+
+---
+##Promedio de ingreso mujeres
+
 
 ```r
 #i. Calcula media muestral 
@@ -145,16 +179,8 @@ z_sup &lt;- qnorm(1 - alpha/2)
 #iv. Calcular error estándard del promedio muestal
 sigma_poblacion &lt;- 583454 # desviación estándar ingreso de mujeres en la población.
 n &lt;- sum(!is.na(casen2017_mujeres$ingreso)) #cuenta observaciones (sin NAs) en ingreso
+ee &lt;- sigma_poblacion/sqrt(n)
 
-# calcula error estándard
-ee &lt;- sigma_poblacion/sqrt(n); ee
-```
-
-```
-## [1] 37049.37
-```
-
-```r
 #v. Calcular limites del intervalo de confianza:
 ic_inf = mu_muestra + z_inf*ee 
 ic_sup = mu_muestra + z_sup*ee 
@@ -172,8 +198,7 @@ cat("Intervalo al", 100*conf, "% de confianza: (",ic_inf,",",ic_sup,")")
 
 ```r
 #ii. Decidir nivel de confianza
-conf &lt;- 0.90
-alpha &lt;- 1 - conf 
+conf &lt;- 0.90; alpha &lt;- 1 - conf 
 
 #iii. Calcular valores críticos
 z_inf &lt;- qnorm(alpha/2)
@@ -182,8 +207,6 @@ z_sup &lt;- qnorm(1 - alpha/2)
 #iv. Calcular error estándard del promedio muestal
 sigma_poblacion &lt;- 583454 # desviación estándar ingreso de mujeres en la población.
 n &lt;- sum(!is.na(casen2017_mujeres$ingreso)) #cuenta observaciones (sin NAs) en ingreso
-
-# calcula error estándard
 ee &lt;- sigma_poblacion/sqrt(n)
 
 #v. Calcular limites del intervalo de confianza:
@@ -197,309 +220,237 @@ cat("Intervalo al", 100*conf, "% de confianza: (",ic_inf,",",ic_sup,")")
 ## Intervalo al 90 % de confianza: ( 307129.3 , 429010.8 )
 ```
 
+
 ---
 class: inverse, center, middle
 
-##Método Bootstrap
+##Intervalos de Confiaza para proporciones
+
 
 ---
-## Métodos de simulación para inferencia estadística
+##Estimación de una proporción
+
+--
+
+.bold[Situación:]
+
+- `\(X\)` es una variable dicotómica (0/1) que sigue una distribución Bernoulli con probabilidad de éxito `\(\mathbb{P}(X=1)=p\)`.
+
+- Tomamos una muestra aleatoria de tamaño `\(n\)` a partir de la población.
+
+- Usamos la proporción muestral `\(\hat{p} = \frac{\sum_{i=1}^{n}X_{i}}{n}\)` como un estimador de la problabilidad de éxito en la población.
+--
+
+  - `\(\hat{p} \equiv \bar{X}\)`
+
+- ¿Cual es la distribución muestral de `\(\hat{p}\)`?. Es decir: Si repetimos el proceso de muestreo y estimación muchas veces, `\(\hat{p}\)` variará de una muestra a otra. ¿Cual es la distribución de todas estas proporciones muestrales?
+
+---
+## *Detour*: valor esperado y varianza de una variable Bernoulli
+
+
+- Cuando estimados una proporción asumimos que cada observación es la manifestación de una variable aleatoria Bernoulli.
+
+- Para determinar la distribución muestral de una proporción vamos a necesitar conocer el valor esperado y la varianza de una variable Bernoulli.
+
 
 &lt;br&gt;
 --
-
-- Inferencia estadística tradicional se basa en resultados teóricos sobre la distribución muestral de los estimadores (ej. TLC).
-
---
-
-- Sin embargo, Iincluso para estimadores simples puede ser difícil (o imposible) determinar la distribución muestral (ej. mediana).
-
---
-
-- Los métodos de simulación cuando no se dispone de soluciones analíticas (una formula conocida).
-
---
-
-- Estos métodos son computacionalmente intensivos, lo que los hacía inviables en el pasado pero no actualmente.
-
---
-
- - "Bootstrapping" es uno de los métodos computacional más ampliamente usados para realizar inferencia estadística.
- 
- 
----
-##Método Bootstrap
-
-&lt;br&gt;
-
-####Queremos hacer inferencia pero no conocemos la distribución muestral de nuestro estimador ...
-
 
 .pull-left[
-![boots](rambo.jpg)
+.bold[Valor esperado] de una Bernoulli:
 
+`\begin{align}
+\mathbb{E}(X) = \sum_{i} x_{i} \times \mathbb{P}(X=x_{i}) &amp;= \sum_{i} x_{i} \times p^{x_{i}}(1-p)^{1 - x_{i}} \\ 
+     &amp;= 1 \times p + 0 \times (1-p) \\ 
+     &amp;= p
+\end{align}`
 ]
 
 --
 
 .pull-right[
-![boots](boots.jpg)
+.bold[Varianza] de una Bernoulli:
+
+`\begin{align}
+\mathbb{Var}(X) &amp;= \sum_{i} \bigg( x_{i} - \mathbb{E}(X) \bigg)^{2} \times \mathbb{P}(X=x_{i})  \\ \\
+ &amp;= (1 - \mathbb{E}(X))^{2} \times \mathbb{P}(X=1) + (0 - \mathbb{E}(X))^{2} \times \mathbb{P}(X=0) \\ \\
+ &amp;= (1 - p)^{2} \times p +  (0 - p)^{2} \times (1-p) \\ \\
+ &amp;=p (1-p)
+\end{align}`
 ]
 
-
 ---
-##Método Bootstrap
-
-&lt;br&gt;
-.bold[Intuición:]
-
-&lt;br&gt;
---
-
-- Aplicamos un estimador a una muestra y queremos hacer inferencia sobre del estimado obtenido.
+##Distribución muestral de `\(\hat{p}\)`
 
 --
 
-
-- No conocemos la distribución de nuestro estimador a través de infinitas muestras porque sólo tenemos una muestra. 
-
---
-
-- Tampoco tenemos conocimiento teórico sobre la distribución de nuestro estimador.
+- Nos preguntamos por el valor esperado y varianza de la proporción muestral.
 
 --
 
-- Podemos tomar muestras de nuestra muestra, preservando cualquier distribución desconocida subyacente en los datos.
+- La proporción muestral es: `\(\hat{p}_{n}=  \frac{\sum_{i=1}^{n}X_{i}}{n} \equiv \bar{X}\)`, donde las `\(X\)`'s son Bernoulli y .bold[iid].
 
 --
-
-- Podemos observar y estudiar el comportamiento de nuestro estimador en estas muestras tomadas a partir de la muestra.
-
----
-##Método Bootstrap
-
-.bold[Muestrando desde la muestra:]
-
-¿Cuántas muestras podemos tomar (con reemplazo) a partir de nuestra muestra?
---
- .bold[Respuesta]: `\(n^n\)`
-
-&lt;br&gt;
---
-
-`$$\text{muestra} : \left[\begin{array}{@{}c@{}}
-    1 \\
-    2 \\
-    3 
-    \end{array} \right]$$`
-
-&lt;br&gt;
---
-
-`$$\text{posibles muestras de la muesta:} \left[\begin{array}{@{}c@{}} 
-    1 \\
-    1 \\
-    1 
-    \end{array} \right] 
-    \text{ o}  \left[\begin{array}{@{}c@{}} 
-    1 \\
-    1 \\
-    2 
-    \end{array} \right] 
-    \text{ o}  \left[\begin{array}{@{}c@{}} 
-    1 \\
-    3 \\
-    2 
-    \end{array} \right] 
-    \text{ o}  \left[\begin{array}{@{}c@{}} 
-    3 \\
-    1 \\
-    2 
-    \end{array} \right] 
-    \text{ o}  \left[\begin{array}{@{}c@{}} 
-    3 \\
-    3 \\
-    3 
-    \end{array} \right]  ...$$`
-
----
-## Bootstrap Method
-
-.bold[Esquema del algoritmo]:
-
---
-
-1. A partir de la muestra obtenén una muestra aleatoria del mismo tamaño que la muestra original (N), con reemplazo:  `\((X_{b})\)`
-
---
-
-2. Aplica el estimador `\(\theta(X_{b})\)` a la muestra `\((X_{b})\)` pera obtener el estimado `\(\hat{\theta}_{b}\)` 
-
---
-
-3. Repite los pasos 1 y 2 un gran número de veces B.
-
---
-
-4. El conjunto de B resultados obtenidos corresponde a la "Bootstrap distribution" del estimado.
-
---
-
-5. Evalúa la distribución del estimado (SE,CI, etc) o de cualquier cantidad derivada de éste.
-
----
-## Método Bootstrap, aplicación
-
-
-.bold[Calculemos un IC al 99% para la `media` muestral del ingreso de las mujeres]
-
---
-
-
-```r
-# Escribir una función que ejecute re-sampling y la estimación
-bs_mu  &lt;- function(x) {
-  data_b  &lt;- sample_n(casen2017_mujeres, size=nrow(casen2017_mujeres), replace=TRUE)
-  mu_muestra_b    &lt;- mean(data_b$ingreso, na.rm=T)
-  return(mu_muestra_b)
-}
-
-# Iterar función y almacenar resultados 
-
-set.seed(77623)
-distmuestral_boot &lt;- replicate(5000, bs_mu()) %&gt;% as_tibble()
-glimpse(distmuestral_boot)
-```
-
-```
-## Rows: 5,000
-## Columns: 1
-## $ value &lt;dbl&gt; 419172.0, 339894.7, 422345.3, 348431.6, 371273.9, 364408.9, 349914.8, …
-```
-
----
-## Método Bootstrap, aplicación
 
 .pull-left[
-
-```r
-ee_bs &lt;- sd(distmuestral_boot$value)
-ee_bs
-```
-
-```
-## [1] 28647.05
-```
-
-```r
-ci99_bs &lt;- 
-  quantile(distmuestral_boot$value, 
-           p=c(0.005,0.995))
-ci99_bs 
-```
-
-```
-##     0.5%    99.5% 
-## 303603.2 449958.5
-```
-]
-
-
-.pull-right[
-![](class_13_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
-]
-
-
----
-## Método Bootstrap, aplicación
-
-
-.bold[Calculemos un IC al 99% para la `mediana` muestral del ingreso de las mujeres]
-
-
-.pull-left[
-¿Cual es la distribución muestral de la mediana? 
-&lt;br&gt;
-![confused](https://media.tenor.com/DCycRQnBpOYAAAAC/math-hmm.gif)
+`\begin{align}
+\mathbb{E}(\hat{p}_{n}) &amp;= \mathbb{E}\bigg(\frac{1}{n} \sum^{n}_{i=1} X_{i} \bigg) = \frac{1}{n}\mathbb{E}\big( X_{1}  + \cdots + X_{n} \big)\\ \\
+&amp;=\frac{1}{n}\big( \mathbb{E}(X_{1}) +  \cdots  + \mathbb{E}(X_{n})\big) \\ \\
+&amp;=\frac{1}{n}\big( p + \cdots + p \big) = \frac{1}{n}\big( n \cdot p \big) \\ \\
+&amp;=p
+\end{align}`
 ]
 
 --
 
-&lt;br&gt;
-.pull-right[
-No importa, tenemos Bootstrap!
-&lt;br&gt;
-![winner](https://media.tenor.com/ur0xcQWCkegAAAAC/the-office-michael-scott.gif)
+.pull-rigth[
+`\begin{align}
+\text{Var}(\hat{p}_{n}) &amp;= \text{Var}\bigg(\frac{1}{n} \sum^{n}_{i=1} X_{i} \bigg) =  \frac{1}{n^2} \text{Var}\bigg( \sum^{n}_{i=1} X_{i} \bigg)  \\ \\
+&amp;=\frac{1}{n^2}\big( \text{Var}(X_{1}) +  \cdots + \text{Var}(X_{n})\big) \\ \\
+&amp;=\frac{1}{n^2}\big( p(1-p) + \cdots + p(1-p) \big) \\ \\
+&amp;=\frac{1}{n^2}\big( n \cdot p(1-p) \big) \\ \\
+&amp;=\frac{p(1-p)}{n} \implies \quad \sqrt{\text{Var}(\hat{p}_{n})} = \frac{\sqrt{p(1-p)}}{\sqrt{n}}
+\end{align}`
 ]
 
-
-&lt;style type="text/css"&gt;
-.pull-right ~ * { clear: unset; }
-.pull-right + * { clear: both; }
-&lt;/style&gt;
-
 ---
-## Método Bootstrap, aplicación
+##Distribución muestral de `\(\hat{p}\)`
 
+En resumen, `\(\hat{p}_{n}\)` es un estimados insesgado y consitente de `\(p\)`.
 
-.bold[Calculemos un IC al 99% para la `mediana` muestral del ingreso de las mujeres]
+- `\(\mathbb{E}(\hat{p}_{n}) = p\)`  
+
+- `\(\sqrt{\text{Var}(\hat{p}_{n})} = \frac{\sqrt{p(1-p)}}{\sqrt{n}}\)`
 
 --
 
+- ¿Cual es la distribución de `\(\hat{p}_{n}\)`?. 
+--
+También en este caso aplica el TLC. Para `\(n\)` suficientente grande:
 
-```r
-# Escribir una función que ejecute re-sampling y la estimación
-bs_median  &lt;- function(x) {
-  data_b  &lt;- sample_n(casen2017_mujeres, size=nrow(casen2017_mujeres), replace=TRUE)
-  median_muestra_b    &lt;- median(data_b$ingreso, na.rm=T)
-  return(median_muestra_b)
-}
-
-# Iterar función y almacenar resultados 
-
-set.seed(77623)
-distmuestral_boot &lt;- replicate(5000, bs_median()) %&gt;% as_tibble()
-glimpse(distmuestral_boot)
-```
-
-```
-## Rows: 5,000
-## Columns: 1
-## $ value &lt;dbl&gt; 275000.0, 278583.5, 300000.0, 276000.0, 265750.0, 266500.0, 275000.0, …
-```
----
-## Método Bootstrap, aplicación
+&lt;br&gt;
+--
 
 .pull-left[
-
-```r
-ee_bs &lt;- sd(distmuestral_boot$value)
-ee_bs
-```
-
-```
-## [1] 14051.05
-```
-
-```r
-ci99_bs &lt;- 
-  quantile(distmuestral_boot$value, 
-           p=c(0.005,0.995))
-ci99_bs 
-```
-
-```
-##     0.5%    99.5% 
-## 236867.0 304171.2
-```
+.content-box-secondary[
+`$$\color{black}{\hat{p} \overset{d}{\to}
+ \text{Normal}\Bigg(p, \frac{\sqrt{p(1-p)}}{\sqrt{n}}\Bigg)}$$`
 ]
-
+]
 
 .pull-right[
-![](class_13_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+.content-box-secondary[
+`$$\color{black}{ \frac{\hat{p} - p}{\sqrt{p(1-p)}/\sqrt{n}}  \sim
+ \text{Normal}(0, 1)}$$`
+]
 ]
 
+&lt;br&gt;
+--
 
+- Típicamente se considera "grande" si `\(n\cdot p &gt;  5\)`  y `\(n\cdot (1-p) &gt; 5\)` 
+
+
+---
+##Intervalos de confianza para una proporción muestral
+
+&lt;br&gt;
+
+Un intervalo de confianza al `\(100 \cdot (1 - \alpha) \%\)` para el estimador `\(\hat{p}_{n}\)` está dado por:
+
+
+.content-box-secondary[
+`$$\color{black}{\mathbb{P}\bigg( \hat{p} - Z_{(\alpha/2)} \cdot \sigma_{\hat{p}} &lt;  p  &lt; \hat{p} + Z_{(\alpha/2)} \cdot \sigma_{\hat{p} } \bigg) = 1 - \alpha}$$`
+]
+
+&lt;br&gt;
+
+donde:
+
+- `\(\sigma_{\hat{p}}= \sqrt{p(1-p)}/\sqrt{n}\)`
+
+- `\(-Z_{\alpha/2} = \Phi^{-1}(\alpha/2)\)`
+
+- `\(\quad Z_{\alpha/2} = \Phi^{-1}(1 - \alpha/2)\)`
+
+---
+##Proporción de mujeres con grado universitario
+###*(mayores de 27)
+
+
+```r
+#i. Calcula proporción muestral 
+
+*p_muestra &lt;- mean(casen2017_mujeres$univ, na.rm=T)
+
+cat("Proporción muestral:", p_muestra)
+```
+
+```
+## Proporción muestral: 0.1217949
+```
+
+--
+
+.bold[Instrucción:] Calcula un intervalo al 99% de confianza y otro al 90%.
+
+
+
+---
+##Proporción de mujeres con grado universitario, IC al 99%
+
+
+```r
+#ii. Decidir nivel de confianza
+conf &lt;- 0.99;  alpha &lt;- 1 - conf 
+
+#iii. Calcular valores críticos
+z_inf &lt;- qnorm(alpha/2)
+z_sup &lt;- qnorm(1 - alpha/2)
+
+
+#iv. calcula error estándard
+n &lt;- sum(!is.na(casen2017_mujeres$univ)) #cuenta observaciones (sin NAs) en univ
+ee &lt;- sqrt(p_muestra*(1-p_muestra))/sqrt(n)
+
+#v. Calcular limites del intervalo de confianza:
+ic_inf = p_muestra + z_inf*ee 
+ic_sup = p_muestra + z_sup*ee 
+
+cat("Intervalo al", 100*conf, "% de confianza: (",ic_inf,",",ic_sup,")")
+```
+
+```
+## Intervalo al 99 % de confianza: ( 0.07410213 , 0.1694876 )
+```
+
+---
+##Proporción de mujeres con grado universitario, IC al 90%
+
+
+```r
+#ii. Decidir nivel de confianza
+conf &lt;- 0.90; alpha &lt;- 1 - conf 
+
+#iii. Calcular valores críticos
+z_inf &lt;- qnorm(alpha/2)
+z_sup &lt;- qnorm(1 - alpha/2)
+
+#iv. calcula error estándard
+n &lt;- sum(!is.na(casen2017_mujeres$univ)) #cuenta observaciones (sin NAs) en univ
+ee &lt;- sqrt(p_muestra*(1-p_muestra))/sqrt(n)
+
+#v. Calcular limites del intervalo de confianza:
+ic_inf = p_muestra + z_inf*ee 
+ic_sup = p_muestra + z_sup*ee 
+
+cat("Intervalo al", 100*conf, "% de confianza: (",ic_inf,",",ic_sup,")")
+```
+
+```
+## Intervalo al 90 % de confianza: ( 0.0913396 , 0.1522501 )
+```
 
 ---
 class: inverse, center, middle
