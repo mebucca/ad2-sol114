@@ -21,37 +21,33 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 ## Calendario
 
 
-Certainly, aligning a table helps in making it more readable. Below is your table with better alignment:
-
-
-| Día | Mes | Contenido                                 | Presentación                                                                                                            | Cap. QSS   |
-|-----|-----|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|------------|
-|  7  | Ago | Introducción                              | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_0/class_0#1) [`[Code]`](slides/class_0/class_0.Rmd)        |            |
-|  9  | Ago | Fundamento de probabilidades              | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_1/class_1#1) [`[Code]`](slides/class_1/class_1.Rmd)        | 6.1        |
-| 16  | Ago | Probabilidad condicional, teorema de Bayes | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_2/class_2#1) [`[Code]`](slides/class_2/class_2.Rmd)       | 6.2        |
-| 21  | Ago | Variables aleatorias y distrib. discretas  | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_3/class_3#1) [`[Code]`](slides/class_3/class_3.Rmd)       | 6.3.1-6.3.3|
-| 30  | Ago | Distribuciones continuas                   | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_4/class_4#1) [`[Code]`](slides/class_4/class_4.Rmd)       | 6.3.4      |
-| 30  | Ago | Momentos: valor esperado                   | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_5/class_5#1) [`[Code]`](slides/class_5/class_5.Rmd)       | 6.3.5      |
-|  4  | Sep | Momentos: varianza, Puntaje-Z              | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_6/class_6#1) [`[Code]`](slides/class_6/class_6.Rmd)       | 6.3.5      |
-|  6  | Sep | Distribución Normal Standard               | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_7/class_7#1) [`[Code]`](slides/class_7/class_7.Rmd)       |            |
-| 13  | Sep | Ley de los grandes números                 | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_8/class_8#1) [`[Code]`](slides/class_8/class_8.Rmd)       | 6.4        |
-| 20  | Sep | Teorema del Límite Central                 | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_8/class_8#18) [`[Code]`](slides/class_8/class_8.Rmd)       | 6.4        |
-| 25  | Sep | Estimación puntal                          | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_9/class_9#1) [`[Code]`](slides/class_9/class_9.Rmd)       |            |
-| 20  | Sep | Distribución muestral, sesgo y varianza    | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_10/class_10#1) [`[Code]`](slides/class_10/class_10.Rmd)                                                                                                                       |            |
-| 16  | Oct | Distribución muestral (again)              | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_11/class_11#1) [`[Code]`](slides/class_11/class_11.Rmd)                                                                                                                       |            |
-| 18  | Oct | Intervalos de Confianza (IC)                    | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_12/class_12#1) [`[Code]`](slides/class_12/class_12.Rmd)                                                                                                            |            |
-| 23  | Oct | IC para media y proporción muestral        | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_13/class_13#1) [`[Code]`](slides/class_13/class_13.Rmd)                                                                                                                       |            |
-| 25  | Oct | IC con varianza desconocida & Boostrap          |                                                                                                                        |            |
-| 30  | Oct | Test de media/proporciones en 1 muestra    |                                                                                                                        |            |
-|  6  | Nov | Test de media/proporciones en 2 muestras   |                                                                                                                        |            |
-|  8  | Nov | Asociación variables continuas             |                                                                                                                        |            |
-| 13  | Nov | Correlación de Pearson                     |                                                                                                                        |            |
-| 15  | Nov | ANOVA                                      |                                                                                                                        |            |
-| 20  | Nov | ANOVA                                      |                                                                                                                        |            |
-| 22  | Nov | Tablas de contingencia                     |                                                                                                                        |            |
-| 27  | Nov | Test de χ²                                 |                                                                                                                        |            |
-| 29  | Nov | Repaso                                     |                                                                                                                        |            |
-
+| Día | Mes | Contenido                                 | Presentación                                                                                                            | Cap. QSS   | Shiny apps |
+|-----|-----|-------------------------------------------|-------------------------------------------------------------------------------------------------------------------------|------------|------------|
+|  7  | Ago | Introducción                              | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_0/class_0#1) [`[Code]`](slides/class_0/class_0.Rmd)        |            |            |
+|  9  | Ago | Fundamento de probabilidades              | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_1/class_1#1) [`[Code]`](slides/class_1/class_1.Rmd)        | 6.1        |            |
+| 16  | Ago | Probabilidad condicional, teorema de Bayes | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_2/class_2#1) [`[Code]`](slides/class_2/class_2.Rmd)        | 6.2        |            |
+| 21  | Ago | Variables aleatorias y distrib. discretas  | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_3/class_3#1) [`[Code]`](slides/class_3/class_3.Rmd)        | 6.3.1-6.3.3|            |
+| 30  | Ago | Distribuciones continuas                   | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_4/class_4#1) [`[Code]`](slides/class_4/class_4.Rmd)        | 6.3.4      |            |
+| 30  | Ago | Momentos: valor esperado                   | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_5/class_5#1) [`[Code]`](slides/class_5/class_5.Rmd)        | 6.3.5      |            |
+|  4  | Sep | Momentos: varianza, Puntaje-Z              | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_6/class_6#1) [`[Code]`](slides/class_6/class_6.Rmd)        | 6.3.5      |            |
+|  6  | Sep | Distribución Normal Standard               | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_7/class_7#1) [`[Code]`](slides/class_7/class_7.Rmd)        |            |            |
+| 13  | Sep | Ley de los grandes números                 | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_8/class_8#1) [`[Code]`](slides/class_8/class_8.Rmd)        | 6.4        |            |
+| 20  | Sep | Teorema del Límite Central                 | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_8/class_8#18) [`[Code]`](slides/class_8/class_8.Rmd)       | 6.4        |            |
+| 25  | Sep | Estimación puntal                          | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_9/class_9#1) [`[Code]`](slides/class_9/class_9.Rmd)        |            |            |
+| 20  | Sep | Distribución muestral, sesgo y varianza    | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_10/class_10#1) [`[Code]`](slides/class_10/class_10.Rmd)    |            |            |
+| 16  | Oct | Distribución muestral (again)              | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_11/class_11#1) [`[Code]`](slides/class_11/class_11.Rmd)    |            |            |
+| 18  | Oct | Intervalos de Confianza (IC)               | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_12/class_12#1) [`[Code]`](slides/class_12/class_12.Rmd)    |            |   [`[Animación]`](https://mebucca.shinyapps.io/confint/)         |
+| 23  | Oct | IC para media y proporción muestral        | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_13/class_13#1) [`[Code]`](slides/class_13/class_13.Rmd)    |            |            |
+| 25  | Oct | IC con varianza desconocida & Boostrap     |                                                                                                                        |            |            |
+| 30  | Oct | Test de media/proporciones en 1 muestra    |                                                                                                                        |            |            |
+|  6  | Nov | Test de media/proporciones en 2 muestras   |                                                                                                                        |            |            |
+|  8  | Nov | Asociación variables continuas             |                                                                                                                        |            |            |
+| 13  | Nov | Correlación de Pearson                     |                                                                                                                        |            |            |
+| 15  | Nov | ANOVA                                      |                                                                                                                        |            |            |
+| 20  | Nov | ANOVA                                      |                                                                                                                        |            |            |
+| 22  | Nov | Tablas de contingencia                     |                                                                                                                        |            |            |
+| 27  | Nov | Test de χ²                                 |                                                                                                                        |            |            |
+| 29  | Nov | Repaso                                     |                                                                                                                        |            |            |
 
 ---
 
