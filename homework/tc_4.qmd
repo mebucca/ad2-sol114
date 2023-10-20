@@ -58,20 +58,6 @@ head(data_plebiscito89)
 Usando un método distinto (Boostrap) obtenemos las siguientes respuestas a las preguntas planteadas anteriormente.
 Puedes usar estos valores para chequear (aproximativamente) tus respuestas.
 
-```{r, echo=FALSE, message=FALSE, warning=FALSE}
-bs_p <- NULL
-
-bs <- function() {
-  bs_sample <- sample_n(data_plebiscito89, nrow(data_plebiscito89), replace=T)
-  bs_p <- mean(bs_sample$voto_no, na.rm=T)
-}
-
-bs_sampdist <- replicate(n=1000,bs())
-
-cat("Proporción bootstrap =", round(mean(bs_sampdist),2));
-cat("Bootstrap IC al 96% =", round(quantile(bs_sampdist, p=c(0.02,0.98)),2))
-
-```
 
 ## Verdadero o Falso
 
