@@ -15,7 +15,6 @@ La varianza poblacional conocida para la proporción de participación electoral
 
 2.  ¿Cuál es la probabilidad de que la proporción de la muestra sobre-estime la verdadera proporción poblacional por más de 1 punto porcentual?
 
-
 ## Problema 2
 
 Un distrito escolar introdujo una nueva metodología de enseñanza y quiere determinar si ésta ha tenido un efecto positivo en el rendimiento de los estudiantes.
@@ -30,12 +29,11 @@ La desviación estándard poblacional para esta medida de mejora es 10.
 
 3.  Basándose en los dos intervalos de confianza, ¿podemos decir que los estudiantes han mejorado su rendimiento?
 
-
 ## Problema 3
 
 En esta pregunta usarás datos de una encuesta realizada por FLACSO/Chile en Abril y Mayo de 1988 sobre intención de voto en el plebiscito de 1989
 
-En particular, trabajarás con la variable `voto_no`, que mide si una persona pretende votar NO (`voto_no==1`) o SI (`voto_si==1`).
+En particular, trabajarás con la variable `voto_no`, que mide si una persona pretende votar NO (`voto_no==1`) o SI (`voto_no==0`).
 
 1.  Calcula la proporción de individuos que pretenden votar NO en el plebiscito.
 
@@ -58,7 +56,6 @@ head(data_plebiscito89)
 Usando un método distinto (Boostrap) obtenemos las siguientes respuestas a las preguntas planteadas anteriormente.
 Puedes usar estos valores para chequear (aproximativamente) tus respuestas.
 
-
 ## Verdadero o Falso
 
 **1.** Si un intervalo de confianza del 95% para la media poblacional incluye el número 50, esto significa que hay una probabilidad del 95% de que la verdadera media poblacional sea 50.
@@ -66,12 +63,10 @@ Puedes usar estos valores para chequear (aproximativamente) tus respuestas.
 -   [ ] Verdadero
 -   [ ] Falso
 
-
 **2.** El error estándar de un estimador mide cuánto esperamos que nuestras estimaciones se desvíen del verdadero parámetro poblacional, incluso si el estimador está sesgado.
 
 -   [ ] Verdadero
 -   [ ] Falso
-
 
 **3.** Si tomaramos repetidamente 100,000 muestras generadas de la misma manera y calculáramos un intervalo de confianza al 90% para cada muestra, esperaríamos que alrededor de 90,000 de esos intervalos contengan el verdadero parámetro poblacional.
 
@@ -88,10 +83,9 @@ Puedes usar estos valores para chequear (aproximativamente) tus respuestas.
 -   [ ] Verdadero
 -   [ ] Falso
 
-
 ## Bonus
 
-*Nota:* Responder la pregunta bonus NO es un requisito necesario para obtener puntaje completo. Responder incorrectamente la pregunta bonus NO afectará negativamente la nota obtenida, pero responderla correctamente mejorará la nota obtenida en un máximo de 1 punto (o en la cantidad necesaria para obtener nota máxima si la nota original fuera superior a 6)
+*Nota:* Responder la pregunta bonus NO es un requisito necesario para obtener puntaje completo.
+Responder incorrectamente la pregunta bonus NO afectará negativamente la nota obtenida, pero responderla correctamente mejorará la nota obtenida en un máximo de 1 punto (o en la cantidad necesaria para obtener nota máxima si la nota original fuera superior a 6)
 
-Implementa en `R` un Boostrap para calcular el intervalo al 96% de confianza para la proporción descrita en el problema #3. 
-
+Implementa en `R` un Boostrap para calcular el intervalo al 96% de confianza para la proporción descrita en el problema #3.
