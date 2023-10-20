@@ -19,7 +19,8 @@ geometry:
 
 i.  **(5%)** Si el voto de un individuo es un evento aleatorio, describe el espacio muestral.
 
-El espacio muestral es el conjunto de todos los posibles resultados de un experimento. En este caso, el experimento es la elección individual de un ciudadano para votar "A favor" o "En contra" de la nueva constitución.
+El espacio muestral es el conjunto de todos los posibles resultados de un experimento.
+En este caso, el experimento es la elección individual de un ciudadano para votar "A favor" o "En contra" de la nueva constitución.
 
 El espacio muestral $\Omega$ se define como: $$\Omega = \{ \text{"A favor"}, \text{"En contra"} \}$$
 
@@ -31,7 +32,8 @@ Dado que los votos son eventos independientes, la probabilidad conjunta de event
 
 Probabilidad de que el primer individuo vote "A favor" = $p$
 
-Probabilidad de que un individuo vote "En contra" = $1-p$ (ya que hay solo dos opciones y deben sumar 1). Por tanto, para cada uno de los cuatro individuos la probabilidad de votar "En contra" = $1-p$
+Probabilidad de que un individuo vote "En contra" = $1-p$ (ya que hay solo dos opciones y deben sumar 1).
+Por tanto, para cada uno de los cuatro individuos la probabilidad de votar "En contra" = $1-p$
 
 Dado que estamos buscando la probabilidad de que todos estos eventos sucedan de manera conjunta, simplemente multiplicamos estas probabilidades:
 
@@ -39,11 +41,13 @@ $$P = p \times (1-p) \times (1-p) \times (1-p) \times (1-p) = p(1-p)^4$$
 
 iii. **(5%)** Supón que el voto en el plebiscito es independiente del género y que en este país la población está equitativamente dividida entre hombres y mujeres. Determina: $P(\text{Hombre} | \text{"A favor"})$.
 
-Si dos eventos, $A$ y $B$, son independientes, entonces $P(A | B)$ es simplemente $P(A)$. Es decir, saber que $B$ ha ocurrido no cambia la probabilidad de $A$.
+Si dos eventos, $A$ y $B$, son independientes, entonces $P(A | B)$ es simplemente $P(A)$.
+Es decir, saber que $B$ ha ocurrido no cambia la probabilidad de $A$.
 
 Aplicando esto a la situación dada:
 
-El evento $A$ es que la persona sea un hombre. El evento $B$ es que alguien vote "A favor".
+El evento $A$ es que la persona sea un hombre.
+El evento $B$ es que alguien vote "A favor".
 
 Dado que $A$ y $B$ son independientes: $$P(\text{Hombre} | \text{"A favor"}) = P(\text{Hombre})$$
 
@@ -57,7 +61,9 @@ En resumen, si sabemos que alguien votó "A favor", hay un 50% de probabilidad d
 
 2.  **(5%)** ¿Qué distribución de probabilidad describe el voto de un individuo de esta población? Considerando "A favor" como la categoría de éxito, descríbe la distribución matemáticamente y explica el significado de sus parámetros.
 
-La distribución de probabilidad que describe el voto de un individuo de esta población es la **distribución Bernoulli**. La distribución Bernoulli describe un experimento aleatorio en el que solo hay dos posibles resultados, que se pueden considerar "éxito" o "fallo". En este contexto, "A favor" se considera un "éxito" y "En contra" un "fallo".
+La distribución de probabilidad que describe el voto de un individuo de esta población es la **distribución Bernoulli**.
+La distribución Bernoulli describe un experimento aleatorio en el que solo hay dos posibles resultados, que se pueden considerar "éxito" o "fallo".
+En este contexto, "A favor" se considera un "éxito" y "En contra" un "fallo".
 
 Matemáticamente, la función de masa de probabilidad (pmf) de una variable aleatoria $X$ que sigue una distribución Bernoulli con parámetro $p$ es:
 
@@ -73,9 +79,11 @@ Donde:
 
 El significado de los parámetros es:
 
--    $p$: Es la probabilidad de "éxito". En este contexto, es la probabilidad de que un individuo vote "A favor".
+-   $p$: Es la probabilidad de "éxito".
+    En este contexto, es la probabilidad de que un individuo vote "A favor".
 
--    $1-p$: Es la probabilidad de "fallo". En este contexto, es la probabilidad de que un individuo vote "En contra".
+-   $1-p$: Es la probabilidad de "fallo".
+    En este contexto, es la probabilidad de que un individuo vote "En contra".
 
 3.  **(7%)** Supón que en esta población las personas no influyen en el voto de otras y que todos los votos siguen la misma distribución. ¿Qué distribución de probabilidad describe la cantidad de votos "A favor" en una muestra de tamaño $n$? Descríbelo matemáticamente y explica el significado de los parámetros de la distribución.
 
@@ -91,15 +99,17 @@ Donde:
 
 -   $n$: Es el número total de ensayos (en este caso, el tamaño de la muestra de votantes).
 
--    $k$ es el número de éxitos (votos "A favor").
+-   $k$ es el número de éxitos (votos "A favor").
 
--    $\binom{n}{k}$ es el coeficiente binomial, que representa el número de maneras en que podemos obtener $k$ éxitos en $n$ ensayos. Es igual a: $$\binom{n}{k} = \frac{n!}{k!(n-k)!}$$
+-   $\binom{n}{k}$ es el coeficiente binomial, que representa el número de maneras en que podemos obtener $k$ éxitos en $n$ ensayos.
+    Es igual a: $$\binom{n}{k} = \frac{n!}{k!(n-k)!}$$
 
 -   $p$: Es la probabilidad de éxito en un ensayo individual (la probabilidad de que un individuo vote "A favor").
 
 -   $1-p$: Es la probabilidad de fracaso en un ensayo individual (la probabilidad de que un individuo vote "En contra").
 
-4.  Las notas en la prueba 1 (variable $X_1$) del curso SOL114 siguen una distribución normal con media $\mu_1 = 4$ y varianza $\sigma^2 = 2$. Las notas de la prueba 2 (variable $X_2$) siguen una distribución normal con media $\mu_2 = 5$ y varianza $\sigma^2 = 2$.
+4.  Las notas en la prueba 1 (variable $X_1$) del curso SOL114 siguen una distribución normal con media $\mu_1 = 4$ y varianza $\sigma^2 = 2$.
+    Las notas de la prueba 2 (variable $X_2$) siguen una distribución normal con media $\mu_2 = 5$ y varianza $\sigma^2 = 2$.
 
     *Nota: Estos son los parámetros poblacionales. En este caso, la población son todos aquellos que han cursado o cursarán la clase en el futuro.*
 
@@ -109,7 +119,8 @@ i.  **(10%)** ¿Cuál es la distribución de la variable $Y$ (el promedio de amb
 
 $$Y = \frac{1}{2}(X_1 + X_2)$$
 
-La suma (o promedio) de dos variables aleatorias independientes que siguen una distribución normal también sigue una distribución normal. Dados que $X_1$ y $X_2$ son independientes y normales, $Y$ será normal.
+La suma (o promedio) de dos variables aleatorias independientes que siguen una distribución normal también sigue una distribución normal.
+Dados que $X_1$ y $X_2$ son independientes y normales, $Y$ será normal.
 
 La esperanza (media) de $Y$ es la media de las esperanzas de $X_1$ y $X_2$: $$E[Y] = E\left[\frac{1}{2}(X_1 + X_2)\right] = \frac{1}{2}(E[X_1] + E[X_2]) = \frac{1}{2}(4 + 5) = 4.5$$
 
@@ -121,7 +132,8 @@ ii. **(7%)** Si para aprobar el curso SOL114 se requiere una "nota final" igual 
 
     *Nota: Hay una integral involucrada. No deben resolver la integral.*
 
-La probabilidad de aprobar el curso es la probabilidad de que $Y$ sea igual o mayor a 4. Matemáticamente, esto se expresa como: $$P(Y \geq 4) = \int_{4}^{\infty} f(y) \, dy$$
+La probabilidad de aprobar el curso es la probabilidad de que $Y$ sea igual o mayor a 4.
+Matemáticamente, esto se expresa como: $$P(Y \geq 4) = \int_{4}^{\infty} f(y) \, dy$$
 
 iii. **(7%)** Calcula la probabilidad de aprobar el curso usando la función $\Phi$. Describe el procedimiento.
 
@@ -131,15 +143,19 @@ $$Z = \frac{Y - \mu_Y}{\sigma_Y}$$
 
 Para $Y = 4$: $$Z = \frac{4 - 4.5}{1} = -0.5$$
 
-La probabilidad de que $Y$ sea menor que 4 es igual a la probabilidad de que $Z$ sea menor que -0.5, es decir, $P(Z < -0.5)$. Esta probabilidad se encuentra directamente en la tabla de $\Phi$ para $Z = -0.5$ o utilizando herramientas computacionales.
+La probabilidad de que $Y$ sea menor que 4 es igual a la probabilidad de que $Z$ sea menor que -0.5, es decir, $P(Z < -0.5)$.
+Esta probabilidad se encuentra directamente en la tabla de $\Phi$ para $Z = -0.5$ o utilizando herramientas computacionales.
 
 La probabilidad de aprobar (es decir, de obtener una nota $Y$ igual o mayor a 4) se calcula como:
 
 $$P(Y \geq 4) = 1 - P(Y < 4) = 1 - \Phi(-0.5)$$
 
-Aquí, $\Phi(-0.5)$ es la probabilidad acumulada hasta $Z = -0.5$ en una distribución normal estándar. Al restarla de 1, obtenemos la probabilidad de que $Y$ sea igual o mayor a 4, es decir, la probabilidad de aprobar el curso.
+Aquí, $\Phi(-0.5)$ es la probabilidad acumulada hasta $Z = -0.5$ en una distribución normal estándar.
+Al restarla de 1, obtenemos la probabilidad de que $Y$ sea igual o mayor a 4, es decir, la probabilidad de aprobar el curso.
 
-Utilizando tablas de la distribución normal estándar podemos encontrar $\Phi(-0.5)$. Entonces, sustrayendo ese valor de 1 nos da la probabilidad deseada. De la tabla estándar de la distribución normal:
+Utilizando tablas de la distribución normal estándar podemos encontrar $\Phi(-0.5)$.
+Entonces, sustrayendo ese valor de 1 nos da la probabilidad deseada.
+De la tabla estándar de la distribución normal:
 
 $$\Phi(-0.5) \approx 0.3085$$
 
@@ -149,11 +165,13 @@ $$P(Y \geq 4) = 1 - \Phi(-0.5)$$ $$P(Y \geq 4) = 1 - 0.3085$$ $$P(Y \geq 4) = 0.
 
 iv. **(12%)** Los estudiantes en el decil más alto de notas en SOL114 son obligados a asistir a un programa intensivo de estadística avanzada en el verano. Por su parte, los estudiantes en el decil más bajo son obligados a cursar un intensivo de matemáticas básicas en el verano. Determina las notas mínima y máxima que un estudiante debe obtener para poder descansar durante el verano.
 
-Para descansar en el verano, un estudiante debe tener una nota final $Y$ que no esté ni en el 10% más alto ni en el 10% más bajo de todas las notas. Es decir, su nota debe estar entre el percentil 10 y el percentil 90.
+Para descansar en el verano, un estudiante debe tener una nota final $Y$ que no esté ni en el 10% más alto ni en el 10% más bajo de todas las notas.
+Es decir, su nota debe estar entre el percentil 10 y el percentil 90.
 
 **1. Encontrar el valor de** $Y$ para el percentil 10 (la nota que es mayor que solo el 10% más bajo de las notas):
 
-Usamos la función de distribución acumulativa inversa (también llamada función cuantil) para encontrar el valor de $Z$ correspondiente al 10% o 0.10. Para una distribución normal estándar:
+Usamos la función de distribución acumulativa inversa (también llamada función cuantil) para encontrar el valor de $Z$ correspondiente al 10% o 0.10.
+Para una distribución normal estándar:
 
 $$Z_{0.10} \approx -1.28$$
 
@@ -169,13 +187,16 @@ Al igual que antes, usamos la función cuantil para obtener: $$Z_{0.90} \approx 
 
 Usando la misma relación para $Y$: $$Y_{0.90} = 4.5 + (1.28 \times 1) = 4.5 + 1.28 = 5.78$$
 
-Por lo tanto, para descansar durante el verano, un estudiante debe tener una nota final $Y$ entre 3.22 y 5.78. Si su nota es inferior a 3.22, deberá asistir al programa intensivo de matemáticas básicas. Si su nota es superior a 5.78, deberá asistir al programa intensivo de estadística avanzada.
+Por lo tanto, para descansar durante el verano, un estudiante debe tener una nota final $Y$ entre 3.22 y 5.78.
+Si su nota es inferior a 3.22, deberá asistir al programa intensivo de matemáticas básicas.
+Si su nota es superior a 5.78, deberá asistir al programa intensivo de estadística avanzada.
 
 <!-- -->
 
 5.  La siguiente tabla muestra las notas en la prueba 1, prueba 2 y nota final (promedio de ambas) en el curso SOL3212.
 
-    A diferencia de las notas en SOL114, no conocemos la distribución de las notas en SOL3212, ni el valor de sus parámetros. Sin embargo, queremos estimar el promedio de la "nota final" en SOL3212 usando datos de un muestra de 100 estudiantes que cursaron la clase este año.
+    A diferencia de las notas en SOL114, no conocemos la distribución de las notas en SOL3212, ni el valor de sus parámetros.
+    Sin embargo, queremos estimar el promedio de la "nota final" en SOL3212 usando datos de un muestra de 100 estudiantes que cursaron la clase este año.
 
 | Estudiante | Prueba 1 | Prueba 2 | Nota final |
 |------------|----------|----------|------------|
@@ -214,11 +235,15 @@ ii. **(7%)** Usando la Ley de los Grandes Números, discute si podemos confiar e
 
 La Ley de los Grandes Números establece que, bajo ciertas condiciones, el promedio (o sumatoria) de observaciones independientes y aleatoriamente seleccionadas de una población converge al valor esperado (media) de esa población a medida que el número de observaciones se acerca al infinito.
 
-Esto se relaciona con la idea de **consistencia** de un estimador: un estimador es consistente si converge al verdadero valor del parámetro a medida que el tamaño de la muestra se acerca al infinito. La Ley de los Grandes Números es en realidad una afirmación sobre la consistencia del promedio muestral. A medida que tomamos más y más datos de la población (es decir, a medida que el tamaño muestral $n$ se acerca al infinito), nuestro promedio muestral se acercará más y más al verdadero promedio de la población.
+Esto se relaciona con la idea de **consistencia** de un estimador: un estimador es consistente si converge al verdadero valor del parámetro a medida que el tamaño de la muestra se acerca al infinito.
+La Ley de los Grandes Números es en realidad una afirmación sobre la consistencia del promedio muestral.
+A medida que tomamos más y más datos de la población (es decir, a medida que el tamaño muestral $n$ se acerca al infinito), nuestro promedio muestral se acercará más y más al verdadero promedio de la población.
 
-En este caso, aunque no conocemos la verdadera media de nota final en la población, debido a la LLN podemos estar razonablemente seguros de que nuestro estimado de 4.495 se acerca al verdadero promedio poblacional de la "nota final" para el curso SOL3212. La idea es que con una muestra de 100 estudiantes (suficientemente grande) nuestro estimado estará cerca del verdadero valor poblacional, validando nuestra confianza en el resultado.
+En este caso, aunque no conocemos la verdadera media de nota final en la población, debido a la LLN podemos estar razonablemente seguros de que nuestro estimado de 4.495 se acerca al verdadero promedio poblacional de la "nota final" para el curso SOL3212.
+La idea es que con una muestra de 100 estudiantes (suficientemente grande) nuestro estimado estará cerca del verdadero valor poblacional, validando nuestra confianza en el resultado.
 
-Esto no significa que 4.495 sea exactamente la media poblacional, sino que es una estimación que, gracias a la LLN, se espera que esté cercana al verdadero valor. Un muestra distinta del mismo tamaño probablemente arroje una estimación distinta pero, por la LLN, también cercana al promedio de "nota final" en la población.
+Esto no significa que 4.495 sea exactamente la media poblacional, sino que es una estimación que, gracias a la LLN, se espera que esté cercana al verdadero valor.
+Un muestra distinta del mismo tamaño probablemente arroje una estimación distinta pero, por la LLN, también cercana al promedio de "nota final" en la población.
 
 iii. **(7%)** Explica qué es la "distribución muestral" del promedio de la "nota final".
 
@@ -234,7 +259,9 @@ Si graficaras la distribución de todos estos promedios muestrales, obtendrías 
 
 iv. **(7%)** Explica por qué es apropiado usar el Teorema del Límite Central para determinar la "distribución muestral" del promedio de la "nota final".
 
-El Teorema del Límite Central establece que si tomamos una muestra grande de una población (independientemente de la forma de la distribución de esa población -- que en este caso no conocemos) y calculamos un promedio, la distribución de esos promedios tiende a ser normalmente distribuida. Por lo tanto, si el tamaño de la muestra es suficientemente grande (por lo general, $n > 30$ se considera grande), podemos usar el Teorema del Límite Central para aproximar la distribución muestral del promedio usando una distribución normal. En este caso, dado que nuestro tamaño de muestra es 100, que es lo suficientemente grande, es apropiado usar el Teorema del Límite Central.
+El Teorema del Límite Central establece que si tomamos una muestra grande de una población (independientemente de la forma de la distribución de esa población -- que en este caso no conocemos) y calculamos un promedio, la distribución de esos promedios tiende a ser normalmente distribuida.
+Por lo tanto, si el tamaño de la muestra es suficientemente grande (por lo general, $n > 30$ se considera grande), podemos usar el Teorema del Límite Central para aproximar la distribución muestral del promedio usando una distribución normal.
+En este caso, dado que nuestro tamaño de muestra es 100, que es lo suficientemente grande, es apropiado usar el Teorema del Límite Central.
 
 v.  **(12%)** Usando el Teorema del Límite Central y asumiendo que la varianza de la "nota final" en SOL3212 es la misma que la varianza de la "nota final" en SOL114, determina a partir de qué valor el promedio muestral estaría en el 5% más alto de todas las estimaciones posibles del promedio.
 
@@ -242,13 +269,15 @@ El TLC establece que si $X_1, X_2, \ldots, X_n$ son variables aleatorias indepen
 
 $$\bar{X} = \frac{X_1 + X_2 + \ldots + X_n}{n}$$
 
-estará aproximadamente distribuida como una normal $N(\mu, \frac{\sigma^2}{n})$. Matemáticamente, cuando $n \to \infty$:
+estará aproximadamente distribuida como una normal $N(\mu, \frac{\sigma^2}{n})$.
+Matemáticamente, cuando $n \to \infty$:
 
 $$\frac{\bar{X} - \mu}{\sigma/\sqrt{n}} \xrightarrow{d} N(0,1)$$
 
 donde $\xrightarrow{d}$ denota la convergencia en distribución.
 
-Es importante señalar que la conclusión del TLC se mantiene independientemente de la forma de la distribución original de las $X_i$. En este caso, no conocemos la distribución original de la "nota final" en la población.
+Es importante señalar que la conclusión del TLC se mantiene independientemente de la forma de la distribución original de las $X_i$.
+En este caso, no conocemos la distribución original de la "nota final" en la población.
 
 En el contexto de la pregunta, se nos pide encontrar a partir de qué valor el promedio muestral estaría en el 5% más alto de todas las estimaciones posibles del promedio de la nota final en el curso SOL3212.
 
@@ -256,13 +285,16 @@ De acuerdo con el TLC, el promedio de la nota final, $\bar{Y}$, seguirá una dis
 
 -   Media: $\mu_{\bar{Y}} = 4.495$ (ya calculado previamente).
 
--   Varianza: $\sigma^2_{\bar{Y}} = \frac{\sigma^2}{n}$. Usando la varianza dada del curso SOL114 (que es 1) y $n = 100$, obtenemos $\sigma^2_{\bar{Y}} = 0.01$.
+-   Varianza: $\sigma^2_{\bar{Y}} = \frac{\sigma^2}{n}$.
+    Usando la varianza dada del curso SOL114 (que es 1) y $n = 100$, obtenemos $\sigma^2_{\bar{Y}} = 0.01$.
 
 Luego, la desviación estándar de $\bar{Y}$ será $\sigma_{\bar{Y}} = 0.1$.
 
-Para determinar el valor de $\bar{Y}$ que corresponde al percentil 95, necesitamos encontrar el valor z correspondiente al percentil 95 en una distribución normal estándar. Las tablas estándar de la distribución normal nos indican que $Z_{0.95} \approx 1.645$.
+Para determinar el valor de $\bar{Y}$ que corresponde al percentil 95, necesitamos encontrar el valor z correspondiente al percentil 95 en una distribución normal estándar.
+Las tablas estándar de la distribución normal nos indican que $Z_{0.95} \approx 1.645$.
 
-Finalmente, debemos transformar el valor z en un valor de $\bar{Y}$. Para ello des-estandarizamos la variable:
+Finalmente, debemos transformar el valor z en un valor de $\bar{Y}$.
+Para ello des-estandarizamos la variable:
 
 $$\bar{Y}_{0.95} = \mu_{\bar{Y}} + Z_{0.95} \times \sigma_{\bar{Y}}$$ $$\bar{Y}_{0.95} = 4.495 + 1.645 \times 0.1 = 4.6595$$
 
@@ -272,15 +304,20 @@ Por lo tanto, un promedio muestral de 4.6595 o superior se encuentra en el 5% m�
 
 6.  (Bonus) Discute la bondad y las principales características de los estimadores mostrados en el gráfico a continuación.
 
-Nota: Responder la pregunta *bonus* NO es un requisito necesario para obtener puntaje completo. Responder incorrectamente la pregunta *bonus* NO afectará negativamente la nota obtenida, pero responderla correctamente mejorará la nota obtenida en un máximo de 0.5 puntos (o en la cantidad necesaria para obtener nota máxima si la nota original fuera superior a 6.5)
+Nota: Responder la pregunta *bonus* NO es un requisito necesario para obtener puntaje completo.
+Responder incorrectamente la pregunta *bonus* NO afectará negativamente la nota obtenida, pero responderla correctamente mejorará la nota obtenida en un máximo de 0.5 puntos (o en la cantidad necesaria para obtener nota máxima si la nota original fuera superior a 6.5)
 
 ![est](plot_est.png)
 
-**Estimador A:** Es insesgado, lo que significa que, en promedio, acierta el valor verdadero. Sin embargo, tiene alta varianza, así que sus estimaciones varían mucho entre diferentes muestras.
+**Estimador A:** Es insesgado, lo que significa que, en promedio, acierta el valor verdadero.
+Sin embargo, tiene alta varianza, así que sus estimaciones varían mucho entre diferentes muestras.
 
-**Estimador B:** Tiene un poco de sesgo hacia arriba, por lo que suele sobreestimar un poco. Pero, tiene baja varianza, lo que significa que sus estimaciones son más consistentes entre muestras.
+**Estimador B:** Tiene un poco de sesgo hacia arriba, por lo que suele sobreestimar un poco.
+Pero, tiene baja varianza, lo que significa que sus estimaciones son más consistentes entre muestras.
 
-**Trade-off:** Existe una compensación entre sesgo y varianza. A veces, un poco de sesgo puede ser aceptable si conseguimos una varianza mucho menor, ya que las estimaciones serán más consistentes y confiables. La elección entre A y B depende de lo que valoremos más en el contexto de la investigación: precisión (sin sesgo) o confiabilidad (baja varianza).
+**Trade-off:** Existe una compensación entre sesgo y varianza.
+A veces, un poco de sesgo puede ser aceptable si conseguimos una varianza mucho menor, ya que las estimaciones serán más consistentes y confiables.
+La elección entre A y B depende de lo que valoremos más en el contexto de la investigación: precisión (sin sesgo) o confiabilidad (baja varianza).
 
 \newpage
 

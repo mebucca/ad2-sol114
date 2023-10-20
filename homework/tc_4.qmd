@@ -101,3 +101,11 @@ cat("Bootstrap IC al 96% =", round(quantile(bs_sampdist, p=c(0.02,0.98)),2))
 
 -   [ ] Verdadero
 -   [ ] Falso
+
+
+## Bonus
+
+*Nota:* Responder la pregunta bonus NO es un requisito necesario para obtener puntaje completo. Responder incorrectamente la pregunta bonus NO afectará negativamente la nota obtenida, pero responderla correctamente mejorará la nota obtenida en un máximo de 1 punto (o en la cantidad necesaria para obtener nota máxima si la nota original fuera superior a 6)
+
+Implementa en `R` un Boostrap para calcular el intervalo al 96% de confianza para la proporción descrita en el problema #3. 
+
