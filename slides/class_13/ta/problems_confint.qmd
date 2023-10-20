@@ -1,0 +1,113 @@
+---
+title: "Problemas ayudantía"
+author: "Mauricio Bucca"
+format: html
+editor: visual
+---
+
+## Instrucción
+
+Te dejo código para tres ejercicios.
+La idea es usar estos como referencia.
+Tómate la libertad de usar los datos que quieras para reformular estos ejercicios manteniendo el contenido elemental:
+
+1.  Intervalo de confianza para una media
+
+```{r}
+library("tidyverse")
+url <- "https://raw.githubusercontent.com/mebucca/dar_soc4001/master/data/sample_casen2017.csv"
+
+casen2017_mujeres <- read.csv(url) %>% as_tibble() %>%
+  mutate(ingreso = yautcor) %>%    
+  select(region,sexo,edad,educ,ingreso) %>% filter(sexo==2) %>%
+  mutate(univ = case_when(educ==11 | educ==12 & edad > 27 ~ 1, educ < 11 & edad > 27 ~ 0))
+```
+
+```{r}
+  print(casen2017_mujeres, n=20)
+```
+
+```{r}
+#i. Calcula media muestral 
+
+mu_muestra <- mean(casen2017_mujeres$ingreso, na.rm=T) #<<
+
+cat("Media muestral:", mu_muestra)
+
+```
+
+```{r, echo=T}
+
+#ii. Decidir nivel de confianza
+conf <- 0.99;  alpha <- 1 - conf 
+
+#iii. Calcular valores críticos
+z_inf <- qnorm(alpha/2)
+z_sup <- qnorm(1 - alpha/2)
+
+#iv. Calcular error estándard del promedio muestal
+sigma_poblacion <- 583454 # desviación estándar ingreso de mujeres en la población.
+n <- sum(!is.na(casen2017_mujeres$ingreso)) #cuenta observaciones (sin NAs) en ingreso
+ee <- sigma_poblacion/sqrt(n)
+
+#v. Calcular limites del intervalo de confianza:
+ic_inf = mu_muestra + z_inf*ee 
+ic_sup = mu_muestra + z_sup*ee 
+
+cat("Intervalo al", 100*conf, "% de confianza: (",ic_inf,",",ic_sup,")")
+
+```
+
+2.  Intervalo de confianza para una proporción
+
+En esta pregunta usarás datos de una encuesta realizada por FLACSO/Chile en Abril y Mayo de 1988 sobre intención de voto en el plebiscito de 1989
+
+En particular, trabajarás con la variable `voto_no`, que mide si una persona pretende votar NO (`voto_no==1`) o SI (`voto_si==1`).
+
+1.  Calcula la proporción de individuos que pretenden votar NO en el plebiscito.
+
+2.  Calcula un intervalo al 96% de confianza para la proporción estimada en la pregunta anterior.
+
+3.  ¿Que conclusión sustantiva podemos sacar en vista de los resultados obtenidos?
+
+```{r, message=FALSE, warning=FALSE}
+library(carData)
+library(tidyverse)
+data(Chile)
+
+data_plebiscito89 <- Chile %>% mutate(voto_no = 
+  case_when(vote=="N" ~ 1, vote=="Y" ~ 0)) 
+
+head(data_plebiscito89)
+
+p_hat <- mean(data_plebiscito89$voto_no, na.rm=T)
+
+n  <- sum(!is.na(data_plebiscito89$voto_no))
+se <- sqrt(p_hat*(1-p_hat)/n) 
+
+ci <- p_hat + c(-1,1)*qnorm(.98)*se
+
+
+cat("Proporción muestral =", round(mean(p_hat),2));
+cat("IC al 96% =", round(ci,2))
+
+```
+
+3.  Intervalo de confianza para una proporción via Boostrap
+
+Usando un método distinto (Boostrap) obtenemos las siguientes respuestas a las preguntas planteadas anteriormente.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+bs_p <- NULL
+
+bs <- function() {
+  bs_sample <- sample_n(data_plebiscito89, nrow(data_plebiscito89), replace=T)
+  bs_p <- mean(bs_sample$voto_no, na.rm=T)
+}
+
+bs_sampdist <- replicate(n=1000,bs())
+
+cat("Proporción bootstrap =", round(mean(bs_sampdist),2));
+cat("Bootstrap IC al 96% =", round(quantile(bs_sampdist, p=c(0.02,0.98)),2))
+
+```

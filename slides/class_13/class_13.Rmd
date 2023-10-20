@@ -1,6 +1,6 @@
 ---
 title: "Probabilidad e Inferencia Estadística"
-subtitle: "#13: Intervalos de Confianza y Bootstrap"
+subtitle: "#13: Intervalos de Confianza"
 author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -31,7 +31,8 @@ style_duo_accent(primary_color = "#A67C52", secondary_color = "#FAF3E0",
 )
 ```
 
-# Intervalos de confianza
+# Intervalos de Confianza para
+## medias y proporciones muestrales
 
 
 ---
@@ -147,7 +148,7 @@ cat("Media muestral:", mu_muestra)
 ---
 ##Promedio de ingreso mujeres, IC al 99%
 
-```{r, echo=t}
+```{r, echo=T}
 
 #ii. Decidir nivel de confianza
 conf <- 0.99;  alpha <- 1 - conf 
@@ -228,7 +229,6 @@ class: inverse, center, middle
 - Para determinar la distribución muestral de una proporción vamos a necesitar conocer el valor esperado y la varianza de una variable Bernoulli.
 
 
-<br>
 --
 
 .pull-left[
@@ -253,6 +253,10 @@ class: inverse, center, middle
  &=p (1-p)
 \end{align}
 ]
+
+--
+
+* .bold[Varianza máxima] cuando $p=0.5 \implies p(1-p)=0.25$
 
 ---
 ##Distribución muestral de $\hat{p}$
