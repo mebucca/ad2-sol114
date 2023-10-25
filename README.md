@@ -68,7 +68,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 11  | 24 de octubre   | test de hipótesis                         |          |
 | 12  | 31 de octubre   | repaso                                    |          |
 | 13  | 7 de noviembre  |                                           |          |
-| 14  | 14 de noviembre | gráficos ridge y ANOVA                    |          |
+| 14  | 14 de noviembre | gráficos ridge                 |          |
 | 15  | 21 de noviembre | scatterplot y correlaciones               |          |
 | 16  | 28 de noviembre | tablas de contingencia y Chi2             |          |
 
