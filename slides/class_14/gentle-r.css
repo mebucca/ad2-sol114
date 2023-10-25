@@ -108,6 +108,14 @@ strong {
   position: absolute;
 }
 
+.img-right-top{
+  height: 200px;
+  width: 200px;
+  top: 10%;
+  left: 65%;
+  position: absolute;
+}
+
 .img-right img {
   width: 100%;
 }
