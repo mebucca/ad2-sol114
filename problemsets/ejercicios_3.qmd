@@ -1,0 +1,304 @@
+---
+title: "Ejercicios SOL114"
+author: "Mauricio Bucca"
+format: html
+editor: visual
+---
+
+## Problemas aplicados
+
+1.  Un grupo de investigadores está estudiando el número promedio de horas que la gente ve TV en una semana.
+    De una muestra de 120 individuos, la media se encuentra en 20 horas.
+    Dada una varianza poblacional conocida de 16 (horas\^2), calcule el intervalo de confianza del 95% para el tiempo verdadero medio de visualización de TV semanal.
+
+2.  Un investigador está estudiando el tiempo promedio que los adultos pasan leyendo periódicos semanalmente.
+    De una muestra aleatoria de 60 adultos, el tiempo medio pasado es de 4 horas.
+    Si la varianza poblacional conocida es de 1.44 (horas\^2), calcule el intervalo de confianza del 90% para el tiempo promedio verdadero que se pasa leyendo periódicos semanalmente.
+
+3.  En un estudio sobre hábitos alimenticios, se encuestó a 100 individuos sobre su consumo semanal de frutas.
+    La media se encontró en 10 porciones con una varianza poblacional conocida de 4 (porciones\^2).
+    Calcule el intervalo de confianza del 95% para el consumo semanal medio de frutas.
+
+4.  En un estudio sobre patrones de sueño, 16 adultos informan su duración promedio de sueño nocturno.
+    La media es de 7 horas con una desviación estándar de la muestra de 1.1 horas.
+    Determine el intervalo de confianza del 95% para la duración media del sueño nocturno para todos los adultos.
+
+5.  Un psicólogo prueba una nueva técnica de terapia y registra el número de sesiones requeridas para ver mejoras.
+    De 36 pacientes, el número medio de sesiones fue de 12 con una desviación estándar de la muestra de 3.2.
+    Calcule un intervalo de confianza del 90% para el número medio de sesiones para toda la población de pacientes.
+
+6.  Una encuesta sobre el uso de teléfonos inteligentes tomó una muestra de 2,500 adolescentes.
+    2,050 de ellos informaron tener un teléfono inteligente.
+    Calcule el intervalo de confianza del 99% para la proporción de todos los adolescentes que tienen un teléfono inteligente.
+
+7.  Un psicólogo estudia los efectos de la meditación en los niveles de estrés.
+    De una muestra de 81 participantes, la reducción media de las puntuaciones de estrés es de 3.6 con una desviación estándar de 0.9.
+    Calcule un intervalo de confianza del 90% para la reducción media de las puntuaciones de estrés para la población más amplia.
+
+8.  En una encuesta sobre la confianza en los medios de comunicación, se preguntó a 800 individuos si confían en los medios para informar noticias con precisión.
+    320 dijeron "sí".
+    Calcule el intervalo de confianza del 95% para la proporción de individuos que confían en los medios.
+
+9.  En un estudio sobre satisfacción laboral, una muestra de 25 empleados de una gran empresa da una puntuación de satisfacción (de 10).
+    La puntuación media es de 7.6 con una desviación estándar de 1.4.
+    Calcule el intervalo de confianza del 95% para la verdadera puntuación media de satisfacción para toda la empresa.
+
+10. Un equipo de investigación médica está explorando un nuevo medicamento para tratar dolores de cabeza frecuentes.
+    Se realizó un estudio piloto con 20 participantes, donde la mitad de ellos (10) recibieron el medicamento (grupo de tratamiento) y la otra mitad (10) no lo recibió (grupo de control).
+    Durante una semana, los participantes informaron si habían tenido un dolor de cabeza (1 = Sí, 0 = No).
+
+Los datos recopilados son los siguientes:
+
+| Grupo       | Observación | Dolor de cabeza (1 = Sí, 0 = No) |
+|-------------|-------------|----------------------------------|
+| Tratamiento | 1           | 1                                |
+| Tratamiento | 2           | 1                                |
+| Tratamiento | 3           | 0                                |
+| Tratamiento | 4           | 0                                |
+| Tratamiento | 5           | 0                                |
+| Tratamiento | 6           | 1                                |
+| Tratamiento | 7           | 0                                |
+| Tratamiento | 8           | 0                                |
+| Tratamiento | 9           | 0                                |
+| Tratamiento | 10          | 1                                |
+| Control     | 1           | 1                                |
+| Control     | 2           | 1                                |
+| Control     | 3           | 0                                |
+| Control     | 4           | 1                                |
+| Control     | 5           | 0                                |
+| Control     | 6           | 0                                |
+| Control     | 7           | 1                                |
+| Control     | 8           | 0                                |
+| Control     | 9           | 1                                |
+| Control     | 10          | 1                                |
+
+A partir de estos datos:
+
+-   Estima la proporción de personas que experimentan dolores de cabeza encada grupo.
+
+-   Calcula el intervalo de confianza del 99% para la proporción de personas que experimentan dolores de cabeza en el grupo de tratamiento y en el grupo de control.
+
+-   Basándose en los intervalos de confianza, ¿qué puede concluir sobre la efectividad del medicamento para reducir los dolores de cabeza?
+
+11. Una escuela está probando dos métodos diferentes para enseñar matemáticas básicas a los estudiantes de primer grado. Seleccionan a 6 estudiantes al azar, tres de los cuales usan el Método A (grupo de tratamiento) y tres usan el Método B (grupo de control). Al final de una semana de instrucción, cada estudiante realiza una prueba que tiene un puntaje máximo de 10 puntos.
+
+Los datos recopilados son los siguientes:
+
+| Método   | Estudiante | Puntaje obtenido |
+|----------|------------|------------------|
+| Método A | 1          | 7                |
+| Método A | 2          | 8                |
+| Método A | 3          | 7                |
+| Método B | 1          | 6                |
+| Método B | 2          | 5                |
+| Método B | 3          | 6                |
+
+Para el Método A, la media de los puntajes fue 7.33 (22/3) con una desviación estándar de 0.58.
+Para el Método B, la media fue 5.67 (17/3) con una desviación estándar de 0.58.
+
+-   Estima la media y la varianza de los puntajes para el grupo del Método A y para el grupo del Método B.
+
+-   Calcula el intervalo de confianza del 95% para la media de los puntajes en el grupo del Método A y en el grupo del Método B.
+
+-   Basándose en los intervalos de confianza, ¿qué puede concluir sobre la efectividad de cada método de enseñanza?
+
+12. Un grupo de estudiantes de sociología realiza una pequeña encuestra retrospectivas sobre comportamiento electorial en elecciones presidenciales en Chile en 2021. La encuesta se realizó de forma anónima y los entrevistados se identificaron solo por un "ID Entrevistado". De un total de 20 encuestados, algunos votaron por Boric y otros por Kast.
+
+A continuación se muestra una tabla con los resultados:
+
+| ID Entrevistado | Voto  |
+|-----------------|-------|
+| 1               | Boric |
+| 2               | Kast  |
+| 3               | Boric |
+| 4               | Kast  |
+| 5               | Boric |
+| 6               | Boric |
+| 7               | Boric |
+| 8               | Kast  |
+| 9               | Boric |
+| 10              | Boric |
+| 11              | Kast  |
+| 12              | Boric |
+| 13              | Boric |
+| 14              | Kast  |
+| 15              | Boric |
+| 16              | Boric |
+| 17              | Kast  |
+| 18              | Kast  |
+| 19              | Kast  |
+| 20              | Boric |
+
+Con base en los datos proporcionados:
+
+-   Calcula la proporción de personas que votaron por Boric y por Kast, respectivamente.
+
+-   Estima un intervalo de confianza del 95% para la proporción de votos de Boric.
+
+-   Suponiendo que este grupo de 20 encuestados es una muestra representativa de la población general, ¿qué conclusiones se pueden extraer sobre las preferencias de voto de la población?
+
+-   Sabiendo que en las elecciones de 2021 Boric obtuvo un 55,87% de los votos validamente emitidos y Kast un 44,13%, usa esta información para construir un intervalo de confianza al 95% para las estimaciones realizadas.
+    Compara el resultados con el resultado obtenido previamente.
+
+13. Trabaja con los datos "Intenciones de Voto en el Plebiscito Chileno de 1988"
+
+**Descripción:** La base de datos cuenta con 2700 registros distribuidos en 8 columnas.
+Estos datos son producto de una encuesta a nivel nacional llevada a cabo en abril y mayo de 1988 por FLACSO/Chile.
+Es importante mencionar que existen algunos datos faltantes en el conjunto.
+
+**Variables presentes en la base de datos:**
+
+-   **región:** Categorizado con los siguientes niveles:
+
+    -   C: Central
+    -   M: Área Metropolitana de Santiago
+    -   N: Norte
+    -   S: Sur
+    -   SA: Ciudad de Santiago.
+
+-   **población:** Representa el tamaño poblacional de la comunidad del entrevistado.
+
+-   **sexo:** Categorizado en dos niveles:
+
+    -   F: Femenino
+    -   M: Masculino
+
+-   **edad:** Se refiere a la edad del encuestado expresada en años.
+
+-   **educación:** Categorizado con los siguientes niveles (pueden aparecer desordenados):
+
+    -   P: Primaria
+    -   PS: Postsecundaria
+    -   S: Secundaria
+
+-   **ingresos:** Refiere a los ingresos mensuales del encuestado, expresados en Pesos.
+
+-   **statusquo:** Representa una escala que mide el nivel de apoyo al status quo existente en ese momento.
+
+-   **voto:** Categorizado con los siguientes niveles:
+
+    -   A: Se abstendrá
+
+    -   N: Votará no (en contra de Pinochet)
+
+    -   U: Indeciso
+
+    -   Y: Votará sí (a favor de Pinochet).
+
+        Los resultados de intención de voto en la muesta son los siguientes:
+
+```{r}
+library(carData)
+data(Chile)
+
+data_chile <- Chile
+knitr::kable(table(data_chile$vote), align = "lc", col.names = c("Intención de voto","Recuentos"))
+```
+
+-   Omitiendo a personas indecisas o que declaran que se abstendrán, estima la proporción de personas que declaran que votarán por el NO (en vez de por SI).
+
+-   Construye un intervalo de confianza al 95% de confianza.
+
+-   Discute las implicancias sustantivas de los resultados.
+
+14. Dada esta encuesta preliminar sobre intenciones de voto, se desea planificar una nueva encuesta con un margen de error más reducido.
+    Estima el tamaño de muestra necesario para una proporción considerando un margen de error de 0.01 con un 95% de confianza.
+    Haz explícitos los supuestos de tu cálculo y justifícalos.
+
+15. Un grupo de estudiantes participó en una competencia de habilidades culinarias.
+    La competencia se compone de tres pruebas: elaboración de entradas, plato principal y postres.
+    El puntaje final de cada estudiante se determina tomando el promedio simple de los puntajes obtenidos en las tres pruebas.
+    A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 estudiantes para cada prueba:
+
+| Estadística                                               | Entradas | Plato Principal | Postres |
+|--------------------|-----------------|-----------------|-----------------|
+| Media muestral $\bar{x} = \frac{\sum x}{n}$               | 4.5      | 3.8             | 5.2     |
+| Suma de desviaciones al cuadrado $\sum (x_i - \bar{x})^2$ | 375.6    | 178.4           | 62.7    |
+
+Con base en esta información,
+
+-   ¿Cuál es la media muestral del puntaje final de estos 100 estudiantes?
+
+-   Construye un intervalo de confianza del 95% para la media del puntaje final.
+
+-   Interpreta el resultado del intervalo de confianza en términos de la competencia de habilidades culinarias.
+
+-   Una población tomó un test compuesto por tres preguntas.
+    El puntaje final de cada individuo se determina tomando el promedio simple de los puntajes obtenidos en las tres preguntas.
+    Cada pregunta controla aspectos distintos del conocimiento y por tanto sus puntajes son independientes entre si.
+    A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 individuos para cada pregunta:
+
+| Estadística               | Pregunta 1 | Pregunta 2 | Pregunta 3 |
+|---------------------------|------------|------------|------------|
+| Media muestral            | 4.8930040  | 0.9364491  | 6.0148615  |
+| Varianza muestral (naive) | 3.998700   | 1.957715   | 0.5070397  |
+
+Con base en esta información,
+
+-   ¿Cuál es la media muestral del puntaje final de estos 100 individuos?
+
+-   Construye un intervalo de confianza del 95% para la media del puntaje final e interpreta el resultado
+
+17. Un equipo de investigación médica está explorando un nuevo medicamento para tratar dolores de cabeza frecuentes. Se realizó un estudio piloto con 20 participantes, donde la mitad de ellos (10) recibieron el medicamento (grupo de tratamiento) y la otra mitad (10) no lo recibió (grupo de control). Durante una semana, los participantes informaron si habían tenido un dolor de cabeza (1 = Sí, 0 = No).
+
+Los datos recopilados son los siguientes:
+
+| Grupo       | Observación | Dolor de cabeza (1 = Sí, 0 = No) |
+|-------------|-------------|----------------------------------|
+| Tratamiento | 1           | 1                                |
+| Tratamiento | 2           | 1                                |
+| Tratamiento | 3           | 0                                |
+| Tratamiento | 4           | 0                                |
+| Tratamiento | 5           | 0                                |
+| Tratamiento | 6           | 1                                |
+| Tratamiento | 7           | 0                                |
+| Tratamiento | 8           | 0                                |
+| Tratamiento | 9           | 0                                |
+| Tratamiento | 10          | 1                                |
+| Control     | 1           | 1                                |
+| Control     | 2           | 1                                |
+| Control     | 3           | 0                                |
+| Control     | 4           | 1                                |
+| Control     | 5           | 0                                |
+| Control     | 6           | 0                                |
+| Control     | 7           | 1                                |
+| Control     | 8           | 0                                |
+| Control     | 9           | 1                                |
+| Control     | 10          | 1                                |
+
+A partir de estos datos:
+
+-   Estima la proporción de personas que experimentan dolores de cabeza encada grupo, y calcula la diferencia entre ambas proporciones
+
+-   Calcula el intervalo de confianza del 95% para la diferencia entre ambas proporciones
+
+-   Basándose en los intervalos de confianza, ¿qué puede concluir sobre la efectividad del medicamento para reducir los dolores de cabeza?
+
+## Preguntas conceptuales
+
+1.  ¿Cuál es la relación entre el error estándar de la media y la desviación estándar de la población?
+    ¿Cuándo usarías la desviación estándar de la población en lugar de la desviación estándar de la muestra para calcular el error estándar?
+
+2.  Explica las implicaciones del Teorema del Límite Central (TLC) en una distribución de muestreo cuando el tamaño de la muestra aumenta.
+    ¿Por qué es esencial el TLC para las pruebas de hipótesis?
+
+3.  Si tienes un intervalo de confianza del 95% para un parámetro de población, ¿cuál es el nivel de significancia correspondiente para una prueba de dos colas?
+
+4.  ¿Por qué se utiliza la distribución t en lugar de la distribución z cuando la varianza de la población es desconocida?
+    ¿Qué sucede con la forma de la distribución t a medida que aumenta el tamaño de la muestra?
+
+5.  Describe el impacto en el ancho del intervalo de confianza cuando:
+
+-   El nivel de confianza aumenta.
+-   El tamaño de la muestra aumenta. c.La variabilidad en la población aumenta.
+
+6.  Considera un escenario en el que dos muestras diferentes de la misma población producen dos intervalos de confianza del 95% diferentes para la media de la población.
+    ¿Es posible que estos intervalos no se superpongan?
+    Explica.
+
+7.  ¿Por qué no se puede obtener prácticamente un intervalo de confianza del 100%?
+
+8.  Explica la diferencia entre una estimación puntual y una estimación por intervalo.
+
+9.  ¿Cómo se relaciona el margen de error con el nivel de confianza y el error estándar de la estadística?
+    Deriva su fórmula.
