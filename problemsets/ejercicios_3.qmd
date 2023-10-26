@@ -223,9 +223,7 @@ Con base en esta información,
 
 -   Interpreta el resultado del intervalo de confianza en términos de la competencia de habilidades culinarias.
 
--   Una población tomó un test compuesto por tres preguntas.
-    El puntaje final de cada individuo se determina tomando el promedio simple de los puntajes obtenidos en las tres preguntas.
-    A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 individuos para cada pregunta:
+16. Una población tomó un test compuesto por tres preguntas. El puntaje final de cada individuo se determina tomando el promedio simple de los puntajes obtenidos en las tres preguntas. Cada pregunta controla aspectos distintos del conocimiento y por tanto sus puntajes son independientes entre si. A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 individuos para cada pregunta:
 
 | Estadística               | Pregunta 1 | Pregunta 2 | Pregunta 3 |
 |---------------------------|------------|------------|------------|
