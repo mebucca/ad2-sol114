@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.3.450">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mauricio Bucca">
+
+<title>Ejercicios SOL114</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="ejercicios_3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="ejercicios_3_files/libs/quarto-html/quarto.js"></script>
+<script src="ejercicios_3_files/libs/quarto-html/popper.min.js"></script>
+<script src="ejercicios_3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="ejercicios_3_files/libs/quarto-html/anchor.min.js"></script>
+<link href="ejercicios_3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="ejercicios_3_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="ejercicios_3_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="ejercicios_3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="ejercicios_3_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Ejercicios SOL114</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mauricio Bucca </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<section id="problemas-aplicados" class="level2">
+<h2 class="anchored" data-anchor-id="problemas-aplicados">Problemas aplicados</h2>
+<ol type="1">
+<li><p>Un grupo de investigadores está estudiando el número promedio de horas que la gente ve TV en una semana. De una muestra de 120 individuos, la media se encuentra en 20 horas. Dada una varianza poblacional conocida de 16 (horas^2), calcule el intervalo de confianza del 95% para el tiempo verdadero medio de visualización de TV semanal.</p></li>
+<li><p>Un investigador está estudiando el tiempo promedio que los adultos pasan leyendo periódicos semanalmente. De una muestra aleatoria de 60 adultos, el tiempo medio pasado es de 4 horas. Si la varianza poblacional conocida es de 1.44 (horas^2), calcule el intervalo de confianza del 90% para el tiempo promedio verdadero que se pasa leyendo periódicos semanalmente.</p></li>
+<li><p>En un estudio sobre hábitos alimenticios, se encuestó a 100 individuos sobre su consumo semanal de frutas. La media se encontró en 10 porciones con una varianza poblacional conocida de 4 (porciones^2). Calcule el intervalo de confianza del 95% para el consumo semanal medio de frutas.</p></li>
+<li><p>En un estudio sobre patrones de sueño, 16 adultos informan su duración promedio de sueño nocturno. La media es de 7 horas con una desviación estándar de la muestra de 1.1 horas. Determine el intervalo de confianza del 95% para la duración media del sueño nocturno para todos los adultos.</p></li>
+<li><p>Un psicólogo prueba una nueva técnica de terapia y registra el número de sesiones requeridas para ver mejoras. De 36 pacientes, el número medio de sesiones fue de 12 con una desviación estándar de la muestra de 3.2. Calcule un intervalo de confianza del 90% para el número medio de sesiones para toda la población de pacientes.</p></li>
+<li><p>Una encuesta sobre el uso de teléfonos inteligentes tomó una muestra de 2,500 adolescentes. 2,050 de ellos informaron tener un teléfono inteligente. Calcule el intervalo de confianza del 99% para la proporción de todos los adolescentes que tienen un teléfono inteligente.</p></li>
+<li><p>Un psicólogo estudia los efectos de la meditación en los niveles de estrés. De una muestra de 81 participantes, la reducción media de las puntuaciones de estrés es de 3.6 con una desviación estándar de 0.9. Calcule un intervalo de confianza del 90% para la reducción media de las puntuaciones de estrés para la población más amplia.</p></li>
+<li><p>En una encuesta sobre la confianza en los medios de comunicación, se preguntó a 800 individuos si confían en los medios para informar noticias con precisión. 320 dijeron “sí”. Calcule el intervalo de confianza del 95% para la proporción de individuos que confían en los medios.</p></li>
+<li><p>En un estudio sobre satisfacción laboral, una muestra de 25 empleados de una gran empresa da una puntuación de satisfacción (de 10). La puntuación media es de 7.6 con una desviación estándar de 1.4. Calcule el intervalo de confianza del 95% para la verdadera puntuación media de satisfacción para toda la empresa.</p></li>
+<li><p>Un equipo de investigación médica está explorando un nuevo medicamento para tratar dolores de cabeza frecuentes. Se realizó un estudio piloto con 20 participantes, donde la mitad de ellos (10) recibieron el medicamento (grupo de tratamiento) y la otra mitad (10) no lo recibió (grupo de control). Durante una semana, los participantes informaron si habían tenido un dolor de cabeza (1 = Sí, 0 = No).</p></li>
+</ol>
+<p>Los datos recopilados son los siguientes:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Grupo</th>
+<th>Observación</th>
+<th>Dolor de cabeza (1 = Sí, 0 = No)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>4</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>6</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>7</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>9</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>10</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>4</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>6</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>7</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>9</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>10</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>A partir de estos datos:</p>
+<ul>
+<li><p>Estima la proporción de personas que experimentan dolores de cabeza encada grupo.</p></li>
+<li><p>Calcula el intervalo de confianza del 99% para la proporción de personas que experimentan dolores de cabeza en el grupo de tratamiento y en el grupo de control.</p></li>
+<li><p>Basándose en los intervalos de confianza, ¿qué puede concluir sobre la efectividad del medicamento para reducir los dolores de cabeza?</p></li>
+</ul>
+<ol start="11" type="1">
+<li>Una escuela está probando dos métodos diferentes para enseñar matemáticas básicas a los estudiantes de primer grado. Seleccionan a 6 estudiantes al azar, tres de los cuales usan el Método A (grupo de tratamiento) y tres usan el Método B (grupo de control). Al final de una semana de instrucción, cada estudiante realiza una prueba que tiene un puntaje máximo de 10 puntos.</li>
+</ol>
+<p>Los datos recopilados son los siguientes:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Método</th>
+<th>Estudiante</th>
+<th>Puntaje obtenido</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Método A</td>
+<td>1</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td>Método A</td>
+<td>2</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td>Método A</td>
+<td>3</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td>Método B</td>
+<td>1</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>Método B</td>
+<td>2</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>Método B</td>
+<td>3</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>Para el Método A, la media de los puntajes fue 7.33 (22/3) con una desviación estándar de 0.58. Para el Método B, la media fue 5.67 (17/3) con una desviación estándar de 0.58.</p>
+<ul>
+<li><p>Estima la media y la varianza de los puntajes para el grupo del Método A y para el grupo del Método B.</p></li>
+<li><p>Calcula el intervalo de confianza del 95% para la media de los puntajes en el grupo del Método A y en el grupo del Método B.</p></li>
+<li><p>Basándose en los intervalos de confianza, ¿qué puede concluir sobre la efectividad de cada método de enseñanza?</p></li>
+</ul>
+<ol start="12" type="1">
+<li>Un grupo de estudiantes de sociología realiza una pequeña encuestra retrospectivas sobre comportamiento electorial en elecciones presidenciales en Chile en 2021. La encuesta se realizó de forma anónima y los entrevistados se identificaron solo por un “ID Entrevistado”. De un total de 20 encuestados, algunos votaron por Boric y otros por Kast.</li>
+</ol>
+<p>A continuación se muestra una tabla con los resultados:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>ID Entrevistado</th>
+<th>Voto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Kast</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Kast</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Boric</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Kast</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>Boric</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>Kast</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>Boric</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>Kast</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td>Boric</td>
+</tr>
+<tr class="odd">
+<td>17</td>
+<td>Kast</td>
+</tr>
+<tr class="even">
+<td>18</td>
+<td>Kast</td>
+</tr>
+<tr class="odd">
+<td>19</td>
+<td>Kast</td>
+</tr>
+<tr class="even">
+<td>20</td>
+<td>Boric</td>
+</tr>
+</tbody>
+</table>
+<p>Con base en los datos proporcionados:</p>
+<ul>
+<li><p>Calcula la proporción de personas que votaron por Boric y por Kast, respectivamente.</p></li>
+<li><p>Estima un intervalo de confianza del 95% para la proporción de votos de Boric.</p></li>
+<li><p>Suponiendo que este grupo de 20 encuestados es una muestra representativa de la población general, ¿qué conclusiones se pueden extraer sobre las preferencias de voto de la población?</p></li>
+<li><p>Sabiendo que en las elecciones de 2021 Boric obtuvo un 55,87% de los votos validamente emitidos y Kast un 44,13%, usa esta información para construir un intervalo de confianza al 95% para las estimaciones realizadas. Compara el resultados con el resultado obtenido previamente.</p></li>
+</ul>
+<ol start="13" type="1">
+<li>Trabaja con los datos “Intenciones de Voto en el Plebiscito Chileno de 1988”</li>
+</ol>
+<p><strong>Descripción:</strong> La base de datos cuenta con 2700 registros distribuidos en 8 columnas. Estos datos son producto de una encuesta a nivel nacional llevada a cabo en abril y mayo de 1988 por FLACSO/Chile. Es importante mencionar que existen algunos datos faltantes en el conjunto.</p>
+<p><strong>Variables presentes en la base de datos:</strong></p>
+<ul>
+<li><p><strong>región:</strong> Categorizado con los siguientes niveles:</p>
+<ul>
+<li>C: Central</li>
+<li>M: Área Metropolitana de Santiago</li>
+<li>N: Norte</li>
+<li>S: Sur</li>
+<li>SA: Ciudad de Santiago.</li>
+</ul></li>
+<li><p><strong>población:</strong> Representa el tamaño poblacional de la comunidad del entrevistado.</p></li>
+<li><p><strong>sexo:</strong> Categorizado en dos niveles:</p>
+<ul>
+<li>F: Femenino</li>
+<li>M: Masculino</li>
+</ul></li>
+<li><p><strong>edad:</strong> Se refiere a la edad del encuestado expresada en años.</p></li>
+<li><p><strong>educación:</strong> Categorizado con los siguientes niveles (pueden aparecer desordenados):</p>
+<ul>
+<li>P: Primaria</li>
+<li>PS: Postsecundaria</li>
+<li>S: Secundaria</li>
+</ul></li>
+<li><p><strong>ingresos:</strong> Refiere a los ingresos mensuales del encuestado, expresados en Pesos.</p></li>
+<li><p><strong>statusquo:</strong> Representa una escala que mide el nivel de apoyo al status quo existente en ese momento.</p></li>
+<li><p><strong>voto:</strong> Categorizado con los siguientes niveles:</p>
+<ul>
+<li><p>A: Se abstendrá</p></li>
+<li><p>N: Votará no (en contra de Pinochet)</p></li>
+<li><p>U: Indeciso</p></li>
+<li><p>Y: Votará sí (a favor de Pinochet).</p>
+<p>Los resultados de intención de voto en la muesta son los siguientes:</p></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(carData)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Chile)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>data_chile <span class="ot">&lt;-</span> Chile</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">table</span>(data_chile<span class="sc">$</span>vote), <span class="at">align =</span> <span class="st">"lc"</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Intención de voto"</span>,<span class="st">"Recuentos"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Intención de voto</th>
+<th style="text-align: center;">Recuentos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: center;">187</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">N</td>
+<td style="text-align: center;">889</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">U</td>
+<td style="text-align: center;">588</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Y</td>
+<td style="text-align: center;">868</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><p>Omitiendo a personas indecisas o que declaran que se abstendrán, estima la proporción de personas que declaran que votarán por el NO (en vez de por SI).</p></li>
+<li><p>Construye un intervalo de confianza al 95% de confianza.</p></li>
+<li><p>Discute las implicancias sustantivas de los resultados.</p></li>
+</ul>
+<ol start="14" type="1">
+<li><p>Dada esta encuesta preliminar sobre intenciones de voto, se desea planificar una nueva encuesta con un margen de error más reducido. Estima el tamaño de muestra necesario para una proporción considerando un margen de error de 0.01 con un 95% de confianza. Haz explícitos los supuestos de tu cálculo y justifícalos.</p></li>
+<li><p>Un grupo de estudiantes participó en una competencia de habilidades culinarias. La competencia se compone de tres pruebas: elaboración de entradas, plato principal y postres. El puntaje final de cada estudiante se determina tomando el promedio simple de los puntajes obtenidos en las tres pruebas. A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 estudiantes para cada prueba:</p></li>
+</ol>
+<table class="table">
+<colgroup>
+<col style="width: 29%">
+<col style="width: 23%">
+<col style="width: 23%">
+<col style="width: 23%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Estadística</th>
+<th>Entradas</th>
+<th>Plato Principal</th>
+<th>Postres</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Media muestral <span class="math inline">\(\bar{x} = \frac{\sum x}{n}\)</span></td>
+<td>4.5</td>
+<td>3.8</td>
+<td>5.2</td>
+</tr>
+<tr class="even">
+<td>Suma de desviaciones al cuadrado <span class="math inline">\(\sum (x_i - \bar{x})^2\)</span></td>
+<td>375.6</td>
+<td>178.4</td>
+<td>62.7</td>
+</tr>
+</tbody>
+</table>
+<p>Con base en esta información,</p>
+<ul>
+<li><p>¿Cuál es la media muestral del puntaje final de estos 100 estudiantes?</p></li>
+<li><p>Construye un intervalo de confianza del 95% para la media del puntaje final.</p></li>
+<li><p>Interpreta el resultado del intervalo de confianza en términos de la competencia de habilidades culinarias.</p></li>
+<li><p>Una población tomó un test compuesto por tres preguntas. El puntaje final de cada individuo se determina tomando el promedio simple de los puntajes obtenidos en las tres preguntas. A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 individuos para cada pregunta:</p></li>
+</ul>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Estadística</th>
+<th>Pregunta 1</th>
+<th>Pregunta 2</th>
+<th>Pregunta 3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Media muestral</td>
+<td>4.8930040</td>
+<td>0.9364491</td>
+<td>6.0148615</td>
+</tr>
+<tr class="even">
+<td>Varianza muestral (naive)</td>
+<td>3.998700</td>
+<td>1.957715</td>
+<td>0.5070397</td>
+</tr>
+</tbody>
+</table>
+<p>Con base en esta información,</p>
+<ul>
+<li><p>¿Cuál es la media muestral del puntaje final de estos 100 individuos?</p></li>
+<li><p>Construye un intervalo de confianza del 95% para la media del puntaje final e interpreta el resultado</p></li>
+</ul>
+<ol start="17" type="1">
+<li>Un equipo de investigación médica está explorando un nuevo medicamento para tratar dolores de cabeza frecuentes. Se realizó un estudio piloto con 20 participantes, donde la mitad de ellos (10) recibieron el medicamento (grupo de tratamiento) y la otra mitad (10) no lo recibió (grupo de control). Durante una semana, los participantes informaron si habían tenido un dolor de cabeza (1 = Sí, 0 = No).</li>
+</ol>
+<p>Los datos recopilados son los siguientes:</p>
+<table class="table">
+<thead>
+<tr class="header">
+<th>Grupo</th>
+<th>Observación</th>
+<th>Dolor de cabeza (1 = Sí, 0 = No)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>4</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>6</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>7</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>9</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>10</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>4</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>6</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>7</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>9</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>10</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>A partir de estos datos:</p>
+<ul>
+<li><p>Estima la proporción de personas que experimentan dolores de cabeza encada grupo, y calcula la diferencia entre ambas proporciones</p></li>
+<li><p>Calcula el intervalo de confianza del 95% para la diferencia entre ambas proporciones</p></li>
+<li><p>Basándose en los intervalos de confianza, ¿qué puede concluir sobre la efectividad del medicamento para reducir los dolores de cabeza?</p></li>
+</ul>
+</section>
+<section id="preguntas-conceptuales" class="level2">
+<h2 class="anchored" data-anchor-id="preguntas-conceptuales">Preguntas conceptuales</h2>
+<ol type="1">
+<li><p>¿Cuál es la relación entre el error estándar de la media y la desviación estándar de la población? ¿Cuándo usarías la desviación estándar de la población en lugar de la desviación estándar de la muestra para calcular el error estándar?</p></li>
+<li><p>Explica las implicaciones del Teorema del Límite Central (TLC) en una distribución de muestreo cuando el tamaño de la muestra aumenta. ¿Por qué es esencial el TLC para las pruebas de hipótesis?</p></li>
+<li><p>Si tienes un intervalo de confianza del 95% para un parámetro de población, ¿cuál es el nivel de significancia correspondiente para una prueba de dos colas?</p></li>
+<li><p>¿Por qué se utiliza la distribución t en lugar de la distribución z cuando la varianza de la población es desconocida? ¿Qué sucede con la forma de la distribución t a medida que aumenta el tamaño de la muestra?</p></li>
+<li><p>Describe el impacto en el ancho del intervalo de confianza cuando:</p></li>
+</ol>
+<ul>
+<li>El nivel de confianza aumenta.</li>
+<li>El tamaño de la muestra aumenta. c.La variabilidad en la población aumenta.</li>
+</ul>
+<ol start="6" type="1">
+<li><p>Considera un escenario en el que dos muestras diferentes de la misma población producen dos intervalos de confianza del 95% diferentes para la media de la población. ¿Es posible que estos intervalos no se superpongan? Explica.</p></li>
+<li><p>¿Por qué no se puede obtener prácticamente un intervalo de confianza del 100%?</p></li>
+<li><p>Explica la diferencia entre una estimación puntual y una estimación por intervalo.</p></li>
+<li><p>¿Cómo se relaciona el margen de error con el nivel de confianza y el error estándar de la estadística? Deriva su fórmula.</p></li>
+</ol>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
