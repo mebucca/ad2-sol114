@@ -211,7 +211,7 @@ knitr::kable(table(data_chile$vote), align = "lc", col.names = c("Intención de 
     A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 estudiantes para cada prueba:
 
 | Estadística                                               | Entradas | Plato Principal | Postres |
-|---------------------|-----------------|-----------------|-----------------|
+|-----------------------------------------------------------|----------|-----------------|---------|
 | Media muestral $\bar{x} = \frac{\sum x}{n}$               | 4.5      | 3.8             | 5.2     |
 | Suma de desviaciones al cuadrado $\sum (x_i - \bar{x})^2$ | 375.6    | 178.4           | 62.7    |
 
