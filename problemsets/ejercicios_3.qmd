@@ -209,7 +209,8 @@ knitr::kable(table(data_chile$vote), align = "lc", col.names = c("Intención de 
     La competencia se compone de tres pruebas: elaboración de entradas, plato principal y postres.
     El puntaje final de cada estudiante se determina tomando el promedio simple de los puntajes obtenidos en las tres pruebas.
     Cada pregunta controla distintas habilidades y por tanto sus puntajes son independientes entre si.
-    A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 estudiantes para cada prueba:
+
+  A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 estudiantes para cada prueba:
 
 | Estadística                                               | Entradas | Plato Principal | Postres |
 |-----------------------------------------------------------|----------|-----------------|---------|
@@ -224,7 +225,10 @@ Con base en esta información,
 
 -   Interpreta el resultado del intervalo de confianza en términos de la competencia de habilidades culinarias.
 
-16. Una población tomó un test compuesto por tres preguntas. El puntaje final de cada individuo se determina tomando el promedio simple de los puntajes obtenidos en las tres preguntas. Cada pregunta controla aspectos distintos del conocimiento y por tanto sus puntajes son independientes entre si. A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 individuos para cada pregunta:
+
+16. Una población tomó un test compuesto por tres preguntas. El puntaje final de cada individuo se determina tomando el promedio simple de los puntajes obtenidos en las tres preguntas. Cada pregunta controla aspectos distintos del conocimiento y por tanto sus puntajes son independientes entre si.
+
+A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 individuos para cada pregunta:
 
 | Estadística               | Pregunta 1 | Pregunta 2 | Pregunta 3 |
 |---------------------------|------------|------------|------------|
