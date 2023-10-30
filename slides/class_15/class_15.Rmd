@@ -125,7 +125,7 @@ Estadísticos como Fisher, Neyman and Pearson desarrollaron (más o menos) el an
  
 .bold[Paso #1:] Hipótesis
 
-Establece hipótesis de trabajo y dividir el espacio entre dos particiones mutaamente excluyentes:
+Establecer hipótesis de trabajo y dividir el espacio en dos particiones mutuamente excluyentes:
 
 - Observaciones que contradicen la hipótesis de trabajo (hipótesis nula, $H_0$)
 
@@ -141,7 +141,7 @@ Ejemplo:
 - $H_0: \mathbb{E}(Y \mid U) = \mathbb{E}(Y \mid \neg U)$
 
 
-- $H_a: \mathbb{E}(Y \mid U) \neq  \mathbb{E}(Y \mid \neg U)$
+- $H_a: \mathbb{E}(Y \mid U) >  \mathbb{E}(Y \mid \neg U)$
 
 
 ---
@@ -153,7 +153,7 @@ Ejemplo:
 <br>
 
 - Elegir y calcular un test estadístico permita evaluar la hipótesis nula en función de los datos. 
-
+<br>
 --
 
 Ejemplo: $\delta: \bar{Y}_{U} - \bar{Y}_{\neg U}$
@@ -168,41 +168,95 @@ Ejemplo: $\delta: \bar{Y}_{U} - \bar{Y}_{\neg U}$
 
 $$\alpha = \mathbb{P}(\text{Rechazar } H_{0} \mid H_{0} \text{ es verdadera})$$
 
+<br>
+--
+
+Mientras menos es $\alpha$ más dificl es rechazar la hipótesis nula.
 
 ---
 ##Prueba de Significancia de la Hipótesis Nula
 
 
-.bold[Paso #4:] Derivar la distribución de referencia (o nula)
+.bold[Paso #4:] Derivar la distribución de referencia (o distribución nula)
 
 - Derivar la distribución muestral del test estadística si la hipótesis nula fuera verdadera. 
 
+
+<br>
 --
 
-Ejemplo: 
+ Ejemplo:
+
+- Si $H_0: \mathbb{E}(Y \mid U) = \mathbb{E}(Y \mid \neg U)$ es verdadero, entonces 
+
 
 --
 
-- Si H_0: \mathbb{E}(Y \mid U) = \mathbb{E}(Y \mid \neg U)$ es verdadero, entonces 
-
---
-
-- El estadístico  $\delta: \bar{Y}_{U} - \bar{Y}_{\neg U}$ entregará un número $\approx 0$
+- El estadístico  $\delta: \bar{Y}_{U} - \bar{Y}_{\neg U}$ entregará un número $\hat{\delta} \approx 0$
     - con varianciones de muestra a muestra
     
+<br>  
 --
 
-- ¿Cual es distribución muestral del estadístico $\delta$?
+- .bold[Distribución de referencia]: distribución muestral del estadístico $\delta$ si $H_{0}$ es verdadera.
 
 
 ---
 ##Prueba de Significancia de la Hipótesis Nula
 
 
-.bold[Paso #5:] Calcular el valor-$p$
+.bold[Paso #5:] Calcular el valor-p
 
 
+Es decir, la probabilidad de obtener un valor $\hat{\delta}$ o mayor en el estadístico $\delta$ si la hipótesis nula es verdadera.
 
+
+$$\text{valor-p} = \mathbb{P}( \delta > \hat{\delta} \mid H_{0} \text{ es verdadera})$$
+--
+
+ Ejemplo:
+
+- Si obtenemos $\hat{\delta}$= 0.04
+
+
+$$\text{valor-p} = \mathbb{P}( \delta > 0.04  \mid H_{0} \text{ es verdadera})$$
+
+
+---
+##Prueba de Significancia de la Hipótesis Nula
+
+
+.bold[Paso #6:] Decisión de rechazar o no la hipótesis null
+
+--
+
+ - Si $\text{valor-p} < \alpha$ entonces rechazamos $H_{0}$
+
+--
+
+ - Si $\text{valor-p} > \alpha$ no podemos rechazar $H_{0}$
+
+<br>
+--
+
+ Ejemplo:
+
+- Obtenemos $\hat{\delta}$= 0.04 y
+
+- Decidimos que $\alpha = \mathbb{P}(\text{Rechazar } H_{0} \mid H_{0} \text{ es verdadera}) = 0.05$
+
+<br>
+--
+
+Supongamos que:
+
+$\text{valor-p} = \mathbb{P}( \delta > 0.04  \mid H_{0} \text{ es verdadera}) = 0.05$
+
+  entonces rechazamos $H_{0}$
+  
+--
+
+En caso contrario no tenemos evidencia para rechazar $H_{0}$
 ---
 
 class: inverse, center, middle
