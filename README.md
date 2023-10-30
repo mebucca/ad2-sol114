@@ -40,6 +40,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 23  | Oct | IC para media y proporción muestral        | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_13/class_13#1) [`[Code]`](slides/class_13/class_13.Rmd)    |            |            |
 | 25  | Oct | IC con varianza desconocida & Boostrap     | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_14/class_14#1) [`[Code]`](slides/class_14/class_14.Rmd)                                                                                                                       |            |            |
 <<<<<<< HEAD
+<<<<<<< HEAD
 | 30  | Oct | Test de media/proporciones en 1 muestra    |                                                                                                                        |            |            |
 |  6  | Nov | Test de media/proporciones en 2 muestras   |                                                                                                                        |            |            |
 |  8  | Nov | Asociación variables continuas             |                                                                                                                        |            |            |
@@ -48,6 +49,9 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 20  | Nov | ANOVA                                      |                                                                                                                        |            |            |
 =======
 | 30  | Oct |  Test de hipótesis  |                                                                                                                        |            |            |
+=======
+| 30  | Oct |  Test de hipótesis  |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_15/class_15#1) [`[Code]`](slides/class_15/class_15.Rmd)                                                                                                                      |            |            |
+>>>>>>> master
 |  6  | Nov |  Test de media/proporciones en 1 muestra   |                                                                                                                        |            |            |
 | 13  | Nov |  Test de media/proporciones en 2 muestras                      |                                                                                                                        |            |            |
 | 15  | Nov | Asociación variables continuas                                      |                                                                                                                        |            |            |
