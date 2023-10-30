@@ -93,9 +93,6 @@ Los datos recopilados son los siguientes:
 | Método B | 2          | 5                |
 | Método B | 3          | 6                |
 
-Para el Método A, la media de los puntajes fue 7.33 (22/3) con una desviación estándar de 0.58.
-Para el Método B, la media fue 5.67 (17/3) con una desviación estándar de 0.58.
-
 -   Estima la media y la varianza de los puntajes para el grupo del Método A y para el grupo del Método B.
 
 -   Calcula el intervalo de confianza del 95% para la media de los puntajes en el grupo del Método A y en el grupo del Método B.
@@ -212,7 +209,7 @@ knitr::kable(table(data_chile$vote), align = "lc", col.names = c("Intención de 
     A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 estudiantes para cada prueba:
 
 | Estadística                                               | Entradas | Plato Principal | Postres |
-|-----------------------------------------------------------|----------|-----------------|---------|
+|-------------------------------------|------------|------------|------------|
 | Media muestral $\bar{x} = \frac{\sum x}{n}$               | 4.5      | 3.8             | 5.2     |
 | Suma de desviaciones al cuadrado $\sum (x_i - \bar{x})^2$ | 375.6    | 178.4           | 62.7    |
 
