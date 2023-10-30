@@ -93,9 +93,6 @@ Los datos recopilados son los siguientes:
 | Método B | 2          | 5                |
 | Método B | 3          | 6                |
 
-Para el Método A, la media de los puntajes fue 7.33 (22/3) con una desviación estándar de 0.58.
-Para el Método B, la media fue 5.67 (17/3) con una desviación estándar de 0.58.
-
 -   Estima la media y la varianza de los puntajes para el grupo del Método A y para el grupo del Método B.
 
 -   Calcula el intervalo de confianza del 95% para la media de los puntajes en el grupo del Método A y en el grupo del Método B.
@@ -210,7 +207,7 @@ knitr::kable(table(data_chile$vote), align = "lc", col.names = c("Intención de 
     El puntaje final de cada estudiante se determina tomando el promedio simple de los puntajes obtenidos en las tres pruebas.
     Cada pregunta controla distintas habilidades y por tanto sus puntajes son independientes entre si.
 
-  A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 estudiantes para cada prueba:
+A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 estudiantes para cada prueba:
 
 | Estadística                                               | Entradas | Plato Principal | Postres |
 |-----------------------------------------------------------|----------|-----------------|---------|
@@ -224,7 +221,6 @@ Con base en esta información,
 -   Construye un intervalo de confianza del 95% para la media del puntaje final.
 
 -   Interpreta el resultado del intervalo de confianza en términos de la competencia de habilidades culinarias.
-
 
 16. Una población tomó un test compuesto por tres preguntas. El puntaje final de cada individuo se determina tomando el promedio simple de los puntajes obtenidos en las tres preguntas. Cada pregunta controla aspectos distintos del conocimiento y por tanto sus puntajes son independientes entre si.
 
