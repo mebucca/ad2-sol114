@@ -14,34 +14,86 @@ geometry:
 ---
 
 
-Aquí tienes las preguntas reformuladas y más directas:
+1.  **(10%)** En una encuesta nacional se busca determinar si la población está a favor o en contra de una nueva política gubernamental.
+    Cada encuestado tiene la opción de responder "A favor" o "En contra".
+    Si un individuo es seleccionado al azar, existe una probabilidad $p$ de que esté a favor de la nueva política.
 
-1. **(10%)** En una encuesta nacional se busca determinar si la población está a favor o en contra de una nueva política gubernamental. Cada encuestado tiene la opción de responder "A favor" o "En contra". Si un individuo es seleccionado al azar, existe una probabilidad $p$ de que esté a favor de la nueva política.
-
-    i. **(10%)** ¿Cuál es la probabilidad de que, al observar las respuestas de 3 individuos seleccionados al azar, exactamente 2 estén a favor de la nueva política?
+    i.  **(10%)** ¿Cuál es la probabilidad de que, al observar las respuestas de 3 individuos seleccionados al azar, exactamente 2 estén a favor de la nueva política?
 
     ii. **(7%)** Si se sabe que la probabilidad de que 2 de los 3 individuos seleccionados estén a favor de la nueva política es $0.3^2 \cdot 0.7$, ¿cuál es el valor de $p$?
 
-    iii. **(10%)**  Supón que la probabilidad de que una mujer esté a favor de la nueva política es el doble que la de probabilidad de que un hombre esté a favor población. 
-Si $P(\text{Hombre} | \text{"A favor"})=0.2$ y $P(\text{Hombre})=0.45$, determina: $P(\text{"A favor"})$.
+    iii. **(10%)** Supón que la probabilidad de que una mujer esté a favor de la nueva política es el doble que la de probabilidad de que un hombre esté a favor población.
+         Si $P(\text{Hombre} | \text{"A favor"})=0.2$ y $P(\text{Hombre})=0.45$, determina: $P(\text{"A favor"})$.
 
-2. **(10%)** Considera una distribución de probabilidad que describe la opinión de un individuo sobre la nueva política. Describe esta distribución matemáticamente y explica el significado de su(s) parámetros(s) Luego, define la función de densidad de probabilidad para esta distribución.
+2.  **(10%)** Considera una distribución de probabilidad que describe la opinión de un individuo sobre la nueva política.
+    Describe esta distribución matemáticamente y explica el significado de su(s) parámetros(s) Luego, define la función de densidad de probabilidad para esta distribución.
 
-3. **(12%)** Supón que en esta encuesta las respuestas son independientes y que todos los individuos siguen la misma distribución de probabilidad. ¿Qué distribución de probabilidad describe la cantidad de individuos a favor de la nueva política en una muestra de tamaño $n=100$? Descríbelo matemáticamente y explica el significado de los parámetros de la distribución. Luego, define la función de masa de probabilidad para esta distribución.
+3.  **(12%)** Supón que en esta encuesta las respuestas son independientes y que todos los individuos siguen la misma distribución de probabilidad.
+    ¿Qué distribución de probabilidad describe la cantidad de individuos a favor de la nueva política en una muestra de tamaño $n=100$?
+    Descríbelo matemáticamente y explica el significado de los parámetros de la distribución.
+    Luego, define la función de masa de probabilidad para esta distribución.
 
-4. **(12%)** En una encuesta previa, se recopilaron datos sobre el apoyo a dos políticas gubernamentales diferentes e independientes entre si. Política A (variable $P_A$) y Política B (variable $P_B$), en una escala del 1 al 10. Los puntajes para la Política A siguen una distribución normal con media $\mu_A = 7$ y varianza $\sigma^2 = 2$. Los puntajes para la Política B siguen una distribución normal con media $\mu_B = 6$ y varianza $\sigma^2 = 3$. Supón que los tamaños de muestra son suficientemente grandes.
+4.  **(12%)** En una encuesta previa, se recopilaron datos sobre el apoyo a dos políticas gubernamentales diferentes e independientes entre si.
+    Política A (variable $P_A$) y Política B (variable $P_B$), en una escala del 1 al 10.
+    Los puntajes para la Política A siguen una distribución normal con media $\mu_A = 7$ y varianza $\sigma^2 = 1$.
+    Los puntajes para la Política B siguen una distribución normal con media $\mu_B = 6$ y varianza $\sigma^2 = 2$.
+    Supón que los tamaños de muestra son suficientemente grandes.
 
-    i. **(12%)** ¿Cuál es la distribución de la variable $T$ (la suma de ambos puntajes, o "puntaje total")? ¿Qué valores tienen sus parámetros? Define la función de densidad de probabilidad para $T$.
+    i.  **(12%)** ¿Cuál es la distribución de la variable $T$ (la suma de ambos puntajes, o "puntaje total")?
+        ¿Qué valores tienen sus parámetros?
+        Define la función de densidad de probabilidad para $T$.
 
-    ii. **(10%)** Si se considera que la agenda de gobierno es ampliamente apoyada si la suma de los puntajes de las políticas es igual o superior a 12, Expresa matemáticamebte cómo se calcula la probabilidad de que ambas políticas sean ampliamente apoyadas utilizando la función de densidad de probabilidad de $T$. 
-    Nota: Hay una integral involucrada pero no se espera que la resuelvas
+    ii. **(10%)** Si se considera que la agenda de gobierno es ampliamente apoyada si la suma de los puntajes de las políticas es igual o superior a 15, Expresa matemáticamebte cómo se calcula la probabilidad de que ambas políticas sean ampliamente apoyadas utilizando la función de densidad de probabilidad de $T$.
+        Nota: Hay una integral involucrada pero no se espera que la resuelvas
 
     iii. **(10%)** Calcula la probabilidad de la agenda de gobierno sea ampliamente apoyada utilizando la función $\Phi$ y la función de densidad de probabilidad de $T$.
 
-    iv. **(15%)** ¿Cuál es el rango de puntajes necesario para considerar que la agenda de gobierno es ampliamente apoyada, y cómo se calcula utilizando la función de densidad de probabilidad de $T$ y el Teorema del Límite Central?
+    iv. **(15%)** ¿Cuál es el rango de puntajes necesario para estar en el 50% central de densidad probabiística de la variable $T$ y cómo se calcula utilizando el Teorema del Límite Central?
 
-5. **(10%)** Imagina una nueva población de encuestados con opiniones sobre dos políticas diferentes, Política C y Política D. No conocemos la distribución de los puntajes de opinión, pero tenemos una muestra de 150 encuestados que evaluaron ambas políticas este año. Asumimos que los tamaños de muestra son suficientemente grandes.
+5.   Imagina una nueva población de encuestados con opiniones la Política C   No conocemos la distribución de los puntajes de opinión, pero tenemos una muestra de 150 encuestados que evaluaron esta política.
 
-    i. **(12%)** ¿Cuál es el estimador utilizado para estimar el puntaje total promedio, y cómo se calcula? Define la distribución muestral para este estimador.
+
+Por supuesto, aquí tienes una tabla con las fórmulas y los resultados en formato Markdown utilizando LaTeX para las fórmulas. Los números son inventados y plausibles:
+
+| Descripción                | Fórmula                               | Resultado                  |
+|----------------------------|---------------------------------------|----------------------------|
+| Suma de los puntajes       | $$\sum_{i=1}^{n} x_i$$               | 11250                      |
+| Suma de desviaciones al cuadrado | $$\sum_{i=1}^{n} (x_i - \bar{x})^2$$ | 3750                    |
+
+
+    i.  **(12%)** ¿Cuál es el estimador utilizado para estimar el puntaje total promedio, y cómo se calcula?
+        Define la distribución muestral para este estimador.
 
     ii. **(15%)** Utilizando el Teorema del Límite Central y asumiendo que la varianza del puntaje total es desconocida, ¿cómo se determina a partir de qué puntaje total el promedio muestral estaría en el 5% más alto de todas las estimaciones posibles del promedio, utilizando la función de densidad de probabilidad del estimador del promedio muestral?
+
+Preguntas conceptuales: 
+
+**(10%)**
+
+        i. Explica en qué consiste la función inversa de probabilidad acumulada.
+        ii. Explica en qué consisten y cómo se relacionan la Ley de Los Grandes Números y el Teorema del Límite Central.
+        
+        
+        
+        
+\newpage
+
+## Probabilidad acumulada en distribución Normal Standard (mitad positiva)
+
+```{r echo=FALSE}
+library(pacman)
+p_load(knitr,xtable)
+# Create a vector of values from -3 to 3 with intervals of 0.1
+x <- seq(0, 3, by = 0.01)
+
+# Calculate the CDF values for the standard normal distribution
+cdf_values <- pnorm(x)
+
+# Create a data frame to store the values
+cdf_table <- data.frame(z = x, phi= cdf_values)
+
+# Create an xtable object
+knitr::kable(cdf_table, digits = 5,
+                             col.names=c("Z=z","$\\Phi(z)$"), align="ccc")
+```
+
