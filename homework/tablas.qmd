@@ -1,0 +1,121 @@
+---
+title: "Tablas"
+format: pdf
+editor: visual
+---
+
+
+## Probabilidad acumulada en distribución Normal Standard (mitad positiva)
+
+```{r echo=FALSE}
+library(pacman)
+p_load(knitr,xtable,tidyverse)
+# Create a vector of values from -3 to 3 with intervals of 0.1
+x <- seq(0, 3, by = 0.01)
+
+# Calculate the CDF values for the standard normal distribution
+cdf_values <- pnorm(x)
+
+# Create a data frame to store the values
+cdf_table <- data.frame(z = x, phi= cdf_values)
+
+# Create an xtable object
+knitr::kable(cdf_table, digits = 4,
+                             col.names=c("Z=z","$\\Phi(z)$"), align="ccc")
+```
+
+
+\newpage
+
+## Probabilidad acumulada en distribución t-student con df = n-1 (mitad positiva)
+
+Ejemplo: $F_{1}(1): P(T_{df=1} \leq 1)$
+
+```{r echo=FALSE}
+
+# Create a vector of values from -3 to 3 with intervals of 0.1
+x <- seq(0, 3, by = 0.1)
+
+# Initialize the data frame with 't' column
+cdf_table <- data.frame(t = x)
+
+sequence <- 1:10
+# Calculate the CDF values for the t-distribution with varying degrees of freedom
+for (i in sequence) {
+  # Add the CDF values as a new column to the data frame using mutate
+  cdf_table <- cdf_table %>%
+    mutate(!!paste("q", i, sep = "") := pt(t, df = i))
+}
+
+
+
+# Create a data frame to store the values
+# Create an xtable object
+
+phi_labels <- paste("$F_{", sequence, "}(t)$", sep = "")
+
+knitr::kable(cdf_table, digits = 4,
+                             col.names=c("T=t",phi_labels), align=paste(rep("c",32),collapse=""))
+```
+
+
+\newpage
+
+```{r echo=FALSE}
+
+# Create a vector of values from -3 to 3 with intervals of 0.1
+x <- seq(0, 3, by = 0.1)
+
+# Initialize the data frame with 't' column
+cdf_table <- data.frame(t = x)
+
+sequence <- 11:20
+# Calculate the CDF values for the t-distribution with varying degrees of freedom
+for (i in sequence) {
+  # Add the CDF values as a new column to the data frame using mutate
+  cdf_table <- cdf_table %>%
+    mutate(!!paste("q", i, sep = "") := pt(t, df = i))
+}
+
+
+
+# Create a data frame to store the values
+# Create an xtable object
+
+phi_labels <- paste("$F_{", sequence, "}(t)$", sep = "")
+
+knitr::kable(cdf_table, digits = 4,
+                             col.names=c("T=t",phi_labels), align=paste(rep("c",32),collapse=""))
+```
+
+
+\newpage
+
+
+```{r echo=FALSE}
+
+# Create a vector of values from -3 to 3 with intervals of 0.1
+x <- seq(0, 3, by = 0.1)
+
+# Initialize the data frame with 't' column
+cdf_table <- data.frame(t = x)
+
+sequence <- 21:30
+# Calculate the CDF values for the t-distribution with varying degrees of freedom
+for (i in sequence) {
+  # Add the CDF values as a new column to the data frame using mutate
+  cdf_table <- cdf_table %>%
+    mutate(!!paste("q", i, sep = "") := pt(t, df = i))
+}
+
+
+
+# Create a data frame to store the values
+# Create an xtable object
+
+phi_labels <- paste("$F_{", sequence, "}(t)$", sep = "")
+
+knitr::kable(cdf_table, digits = 4,
+                             col.names=c("T=t",phi_labels), align=paste(rep("c",32),collapse=""))
+```
+

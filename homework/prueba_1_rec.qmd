@@ -13,7 +13,6 @@ geometry:
   - marginparwidth=2.25in
 ---
 
-
 1.  **(10%)** En una encuesta nacional se busca determinar si la población está a favor o en contra de una nueva política gubernamental.
     Cada encuestado tiene la opción de responder "A favor" o "En contra".
     Si un individuo es seleccionado al azar, existe una probabilidad $p$ de que esté a favor de la nueva política.
@@ -50,32 +49,36 @@ geometry:
 
     iv. **(15%)** ¿Cuál es el rango de puntajes necesario para estar en el 50% central de densidad probabiística de la variable $T$ y cómo se calcula utilizando el Teorema del Límite Central?
 
-5.   Imagina una nueva población de encuestados con opiniones la Política C   No conocemos la distribución de los puntajes de opinión, pero tenemos una muestra de 150 encuestados que evaluaron esta política.
+5.  Imagina una nueva población de encuestados con opiniones la Política C No conocemos la distribución de los puntajes de opinión, pero tenemos una muestra de 150 encuestados que evaluaron esta política.
 
+Por supuesto, aquí tienes una tabla con las fórmulas y los resultados en formato Markdown utilizando LaTeX para las fórmulas.
+Los números son inventados y plausibles:
 
-Por supuesto, aquí tienes una tabla con las fórmulas y los resultados en formato Markdown utilizando LaTeX para las fórmulas. Los números son inventados y plausibles:
+| Descripción                      | Fórmula                              | Resultado |
+|---------------------|-----------------------------|---------------------|
+| Suma de los puntajes             | $$\sum_{i=1}^{n} x_i$$               | 11250     |
+| Suma de desviaciones al cuadrado | $$\sum_{i=1}^{n} (x_i - \bar{x})^2$$ | 3750      |
 
-| Descripción                | Fórmula                               | Resultado                  |
-|----------------------------|---------------------------------------|----------------------------|
-| Suma de los puntajes       | $$\sum_{i=1}^{n} x_i$$               | 11250                      |
-| Suma de desviaciones al cuadrado | $$\sum_{i=1}^{n} (x_i - \bar{x})^2$$ | 3750                    |
+```         
+i.  **(12%)** ¿Cuál es el estimador utilizado para estimar el puntaje total promedio, y cómo se calcula?
+    Define la distribución muestral para este estimador.
 
+ii. **(15%)** Utilizando el Teorema del Límite Central y asumiendo que la varianza del puntaje total es desconocida, ¿cómo se determina a partir de qué puntaje total el promedio muestral estaría en el 5% más alto de todas las estimaciones posibles del promedio, utilizando la función de densidad de probabilidad del estimador del promedio muestral?
+```
 
-    i.  **(12%)** ¿Cuál es el estimador utilizado para estimar el puntaje total promedio, y cómo se calcula?
-        Define la distribución muestral para este estimador.
-
-    ii. **(15%)** Utilizando el Teorema del Límite Central y asumiendo que la varianza del puntaje total es desconocida, ¿cómo se determina a partir de qué puntaje total el promedio muestral estaría en el 5% más alto de todas las estimaciones posibles del promedio, utilizando la función de densidad de probabilidad del estimador del promedio muestral?
-
-Preguntas conceptuales: 
+Preguntas conceptuales:
 
 **(10%)**
 
-        i. Explica en qué consiste la función inversa de probabilidad acumulada.
-        ii. Explica en qué consisten y cómo se relacionan la Ley de Los Grandes Números y el Teorema del Límite Central.
-        
-        
-        
-        
+```         
+    i. Explica en qué consiste la función inversa de probabilidad acumulada.
+    ii. Explica en qué consisten y cómo se relacionan la Ley de Los Grandes Números y el Teorema del Límite Central.
+    
+    
+    
+    
+```
+
 \newpage
 
 ## Probabilidad acumulada en distribución Normal Standard (mitad positiva)
@@ -96,4 +99,3 @@ cdf_table <- data.frame(z = x, phi= cdf_values)
 knitr::kable(cdf_table, digits = 5,
                              col.names=c("Z=z","$\\Phi(z)$"), align="ccc")
 ```
-
