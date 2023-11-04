@@ -117,7 +117,7 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 - Tablas Z y T-student:  [`[Tablas]`](homework/tablas.pdf)
 - Problemas desde *Fundamento de probabilidades* hasta *Teoremas Asintóticos*: [`[Respuestas Problem-set 1]`](problemsets/ejercicios_1.pdf) 
 - Problemas desde *Distribución Normal Standard* hasta *Distribución muestral, sesgo y varianza*: [`[Respuestas Problem-set 2]`](problemsets/ejercicios_2.pdf) 
-- Problemas desde *Distribución muestral, sesgo y varianza* hasta *Intervalos de Confianza*: [`[Problem-set 3]`](https://mebucca.github.io/ad2-sol114/problemsets/ejercicios_3#1) 
+- Problemas desde *Distribución muestral, sesgo y varianza* hasta *Intervalos de Confianza*: [`[Respuestas Problem-set 3]`](https://mebucca.github.io/ad2-sol114/problemsets/ejercicios_3#1) 
 
 ---
 
