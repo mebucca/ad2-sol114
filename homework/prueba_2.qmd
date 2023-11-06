@@ -13,24 +13,19 @@ geometry:
   - marginparwidth=2.25in
 ---
 
-
-
 5.  La siguiente tabla muestra las notas en la prueba 1, prueba 2 y nota final (promedio de ambas) en el curso SOL3212.
 
-
-| Estudiante | Prueba 1 | Prueba 2 | Nota final |
-|------------|----------|----------|------------|
-| Juan       | 6.5      | 6.2      | 6.35       |
-| María      | 5.8      | 5.5      | 5.65       |
-| Carlos     | 6.7      | 5.9      | 6.3        |
-| Ana        | 6.0      | 5.4      | 5.7        |
-| Felipe     | 4.5      | 5.0      | 4.75       |
-| Sofia      | 6.8      | 6.7      | 6.75       |
-| Gabriel    | 5.2      | 5.9      | 5.55       |
-| Valeria    | 6.3      | 6.5      | 6.4        |
-| Roberto    | 5.0      | 5.3      | 5.15       |
-| Laura      | 6.4      | 6.6      | 6.5        |
-| **$\sum{x_i}$** | **59.4** | **58.9** | **59.15** |
-| **$\sum{(x_i - \overline{x})^2}$** | **2.475** | **2.41** | **0.5475** |
-
-
+| Estudiante                     | Prueba 1  | Prueba 2 | Nota final |
+|--------------------------------|-----------|----------|------------|
+| Juan                           | 6.5       | 6.2      | 6.35       |
+| María                          | 5.8       | 5.5      | 5.65       |
+| Carlos                         | 6.7       | 5.9      | 6.3        |
+| Ana                            | 6.0       | 5.4      | 5.7        |
+| Felipe                         | 4.5       | 5.0      | 4.75       |
+| Sofia                          | 6.8       | 6.7      | 6.75       |
+| Gabriel                        | 5.2       | 5.9      | 5.55       |
+| Valeria                        | 6.3       | 6.5      | 6.4        |
+| Roberto                        | 5.0       | 5.3      | 5.15       |
+| Laura                          | 6.4       | 6.6      | 6.5        |
+| $\sum{x_i}$                    | **59.4**  | **58.9** | **59.15**  |
+| $\sum{(x_i - \overline{x})^2}$ | **2.475** | **2.41** | **0.5475** |

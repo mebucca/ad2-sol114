@@ -1,0 +1,253 @@
+---
+title: "SOL114 Análisis de Datos II"
+author: "Tarea corta 3, respuestas"
+format: pdf
+editor: visual
+---
+
+## Problema 1
+
+En elecciones locales recientes se tomó una muestra aleatoria de 1,000 votantes elegibles para determinar la participación electoral.
+De esta muestra, 560 individuos informaron que habían votado.
+La varianza poblacional conocida para la proporción de participación electoral es 0.04.
+
+1.  Construye un intervalo de confianza al 95% para la proporción de votantes elegibles que votaron.
+
+2.  ¿Cuál es la probabilidad de que la proporción de la muestra sobre-estime la verdadera proporción poblacional por más de 1 punto porcentual?
+
+### Respuesta:
+
+Dado que la varianza poblacional para la proporción de participación electoral es conocida ($\sigma^2 = 0.04$), podemos proceder a realizar los cálculos pertinentes.
+
+### 1. Intervalo de confianza al 95%
+
+Dado que se conoce la varianza poblacional, podemos calcular el error estándar de la proporción utilizando esta varianza directamente.
+La desviación estándar poblacional $\sigma$ es la raíz cuadrada de la varianza $\sigma^2$, así que:
+
+$$\sigma = \sqrt{0.04} = 0.2$$
+
+Ahora, el error estándar (SE) de la proporción se calcula como:
+
+$$SE = \frac{\sigma}{\sqrt{n}}$$ $$SE = \frac{0.2}{\sqrt{1000}}$$ $$SE = \frac{0.2}{31.6227766}$$ $$SE \approx 0.006324555$$
+
+El siguiente paso es encontrar el valor de z para el intervalo de confianza del 95%.
+El valor crítico z asociado con un intervalo de confianza del 95% es aproximadamente 1.96.
+
+El intervalo de confianza para la proporción se calcula como:
+
+$$p \pm z \times SE$$ $$0.56 \pm 1.96 \times 0.006324555$$ $$0.56 \pm 1.96 \times 0.006324555$$ $$0.56 \pm 0.0123962478$$
+
+Entonces, el intervalo de confianza del 95% es:
+
+$$[0.5476037522, 0.5723962478]$$
+
+### 2. Probabilidad de sobre-estimación por más de 1 punto porcentual
+
+Comenzamos calculando la probabilidad de que la diferencia entre la proporción de la muestra ($\bar{x}$) y la proporción poblacional ($\mu$) esté dentro de un rango de -0.01 a 0.01, es decir, que $-0.01 < \bar{x} - \mu < 0.01$.
+
+Primero calculamos el error estándar (SE) de la proporción utilizando la desviación estándar poblacional ($\sigma$) que es la raíz cuadrada de la varianza ($\sigma^2$):
+
+$$\sigma = \sqrt{0.04} = 0.2$$
+
+$$SE = \frac{\sigma}{\sqrt{n}} = \frac{0.2}{\sqrt{1000}} = \frac{0.2}{31.62} \approx 0.00632$$
+
+Ahora, encontramos el valor z correspondiente a los límites superior e inferior de nuestro intervalo:
+
+Para el límite superior ($\mu + 0.01$): $$z_{superior} = \frac{0.01}{SE} = \frac{0.01}{0.00632} \approx 1.582278$$
+
+Para el límite inferior ($\mu - 0.01$): $$z_{inferior} = \frac{-0.01}{SE} = \frac{-0.01}{0.00632} \approx -1.582278$$
+
+Para encontrar la probabilidad de que $\bar{x}$ esté dentro de este rango, necesitamos calcular la probabilidad de que una variable normal estándar esté entre estos dos valores z.
+Utilizamos una tabla de la distribución normal estándar o una calculadora de probabilidad para encontrar estas áreas.
+La probabilidad de que la proporción de la muestra esté dentro de más o menos 0.01 de la proporción poblacional es:
+
+$$P(-1.582278 < Z < 1.582278) = P(Z < 1.582278) - P(Z < -1.582278)$$
+
+Utilizando tablas de distribución normal o software estadístico, podemos encontrar que:
+
+$$P(Z < 1.582278) \approx 0.943$$ $$P(Z < -1.582278) \approx 0.057$$
+
+Entonces, la probabilidad buscada es aproximadamente:
+
+$$P(-1.582278 < Z < 1.582278) \approx 0.943 - 0.057$$ $$P(-1.582278 < Z < 1.582278) \approx 0.886$$
+
+Esto significa que hay aproximadamente un 88.6% de probabilidad de que la proporción de la muestra esté dentro de un punto porcentual de la proporción poblacional, lo cual implica también que hay un (1 - 0.886) = 11.4% de probabilidad de que sobreestime o subestime por más de un punto porcentual.
+Por simetría, probabilidad de que la proporción de la muestra sobreestime la proporción poblacional por más de un punto porcentual es 11.4%/2 = 5.7%.
+
+## Problema 2
+
+Un distrito escolar introdujo una nueva metodología de enseñanza y quiere determinar si ésta ha tenido un efecto positivo en el rendimiento de los estudiantes.
+Para evaluar esto, compararon las puntuaciones en una prueba estandarizada antes y después del cambio, enfocándose en la mejora de las puntuaciones.
+
+Una muestra aleatoria de 100 estudiantes mostró una mejora promedio de 2 puntos después del cambio.
+La desviación estándard poblacional para esta medida de mejora es 10.
+
+1.  Construye un intervalo de confianza del 90% para la mejora promedio en las puntuaciones de todos los estudiantes del distrito.
+
+2.  Construye un intervalo de confianza del 99% para la mejora promedio.
+
+3.  Basándose en los dos intervalos de confianza, ¿podemos decir que los estudiantes han mejorado su rendimiento?
+
+### Respuesta:
+
+Para construir los intervalos de confianza del 90% y del 99% para la mejora promedio en las puntuaciones de todos los estudiantes del distrito, utilizaremos la distribución normal estándar, ya que conocemos la desviación estándar poblacional ( $\sigma = 10$ ).
+
+La fórmula general para el intervalo de confianza de la media con varianza poblacional conocida es:
+
+$$\text{Intervalo de Confianza} = \bar{x} \pm Z \big(\frac{\sigma}{\sqrt{n}}\big)$$
+
+Donde:
+
+-   $\bar{x}$ es la media de la muestra.
+
+-   $Z$ es el valor crítico de la distribución normal estándar para el nivel de confianza deseado (zona de confianza del 90% o 99%).
+
+-   $\sigma$ es la desviación estándar poblacional conocida.
+
+-   $n$ es el tamaño de la muestra.
+
+### Intervalo de Confianza del 90%
+
+Para un nivel de confianza del 90%, el valor crítico de Z es $Z_{0.05} = 1.645$ (usamos $0.05$ para el intervalo del $90\%$).
+
+La media de la muestra ( $\bar{x}$ ) es $2$ (la mejora promedio), y la desviación estándar poblacional ( $\sigma$ ) es $10$.
+
+El intervalo de confianza del 90% se calcula como sigue:
+
+$$\text{Intervalo de Confianza} = 2 \pm 1.645 \big(\frac{10}{\sqrt{100}}\big)$$
+
+Calculamos el término dentro del paréntesis:
+
+$$\frac{10}{\sqrt{100}} = 1$$
+
+Ahora, calculamos el intervalo:
+
+$$\text{Intervalo de Confianza del 90}\% = 2 \pm 1.645 \cdot 1$$
+
+Límite inferior = $2 - 1.645 \cdot 1 \approx 0.355$ Límite superior = $2 + 1.645 \cdot 1 \approx 3.645$
+
+El intervalo de confianza del 90% para la mejora promedio es aproximadamente $0.355$ a $3.645$ puntos.
+
+### Intervalo de Confianza del 99%
+
+Para un nivel de confianza del 99%, el valor crítico de Z es $Z_{0.005} = 2.576$ (usamos $0.005$ para el intervalo del $99\%$).
+
+El intervalo de confianza del 99% se calcula de manera similar:
+
+$$\text{Intervalo de Confianza} = 2 \pm 2.576 \big(\frac{10}{\sqrt{100}}\big)$$
+
+Calculamos el término dentro del paréntesis:
+
+$$\frac{10}{\sqrt{100}} = 1$$
+
+Ahora, calculamos el intervalo:
+
+$$\text{Intervalo de Confianza del 99}\% = 2 \pm 2.576 \cdot 1$$
+
+Límite inferior = $2 - 2.576 \cdot 1 \approx -0.152$ Límite superior = $2 + 2.576 \cdot 1 \approx 4.152$
+
+El intervalo de confianza del 99% para la mejora promedio es aproximadamente $-0.152$ a $4.152$ puntos.
+
+### Interpretación
+
+Basándonos en estos intervalos de confianza, podemos decir lo siguiente:
+
+-   Para el intervalo de confianza del 90%, con un nivel de confianza del 90%, podemos afirmar que la mejora promedio está en el rango de aproximadamente $0.355$ a $3.645$ puntos.
+
+-   Para el intervalo de confianza del 99%, con un nivel de confianza del 99%, podemos afirmar que la mejora promedio está en el rango de aproximadamente $-0.152$ a $4.152$ puntos.
+
+-   Aunque ambos intervalos sugieren una mejora promedio, el intervalo de confianza del 99% incluye el valor cero, lo que indica que no podemos descartar la posibilidad de que no haya mejora o incluso un ligero deterioro con un nivel de confianza del 99%.
+
+## Problema 3
+
+En esta pregunta usarás datos de una encuesta realizada por FLACSO/Chile en Abril y Mayo de 1988 sobre intención de voto en el plebiscito de 1989
+
+En particular, trabajarás con la variable `voto_no`, que mide si una persona pretende votar NO (`voto_no==1`) o SI (`voto_si==1`).
+
+1.  Calcula la proporción de individuos que pretenden votar NO en el plebiscito.
+
+2.  Calcula un intervalo al 96% de confianza para la proporción estimada en la pregunta anterior.
+
+3.  ¿Que conclusión sustantiva podemos sacar en vista de los resultados obtenidos?
+
+```{r, message=FALSE, warning=FALSE}
+library(carData)
+library(tidyverse)
+data(Chile)
+
+data_plebiscito89 <- Chile %>% mutate(voto_no = 
+  case_when(vote=="N" ~ 1, vote=="Y" ~ 0)) 
+
+head(data_plebiscito89)
+
+p_hat <- mean(data_plebiscito89$voto_no, na.rm=T)
+
+n  <- sum(!is.na(data_plebiscito89$voto_no))
+se <- sqrt(p_hat*(1-p_hat)/n) 
+
+ci <- p_hat + c(-1,1)*qnorm(.98)*se
+
+
+cat("Proporción muestral =", round(mean(p_hat),2));
+cat("IC al 96% =", round(ci,2))
+
+```
+
+Usando un método distinto (Boostrap) obtenemos las siguientes respuestas a las preguntas planteadas anteriormente.
+Puedes usar estos valores para chequear (aproximativamente) tus respuestas.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+bs_p <- NULL
+
+bs <- function() {
+  bs_sample <- sample_n(data_plebiscito89, nrow(data_plebiscito89), replace=T)
+  bs_p <- mean(bs_sample$voto_no, na.rm=T)
+}
+
+bs_sampdist <- replicate(n=1000,bs())
+
+cat("Proporción bootstrap =", round(mean(bs_sampdist),2));
+cat("Bootstrap IC al 96% =", round(quantile(bs_sampdist, p=c(0.02,0.98)),2))
+
+```
+
+### Interpretación
+
+El intervalo de confianza del 96% se extiende desde el 48% hasta el 53%, lo que incluye la posibilidad de que la proporción real de votos "SÍ" sea mayor que la de votos "NO".
+Por lo tanto, no podemos estar seguros de que el "NO" ganaría, ya que el intervalo de confianza incluye el umbral del 50% que se requiere para ganar el plebiscito.
+
+## Verdadero o Falso
+
+**1.** Si un intervalo de confianza del 95% para la media poblacional incluye el número 50, esto significa que hay una probabilidad del 95% de que la verdadera media poblacional sea 50.
+
+-   [ ] Verdadero
+-   [x] Falso
+
+Esta es una interpretación común pero incorrecta de los intervalos de confianza.
+
+Un intervalo de confianza del 95% para la media poblacional que incluye el número 50 no significa que haya una probabilidad del 95% de que la verdadera media poblacional sea 50.
+Lo que significa es que, si tomáramos muchas muestras y calculáramos un intervalo de confianza del 95% a partir de cada una de ellas, esperaríamos que aproximadamente el 95% de esos intervalos contengan la verdadera media poblacional.
+
+**2.** El error estándar de un estimador mide cuánto esperamos que nuestras estimaciones se desvíen del verdadero parámetro poblacional, incluso si el estimador está sesgado.
+
+-   [ ] Verdadero
+-   [x] Falso
+
+Si un estimador $\hat{\beta}$ es insegado entonces $E(\hat{\beta}) = \beta$.
+Dado que el error estándar es $SD(\hat{\beta}) = E[ (\hat{\beta} - E(\hat{\beta}))^2]$ entonces cuando un estimador es insesgado el error estándar mide cuánto se desvían las estimaciones individuales respecto de $E(\hat{\beta})$, que es igual a $\beta$.
+Sin embargo, si el estimador está sesgado, el error estándar no nos dirá nada sobre cuánto se desvían las estimaciones del verdadero valor poblacional $\beta$, sino $E(\hat{\beta}) \neq \beta$.
+
+**3.** Si tomaramos repetidamente 100,000 muestras generadas de la misma manera y calculáramos un intervalo de confianza al 90% para cada muestra, esperaríamos que alrededor de 90,000 de esos intervalos contengan el verdadero parámetro poblacional.
+
+-   [x] Verdadero
+-   [ ] Falso
+
+**4.** Un intervalo de confianza del 99% para una proporción poblacional siempre será más amplio que un intervalo de confianza del 95% para la misma proporción poblacional, suponiendo que se calculen a partir de la misma muestra.
+
+-   [x] Verdadero
+-   [ ] Falso
+
+**5.** Si el error estándar de una media muestral es cero, significa que todas las muestras tomadas de la población tendrán la misma media.
+
+-   [x] Verdadero
+-   [ ] Falso
