@@ -103,7 +103,7 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 | Tarea corta 2    | 16 agosto      | 23 agosto      | [`[Soluciones TC2]`](homework/tc_2_answers.pdf) [`[Soluciones TC2.qmd]`](homework/tc_2_answers.qmd)                  |
 | Tarea corta 3    | 4 septiembre   | 11 septiembre  | [`[Soluciones TC3]`](homework/tc_3_answers.pdf) [`[Soluciones TC3.qmd]`](homework/tc_3_answers.qmd)                  |
 | Prueba 1         | 11 octubre     |                | [`[Soluciones P1]`](homework/prueba_1.pdf) [`[Notas]`](https://mebucca.github.io/ad2-sol114/homework/notas_prueba1.html)                                                                                  |
-| Tarea corta 4    | 23 octubre   |  30 octubre              | [`[TC4]`](homework/tc_4.pdf) [`TC4.qmd]`](homework/tc_4.qmd)                                                                               |
+| Tarea corta 4    | 23 octubre   |  30 octubre              | [`[Soluciones TC4]`](homework/tc_4_answers.pdf) [`[Soluciones TC4.qmd]`](homework/tc_4_answers.qmd)                                                                                    |
 | Tarea corta 5    |               |      |                                                                                |
 | Prueba 2         | 8 noviembre    |                |                                                                                |
 | Tarea corta 6    | 20 noviembre   | 27 noviembre   |                                                                                |
