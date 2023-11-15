@@ -7,7 +7,9 @@ editor: visual
 
 ## Problema 1
 
-En elecciones locales recientes se tomó una muestra aleatoria de 1,000 votantes elegibles para determinar la participación electoral. De esta muestra, 560 individuos informaron que habían votado. La varianza poblacional conocida para la proporción de participación electoral es 0.04.
+En elecciones locales recientes se tomó una muestra aleatoria de 1,000 votantes elegibles para determinar la participación electoral.
+De esta muestra, 560 individuos informaron que habían votado.
+La varianza poblacional conocida para la proporción de participación electoral es 0.04.
 
 1.  Construye un intervalo de confianza al 95% para la proporción de votantes elegibles que votaron.
 
@@ -19,7 +21,8 @@ Dado que la varianza poblacional para la proporción de participación electoral
 
 ### 1. Intervalo de confianza al 95%
 
-Dado que se conoce la varianza poblacional, podemos calcular el error estándar de la proporción utilizando esta varianza directamente. La desviación estándar poblacional $\sigma$ es la raíz cuadrada de la varianza $\sigma^2$, así que:
+Dado que se conoce la varianza poblacional, podemos calcular el error estándar de la proporción utilizando esta varianza directamente.
+La desviación estándar poblacional $\sigma$ es la raíz cuadrada de la varianza $\sigma^2$, así que:
 
 $$\sigma = \sqrt{0.04} = 0.2$$
 
@@ -27,11 +30,16 @@ Ahora, el error estándar (SE) de la proporción se calcula como:
 
 $$SE = \frac{\sigma}{\sqrt{n}}$$ $$SE = \frac{0.2}{\sqrt{1000}}$$ $$SE = \frac{0.2}{31.6227766}$$ $$SE \approx 0.006324555$$
 
-El siguiente paso es encontrar el valor de z para el intervalo de confianza del 95%. El valor crítico z asociado con un intervalo de confianza del 95% es aproximadamente 1.96.
+El siguiente paso es encontrar el valor de z para el intervalo de confianza del 95%.
+El valor crítico z asociado con un intervalo de confianza del 95% es aproximadamente 1.96.
 
 El intervalo de confianza para la proporción se calcula como:
 
-$$p \pm z \times SE$$ $$0.56 \pm 1.96 \times 0.006324555$$ $$0.56 \pm 1.96 \times 0.006324555$$ $$0.56 \pm 0.0123962478$$
+$$p \pm z \times SE$$ 
+
+$$0.56 \pm 1.96 \times 0.006324555$$ 
+
+$$0.56 \pm 0.0123962478$$
 
 Entonces, el intervalo de confianza del 95% es:
 
@@ -53,7 +61,9 @@ Para el límite superior ($\mu + 0.01$): $$z_{superior} = \frac{0.01}{SE} = \fra
 
 Para el límite inferior ($\mu - 0.01$): $$z_{inferior} = \frac{-0.01}{SE} = \frac{-0.01}{0.00632} \approx -1.582278$$
 
-Para encontrar la probabilidad de que $\bar{x}$ esté dentro de este rango, necesitamos calcular la probabilidad de que una variable normal estándar esté entre estos dos valores z. Utilizamos una tabla de la distribución normal estándar o una calculadora de probabilidad para encontrar estas áreas. La probabilidad de que la proporción de la muestra esté dentro de más o menos 0.01 de la proporción poblacional es:
+Para encontrar la probabilidad de que $\bar{x}$ esté dentro de este rango, necesitamos calcular la probabilidad de que una variable normal estándar esté entre estos dos valores z.
+Utilizamos una tabla de la distribución normal estándar o una calculadora de probabilidad para encontrar estas áreas.
+La probabilidad de que la proporción de la muestra esté dentro de más o menos 0.01 de la proporción poblacional es:
 
 $$P(-1.582278 < Z < 1.582278) = P(Z < 1.582278) - P(Z < -1.582278)$$
 
@@ -65,13 +75,16 @@ Entonces, la probabilidad buscada es aproximadamente:
 
 $$P(-1.582278 < Z < 1.582278) \approx 0.943 - 0.057$$ $$P(-1.582278 < Z < 1.582278) \approx 0.886$$
 
-Esto significa que hay aproximadamente un 88.6% de probabilidad de que la proporción de la muestra esté dentro de un punto porcentual de la proporción poblacional, lo cual implica también que hay un (1 - 0.886) = 11.4% de probabilidad de que sobreestime o subestime por más de un punto porcentual. Por simetría, probabilidad de que la proporción de la muestra sobreestime la proporción poblacional por más de un punto porcentual es 11.4%/2 = 5.7%.
+Esto significa que hay aproximadamente un 88.6% de probabilidad de que la proporción de la muestra esté dentro de un punto porcentual de la proporción poblacional, lo cual implica también que hay un (1 - 0.886) = 11.4% de probabilidad de que sobreestime o subestime por más de un punto porcentual.
+Por simetría, probabilidad de que la proporción de la muestra sobreestime la proporción poblacional por más de un punto porcentual es 11.4%/2 = 5.7%.
 
 ## Problema 2
 
-Un distrito escolar introdujo una nueva metodología de enseñanza y quiere determinar si ésta ha tenido un efecto positivo en el rendimiento de los estudiantes. Para evaluar esto, compararon las puntuaciones en una prueba estandarizada antes y después del cambio, enfocándose en la mejora de las puntuaciones.
+Un distrito escolar introdujo una nueva metodología de enseñanza y quiere determinar si ésta ha tenido un efecto positivo en el rendimiento de los estudiantes.
+Para evaluar esto, compararon las puntuaciones en una prueba estandarizada antes y después del cambio, enfocándose en la mejora de las puntuaciones.
 
-Una muestra aleatoria de 100 estudiantes mostró una mejora promedio de 2 puntos después del cambio. La desviación estándard poblacional para esta medida de mejora es 10.
+Una muestra aleatoria de 100 estudiantes mostró una mejora promedio de 2 puntos después del cambio.
+La desviación estándard poblacional para esta medida de mejora es 10.
 
 1.  Construye un intervalo de confianza del 90% para la mejora promedio en las puntuaciones de todos los estudiantes del distrito.
 
@@ -184,7 +197,8 @@ cat("IC al 96% =", round(ci,2))
 
 ```
 
-Usando un método distinto (Boostrap) obtenemos las siguientes respuestas a las preguntas planteadas anteriormente. Puedes usar estos valores para chequear (aproximativamente) tus respuestas.
+Usando un método distinto (Boostrap) obtenemos las siguientes respuestas a las preguntas planteadas anteriormente.
+Puedes usar estos valores para chequear (aproximativamente) tus respuestas.
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 bs_p <- NULL
@@ -203,7 +217,8 @@ cat("Bootstrap IC al 96% =", round(quantile(bs_sampdist, p=c(0.02,0.98)),2))
 
 ### Interpretación
 
-El intervalo de confianza del 96% se extiende desde el 48% hasta el 53%, lo que incluye la posibilidad de que la proporción real de votos "SÍ" sea mayor que la de votos "NO". Por lo tanto, no podemos estar seguros de que el "NO" ganaría, ya que el intervalo de confianza incluye el umbral del 50% que se requiere para ganar el plebiscito.
+El intervalo de confianza del 96% se extiende desde el 48% hasta el 53%, lo que incluye la posibilidad de que la proporción real de votos "SÍ" sea mayor que la de votos "NO".
+Por lo tanto, no podemos estar seguros de que el "NO" ganaría, ya que el intervalo de confianza incluye el umbral del 50% que se requiere para ganar el plebiscito.
 
 ## Verdadero o Falso
 
@@ -214,14 +229,17 @@ El intervalo de confianza del 96% se extiende desde el 48% hasta el 53%, lo que 
 
 Esta es una interpretación común pero incorrecta de los intervalos de confianza.
 
-Un intervalo de confianza del 95% para la media poblacional que incluye el número 50 no significa que haya una probabilidad del 95% de que la verdadera media poblacional sea 50. Lo que significa es que, si tomáramos muchas muestras y calculáramos un intervalo de confianza del 95% a partir de cada una de ellas, esperaríamos que aproximadamente el 95% de esos intervalos contengan la verdadera media poblacional.
+Un intervalo de confianza del 95% para la media poblacional que incluye el número 50 no significa que haya una probabilidad del 95% de que la verdadera media poblacional sea 50.
+Lo que significa es que, si tomáramos muchas muestras y calculáramos un intervalo de confianza del 95% a partir de cada una de ellas, esperaríamos que aproximadamente el 95% de esos intervalos contengan la verdadera media poblacional.
 
 **2.** El error estándar de un estimador mide cuánto esperamos que nuestras estimaciones se desvíen del verdadero parámetro poblacional, incluso si el estimador está sesgado.
 
 -   [ ] Verdadero
 -   [x] Falso
 
-Si un estimador $\hat{\beta}$ es insegado entonces $E(\hat{\beta}) = \beta$. Dado que el error estándar es $SD(\hat{\beta}) = \sqrt{E[ (\hat{\beta} - E(\hat{\beta}))^2}$ entonces cuando un estimador es insesgado el error estándar mide cuánto se desvían las estimaciones individuales respecto de $E(\hat{\beta})$, que es igual a $\beta$. Sin embargo, si el estimador está sesgado, el error estándar no nos dirá nada sobre cuánto se desvían las estimaciones respecto del verdadero valor poblacional $\beta$, sino que respecto de $E(\hat{\beta}) \neq \beta$.
+Si un estimador $\hat{\beta}$ es insegado entonces $E(\hat{\beta}) = \beta$.
+Dado que el error estándar es $SD(\hat{\beta}) = \sqrt{E[ (\hat{\beta} - E(\hat{\beta}))^2}$ entonces cuando un estimador es insesgado el error estándar mide cuánto se desvían las estimaciones individuales respecto de $E(\hat{\beta})$, que es igual a $\beta$.
+Sin embargo, si el estimador está sesgado, el error estándar no nos dirá nada sobre cuánto se desvían las estimaciones respecto del verdadero valor poblacional $\beta$, sino que respecto de $E(\hat{\beta}) \neq \beta$.
 
 **3.** Si tomaramos repetidamente 100,000 muestras generadas de la misma manera y calculáramos un intervalo de confianza al 90% para cada muestra, esperaríamos que alrededor de 90,000 de esos intervalos contengan el verdadero parámetro poblacional.
 

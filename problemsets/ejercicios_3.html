@@ -659,37 +659,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li><p>Sabiendo que en las elecciones de 2021 Boric obtuvo un 55,87% de los votos validamente emitidos y Kast un 44,13%, usa esta información para construir un intervalo de confianza al 95% para las estimaciones realizadas. Compara el resultados con el resultado obtenido previamente.</p></li>
 </ul>
 <p>Para abordar las preguntas planteadas, seguiremos los siguientes pasos:</p>
-<p><strong>Proporción de votos por Boric y por Kast:</strong></p>
-<p>Contamos los votos para cada candidato y calculamos la proporción respectiva.</p>
+<p><strong>Proporción de votos por Boric y por Kast, respectivamente:</strong></p>
+<p>Contando los votos para cada candidato, obtenemos:</p>
 <ul>
-<li><strong>Votos por Boric</strong>: Según la tabla, 13 personas votaron por Boric.</li>
-<li><strong>Votos por Kast</strong>: 7 personas votaron por Kast.</li>
+<li>Votos por Boric: 12 personas</li>
+<li>Votos por Kast: 8 personas</li>
 </ul>
-<p>Entonces, las proporciones son:</p>
+<p>Las proporciones son las siguientes:</p>
 <ul>
-<li>Proporción de votos por Boric: <span class="math inline">\(p_{Boric} = \frac{13}{20} = 0.65\)</span></li>
-<li>Proporción de votos por Kast: <span class="math inline">\(p_{Kast} = \frac{7}{20} = 0.35\)</span></li>
+<li>Proporción de votos por Boric: <span class="math inline">\(p_{Boric} = \frac{12}{20} = 0.6\)</span></li>
+<li>Proporción de votos por Kast: <span class="math inline">\(p_{Kast} = \frac{8}{20} = 0.4\)</span></li>
 </ul>
 <p><strong>Intervalo de confianza del 95% para la proporción de votos de Boric:</strong></p>
-<p>Para calcular el intervalo de confianza al 95% para la proporción de votos de Boric, usaremos la fórmula para el intervalo de confianza de una proporción:</p>
+<p>Utilizamos la fórmula del intervalo de confianza de una proporción:</p>
 <p><span class="math display">\[\hat{p} \pm z_{\alpha/2} \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}\]</span></p>
-<p>Donde <span class="math inline">\(\hat{p}\)</span> es la proporción muestral, <span class="math inline">\(n\)</span> es el tamaño de la muestra y <span class="math inline">\(z_{\alpha/2}\)</span> es el valor crítico de z para un 95% de nivel de confianza, que es aproximadamente 1.96.</p>
-<p><span class="math display">\[SE = \sqrt{\frac{0.65(1 - 0.65)}{20}} = \sqrt{\frac{0.65 \cdot 0.35}{20}} = \sqrt{\frac{0.2275}{20}} \approx 0.1066\]</span></p>
-<p>El margen de error (ME) es:</p>
-<p><span class="math display">\[ME = 1.96 \cdot SE \approx 1.96 \cdot 0.1066 \approx 0.209\]</span></p>
+<p>Donde <span class="math inline">\(\hat{p}\)</span> es la proporción muestral, <span class="math inline">\(n\)</span> es el tamaño de la muestra, y <span class="math inline">\(z_{\alpha/2}\)</span> es el valor crítico de z para un nivel de confianza del 95%, que es aproximadamente 1.96.</p>
+<p>Calculamos el margen de error (ME):</p>
+<p><span class="math display">\[ME = 1.96 \cdot \sqrt{\frac{0.6(1 - 0.6)}{20}} \approx 0.209\]</span></p>
 <p>El intervalo de confianza es:</p>
-<p><span class="math display">\[0.65 \pm 0.209\]</span> <span class="math display">\[Límite inferior: 0.65 - 0.209 = 0.441\]</span> <span class="math display">\[Límite superior: 0.65 + 0.209 = 0.859\]</span></p>
+<p><span class="math display">\[0.6 \pm 0.209\]</span></p>
+<p>Límite inferior: <span class="math inline">\(0.6 - 0.209 = 0.391\)</span> Límite superior: <span class="math inline">\(0.6 + 0.209 = 0.809\)</span></p>
 <p><strong>Conclusiones sobre las preferencias de voto de la población:</strong></p>
-<p>Suponiendo que la muestra es representativa, parece que una mayor proporción de la población preferiría a Boric sobre Kast, ya que el intervalo de confianza para la proporción de votos por Boric no incluye el 0.5 (que representaría una preferencia igualitaria entre los candidatos).</p>
+<p>Asumiendo que la muestra es representativa, el estimador puntual indica que una proporción mayor de la población preferiría a Boric por sobre Kast, pero dado que el intervalo de confianza incluye el valor 0.5 (que representaría una preferencia equitativa entre los candidatos), no podemos afirmar que la ventaja de Boric sea estadísticamente significativa.</p>
 <p><strong>Intervalo de confianza al 95% con datos de las elecciones reales:</strong></p>
-<p>Para los votos reales, dado que la población es grande, podemos asumir que la varianza de la proporción es la varianza poblacional y utilizarla para calcular el intervalo de confianza de nuestra muestra.</p>
-<p>Para Boric, con <span class="math inline">\(p_{Boric} = 0.5587\)</span>, el SE es:</p>
-<p><span class="math display">\[SE = \sqrt{\frac{0.5587(1 - 0.5587)}{20}} \approx \sqrt{\frac{0.5587 \cdot 0.4413}{20}} \approx 0.1131\]</span></p>
-<p>El margen de error (ME) para los votos reales es:</p>
-<p><span class="math display">\[ME = 1.96 \cdot SE \approx 1.96 \cdot 0.1131 \approx 0.222\]</span></p>
-<p>El intervalo de confianza para la proporción basada en los resultados de las elecciones es:</p>
-<p><span class="math display">\[0.5587 \pm 0.222\]</span> <span class="math display">\[Límite inferior: 0.5587 - 0.222 = 0.3367\]</span> <span class="math display">\[Límite superior: 0.5587 + 0.222 = 0.7807\]</span></p>
-<p>Comparando este intervalo con el obtenido a partir de la muestra de la encuesta, observamos que hay una superposición, lo que sugiere que los resultados de la encuesta podrían ser consistentes con los resultados reales de las elecciones. Sin embargo, debemos ser cautelosos al interpretar estos resultados debido al tamaño muy pequeño de la muestra.</p>
+<p>Dado que en las elecciones de 2021, Boric obtuvo un 55.87% de los votos válidos y Kast un 44.13%, podemos utilizar esta información para calcular un intervalo de confianza al 95% para nuestras estimaciones previas.</p>
+<ul>
+<li>Para Boric: El margen de error (ME) se calcula como <span class="math inline">\(1.96 \cdot \sqrt{\frac{0.5587 \cdot (1 - 0.5587)}{20}} \approx 0.222\)</span>.</li>
+</ul>
+<p>El intervalo de confianza para Boric es:</p>
+<p><span class="math display">\[0.5587 \pm 0.222\]</span></p>
+<p>Límite inferior: <span class="math inline">\(0.5587 - 0.222 = 0.3367\)</span> Límite superior: <span class="math inline">\(0.5587 + 0.222 = 0.7807\)</span></p>
+<p>Comparando este intervalo con el obtenido previamente a partir de la muestra de la encuesta, observamos cierta superposición, lo que sugiere que los resultados de la encuesta podrían ser consistentes con los resultados reales de las elecciones. No obstante, debemos ser cautelosos en la interpretación de estos resultados debido al tamaño muy reducido de la muestra.</p>
 <ol start="13" type="1">
 <li>Trabaja con los datos “Intenciones de Voto en el Plebiscito Chileno de 1988”</li>
 </ol>
@@ -792,10 +792,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p><strong>Implicancias sustantivas de los resultados:</strong></p>
 <p>El análisis de los datos de la encuesta muestra que, entre los encuestados decididos, existe una ligera mayoría que indica la intención de votar por el NO (en contra de Pinochet), con una proporción estimada del 50.6%. El intervalo de confianza al 95% para esta proporción es de aproximadamente 48.27% a 52.93%. Aunque la proporción puntual está ligeramente por encima del 50%, el intervalo de confianza incluye proporciones por debajo del 50%. Esto significa que estadísticamente, con un 95% de confianza, no podemos afirmar que el NO ganaría el plebiscito. El límite inferior del intervalo cae por debajo del punto de equilibrio del 50%, indicando que existe la posibilidad, dentro de la incertidumbre estimada, de que la votación no sea suficiente para asegurar la victoria del NO.</p>
 <ol start="14" type="1">
-<<<<<<< HEAD
-<li><p>Dada esta encuesta preliminar sobre intenciones de voto, se desea planificar una nueva encuesta con un margen de error más reducido. Estima el tamaño de muestra necesario para una proporción considerando un margen de error de 0.01 con un 95% de confianza. Haz explícitos los supuestos de tu cálculo y justifícalos.</p></li>
-<li><p>Un grupo de estudiantes participó en una competencia de habilidades culinarias. La competencia se compone de tres pruebas: elaboración de entradas, plato principal y postres. El puntaje final de cada estudiante se determina tomando el promedio simple de los puntajes obtenidos en las tres pruebas. Cada pregunta controla distintas habilidades y por tanto sus puntajes son independientes entre si.</p></li>
-=======
 <li>Dada esta encuesta preliminar sobre intenciones de voto, se desea planificar una nueva encuesta con un margen de error más reducido. Estima el tamaño de muestra necesario para una proporción considerando un margen de error de 0.01 con un 95% de confianza. Haz explícitos los supuestos de tu cálculo y justifícalos.</li>
 </ol>
 <p>Para calcular el tamaño de la muestra necesario para estimar una proporción con un margen de error específico y un nivel de confianza dado, podemos usar la fórmula para el tamaño de la muestra en una proporción:</p>
@@ -808,15 +804,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Por lo tanto, necesitaríamos una muestra de aproximadamente 9604 encuestados para estimar la proporción con un margen de error de 0.01 con un 95% de confianza.</p>
 <ol start="15" type="1">
 <li>Un grupo de estudiantes participó en una competencia de habilidades culinarias. La competencia se compone de tres pruebas: elaboración de entradas, plato principal y postres. El puntaje final de cada estudiante se determina tomando el promedio simple de los puntajes obtenidos en las tres pruebas. Cada pregunta controla aspectos distintas habilidades y por tanto sus puntajes son independientes entre si. A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 estudiantes para cada prueba:</li>
->>>>>>> master
 </ol>
-<p>A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 estudiantes para cada prueba:</p>
 <table class="table">
 <colgroup>
-<col style="width: 62%">
-<col style="width: 10%">
-<col style="width: 17%">
-<col style="width: 9%">
+<col style="width: 42%">
+<col style="width: 19%">
+<col style="width: 19%">
+<col style="width: 19%">
 </colgroup>
 <thead>
 <tr class="header">

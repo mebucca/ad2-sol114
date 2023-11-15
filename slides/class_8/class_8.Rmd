@@ -858,7 +858,8 @@ grid.arrange(plot_n2, plot_n5, plot_n10, ncol = 3)
 .bold[Teorema del Límite Central (parte 1)]: Si $\bar{X} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)$, entonces
 
 .content-box-primary[
-$$\color{white}{ \frac{\sqrt{n} \big(\bar{X} - \mu\big)}{\sigma}}  \sim \text{Normal}(0,1)$$
+$$\color{white}{ \frac{\sqrt{n}(\bar{X} - \mu)}{\sigma}  \sim
+ \text{Normal}(0, 1)}$$
 ]
 
 --

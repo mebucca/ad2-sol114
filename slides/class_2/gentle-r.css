@@ -49,7 +49,6 @@ strong {
   /*color: #ff3e41; */
   font-weight: 400;
 }
-
 .hlb {
   /* color: #d16666;
   color: #ff3e41; */
@@ -62,7 +61,6 @@ strong {
   height: 92%;
   float: left;
 }
-
 .right-plot {
   width: 60%;
   float: right;
@@ -109,15 +107,6 @@ strong {
   left: 65%;
   position: absolute;
 }
-
-.img-right{
-  height: 300px;
-  width: 300px;
-  top: 34%;
-  left: 65%;
-  position: absolute;
-}
-
 
 .img-right img {
   width: 100%;
