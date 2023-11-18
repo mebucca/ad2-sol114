@@ -51,20 +51,17 @@ geometry:
 
 5.  Imagina una nueva población de encuestados con opiniones la Política C No conocemos la distribución de los puntajes de opinión, pero tenemos una muestra de 150 encuestados que evaluaron esta política.
 
-Por supuesto, aquí tienes una tabla con las fórmulas y los resultados en formato Markdown utilizando LaTeX para las fórmulas.
-Los números son inventados y plausibles:
-
 | Descripción                      | Fórmula                              | Resultado |
-|---------------------|-----------------------------|---------------------|
+|---------------------------|------------------------------|----------------|
 | Suma de los puntajes             | $$\sum_{i=1}^{n} x_i$$               | 11250     |
 | Suma de desviaciones al cuadrado | $$\sum_{i=1}^{n} (x_i - \bar{x})^2$$ | 3750      |
 
-```         
+         
 i.  **(12%)** ¿Cuál es el estimador utilizado para estimar el puntaje total promedio, y cómo se calcula?
     Define la distribución muestral para este estimador.
 
 ii. **(15%)** Utilizando el Teorema del Límite Central y asumiendo que la varianza del puntaje total es desconocida, ¿cómo se determina a partir de qué puntaje total el promedio muestral estaría en el 5% más alto de todas las estimaciones posibles del promedio, utilizando la función de densidad de probabilidad del estimador del promedio muestral?
-```
+
 
 Preguntas conceptuales:
 
