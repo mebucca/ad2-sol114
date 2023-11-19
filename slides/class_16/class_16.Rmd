@@ -1,12 +1,12 @@
 ---
-title: "Análisis de Datos Categóricos (SOC3070)"
-subtitle: "Clase #16"
-author: "<br> Mauricio Bucca<br> Profesor Asistente, Sociología UC"
-date: "[github.com/mebucca](https://github.com/mebucca)"
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#14: Test de Hipótesis"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
-    css: ["default","default-fonts","gentle-r.css"]
+    css: ["gentle-r.css","xaringan-themer.css"]
     df_print: default
     nature:
       ratio: 16:9
@@ -15,740 +15,328 @@ output:
       countIncrementalSlides: true
       slideNumberFormat: "%current%"
 editor_options: 
-  chunk_output_type: console
----
+  chunz_output_type: console
+---  
 class: inverse, center, middle
-# Análisis de datos categóricos 
-## visión panorámica 
 
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(xaringanthemer)
+style_duo_accent(primary_color = "#008C45", secondary_color = "#3949AB",
+                 background_color = "#f8f7f3", 
+                 header_font_google = google_font("Archivo"),
+                 text_font_google   = google_font("Inconsolata"), 
+                 link_color= "#FFD100"
 
----
-## Tipos de datos categóricos
-
-Distintas miradas a los datos de infidelidad:
-
-.center[
-```{r,  include=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
-library("tidyverse")
-library("Ecdat")
-library("viridis")
-library("modelr")
-library("MASS")
-library("cowplot")
-library("margins")
-library("sjPlot")
-library("sjmisc")
-library("sjlabelled")
-library("nnet")
-library("lmtest")
-
-theme_set(theme_cowplot())
-
-
-data(Fair)
-affairsdata <- Fair %>% as_tibble()
-
-# create a binary variable indicating whether persons has ever had an affair
-affairsdata <- affairsdata %>% 
-  mutate(affairs_order = case_when(nbaffairs == 0 ~ "fiel",
-                             nbaffairs > 0  & nbaffairs <=3 ~ "ocasional",
-                             nbaffairs >= 7  ~ "compulsivo"))  %>%
-  mutate(affairs_count = nbaffairs) %>%
-  mutate(affairs_binary = case_when(nbaffairs > 0 ~ 1,
-                             nbaffairs == 0 ~ 0)
 )
-
-affairsdata$affairs_order <- ordered(affairsdata$affairs_order, c("fiel","ocasional","compulsivo"))
 ```
 
-```{r, echo=F,  include=TRUE, warning=FALSE, message=FALSE, fig.width=13, fig.height=7}
-pcount <- affairsdata %>% ggplot(aes(x=affairs_count, fill="")) + geom_bar() +
-  scale_color_viridis_d() +  scale_fill_viridis_d() +
-  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
-  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
-  legend.text = element_text(size = 18), legend.position="none") + 
-  labs(x="Número de affairs (recuento)")
-
-porder <- affairsdata %>% ggplot(aes(x=affairs_order, fill="")) + geom_bar() +
-  scale_color_viridis_d() +  scale_fill_viridis_d() +
-  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
-  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
-  legend.text = element_text(size = 18), legend.position="none") + 
-  labs(x="Categoría de affairs (ordenado)")
-
-pbinary <- affairsdata %>% ggplot(aes(x=factor(affairs_binary), fill="")) + geom_bar() +
-  scale_color_viridis_d() +  scale_fill_viridis_d() +
-  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
-  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
-  legend.text = element_text(size = 18), legend.position="none") + 
-  labs(x="Indicador de affairs (binario)")
-
-cowplot::plot_grid(
-  pbinary, porder, pcount,
-  labels = c("A","B","C"), ncol = 2
-)
-
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = T, echo = T)
 ```
+
+# Test de Hipótesis
+
+
+
+---
+## ¿Puede un pulpo predecir los resultados del futbol?
+
+
+.center[![paul](paul.png)]
+
+
+---
+## ¿Puede un pulpo predecir los resultados del futbol?
+
+| Torneo                  | Partido                 | Predicción | Resultado |
+|-------------------------|-------------------------|------------|---------------------|
+| Euro 2008               | Alemania vs Polonia     | Alemania   | Correcto            |
+| Euro 2008               | Alemania vs Croacia     | Alemania   | Incorrecto          |
+| Euro 2008               | Alemania vs Austria     | Alemania   | Correcto            |
+| Euro 2008               | Alemania vs Portugal    | Alemania   | Correcto            |
+| Euro 2008               | Alemania vs Turquía     | Alemania   | Correcto            |
+| Euro 2008               | Alemania vs España      | Alemania   | Incorrecto          |
+| Mundial 2010            | Alemania vs Australia   | Alemania   | Correcto            |
+| Mundial 2010            | Alemania vs Serbia      | Serbia     | Correcto            |
+| Mundial 2010            | Ghana vs Alemania       | Alemania   | Correcto            |
+| Mundial 2010            | Alemania vs Inglaterra  | Alemania   | Correcto            |
+| Mundial 2010            | Argentina vs Alemania   | Alemania   | Correcto            |
+| Mundial 2010            | Alemania vs España      | España     | Correcto            |
+| Mundial 2010            | Uruguay vs Alemania     | Alemania   | Correcto            |
+| Mundial 2010            | Países Bajos vs España  | España     | Correcto            |
+
+
+---
+## ¿Puede un pulpo predecir los resultados del futbol?
+
+¿Paul tiene habilidades especiales o tuvo suerte?
+
+--
+
+Esta es una pregunta empírica y la podemos testear.
+
+--
+
+.pull-left[
+![](https://static.onecms.io/wp-content/uploads/sites/21/2010/10/pulpo_paul_071410_300.jpg)
 ]
 
----
-class: inverse, center, middle
+<br>
 
-## Datos dicotómicos
-### Linear Probability Model y Regresión Logística
-
----
-## Linear Probability Model
-
-```{r}
-lpm_1 <- lm(affairs_binary ~ ym,  data=affairsdata)
-lpm_2 <- lm(affairs_binary ~ ym + rate,  data=affairsdata)
-```
+.bold[Paso #1: Expresar pregunta en términos de Hipótesis Nula e Hipótesis Alternativa]
 
 <br>
 --
-.pull-left[
-```{r, echo=F}
-tab_model(lpm_1,lpm_2, p.style = "stars",   show.ci = FALSE,show.p = FALSE)
-```
-]
+
+.bold[Hipótesis Nula]: "Paul no tiene ningún talento especial, sus predicciones son como tirar una moneda al aire".
+
+- $H_0: \mathbb{P}(\text{Acierto}) = \mathbb{P}(\text{Fallo}) = 0.5$
+
+<br>
+--
+
+.bold[Hipótesis Alternativa]: "Paul tiene un talento, acierta más de lo que falla", o quizás 
+"Paul es un mal adivino, falla más de lo que acierta".
+
+- $H_a: \mathbb{P}(\text{Acierto}) \neq \mathbb{P}(\text{Fallo})$
+
+---
+## ¿Puede un pulpo predecir los resultados del futbol?
 
 --
 
-.pull-right[
-- En un modelo lineal estándar al agregar una variable:
+.bold[Paso #2: Elegir y calcular un estadístico] 
 
- - cambio en coeficientes reflejan correlación entre predictores (ej. "confounding")
+<br>
+--
+
+- Los datos nos muestran que Paul acertó en 12 de 14 partidos.
+
+--
+
+- Estadístico relevante: proporción de aciertos, $\hat{p}$.
+
+<br>
+
+$$\text{Proporción de Aciertos}: \hat{p} = \frac{12}{14} = 0.857$$
+
+---
+## ¿Puede un pulpo predecir los resultados del futbol?
+
+.bold[Paso #3: Determinar la Distribución Nula]
+
+--
+
+- Es decir, la distribución muestral de nuestro estadístico bajo el supuesto de que la $H_0$ es verdadera -- Paul no tiene habilidad especial y por tanto $\mathbb{P}(\text{Acierto}) = \mathbb{P}(\text{Fallo}) = 0.5$.
+
+--
+
+  - Por el TLC sabemos que:  $\hat{p} \sim \text{Normal}\bigg(p, \frac{\sqrt{p(1-p)} }{\sqrt{n}}\bigg)$
  
- - reducción de varianza residual
- 
-]
-
----
-## Regresión Logística
-
-```{r}
-logistic_1 <- glm(affairs_binary ~ ym,  family="binomial", data=affairsdata)
-logistic_2 <- glm(affairs_binary ~ ym + rate, family="binomial",  data=affairsdata)
-```
-
-
-<br>
---
-.pull-left[
-```{r, echo=F}
-tab_model(logistic_1,logistic_2, p.style = "stars", 
-          show.ci = FALSE, show.p = FALSE, transform = NULL)
-```
-]
-
 --
 
-.pull-right[
-
-En un modelo de regresión logística .bold[NO ES POSIBLE] sacar conclusiones sustantivas de cambios en coeficientes en modelos anidados!
- 
-]
+  - Por tanto,  $\hat{p} \mid H_{0} \sim \text{Normal}\bigg(0.5, \frac{\sqrt{0.5(1-0.5)} }{\sqrt{n}}\bigg)$
 
 <br>
 --
 
-¿Por que?
+- Estandarizando podemos  derivar un .bold[test-z]:
+
+  - Si $Z_{\hat{p}} = \frac{\hat{p} - p}{\frac{\sqrt{p(1-p)} }{\sqrt{n}}}$ entonces: $Z_{\hat{p}} \mid H_0   \sim \text{Normal}\big(0, 1\big)$
+
+--
+
+  - Nuestro estadístico $\hat{p}$ se transforma el .bold[test-z], el valor estandarizado de del estadístico bajo $H_0$:
+
+$$\hat{z} = \frac{\hat{p} - p}{\frac{\sqrt{p(1-p)} }{\sqrt{n}}} = \frac{0.857 - 0.5}{\frac{\sqrt{0.5(1-0.5)} }{\sqrt{14}}} = 2.6726$$
 
 ---
-## Regresión Logística: varianza no identificables
+## ¿Puede un pulpo predecir los resultados del futbol?
 
-Recordar formulación de regresión logística en términos de variable latente, donde la variable dependiente $y$  es una .bold[manifestación dicotómica] de una .bold[variable latente] (inobservada) continua, $y^{*}$.
 
-.pull-left[
-\begin{align}
-y_{i} = \begin{cases}
-1 \quad \text{si} \quad y^{*}_{i} > 0 \\
-0 \quad \text{si} \quad y^{*}_{i} < 0
-\end{cases}
-\end{align}
-]
+.bold[Paso #4: Elegir un nivel de significación] $\alpha$ 
 
-.pull-right[
-$y^{*}_{i} = \beta_{0} + \beta_{1}x_{1i} + \dots + \beta_{k}x_{ki} + \epsilon_{i}$
-]
+<br>
 
-- donde $e_{i}$ sigue una distribución logística.
+Selecciona un .bold[nivel de significación] $\alpha$, tal que consideraremos como "demasiado alto"/"demasiado bajo" aquellos valores que corresponden al $\alpha$% de valores más extremos en la distribución nula.
 
+
+<br>
+
+$$\alpha = \mathbb{P}(\text{Rechazar } H_{0} \mid H_{0} \text{ es verdadera})$$
+
+<br>
 --
 
-- En este modelo no es posible estimar los coeficientes y la varianza conjuntamente. Es necesario fijar uno para estima el otro. 
 
---
+- Mientras menor es $\alpha$ más dificl es rechazar la hipótesis nula.
 
-- Para estimar los coeficientes del modelo es necesario fijar el valor de la varianza.
 
---
-
--  Usualmente: $\epsilon_{i} \sim \text{logistic}(\mu=0,\sigma=\pi/\sqrt{3})$
+- Dado que no confiamos en pulpos adivinos, vamos trabajar a un nivel alto de significación, $\alpha=0.01$.
 
 
 ---
-## Regresión Logística: efectos no comparables entre modelos anidados
+## ¿Puede un pulpo predecir los resultados del futbol?
 
-En consequencia ....
 
-<br>
+.bold[Paso #5: Calcular el valor-p] 
+
+Si la hipótesis nula fuera verdadera, ¿es nuestro estadístico un valor esperable o un valor extremo?
+
 --
 
-
-|                     |   Varianza variable dependiente   |             Varianza residual             |
-|---------------------|:---------------------------------:|:-----------------------------------------:|
-| Regresión lineal    |     $\sigma^{2}_{y}$ es observado     | $\sigma^{2}_{\epsilon}$ dependende del modelo |
-| Regresión logística |  $\sigma^{2}_{y*}$ depende del modelo |        $\sigma^{2}_{\epsilon}$ es fijo        |
-
-
-<br>
---
-
-.bold[Efecto de agregar un predictor adicional:]
-
-|                     |   Varianza variable dependiente   |             Varianza residual             |
-|---------------------|:---------------------------------:|:-----------------------------------------:|
-| Regresión lineal    |     $\sigma^{2}_{y}$ no cambia    | $\sigma^{2}_{\epsilon}$ disminuye |
-| Regresión logística |  $\sigma^{2}_{y*}$ aumenta |        $\sigma^{2}_{\epsilon}$ no cambia        |
-
-
-<br>
---
-
-Esencialmente, $y^{*}$ es .bold[re-escalado], y por tanto también los coeficientes son re-escalados.
-
-
----
-## Regresión Logística: efectos no comparables entre modelos anidados
-
+En nuestro caso estamos testeando
 
 .pull-left[
-```{r, echo=F}
-tab_model(logistic_1,logistic_2, p.style = "stars", 
-          show.ci = FALSE, show.p = FALSE, transform = NULL)
+
+$\text{valor-p} = \mathbb{P}( \bar{X} > |\hat{p}| \mid H_{0} \text{ es verdadera})$
+
+equivalentemente:
+
+$\text{valor-p} = \mathbb{P}( Z > \frac{\hat{\mu} - \mu}{\sigma/\sqrt{n}})$
+
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+
+n <- 14
+p_hat <- 12/14
+
+z_hat <- (p_hat - 0.5)/(sqrt(0.5*0.5) /sqrt(n))
+
+pvalue =  2*(1 - pnorm(z_hat))
+
+cat("z_hat=",round(z_hat,2), " valor-p=", pvalue, sep="")
 ```
 ]
+
 
 .pull-right[
-En un modelo de regresión logística cambios en los coeficientes al agregar una variable pueden deberse a:
+```{r, echo=FALSE, fig.height=4.5, fig.width=5,  message=FALSE, warning=FALSE}
 
- - correlación entre predictores (ej. "confounding")
- 
- - re-escalamiento de la variable dependiente
- 
- - .bold[ambos!]
- 
-]
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
 
-<br>
---
+primary_color <- "#008C45"
+secondary_color <- "#3949AB"
+link_color <- "#FFD100"
 
-- Este problema es usualmente desconocido o ignorado. 
+# Set the mean and standard deviation
+mu <- 0
+sigma <- 1
 
---
+# Significance level (α)
+alpha <- 0.01
 
-- Cientos de artículos científicos extren interpretaciones erróneas de cambio en coeficientes a través de modelos.
+# Create the normal distribution data
+x_values <- seq(-4, 4, by = 0.1)
+y_values <- dnorm(x_values, mean = mu, sd = sigma)
+normal_data <- data.frame(x = x_values, y = y_values)
 
---
+# Calculate the cutoff points for the tails
+cutoff_left <- qnorm(alpha / 2, mean = mu, sd = sigma)
+cutoff_right <- qnorm(1 - alpha / 2, mean = mu, sd = sigma)
 
-- Seriedad del problema varía caso a caso
+# Calculate the p-value corresponding to z-hat
+pvalue <- 2 * (1 - pnorm(abs(z_hat), mean = mu, sd = sigma))
 
----
-## Regresión Logística: efectos no comparables entre modelos anidados
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_line(size = 1) +
 
---
-
-Una posible solución: .bold[KHB method]
-
---
-
-.pull-left[
-![kristan](kristian.png)
-- Paquete disponible en `Stata` y `R`
-
-
-]
-.pull-right[
-![khb](khb.png)
-
-]
-
-
----
-class: inverse, center, middle
-
-## Datos politómicos
-###  Regresión Logística Multinomial y Ordenada
-
-
----
-## Regresión Logística Multinomial
-
-```{r}
-mlogistic_1 <- multinom(affairs_order ~ ym,  trace=F, data=affairsdata)
-mlogistic_2 <- multinom(affairs_order ~ ym + rate, trace=F,  data=affairsdata)
-```
-
-.pull-left[
-```{r, echo=F}
-sjPlot::tab_model(mlogistic_1, p.style = "stars",   show.ci = FALSE, show.p = FALSE, transform = NULL)
-```
-]
-
-.pull-right[
-```{r, echo=F}
-sjPlot::tab_model(mlogistic_2, p.style = "stars",   show.ci = FALSE, show.p = FALSE, transform = NULL)
-```
-]
-
----
-## Regresión Logística Ordenada
-
-```{r, warning=F, message=F}
-ologistic_1 <- polr(affairs_order ~ ym, data=affairsdata)
-ologistic_2 <- polr(affairs_order ~ ym + rate, data=affairsdata)
-```
-
-<br>
-
-.pull-left[
-```{r, echo=F, warning=F, message=F}
-tab_model(ologistic_1, ologistic_2, p.style = "stars",   show.ci = FALSE, show.p = FALSE, transform = NULL)
-```
-]
-
---
-
-.pull-right[
-
-- Menos parámetros pero más supuestos.
-
-- "Parallel regression assumption" (o proportional odds): predictores tienen los mismos efectos para cualquier "transición" entre una categoría y otra. 
-
-
-]
-
----
-## Regresión Logística Ordenada
-
-Podemos testear este supuesto usando el "Brant test". 
-
-```{r, warning=F, message=F}
-library("brant")
-```
-
-.pull-left[
-```{r}
-brant(ologistic_1)
-```
-]
-
-.pull-right[
-```{r}
-brant(ologistic_2)
-```
-]
-
---
-
-- Evalua si los coeficientes son iguales al estimarlos en regresiones separadas.
-
-- p-values grandes indican que la "parallel regression assumption" se cumple.
-
-
----
-class: inverse, center, middle
-
-## Datos de recuento
-###  Regresión Poisson y Quasi-Poisson
-
----
-## Regresión Poisson
-
-```{r, warning=F, message=F}
-poisson_1 <- glm(affairs_count ~ ym, family=poisson(link="log"), data=affairsdata)
-poisson_2 <- glm(affairs_count ~ ym + rate, family=poisson(link="log"), data=affairsdata)
-```
-
-<br>
-
-```{r, echo=F, warning=F, message=F}
-tab_model(poisson_1,poisson_2, p.style = "stars",   show.ci = FALSE, show.p = FALSE, transform = NULL)
-```
-
----
-## Over-dispersion en regresión Poisson
-
-<br>
---
-
-
-- En un modelo de regresión Poisson cada $i$ sigue una distribución $y_{i} \sim \text{Poisson}(\mu_{i} = e^{X_{i}\beta})$
-
-
---
-
-- No hay un parámetro adicional para la varianza. Por definición: $\mathbb{Var}(y_{i})=\mathbb{E}(y_{i})=\mu_{i}=e^{X_{i}\beta}$
-
-<br>
---
-
-- Esto puede resultar en una sub-estimación o sobre-estimación de la varianza de los datos. 
-
-  - Por lo general resulta en una subestimación de la varianza de los datos.
-
-<br> 
---
-
-- Este caso se conocer como "over-dispersion". Los datos son más dispersos de lo esperando de acuerdo al modelo.
+  # Add a vertical line for z-hat with the new color
+  geom_vline(xintercept = c(-z_hat,z_hat), color = primary_color, size = 1) +
   
-  - Over-dispersion no afecta la estimación de los coeficientes pero la inferencia demasiado "liberal": errores estándar
-
----
-## Over-dispersion en regresión Poisson
-
---
-
-- Es posible detectar over-dispersion inspeccionando los residuos "estandarizados" de un modelo Poisson. Formalmente:
-
-$$z_{i} = \frac{y_{i} - \mu_{i}}{\sigma_{i}} = \frac{y_{i} - \mu_{i}}{\sqrt{\mu_{i}}} = \frac{y_{i} - e^{X_{i}\beta}}{\sqrt{e^{X_{i}\beta}}}$$
---
-
-- Si los $y_{i}$'s distribuyen Poisson entonces $z_{i} \sim \mathcal{N}(0,1)$. Luego, la presencia de residuos grandes indican over-dispersion. La "suma de residuos al cuadrado" resume esta información:
-
-$$\text{ssr} = \sum^{n}_{i=1} z^{2}_{i}$$
-
---
-
-- Si el modelo Poisson es correcto $\text{ssr} \sim \chi^2_{\text{df}=n-k}$, con valor esperado $\mathbb{E}(\text{ssr})=n-k$
-
---
-
-- El ratio entre ambos, $\frac{\text{ssr}}{n-k}$, es un estimado del "factor de dispersión".
-
---
-
-- Obtenemos la inferencia correcta multiplicando los SE's por $\sqrt{\frac{\text{ssr}}{n-k}}$.
-
-
----
-## Over-dispersion en regresión Poisson
-
---
-
-En nuestro modelo Poisson más complejo:
-
-```{r, warning=F, message=F}
-n = length(poisson_2$fitted.values); k = poisson_2$rank
-yhat <- predict(poisson_2, type="response")
-z <- (affairsdata$affairs_count - yhat)/sqrt(yhat)
-rss = sum(z^2)
-```
-```{r, echo=F,warning=F, message=F}
-cat("rss = ", rss, " , rss esperado = ", n-k)
-```
-
-<br>
---
-
-En este caso el factor de over-dispersion es:
-
-```{r}
-cat("factor de dispersión = ", rss/(n-k))
-```
-
----
-## Regressión Quasi-Poisson 
-
-La regressión quasi-Poisson incorpora explícitamente el factor de dispersión y corrige la inferenciadel modelo.
-
---
-
-$$y_{i} \sim \text{quasi-Poisson}(\mu_{i} = e^{X_{i}\beta}, \sigma= \sqrt{\omega \cdot  e^{X_{i}\beta}})$$
-
-<br>
-donde $\omega$ es el factor de dispersion.
-
---
-
-  - Regressión Poisson es un caso especial de quasi-Poisson ( $\omega=1$ ).
+  # Add text label for z-hat
+  annotate("text", x = z_hat + 0.9, y = max(normal_data$y) * 0.9, 
+           label = paste("z-hat ="), 
+           color = primary_color, size = 5) +
   
+    annotate("text", x = z_hat + 0.8, y = max(normal_data$y) * 0.85, 
+           label = paste(round(z_hat, 2)), 
+           color = primary_color, size = 5) +
+  
+  # Add ribbon for the p-value corresponding to z-hat
+  geom_ribbon(data = normal_data %>% filter(x >= z_hat),
+              aes(x = x, ymin = 0, ymax = y),
+              fill = primary_color, alpha = 0.5) +
+  
+    # Add ribbon for the p-value corresponding to z-hat
+  geom_ribbon(data = normal_data %>% filter(x <= -z_hat),
+              aes(x = x, ymin = 0, ymax = y),
+              fill = primary_color, alpha = 0.5)  +
+  
+  # Add labels and theme
+  labs(x = "Z", y = "Density") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(normal_distribution_plot)
+
+
+```
+]
+
+---
+## ¿Puede un pulpo predecir los resultados del futbol?
+
+--
+
+.bold[Paso #6: Mantener o Rechazar la Hipótesis Nula]
+
+--
+
+- Comparamos -- bajo el supuesto de que $H_0$ es verdaadera --  la probabilidad de obtener el resultados que obtuvimos ( valor-p ) vs. el criterio seleccionado para clasificar resultados como "extremos" ( $\alpha$ ).
+
+--
+
+.bold[Decisión:]
+
+ - Si $\text{valor-p} < \alpha$ entonces rechazamos $H_{0}$
+
+ - Si $\text{valor-p} > \alpha$ no podemos rechazar $H_{0}$
+
+
 <br>
 --
 
-Implementación en `R`:
+En este caso:
 
-```{r, warning=F, message=F}
-qpoisson_2 <- glm(affairs_count ~ ym + rate, family=quasipoisson(link="log"), data=affairsdata)
+```{r, echo=F, message=FALSE, warning=FALSE}
+
+cat("𝛼=",0.01, "; valor-p=",pvalue, sep="")
 ```
 
-```{r,echo=F}
-summary(qpoisson_2)$coefficients
-cat("dispersion = ", summary(qpoisson_2)$dispersion)
-```
+.bold[Conclusión:]
 
----
-## Quasi-Poisson
+Una tasa de acierto de 85.7% se encuentra por encima de la proporción esperada bajo el supuesto de que la hipótesis nula -- que Paul acierta con una probabilidad de 0.5. Por tanto con un nivel de significación del 1% (o 99% de confianza) podemos rechazar la hipótesis nula.
 
-```{r, warning=F, message=F}
-qpoisson_2 <- glm(affairs_count ~ ym + rate, family=quasipoisson(link="log"), data=affairsdata)
-```
+--
 
-<br>
-
-```{r, echo=F}
-tab_model(poisson_2,qpoisson_2, p.style = "stars",   show.ci = FALSE, show.p = FALSE, transform = NULL)
-```
+Sigue en pie la posibilidad de que Paul tenga habilidades especiales!
 
 ---
 class: inverse, center, middle
 
-## Inferencia
-
----
-## Inferencia para los coeficientes
-
-- Los coeficientes de los modelos cubiertos son estimados via MLE.
-
---
-
-- $\hat{\beta} \sim \mathcal{N}(\beta, \frac{\sigma_{\beta}}{\sqrt{n}})$, donde $\frac{\sigma_{\beta}}{\sqrt{n}}$ es el "standard error" (SE) de $\beta$.
-
-
---
-
-
-- Es posible construir un intervalo de confianza para los coeficientes. Por ejemplo, un IC para $\beta$ al 95% de confianza está dado por:
-
-$$95\% \text{ CI}_{\hat{\beta}} = \hat{\beta} \pm 1.96 \cdot  \text{SE}$$
---
-
-Por ejemplo, en el modelo Poisson más complejo:
-
-.pull-left[
-```{r, echo=F}
-summary(poisson_2)$coefficients[,c(1,2)]
-```
+.center[ 
+![paul](https://www.toonpool.com/user/10161/files/paul_rules__915595.jpg)
 ]
-
-.pull-right[
-```{r, }
-ic = -0.42 + c(-1.96,1.96)*0.028
-cat("95% IC rate: (",ic[1],",",ic[2],")")
-```
-]
-
-
----
-## Inferencia para funciones de los coeficientes de un modelo
-
-En muchas situaciones nos interesa realizar inferencia para cantidad de interés derivadas de un modelo. 
-
---
-
-.bold[Ejemplo]: predicciones sobre "probabilidad de ser infiel" arrojadas por diferentes modelos
-
-.pull-left[
-```{r, warning=F, message=F}
-grid <- affairsdata %>% data_grid(ym=median(ym),rate)
-grid <- grid %>% mutate(lpm = predict(lpm_2, newdata=grid),
-                logistic = predict(logistic_2, newdata=grid, type="response"),
-                mlogistic = 1- predict(mlogistic_2,newdata=grid, type="probs")[,1],
-                ologistic = 1- predict(ologistic_2,newdata=grid, type="probs")[,1]
-                )
-```
-]
-
-
-```{r plot1, warning=F, message=F, eval=F, echo=F}
-grid %>% pivot_longer(cols = -c(ym,rate), names_to="model", values_to="infiel_hat") %>%
-  ggplot(aes(x=rate,y=infiel_hat, group=model,colour=model)) +
-  geom_line() +
-  scale_color_viridis_d() +  scale_fill_viridis_d() +
-  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
-  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
-  legend.text = element_text(size = 18), legend.position = "none") +
-  labs(x="rate", y=expression("P(Infiel)"))
-```
-
-
-.pull-right[
-```{r plot1-out, ref.label="plot1", warning=F, message=F, echo=F, fig.height=6, fig.width=7}
-```
-]
-
----
-## Inferencia para funciones de los coeficientes de un modelo: Bootstrap
-
-Cuando cantidades de interés son funciones complejas de los coeficientes los métodos de simulación y re-sampling pueden ser de gran utilidad.
-
---
-
-```{r, warning=F, message=F}
-bs  <- function(x) {
-  grid <- affairsdata %>% data_grid(ym=median(ym),rate)
-  
-  #data_b   <- sample_n(affairsdata,size=nrow(affairsdata),replace=TRUE)
-
-  lpm_2_b <- lm(affairs_binary ~ ym + rate,  data=x)
-  logistic_2_b <- glm(affairs_binary ~ ym + rate, family="binomial",  data=x)
-  mlogistic_2_b <- multinom(affairs_order ~ ym + rate, trace=F,  data=x)
-  ologistic_2_b <- polr(affairs_order ~ ym + rate, data=x)
-
-  
-  grid <- grid %>% mutate(lpm = predict(lpm_2_b, newdata=grid),
-                logistic = predict(logistic_2_b, newdata=grid, type="response"),
-                mlogistic = 1- predict(mlogistic_2_b,newdata=grid, type="probs")[,1],
-                ologistic = 1- predict(ologistic_2_b,newdata=grid, type="probs")[,1]
-                )
-}
-
-```
-
----
-## Inferencia para funciones de los coeficientes de un modelo: Bootstrap
-
-
-```{r, warning=F, message=F}
-# aplica función bootstrap
-grid <- affairsdata %>% bootstrap(500) %>% mutate(pred = map(strap, ~ bs(.x))) %>% 
-  dplyr::select(.id,pred) %>% unnest()
-```
-
-
-```{r, echo=F, warning=F, message=F, fig.height=5, fig.width=15}
-library("ggsci")
-# plot resultados
-grid %>% pivot_longer(cols = -c(.id, ym,rate), names_to="model", values_to="infiel_hat") %>%
-  ggplot(aes(x=rate,y=infiel_hat, group=interaction(.id), colour=model)) +
-  geom_line(alpha=.05) +
-  scale_color_lancet() +  scale_fill_lancet() +
-  theme(axis.text.y = element_text(size = 22), axis.text.x = element_text(size = 22),
-  axis.title.y = element_text(size = 24), axis.title.x = element_text(size = 24), 
-  legend.text = element_text(size = 18), legend.position = "none") +
-  labs(x="rate", y=expression("P(Infiel)")) +
-  facet_grid( . ~ model)
-```
-
----
-class: inverse, center, middle
-
-## Comparación entre modelos
-###  Bondad de ajuste y predicción
-
-
----
-## Bondad de ajuste
-
-Medidas de bondad de ajusto para modelos no anidados y con penalización por cantidad de parámetros:
-
-.pull-left[
-```{r, warning=F, message=F}
-AIC(lpm_1, lpm_2, 
-    logistic_1,logistic_2, 
-    mlogistic_1,mlogistic_2,
-    ologistic_1,ologistic_2, 
-    poisson_1, poisson_2)
-```
-]
-
-.pull-right[
-```{r, warning=F, message=F}
-BIC(lpm_1, lpm_2, 
-    logistic_1,logistic_2, 
-    mlogistic_1,mlogistic_2,
-    ologistic_1,ologistic_2, 
-    poisson_1, poisson_2)
-```
-]
-
----
-## Capacidad predictiva "out-of-sample"
-
---
-
-- Principio básico: estimar el modelo en un dataset (training set) y  evalúarlo en un dataset distinto (test set)
-
---
-
-- .bold[K-fold Cross-validation:]
-
-.img-right-top[
-![kfold](kfold_cv.gif)
-
-]
-
-<br>
-<br>
-<br>
-
---
-
-```{r, warning=F,message=FALSE}
-library("caret")
-# especifica tipo de cross-validation
-ctrl <- trainControl(method = "repeatedcv", number = 10, savePredictions = TRUE)
-
-cv_mlogistic2 <- train(affairs_order ~ ym + rate,  data=affairsdata, 
-      method=c("multinom"),
-      trControl = ctrl)
-
-cv_ologistic2 <- train(affairs_order ~ ym + rate,  data=affairsdata, 
-      method=c("polr"),
-      trControl = ctrl)
-
-```
-
----
-## Capacidad predictiva "out-of-sample"
-
-
-.pull-left[
-```{r, warning=F,message=FALSE}
-confusionMatrix(cv_mlogistic2)
-```
-]
-
---
-
-.pull-right[
-```{r, warning=F,message=FALSE}
-confusionMatrix(cv_ologistic2)
-```
-]
-
----
-## En el tintero ..
-
-.pull-left[
-![tintero](tintero)
-]
-
---
-
-.pull-right[
-
-- Probit
-
-- Choice models: e.g., conditional logit
-
-- Zero-inflated Poisson 
-
-- Log-linear models para tablas de contingencia
-
--  etc
-]
-
 
 
 ---
 class: inverse, center, middle
 
-.huge[
-**Fin. Gracias!**
-]
+
+##Hasta la próxima clase. Gracias!
 
 <br>
 Mauricio Bucca <br>
