@@ -40,7 +40,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 23  | Oct | IC para media y proporción muestral        | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_13/class_13#1) [`[Code]`](slides/class_13/class_13.Rmd)    |            |            |
 | 25  | Oct | IC con varianza desconocida & Boostrap     | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_14/class_14#1) [`[Code]`](slides/class_14/class_14.Rmd)                                                                                                                       |            |            |
 | 30  | Oct |  Test de hipótesis  |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_15/class_15#1) [`[Code]`](slides/class_15/class_15.Rmd)                                                                                                                      |            |            |
-|  6  | Nov |  Test de media/proporciones en 1 muestra   |                                                                                                                        |            |            |
+|  6  | Nov |  Test de media/proporciones en 1 muestra   |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_16/class_16#1) [`[Code]`](slides/class_16/class_16.Rmd)                                                                                                                       |            |            |
 | 13  | Nov |  Test de media/proporciones en 2 muestras                      |                                                                                                                        |            |            |
 | 15  | Nov | Asociación variables continuas                                      |                                                                                                                        |            |            |
 | 20  | Nov | Correlación de Pearson                                      |                                                                                                                        |            |            |
@@ -91,8 +91,7 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 | Tarea corta 3    | 4 septiembre   | 11 septiembre  | [`[Soluciones TC3]`](homework/tc_3_answers.pdf) [`[Soluciones TC3.qmd]`](homework/tc_3_answers.qmd)                  |
 | Prueba 1         | 11 octubre     |                | [`[Soluciones P1]`](homework/prueba_1.pdf) [`[Notas]`](https://mebucca.github.io/ad2-sol114/homework/notas_prueba1.html)                                                                                  |
 | Tarea corta 4    | 23 octubre   |  30 octubre              | [`[Soluciones TC4]`](homework/tc_4_answers.pdf) [`[Soluciones TC4.qmd]`](homework/tc_4_answers.qmd)                                                                                    |
-| Tarea corta 5    |               |      |                                                                                |
-| Prueba 2         | 8 noviembre    |                |                                                                                |
+| Prueba 2         | 8 noviembre    |                | [`[Soluciones P2]`](homework/prueba_2.pdf)                                                                                |
 | Tarea corta 6    | 20 noviembre   | 27 noviembre   |                                                                                |
 | Examen final     | 13 diciembre   |                |                                                                                |
 
