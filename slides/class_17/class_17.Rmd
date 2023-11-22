@@ -543,7 +543,6 @@ distribucion_nula %>% enframe() %>% ggplot(aes(x=value)) +
 geom_density(size=0.5, color=primary_color) + 
   # Add a vertical line for z-hat with the new color
   geom_vline(xintercept = c(-diff ,diff ), color = secondary_color, size = 1) +
-  
 labs(title="Distribución bajo permutaciones", x="Diferencia salario promedio H-W") +
   theme_minimal() +
   theme(
