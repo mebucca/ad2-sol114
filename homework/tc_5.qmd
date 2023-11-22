@@ -1,0 +1,124 @@
+---
+title: "SOL114 Análisis de Datos II"
+author: "Tarea corta 5"
+format: html
+editor: visual
+---
+
+## Problema
+
+Datos:
+
+```{r, echo=T, warning=FALSE, message=FALSE}
+library("tidyverse")
+url <- "https://raw.githubusercontent.com/mebucca/dar_soc4001/master/data/sample_casen2017.csv"
+
+casen2017 <- read.csv(url) %>% as_tibble() %>%
+  mutate(ingreso = yautcor) %>%    
+  select(region,sexo,edad,educ,ingreso) %>%
+  mutate(univ = case_when(educ==11 | educ==12 & edad > 27 ~ 1, educ < 11 & edad > 27 ~ 0),
+         genero = case_when(sexo==1 ~ "Hombre", sexo==2 ~ "Mujer"))
+```
+
+La brecha de ingresos entre hombres y mujeres (a favor de los primeros) en un hecho bien documentado. La siguiente tabla muestra el promedio de ingresos autónomos para hombres y mujeres estimado en una submuestra de la Encuesta CASEN 2017.
+
+```{r, echo=F, warning=FALSE, message=FALSE}
+library("tidyverse")
+url <- "https://raw.githubusercontent.com/mebucca/dar_soc4001/master/data/sample_casen2017.csv"
+
+cat("Promedio de ingresos por género")
+
+casen2017 %>% group_by(genero) %>% summarise(promedio_ingreso_genero = round(mean(ingreso, na.rm=T),0))
+
+```
+
+Varias teorías complementarias se han propuesto para explicar la brecha salarial de género. Una teoría -- la teoría del Capital Humano, -- argumenta que esta brecha no se debe intrínsecamente al género, sino más bien a las disparidades en los logros educativos entre hombres y mujeres. Esta teoría sugiere que, ya que un mayor nivel educativo generalmente conduce a ingresos más altos, la brecha salarial observada podría ser en gran parte el resultado de diferencias promedio en la educación entre géneros. De acuerdo con esta perspectiva, se espera que las diferencias salariales entre hombres y mujeres que han alcanzado niveles educativos similares sean insignificantes o, al menos, menores que la brecha observada a nivel general.
+
+*Referencia bibliográfica*: Blau, Francine D. y Lawrence M. Kahn. (2017). "The Gender Wage Gap: Extent, Trends, and Explanations". En Journal of Economic Literature.
+
+En la linea de este argumento, los datos de la submuestra de la Encuesta CASEN 2017 revelan lo siguiente:
+
+```{r, echo=F, warning=FALSE, message=FALSE}
+library("tidyverse")
+url <- "https://raw.githubusercontent.com/mebucca/dar_soc4001/master/data/sample_casen2017.csv"
+
+cat("Porcentaje de personas con grado universitario o mayor por género")
+casen2017 %>% group_by(genero) %>% summarise(porcentaje_universidad= round(mean(univ, na.rm=T),2))
+
+cat("Promedio de ingresos para personas con y sin grado universitario")
+casen2017 %>% group_by(univ) %>% drop_na(univ) %>% summarise(promedio_ingresos_univ= round(mean(ingreso, na.rm=T),0))
+
+```
+
+Usando la submuestra de la Encuesta CASEN 2017 obtenemos las siguientes estimaciones que nos permiten testear algunas de las afirmaciones de la Teoría del Capital Humano:
+
+```{r, echo=F, warning=FALSE, message=FALSE}
+library("tidyverse")
+library("viridis")
+library("ggdark")
+
+url <- "https://raw.githubusercontent.com/mebucca/dar_soc4001/master/data/sample_casen2017.csv"
+
+resultados <- casen2017 %>% group_by(genero, univ) %>% drop_na(univ) %>% 
+  summarise(promedio_ingresos = round(mean(ingreso, na.rm=T),0),
+            s = round(sd(ingreso, na.rm=T),0),
+            n = sum(!is.na(ingreso))
+            )
+
+
+cat("Promedio y Desviación estandar de  Ingresos por género y grado universitario")
+
+print(resultados)
+```
+
+Gráficamente,
+
+```{r, echo=F, warning=FALSE, message=FALSE}
+
+resultados <- resultados %>%
+  mutate(ci_upper = promedio_ingresos + 1.96 * s / sqrt(n),  # Calcula el límite superior del intervalo de confianza
+         ci_lower = promedio_ingresos - 1.96 * s / sqrt(n))  # Calcula el límite inferior del intervalo de confianza
+
+dodge_width <- 0.1  # Ajusta este valor según sea necesario para evitar la superposición
+
+ggplot(resultados) +
+  aes(x=factor(univ), y=promedio_ingresos, colour=genero) +
+  geom_point(size=3, position = position_dodge(dodge_width)) +
+  geom_errorbar(aes(ymin=ci_lower, ymax=ci_upper), width=.1, position = position_dodge(dodge_width)) +
+  labs(x="Grado Universitario o más (0=no, 1=si)", y="Promedio de Ingresos") +
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1)) +
+  scale_color_viridis_d(option = "D")
+
+```
+
+*Las lineas verticales representan intervalos de confianza al 95%.*
+
+## Instrucciones: Responde y presenta el desarrollo detallado de los siguientes ejercicios. Los cálculos pueden ser desarrollados en `R`.
+
+1.  Estima la brecha de ingresos entre hombres y mujeres para cada nivel de logro educacional. Si $X$ respresenta la variable ingresos, podemos expresar estas cantidades formalmente como:
+
+    -   Brecha ingresos por genero entre personas sin grado universitario: $\mathbb{E}(X \mid \text{Hombre, No Universitario}) - \mathbb{E}(X \mid \text{Mujer, No  Universitaria})$
+
+    -   Brecha ingresos por genero entre personas con grado universitario: $\mathbb{E}(X \mid \text{Hombre, Universitario}) - \mathbb{E}(X \mid \text{Mujer, Universitaria})$
+
+
+
+2.  Usando un nivel de significación del 5%, testea estadísticamente la siguiente hipótesis: "El ingreso esperado de los hombres con educación universitaria es mayor que el de las mujeres con educación universitaria".
+
+
+3.  Usando un nivel de significación del 5%, testea estadísticamente la siguiente hipótesis: "La brecha de ingreso por género es distinta dependiendo si las personas tienen o no educación universitaria".
+
+Pista, la hipótesis nula es la siguiente:
+
+$H_0: \mathbb{E}(X \mid \text{Hombre, Universitario}) - \mathbb{E}(X \mid \text{Mujer, Universitaria}) = \mathbb{E}(X \mid \text{Hombre, No Universitario}) - \mathbb{E}(X \mid \text{Mujer, No  Universitaria})$
+
+
+4.  En base a los resultados obtenidos, comenta la validez de las predicciones derivadas de la Teoría del Capital Humano.
+
