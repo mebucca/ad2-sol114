@@ -1,6 +1,6 @@
 ---
 title: "Probabilidad e Inferencia Estadística"
-subtitle: "#14: Test de Hipótesis"
+subtitle: "#14: Test de Hipótesis en una muestra"
 author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -35,7 +35,7 @@ style_duo_accent(primary_color = "#008C45", secondary_color = "#3949AB",
 knitr::opts_chunk$set(eval = T, echo = T)
 ```
 
-# Test de Hipótesis
+# Test de Hipótesis en una muestra
 
 
 
