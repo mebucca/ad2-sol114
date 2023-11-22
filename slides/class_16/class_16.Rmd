@@ -194,7 +194,7 @@ $\text{valor-p} = \mathbb{P}( \bar{X} > |\hat{p}| \mid H_{0} \text{ es verdadera
 
 equivalentemente:
 
-$\text{valor-p} = \mathbb{P}( Z > \frac{\hat{\mu} - \mu}{\sigma/\sqrt{n}})$
+$\text{valor-p} = \mathbb{P}( Z > \big| \frac{\hat{\mu} - \mu}{\sigma/\sqrt{n}} \big| )$
 
 
 ```{r, echo=TRUE, message=FALSE, warning=FALSE}
@@ -243,7 +243,7 @@ pvalue <- 2 * (1 - pnorm(abs(z_hat), mean = mu, sd = sigma))
 
 # Create the ggplot
 normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
-  geom_line(size = 1) +
+  geom_line(size = 1, color = primary_color) +
 
   # Add a vertical line for z-hat with the new color
   geom_vline(xintercept = c(-z_hat,z_hat), color = primary_color, size = 1) +

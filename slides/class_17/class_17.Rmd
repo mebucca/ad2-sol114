@@ -303,7 +303,7 @@ print(z_hat)
 - $\text{valor-p} = \mathbb{P}( \bar{X}_{H} - \bar{X}_{W} > | \hat{\mu}_{H} - \hat{\mu}_{W} | \mid H_{0)}$
 
 
-- equivalentemente: $\text{valor-p} = \mathbb{P}\Bigg( Z > \frac{(\hat{\mu}_{H} - \hat{\mu}_{W}) - 0}{\sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}}}\Bigg)$
+- equivalentemente: $\text{valor-p} = \mathbb{P}\Bigg( Z >   \Bigg| \frac{(\hat{\mu}_{H} - \hat{\mu}_{W}) - 0}{\sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}}} \Bigg|  \Bigg)$
 
 
 --
