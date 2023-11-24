@@ -42,9 +42,8 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 30  | Oct |  Test de hipótesis  |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_15/class_15#1) [`[Code]`](slides/class_15/class_15.Rmd)                                                                                                                      |            |            |
 |  6  | Nov |  Test de media/proporciones en 1 muestra   |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_16/class_16#1) [`[Code]`](slides/class_16/class_16.Rmd)                                                                                                                       |            |            |
 | 13  | Nov |  Test de media/proporciones en 2 muestras                      |   [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_17/class_17#1) [`[Code]`](slides/class_17/class_17.Rmd)                                                                                                                     |            |            |
-| 15  | Nov | Asociación variables continuas                                      |                                                                                                                        |            |            |
 | 27  | Nov | Tablas de contingencia y Test de χ²                                 |   [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_17/class_17#1) [`[Code]`](slides/class_17/class_17.Rmd)                                                                                                                                |            |            |
-| 29  | Nov | Repaso                                     |                                                                                                                        |            |            |
+| 29  | Nov | Correlación de Pearson                                     |                                                                                                                        |            |            |
 
 ---
 
