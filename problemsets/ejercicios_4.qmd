@@ -9,6 +9,7 @@ editor: visual
 
 1.  Un grupo de investigadores está estudiando el número promedio de horas que la gente ve TV en una semana. De una muestra de 120 individuos, la media estimada se encuentra en 20 horas ( $\hat{\mu}$ ) y la varianza poblacional conocida es de 16 horas\^2 ( $\sigma^2$ ). El consenso científico vigente sostiene que en promedio las personas ven 10 horas de TV a la semana.
 
+<<<<<<< HEAD
 - En base a los resultados obtenidos por los investigadores, construye un test para la hipótesis de que el consumo de TV es mayor que lo esperado en base al consenso científico vigente. Trabaja al 1% de significación estadística.
 
 - Interpreta el resultado.
@@ -35,6 +36,30 @@ editor: visual
 - ¿Se puede confirmar esta hipótesis con un nivel de significancia del 95%?
 
 6. Un equipo de investigación médica está explorando un nuevo medicamento para tratar dolores de cabeza frecuentes. Se realizó un estudio piloto con 20 participantes, donde la mitad de ellos (10) recibieron el medicamento (grupo de tratamiento) y la otra mitad (10) no lo recibió (grupo de control). Durante una semana, los participantes informaron si habían tenido un dolor de cabeza (1 = Sí, 0 = No).
+=======
+-   En base a los resultados obtenidos por los investigadores, construye un test para la hipótesis de que el consumo de TV es mayor que lo esperado en base al consenso científico vigente.
+    Trabaja al 1% de significación estadística.
+
+-   Interpreta el resultado.
+
+2.  En un estudio sobre patrones de sueño, 16 adultos informan su duración promedio de sueño nocturno. La media es de 7 horas con una desviación estándar de la muestra de 1.1 horas ( $s$ ). Los expertos recomiendan dormir al menos 8 horas durante la noche.
+
+-   Trabajando con un nivel de significación estadística del 5% testea la siguiente hipótesis: "En promedio, los adultos duermen menos de lo recomendado por los expertos".
+
+3.  Una encuesta reciente sobre el uso de teléfonos inteligentes se llevó a cabo con una muestra de 2,500 adolescentes. De ellos, 2,050 informaron tener un teléfono inteligente. Un investigador en sociología de la comunicación plantea la hipótesis de que más del 80% de todos los adolescentes tienen un teléfono inteligente.
+
+-   ¿Se puede confirmar esta hipótesis con un nivel de significancia del 99% con los datos de la encuesta?
+
+4.  Un psicólogo lleva a cabo un estudio para investigar los efectos de la meditación en la reducción de los niveles de estrés. Para probar su hipótesis, selecciona una muestra de 81 participantes y encuentra que la reducción media en las puntuaciones de estrés es de 3.6 con una desviación estándar de 0.9 ( $s$ ). El psicólogo plantea la hipótesis de que la meditación reduce el nivel de estrés en la población más amplia.
+
+-   ¿Se puede confirmar esta hipótesis con un nivel de significancia del 90%?
+
+5.  En un estudio sobre satisfacción laboral, una muestra de 25 empleados de una gran empresa da una puntuación de satisfacción en una escala de 1 a 10. Un investigador plantea la hipótesis de que más del 60% de todos los empleados de la empresa están satisfechos con su trabajo, definiendo "satisfecho" como aquellos que dan una puntuación de 8 o más. De los 25 empleados muestreados, 18 dieron una puntuación de 8 o más.
+
+-   ¿Se puede confirmar esta hipótesis con un nivel de significancia del 95%?
+
+6.  Un equipo de investigación médica está explorando un nuevo medicamento para tratar dolores de cabeza frecuentes. Se realizó un estudio piloto con 20 participantes, donde la mitad de ellos (10) recibieron el medicamento (grupo de tratamiento) y la otra mitad (10) no lo recibió (grupo de control). Durante una semana, los participantes informaron si habían tenido un dolor de cabeza (1 = Sí, 0 = No).
+>>>>>>> master
 
 Los datos recopilados son los siguientes:
 
@@ -67,8 +92,12 @@ A partir de estos datos:
 
 -   Basándose en los resultados del test, ¿qué puede concluir sobre la efectividad del medicamento para reducir los dolores de cabeza?
 
+<<<<<<< HEAD
 
 7. Una escuela realiza un experimento para comparar la efectividad de dos métodos diferentes de enseñanza de matemáticas básicas para estudiantes de primer grado. Se seleccionan al azar 6 estudiantes, tres de los cuales aprenden usando el Método A (grupo de tratamiento) y tres con el Método B (grupo de control). Después de una semana de instrucción, cada estudiante realiza una prueba con un puntaje máximo de 10 puntos. 
+=======
+7.  Una escuela realiza un experimento para comparar la efectividad de dos métodos diferentes de enseñanza de matemáticas básicas para estudiantes de primer grado. Se seleccionan al azar 6 estudiantes, tres de los cuales aprenden usando el Método A (grupo de tratamiento) y tres con el Método B (grupo de control). Después de una semana de instrucción, cada estudiante realiza una prueba con un puntaje máximo de 10 puntos.
+>>>>>>> master
 
 Los datos recopilados son los siguientes:
 
@@ -81,12 +110,20 @@ Los datos recopilados son los siguientes:
 | Método B | 2          | 5                |
 | Método B | 3          | 6                |
 
+<<<<<<< HEAD
 Con los datos recopilados, 
 
 - ¿existe una diferencia significativa en los puntajes promedio obtenidos por los estudiantes entre los dos métodos de enseñanza? Realiza un test de hipótesis con un nivel de significancia del 95%.
 
 
 8. La consultora CALLEMP realiza una encuesta para predecir el resultado de las elecciones presidenciales en Chile en 2021. Se entrevistó a un total de 20 personas, quienes declararon si votarían por Boric o por Kast. 
+=======
+Con los datos recopilados,
+
+-   ¿existe una diferencia significativa en los puntajes promedio obtenidos por los estudiantes entre los dos métodos de enseñanza? Realiza un test de hipótesis con un nivel de significancia del 95%.
+
+8.  La consultora CALLEMP realiza una encuesta para predecir el resultado de las elecciones presidenciales en Chile en 2021. Se entrevistó a un total de 20 personas, quienes declararon si votarían por Boric o por Kast.
+>>>>>>> master
 
 A continuación se muestra una tabla con los resultados:
 
@@ -113,6 +150,7 @@ A continuación se muestra una tabla con los resultados:
 | 19              | Kast  |
 | 20              | Boric |
 
+<<<<<<< HEAD
 
 
 Basado en los datos de la encuesta, 
@@ -121,6 +159,13 @@ Basado en los datos de la encuesta,
 
 
 9. Trabaja con los datos "Intenciones de Voto en el Plebiscito Chileno de 1988"
+=======
+Basado en los datos de la encuesta,
+
+-   ¿puede la consultora predecir con seguridad que Boric ganará la elección? Realiza un test de hipótesis para para evaluar la confiabilidad de la encuesta en la predicción del resultado electoral.
+
+9.  Trabaja con los datos "Intenciones de Voto en el Plebiscito Chileno de 1988"
+>>>>>>> master
 
 **Descripción:** La base de datos cuenta con 2700 registros distribuidos en 8 columnas.
 Estos datos son producto de una encuesta a nivel nacional llevada a cabo en abril y mayo de 1988 por FLACSO/Chile.
@@ -165,7 +210,10 @@ Es importante mencionar que existen algunos datos faltantes en el conjunto.
 
     -   Y: Votará sí (a favor de Pinochet).
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 Los resultados de intención de voto por género son los siguientes:
 
 ```{r}
@@ -178,24 +226,43 @@ knitr::kable(table(data_chile$vote, data_chile$sex), align = "cc")
 
 -   Omitiendo a personas indecisas o que declaran que se abstendrán, estima la proporción hombres y mujeres que declaran que votarán por el NO (en vez de por SI).
 
+<<<<<<< HEAD
 
 - Realiza un test de hipótesis para determinar si existe una diferencia significativa en la intención de voto (NO vs SÍ) entre hombres y mujeres. Usa un nivel de significancia del 95%.
 
 - Testea la hipótesis de que ganará el NO.
 
+=======
+-   Realiza un test de hipótesis para determinar si existe una diferencia significativa en la intención de voto (NO vs SÍ) entre hombres y mujeres.
+    Usa un nivel de significancia del 95%.
+
+-   Testea la hipótesis de que ganará el NO.
+>>>>>>> master
 
 10. Un grupo de estudiantes participó en una competencia de habilidades culinarias. La competencia se compone de tres pruebas: elaboración de entradas, plato principal y postres. El puntaje final de cada estudiante se determina tomando el promedio simple de los puntajes obtenidos en las tres pruebas. Cada prueba evalúa distintos aspectos y habilidades y, por tanto, sus puntajes son independientes entre sí. A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 estudiantes para cada prueba:
 
 | Estadística                                               | Entradas | Plato Principal | Postres |
+<<<<<<< HEAD
 |------------------------|----------------|----------------|----------------|
+=======
+|-----------------------------------------------------------|----------|-----------------|---------|
+>>>>>>> master
 | Media muestral $\bar{x} = \frac{\sum x}{n}$               | 4.5      | 3.8             | 5.2     |
 | Suma de desviaciones al cuadrado $\sum (x_i - \bar{x})^2$ | 375.6    | 178.4           | 62.7    |
 
 Basándose en esta información,
 
+<<<<<<< HEAD
 - Realiza un test de hipótesis para comparar las medias de las puntuaciones en las tres pruebas. ¿Existe una diferencia estadísticamente significativa en el rendimiento de los estudiantes en las pruebas de entradas, plato principal y postres? Usa un nivel de significancia del 95%.
 
 - Interpreta
+=======
+-   Realiza un test de hipótesis para comparar las medias de las puntuaciones en las tres pruebas.
+    ¿Existe una diferencia estadísticamente significativa en el rendimiento de los estudiantes en las pruebas de entradas, plato principal y postres?
+    Usa un nivel de significancia del 95%.
+
+-   Interpreta
+>>>>>>> master
 
 11. Una población tomó un test compuesto por tres preguntas. El puntaje final de cada individuo se determina tomando el promedio simple de los puntajes obtenidos en las tres preguntas. Cada pregunta evalúa aspectos distintos del conocimiento y, por tanto, sus puntajes son independientes entre sí.
 
@@ -210,10 +277,17 @@ Basándose en esta información,
 
 -   ¿Cuál es la media muestral del puntaje final de estos 100 individuos?
 
+<<<<<<< HEAD
 -   Realiza un test de hipótesis para determinar si la media poblacional del puntaje final es significativamente diferente de 4, la nota mínima para aprobar. Utiliza un nivel de significancia del 95%.
 
 - Interpreta
 
+=======
+-   Realiza un test de hipótesis para determinar si la media poblacional del puntaje final es significativamente diferente de 4, la nota mínima para aprobar.
+    Utiliza un nivel de significancia del 95%.
+
+-   Interpreta
+>>>>>>> master
 
 12. Un equipo de investigación médica está explorando un nuevo medicamento para tratar dolores de cabeza frecuentes. Se realizó un estudio piloto con 20 participantes, donde la mitad de ellos (10) recibieron el medicamento (grupo de tratamiento) y la otra mitad (10) no lo recibió (grupo de control). Durante una semana, los participantes informaron si habían tenido un dolor de cabeza (1 = Sí, 0 = No).
 
@@ -244,6 +318,7 @@ Los datos recopilados son los siguientes:
 
 A partir de estos datos:
 
+<<<<<<< HEAD
 - Realiza un test de hipótesis para evaluar si el tratamiento es efectivo. 
 
 - Justifica tu elección de estadístico, nivel de significación y distrubución nula.
@@ -251,11 +326,19 @@ A partir de estos datos:
 - Interpreta
 
 
+=======
+-   Realiza un test de hipótesis para evaluar si el tratamiento es efectivo.
+
+-   Justifica tu elección de estadístico, nivel de significación y distrubución nula.
+
+-   Interpreta
+>>>>>>> master
 
 13. Un estudio se llevó a cabo para comparar el rendimiento en matemáticas de dos grupos de estudiantes, Grupo A y Grupo B, que siguieron diferentes métodos de enseñanza durante un semestre. Al final del semestre, se recopilaron las calificaciones de ambos grupos para evaluar si había una diferencia significativa en sus promedios.
 
 Grupo A: Seleccionaron aleatoriamente a 30 estudiantes y su promedio fue de 85 con una desviación estándar de 8 ( $s$ ).
 
+<<<<<<< HEAD
 Grupo B: Seleccionaron aleatoriamente a 35 estudiantes y su promedio fue de 80 con una desviación estándar de 7  ( $s$ ).
 
 Se desea saber si hay evidencia estadística de que uno de los métodos de enseñanza es más efectivo que el otro.
@@ -266,6 +349,17 @@ Se desea saber si hay evidencia estadística de que uno de los métodos de ense�
 
 - Compara los resultados de los intervalos de confianza y el test de hipótesis y entrega una conclusión respecto de la efectividad comparada de ambos métodos.
 
+=======
+Grupo B: Seleccionaron aleatoriamente a 35 estudiantes y su promedio fue de 80 con una desviación estándar de 7 ( $s$ ).
+
+Se desea saber si hay evidencia estadística de que uno de los métodos de enseñanza es más efectivo que el otro.
+
+-   Calcula el intervalo de confianza al 95% para la media de cada grupo.
+
+-   Realiza una prueba de hipótesis para comparar las medias y utiliza un nivel de significancia del 5%.
+
+-   Compara los resultados de los intervalos de confianza y el test de hipótesis y entrega una conclusión respecto de la efectividad comparada de ambos métodos.
+>>>>>>> master
 
 14. Un estudio se llevó a cabo para comparar la proporción de estudiantes de dos escuelas, Escuela A y Escuela B, que aprobaron un examen de matemáticas en su primer intento. Se seleccionaron aleatoriamente 10 estudiantes de cada escuela y se registraron los resultados de sus exámenes.
 
@@ -273,6 +367,7 @@ Escuela A: De los 10 estudiantes seleccionados, 7 aprobaron en su primer intento
 
 Escuela B: De los 10 estudiantes seleccionados, 6 aprobaron en su primer intento.
 
+<<<<<<< HEAD
 
 - Calcula el intervalo de confianza al 95% para la proporción de estudiantes que aprobaron el examen en su primer intento en cada escuela.
 
@@ -300,6 +395,35 @@ Escuela B: De los 10 estudiantes seleccionados, 6 aprobaron en su primer intento
 8. Explique la diferencia entre un test de hipótesis unilateral y bilateral. Proporcione un ejemplo para cada uno.
 
 9. ¿Qué es la "distribución nula" en un test de hipótesis y cómo se utiliza para calcular el valor-p?
+=======
+-   Calcula el intervalo de confianza al 95% para la proporción de estudiantes que aprobaron el examen en su primer intento en cada escuela.
+
+-   Realiza una prueba de hipótesis para comparar ambas proporciones y utiliza un nivel de significancia del 5%.
+
+-   Compara los resultados de los intervalos de confianza y el test de hipótesis.
+
+## Preguntas conceptuales
+
+1.  ¿Qué representa la hipótesis nula en un test de hipótesis y cómo se formula generalmente?
+
+2.  ¿Cómo se define la hipótesis alternativa en un test de hipótesis y en qué se diferencia de la hipótesis nula?
+
+3.  Explique el concepto de "nivel de significación" en el contexto de un test de hipótesis.
+    ¿Qué implica un nivel de significación del 5%?
+
+4.  ¿Qué es un valor-p en un test de hipótesis y cómo se interpreta en relación con el nivel de significación?
+
+5.  Explique cómo se utiliza el valor-p para decidir si se rechaza o no la hipótesis nula.
+
+6.  ¿Qué es un error de Tipo I en el contexto de un test de hipótesis y cómo se relaciona con el nivel de significación?
+
+7.  ¿Qué es un error de Tipo II en el contexto de un test de hipótesis y cómo se relaciona con el error Tipo I?
+
+8.  Explique la diferencia entre un test de hipótesis unilateral y bilateral.
+    Proporcione un ejemplo para cada uno.
+
+9.  ¿Qué es la "distribución nula" en un test de hipótesis y cómo se utiliza para calcular el valor-p?
+>>>>>>> master
 
 10. ¿Por qué una estadístico (ej. proporción muestral) sigue una distribución de probabilidad?
 
@@ -308,4 +432,7 @@ Escuela B: De los 10 estudiantes seleccionados, 6 aprobaron en su primer intento
 12. ¿Cómo afecta la variabilidad de los datos al resultado de un test de hipótesis?
 
 13. ¿Cómo se determina si se debe usar una prueba t o una prueba z en un test de hipótesis para medias?
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
