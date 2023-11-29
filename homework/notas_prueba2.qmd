@@ -80,7 +80,8 @@ p <- ggplot(data_grades, aes(x = Nota_curved)) +
 print(p)
 ```
 
-Las notas fueron re-escaladas para final el 7 en la nota máxima obtenida. Formalmente:
+Las notas fueron re-escaladas para final el 7 en la nota máxima obtenida.
+Formalmente:
 
 $$
  \text{Nota Final} =  \text{Nota Original} \times \frac{\text{7}}{\max(\text{Nota Original})} =\text{Nota Original} \times \frac{\text{7}}{6.6}
@@ -164,7 +165,8 @@ data_combined <- data_grades %>%
   rename(Nota_1 = Nota) 
 ```
 
-Comparando el rendimiendo en las Prueba 1 y Prueba 2, observamos que un `r 100* round(mean( data_combined$Nota_2 > data_combined$Nota_1, na.rm=T),2)`% de los estudiantes mejoró su nota. Adicionalmente, existe una asociación positiva pero relativamente débil entre ambas.
+Comparando el rendimiendo en las Prueba 1 y Prueba 2, observamos que un `r 100* round(mean( data_combined$Nota_2 > data_combined$Nota_1, na.rm=T),2)`% de los estudiantes mejoró su nota.
+Adicionalmente, existe una asociación positiva pero relativamente débil entre ambas.
 
 ```{r, echo=F, message=FALSE, warning=FALSE}
 # Plotting
