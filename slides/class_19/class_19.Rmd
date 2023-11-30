@@ -601,10 +601,6 @@ $$\color{white}{\rho_{XY}:  \mathbb{Corr}(X, Y) =  \frac{\mathbb{Cov}(X, Y)}{\si
 ]
 
 
----
-
-
-Por supuesto, aquí tienes una versión revisada que incluye el rango de variación del coeficiente de correlación:
 
 ---
 ## Interpretación del Coeficiente de Correlación
