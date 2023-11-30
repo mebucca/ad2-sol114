@@ -571,7 +571,7 @@ class: inverse, center, middle
 $$
 \begin{align}
 \mathbb{Cov}(Z_X, Z_Y) &= \mathbb{E}[ \ (Z_X - \mathbb{E}[Z_X]) \ (Z_Y  - \mathbb{E}[Z_Y]) \ ] \\ \\
-&= \mathbb{E}[ \ (Z_X - \mathbb{E}[Z_X]) \ (Z_Y  - \mathbb{E}[Z_Y]) \ ] \\ \\
+&= \mathbb{E}[ \ Z_X \ Z_Y \ ] \\ \\
 &= \mathbb{E}\Bigg[ \   \frac{(X - \mathbb{E}[X])}{\sqrt{\mathbb{Var}[X]}}  \ \frac{(Y - \mathbb{E}[Y])}{\sqrt{\mathbb{Var}[Y]}} \  \Bigg] \\ \\
 &=  \frac{\mathbb{Cov}(X, Y)}{\sqrt{\mathbb{Var}[X]}\sqrt{\mathbb{Var}[Y]}}
 \end{align}
