@@ -27,15 +27,23 @@ Después de un poco de álgebra el MSE puede ser descompuesto en dos componentes
 
 $$\text{MSE}(\hat{\theta}) = \underbrace{\mathbb{E}[(\hat{\theta} - \mathbb{E}[\hat{\theta}])^2]}_{\framebox[5cm][l]{Varianza}} + \overbrace{(\mathbb{E}[\hat{\theta} - \theta ])^2}^{\framebox[5cm][l]{Sesgo al cuadrado}}$$
 
-i.  Explica en palabras lo que mide el MSE: El MSE mide, en términos generales, cuánto se espera que las estimaciones de $\hat{\theta}$ difieran del valor verdadero $\theta$ al cuadrado. En otras palabras, cuantifica la cantidad promedio de error cuadrático en las estimaciones de $\hat{\theta}$ en relación con el valor verdadero $\theta$. Un MSE más bajo indica que las estimaciones son más precisas y se acercan más al valor verdadero, mientras que un MSE más alto indica estimaciones menos precisas y más alejadas del valor verdadero.
+i.  Explica en palabras lo que mide el MSE: El MSE mide, en términos generales, cuánto se espera que las estimaciones de $\hat{\theta}$ difieran del valor verdadero $\theta$ al cuadrado.
+    En otras palabras, cuantifica la cantidad promedio de error cuadrático en las estimaciones de $\hat{\theta}$ en relación con el valor verdadero $\theta$.
+    Un MSE más bajo indica que las estimaciones son más precisas y se acercan más al valor verdadero, mientras que un MSE más alto indica estimaciones menos precisas y más alejadas del valor verdadero.
 
 ii. Identifica y explica en qué consiste cada uno de sus componentes:
 
-El primer componente, $\mathbb{E}[(\hat{\theta} - \mathbb{E}[\hat{\theta}])^2]$, representa la varianza de las estimaciones de $\hat{\theta}$. Esta parte del MSE mide cuánto las estimaciones individuales fluctúan alrededor de su valor promedio, es decir, cuánta dispersión hay en las estimaciones. Cuanto mayor sea esta varianza, mayor será la dispersión de las estimaciones alrededor de su valor promedio, lo que indica una menor precisión.
+El primer componente, $\mathbb{E}[(\hat{\theta} - \mathbb{E}[\hat{\theta}])^2]$, representa la varianza de las estimaciones de $\hat{\theta}$.
+Esta parte del MSE mide cuánto las estimaciones individuales fluctúan alrededor de su valor promedio, es decir, cuánta dispersión hay en las estimaciones.
+Cuanto mayor sea esta varianza, mayor será la dispersión de las estimaciones alrededor de su valor promedio, lo que indica una menor precisión.
 
-El segundo componente, $(\mathbb{E}[\hat{\theta} - \theta])^2$, es el sesgo al cuadrado de las estimaciones. El sesgo se refiere a la diferencia sistemática entre el valor esperado de las estimaciones y el valor verdadero ($\theta$). Elevar al cuadrado el sesgo y tomar su esperanza cuantifica cuánto se aleja, en promedio, la estimación del valor verdadero al cuadrado. Un sesgo cuadrado más alto indica que las estimaciones tienden a estar sistemáticamente más lejos del valor verdadero.
+El segundo componente, $(\mathbb{E}[\hat{\theta} - \theta])^2$, es el sesgo al cuadrado de las estimaciones.
+El sesgo se refiere a la diferencia sistemática entre el valor esperado de las estimaciones y el valor verdadero ($\theta$).
+Elevar al cuadrado el sesgo y tomar su esperanza cuantifica cuánto se aleja, en promedio, la estimación del valor verdadero al cuadrado.
+Un sesgo cuadrado más alto indica que las estimaciones tienden a estar sistemáticamente más lejos del valor verdadero.
 
-En resumen, el MSE mide la calidad de un estimador al descomponerla en dos componentes: la varianza de las estimaciones (cuánto fluctúan alrededor de su promedio) y el sesgo al cuadrado (cuánto se alejan en promedio del valor verdadero). Un buen estimador tendrá un MSE bajo, lo que significa que tiene una baja varianza y un sesgo cercano a cero, lo que indica estimaciones precisas y no sesgadas.
+En resumen, el MSE mide la calidad de un estimador al descomponerla en dos componentes: la varianza de las estimaciones (cuánto fluctúan alrededor de su promedio) y el sesgo al cuadrado (cuánto se alejan en promedio del valor verdadero).
+Un buen estimador tendrá un MSE bajo, lo que significa que tiene una baja varianza y un sesgo cercano a cero, lo que indica estimaciones precisas y no sesgadas.
 
 <br><br>
 
@@ -43,7 +51,8 @@ En resumen, el MSE mide la calidad de un estimador al descomponerla en dos compo
 
 ![Milking Shorthorn](vaca.jpg){fig-align="center" width="10cm"}
 
-Un ganadero de Yorkshire tiene 196 terneras de la raza Milking Shorthorn y decide calcular el peso promedio de sus vacas ($\bar{X}$). Como resultado obteniene $\bar{X}=491$.
+Un ganadero de Yorkshire tiene 196 terneras de la raza Milking Shorthorn y decide calcular el peso promedio de sus vacas ($\bar{X}$).
+Como resultado obteniene $\bar{X}=491$.
 
 i.  Deriva la distribución muestral de $\bar{X}$: La distribución muestral de $\bar{X}$, el promedio de las muestras de tamaño $n$ tomadas de una población con una distribución normal con media $\mu$ y desviación estándar $\sigma$, sigue una distribución normal con media $\mu_{\bar{X}} = \mu$ (la misma que la población) y desviación estándar $\sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}}$. En este caso, $\mu = 500$ kg, $\sigma = 65$ kg, y $n = 196$ terneras, por lo que:
 
@@ -53,7 +62,12 @@ ii. Calcula un intervalo de confianza al 99% para el promedio estimado por el ga
 
 $$\bar{X} \pm Z \frac{\sigma}{\sqrt{n}}$$
 
-Donde: - $\bar{X}$ es el promedio muestral observado, que es $491$ kg. - $Z$ es el valor crítico correspondiente al nivel de confianza del 99%. Podemos encontrar este valor usando una tabla de distribución normal estándar. Para un nivel de confianza del 99%, $Z \approx 2.576$. - $\sigma$ es la desviación estándar de la población, que es $65$ kg. - $n$ es el tamaño de la muestra, que es $196$ terneras.
+Donde: - $\bar{X}$ es el promedio muestral observado, que es $491$ kg.
+- $Z$ es el valor crítico correspondiente al nivel de confianza del 99%.
+Podemos encontrar este valor usando una tabla de distribución normal estándar.
+Para un nivel de confianza del 99%, $Z \approx 2.576$.
+- $\sigma$ es la desviación estándar de la población, que es $65$ kg.
+- $n$ es el tamaño de la muestra, que es $196$ terneras.
 
 Sustituyendo los valores:
 
@@ -61,14 +75,14 @@ $$\bar{X} \pm 2.576 \frac{65}{\sqrt{196}} = 491 \pm 2.576 \frac{65}{14} \text{ k
 
 Calculando los límites del intervalo:
 
-Límite inferior: $491 - 2.576 \frac{65}{14} \approx 479$ kg Límite superior: $491 + 2.576 \frac{65}{14} \approx 503$ kg
+Límite inferior: $491 - 2.576 \frac{65}{14} \approx 491$ kg Límite superior: $491 + 2.576 \frac{65}{14} \approx 503$ kg
 
-Por lo tanto, el intervalo de confianza al 99% para el promedio de peso estimado por el ganadero es aproximadamente $(479 \text{ kg}, 503 \text{ kg})$.
-
+Por lo tanto, el intervalo de confianza al 99% para el promedio de peso estimado por el ganadero es aproximadamente $(491 \text{ kg}, 503 \text{ kg})$.
 
 iii. En base a los resultados, ¿podemos decir que las terneras del ganadero tienen un peso estadísticamente inferior, similar o superior al peso esperado para las terneras de esta raza?:
 
-Dado que el intervalo de confianza al 99% incluye el valor esperado para las terneras de la raza Milking Shorthorn ($\mu = 500$ kg), no podemos afirmar que las terneras del ganadero tengan un peso estadísticamente inferior. El intervalo de confianza incluye el valor esperado, lo que sugiere que el peso promedio estimado por el ganadero es estadísticamente similar al peso esperado para las terneras de esta raza.
+Dado que el intervalo de confianza al 99% incluye el valor esperado para las terneras de la raza Milking Shorthorn ($\mu = 500$ kg), no podemos afirmar que las terneras del ganadero tengan un peso estadísticamente inferior.
+El intervalo de confianza incluye el valor esperado, lo que sugiere que el peso promedio estimado por el ganadero es estadísticamente similar al peso esperado para las terneras de esta raza.
 
 <br><br>
 
@@ -86,7 +100,8 @@ $$Z = \frac{(\mu - 10) - \mu}{\frac{\sigma}{\sqrt{n}}} = \frac{-10}{\frac{65}{\s
 
 Ahora, queremos encontrar la probabilidad de que $Z$ sea menor que $-2.154$, lo que equivale a encontrar el área bajo la curva de la distribución normal estándar a la izquierda de $Z = -2.154$.
 
-La probabilidad de que $Z$ sea menor que $-2.154$ es aproximadamente 0.016. Esto significa que la probabilidad de que el peso promedio obtenido por el ganadero con una muestra de 196 terneras sea menor que la media poblacional en al menos 10 kg es aproximadamente 1.6%.
+La probabilidad de que $Z$ sea menor que $-2.154$ es aproximadamente 0.016.
+Esto significa que la probabilidad de que el peso promedio obtenido por el ganadero con una muestra de 196 terneras sea menor que la media poblacional en al menos 10 kg es aproximadamente 1.6%.
 
 <br><br>
 
@@ -111,7 +126,11 @@ i.  Calcula un intervalo al 97% de confianza para las Pruebas 1 y 2: Para calcul
 
 $$\text{Intervalo de Confianza} = \overline{x} \pm t_{\frac{\alpha}{2}, n-1} \left(\frac{s}{\sqrt{n}}\right)$$
 
-Donde: - $\overline{x}$ es la media de la muestra. - $t_{\frac{\alpha}{2}, n-1}$ es el valor crítico de la distribución t de Student con $n-1$ grados de libertad y $\alpha/2$ de probabilidad en la cola izquierda. Para un nivel de confianza del 97%, $\alpha = 0.03$ y $n$ es el tamaño de la muestra. - $s$ es la desviación estándar de la muestra. - $n$ es el tamaño de la muestra.
+Donde: - $\overline{x}$ es la media de la muestra.
+- $t_{\frac{\alpha}{2}, n-1}$ es el valor crítico de la distribución t de Student con $n-1$ grados de libertad y $\alpha/2$ de probabilidad en la cola izquierda.
+Para un nivel de confianza del 97%, $\alpha = 0.03$ y $n$ es el tamaño de la muestra.
+- $s$ es la desviación estándar de la muestra.
+- $n$ es el tamaño de la muestra.
 
 Para Prueba 1: - $\overline{x}_1 = 5.94$ (promedio de Prueba 1) - $s_1 = \sqrt{\frac{\sum{(x_i - \overline{x}_1)^2}}{n-1}} = \sqrt{\frac{2.475}{10-1}} \approx 0.524$ (desviación estándar de Prueba 1) - $n_1 = 10$ (tamaño de la muestra)
 
@@ -140,9 +159,11 @@ ii. Compara los intervalos para ambas pruebas y elabora una conclusión sustanti
 
 -   Desviación estándar de la muestra de notas finales: $\hat{\sigma}_{\text{naive}} = 0.5$
 
-    i.  Dado que el psicólogo no pasó por el curso SOL114, es posible que sus estimaciones no sean del todo correctas. En particular, indica si la desviación estándar provista por el psicólogo es o no un estimador insesgado de la desviación estándar poblacional ($\sigma$) y fundamenta tu respuesta.
+    i.  Dado que el psicólogo no pasó por el curso SOL114, es posible que sus estimaciones no sean del todo correctas.
+        En particular, indica si la desviación estándar provista por el psicólogo es o no un estimador insesgado de la desviación estándar poblacional ($\sigma$) y fundamenta tu respuesta.
 
-    ii. Calcula un intervalo de confianza al 95% para el promedio muestral $\bar{X} = 5.9$. Explica qué signica dicho intervalo en términos estadísticos.
+    ii. Calcula un intervalo de confianza al 95% para el promedio muestral $\bar{X} = 5.9$.
+        Explica qué signica dicho intervalo en términos estadísticos.
 
 i.  La desviación estándar muestral proporcionada por el psicólogo ($\hat{\sigma}_{\text{naive}} = 0.5$) no es un estimador insesgado de la desviación estándar poblacional ($\sigma$). La razón de esto es que la fórmula utilizada para calcular $\hat{\sigma}_{\text{naive}}$ no ajusta el divisor por la pérdida de un grado de libertad.
 
@@ -156,9 +177,14 @@ ii. Ahora, calculamos el intervalo de confianza al 95% para el promedio muestral
 
 $$\text{Intervalo de Confianza} = \bar{X} \pm t_{\frac{\alpha}{2}, n-1} \frac{\hat{\sigma}}{\sqrt{n}}$$
 
-Donde: - $\bar{X}$ es la media muestral observada, que es $5.9$. - $t_{\frac{\alpha}{2}, n-1}$ es el valor crítico de la distribución t de Student con $n-1$ grados de libertad y $\alpha/2$ de probabilidad en la cola izquierda. Para un nivel de confianza del 95%, $\alpha = 0.05$ y $n$ es el tamaño de la muestra, que es $484$ estudiantes. - $\hat{\sigma}$ es la desviación estándar muestral estimada con corrección n/(n-1).
+Donde: - $\bar{X}$ es la media muestral observada, que es $5.9$.
+- $t_{\frac{\alpha}{2}, n-1}$ es el valor crítico de la distribución t de Student con $n-1$ grados de libertad y $\alpha/2$ de probabilidad en la cola izquierda.
+Para un nivel de confianza del 95%, $\alpha = 0.05$ y $n$ es el tamaño de la muestra, que es $484$ estudiantes.
+- $\hat{\sigma}$ es la desviación estándar muestral estimada con corrección n/(n-1).
 
-Luego, calculamos el valor crítico de t para un nivel de confianza del 95% con 483 grados de libertad. Puedes encontrar este valor utilizando una tabla de distribución t-student. Para el nivel de confianza del 95%, $t_{\frac{\alpha}{2}, 483} \approx 1.964$.
+Luego, calculamos el valor crítico de t para un nivel de confianza del 95% con 483 grados de libertad.
+Puedes encontrar este valor utilizando una tabla de distribución t-student.
+Para el nivel de confianza del 95%, $t_{\frac{\alpha}{2}, 483} \approx 1.964$.
 
 Sustituyendo los valores en la fórmula del intervalo de confianza:
 
@@ -193,7 +219,9 @@ ii. Para cada proporción construye un intervalo de confianza al 90%: Para const
 
 $$\hat{p} \pm Z_{\frac{\alpha}{2}} \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
 
-Donde: - $\hat{p}$ es la proporción muestral estimada. - $Z_{\frac{\alpha}{2}}$ es el valor crítico correspondiente al nivel de confianza $(1-\alpha)$. - $n$ es el tamaño de la muestra.
+Donde: - $\hat{p}$ es la proporción muestral estimada.
+- $Z_{\frac{\alpha}{2}}$ es el valor crítico correspondiente al nivel de confianza $(1-\alpha)$.
+- $n$ es el tamaño de la muestra.
 
 Para VyT, con $\hat{p}_{\text{V}} = 0.8$ y $n = 100$ (80 + 20), y para un nivel de confianza del 90%, el valor crítico $Z_{\frac{\alpha}{2}}$ es aproximadamente $1.645$ (puedes encontrarlo en una tabla de la distribución normal estándar).
 
@@ -212,28 +240,38 @@ iii. Compara ambos intervalos y elabora una conclusión sustantiva en base a los
 -   El intervalo de confianza para VyT va desde aproximadamente 0.7342 a 0.8658.
 -   El intervalo de confianza para ÑuÑ va desde aproximadamente 0.2246 a 0.3753.
 
-Con un nivel de confianza del 90%, podemos estar seguros de que en una comuna (VyT) ganará la opción "A favor", y en la otra comuna (ÑuÑ) ganará la opción "En contra". Los intervalos de confianza respaldan la predicción de resultados basados en las estimaciones muestrales y la certeza que ofrecen en términos de las preferencias de voto en ambas comunas.
+Con un nivel de confianza del 90%, podemos estar seguros de que en una comuna (VyT) ganará la opción "A favor", y en la otra comuna (ÑuÑ) ganará la opción "En contra".
+Los intervalos de confianza respaldan la predicción de resultados basados en las estimaciones muestrales y la certeza que ofrecen en términos de las preferencias de voto en ambas comunas.
 
 <br><br>
 
 7.  (12%) La consultora CALLEMP decide elevar el nivel de rigurosidad de sus estimaciones. Para ello contratan una socióloga UC a cargo de rediseñar el estudio sobre intención de voto. En particular, se le pide a la socióloga que, trabajando al 99% de confianza, reduzca el margen de error a 1 punto porcentual.
 
-```{=html}
-<!-- -->
-```
-i.  Explica el concepto de márgen de error: El margen de error es una medida de la incertidumbre asociada a una estimación basada en una muestra de datos. Representa cuánto puede variar la estimación muestral con respecto al valor real o poblacional. En otras palabras, el margen de error corresponde a la mitad de la amplitud de un intervalo de confianza. Cuanto menor sea el margen de error, mayor será la precisión de la estimación.
+
+i.  Explica el concepto de márgen de error: El margen de error es una medida de la incertidumbre asociada a una estimación basada en una muestra de datos.
+    Representa cuánto puede variar la estimación muestral con respecto al valor real o poblacional.
+    En otras palabras, el margen de error corresponde a la mitad de la amplitud de un intervalo de confianza.
+    Cuanto menor sea el margen de error, mayor será la precisión de la estimación.
 
 ii. Calcula el tamaño muestral necesario para satisfacer la demanda presentada por la consultora y justifica tus decisiones metodológicas: Para calcular el tamaño muestral necesario para satisfacer la demanda de un margen de error de 1 punto porcentual al 99% de confianza, podemos utilizar la fórmula para el tamaño de muestra en estudios de proporciones:
 
 $$n = \frac{Z^2 \cdot p \cdot (1-p)}{E^2}$$
 
-Donde: - $n$ es el tamaño de la muestra necesario. - $Z$ es el valor crítico de la distribución normal estándar correspondiente al nivel de confianza del 99%. Para un nivel de confianza del 99%, $Z \approx 2.576$. - $p(1-p)$ es la varianza de la variable de interés en la población. Dado que no conocemos esta cantidad usamos una estimación conservadora de la varianza: varianza máxima (cuando $p=0.5$). - $E$ es el margen de error deseado, que en este caso es 1 punto porcentual, por lo que $E = 0.01$.
+Donde: - $n$ es el tamaño de la muestra necesario.
+- $Z$ es el valor crítico de la distribución normal estándar correspondiente al nivel de confianza del 99%.
+Para un nivel de confianza del 99%, $Z \approx 2.576$.
+- $p(1-p)$ es la varianza de la variable de interés en la población.
+Dado que no conocemos esta cantidad usamos una estimación conservadora de la varianza: varianza máxima (cuando $p=0.5$).
+- $E$ es el margen de error deseado, que en este caso es 1 punto porcentual, por lo que $E = 0.01$.
 
 Sustituyendo los valores en la fórmula:
 
 $$n = \frac{2.576^2 \cdot 0.5 \cdot (1-0.5)}{0.01^2} \approx \frac{1.658724}{0.0001} \approx 16587$$
 
-Dado que el tamaño de la muestra debe ser un número entero, redondeamos hacia arriba a $n = 16587$. Por lo tanto, se necesitaría una muestra de al menos 16,587 observaciones para satisfacer la demanda de un margen de error de 1 punto porcentual al 99% de confianza. Esta decisión se basa en la fórmula estándar de cálculo del tamaño muestral en estudios de proporciones, asumiendo una proporción conservadora de 0.5 y un nivel de confianza del 99%. El objetivo es garantizar que la estimación sea altamente precisa y confiable.
+Dado que el tamaño de la muestra debe ser un número entero, redondeamos hacia arriba a $n = 16587$.
+Por lo tanto, se necesitaría una muestra de al menos 16,587 observaciones para satisfacer la demanda de un margen de error de 1 punto porcentual al 99% de confianza.
+Esta decisión se basa en la fórmula estándar de cálculo del tamaño muestral en estudios de proporciones, asumiendo una proporción conservadora de 0.5 y un nivel de confianza del 99%.
+El objetivo es garantizar que la estimación sea altamente precisa y confiable.
 
 <br><br>
 
@@ -246,18 +284,25 @@ i.  Un intervalo de confianza al 99% para la media poblacional significa que la 
 -   [ ] Verdadero
 -   [x] Falso
 
-Un intervalo de confianza al 99% para la media poblacional no significa que la probabilidad de que la media esté fuera del intervalo sea del 1%. La media poblacional no es aleatoria, pero la media muestral si, porque se estima en base a una muestra aleatoria. En realidad, la interpretación correcta es que si se repitiera el proceso de muestreo y construcción del intervalo en muchas ocasiones, el 99% de esos intervalos contendrían la verdadera media poblacional. Los intervalos de confianza se basan en la noción de repetición de muestreos y no proporcionan una probabilidad sobre la ubicación de la media en un solo intervalo.
+Un intervalo de confianza al 99% para la media poblacional no significa que la probabilidad de que la media esté fuera del intervalo sea del 1%.
+La media poblacional no es aleatoria, pero la media muestral si, porque se estima en base a una muestra aleatoria.
+En realidad, la interpretación correcta es que si se repitiera el proceso de muestreo y construcción del intervalo en muchas ocasiones, el 99% de esos intervalos contendrían la verdadera media poblacional.
+Los intervalos de confianza se basan en la noción de repetición de muestreos y no proporcionan una probabilidad sobre la ubicación de la media en un solo intervalo.
 
 ii. El error estándar de un estimador mide la desviación promedio de las estimaciones respecto del verdadero parámetro poblacional, incluso si el estimador está sesgado.
 
 -   [ ] Verdadero
 -   [x] Falso
 
-El error estándar de un estimador mide la variabilidad o dispersión de las estimaciones que obtendríamos al aplicar ese estimador a múltiples muestras aleatorias de la misma población. No necesariamente mide la desviación promedio de las estimaciones con respecto al verdadero parámetro poblacional. Si el estimador está sesgado, el error estándar proporciona una medida de cuánto se espera que varíen las estimaciones alrededor del promedio del valor estimado, el cual no coincide con valor real del parámetro poblacional.
+El error estándar de un estimador mide la variabilidad o dispersión de las estimaciones que obtendríamos al aplicar ese estimador a múltiples muestras aleatorias de la misma población.
+No necesariamente mide la desviación promedio de las estimaciones con respecto al verdadero parámetro poblacional.
+Si el estimador está sesgado, el error estándar proporciona una medida de cuánto se espera que varíen las estimaciones alrededor del promedio del valor estimado, el cual no coincide con valor real del parámetro poblacional.
 
 iii. Un estimador es insesgado si cada vez que lo aplicamos a una muestra aleatoria de una misma población entrega un estimado igual al verdadero parámetro poblacional.
 
 -   [ ] Verdadero
 -   [x] Falso
 
-Un estimador se considera insesgado si, en promedio, produce estimaciones equivalentes al valor real del parámetro poblacional cuando se aplica repetidamente a muestras aleatorias de la misma población. Sin embargo, un estimador insesgado no garantiza que cada estimación individual sea igual al valor real del parámetro poblacional en cada muestra. Puede haber variabilidad en las estimaciones individuales, pero en promedio, se espera que el estimador no tenga sesgo.
+Un estimador se considera insesgado si, en promedio, produce estimaciones equivalentes al valor real del parámetro poblacional cuando se aplica repetidamente a muestras aleatorias de la misma población.
+Sin embargo, un estimador insesgado no garantiza que cada estimación individual sea igual al valor real del parámetro poblacional en cada muestra.
+Puede haber variabilidad en las estimaciones individuales, pero en promedio, se espera que el estimador no tenga sesgo.

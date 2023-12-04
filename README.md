@@ -42,8 +42,11 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 30  | Oct |  Test de hipótesis  |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_15/class_15#1) [`[Code]`](slides/class_15/class_15.Rmd)                                                                                                                      |            |            |
 |  6  | Nov |  Test de media/proporciones en 1 muestra   |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_16/class_16#1) [`[Code]`](slides/class_16/class_16.Rmd)                                                                                                                       |            |            |
 | 13  | Nov |  Test de media/proporciones en 2 muestras                      |   [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_17/class_17#1) [`[Code]`](slides/class_17/class_17.Rmd)                                                                                                                     |            |            |
-| 27  | Nov | Tablas de contingencia y Test de χ²                                 |   [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_18/class_18#1) [`[Code]`](slides/class_18/class_18.Rmd)                                                                                                                                |            |            |
-| 29  | Nov | Correlación de Pearson                                     |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_19/class_19#1) [`[Code]`](slides/class_19/class_19.Rmd)                                                                                                                       |            |            |
+| 15  | Nov | Asociación variables continuas                                      |                                                                                                                        |            |            |
+| 20  | Nov | Correlación de Pearson                                      |                                                                                                                        |            |            |
+| 22  | Nov | Tablas de contingencia                     |                                                                                                                        |            |            |
+| 27  | Nov | Test de χ²                                 |                                                                                                                        |            |            |
+| 29  | Nov | Repaso                                     |                                                                                                                        |            |            |
 
 ---
 
@@ -88,8 +91,8 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 | Tarea corta 3    | 4 septiembre   | 11 septiembre  | [`[Soluciones TC3]`](homework/tc_3_answers.pdf) [`[Soluciones TC3.qmd]`](homework/tc_3_answers.qmd)                  |
 | Prueba 1         | 11 octubre     |                | [`[Soluciones P1]`](homework/prueba_1.pdf) [`[Notas]`](https://mebucca.github.io/ad2-sol114/homework/notas_prueba1.html)                                                                                  |
 | Tarea corta 4    | 23 octubre   |  30 octubre              | [`[Soluciones TC4]`](homework/tc_4_answers.pdf) [`[Soluciones TC4.qmd]`](homework/tc_4_answers.qmd)                                                                                    |
-| Prueba 2         | 8 noviembre    |                | [`[Soluciones P2]`](homework/prueba_2.pdf) [`[Notas]`](https://mebucca.github.io/ad2-sol114/homework/notas_prueba2.html)                                                                                |
-| Tarea corta 5    | 20 noviembre   | 27 noviembre   | [`[TC5]`](https://mebucca.github.io/ad2-sol114/homework/tc_5#1)                                                                               |
+| Prueba 2         | 8 noviembre    |                | [`[Soluciones P2]`](homework/prueba_2.pdf)                                                                                |
+| Tarea corta 6    | 20 noviembre   | 27 noviembre   |                                                                                |
 | Examen final     | 13 diciembre   |                |                                                                                |
 
 
@@ -101,7 +104,6 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 - Problemas desde *Fundamento de probabilidades* hasta *Teoremas Asintóticos*: [`[Respuestas Problem-set 1]`](problemsets/ejercicios_1.pdf) 
 - Problemas desde *Distribución Normal Standard* hasta *Distribución muestral, sesgo y varianza*: [`[Respuestas Problem-set 2]`](problemsets/ejercicios_2.pdf) 
 - Problemas desde *Distribución muestral, sesgo y varianza* hasta *Intervalos de Confianza*: [`[Respuestas Problem-set 3]`](https://mebucca.github.io/ad2-sol114/problemsets/ejercicios_3#1) 
-- Problemas sobre *Test de Hipótesis*: [`[Respuestas  Problem-set 4]`](https://mebucca.github.io/ad2-sol114/problemsets/ejercicios_4#1) 
 
 ---
 

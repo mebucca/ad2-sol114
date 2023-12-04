@@ -1,0 +1,193 @@
+---
+title: "Notas Prueba 2 (SOL114)"
+author: "Mauricio Bucca"
+format: html
+editor: visual
+---
+
+## Notas
+
+```{r, echo=F, message=FALSE, warning=FALSE}
+library("pacman")
+p_load(googlesheets4, tidyverse, kableExtra,mclust)
+
+#gs4_auth()
+
+sheet_url_1 <- "https://docs.google.com/spreadsheets/d/1BFWZx0b44gvvfTgA337I30oJwiV09mkF3_bUTM-WepE/edit#gid=1064220691"
+
+sheet_url_2 <- "https://docs.google.com/spreadsheets/d/1BFWZx0b44gvvfTgA337I30oJwiV09mkF3_bUTM-WepE/edit#gid=1548544822"
+
+notas_prueba1 <- gs4_get(sheet_url_1)
+notas_prueba2 <- gs4_get(sheet_url_2)
+
+notas_prueba1<- read_sheet(notas_prueba1, sheet= "Prueba 1")
+
+
+
+notas <- read_sheet(notas_prueba2, sheet= "Prueba 2")
+
+data_grades <- notas %>% drop_na(Nota, Rut) %>% filter(Nota > 0) %>% 
+  select(Rut,`1.i`:`Nota_curved`) %>% 
+
+  mutate(`P(Nota < tunota)` =rank(Nota_curved)/n()) 
+
+data_grades %>%
+  mutate(Nota = Nota_curved) %>% select(-Nota_curved) %>%
+  knitr::kable(digits=2) %>% kable_styling(font_size = 9)
+
+```
+
+## Resumen estadístico
+
+El siguiente gráfico muestra la distribución de las notas:
+
+```{r, echo=F, message=FALSE, warning=FALSE}
+
+# Compute statistical metrics
+
+media <- mean(data_grades$Nota_curved)
+mediana <- median(data_grades$Nota_curved)
+sd <- sd(data_grades$Nota_curved)
+min_val <- min(data_grades$Nota_curved)
+max_val <- max(data_grades$Nota_curved)
+
+# Set limits for y-axis so the annotations have enough space
+limits_y <- c(0, max(density(data_grades$Nota_curved)$y)*1.5)
+
+# Define ggplot
+p <- ggplot(data_grades, aes(x = Nota_curved)) +
+  geom_histogram(aes(y = ..density..), 
+                 fill = "blue", 
+                 alpha = 0.5, 
+                 bins = 30) +
+  geom_vline(xintercept = media, linetype = "dashed", color = "black") +
+  geom_text(aes(x = 1.1, y = limits_y[2] * 0.9, 
+                label = paste("Media =", round(media, 2))), hjust = 0) +
+  geom_text(aes(x = 1.1, y = limits_y[2] * 0.8, 
+                label = paste("Min =", round(min_val, 2))), hjust = 0) +
+  geom_text(aes(x = 1.1, y = limits_y[2] * 0.7, 
+                label = paste("Max =", round(max_val, 2))), hjust = 0) +
+  geom_text(aes(x = 1.1, y = limits_y[2] * 0.6, 
+                label = paste("SD =", round(sd, 2))), hjust = 0) +
+  labs(title = "Distribución de Notas**",
+       x = "Nota",
+       y = "Densidad") +
+  xlim(1,8) +
+  theme_minimal() +
+  coord_cartesian(ylim = limits_y)
+
+# Display plot
+print(p)
+```
+
+Las notas fueron re-escaladas para final el 7 en la nota máxima obtenida.
+Formalmente:
+
+$$
+ \text{Nota Final} =  \text{Nota Original} \times \frac{\text{7}}{\max(\text{Nota Original})} =\text{Nota Original} \times \frac{\text{7}}{6.6}
+$$
+
+Usando un Gaussian mixture model encontramos 3 clusters de notas:
+
+```{r, echo=F, message=FALSE, warning=FALSE}
+
+# Set seed for reproducibility
+set.seed(7615)
+
+# Fit a Gaussian mixture model with the "EM" algorithm and adjusted bandwidth
+fit <- Mclust(data_grades$Nota_curved, G = 3, adjustment = list(diagCov = TRUE))
+
+# Get the cluster assignments for each data point
+cluster_assignments <- fit$classification
+
+# Calculate the means for each cluster
+cluster_means <- tapply(data_grades$Nota_curved, cluster_assignments, mean)
+
+# Create a ggplot without a legend, add horizontal lines, annotate cluster means, and add vertical lines
+p <- ggplot(data_grades, aes(x = Nota, fill = factor(cluster_assignments))) +
+  geom_density(alpha = 0.5) +
+  labs(title = "Gaussian Mixture Model",
+       x = "Nota",
+       y = "Density") +
+  theme_minimal() +
+  scale_fill_manual(name = "Component", 
+                    values = c("#E41A1C",  # Red
+                                "#377EB8",  # Blue
+                                "#4DAF4A",  # Green
+                                "#984EA3")) +  # Purple
+  theme(legend.position = "none") +  # Remove the legend
+  geom_hline(yintercept = 0, linetype = "dashed", color = "black") +  # Add horizontal line at y = 0
+  geom_text(data = data.frame(cluster = unique(cluster_assignments), 
+                             cluster_mean = cluster_means),
+            aes(x = cluster_mean, y = 2, label = round(cluster_mean, 1), fill = factor(cluster)),
+            vjust = -0.5, size = 3) +  # Annotate cluster means with colors and rounded values
+  geom_vline(data = data.frame(cluster_mean = cluster_means),
+             aes(xintercept = cluster_mean), color = "black", linetype = "dotted")  # Add vertical lines
+
+# Display the plot
+print(p)
+
+
+```
+
+Desagregando por pregunta (sin ajustar):
+
+```{r, echo=F, message=FALSE, warning=FALSE}
+
+# Loading necessary libraries
+library(ggridges)
+
+# Data preparation
+data_long <- data_grades %>%  select(Rut,`1.i`:`8`) %>%
+  pivot_longer(cols = `1.i`:`8`, names_to = "Variable", values_to = "Value")
+
+# Calculate means for annotations
+data_long %>%
+  group_by(Variable) %>%
+  summarise(Promedio = mean(Value, na.rm = TRUE),
+            Min = min(Value, na.rm = TRUE),
+            Max = max(Value, na.rm = TRUE),
+            SD = sd(Value, na.rm = TRUE)
+            ) %>% 
+  knitr::kable(digits=2) %>% kable_styling(font_size = 9)
+  
+
+```
+
+```{r, echo=F, message=FALSE, warning=FALSE}
+
+# Assuming you have your datasets notas_prueba1 and data_grades
+# Joining datasets and renaming columns
+data_combined <- data_grades %>%
+  rename(Nota_2 = Nota_curved) %>%
+  select(Rut, Nota_2) %>%
+  left_join(notas_prueba1 %>% select(Rut, Nota), by="Rut") %>%
+  rename(Nota_1 = Nota) 
+```
+
+Comparando el rendimiendo en las Prueba 1 y Prueba 2, observamos que un `r 100* round(mean( data_combined$Nota_2 > data_combined$Nota_1, na.rm=T),2)`% de los estudiantes mejoró su nota.
+Adicionalmente, existe una asociación positiva pero relativamente débil entre ambas.
+
+```{r, echo=F, message=FALSE, warning=FALSE}
+# Plotting
+plot <- ggplot(data_combined, aes(x = Nota_1, y = Nota_2)) +
+  geom_point(aes(colour = Nota_2 > Nota_1)) +
+  geom_abline(intercept = 0, slope = 1, linetype = "dashed", color = "gray") + # 45-degree line
+  geom_smooth(method="lm", se = FALSE, color = "black") + # Linear regression line
+  labs(x = "Nota Prueba 1", y = "Nota Prueba 2", color = "Nota 2 > Nota 1") +
+  theme_minimal() +
+  scale_color_manual(values = c("#E41A1C", "#377EB8"))
+
+# Calculate correlation coefficient
+cor_coef <- cor(data_combined$Nota_1, data_combined$Nota_2, use = "pairwise.complete.obs")
+
+# Add annotation for correlation coefficient
+plot <- plot + annotate("text", 
+                        x = 2.3,
+                        y = 6.7, 
+                        label = paste("corr =", round(cor_coef, 2)), hjust = 0, vjust = 1)
+
+# Print the plot
+print(plot)
+
+```
