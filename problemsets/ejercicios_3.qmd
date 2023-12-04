@@ -595,10 +595,12 @@ Contando los votos para cada candidato, obtenemos:
 -   Votos por Boric: 12 personas
 -   Votos por Kast: 8 personas
 
+
 Las proporciones son las siguientes:
 
 -   Proporción de votos por Boric: $p_{Boric} = \frac{12}{20} = 0.6$
 -   Proporción de votos por Kast: $p_{Kast} = \frac{8}{20} = 0.4$
+
 
 **Intervalo de confianza del 95% para la proporción de votos de Boric:**
 
@@ -630,12 +632,10 @@ Dado que en las elecciones de 2021, Boric obtuvo un 55.87% de los votos válidos
 
 El intervalo de confianza para Boric es:
 
-$$0.5587 \pm 0.222$$
 
-Límite inferior: $0.5587 - 0.222 = 0.3367$ Límite superior: $0.5587 + 0.222 = 0.7807$
+$$0.5587 \pm 0.222$$ $$Límite inferior: 0.5587 - 0.222 = 0.3367$$ $$Límite superior: 0.5587 + 0.222 = 0.7807$$
 
-Comparando este intervalo con el obtenido previamente a partir de la muestra de la encuesta, observamos cierta superposición, lo que sugiere que los resultados de la encuesta podrían ser consistentes con los resultados reales de las elecciones.
-No obstante, debemos ser cautelosos en la interpretación de estos resultados debido al tamaño muy reducido de la muestra.
+Comparando este intervalo con el obtenido a partir de la muestra de la encuesta, observamos que hay una superposición, lo que sugiere que los resultados de la encuesta podrían ser consistentes con los resultados reales de las elecciones.
 
 13. Trabaja con los datos "Intenciones de Voto en el Plebiscito Chileno de 1988"
 
