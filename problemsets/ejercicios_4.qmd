@@ -7,28 +7,289 @@ editor: visual
 
 ## Problemas aplicados
 
-1.  Un grupo de investigadores está estudiando el número promedio de horas que la gente ve TV en una semana. De una muestra de 120 individuos, la media estimada se encuentra en 20 horas ( $\hat{\mu}$ ) y la varianza poblacional conocida es de 16 horas\^2 ( $\sigma^2$ ). El consenso científico vigente sostiene que en promedio las personas ven 10 horas de TV a la semana.
+1.  Un grupo de investigadores está estudiando el número promedio de horas que la gente ve TV en una semana. De una muestra de 120 individuos, la media estimada se encuentra en 20 horas ( $\hat{\mu}$ ) y la varianza poblacional conocida es de 16 horas$^2$ ( $\sigma^2$ ). El consenso científico vigente sostiene que en promedio las personas ven 10 horas de TV a la semana.
 
 -   En base a los resultados obtenidos por los investigadores, construye un test para la hipótesis de que el consumo de TV es mayor que lo esperado en base al consenso científico vigente.
     Trabaja al 1% de significación estadística.
 
 -   Interpreta el resultado.
 
+**Paso 1: Definir las hipótesis correctamente:**
+
+-   Hipótesis nula (H0): El consumo de TV es igual al consenso científico vigente, es decir, μ = 10 horas.
+-   Hipótesis alternativa (H1): El consumo de TV es mayor que el consenso científico vigente, es decir, μ \> 10 horas.
+
+**Paso 2: Elegir el nivel de significación (α):**
+
+α = 0.01 (1%).
+
+**Paso 3: Calcular la estadística de prueba:**
+
+Tienes los siguientes valores:
+
+-   $\hat{\mu}$ (media estimada de la muestra) = 20 horas.
+-   μ (media bajo la hipótesis nula) = 10 horas.
+-   $\sigma$ (desviación estándar poblacional) = √16 = 4 horas.
+-   n (tamaño de la muestra) = 120 individuos.
+
+Calculamos la estadística de prueba Z:
+
+$$Z = \frac{\hat{\mu} - \mu}{\frac{\sigma}{\sqrt{n}}}$$
+
+Sustituyendo los valores:
+
+$$Z = \frac{20 - 10}{\frac{4}{\sqrt{120}}}$$
+
+$$Z = \frac{10}{\frac{4}{\sqrt{120}}}$$
+
+Calculamos la raíz cuadrada de 120:
+
+$$\sqrt{120} \approx 10.95$$
+
+Luego, dividimos 10 por (4 / 10.95):
+
+$$Z \approx \frac{10}{\frac{4}{10.95}} \approx \frac{10}{0.364} \approx 27.47$$
+
+**Paso 4: Calcular el valor p:**
+
+Para calcular el valor p, podemos utilizar la estadística de prueba Z que hemos calculado.
+Dado que estamos probando si la media es mayor que 10 horas, necesitamos encontrar la probabilidad de obtener una estadística de prueba Z tan extrema o más extrema que 27.47 bajo la hipótesis nula.
+
+Usamos una tabla de distribución normal estándar o una calculadora estadística para encontrar el valor p correspondiente a Z = 27.47.
+El valor p es extremadamente pequeño y prácticamente igual a cero (p ≈ 0.0000).
+Esto significa que la probabilidad de obtener una media muestral de 20 horas o más, bajo la suposición de que la verdadera media es 10 horas es extremadamente baja.
+
+**Paso 5: Tomar una decisión y realizar una interpretación:**
+
+Dado que el valor p (p ≈ 0.0000) es mucho menor que el nivel de significación α = 0.01, rechazamos la hipótesis nula (H0).
+Hay evidencia estadística concluyente para afirmar que el consumo promedio de TV es mayor de lo que se esperaba según el consenso científico vigente, al menos con un nivel de significación del 1%.
+En otras palabras, los datos respaldan la idea de que las personas están viendo significativamente más televisión de lo que se creía previamente.
+
 2.  En un estudio sobre patrones de sueño, 16 adultos informan su duración promedio de sueño nocturno. La media es de 7 horas con una desviación estándar de la muestra de 1.1 horas ( $s$ ). Los expertos recomiendan dormir al menos 8 horas durante la noche.
 
 -   Trabajando con un nivel de significación estadística del 5% testea la siguiente hipótesis: "En promedio, los adultos duermen menos de lo recomendado por los expertos".
+
+**Paso 1: Definir las hipótesis correctamente:**
+
+-   Hipótesis nula (H0): En promedio, los adultos duermen al menos 8 horas durante la noche, es decir, μ = 8 horas.
+-   Hipótesis alternativa (H1): En promedio, los adultos duermen menos de 8 horas durante la noche, es decir, μ \< 8 horas.
+
+**Paso 2: Elegir el nivel de significación (α):**
+
+En este caso, se te pide que trabajes con un nivel de significación estadística del 5%, por lo que α = 0.05.
+
+**Paso 3: Calcular la estadística de prueba:**
+
+Tienes los siguientes valores:
+
+-   $\bar{x}$ (media de la muestra) = 7 horas.
+-   s (desviación estándar de la muestra) = 1.1 horas.
+-   n (tamaño de la muestra) = 16 adultos.
+
+Para calcular el p-valor, utilizamos la estadística de prueba t y la distribución t de Student con 15 grados de libertad (n - 1).
+Calculamos t de la siguiente manera:
+
+$$t = \frac{\bar{x} - \mu}{\frac{s}{\sqrt{n}}}$$
+
+Sustituyendo los valores:
+
+$$t = \frac{7 - 8}{\frac{1.1}{\sqrt{16}}}$$
+
+$$t = \frac{-1}{\frac{1.1}{4}}$$
+
+$$t \approx \frac{-4}{1.1} \approx -3.64$$
+
+**Paso 4: Calcular el p-valor:**
+
+Usamos la estadística de prueba t para calcular el p-valor en una distribución t de Student con 15 grados de libertad y la cola izquierda, ya que estamos probando si la media es menor que 8 horas.
+El p-valor es la probabilidad de obtener un valor de t tan extremo como -3.64.
+
+Usando una calculadora estadística o una tabla de distribución t, encontramos que el p-valor es extremadamente pequeño, casi cero (p-valor ≈ 0.0003).
+
+**Paso 5: Tomar una decisión y realizar una interpretación:**
+
+-   Si el p-valor es menor que el nivel de significación α (p-valor \< α), entonces rechazas la hipótesis nula en favor de la hipótesis alternativa.
+-   Si el p-valor es mayor o igual que α (p-valor ≥ α), entonces no tienes suficiente evidencia para rechazar la hipótesis nula.
+
+En este caso, el p-valor (p-valor ≈ 0.0003) es mucho menor que el nivel de significación α = 0.05.
+Por lo tanto, rechazas la hipótesis nula.
+
+Interpretación:
+
+Dado que el p-valor es menor que el nivel de significación del 5%, hay evidencia estadística para concluir que, en promedio, los adultos duermen menos de 8 horas durante la noche, lo que va en contra de la recomendación de los expertos.
 
 3.  Una encuesta reciente sobre el uso de teléfonos inteligentes se llevó a cabo con una muestra de 2,500 adolescentes. De ellos, 2,050 informaron tener un teléfono inteligente. Un investigador en sociología de la comunicación plantea la hipótesis de que más del 80% de todos los adolescentes tienen un teléfono inteligente.
 
 -   ¿Se puede confirmar esta hipótesis con un nivel de significancia del 99% con los datos de la encuesta?
 
+**Paso 1: Definir las hipótesis correctamente:**
+
+-   Hipótesis nula (H0): La proporción de adolescentes que tienen un teléfono inteligente es igual al 80%, es decir, p = 0.80.
+-   Hipótesis alternativa (H1): La proporción de adolescentes que tienen un teléfono inteligente es mayor del 80%, es decir, p \> 0.80.
+
+**Paso 2: Elegir el nivel de significancia (α):**
+
+En este caso, se te pide que trabajes con un nivel de significancia estadística del 99%, por lo que α = 0.01.
+
+**Paso 3: Recolectar datos y calcular la estadística de prueba:**
+
+Tienes los siguientes valores:
+
+-   Número de adolescentes encuestados (n) = 2,500.
+-   Número de adolescentes que tienen un teléfono inteligente (x) = 2,050.
+-   Proporción muestral de adolescentes con teléfono inteligente ( $\hat{p}$ ) = x / n = 2050 / 2500 = 0.82.
+
+Para calcular el p-valor, utilizamos la estadística de prueba z, que ya hemos calculado:
+
+$$z = \frac{\hat{p} - p}{\sqrt{\frac{p(1-p)}{n}}}$$
+
+Sustituyendo los valores:
+
+$$z = \frac{0.82 - 0.80}{\sqrt{\frac{0.80(1-0.80)}{2500}}}$$
+
+$$z = \frac{0.02}{\sqrt{\frac{0.80(0.20)}{2500}}}$$
+
+$$z = \frac{0.02}{\sqrt{\frac{0.16}{2500}}}$$
+
+$$z = \frac{0.02}{\sqrt{0.000064}}$$
+
+$$z \approx \frac{0.02}{0.008}$$
+
+$$z \approx 2.5$$
+
+**Paso 4: Calcular el p-valor:**
+
+Para calcular el p-valor, debemos encontrar la probabilidad de obtener una estadística de prueba z tan extrema o más extrema que 2.5 bajo la hipótesis nula.
+Esto implica encontrar la probabilidad de que la proporción muestral sea mayor que 0.82 bajo la suposición de que p = 0.80.
+
+Utilizando una tabla de distribución z o una calculadora estadística, encontramos que el p-valor es aproximadamente 0.0062.
+
+**Paso 5: Tomar una decisión y realizar una interpretación:**
+
+-   Si el p-valor es menor que el nivel de significancia α (p-valor \< α), entonces rechazas la hipótesis nula en favor de la hipótesis alternativa.
+-   Si el p-valor es mayor o igual que α (p-valor ≥ α), entonces no tienes suficiente evidencia para rechazar la hipótesis nula.
+
+En este caso, el p-valor (p-valor ≈ 0.0062) es menor que el nivel de significancia α = 0.01.
+Por lo tanto, rechazas la hipótesis nula.
+
+Interpretación:
+
+Con un nivel de significancia del 99%, hay evidencia estadística para concluir que más del 80% de los adolescentes tienen un teléfono inteligente, respaldando la hipótesis del investigador en sociología de la comunicación.
+
 4.  Un psicólogo lleva a cabo un estudio para investigar los efectos de la meditación en la reducción de los niveles de estrés. Para probar su hipótesis, selecciona una muestra de 81 participantes y encuentra que la reducción media en las puntuaciones de estrés es de 3.6 con una desviación estándar de 0.9 ( $s$ ). El psicólogo plantea la hipótesis de que la meditación reduce el nivel de estrés en la población más amplia.
 
 -   ¿Se puede confirmar esta hipótesis con un nivel de significancia del 90%?
 
+**Paso 1: Definir las hipótesis correctamente:**
+
+-   Hipótesis nula (H0): La meditación no tiene efecto en la reducción de los niveles de estrés en la población más amplia, es decir, μ = 0.
+-   Hipótesis alternativa (H1): La meditación reduce el nivel de estrés en la población más amplia, es decir, μ \< 0.
+
+**Paso 2: Elegir el nivel de significancia (α):**
+
+En este caso, se te pide que trabajes con un nivel de significancia estadística del 90%, por lo que α = 0.10.
+
+**Paso 3: Recolectar datos y calcular la estadística de prueba z:**
+
+Tienes los siguientes valores:
+
+-   Tamaño de la muestra (n) = 81 participantes.
+-   Reducción media en las puntuaciones de estrés en la muestra ( $\bar{x}$ ) = 3.6.
+-   Desviación estándar de la muestra (s) = 0.9.
+
+Utilizamos la siguiente fórmula para calcular la estadística de prueba z:
+
+$$z = \frac{\bar{x} - μ}{\frac{s}{\sqrt{n}}}$$
+
+Sustituyendo los valores:
+
+$$z = \frac{3.6 - 0}{\frac{0.9}{\sqrt{81}}}$$
+
+$$z = \frac{3.6 - 0}{\frac{0.9}{9}}$$
+
+$$z = \frac{3.6 - 0}{0.1}$$
+
+$$z = \frac{3.6}{0.1}$$
+
+$$z = 36$$
+
+**Paso 4: Calcular el p-valor:**
+
+Para calcular el p-valor, debemos encontrar la probabilidad de obtener una estadística de prueba z tan extrema o más extrema que la calculada bajo la hipótesis nula.
+Esto implica encontrar la probabilidad de que la reducción media en la población sea menor o igual a 3.6 (o equivalente) bajo la suposición de que μ = 0.
+
+Utilizando una tabla de distribución normal estándar o una calculadora estadística, encontramos el p-valor correspondiente a la estadística de prueba z calculada.
+
+**Paso 5: Tomar una decisión y realizar una interpretación:**
+
+-   Si el p-valor es menor que el nivel de significancia α (p-valor \< α), entonces rechazas la hipótesis nula en favor de la hipótesis alternativa.
+-   Si el p-valor es mayor o igual que α (p-valor ≥ α), entonces no tienes suficiente evidencia para rechazar la hipótesis nula.
+
+En este caso, la estadística de prueba z es igual a 36, y el p-valor correspondiente a esta estadística de prueba es prácticamente cero (p-valor ≈ 0).
+
+Con un nivel de significancia del 90%, hay evidencia estadística para concluir que la meditación reduce el nivel de estrés en la población más amplia, respaldando la hipótesis del psicólogo.
+
 5.  En un estudio sobre satisfacción laboral, una muestra de 25 empleados de una gran empresa da una puntuación de satisfacción en una escala de 1 a 10. Un investigador plantea la hipótesis de que más del 60% de todos los empleados de la empresa están satisfechos con su trabajo, definiendo "satisfecho" como aquellos que dan una puntuación de 8 o más. De los 25 empleados muestreados, 18 dieron una puntuación de 8 o más.
 
 -   ¿Se puede confirmar esta hipótesis con un nivel de significancia del 95%?
+
+**Paso 1: Definir las hipótesis correctamente:**
+
+-   Hipótesis nula (H0): La proporción de empleados satisfechos con su trabajo es igual al 60%, es decir, p = 0.60.
+-   Hipótesis alternativa (H1): La proporción de empleados satisfechos con su trabajo es mayor del 60%, es decir, p \> 0.60.
+
+**Paso 2: Elegir el nivel de significancia (α):**
+
+En este caso, se te pide que trabajes con un nivel de significancia estadística del 95%, por lo que α = 0.05.
+
+**Paso 3: Recolectar datos y calcular la estadística de prueba z:**
+
+Tienes los siguientes valores:
+
+-   Tamaño de la muestra (n) = 25 empleados.
+-   Número de empleados que dieron una puntuación de 8 o más (x) = 18 empleados.
+
+Para calcular la proporción muestral de empleados satisfechos ( $\hat{p}$ ), dividimos el número de empleados que dieron una puntuación de 8 o más entre el tamaño de la muestra:
+
+$$\hat{p} = \frac{x}{n} = \frac{18}{25} = 0.72$$
+
+**Paso 4: Calcular la estadística de prueba z:**
+
+Utilizamos la siguiente fórmula para calcular la estadística de prueba z:
+
+$$z = \frac{\hat{p} - p}{\sqrt{\frac{p(1-p)}{n}}}$$
+
+Sustituyendo los valores:
+
+$$z = \frac{0.72 - 0.60}{\sqrt{\frac{0.60(1-0.60)}{25}}}$$
+
+$$z = \frac{0.12}{\sqrt{\frac{0.60(0.40)}{25}}}$$
+
+$$z = \frac{0.12}{\sqrt{\frac{0.24}{25}}}$$
+
+$$z = \frac{0.12}{\sqrt{0.0096}}$$
+
+$$z \approx \frac{0.12}{0.098}$$
+
+$$z \approx 1.2245$$
+
+**Paso 5: Calcular el p-valor:**
+
+Para calcular el p-valor, debemos encontrar la probabilidad de obtener una estadística de prueba z igual o más extrema que la calculada bajo la hipótesis nula.
+Esto implica encontrar la probabilidad de que la proporción de empleados satisfechos sea mayor o igual al 0.72 bajo la suposición de que p = 0.60.
+
+Usando una tabla de distribución z o una calculadora estadística, encontramos el p-valor correspondiente a la estadística de prueba z calculada.
+
+El p-valor para z ≈ 1.2245 es aproximadamente 0.1093.
+
+**Paso 6: Tomar una decisión y realizar una interpretación:**
+
+Dado que el p-valor (0.1093) es mayor que el nivel de significancia α (0.05), no tenemos suficiente evidencia para rechazar la hipótesis nula.
+
+Interpretación:
+
+Con un nivel de significancia del 95%, no podemos rechazar la hipótesis de que el 60% de los empleados de la empresa están satisfechos con su trabajo, según los datos recopilados en el estudio de satisfacción laboral.
+La proporción muestral observada (0.72) no es lo suficientemente significativamente mayor que el valor hipotético de 0.60 para respaldar la afirmación de la hipótesis alternativa.
 
 6.  Un equipo de investigación médica está explorando un nuevo medicamento para tratar dolores de cabeza frecuentes. Se realizó un estudio piloto con 20 participantes, donde la mitad de ellos (10) recibieron el medicamento (grupo de tratamiento) y la otra mitad (10) no lo recibió (grupo de control). Durante una semana, los participantes informaron si habían tenido un dolor de cabeza (1 = Sí, 0 = No).
 
@@ -63,6 +324,71 @@ A partir de estos datos:
 
 -   Basándose en los resultados del test, ¿qué puede concluir sobre la efectividad del medicamento para reducir los dolores de cabeza?
 
+Para determinar si el medicamento es efectivo en la reducción de dolores de cabeza, podemos realizar un test de hipótesis de proporciones.
+La hipótesis nula (H0) sería que el medicamento no es efectivo, es decir, que la proporción de personas que tienen dolores de cabeza en el grupo de tratamiento es igual a la proporción en el grupo de control.
+La hipótesis alternativa (H1) sería que el medicamento es efectivo, es decir, que la proporción en el grupo de tratamiento es menor que la proporción en el grupo de control.
+
+**Paso 1: Definir las hipótesis:**
+
+-   Hipótesis nula (H0): La proporción de personas que tienen dolores de cabeza en el grupo de tratamiento es igual a la proporción en el grupo de control.
+-   Hipótesis alternativa (H1): La proporción de personas que tienen dolores de cabeza en el grupo de tratamiento es menor que la proporción en el grupo de control.
+
+**Paso 2: Elegir el nivel de significancia (α):**
+
+En este caso, vamos a asumir un nivel de significancia del 5% (α = 0.05).
+
+**Paso 3: Calcular las proporciones observadas:**
+
+Primero, calculamos las proporciones observadas de personas que tienen dolores de cabeza en cada grupo:
+
+-   Proporción en el grupo de tratamiento ( $\hat{p}_t$ ) = Número de personas con dolor de cabeza en tratamiento / Tamaño del grupo de tratamiento = 4/10 = 0.4
+-   Proporción en el grupo de control ( $\hat{p}_c$ ) = Número de personas con dolor de cabeza en control / Tamaño del grupo de control = 6/10 = 0.6
+
+**Paso 4: Calcular la estadística de prueba z:**
+
+Utilizamos la fórmula para la estadística de prueba z para proporciones:
+
+$$z = \frac{(\hat{p}_t - \hat{p}_c)}{\sqrt{\hat{p}(1-\hat{p})\left(\frac{1}{n_t} + \frac{1}{n_c}\right)}}$$
+
+Donde: - $\hat{p}_t$ es la proporción en el grupo de tratamiento (0.4).
+- $\hat{p}_c$ es la proporción en el grupo de control (0.6).
+- $\hat{p}$ es la proporción combinada de ambos grupos \[(Número de personas con dolor de cabeza en tratamiento + Número de personas con dolor de cabeza en control) / (Tamaño del grupo de tratamiento + Tamaño del grupo de control)\] = (4 + 6) / (10 + 10) = 0.5.
+- $n_t$ es el tamaño del grupo de tratamiento (10).
+- $n_c$ es el tamaño del grupo de control (10).
+
+Sustituyendo los valores:
+
+$$z = \frac{(0.4 - 0.6)}{\sqrt{0.5(1-0.5)\left(\frac{1}{10} + \frac{1}{10}\right)}}$$
+
+$$z = \frac{-0.2}{\sqrt{0.25(0.5)\left(0.2\right)}}$$
+
+$$z = \frac{-0.2}{\sqrt{0.025}}$$
+
+$$z = \frac{-0.2}{0.1581}$$
+
+$$z \approx -1.2622$$
+
+**Paso 5: Calcular el p-valor:**
+
+Para calcular el p-valor, encontramos la probabilidad de obtener una estadística de prueba z igual o más extrema que la calculada bajo la hipótesis nula.
+Dado que estamos interesados en si el medicamento reduce los dolores de cabeza, calcularemos el p-valor para una cola izquierda.
+
+Usando una tabla de distribución z o una calculadora estadística, encontramos el p-valor correspondiente a z ≈ -1.2622.
+El p-valor es aproximadamente 0.1031.
+
+**Paso 6: Tomar una decisión y realizar una interpretación:**
+
+-   Si el p-valor es menor que el nivel de significancia α (p-valor \< α), rechazamos la hipótesis nula en favor de la hipótesis alternativa.
+-   Si el p-valor es mayor o igual que α (p-valor ≥ α), no tenemos suficiente evidencia para rechazar la hipótesis nula.
+
+En este caso, el p-valor (0.1031) es mayor que el nivel de significancia α (0.05), por lo que no tenemos suficiente evidencia para rechazar la hipótesis nula.
+
+Interpretación:
+
+Con un nivel de significancia del 5%, no podemos concluir que el medicamento sea efectivo en la reducción de dolores de cabeza, según los datos recopilados en el estudio piloto.
+No hay suficiente evidencia para afirmar que el medicamento tenga un efecto significativo en la reducción de los dolores de cabeza en comparación con el grupo de control.
+Es necesario realizar estudios adicionales con muestras más grandes para obtener conclusiones más sólidas sobre la efectividad del medicamento.
+
 7.  Una escuela realiza un experimento para comparar la efectividad de dos métodos diferentes de enseñanza de matemáticas básicas para estudiantes de primer grado. Se seleccionan al azar 6 estudiantes, tres de los cuales aprenden usando el Método A (grupo de tratamiento) y tres con el Método B (grupo de control). Después de una semana de instrucción, cada estudiante realiza una prueba con un puntaje máximo de 10 puntos.
 
 Los datos recopilados son los siguientes:
@@ -79,6 +405,92 @@ Los datos recopilados son los siguientes:
 Con los datos recopilados,
 
 -   ¿existe una diferencia significativa en los puntajes promedio obtenidos por los estudiantes entre los dos métodos de enseñanza? Realiza un test de hipótesis con un nivel de significancia del 95%.
+
+Para determinar si existe una diferencia significativa en los puntajes promedio obtenidos por los estudiantes entre los dos métodos de enseñanza (Método A y Método B), realizaremos un test de hipótesis con un nivel de significancia del 95%.
+Además, calcularemos el valor p para obtener una evaluación completa.
+
+**Paso 1: Definir las hipótesis:**
+
+-   Hipótesis nula (H0): No hay diferencia significativa en los puntajes promedio entre los dos métodos de enseñanza, es decir, μA - μB = 0.
+-   Hipótesis alternativa (H1): Hay una diferencia significativa en los puntajes promedio entre los dos métodos de enseñanza, es decir, μA - μB ≠ 0 (dos colas).
+
+**Paso 2: Calcular las estadísticas de prueba:**
+
+Tenemos los siguientes datos:
+
+Para el Método A: - Tamaño de la muestra (nA) = 3 estudiantes.
+- Puntajes obtenidos: 7, 8, 7.
+
+Para el Método B: - Tamaño de la muestra (nB) = 3 estudiantes.
+- Puntajes obtenidos: 6, 5, 6.
+
+**Paso 3: Calcular las medias y las desviaciones estándar de ambas muestras:**
+
+Para el Método A: - Media (X̄A) = (7 + 8 + 7) / 3 = 7.33 - Desviación estándar de la muestra (SA) utilizando la fórmula para la desviación estándar de la muestra:
+
+$$SA = \sqrt{\frac{\sum(XA - X̄A)^2}{nA - 1}}$$
+
+$$SA = \sqrt{\frac{(7 - 7.33)^2 + (8 - 7.33)^2 + (7 - 7.33)^2}{3 - 1}}$$
+
+$$SA = \sqrt{\frac{0.1089 + 0.1089 + 0.1089}{2}}$$
+
+$$SA = \sqrt{\frac{0.3267}{2}}$$
+
+$$SA \approx \sqrt{0.1634}$$
+
+$$SA \approx 0.4042$$
+
+Para el Método B: - Media (X̄B) = (6 + 5 + 6) / 3 = 5.67 - Desviación estándar de la muestra (SB) utilizando la fórmula para la desviación estándar de la muestra:
+
+$$SB = \sqrt{\frac{\sum(XB - X̄B)^2}{nB - 1}}$$
+
+$$SB = \sqrt{\frac{(6 - 5.67)^2 + (5 - 5.67)^2 + (6 - 5.67)^2}{3 - 1}}$$
+
+$$SB = \sqrt{\frac{0.1089 + 0.4489 + 0.1089}{2}}$$
+
+$$SB = \sqrt{\frac{0.6667}{2}}$$
+
+$$SB \approx \sqrt{0.3333}$$
+
+$$SB \approx 0.5774$$
+
+**Paso 4: Calcular la estadística de prueba t:**
+
+Utilizamos la siguiente fórmula para calcular la estadística de prueba t para comparar las medias de dos muestras independientes:
+
+$$t = \frac{(X̄A - X̄B)}{\sqrt{\frac{SA^2}{nA} + \frac{SB^2}{nB}}}$$
+
+Sustituyendo los valores:
+
+$$t = \frac{(7.33 - 5.67)}{\sqrt{\frac{(0.4042)^2}{3} + \frac{(0.5774)^2}{3}}}$$
+
+$$t = \frac{1.66}{\sqrt{0.1371 + 0.3333}}$$
+
+$$t = \frac{1.66}{\sqrt{0.4704}}$$
+
+$$t ≈ \frac{1.66}{0.6860}$$
+
+$$t ≈ 2.42$$
+
+**Paso 5: Calcular el valor p:**
+
+El valor p se calcula utilizando la estadística de prueba t y nos indica la probabilidad de obtener un valor igual o más extremo que el observado bajo la hipótesis nula.
+
+Para una prueba de dos colas, el valor p se calcula buscando la probabilidad de obtener un valor absoluto de t mayor o igual al valor absoluto de la estadística de prueba t observada.
+Usando una tabla de distribución t o una calculadora estadística, encontramos que el valor p es aproximadamente 0.0336.
+
+**Paso 6: Tomar una decisión y realizar una interpretación:**
+
+-   Si el valor p es menor que α (0.05), rechazamos la hipótesis nula.
+-   Si el valor p es mayor o igual a α (0.05), no tenemos suficiente evidencia para rechazar la hipótesis nula.
+
+En este caso, el valor p es aproximadamente 0.0336, que es menor que α (0.05).
+Por lo tanto, rechazamos la hipótesis nula.
+
+Interpretación:
+
+Con un nivel de significancia del 95%, hay evidencia suficiente para concluir que existe una diferencia significativa en los puntajes promedio obtenidos por los estudiantes entre los dos métodos de enseñanza (Método A y Método B), según los datos recopilados en el experimento.
+Esto sugiere que al menos uno de los métodos de enseñanza es más efectivo que el otro en términos de puntajes promedio.
 
 8.  La consultora CALLEMP realiza una encuesta para predecir el resultado de las elecciones presidenciales en Chile en 2021. Se entrevistó a un total de 20 personas, quienes declararon si votarían por Boric o por Kast.
 
@@ -110,6 +522,67 @@ A continuación se muestra una tabla con los resultados:
 Basado en los datos de la encuesta,
 
 -   ¿puede la consultora predecir con seguridad que Boric ganará la elección? Realiza un test de hipótesis para para evaluar la confiabilidad de la encuesta en la predicción del resultado electoral.
+
+Para evaluar si la consultora puede predecir con seguridad que Boric ganará la elección en función de los datos de la encuesta, podemos realizar un test de hipótesis para la proporción de votantes que eligieron a Boric en la muestra.
+Utilizaremos un nivel de significancia del 95% (α = 0.05).
+
+**Paso 1: Definir las hipótesis:**
+
+-   Hipótesis nula (H0): La proporción de votantes que eligieron a Boric es igual al 0.5 (50%), lo que significa que no hay una ventaja significativa en la elección presidencial para Boric.
+-   Hipótesis alternativa (H1): La proporción de votantes que eligieron a Boric es mayor del 0.5 (50%), lo que sugeriría una ventaja significativa en la elección presidencial para Boric.
+
+**Paso 2: Elegir el nivel de significancia (α):**
+
+En este caso, estamos usando un nivel de significancia del 95%, lo que implica que α = 0.05.
+
+**Paso 3: Calcular la proporción observada de votantes que eligieron a Boric:**
+
+En la muestra, 11 de las 20 personas eligieron a Boric.
+
+Proporción observada ( $\hat{p}$ ) = Número de votantes que eligieron a Boric / Tamaño de la muestra = 11/20 = 0.55
+
+**Paso 4: Calcular la estadística de prueba z:**
+
+Utilizamos la fórmula para calcular la estadística de prueba z para proporciones:
+
+$$z = \frac{(\hat{p} - p)}{\sqrt{\frac{p(1-p)}{n}}}$$
+
+Donde: - $\hat{p}$ es la proporción observada (0.55).
+- $p$ es la proporción hipotética bajo la hipótesis nula (0.5).
+- $n$ es el tamaño de la muestra (20).
+
+Sustituyendo los valores:
+
+$$z = \frac{(0.55 - 0.5)}{\sqrt{\frac{0.5(1-0.5)}{20}}}$$
+
+$$z = \frac{0.05}{\sqrt{\frac{0.25}{20}}}$$
+
+$$z = \frac{0.05}{\sqrt{0.0125}}$$
+
+$$z = \frac{0.05}{0.1118}$$
+
+$$z \approx 0.4473$$
+
+**Paso 5: Calcular el valor p:**
+
+El valor p se calcula utilizando la estadística de prueba z y nos indica la probabilidad de obtener un valor igual o más extremo que el observado bajo la hipótesis nula.
+
+Para una prueba de una cola (derecha), el valor p se encuentra buscando la probabilidad de obtener un valor de z mayor que el valor calculado.
+Usando una tabla de distribución z o una calculadora estadística, encontramos que el valor p es aproximadamente 0.3277.
+
+**Paso 6: Tomar una decisión y realizar una interpretación:**
+
+-   Si el valor p es menor que α (0.05), rechazamos la hipótesis nula.
+-   Si el valor p es mayor o igual a α (0.05), no tenemos suficiente evidencia para rechazar la hipótesis nula.
+
+En este caso, el valor p es aproximadamente 0.3277, que es mayor que α (0.05).
+Por lo tanto, no tenemos suficiente evidencia para rechazar la hipótesis nula.
+
+Interpretación:
+
+Con un nivel de significancia del 95%, la encuesta realizada por la consultora no proporciona suficiente evidencia para afirmar con seguridad que Boric ganará la elección presidencial en base a los datos de la muestra.
+Esto significa que la encuesta no es concluyente y no podemos hacer una predicción definitiva sobre el resultado electoral en función de esta muestra limitada.
+Se requiere una muestra más grande y/o datos adicionales para obtener conclusiones más sólidas sobre el resultado electoral.
 
 9.  Trabaja con los datos "Intenciones de Voto en el Plebiscito Chileno de 1988"
 
@@ -188,6 +661,75 @@ Basándose en esta información,
 
 -   Interpreta
 
+Para comparar las medias de las puntuaciones en las tres pruebas (entradas, plato principal y postres) de manera emparejada y utilizar valores p, realizaremos pruebas t emparejadas para todas las combinaciones posibles.
+Esto nos permitirá evaluar si existe una diferencia estadísticamente significativa en las medias de cada par de pruebas.
+Utilizaremos un nivel de significancia del 95% (α = 0.05).
+
+Primero, definamos las hipótesis para cada prueba emparejada:
+
+Para Entradas vs. Plato Principal: - Hipótesis nula (H0): No hay diferencia estadísticamente significativa en la media de las puntuaciones entre las pruebas de entradas y plato principal, es decir, μ_entradas - μ_plato_principal = 0.
+- Hipótesis alternativa (H1): Existe una diferencia estadísticamente significativa en la media de las puntuaciones entre las pruebas de entradas y plato principal, es decir, μ_entradas - μ_plato_principal ≠ 0 (dos colas).
+
+Para Entradas vs. Postres: - Hipótesis nula (H0): No hay diferencia estadísticamente significativa en la media de las puntuaciones entre las pruebas de entradas y postres, es decir, μ_entradas - μ_postres = 0.
+- Hipótesis alternativa (H1): Existe una diferencia estadísticamente significativa en la media de las puntuaciones entre las pruebas de entradas y postres, es decir, μ_entradas - μ_postres ≠ 0 (dos colas).
+
+Para Plato Principal vs. Postres: - Hipótesis nula (H0): No hay diferencia estadísticamente significativa en la media de las puntuaciones entre las pruebas de plato principal y postres, es decir, μ_plato_principal - μ_postres = 0.
+- Hipótesis alternativa (H1): Existe una diferencia estadísticamente significativa en la media de las puntuaciones entre las pruebas de plato principal y postres, es decir, μ_plato_principal - μ_postres ≠ 0 (dos colas).
+
+Luego, calcularemos las estadísticas de prueba t emparejadas para cada par de pruebas y sus respectivos valores p.
+
+**Prueba 1: Entradas vs. Plato Principal**
+
+Para esta prueba emparejada, utilizamos la fórmula de la estadística de prueba t emparejada:
+
+$$t = \frac{\bar{d}}{\frac{s_d}{\sqrt{n}}}$$
+
+Donde: - $\bar{d}$ es la media de las diferencias entre las puntuaciones en entradas y plato principal.
+- $s_d$ es la desviación estándar de las diferencias.
+- $n$ es el tamaño de la muestra.
+
+Calcular $\bar{d}$: $\bar{d} = \bar{x}_{entradas} - \bar{x}_{plato\_principal} = 4.5 - 3.8 = 0.7$
+
+Calcular $s_d$ utilizando la suma de desviaciones al cuadrado proporcionada: $$s_d = \sqrt{\frac{\sum(x_{entradas} - x_{plato\_principal})^2}{n-1}} = \sqrt{\frac{375.6}{99}} ≈ 1.94$$
+
+Calcular $t$: $$t = \frac{0.7}{\frac{1.94}{\sqrt{100}}} ≈ \frac{0.7}{0.194} ≈ 3.61$$
+
+Ahora, encontramos el valor p para esta prueba t con $df = 99$ (grados de libertad): El valor p se refiere a la probabilidad de obtener un valor absoluto de t igual o mayor que el observado bajo la hipótesis nula.
+
+Usando una tabla de distribución t o una calculadora estadística, encontramos que el valor p para esta prueba t es muy pequeño, mucho menor que 0.05 (α = 0.05).
+Por lo tanto, rechazamos la hipótesis nula para la prueba Entradas vs. Plato Principal y concluimos que existe una diferencia estadísticamente significativa en la media de las puntuaciones entre estas dos pruebas.
+
+**Prueba 2: Entradas vs. Postres**
+
+Repetimos el mismo proceso para esta prueba emparejada.
+
+Calcular $\bar{d}$: $\bar{d} = \bar{x}_{entradas} - \bar{x}_{postres} = 4.5 - 5.2 = -0.7$
+
+Calcular $s_d$: $$s_d = \sqrt{\frac{\sum(x_{entradas} - x_{postres})^2}{n-1}} = \sqrt{\frac{62.7}{99}} ≈ 0.793$$
+
+Calcular $t$: $$t = \frac{-0.7}{\frac{0.793}{\sqrt{100}}} ≈ \frac{-0.7}{0.0793} ≈ -8.82$$
+
+Encontramos el valor p para esta prueba t con $df = 99$: El valor p es muy pequeño, mucho menor que 0.05 (α = 0.05).
+Por lo tanto, rechazamos la hipótesis nula para la prueba Entradas vs. Postres y concluimos que existe una diferencia estadísticamente significativa en la media de las puntuaciones entre estas dos pruebas.
+
+**Prueba 3: Plato Principal vs. Postres**
+
+Repetimos el proceso para esta última prueba emparejada.
+
+Calcular $\bar{d}$: $\bar{d} = \bar{x}_{plato\_principal} - \bar{x}_{postres} = 3.8 - 5.2 = -1.4$
+
+Calcular $s_d$: $$s_d = \sqrt{\frac{\sum(x_{plato\_principal} - x_{postres})^2}{n-1}} = \sqrt{\frac{178.4}{99}} ≈ 1.34$$
+
+Calcular $t$: $$t = \frac{-1.4}{\frac{1.34}{\sqrt{100}}} ≈ \frac{-1.4}{0.134} ≈ -10.45$$
+
+Encontramos el valor p para esta prueba t con $df = 99$: El valor p es muy pequeño,
+
+mucho menor que 0.05 (α = 0.05).
+Por lo tanto, rechazamos la hipótesis nula para la prueba Plato Principal vs. Postres y concluimos que existe una diferencia estadísticamente significativa en la media de las puntuaciones entre estas dos pruebas.
+
+En resumen, con un nivel de significancia del 95%, encontramos que las diferencias en las medias de las puntuaciones son estadísticamente significativas para todas las combinaciones de pruebas emparejadas (Entradas vs. Plato Principal, Entradas vs. Postres y Plato Principal vs. Postres).
+Esto indica que hay diferencias significativas en el rendimiento de los estudiantes en las tres pruebas de habilidades culinarias.
+
 11. Una población tomó un test compuesto por tres preguntas. El puntaje final de cada individuo se determina tomando el promedio simple de los puntajes obtenidos en las tres preguntas. Cada pregunta evalúa aspectos distintos del conocimiento y, por tanto, sus puntajes son independientes entre sí.
 
 A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 individuos para cada pregunta:
@@ -205,6 +747,83 @@ Basándose en esta información,
     Utiliza un nivel de significancia del 95%.
 
 -   Interpreta
+
+Primero, calculemos la media muestral del puntaje final de los 100 individuos.
+Como se mencionó, el puntaje final se calcula tomando el promedio simple de los puntajes en las tres preguntas.
+Entonces,
+
+Media muestral del puntaje final = (Media de Pregunta 1 + Media de Pregunta 2 + Media de Pregunta 3) / 3
+
+Media muestral del puntaje final = (4.8930040 + 0.9364491 + 6.0148615) / 3
+
+Media muestral del puntaje final ≈ 4.2814382
+
+La media muestral del puntaje final de estos 100 individuos es aproximadamente 4.28.
+
+Ahora, vamos a realizar un test de hipótesis para determinar si la media poblacional del puntaje final es significativamente diferente de 4 (la nota mínima para aprobar).
+Utilizaremos un nivel de significancia del 95% (α = 0.05).
+
+**Paso 1: Definir las hipótesis:**
+
+-   Hipótesis nula (H0): La media poblacional del puntaje final es igual a 4, es decir, μ = 4.
+-   Hipótesis alternativa (H1): La media poblacional del puntaje final es significativamente diferente de 4, es decir, μ ≠ 4 (dos colas).
+
+**Paso 2: Calcular la estadística de prueba z:**
+
+Para calcular la estadística de prueba z, utilizamos la fórmula:
+
+$$z = \frac{\bar{x} - μ}{\frac{σ}{\sqrt{n}}}$$
+
+Donde: - $\bar{x}$ es la media muestral del puntaje final (que calculamos anteriormente).
+- μ es el valor bajo la hipótesis nula (4 en este caso).
+- $σ$ es la desviación estándar poblacional del puntaje final (que no se proporcionó en los datos, por lo que asumiremos que es desconocida).
+- $n$ es el tamaño de la muestra (100).
+
+**Paso 3: Estimación de la desviación estándar poblacional:**
+
+Dado que no se proporcionó la desviación estándar poblacional ( $σ$ ), podemos utilizar la desviación estándar muestral (varianza muestral) como una estimación.
+Sin embargo, es importante mencionar que esta estimación será "naive" y puede llevar a resultados conservadores.
+
+Para el cálculo de la varianza muestral combinada, utilizamos la fórmula de varianza muestral ponderada:
+
+$$s^2 = \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2 + (n_3 - 1)s_3^2}{n_1 + n_2 + n_3 - 3}$$
+
+Donde: - $s_1^2$ es la varianza muestral de Pregunta 1.
+- $s_2^2$ es la varianza muestral de Pregunta 2.
+- $s_3^2$ es la varianza muestral de Pregunta 3.
+- $n_1$, $n_2$, $n_3$ son los tamaños de muestra correspondientes.
+
+$s^2 = \frac{(99)(3.998700) + (99)(1.957715) + (99)(0.5070397)}{297}$
+
+$s^2 ≈ 2.1706393$
+
+$s ≈ \sqrt{2.1706393} ≈ 1.472866$
+
+**Paso 4: Calcular la estadística de prueba z:**
+
+Utilizando los valores conocidos:
+
+$\bar{x} = 4.2814382$ (media muestral del puntaje final) $μ = 4$ (valor bajo la hipótesis nula) $s ≈ 1.472866$ (estimación de la desviación estándar poblacional) $n = 100$ (tamaño de la muestra)
+
+$$z = \frac{4.2814382 - 4}{\frac{1.472866}{\sqrt{100}}} ≈ \frac{0.2814382}{0.1472866} ≈ 1.91$$
+
+**Paso 5: Encontrar el valor p:**
+
+Dado que estamos interesados en una prueba de dos colas (μ ≠ 4), buscamos el valor p correspondiente en una distribución normal estándar (z).
+
+Usando una tabla de distribución z o una calculadora estadística, encontramos que el valor p para z = 1.91 es aproximadamente 0.0564 (para una prueba de dos colas).
+
+**Paso 6: Tomar una decisión y realizar una interpretación:**
+
+Con un nivel de significancia del 95% (α = 0.05), comparamos el valor p obtenido (0.0564) con α.
+
+-   Si valor p ≤ α, rechazamos la hipótesis nula.
+-   Si valor p \> α, no rechazamos la hipótesis nula.
+
+En este caso, 0.0564 \> 0.05, por lo que no tenemos suficiente evidencia para rechazar la hipótesis nula.
+No podemos concluir de manera significativa que la media poblacional del puntaje final sea diferente de 4.
+
+Interpretación: A un nivel de significancia del 95%, no encontramos evidencia suficiente para afirmar que la media poblacional del puntaje final de estos 100 individuos es significativamente diferente de 4.
 
 12. Un equipo de investigación médica está explorando un nuevo medicamento para tratar dolores de cabeza frecuentes. Se realizó un estudio piloto con 20 participantes, donde la mitad de ellos (10) recibieron el medicamento (grupo de tratamiento) y la otra mitad (10) no lo recibió (grupo de control). Durante una semana, los participantes informaron si habían tenido un dolor de cabeza (1 = Sí, 0 = No).
 
@@ -241,6 +860,43 @@ A partir de estos datos:
 
 -   Interpreta
 
+Para realizar el cálculo del valor p en el test de hipótesis, primero necesitamos calcular las proporciones de personas que experimentaron dolor de cabeza en el grupo de tratamiento ( $\hat{p}_t$ ) y en el grupo de control ( $\hat{p}_c$ ).
+
+**Cálculo de** $\hat{p}_t$ (proporción en el grupo de tratamiento):
+
+En el grupo de tratamiento, de un total de 10 participantes, 4 experimentaron dolor de cabeza (1).
+Entonces,
+
+$\hat{p}_t = \frac{\text{Número de personas con dolor de cabeza en el grupo de tratamiento}}{\text{Tamaño del grupo de tratamiento}} = \frac{4}{10} = 0.4$
+
+**Cálculo de** $\hat{p}_c$ (proporción en el grupo de control):
+
+En el grupo de control, de un total de 10 participantes, 6 experimentaron dolor de cabeza (1).
+Entonces,
+
+$\hat{p}_c = \frac{\text{Número de personas con dolor de cabeza en el grupo de control}}{\text{Tamaño del grupo de control}} = \frac{6}{10} = 0.6$
+
+Ahora, podemos calcular la proporción conjunta ( $\hat{p}$ ) y la varianza conjunta ( $Var(\hat{p})$ ):
+
+$\hat{p} = \frac{\text{Número total de personas con dolor de cabeza}}{\text{Total de participantes}} = \frac{4 + 6}{10 + 10} = \frac{10}{20} = 0.5$
+
+$Var(\hat{p}) = \frac{\hat{p}(1 - \hat{p})}{n_t} + \frac{\hat{p}(1 - \hat{p})}{n_c} = \frac{0.5(1 - 0.5)}{10} + \frac{0.5(1 - 0.5)}{10} = \frac{0.25}{10} + \frac{0.25}{10} = \frac{0.5}{10} = 0.05$
+
+Con estos valores, podemos calcular el estadístico de prueba Z:
+
+$Z = \frac{(\hat{p}_t - \hat{p}_c)}{\sqrt{Var(\hat{p})}} = \frac{(0.4 - 0.6)}{\sqrt{0.05}} = \frac{-0.2}{\sqrt{0.05}} \approx -2.83$
+
+Ahora, buscaremos el valor p correspondiente en una distribución normal estándar (Z) para un test de dos colas.
+Queremos encontrar la probabilidad de obtener un valor de Z tan extremo como -2.83 o más extremo en cualquier dirección.
+
+Usando una calculadora estadística o una tabla de distribución Z, encontramos que el valor p es extremadamente pequeño y está por debajo de cualquier nivel de significancia comúnmente utilizado (por ejemplo, \< 0.0001).
+
+Interpretación:
+
+Con un valor p extremadamente pequeño, podemos concluir que existe evidencia estadísticamente significativa para rechazar la hipótesis nula.
+En otras palabras, el tratamiento parece ser efectivo en la reducción de dolores de cabeza en comparación con el grupo de control.
+La diferencia en las proporciones es estadísticamente significativa, y esto sugiere que el tratamiento tiene un impacto en la reducción de los dolores de cabeza.
+
 13. Un estudio se llevó a cabo para comparar el rendimiento en matemáticas de dos grupos de estudiantes, Grupo A y Grupo B, que siguieron diferentes métodos de enseñanza durante un semestre. Al final del semestre, se recopilaron las calificaciones de ambos grupos para evaluar si había una diferencia significativa en sus promedios.
 
 Grupo A: Seleccionaron aleatoriamente a 30 estudiantes y su promedio fue de 85 con una desviación estándar de 8 ( $s$ ).
@@ -255,6 +911,63 @@ Se desea saber si hay evidencia estadística de que uno de los métodos de ense�
 
 -   Compara los resultados de los intervalos de confianza y el test de hipótesis y entrega una conclusión respecto de la efectividad comparada de ambos métodos.
 
+Primero calcularemos los intervalos de confianza al 95% para la media de cada grupo y luego realizaremos la prueba de hipótesis.
+
+**Grupo A:** - Media muestral ( $\bar{X}_A$ ) = 85 - Desviación estándar muestral ( $s_A$ ) = 8 - Tamaño de muestra ( $n_A$ ) = 30
+
+Usaremos la distribución t de Student con $n_A - 1$ grados de libertad (29 grados de libertad) para calcular el intervalo de confianza al 95%:
+
+Intervalo de Confianza para Grupo A:
+
+$$\bar{X}_A \pm \frac{t_{0.025} \cdot s_A}{\sqrt{n_A}}$$
+
+$$85 \pm \frac{2.045 \cdot 8}{\sqrt{30}}$$
+
+Calculando esto, obtenemos un intervalo de confianza para Grupo A de aproximadamente $81.75$ a $88.25$.
+
+**Grupo B:** - Media muestral ( $\bar{X}_B$ ) = 80 - Desviación estándar muestral ( $s_B$ ) = 7 - Tamaño de muestra ( $n_B$ ) = 35
+
+Usaremos la distribución t de Student con $n_B - 1$ grados de libertad (34 grados de libertad) para calcular el intervalo de confianza al 95%:
+
+Intervalo de Confianza para Grupo B:
+
+$$\bar{X}_B \pm \frac{t_{0.025} \cdot s_B}{\sqrt{n_B}}$$
+
+$$80 \pm \frac{2.032 \cdot 7}{\sqrt{35}}$$
+
+Calculando esto, obtenemos un intervalo de confianza para Grupo B de aproximadamente $76.13$ a $83.87$.
+
+**Prueba de hipótesis:**
+
+Planteamos las siguientes hipótesis:
+
+-   Hipótesis nula (H0): No hay diferencia significativa entre las medias de los dos grupos ( $\mu_A = \mu_B$ ).
+-   Hipótesis alternativa (H1): Existe una diferencia significativa entre las medias de los dos grupos ( $\mu_A \neq \mu_B$ ).
+
+Usaremos un nivel de significancia del 5% ( $\alpha = 0.05$ ).
+
+Para realizar la prueba de hipótesis, calcularemos el estadístico t:
+
+$$t = \frac{(\bar{X}_A - \bar{X}_B)}{\sqrt{\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B}}}$$
+
+$$t = \frac{(85 - 80)}{\sqrt{\frac{8^2}{30} + \frac{7^2}{35}}}$$
+
+Calculando esto, obtenemos un valor de $t \approx 2.78$.
+
+Para $n_A = 30$ y $n_B = 35$, los grados de libertad son $29$ y $34$, respectivamente.
+Buscamos en una tabla de distribución t de Student o utilizamos una calculadora estadística para encontrar el valor crítico de $t$ correspondiente a un nivel de significancia de $0.025$ (debido a la prueba de dos colas).
+
+El valor crítico de $t$ es aproximadamente $\pm 2.045$ para $n_A - 1 = 29$ grados de libertad y $\pm 2.032$ para $n_B - 1 = 34$ grados de libertad.
+
+Dado que $2.78 > 2.045$ y $2.78 > 2.032$, nuestro valor calculado de $t$ está fuera de los valores críticos.
+Por lo tanto, rechazamos la hipótesis nula.
+
+**Conclusión:**
+
+Basándonos en los resultados de los intervalos de confianza y la prueba de hipótesis, podemos concluir que hay evidencia estadística para sugerir que hay una diferencia significativa entre las medias de los dos grupos.
+En otras palabras, uno de los métodos de enseñanza es más efectivo que el otro en términos del rendimiento en matemáticas de los estudiantes.
+El Grupo A ( promedio de $85$ ) parece tener un rendimiento significativamente mejor en comparación con el Grupo B ( promedio de $80$ ).
+
 14. Un estudio se llevó a cabo para comparar la proporción de estudiantes de dos escuelas, Escuela A y Escuela B, que aprobaron un examen de matemáticas en su primer intento. Se seleccionaron aleatoriamente 10 estudiantes de cada escuela y se registraron los resultados de sus exámenes.
 
 Escuela A: De los 10 estudiantes seleccionados, 7 aprobaron en su primer intento.
@@ -267,32 +980,169 @@ Escuela B: De los 10 estudiantes seleccionados, 6 aprobaron en su primer intento
 
 -   Compara los resultados de los intervalos de confianza y el test de hipótesis.
 
+**Intervalo de confianza al 95% para la proporción de aprobación en Escuela A:**
+
+Para calcular el intervalo de confianza para la proporción de estudiantes que aprobaron en Escuela A, usaremos la fórmula del intervalo de confianza para una proporción poblacional:
+
+$$\text{Intervalo de Confianza (Escuela A)} = \hat{p}_A \pm Z \sqrt{\frac{\hat{p}_A(1-\hat{p}_A)}{n_A}}$$
+
+Donde: - $\hat{p}_A$ es la proporción de estudiantes que aprobaron en Escuela A, que es $7/10 = 0.7$.
+- $Z$ es el valor crítico z para un nivel de confianza del 95%, que es aproximadamente 1.96.
+- $n_A$ es el tamaño de la muestra en Escuela A, que es 10.
+
+Calculamos el intervalo de confianza para Escuela A:
+
+$$\text{Intervalo de Confianza (Escuela A)} = 0.7 \pm 1.96 \sqrt{\frac{0.7(1-0.7)}{10}}$$
+
+$$\text{Intervalo de Confianza (Escuela A)} = 0.7 \pm 1.96 \sqrt{\frac{0.21}{10}}$$
+
+$$\text{Intervalo de Confianza (Escuela A)} = 0.7 \pm 1.96 \sqrt{0.021}$$
+
+$$\text{Intervalo de Confianza (Escuela A)} = 0.7 \pm 1.96 \times 0.1449$$
+
+El intervalo de confianza para Escuela A es aproximadamente $0.413$ a $0.987$.
+
+**Intervalo de confianza al 95% para la proporción de aprobación en Escuela B:**
+
+Usaremos la misma fórmula para calcular el intervalo de confianza para la proporción de estudiantes que aprobaron en Escuela B:
+
+$$\text{Intervalo de Confianza (Escuela B)} = \hat{p}_B \pm Z \sqrt{\frac{\hat{p}_B(1-\hat{p}_B)}{n_B}}$$
+
+Donde: - $\hat{p}_B$ es la proporción de estudiantes que aprobaron en Escuela B, que es $6/10 = 0.6$.
+- $Z$ es el valor crítico z para un nivel de confianza del 95%, que es aproximadamente 1.96.
+- $n_B$ es el tamaño de la muestra en Escuela B, que es 10.
+
+Calculamos el intervalo de confianza para Escuela B:
+
+$$\text{Intervalo de Confianza (Escuela B)} = 0.6 \pm 1.96 \sqrt{\frac{0.6(1-0.6)}{10}}$$
+
+$$\text{Intervalo de Confianza (Escuela B)} = 0.6 \pm 1.96 \sqrt{\frac{0.24}{10}}$$
+
+$$\text{Intervalo de Confianza (Escuela B)} = 0.6 \pm 1.96 \sqrt{0.024}$$
+
+$$\text{Intervalo de Confianza (Escuela B)} = 0.6 \pm 1.96 \times 0.1549$$
+
+El intervalo de confianza para Escuela B es aproximadamente $0.295$ a $0.905$.
+
+**Prueba de hipótesis para comparar las proporciones:**
+
+Planteamos las siguientes hipótesis:
+
+-   Hipótesis nula (H0): No hay diferencia significativa entre las proporciones de estudiantes que aprobaron en Escuela A y Escuela B ( $p_A = p_B$ ).
+-   Hipótesis alternativa (H1): Existe una diferencia significativa entre las proporciones de estudiantes que aprobaron en Escuela A y Escuela B ( $p_A \neq p_B$ ).
+
+Usaremos un nivel de significancia del 5% ( $\alpha = 0.05$ ).
+
+Para realizar la prueba de hipótesis, calculamos el estadístico de prueba z para la diferencia de proporciones:
+
+$$z = \frac{(\hat{p}_A - \hat{p}_B)}{\sqrt{\hat{p}(1-\hat{p})\left(\frac{1}{n_A}+\frac{1}{n_B}\right)}}$$
+
+Donde: - $\hat{p}_A$ es la proporción de estudiantes que aprobaron en Escuela A.
+- $\hat{p}_B$ es la proporción de estudiantes que aprobaron en Escuela B.
+- $n_A$ es el tamaño de la muestra en Escuela A.
+- $n_B$ es el tamaño de la muestra en Escuela B.
+- $\hat{p}$ es la proporción de estudiantes que aprobaron en ambas escuelas combinadas.
+
+Calculamos $\hat{p}$:
+
+$$\hat{p} = \frac{\text{Total de aprobados en ambas escuelas}}{\text{Total de estudiantes en ambas escuelas}} = \frac{7 + 6}{10 + 10} = \frac{13}{20} = 0.65$$
+
+Ahora, calculamos el estadístico de prueba z:
+
+$$z = \frac{(0.7 - 0.6)}{\sqrt{0.65(1-0.65)\left(\frac{1}{10}+\frac{1}{10}\right)}}$$
+
+$$z = \frac{0.1}{\sqrt{0.65(0.35)\left(0.2\right)}}$$
+
+$$z \approx 0.1 / \sqrt{0.0455}$$
+
+$$z \approx 0.1 / 0.2134$$
+
+$$z \approx 0.4690$$
+
+Ahora, buscamos en la tabla de la distribución normal estándar para encontrar el valor crítico de z correspondiente a un nivel de significancia del 5% (prueba de dos colas).
+El valor crítico es aproximadamente $\pm 1.96$.
+
+Dado que $0.4690$ está dentro del intervalo $-1.96$ a $1.96$, no tenemos suficiente evidencia para rechazar la hipótesis nula.
+
+**Comparación de resultados:**
+
+-   Los intervalos de confianza para Escuela A ( $0.413$ a $0.987$ ) y Escuela B ( $0.295$ a $0.905$ ) se superponen significativamente, lo que sugiere que las proporciones de aprobación en ambas
+
+escuelas no son significativamente diferentes.
+
+-   La prueba de hipótesis no proporcionó suficiente evidencia para rechazar la hipótesis nula de que no hay diferencia significativa entre las proporciones de aprobación en ambas escuelas.
+
+En resumen, según los resultados de los intervalos de confianza y la prueba de hipótesis, no hay suficiente evidencia para concluir que una escuela es significativamente diferente de la otra en términos de proporción de estudiantes que aprobaron en el primer intento.
+
 ## Preguntas conceptuales
 
 1.  ¿Qué representa la hipótesis nula en un test de hipótesis y cómo se formula generalmente?
 
+La hipótesis nula en un test de hipótesis representa una afirmación de que no hay efecto, diferencia o relación significativa en los datos.
+Generalmente se formula como $H_0: \theta = \theta_0$, donde $\theta$ es el parámetro poblacional y $\theta_0$ es el valor bajo prueba.
+
 2.  ¿Cómo se define la hipótesis alternativa en un test de hipótesis y en qué se diferencia de la hipótesis nula?
 
-3.  Explique el concepto de "nivel de significación" en el contexto de un test de hipótesis.
-    ¿Qué implica un nivel de significación del 5%?
+La hipótesis alternativa en un test de hipótesis representa la afirmación de que hay un efecto, diferencia o relación significativa en los datos.
+Se diferencia de la hipótesis nula en que contradice esta última.
+Generalmente se formula como $H_1$ o $H_a$ y puede ser de dos colas ( $\neq$ ) o una cola ( $<$ o $>$ ).
+
+3.  Explique el concepto de "nivel de significación" en el contexto de un test de hipótesis. ¿Qué implica un nivel de significación del 5%?
+
+El nivel de significación en un test de hipótesis es la probabilidad de cometer un error de Tipo I al rechazar la hipótesis nula cuando es verdadera.
+Un nivel de significación del 5% (0.05) implica que hay un 5% de probabilidad de cometer un error de Tipo I al rechazar la hipótesis nula.
 
 4.  ¿Qué es un valor-p en un test de hipótesis y cómo se interpreta en relación con el nivel de significación?
 
+El valor-p en un test de hipótesis es la probabilidad de obtener un resultado igual o más extremo que el observado, asumiendo que la hipótesis nula es verdadera.
+Se interpreta comparándolo con el nivel de significación.
+Si el valor-p es menor que el nivel de significación, se rechaza la hipótesis nula.
+
 5.  Explique cómo se utiliza el valor-p para decidir si se rechaza o no la hipótesis nula.
+
+El valor-p se compara con el nivel de significación.
+Si el valor-p es menor que el nivel de significación ( $\alpha$ ), se rechaza la hipótesis nula.
+Si es mayor, no se rechaza la hipótesis nula.
 
 6.  ¿Qué es un error de Tipo I en el contexto de un test de hipótesis y cómo se relaciona con el nivel de significación?
 
+Un error de Tipo I ocurre cuando se rechaza la hipótesis nula cuando es verdadera.
+Está relacionado con el nivel de significación, ya que un nivel más bajo ( $\alpha$ ) reduce la probabilidad de cometer este error.
+
 7.  ¿Qué es un error de Tipo II en el contexto de un test de hipótesis y cómo se relaciona con el error Tipo I?
 
-8.  Explique la diferencia entre un test de hipótesis unilateral y bilateral.
-    Proporcione un ejemplo para cada uno.
+Un error de Tipo II ocurre cuando no se rechaza la hipótesis nula cuando es falsa.
+
+8.  Explique la diferencia entre un test de hipótesis unilateral y bilateral. Proporcione un ejemplo para cada uno.
+
+Un test de hipótesis unilateral evalúa si un parámetro es mayor o menor que un valor específico.
+Ejemplo de unilateral menor: $H_0: \mu \geq 10$ vs. $H_1: \mu < 10$.
+Ejemplo de unilateral mayor: $H_0: \mu \leq 5$ vs. $H_1: \mu > 5$.
+Un test de hipótesis bilateral evalúa si un parámetro es diferente de un valor específico.
+Ejemplo: $H_0: \mu = 20$ vs. $H_1: \mu \neq 20$.
 
 9.  ¿Qué es la "distribución nula" en un test de hipótesis y cómo se utiliza para calcular el valor-p?
 
-10. ¿Por qué una estadístico (ej. proporción muestral) sigue una distribución de probabilidad?
+La distribución nula es una distribución de probabilidad asumida bajo la hipótesis nula.
+Se utiliza para calcular el valor-p al determinar la probabilidad de obtener un estadístico de prueba tan extremo como el observado bajo la hipótesis nula.
+
+10. ¿Por qué un estadístico (ej. proporción muestral) sigue una distribución de probabilidad?
+
+Un estadístico sigue una distribución de probabilidad debido a los principios del muestreo y la teoría estadística.
+Por ejemplo, la media muestral sigue una distribución normal cuando se cumplen ciertas condiciones.
 
 11. Explique la importancia de la suposición de normalidad en los test de hipótesis para medias de muestras.
 
+La suposición de normalidad es importante porque muchos tests de hipótesis se basan en la distribución normal de los estadísticos de prueba.
+Si los datos no son aproximadamente normales, los resultados pueden ser incorrectos.
+
 12. ¿Cómo afecta la variabilidad de los datos al resultado de un test de hipótesis?
 
+La variabilidad de los datos afecta la precisión de los resultados del test.
+Cuanta más variabilidad haya, es posible que se requieran muestras más grandes para detectar efectos significativos.
+
 13. ¿Cómo se determina si se debe usar una prueba t o una prueba z en un test de hipótesis para medias?
+
+Se determina si se debe usar una prueba t o una prueba z en función de si se conoce o no la desviación estándar poblacional.
+Si se conoce, se utiliza la prueba z.
+Si no se conoce y se estima a partir de la muestra, se utiliza la prueba t.
