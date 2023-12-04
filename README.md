@@ -94,6 +94,8 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 | Prueba 2         | 8 noviembre    |                | [`[Soluciones P2]`](exams/prueba_2.pdf) [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_prueba2.html)                                                                              |
 | Tarea corta 5    |                |                |   [`[Soluciones TC5]`](https://mebucca.github.io/ad2-sol114/homework/tc_5_answers#1) [`[Soluciones TC3.qmd]`](homework/tc_5_answers.qmd)                                                                         |
 | Tarea corta 6    |                |                |  [`[TC6]`](https://mebucca.github.io/ad2-sol114/homework/tc_6#1)  [`[TC6.qmd]`](homework/tc_6.qmd)                                                                               |
+| Prueba Bonus   |                |                |     [`[Prueba Bonus]`](exams/prueba_bonus.pdf)                                                                            |
+
 | Examen final     | 13 diciembre   |                |                                                                                |
 
 
