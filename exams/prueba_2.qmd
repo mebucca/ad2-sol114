@@ -75,9 +75,9 @@ $$\bar{X} \pm 2.576 \frac{65}{\sqrt{196}} = 491 \pm 2.576 \frac{65}{14} \text{ k
 
 Calculando los límites del intervalo:
 
-Límite inferior: $491 - 2.576 \frac{65}{14} \approx 479$ kg Límite superior: $491 + 2.576 \frac{65}{14} \approx 503$ kg
+Límite inferior: $491 - 2.576 \frac{65}{14} \approx 491$ kg Límite superior: $491 + 2.576 \frac{65}{14} \approx 503$ kg
 
-Por lo tanto, el intervalo de confianza al 99% para el promedio de peso estimado por el ganadero es aproximadamente $(479 \text{ kg}, 503 \text{ kg})$.
+Por lo tanto, el intervalo de confianza al 99% para el promedio de peso estimado por el ganadero es aproximadamente $(491 \text{ kg}, 503 \text{ kg})$.
 
 iii. En base a los resultados, ¿podemos decir que las terneras del ganadero tienen un peso estadísticamente inferior, similar o superior al peso esperado para las terneras de esta raza?:
 
@@ -247,7 +247,6 @@ Los intervalos de confianza respaldan la predicción de resultados basados en la
 
 7.  (12%) La consultora CALLEMP decide elevar el nivel de rigurosidad de sus estimaciones. Para ello contratan una socióloga UC a cargo de rediseñar el estudio sobre intención de voto. En particular, se le pide a la socióloga que, trabajando al 99% de confianza, reduzca el margen de error a 1 punto porcentual.
 
-<!-- -->
 
 i.  Explica el concepto de márgen de error: El margen de error es una medida de la incertidumbre asociada a una estimación basada en una muestra de datos.
     Representa cuánto puede variar la estimación muestral con respecto al valor real o poblacional.
