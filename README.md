@@ -93,7 +93,7 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 | Tarea corta 4    | 23 octubre   |  30 octubre              | [`[Soluciones TC4]`](homework/tc_4_answers.pdf) [`[Soluciones TC4.qmd]`](homework/tc_4_answers.qmd)                                                                                    |
 | Prueba 2         | 8 noviembre    |                | [`[Soluciones P2]`](exams/prueba_2.pdf) [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_prueba2.html)                                                                              |
 | Tarea corta 5    |                |                |   [`[Soluciones TC5]`](https://mebucca.github.io/ad2-sol114/homework/tc_5_answers#1) [`[Soluciones TC3.qmd]`](homework/tc_5_answers.qmd)                                                                         |
-| Tarea corta 6    |                |                |  [`[TC6]`](https://mebucca.github.io/ad2-sol114/homework/tc_6#1)                                                                              |
+| Tarea corta 6    |                |                |  [`[TC6]`](https://mebucca.github.io/ad2-sol114/homework/tc_6#1)  [`[TC6.qmd]`](homework/tc_6.qmd)                                                                               |
 | Examen final     | 13 diciembre   |                |                                                                                |
 
 
