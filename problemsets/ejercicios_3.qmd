@@ -774,7 +774,7 @@ Por lo tanto, necesitaríamos una muestra de aproximadamente 9604 encuestados pa
 15. Un grupo de estudiantes participó en una competencia de habilidades culinarias. La competencia se compone de tres pruebas: elaboración de entradas, plato principal y postres. El puntaje final de cada estudiante se determina tomando el promedio simple de los puntajes obtenidos en las tres pruebas. Cada pregunta controla aspectos distintas habilidades y por tanto sus puntajes son independientes entre si. A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 estudiantes para cada prueba:
 
 | Estadística                                               | Entradas | Plato Principal | Postres |
-|-------------------------------|--------------|--------------|--------------|
+|---------------------------|---------------|---------------|---------------|
 | Media muestral $\bar{x} = \frac{\sum x}{n}$               | 4.5      | 3.8             | 5.2     |
 | Suma de desviaciones al cuadrado $\sum (x_i - \bar{x})^2$ | 375.6    | 178.4           | 62.7    |
 
