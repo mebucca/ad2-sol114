@@ -20,7 +20,12 @@ casen2017 <- read.csv(url) %>% as_tibble() %>%
          genero = case_when(sexo==1 ~ "Hombre", sexo==2 ~ "Mujer"))
 ```
 
+<<<<<<< HEAD
 La brecha de ingresos entre hombres y mujeres (a favor de los primeros) en un hecho bien documentado. La siguiente tabla muestra el promedio de ingresos autónomos para hombres y mujeres estimado en una submuestra de la Encuesta CASEN 2017.
+=======
+La brecha de ingresos entre hombres y mujeres (a favor de los primeros) en un hecho bien documentado.
+La siguiente tabla muestra el promedio de ingresos autónomos para hombres y mujeres estimado en una submuestra de la Encuesta CASEN 2017.
+>>>>>>> master
 
 ```{r, echo=F, warning=FALSE, message=FALSE}
 library("tidyverse")
@@ -32,9 +37,22 @@ casen2017 %>% group_by(genero) %>% summarise(promedio_ingreso_genero = round(mea
 
 ```
 
+<<<<<<< HEAD
 Varias teorías complementarias se han propuesto para explicar la brecha salarial de género. Una teoría -- la teoría del Capital Humano, -- argumenta que esta brecha no se debe intrínsecamente al género, sino más bien a las disparidades en los logros educativos entre hombres y mujeres. Esta teoría sugiere que, ya que un mayor nivel educativo generalmente conduce a ingresos más altos, la brecha salarial observada podría ser en gran parte el resultado de diferencias promedio en la educación entre géneros. De acuerdo con esta perspectiva, se espera que las diferencias salariales entre hombres y mujeres que han alcanzado niveles educativos similares sean insignificantes o, al menos, menores que la brecha observada a nivel general.
 
 *Referencia bibliográfica*: Blau, Francine D. y Lawrence M. Kahn. (2017). "The Gender Wage Gap: Extent, Trends, and Explanations". En Journal of Economic Literature.
+=======
+Varias teorías complementarias se han propuesto para explicar la brecha salarial de género.
+Una teoría -- la teoría del Capital Humano, -- argumenta que esta brecha no se debe intrínsecamente al género, sino más bien a las disparidades en los logros educativos entre hombres y mujeres.
+Esta teoría sugiere que, ya que un mayor nivel educativo generalmente conduce a ingresos más altos, la brecha salarial observada podría ser en gran parte el resultado de diferencias promedio en la educación entre géneros.
+De acuerdo con esta perspectiva, se espera que las diferencias salariales entre hombres y mujeres que han alcanzado niveles educativos similares sean insignificantes o, al menos, menores que la brecha observada a nivel general.
+
+*Referencia bibliográfica*: Blau, Francine D.
+y Lawrence M. Kahn.
+(2017).
+"The Gender Wage Gap: Extent, Trends, and Explanations".
+En Journal of Economic Literature.
+>>>>>>> master
 
 En la linea de este argumento, los datos de la submuestra de la Encuesta CASEN 2017 revelan lo siguiente:
 
@@ -102,14 +120,22 @@ ggplot(resultados) +
 
 ## Instrucciones:
 
+<<<<<<< HEAD
 1.  Estima la brecha de ingresos entre hombres y mujeres para cada nivel de logro educacional. Si $X$ respresenta la variable ingresos, podemos expresar estas cantidades formalmente como:
 
+=======
+1.  Estima la brecha de ingresos entre hombres y mujeres para cada nivel de logro educacional.
+    Si $X$ respresenta la variable ingresos, podemos expresar estas cantidades formalmente como:
+>>>>>>> master
 
     -   Brecha ingresos por genero entre personas sin grado universitario: $\mathbb{E}(X \mid \text{Hombre, No Universitario}) - \mathbb{E}(X \mid \text{Mujer, No  Universitaria})$
 
     -   Brecha ingresos por genero entre personas con grado universitario: $\mathbb{E}(X \mid \text{Hombre, Universitario}) - \mathbb{E}(X \mid \text{Mujer, Universitaria})$
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 ```{r, echo=F, warning=FALSE, message=FALSE}
 
 # Estimación de la brecha de ingresos para no universitarios
@@ -136,12 +162,19 @@ print(brecha_no_univ)
 cat("======== Universitarios ========= ")
 print(brecha_univ)
 ```
+<<<<<<< HEAD
    
     
 2.  Usando un nivel de significación del 5%, testea estadísticamente la siguiente hipótesis: "El ingreso esperado de los hombres con educación universitaria es mayor que el de las mujeres con educación universitaria".
 
 
 ```{r, echo=F, warning=FALSE, message=FALSE}
+=======
+
+2.  Usando un nivel de significación del 5%, testea estadísticamente la siguiente hipótesis: "El ingreso esperado de los hombres con educación universitaria es mayor que el de las mujeres con educación universitaria".
+
+```{r, echo=T, warning=FALSE, message=FALSE}
+>>>>>>> master
 
 # Datos filtrados para universitarios
 datos_univ <- casen2017 %>% filter(univ == 1)
@@ -172,15 +205,22 @@ print(c("z-gorro" = z_hat, "Valor-p" = valor_p))
 
 ```
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
 3.  Usando un nivel de significación del 5%, testea estadísticamente la siguiente hipótesis: "La brecha de ingreso por género es distinta dependiendo si las personas tienen o no educación universitaria".
 
 Pista, la hipótesis nula es la siguiente:
 
 $H_0: \mathbb{E}(X \mid \text{Hombre, Universitario}) - \mathbb{E}(X \mid \text{Mujer, Universitaria}) = \mathbb{E}(X \mid \text{Hombre, No Universitario}) - \mathbb{E}(X \mid \text{Mujer, No  Universitaria})$
 
+<<<<<<< HEAD
 
 ```{r, echo=F, warning=FALSE, message=FALSE}
+=======
+```{r, echo=T, warning=FALSE, message=FALSE}
+>>>>>>> master
 
 # Datos filtrados para universitarios
 datos_nouniv <- casen2017 %>% filter(univ == 0)
@@ -217,4 +257,12 @@ print(c("z-gorro" = z_hat, "Valor-p" = valor_p))
 
 4.  En base a los resultados obtenidos, comenta la validez de las predicciones derivadas de la Teoría del Capital Humano.
 
+<<<<<<< HEAD
 El análisis estadístico revela que la diferencia en los ingresos esperados entre hombres y mujeres con educación universitaria es estadísticamente significativa (valor-p = 0.007233882). Este hallazgo sugiere que, a pesar de alcanzar niveles educativos similares, persiste una brecha de ingresos favorable a los hombres. Esta persistencia desafía parcialmente la Teoría del Capital Humano, al sugerir la influencia de factores adicionales más allá del logro educativo en la disparidad salarial. Además, los resultados muestran que esta brecha salarial se manifiesta tanto en individuos con grado universitario como en aquellos sin él. La incapacidad para rechazar la hipótesis de que estas brechas varíen significativamente en magnitud refuerza aún más las dudas sobre la Teoría del Capital Humano, apuntando a la necesidad de considerar otros elementos que puedan estar contribuyendo a generar diferencias salariales por género.
+=======
+El análisis estadístico revela que la diferencia en los ingresos esperados entre hombres y mujeres con educación universitaria es estadísticamente significativa (valor-p = 0.007233882).
+Este hallazgo sugiere que, a pesar de alcanzar niveles educativos similares, persiste una brecha de ingresos favorable a los hombres.
+Esta persistencia desafía parcialmente la Teoría del Capital Humano, al sugerir la influencia de factores adicionales más allá del logro educativo en la disparidad salarial.
+Además, los resultados muestran que esta brecha salarial se manifiesta tanto en individuos con grado universitario como en aquellos sin él.
+La incapacidad para rechazar la hipótesis de que estas brechas varíen significativamente en magnitud refuerza aún más las dudas sobre la Teoría del Capital Humano, apuntando a la necesidad de considerar otros elementos que puedan estar contribuyendo a generar diferencias salariales por género.
+>>>>>>> master

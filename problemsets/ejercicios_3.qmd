@@ -592,15 +592,25 @@ Para abordar las preguntas planteadas, seguiremos los siguientes pasos:
 
 Contando los votos para cada candidato, obtenemos:
 
+<<<<<<< HEAD
 -   Votos por Boric: 12 personas
 -   Votos por Kast: 8 personas
+=======
+-   **Votos por Boric**: Según la tabla, 13 personas votaron por Boric.
+-   **Votos por Kast**: 7 personas votaron por Kast.
+>>>>>>> master
 
 
+<<<<<<< HEAD
 Las proporciones son las siguientes:
 
 -   Proporción de votos por Boric: $p_{Boric} = \frac{12}{20} = 0.6$
 -   Proporción de votos por Kast: $p_{Kast} = \frac{8}{20} = 0.4$
 
+=======
+-   Proporción de votos por Boric: $p_{Boric} = \frac{13}{20} = 0.65$
+-   Proporción de votos por Kast: $p_{Kast} = \frac{7}{20} = 0.35$
+>>>>>>> master
 
 **Intervalo de confianza del 95% para la proporción de votos de Boric:**
 
@@ -616,9 +626,13 @@ $$ME = 1.96 \cdot \sqrt{\frac{0.6(1 - 0.6)}{20}} \approx 0.209$$
 
 El intervalo de confianza es:
 
+<<<<<<< HEAD
 $$0.6 \pm 0.209$$
 
 Límite inferior: $0.6 - 0.209 = 0.391$ Límite superior: $0.6 + 0.209 = 0.809$
+=======
+$$0.65 \pm 0.209$$ $$Límite inferior: 0.65 - 0.209 = 0.441$$ $$Límite superior: 0.65 + 0.209 = 0.859$$
+>>>>>>> master
 
 **Conclusiones sobre las preferencias de voto de la población:**
 
@@ -635,7 +649,16 @@ El intervalo de confianza para Boric es:
 
 $$0.5587 \pm 0.222$$ $$Límite inferior: 0.5587 - 0.222 = 0.3367$$ $$Límite superior: 0.5587 + 0.222 = 0.7807$$
 
+<<<<<<< HEAD
 Comparando este intervalo con el obtenido a partir de la muestra de la encuesta, observamos que hay una superposición, lo que sugiere que los resultados de la encuesta podrían ser consistentes con los resultados reales de las elecciones.
+=======
+El intervalo de confianza para la proporción basada en los resultados de las elecciones es:
+
+$$0.5587 \pm 0.222$$ $$Límite inferior: 0.5587 - 0.222 = 0.3367$$ $$Límite superior: 0.5587 + 0.222 = 0.7807$$
+
+Comparando este intervalo con el obtenido a partir de la muestra de la encuesta, observamos que hay una superposición, lo que sugiere que los resultados de la encuesta podrían ser consistentes con los resultados reales de las elecciones.
+Sin embargo, debemos ser cautelosos al interpretar estos resultados debido al tamaño muy pequeño de la muestra.
+>>>>>>> master
 
 13. Trabaja con los datos "Intenciones de Voto en el Plebiscito Chileno de 1988"
 

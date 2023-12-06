@@ -292,7 +292,6 @@ Con un nivel de significancia del 95%, no podemos rechazar la hipótesis de que 
 La proporción muestral observada (0.72) no es lo suficientemente significativamente mayor que el valor hipotético de 0.60 para respaldar la afirmación de la hipótesis alternativa.
 
 6.  Un equipo de investigación médica está explorando un nuevo medicamento para tratar dolores de cabeza frecuentes. Se realizó un estudio piloto con 20 participantes, donde la mitad de ellos (10) recibieron el medicamento (grupo de tratamiento) y la otra mitad (10) no lo recibió (grupo de control). Durante una semana, los participantes informaron si habían tenido un dolor de cabeza (1 = Sí, 0 = No).
->>>>>>> master
 
 Los datos recopilados son los siguientes:
 
@@ -390,9 +389,9 @@ Con un nivel de significancia del 5%, no podemos concluir que el medicamento sea
 No hay suficiente evidencia para afirmar que el medicamento tenga un efecto significativo en la reducción de los dolores de cabeza en comparación con el grupo de control.
 Es necesario realizar estudios adicionales con muestras más grandes para obtener conclusiones más sólidas sobre la efectividad del medicamento.
 
->>>>>>> master
+
 7.  Una escuela realiza un experimento para comparar la efectividad de dos métodos diferentes de enseñanza de matemáticas básicas para estudiantes de primer grado. Se seleccionan al azar 6 estudiantes, tres de los cuales aprenden usando el Método A (grupo de tratamiento) y tres con el Método B (grupo de control). Después de una semana de instrucción, cada estudiante realiza una prueba con un puntaje máximo de 10 puntos.
->>>>>>> master
+
 
 Los datos recopilados son los siguientes:
 
@@ -497,7 +496,7 @@ Con un nivel de significancia del 95%, hay evidencia suficiente para concluir qu
 Esto sugiere que al menos uno de los métodos de enseñanza es más efectivo que el otro en términos de puntajes promedio.
 
 8.  La consultora CALLEMP realiza una encuesta para predecir el resultado de las elecciones presidenciales en Chile en 2021. Se entrevistó a un total de 20 personas, quienes declararon si votarían por Boric o por Kast.
->>>>>>> master
+
 
 A continuación se muestra una tabla con los resultados:
 
@@ -591,7 +590,7 @@ Esto significa que la encuesta no es concluyente y no podemos hacer una predicci
 Se requiere una muestra más grande y/o datos adicionales para obtener conclusiones más sólidas sobre el resultado electoral.
 
 9.  Trabaja con los datos "Intenciones de Voto en el Plebiscito Chileno de 1988"
->>>>>>> master
+
 
 **Descripción:** La base de datos cuenta con 2700 registros distribuidos en 8 columnas.
 Estos datos son producto de una encuesta a nivel nacional llevada a cabo en abril y mayo de 1988 por FLACSO/Chile.
@@ -636,10 +635,6 @@ Es importante mencionar que existen algunos datos faltantes en el conjunto.
 
     -   Y: Votará sí (a favor de Pinochet).
 
-<<<<<<< HEAD
-
-=======
->>>>>>> master
 Los resultados de intención de voto por género son los siguientes:
 
 ```{r}
@@ -652,18 +647,10 @@ knitr::kable(table(data_chile$vote, data_chile$sex), align = "cc")
 
 -   Omitiendo a personas indecisas o que declaran que se abstendrán, estima la proporción hombres y mujeres que declaran que votarán por el NO (en vez de por SI).
 
-<<<<<<< HEAD
-
 - Realiza un test de hipótesis para determinar si existe una diferencia significativa en la intención de voto (NO vs SÍ) entre hombres y mujeres. Usa un nivel de significancia del 95%.
 
 - Testea la hipótesis de que ganará el NO.
 
-=======
--   Realiza un test de hipótesis para determinar si existe una diferencia significativa en la intención de voto (NO vs SÍ) entre hombres y mujeres.
-    Usa un nivel de significancia del 95%.
-
--   Testea la hipótesis de que ganará el NO.
->>>>>>> master
 
 10. Un grupo de estudiantes participó en una competencia de habilidades culinarias. La competencia se compone de tres pruebas: elaboración de entradas, plato principal y postres. El puntaje final de cada estudiante se determina tomando el promedio simple de los puntajes obtenidos en las tres pruebas. Cada prueba evalúa distintos aspectos y habilidades y, por tanto, sus puntajes son independientes entre sí. A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 estudiantes para cada prueba:
 
@@ -919,7 +906,6 @@ La diferencia en las proporciones es estadísticamente significativa, y esto sug
 13. Un estudio se llevó a cabo para comparar el rendimiento en matemáticas de dos grupos de estudiantes, Grupo A y Grupo B, que siguieron diferentes métodos de enseñanza durante un semestre. Al final del semestre, se recopilaron las calificaciones de ambos grupos para evaluar si había una diferencia significativa en sus promedios.
 
 Grupo A: Seleccionaron aleatoriamente a 30 estudiantes y su promedio fue de 85 con una desviación estándar de 8 ( $s$ ).
-
 
 Grupo B: Seleccionaron aleatoriamente a 35 estudiantes y su promedio fue de 80 con una desviación estándar de 7 ( $s$ ).
 
