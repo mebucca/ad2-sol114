@@ -211,10 +211,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Usando un nivel de significación del 5%, testea estadísticamente la siguiente hipótesis: “El ingreso esperado de los hombres con educación universitaria es mayor que el de las mujeres con educación universitaria”.</li>
 </ol>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Datos filtrados para universitarios</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>datos_univ <span class="ot">&lt;-</span> casen2017 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(univ <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular medias y desviaciones estándar</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>media_hombres_univ <span class="ot">&lt;-</span> <span class="fu">mean</span>(datos_univ<span class="sc">$</span>ingreso[datos_univ<span class="sc">$</span>genero <span class="sc">==</span> <span class="st">"Hombre"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>media_mujeres_univ <span class="ot">&lt;-</span> <span class="fu">mean</span>(datos_univ<span class="sc">$</span>ingreso[datos_univ<span class="sc">$</span>genero <span class="sc">==</span> <span class="st">"Mujer"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>sd_hombres_univ <span class="ot">&lt;-</span> <span class="fu">sd</span>(datos_univ<span class="sc">$</span>ingreso[datos_univ<span class="sc">$</span>genero <span class="sc">==</span> <span class="st">"Hombre"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>sd_mujeres_univ <span class="ot">&lt;-</span> <span class="fu">sd</span>(datos_univ<span class="sc">$</span>ingreso[datos_univ<span class="sc">$</span>genero <span class="sc">==</span> <span class="st">"Mujer"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>n_hombres_univ <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(datos_univ<span class="sc">$</span>ingreso[datos_univ<span class="sc">$</span>genero <span class="sc">==</span> <span class="st">"Hombre"</span>]))</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>n_mujeres_univ <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(datos_univ<span class="sc">$</span>ingreso[datos_univ<span class="sc">$</span>genero <span class="sc">==</span> <span class="st">"Mujer"</span>]))</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Diferencia de medias y error estándar</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>dif_medias_univ <span class="ot">&lt;-</span> media_hombres_univ <span class="sc">-</span> media_mujeres_univ</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>se_dif_medias_univ <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((sd_hombres_univ<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n_hombres_univ) <span class="sc">+</span> (sd_mujeres_univ<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n_mujeres_univ))</span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Imprimir resultados</span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="st">"Diferencia de medias"</span> <span class="ot">=</span> dif_medias_univ, <span class="st">"Error estándar"</span> <span class="ot">=</span> se_dif_medias_univ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Diferencia de medias       Error estándar 
             554413.3             226713.6 </code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># z-test</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>z_hat <span class="ot">=</span> (dif_medias_univ <span class="sc">-</span> <span class="dv">0</span>)<span class="sc">/</span>se_dif_medias_univ</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>valor_p <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z_hat)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="st">"z-gorro"</span> <span class="ot">=</span> z_hat, <span class="st">"Valor-p"</span> <span class="ot">=</span> valor_p))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    z-gorro     Valor-p 
 2.445434727 0.007233882 </code></pre>
@@ -226,10 +251,39 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Pista, la hipótesis nula es la siguiente:</p>
 <p><span class="math inline">\(H_0: \mathbb{E}(X \mid \text{Hombre, Universitario}) - \mathbb{E}(X \mid \text{Mujer, Universitaria}) = \mathbb{E}(X \mid \text{Hombre, No Universitario}) - \mathbb{E}(X \mid \text{Mujer, No  Universitaria})\)</span></p>
 <div class="cell">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Datos filtrados para universitarios</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>datos_nouniv <span class="ot">&lt;-</span> casen2017 <span class="sc">%&gt;%</span> <span class="fu">filter</span>(univ <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular medias y desviaciones estándar</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>media_hombres_nouniv <span class="ot">&lt;-</span> <span class="fu">mean</span>(datos_nouniv<span class="sc">$</span>ingreso[datos_nouniv<span class="sc">$</span>genero <span class="sc">==</span> <span class="st">"Hombre"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>media_mujeres_nouniv <span class="ot">&lt;-</span> <span class="fu">mean</span>(datos_nouniv<span class="sc">$</span>ingreso[datos_nouniv<span class="sc">$</span>genero <span class="sc">==</span> <span class="st">"Mujer"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>sd_hombres_nouniv <span class="ot">&lt;-</span> <span class="fu">sd</span>(datos_nouniv<span class="sc">$</span>ingreso[datos_nouniv<span class="sc">$</span>genero <span class="sc">==</span> <span class="st">"Hombre"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>sd_mujeres_nouniv <span class="ot">&lt;-</span> <span class="fu">sd</span>(datos_nouniv<span class="sc">$</span>ingreso[datos_nouniv<span class="sc">$</span>genero <span class="sc">==</span> <span class="st">"Mujer"</span>], <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>n_hombres_nouniv <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(datos_nouniv<span class="sc">$</span>ingreso[datos_nouniv<span class="sc">$</span>genero <span class="sc">==</span> <span class="st">"Hombre"</span>]))</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>n_mujeres_nouniv <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(datos_nouniv<span class="sc">$</span>ingreso[datos_nouniv<span class="sc">$</span>genero <span class="sc">==</span> <span class="st">"Mujer"</span>]))</span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Cálculo de la diferencia de diferencias</span></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>dif_diferencias <span class="ot">&lt;-</span> brecha_univ<span class="sc">$</span>brecha <span class="sc">-</span> brecha_no_univ<span class="sc">$</span>brecha</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>se_dif_diferencias <span class="ot">&lt;-</span> <span class="fu">sqrt</span>((sd_hombres_univ<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n_hombres_univ) <span class="sc">+</span> (sd_mujeres_univ<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n_mujeres_univ) <span class="sc">+</span></span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>                           (sd_hombres_nouniv<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n_hombres_nouniv) <span class="sc">+</span> (sd_mujeres_nouniv<span class="sc">^</span><span class="dv">2</span> <span class="sc">/</span> n_mujeres_nouniv))</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a><span class="co"># Imprimir resultados</span></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="st">"Diferencia de diferencias"</span> <span class="ot">=</span> dif_diferencias, <span class="st">"Error estándar"</span> <span class="ot">=</span> se_dif_diferencias))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Diferencia de diferencias            Error estándar 
                  334473.3                  230398.5 </code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># z-test</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>z_hat <span class="ot">=</span> (dif_diferencias <span class="sc">-</span> <span class="dv">0</span>)<span class="sc">/</span>se_dif_diferencias</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>valor_p <span class="ot">=</span> <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z_hat))</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="st">"z-gorro"</span> <span class="ot">=</span> z_hat, <span class="st">"Valor-p"</span> <span class="ot">=</span> valor_p))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  z-gorro   Valor-p 
 1.4517162 0.1465805 </code></pre>

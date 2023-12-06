@@ -19,39 +19,33 @@ latex:
     - inputenc
 ---
 
-
-
-
 **Instrucciones: Responde a las preguntas proporcionadas, asegurándote de justificar tus respuestas con cálculos y razonamientos claros.**
 
-1. **Distribución Normal y Rango de Probabilidad (10%)**: 
+1.  **Distribución Normal y Rango de Probabilidad (10%)**:
 
-   Dada una variable $X$ que sigue una distribución normal estándar (media 0 y desviación estándar 1), identifica dos valores, $x_1$ y $x_2$, para los cuales $P(x_1 < X < x_2) = 0.5$.
-
-
-\newpage
-
-
-2. **Evaluando la Probabilidad de Aprobación (20%)**:  
-
-   Considera una variable $Y$ que representa aprobar (1) o reprobar (0) un test, con la condición de aprobación establecida en un puntaje de 2 o más ($X \geq 2$).  
-   
-  - (5%) Calcula la probabilidad de aprobar el test, $P(Y = 1)$.  
-
-  - (10%) Describe la distribución de $Y$, incluyendo su función de masa de probabilidad.  
-
-  - (5%) Determina y explica el valor esperado $E(Y)$ y la varianza $Var(Y)$ de $Y$.
-
+    Dada una variable $X$ que sigue una distribución normal estándar (media 0 y desviación estándar 1), identifica dos valores, $x_1$ y $x_2$, para los cuales $P(x_1 < X < x_2) = 0.5$.
 
 \newpage
 
+2.  **Evaluando la Probabilidad de Aprobación (20%)**:
 
-3. **Análisis de Puntajes de Estudiantes (15%)**:  
+    Considera una variable $Y$ que representa aprobar (1) o reprobar (0) un test, con la condición de aprobación establecida en un puntaje de 2 o más ($X \geq 2$).
 
-   Cuentas con los puntajes de 25 estudiantes distribuidos en dos grupos, A y B. En el grupo A hay 16 estudiantes y en el grupo B hay 9 estudiantes. Los puntajes se muestran en la siguiente tabla. 
-   
-   
-| Estudiante | Grupo | Puntaje |
+-   (5%) Calcula la probabilidad de aprobar el test, $P(Y = 1)$.
+
+-   (10%) Describe la distribución de $Y$, incluyendo su función de masa de probabilidad.
+
+-   (5%) Determina y explica el valor esperado $E(Y)$ y la varianza $Var(Y)$ de $Y$.
+
+\newpage
+
+3.  **Análisis de Puntajes de Estudiantes (15%)**:
+
+    Cuentas con los puntajes de 25 estudiantes distribuidos en dos grupos, A y B.
+    En el grupo A hay 16 estudiantes y en el grupo B hay 9 estudiantes.
+    Los puntajes se muestran en la siguiente tabla.
+
+| Estudiante | Grupo | X, Puntaje |
 |------------|-------|---------|
 | A1         | A     | 1.76    |
 | A2         | A     | 0.40    |
@@ -79,43 +73,34 @@ latex:
 | B8         | B     | -0.74   |
 | B9         | B     | 2.27    |
 
+Sin conocimiento previo sobre la distribución poblacional, se te pide:
 
-  Sin conocimiento previo sobre la distribución poblacional, se te pide:  
-     
-  - (5%) Calcular la proporción de estudiantes que aprueban el test en cada grupo.  
-  
-  - (10%) Determinar la distribución muestral de las proporciones de aprobación.
+-   (5%) Calcular la proporción de estudiantes que aprueban el test en cada grupo.
 
+-   (10%) Determinar la distribución muestral de las proporciones de aprobación.
 
 \newpage
 
-.
-\newpage
+. \newpage
 
+4.  **Comparativa de Desempeño entre Grupos (45%)**:
 
-4. **Comparativa de Desempeño entre Grupos (45%)**:  
+    Utiliza los datos para examinar si hay diferencias en el rendimiento de los grupos A y B en el test:
 
-   Utiliza los datos para examinar si hay diferencias en el rendimiento de los grupos A y B en el test:  
-   
-  - (15%) Calcula y compara los intervalos de confianza al 95% para las proporciones de aprobación de cada grupo.  
+-   (15%) Calcula y compara los intervalos de confianza al 95% para las proporciones de aprobación de cada grupo.
 
-  - (15%) Establece un intervalo de confianza al 95% para la diferencia entre estas proporciones.  
+-   (15%) Establece un intervalo de confianza al 95% para la diferencia entre estas proporciones.
 
-   - (15%) Realiza un test de hipótesis para la diferencia de proporciones con un nivel de significancia del 5%.
-
+-   (15%) Realiza un test de hipótesis para la diferencia de proporciones con un nivel de significancia del 5%.
 
 \newpage
 
-.
-\newpage
+. \newpage
 
 .
 
 \newpage
 
+5.  **Conclusiones Basadas en los Datos (10%)**:
 
-5. **Conclusiones Basadas en los Datos (10%)**:  
-
-   En base a tus hallazgos, redacta conclusiones sustantivas sobre las similitudes o diferencias en el rendimiento de los grupos A y B en el test.
-
-
+    En base a tus hallazgos, redacta conclusiones sustantivas sobre las similitudes o diferencias en el rendimiento de los grupos A y B en el test.
