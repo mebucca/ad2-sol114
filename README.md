@@ -89,11 +89,13 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 | Tarea corta 1    | 9 agosto       | 16 agosto      | [`[Soluciones TC1]`](homework/tc_1_answers.pdf) [`[Soluciones TC1.qmd]`](homework/tc_1_answers.qmd)                  |
 | Tarea corta 2    | 16 agosto      | 23 agosto      | [`[Soluciones TC2]`](homework/tc_2_answers.pdf) [`[Soluciones TC2.qmd]`](homework/tc_2_answers.qmd)                  |
 | Tarea corta 3    | 4 septiembre   | 11 septiembre  | [`[Soluciones TC3]`](homework/tc_3_answers.pdf) [`[Soluciones TC3.qmd]`](homework/tc_3_answers.qmd)                  |
-| Prueba 1         | 11 octubre     |                | [`[Soluciones P1]`](homework/prueba_1.pdf) [`[Notas]`](https://mebucca.github.io/ad2-sol114/homework/notas_prueba1.html)                                                                                  |
+| Prueba 1         | 11 octubre     |                | [`[Soluciones P1]`](exams/prueba_1.pdf) [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_prueba1.html)                                                                                  |
 | Tarea corta 4    | 23 octubre   |  30 octubre              | [`[Soluciones TC4]`](homework/tc_4_answers.pdf) [`[Soluciones TC4.qmd]`](homework/tc_4_answers.qmd)                                                                                    |
-| Prueba 2         | 8 noviembre    |                | [`[Soluciones P2]`](homework/prueba_2.pdf)                                                                                |
-| Tarea corta 6    | 20 noviembre   | 27 noviembre   |                                                                                |
-| Examen final     | 13 diciembre   |                |                                                                                |
+| Prueba 2         | 8 noviembre    |                | [`[Soluciones P2]`](exams/prueba_2.pdf) [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_prueba2.html)                                                                              |
+| Tarea corta 5    |                |                |   [`[Soluciones TC5]`](https://mebucca.github.io/ad2-sol114/homework/tc_5_answers#1) [`[Soluciones TC3.qmd]`](homework/tc_5_answers.qmd)                                                                         |
+| Tarea corta 6    |                |                |  [`[TC6]`](https://mebucca.github.io/ad2-sol114/homework/tc_6#1)  [`[TC6.qmd]`](homework/tc_6.qmd)                                                                               |
+| Prueba Bonus   |                |                |     [`[Prueba Bonus]`](exams/prueba_bonus.pdf)                                                                            |
+| Exámen Final   |  13 de Diciembre              |                |                                                                              |
 
 
 ---
