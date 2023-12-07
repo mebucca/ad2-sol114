@@ -41,17 +41,13 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 25  | Oct | IC con varianza desconocida & Boostrap     | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_14/class_14#1) [`[Code]`](slides/class_14/class_14.Rmd)                                                                                                                       |            |            |
 | 30  | Oct |  Test de hipótesis  |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_15/class_15#1) [`[Code]`](slides/class_15/class_15.Rmd)                                                                                                                      |            |            |
 |  6  | Nov |  Test de media/proporciones en 1 muestra   |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_16/class_16#1) [`[Code]`](slides/class_16/class_16.Rmd)                                                                                                                       |            |            |
-| 13  | Nov |  Test de media/proporciones en 2 muestras                      |   [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_17/class_17#1) [`[Code]`](slides/class_17/class_17.Rmd)                                                                                                                     |            |            |
-| 15  | Nov | Asociación variables continuas                                      |                                                                                                                        |            |            |
-| 20  | Nov | Correlación de Pearson                                      |                                                                                                                        |            |            |
-| 22  | Nov | Tablas de contingencia                     |                                                                                                                        |            |            |
-| 27  | Nov | Test de χ²                                 |                                                                                                                        |            |            |
-| 29  | Nov | Repaso                                     |                                                                                                                        |            |            |
+| 13  | Nov |  Test de media/proporciones en 2 muestras                      |   [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_17/class_17#1) [`[Code]`](slides/class_17/class_17.Rmd)        |                                                                                                             |            |            |
+| 27  | Nov | Tablas de contingencia y Test de χ²                                 |   [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_18/class_18#1) [`[Code]`](slides/class_18/class_18.Rmd)                                                                                                                                |            |            |
+| 29  | Nov | Correlación de Pearson                                     |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_19/class_19#1) [`[Code]`](slides/class_19/class_19.Rmd)                                                                                                                       |            |            |
 
 ---
 
 ## Ayudantías
-
 | Día | Fecha           | Contenido                                 | Material |
 |-----|-----------------|-------------------------------------------|----------|
 | 1   | 15 de agosto    | R                                         |          |
@@ -70,7 +66,6 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 14  | 14 de noviembre | gráficos ridge                 |          |
 | 15  | 21 de noviembre | scatterplot y correlaciones               |          |
 | 16  | 28 de noviembre | tablas de contingencia y Chi2             |          |
-
 
 ---
 
