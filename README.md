@@ -41,17 +41,13 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 25  | Oct | IC con varianza desconocida & Boostrap     | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_14/class_14#1) [`[Code]`](slides/class_14/class_14.Rmd)                                                                                                                       |            |            |
 | 30  | Oct |  Test de hipótesis  |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_15/class_15#1) [`[Code]`](slides/class_15/class_15.Rmd)                                                                                                                      |            |            |
 |  6  | Nov |  Test de media/proporciones en 1 muestra   |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_16/class_16#1) [`[Code]`](slides/class_16/class_16.Rmd)                                                                                                                       |            |            |
-| 13  | Nov |  Test de media/proporciones en 2 muestras                      |   [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_17/class_17#1) [`[Code]`](slides/class_17/class_17.Rmd)                                                                                                                     |            |            |
-| 15  | Nov | Asociación variables continuas                                      |                                                                                                                        |            |            |
-| 20  | Nov | Correlación de Pearson                                      |                                                                                                                        |            |            |
-| 22  | Nov | Tablas de contingencia                     |                                                                                                                        |            |            |
-| 27  | Nov | Test de χ²                                 |                                                                                                                        |            |            |
-| 29  | Nov | Repaso                                     |                                                                                                                        |            |            |
+| 13  | Nov |  Test de media/proporciones en 2 muestras                      |   [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_17/class_17#1) [`[Code]`](slides/class_17/class_17.Rmd)        |                                                                                                             |            |            |
+| 27  | Nov | Tablas de contingencia y Test de χ²                                 |   [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_18/class_18#1) [`[Code]`](slides/class_18/class_18.Rmd)                                                                                                                                |            |            |
+| 29  | Nov | Correlación de Pearson                                     |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_19/class_19#1) [`[Code]`](slides/class_19/class_19.Rmd)                                                                                                                       |            |            |
 
 ---
 
 ## Ayudantías
-
 | Día | Fecha           | Contenido                                 | Material |
 |-----|-----------------|-------------------------------------------|----------|
 | 1   | 15 de agosto    | R                                         |          |
@@ -70,7 +66,6 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 14  | 14 de noviembre | gráficos ridge                 |          |
 | 15  | 21 de noviembre | scatterplot y correlaciones               |          |
 | 16  | 28 de noviembre | tablas de contingencia y Chi2             |          |
-
 
 ---
 
@@ -94,7 +89,7 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 | Prueba 2         | 8 noviembre    |                | [`[Soluciones P2]`](exams/prueba_2.pdf) [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_prueba2.html)                                                                              |
 | Tarea corta 5    |                |                |   [`[Soluciones TC5]`](https://mebucca.github.io/ad2-sol114/homework/tc_5_answers#1) [`[Soluciones TC3.qmd]`](homework/tc_5_answers.qmd)                                                                         |
 | Tarea corta 6    |                |                |  [`[TC6]`](https://mebucca.github.io/ad2-sol114/homework/tc_6#1)  [`[TC6.qmd]`](homework/tc_6.qmd)                                                                               |
-| Prueba Bonus   |                |                |     [`[Prueba Bonus]`](exams/prueba_bonus.pdf)                                                                            |
+| Prueba Bonus   |                |                |     [`[Soluciones Prueba Bonus]`](exams/prueba_bonus_answers.pdf)                                                                            |
 | Exámen Final   |  13 de Diciembre              |                |                                                                              |
 
 
@@ -102,7 +97,7 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 
 ## Recursos estudio
 
-- Tablas Z y T-student:  [`[Tablas]`](homework/tablas.pdf)
+- Tablas Z y T-student:  [`[Tablas Z, t-student y Chi^2]`](homework/tablas.pdf)
 - Problemas desde *Fundamento de probabilidades* hasta *Teoremas Asintóticos*: [`[Respuestas Problem-set 1]`](problemsets/ejercicios_1.pdf) 
 - Problemas desde *Distribución Normal Standard* hasta *Distribución muestral, sesgo y varianza*: [`[Respuestas Problem-set 2]`](problemsets/ejercicios_2.pdf) 
 - Problemas desde *Distribución muestral, sesgo y varianza* hasta *Intervalos de Confianza*: [`[Respuestas Problem-set 3]`](https://mebucca.github.io/ad2-sol114/problemsets/ejercicios_3#1) 
