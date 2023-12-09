@@ -247,9 +247,8 @@ Los intervalos de confianza respaldan la predicción de resultados basados en la
 
 7.  (12%) La consultora CALLEMP decide elevar el nivel de rigurosidad de sus estimaciones. Para ello contratan una socióloga UC a cargo de rediseñar el estudio sobre intención de voto. En particular, se le pide a la socióloga que, trabajando al 99% de confianza, reduzca el margen de error a 1 punto porcentual.
 
-```{=html}
 <!-- -->
-```
+
 i.  Explica el concepto de márgen de error: El margen de error es una medida de la incertidumbre asociada a una estimación basada en una muestra de datos.
     Representa cuánto puede variar la estimación muestral con respecto al valor real o poblacional.
     En otras palabras, el margen de error corresponde a la mitad de la amplitud de un intervalo de confianza.
