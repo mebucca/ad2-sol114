@@ -4,7 +4,6 @@ format: pdf
 editor: visual
 ---
 
-
 ## Probabilidad acumulada en distribución Normal Standard (mitad positiva)
 
 ```{r echo=FALSE}
@@ -24,12 +23,11 @@ knitr::kable(cdf_table, digits = 4,
                              col.names=c("Z=z","$\\Phi(z)$"), align="ccc")
 ```
 
-
 \newpage
 
 ## Probabilidad acumulada en distribución t-student con df = n-1 (mitad positiva)
 
-Ejemplo: $F_{1}(1): P(T_{df=1} \leq 1)$
+Ejemplo: $F_{3}(2): P(T_{df=3} \leq 2)$
 
 ```{r echo=FALSE}
 
@@ -57,7 +55,6 @@ phi_labels <- paste("$F_{", sequence, "}(t)$", sep = "")
 knitr::kable(cdf_table, digits = 4,
                              col.names=c("T=t",phi_labels), align=paste(rep("c",32),collapse=""))
 ```
-
 
 \newpage
 
@@ -88,9 +85,7 @@ knitr::kable(cdf_table, digits = 4,
                              col.names=c("T=t",phi_labels), align=paste(rep("c",32),collapse=""))
 ```
 
-
 \newpage
-
 
 ```{r echo=FALSE}
 
@@ -117,5 +112,41 @@ phi_labels <- paste("$F_{", sequence, "}(t)$", sep = "")
 
 knitr::kable(cdf_table, digits = 4,
                              col.names=c("T=t",phi_labels), align=paste(rep("c",32),collapse=""))
+```
+
+\newpage
+
+## Probabilidad acumulada en distribución $\chi^2$ con df = i
+
+Ejemplo: $F_{3}(2): P(\chi^2_{df=3} \leq 2)$
+
+```{r echo=FALSE}
+
+# Create a vector of values from 0 to 20 with intervals of 0.5
+x <- seq(0, 20, by = 1)
+
+# Initialize the data frame with 'x' column
+cdf_table <- data.frame(x = x)
+
+sequence <- 1:10
+# Calculate the CDF values for the chi-squared distribution with varying degrees of freedom
+for (i in sequence) {
+  # Add the CDF values as a new column to the data frame using mutate
+  cdf_table <- cdf_table %>%
+    mutate(!!paste("F", i, sep = "") := pchisq(x, df = i))
+}
+
+
+# Create a title
+title <- "Cumulative Probabilities for Chi-Squared Distribution"
+
+# Create a data frame to store the values
+# Create an xtable object
+
+phi_labels <- paste("$F_{", sequence, "}(x)$", sep = "")
+
+
+knitr::kable(cdf_table, digits = 4,
+                             col.names=c("X=x",phi_labels), align=paste(rep("c",32),collapse=""))
 ```
 
