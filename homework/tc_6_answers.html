@@ -157,46 +157,52 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="respuestas" class="level4">
 <h4 class="anchored" data-anchor-id="respuestas">Respuestas:</h4>
-<p>Por supuesto, aquí tienes la respuesta completa siguiendo las instrucciones dadas:</p>
 <p><strong>Distribución de probabilidad conjunta de género y logro de un grado universitario</strong></p>
-<p>La distribución de probabilidad conjunta se calcula dividiendo cada valor en la tabla de contingencia por el total de la muestra (625 en este caso):</p>
+<p>Entiendo que estás trabajando con R y has realizado un análisis de chi-cuadrado en tus datos. Aquí tienes una versión actualizada de la respuesta:</p>
+<p><strong>Distribución de probabilidad conjunta de género y logro de un grado universitario</strong></p>
+<p>La distribución de probabilidad conjunta se calcula dividiendo cada valor en la tabla de contingencia por el total de la muestra:</p>
 <ul>
-<li>P(Hombre y Grado universitario) = 43 / 625 ≈ 0.0688</li>
-<li>P(Hombre y Menos que grado universitario) = 270 / 625 ≈ 0.4320</li>
-<li>P(Mujer y Grado universitario) = 38 / 625 ≈ 0.0608</li>
-<li>P(Mujer y Menos que grado universitario) = 274 / 625 ≈ 0.4384</li>
+<li>P(Hombre y Grado universitario) ≈ 0.0688</li>
+<li>P(Hombre y Menos que grado universitario) ≈ 0.4320</li>
+<li>P(Mujer y Grado universitario) ≈ 0.0608</li>
+<li>P(Mujer y Menos que grado universitario) ≈ 0.4384</li>
 </ul>
-<p>*Distribuciones marginales de ambas variables**</p>
+<p><strong>Distribuciones marginales de ambas variables</strong></p>
 <p>Las distribuciones marginales se obtienen sumando las filas y columnas de la tabla de contingencia:</p>
 <p>Distribución marginal de género:</p>
 <ul>
-<li>P(Hombre) = (43 + 270) / 625 ≈ 0.6920</li>
-<li>P(Mujer) = (38 + 274) / 625 ≈ 0.3080</li>
+<li>P(Hombre) ≈ 0.5008</li>
+<li>P(Mujer) ≈ 0.4992</li>
 </ul>
 <p>Distribución marginal de logro de un grado universitario:</p>
 <ul>
-<li>P(Grado universitario) = (43 + 38) / 625 ≈ 0.1696</li>
-<li>P(Menos que grado universitario) = (270 + 274) / 625 ≈ 0.8304</li>
+<li>P(Grado universitario) ≈ 0.1296</li>
+<li>P(Menos que grado universitario) ≈ 0.8704</li>
 </ul>
 <p><strong>Frecuencias esperadas bajo el supuesto de independencia entre ambas</strong></p>
 <p>Las frecuencias esperadas bajo el supuesto de independencia se calculan multiplicando las distribuciones marginales correspondientes:</p>
 <ul>
-<li>Frecuencia esperada de Hombre y Grado universitario = P(Hombre) * P(Grado universitario) * 625 ≈ 72.28</li>
-<li>Frecuencia esperada de Hombre y Menos que grado universitario = P(Hombre) * P(Menos que grado universitario) * 625 ≈ 407.72</li>
-<li>Frecuencia esperada de Mujer y Grado universitario = P(Mujer) * P(Grado universitario) * 625 ≈ 30.72</li>
-<li>Frecuencia esperada de Mujer y Menos que grado universitario = P(Mujer) * P(Menos que grado universitario) * 625 ≈ 151.28</li>
+<li>Frecuencia esperada de Hombre y Grado universitario ≈ 40.5648</li>
+<li>Frecuencia esperada de Hombre y Menos que grado universitario ≈ 272.4352</li>
+<li>Frecuencia esperada de Mujer y Grado universitario ≈ 40.4352</li>
+<li>Frecuencia esperada de Mujer y Menos que grado universitario ≈ 271.5648</li>
 </ul>
 <p><strong>Test de χ2 para testear la hipótesis de independencia</strong></p>
 <p>Utilizamos la fórmula para el estadístico de chi-cuadrado:</p>
 <p><span class="math display">\[\chi^2 = \sum \frac{(O - E)^2}{E}\]</span></p>
-<p>Donde O es la frecuencia observada y E es la frecuencia esperada en cada celda. Sumamos los términos para todas las celdas:</p>
-<p><span class="math display">\[\chi^2 = \frac{(43 - 72.28)^2}{72.28} + \frac{(270 - 407.72)^2}{407.72} + \frac{(38 - 30.72)^2}{30.72} + \frac{(274 - 151.28)^2}{151.28}\]</span></p>
-<p><span class="math display">\[\chi^2 = 8.14 + 20.30 + 2.36 + 62.19\]</span></p>
-<p><span class="math display">\[\chi^2 = 93.99\]</span></p>
-<p>Para determinar si rechazamos o no la hipótesis de independencia, calculamos el valor p. El valor p representa la probabilidad de obtener un valor de chi-cuadrado igual o mayor al observado bajo la hipótesis nula (la hipótesis de independencia).</p>
-<p>El valor p es muy cercano a cero, lo que significa que la probabilidad de obtener un valor de chi-cuadrado tan grande o mayor bajo la hipótesis nula es extremadamente baja. Dado que el valor p es menor que el nivel de significancia α = 0.05, podemos concluir que rechazamos la hipótesis nula de independencia entre las variables “Género” y “Logro de un grado universitario”.</p>
+<p>Donde O es la frecuencia observada y E es la frecuencia esperada en cada celda. A continuación, calculamos el estadístico de chi-cuadrado utilizando los valores proporcionados:</p>
+<p><span class="math display">\[\chi^2 = \frac{(43 - 40.5648)^2}{40.5648} + \frac{(270 - 272.4352)^2}{272.4352} + \frac{(38 - 40.4352)^2}{40.4352} + \frac{(274 - 271.5648)^2}{271.5648}\]</span></p>
+<p><span class="math display">\[\chi^2 = 0.1461908 + 0.02176737 + 0.1466593 + 0.02183714\]</span></p>
+<p><span class="math display">\[\chi^2 = 0.3364546\]</span></p>
+<p>Por lo tanto, el valor del estadístico de chi-cuadrado es aproximadamente 0.3364546.</p>
+<ul>
+<li>Estadístico de chi-cuadrado (X-squared) = 0.3364546</li>
+<li>Grados de libertad (df) = 1</li>
+<li>Valor p (p-value) = 0.5618829</li>
+</ul>
+<p>El resultado del test de chi-cuadrado sugiere que no hay evidencia suficiente para rechazar la hipótesis nula de independencia entre las variables “Género” y “Logro de un grado universitario”. El valor p alto (0.5618829) indica que cualquier asociación observada es probablemente debida al azar, y no hay una relación estadísticamente significativa entre estas dos variables en los datos.</p>
 <p><strong>Conclusiones sustantivas</strong></p>
-<p>El resultado sugiere que existe una relación significativa entre el género y el logro de un grado universitario en la población estudiada. Las diferencias en el logro educativo entre hombres y mujeres en esta muestra son estadísticamente significativas y no pueden explicarse por pura casualidad. Esto no significa, sin embargo, que exista una relación causal entre género y logro educacional.</p>
+<p>Según los resultados del test de chi-cuadrado, no existe una asociación estadísticamente significativa entre el género y el logro de un grado universitario en la población estudiada. Esto significa que, en base a los datos y el análisis realizado, no podemos afirmar que haya una relación significativa entre estas dos variables en tus datos.</p>
 </section>
 </section>
 <section id="problema-2" class="level3">

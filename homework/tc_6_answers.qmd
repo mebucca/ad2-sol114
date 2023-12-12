@@ -52,66 +52,70 @@ casen2017 %>% with(table(universitario,genero)) %>% knitr::kable(caption="Grado 
 
 #### Respuestas:
 
-Por supuesto, aquí tienes la respuesta completa siguiendo las instrucciones dadas:
+**Distribución de probabilidad conjunta de género y logro de un grado universitario**
+
+
+Entiendo que estás trabajando con R y has realizado un análisis de chi-cuadrado en tus datos. Aquí tienes una versión actualizada de la respuesta:
 
 **Distribución de probabilidad conjunta de género y logro de un grado universitario**
 
-La distribución de probabilidad conjunta se calcula dividiendo cada valor en la tabla de contingencia por el total de la muestra (625 en este caso):
+La distribución de probabilidad conjunta se calcula dividiendo cada valor en la tabla de contingencia por el total de la muestra:
 
--   P(Hombre y Grado universitario) = 43 / 625 ≈ 0.0688
--   P(Hombre y Menos que grado universitario) = 270 / 625 ≈ 0.4320
--   P(Mujer y Grado universitario) = 38 / 625 ≈ 0.0608
--   P(Mujer y Menos que grado universitario) = 274 / 625 ≈ 0.4384
+-   P(Hombre y Grado universitario) ≈ 0.0688
+-   P(Hombre y Menos que grado universitario) ≈ 0.4320
+-   P(Mujer y Grado universitario) ≈ 0.0608
+-   P(Mujer y Menos que grado universitario) ≈ 0.4384
 
-\*Distribuciones marginales de ambas variables\*\*
+**Distribuciones marginales de ambas variables**
 
 Las distribuciones marginales se obtienen sumando las filas y columnas de la tabla de contingencia:
 
 Distribución marginal de género:
 
--   P(Hombre) = (43 + 270) / 625 ≈ 0.6920
--   P(Mujer) = (38 + 274) / 625 ≈ 0.3080
+-   P(Hombre) ≈ 0.5008
+-   P(Mujer) ≈ 0.4992
 
 Distribución marginal de logro de un grado universitario:
 
--   P(Grado universitario) = (43 + 38) / 625 ≈ 0.1696
--   P(Menos que grado universitario) = (270 + 274) / 625 ≈ 0.8304
+-   P(Grado universitario) ≈ 0.1296
+-   P(Menos que grado universitario) ≈ 0.8704
 
 **Frecuencias esperadas bajo el supuesto de independencia entre ambas**
 
 Las frecuencias esperadas bajo el supuesto de independencia se calculan multiplicando las distribuciones marginales correspondientes:
 
--   Frecuencia esperada de Hombre y Grado universitario = P(Hombre) \* P(Grado universitario) \* 625 ≈ 72.28
--   Frecuencia esperada de Hombre y Menos que grado universitario = P(Hombre) \* P(Menos que grado universitario) \* 625 ≈ 407.72
--   Frecuencia esperada de Mujer y Grado universitario = P(Mujer) \* P(Grado universitario) \* 625 ≈ 30.72
--   Frecuencia esperada de Mujer y Menos que grado universitario = P(Mujer) \* P(Menos que grado universitario) \* 625 ≈ 151.28
+-   Frecuencia esperada de Hombre y Grado universitario ≈ 40.5648
+-   Frecuencia esperada de Hombre y Menos que grado universitario ≈ 272.4352
+-   Frecuencia esperada de Mujer y Grado universitario ≈ 40.4352
+-   Frecuencia esperada de Mujer y Menos que grado universitario ≈ 271.5648
 
 **Test de χ2 para testear la hipótesis de independencia**
+
 
 Utilizamos la fórmula para el estadístico de chi-cuadrado:
 
 $$\chi^2 = \sum \frac{(O - E)^2}{E}$$
 
-Donde O es la frecuencia observada y E es la frecuencia esperada en cada celda.
-Sumamos los términos para todas las celdas:
+Donde O es la frecuencia observada y E es la frecuencia esperada en cada celda. A continuación, calculamos el estadístico de chi-cuadrado utilizando los valores proporcionados:
 
-$$\chi^2 = \frac{(43 - 72.28)^2}{72.28} + \frac{(270 - 407.72)^2}{407.72} + \frac{(38 - 30.72)^2}{30.72} + \frac{(274 - 151.28)^2}{151.28}$$
+$$\chi^2 = \frac{(43 - 40.5648)^2}{40.5648} + \frac{(270 - 272.4352)^2}{272.4352} + \frac{(38 - 40.4352)^2}{40.4352} + \frac{(274 - 271.5648)^2}{271.5648}$$
 
-$$\chi^2 = 8.14 + 20.30 + 2.36 + 62.19$$
+$$\chi^2 = 0.1461908 + 0.02176737 + 0.1466593 + 0.02183714$$
 
-$$\chi^2 = 93.99$$
+$$\chi^2 = 0.3364546$$
 
-Para determinar si rechazamos o no la hipótesis de independencia, calculamos el valor p.
-El valor p representa la probabilidad de obtener un valor de chi-cuadrado igual o mayor al observado bajo la hipótesis nula (la hipótesis de independencia).
+Por lo tanto, el valor del estadístico de chi-cuadrado es aproximadamente 0.3364546.
 
-El valor p es muy cercano a cero, lo que significa que la probabilidad de obtener un valor de chi-cuadrado tan grande o mayor bajo la hipótesis nula es extremadamente baja.
-Dado que el valor p es menor que el nivel de significancia α = 0.05, podemos concluir que rechazamos la hipótesis nula de independencia entre las variables "Género" y "Logro de un grado universitario".
+
+-   Estadístico de chi-cuadrado (X-squared) = 0.3364546
+-   Grados de libertad (df) = 1
+-   Valor p (p-value) = 0.5618829
+
+El resultado del test de chi-cuadrado sugiere que no hay evidencia suficiente para rechazar la hipótesis nula de independencia entre las variables "Género" y "Logro de un grado universitario". El valor p alto (0.5618829) indica que cualquier asociación observada es probablemente debida al azar, y no hay una relación estadísticamente significativa entre estas dos variables en los datos.
 
 **Conclusiones sustantivas**
 
-El resultado sugiere que existe una relación significativa entre el género y el logro de un grado universitario en la población estudiada.
-Las diferencias en el logro educativo entre hombres y mujeres en esta muestra son estadísticamente significativas y no pueden explicarse por pura casualidad.
-Esto no significa, sin embargo, que exista una relación causal entre género y logro educacional.
+Según los resultados del test de chi-cuadrado, no existe una asociación estadísticamente significativa entre el género y el logro de un grado universitario en la población estudiada. Esto significa que, en base a los datos y el análisis realizado, no podemos afirmar que haya una relación significativa entre estas dos variables en tus datos.
 
 ### Problema 2:
 
