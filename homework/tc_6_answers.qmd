@@ -1,0 +1,210 @@
+---
+title: "SOL114 Análisis de Datos II"
+author: "Tarea corta 6"
+format: html
+editor: visual
+---
+
+## Problema
+
+Datos:
+
+```{r, echo=T, warning=FALSE, message=FALSE}
+library("tidyverse")
+url <- "https://raw.githubusercontent.com/mebucca/dar_soc4001/master/data/sample_casen2017.csv"
+
+casen2017 <- read.csv(url) %>% as_tibble() %>%
+  mutate(ingreso = yautcor) %>%    
+  select(region,sexo,edad,esc,educ,ingreso) %>%
+  mutate(univ = case_when(educ==11 | educ==12 & edad > 27 ~ 1, educ < 11 & edad > 27 ~ 0),
+         universitario = case_when(univ==1  ~ "Grado universitario", univ==0 ~ "Menos que grado universitario"),
+         genero = case_when(sexo==1 ~ "Hombre", sexo==2 ~ "Mujer"))
+```
+
+### Problema 1:
+
+En relación a las brechas salariales por género la teoría del Capital Humano argumenta que esta brecha se explica en parte por las disparidades en el logro educativo de hombres y mujeres.
+Específicamente, Esta teoría sugiere que, dado que un mayor nivel educativo generalmente conduce a ingresos más altos, la brecha salarial observada podría ser en gran parte el resultado de diferencias promedio en la educación entre géneros.
+
+*Referencia bibliográfica*: Blau, Francine D.
+y Lawrence M. Kahn.
+(2017).
+"The Gender Wage Gap: Extent, Trends, and Explanations".
+En Journal of Economic Literature.
+
+La siguiente tabla de contingencia, basada en una submuestra de la Encuesta CASEN 2017, muestra la distribución de frecuencias conjunta de género y logro de un grado universitario.En base a los resultados de la tabla:
+
+-   Calcula la distribución de probabilidad conjunta de género y logro de un grado universitario
+
+-   Obtén la distribuciones marginales de ambas variables
+
+-   Calcula las frecuencias esperadas bajo el supuesto de independencia entre ambas
+
+-   Calcula un test de $\chi2$ para testear la hipótesis de independencia a un nivel de significación del 5%.
+
+-   Obtén conclusiones sustantivas
+
+```{r, echo=F, warning=FALSE, message=FALSE}
+
+casen2017 %>% with(table(universitario,genero)) %>% knitr::kable(caption="Grado educacional por género")
+
+```
+
+#### Respuestas:
+
+Por supuesto, aquí tienes la respuesta completa siguiendo las instrucciones dadas:
+
+**Distribución de probabilidad conjunta de género y logro de un grado universitario**
+
+La distribución de probabilidad conjunta se calcula dividiendo cada valor en la tabla de contingencia por el total de la muestra (625 en este caso):
+
+-   P(Hombre y Grado universitario) = 43 / 625 ≈ 0.0688
+-   P(Hombre y Menos que grado universitario) = 270 / 625 ≈ 0.4320
+-   P(Mujer y Grado universitario) = 38 / 625 ≈ 0.0608
+-   P(Mujer y Menos que grado universitario) = 274 / 625 ≈ 0.4384
+
+\*Distribuciones marginales de ambas variables\*\*
+
+Las distribuciones marginales se obtienen sumando las filas y columnas de la tabla de contingencia:
+
+Distribución marginal de género:
+
+-   P(Hombre) = (43 + 270) / 625 ≈ 0.6920
+-   P(Mujer) = (38 + 274) / 625 ≈ 0.3080
+
+Distribución marginal de logro de un grado universitario:
+
+-   P(Grado universitario) = (43 + 38) / 625 ≈ 0.1696
+-   P(Menos que grado universitario) = (270 + 274) / 625 ≈ 0.8304
+
+**Frecuencias esperadas bajo el supuesto de independencia entre ambas**
+
+Las frecuencias esperadas bajo el supuesto de independencia se calculan multiplicando las distribuciones marginales correspondientes:
+
+-   Frecuencia esperada de Hombre y Grado universitario = P(Hombre) \* P(Grado universitario) \* 625 ≈ 72.28
+-   Frecuencia esperada de Hombre y Menos que grado universitario = P(Hombre) \* P(Menos que grado universitario) \* 625 ≈ 407.72
+-   Frecuencia esperada de Mujer y Grado universitario = P(Mujer) \* P(Grado universitario) \* 625 ≈ 30.72
+-   Frecuencia esperada de Mujer y Menos que grado universitario = P(Mujer) \* P(Menos que grado universitario) \* 625 ≈ 151.28
+
+**Test de χ2 para testear la hipótesis de independencia**
+
+Utilizamos la fórmula para el estadístico de chi-cuadrado:
+
+$$\chi^2 = \sum \frac{(O - E)^2}{E}$$
+
+Donde O es la frecuencia observada y E es la frecuencia esperada en cada celda.
+Sumamos los términos para todas las celdas:
+
+$$\chi^2 = \frac{(43 - 72.28)^2}{72.28} + \frac{(270 - 407.72)^2}{407.72} + \frac{(38 - 30.72)^2}{30.72} + \frac{(274 - 151.28)^2}{151.28}$$
+
+$$\chi^2 = 8.14 + 20.30 + 2.36 + 62.19$$
+
+$$\chi^2 = 93.99$$
+
+Para determinar si rechazamos o no la hipótesis de independencia, calculamos el valor p.
+El valor p representa la probabilidad de obtener un valor de chi-cuadrado igual o mayor al observado bajo la hipótesis nula (la hipótesis de independencia).
+
+El valor p es muy cercano a cero, lo que significa que la probabilidad de obtener un valor de chi-cuadrado tan grande o mayor bajo la hipótesis nula es extremadamente baja.
+Dado que el valor p es menor que el nivel de significancia α = 0.05, podemos concluir que rechazamos la hipótesis nula de independencia entre las variables "Género" y "Logro de un grado universitario".
+
+**Conclusiones sustantivas**
+
+El resultado sugiere que existe una relación significativa entre el género y el logro de un grado universitario en la población estudiada.
+Las diferencias en el logro educativo entre hombres y mujeres en esta muestra son estadísticamente significativas y no pueden explicarse por pura casualidad.
+Esto no significa, sin embargo, que exista una relación causal entre género y logro educacional.
+
+### Problema 2:
+
+Además de la asociación entre género y logro educacional, el otro supuesto detrás del argumento expuesto anteriormente es que un mayor nivel educativo generalmente conduce a ingresos más altos, es decir, que existe una asociación positiva entre logro educacional e ingresos.
+En esta linea, el siguiente gráfico muestra la relación entre años de escolaridad y el logaritmo natural de los ingresos:
+
+```{r, echo=F, warning=FALSE, message=FALSE}
+library("viridis")
+library("ggdark")
+
+casen2017 %>% ggplot() +
+  aes(x=esc, y=log(ingreso)) +
+  geom_point(size=2, position = position_jitter(width = 0.3, height = 0.3), alpha=0.5) +
+  geom_smooth(method="lm", se=F) + 
+  labs(x="Años de escolaridad", y="Ingresos") +
+  theme_minimal() + 
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1)) +
+  scale_color_viridis(option = "D")
+
+```
+
+Adicionalmente, la siguiente tabla muestra la *matriz de varianza-covarianza* entre los años de escolaridad y el logaritmo natural de los ingresos:
+
+```{r, echo=F, warning=FALSE, message=FALSE}
+
+# Create a matrix of 'esc' and log('ingreso')
+variable_matrix <- cbind(casen2017$esc, log(casen2017$ingreso))
+
+# Calculate the variance-covariance matrix
+var_cov_matrix <- cov(variable_matrix, use = "complete.obs")
+
+colnames(var_cov_matrix) <- c("escolaridad","log(ingreso)")
+rownames(var_cov_matrix) <- c("escolaridad","log(ingreso)")
+
+# Print the variance-covariance matrix
+var_cov_matrix %>% print()
+
+```
+
+donde,
+
+-   Los elementos en la diagonale representan las varianzas de cada variable.
+    Es decir, la varianza de una variable en relación consigo misma.
+
+-   Los elementos fuera de la diagonal representan las covarianzas entre pares de variables.
+    La covarianza mide cómo dos variables cambian juntas.
+
+-   La matriz es simétrica, lo que significa que la covarianza entre la variable A y la variable B es igual a la covarianza entre B y A.
+
+Usando esta información,
+
+-   Calcula el coeficiente de correlación de Pearson entre escolaridad y log(ingreso).
+
+-   Interpreta el resultado obtenido
+
+-   Obtén conclusiones sustantivas
+
+#### Respuestas:
+
+El coeficiente de correlación de Pearson, denotado como ρ (rho), entre las variables "escolaridad" (E) e "Ingresos" (I) se calcula utilizando la siguiente fórmula:
+
+$$\rho = \frac{\text{Cov(E, I)}}{\sigma(E) \cdot \sigma(I)}$$
+
+Donde: - Cov(E, I) es la covarianza entre escolaridad y Ingresos.
+- σ(E) es la desviación estándar de la variable escolaridad.
+- σ(I) es la desviación estándar de la variable Ingresos.
+
+Usando los valores proporcionados:
+
+-   Cov(E, I) = 1.987789
+-   σ(E) = √17.556790 ≈ 4.1851
+-   σ(I) = √1.098622 ≈ 1.0476
+
+Sustituyendo estos valores en la fórmula:
+
+$$\rho = \frac{1.987789}{4.1851 \cdot 1.0476} \approx 0.453184$$
+
+**Interpretación del resultado:**
+
+El coeficiente de correlación de Pearson (ρ) entre escolaridad e Ingresos es aproximadamente 0.453184.
+Este valor indica una correlación positiva moderada entre las dos variables.
+En otras palabras, existe una relación positiva entre el nivel de escolaridad y los ingresos en la muestra de datos.
+Esto significa que, en promedio, a medida que el nivel de escolaridad aumenta, los ingresos tienden a aumentar, y viceversa.
+
+**Conclusiones sustantivas:**
+
+-   Existe una correlación positiva moderada entre el nivel de escolaridad y los ingresos en la muestra. Esto sugiere que, en general, las personas con un mayor nivel de escolaridad tienden a tener mayores ingresos, y las personas con un menor nivel de escolaridad tienden a tener ingresos más bajos.
+
+El coeficiente de correlación de Pearson (ρ) sugiere una relación positiva moderada entre la escolaridad y los ingresos en la muestra, lo que indica que la educación tiende a estar asociada con niveles más altos de ingresos en este contexto.
+Sin embargo, es importante recordar que la correlación no implica causalidad, y otros factores pueden estar influyendo en esta relación.
