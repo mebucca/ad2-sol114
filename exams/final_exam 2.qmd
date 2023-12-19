@@ -1,0 +1,261 @@
+---
+title: "_________________________________________"
+author: "Examen Final SOL114"
+format: pdf
+editor: visual
+mainfont: "Trixie-Text"
+monofont: "Trixie-Text"
+sansfont: "Trixie-Text"
+geometry:
+  - left=.5in
+  - textwidth=5.5in
+  - marginparsep=.25in
+  - marginparwidth=2.25in
+output:
+  quarto::pdf_document:
+    latex_engine: xelatex, tikz
+latex:
+  packages:
+    
+    - inputenc
+---
+
+```{=tex}
+\NewDocumentCommand{\Blank}{ O{3in} }{
+    \tikz[baseline] \draw[dotted] (0, 0) -- +(#1, 0);
+}
+```
+**Instrucciones: Responde a las preguntas proporcionadas, asegurándote de justificar tus respuestas con cálculos y razonamientos claros.**
+
+1.  Un exclusivo club social admite solo a personas ricas y de "buena presencia". Para ser admitido en el club, los solicitantes deben cumplir con dos condiciones: estar en el 10% más alto de la distribución de ingresos y tener un nivel de belleza por encima de la media general.
+
+![Club Social](https://edwardianpromenade.com/wp-content/uploads/Gentlemens-Club-1906.jpg){fig-align="center" width="5cm"}
+
+-   Las variables Y y X representan ingresos y belleza, respectivamente.
+-   La variable W mide si un individuo es admitido en el club social o no, donde W=1 indica que es admitido, y W=0 indica que no lo es.
+-   Y sigue una distribución normal con una media ( $\mu$ ) de 500,000 pesos y una desviación estándar ( $\sigma$ ) de 600,000 pesos.
+-   $X$ sigue una distribución normal estándar, $X \sim \text{Normal}(0,1)$.
+-   Las variables ingresos (Y) y belleza (X) son independientes entre sí.
+
+**Preguntas:**
+
+a)  (5%) ¿Cuál es el nivel mínimo de ingresos necesario para ser admitido en el club?
+
+b)  (5%) ¿Cuál es el nivel mínimo de belleza necesario para ser admitido en el club?
+
+c)  (5%) ¿Cuál es la probabilidad de ser admitido en el club?
+
+d)  (5%) ¿Cuál es la distribución de probabilidad que caracteriza a la variable W?
+
+e)  (5%) ¿Cuál es la media y la varianza de la variable W?
+
+\newpage
+
+. \newpage
+
+2.  Si $X$ es una variable aleatoria continua, con función de densidad $f(x)$, identifica y explica brevemente las siguientes expresiones:
+
+```{=html}
+<!-- -->
+```
+a)  (5%).
+    $\Blank[1in] = \int^{x}_{-\infty}f(x)dx$, en palabras $\Blank[2in]$
+
+b)  (5%).
+    $\Blank[1in] = \int^{\infty+}_{-\infty}x \cdot f(x)dx$, en palabras $\Blank[2in]$
+
+c)  (5%).
+    $\Blank[1.in] = \int^{\infty+}_{-\infty} (x - E[X])^2 \cdot f(x)dx$, en palabras $\Blank[2in]$
+
+\newpage
+
+3.  Supongamos que tenemos 10,000 variables aleatorias independientes $X_1, X_2, \ldots, X_{10000}$, cada una siguiendo una distribución Rayleigh(1), es decir: $X_i \sim \text{Rayleigh}(1)$. La función de densidad de probabilidad (PDF) de la distribución Rayleigh(1) es:
+
+$$f(x) = x \cdot e^{-x^2/2}, \quad x \geq 0$$
+
+con parámentros
+
+-   Media: $\mu = \sqrt{\frac{\pi}{2}}$
+-   Varianza: $\sigma^2 = 2 - \frac{\pi}{2}$
+
+Visualmente:
+
+```{r, echo=F, warning=FALSE, message=FALSE}
+# Load the required library
+library(ggplot2)
+
+# Create a ggplot for the Rayleigh(1) distribution PDF
+ggplot(data.frame(x = c(0, 6)), aes(x = x)) +
+  stat_function(fun = function(x) x * exp(-x^2 / 2), geom = "line", linewidth = 1, color = "blue") +
+  labs(
+    title = "Función de densidad Rayleigh(1)",
+    x = "x",
+    y = "Densidad"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1),
+    strip.text = element_text(size = 22),
+    panel.background = element_rect()  # Background color
+  )  
+
+
+```
+
+**Pregunta:**
+
+Si definimos una nueva variable aleatoria $Y$ como el promedio de estas 10,000 variables aleatorias:
+
+$$Y = \frac{1}{10000} \sum_{i=1}^{10000} X_i$$
+
+a)  (5%) Según el Teorema del Límite Central (CTL), ¿cuál es la distribución aproximada de $Y$? Especifica la media y la varianza de esta distribución aproximada.
+
+\newpage
+
+4.  Un sociólogo toma una muestra aleatoria de la variable $X$ y reporta los siguientes estadísticos:
+
+| Estadístico                                    | Valor |
+|------------------------------------------------|-------|
+| Tamaño de la muestra (n)                       | 576   |
+| Media de la muestra ( $\bar{x}$ )              | 10    |
+| Varianza muestral naive ( $\sigma^2_{naive}$ ) | 4     |
+
+**Preguntas:**
+
+a)  (5%) ¿Por qué $\bar{x}$ es una variable aleatoria y no simplemente un número?
+
+b)  (5%) Dado que $\bar{x}$ es una variable aleatoria, ¿cuál es su distribución?.
+    Explica la forma de la distribución y sus parámetros (pista: media y desviación estándar).
+
+c)  (5%) ¿Que otro nombre recibe la desviación estándar de un estimador como $\bar{x}$ y qué mide?
+
+\newpage
+
+5.  En un estudio se investiga el efecto de un programa de realidad virtual (RV) en la reducción de la ansiedad social en jóvenes adultos. El programa utiliza entornos virtuales para simular situaciones sociales desafiantes y enseñar habilidades de afrontamiento.
+
+-   *Diseño del Experimento:* Se seleccionan dos grupos de jóvenes adultos que han reportado niveles moderados de ansiedad social.
+
+-   *Grupo de Tratamiento (GT):* Participantes que usan el programa de RV durante 8 semanas, con sesiones de 30 minutos tres veces por semana.
+
+-   *Grupo de Control (Gc) (5%):* Participantes que no usan el programa de RV y mantienen sus rutinas habituales.
+
+-   *Medición:* La ansiedad social se mide utilizando la Escala de Ansiedad Social (EAS), una herramienta validada con puntuaciones que van de 0 (sin ansiedad) a 100 (ansiedad extremadamente alta).
+    Las mediciones se realizan antes y después del período de intervención.
+
+Los datos recopilados al final del estudio son los siguientes:
+
+| Grupo           | Tamaño de la Muestra | promedio de EAS ( $\bar{X}$ ) | Varianza de EAS ( $s^2$ ) |
+|------------------|------------------|-------------------|------------------|
+| Tratamiento (1) | 200                  | 35                            | 12                      |
+| Control (2)     | 200                  | 50                            | 15                      |
+
+-   *Pregunta de Investigación:*: ¿El uso de un programa de realidad virtual para la práctica de habilidades sociales reduce significativamente los niveles de ansiedad social en comparación con un grupo de control que no utiliza esta tecnología?
+
+**Preguntas:**
+
+a)  (5%) Calcula y compara los intervalos de confianza al 95% para los promedios de ansiedad social de cada grupo.
+
+b)  (5%) Establece un intervalo de confianza al 95% para la diferencia en los promedios de ansiedad de cada grupo.
+
+c)  (5%) Realiza un test de hipótesis (a dos colas) para la diferencia en los promedios de ansiedad de cada grupo, con un nivel de significancia del 5%.
+
+\newpage
+
+. \newpage
+
+6.  La consultora CALLEMP lleva a cabo una encuesta en zonas rurales y urbanas del país para medir la intención de voto en un plebiscito con dos opciones: "A favor" y "En contra". La siguiente tabla de contingencia resume los resultados obtenidos:
+
+|             | Rural | Urbano |
+|-------------|-------|--------|
+| "A favor"   | 50    | 60     |
+| "En contra" | 50    | 140    |
+
+**Preguntas:**
+
+a)  (5%) Realiza un test de $\chi^2$ para testear la asociación entre el tipo zona y la intención de voto.
+    Explicita la hipótesis que se testea y todos los pasos involucrados en el cálculo.
+    Provee una interpretación sustantiva del resultado de este test.
+
+b)  (5%) En base a los datos calcula las proporciones muestrales que estiman las siguientes cantidades: $P(\text{En contra} \mid \text{Rural})$ y $P(\text{En contra} \mid \text{Urbano})$.
+    Llama a estas proporciones $\hat{p}_{\text{R}}$ y $\hat{p}_{\text{U}}$, respectivamente.
+
+c)  (5%) Realiza un test de diferencia en proporciones para evaluar la siguiente hipótesis: $P(\text{En contra} \mid \text{Rural}) > P(\text{En contra} \mid \text{Urbano})$.
+    Provee una interpretación sustantiva del resultado de este test.
+
+\newpage
+
+. \newpage
+
+7.  Un reconocido sociólogo ha desarrollado una teoría general para analizar la estabilidad social, representada por la ecuación:
+
+$$y =\sqrt{\pi} + 10*\sin(\ln x)$$
+
+En esta fórmula:
+
+-   $y$ representa el índice de estabilidad social, midiendo aspectos como cohesión y satisfacción en la sociedad.
+-   $x$ simboliza el nivel de desigualdad socioeconómica, abarcando factores como ingresos y acceso a la educación.
+
+La constante $\sqrt{\pi}$ refleja los elementos universales en todas las sociedades, mientras que $\sin(\ln x)$ muestra cómo pequeñas variaciones en la desigualdad pueden influir significativamente en la estabilidad social.
+
+Esta teoría sugiere una relación no lineal entre desigualdad socioeconómica y estabilidad social, proporcionando un marco para comprender cómo la igualdad puede impactar positivamente en la dinámica social.
+
+![Theoretician](https://scatter.files.wordpress.com/2018/12/parsons.jpg){fig-align="center" width="5cm"}
+
+Para testear su teoría el sociólogo recolectó datos de 10,000 sociedades distintas, obteniendo los resultados descritos en el siguiente gráfico:
+
+```{r, echo=F, warning=FALSE, message=FALSE}
+library(tidyverse)
+library(ggplot2)
+
+n = 1000
+set.seed(321) # Para reproducibilidad
+
+# Generando datos
+data <- tibble(x = rnorm(n, 100, 20), y = sqrt(pi) + 10*sin(log(x)) + rnorm(n, 0, 0.2))
+
+# Calculando covarianza y varianzas
+cov_xy <- cov(data$x, data$y)
+var_x <- var(data$x)
+var_y <- var(data$y)
+
+# Crear gráfico
+ggplot(data, aes(x = x, y = y)) +
+  geom_point(alpha = 0.2, colour = "blue") +
+  labs(
+    x = "x: desigualdad socioeconómica",
+    y = "y: estabilidad social"
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1),
+    strip.text = element_text(size = 22),
+    panel.background = element_rect()  # Color de fondo
+  ) +
+  annotate("text", x = 110, y = Inf, hjust = 0, vjust = 2,
+           label = paste("Covarianza (x, y):", round(cov_xy, 2), 
+                         "\nVarianza de x:", round(var_x, 2),
+                         "\nVarianza de y:", round(var_y, 3)))
+
+```
+
+**Preguntas:**
+
+a)  (5%) ¿Que relación observas entre desigualdad y estabilidad social?
+
+b)  (5%) Calcula el coeficiente de correlación de Pearson para medir la dirección y fortaleza de esta relación.
+    Discute si el coeficiente de correlación de Pearson es o no una medida apropiada para capturar la relación entre ambas variables.
+
+c)  (5%) ¿Por qué es util calcular el coeficiente de correlación si ya sabemos que la covarianza en negativa?
+    Comenta sobre el signo y magnitud de la correlación obtenida.
+
+\newpage
