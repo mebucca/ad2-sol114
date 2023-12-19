@@ -92,7 +92,6 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 | Prueba Bonus   |                |                |     [`[Soluciones Prueba Bonus]`](exams/prueba_bonus_answers.pdf)                                                                            |
 | Exámen Final   |  13 de Diciembre              |                |   [`[Soluciones Examen]`](exams/final_exam_answers.pdf) [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_examen.html)   |                                                                       |
 | Tareas   |               |                |   [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_tareas.html)    |
-|------------------|----------------|----------------|--------------------------------------------------------------------------------|
 | Evaluación Global   |               |                |   [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_final.html)    
 
 ---
