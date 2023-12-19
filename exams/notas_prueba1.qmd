@@ -22,7 +22,9 @@ notas <- read_sheet(notas_prueba1, sheet= "Prueba 1")
 data_grades <- notas %>% drop_na(Nota) %>% select(Rut,`1.i`:Nota) %>%  
   mutate(`P(Nota < tunota)` =rank(Nota)/n()) 
 
-data_grades %>% knitr::kable(digits=2) %>% kable_styling(font_size = 9)
+data_grades %>% select(Rut,`1.i`:Nota) %>%  
+  mutate(`P(Nota < tunota)` =rank(Nota)/n()) %>%
+  knitr::kable(digits=2) %>% kable_styling(font_size = 9)
 
 ```
 
