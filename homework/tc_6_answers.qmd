@@ -54,8 +54,8 @@ casen2017 %>% with(table(universitario,genero)) %>% knitr::kable(caption="Grado 
 
 **Distribución de probabilidad conjunta de género y logro de un grado universitario**
 
-
-Entiendo que estás trabajando con R y has realizado un análisis de chi-cuadrado en tus datos. Aquí tienes una versión actualizada de la respuesta:
+Entiendo que estás trabajando con R y has realizado un análisis de chi-cuadrado en tus datos.
+Aquí tienes una versión actualizada de la respuesta:
 
 **Distribución de probabilidad conjunta de género y logro de un grado universitario**
 
@@ -91,12 +91,12 @@ Las frecuencias esperadas bajo el supuesto de independencia se calculan multipli
 
 **Test de χ2 para testear la hipótesis de independencia**
 
-
 Utilizamos la fórmula para el estadístico de chi-cuadrado:
 
 $$\chi^2 = \sum \frac{(O - E)^2}{E}$$
 
-Donde O es la frecuencia observada y E es la frecuencia esperada en cada celda. A continuación, calculamos el estadístico de chi-cuadrado utilizando los valores proporcionados:
+Donde O es la frecuencia observada y E es la frecuencia esperada en cada celda.
+A continuación, calculamos el estadístico de chi-cuadrado utilizando los valores proporcionados:
 
 $$\chi^2 = \frac{(43 - 40.5648)^2}{40.5648} + \frac{(270 - 272.4352)^2}{272.4352} + \frac{(38 - 40.4352)^2}{40.4352} + \frac{(274 - 271.5648)^2}{271.5648}$$
 
@@ -106,16 +106,17 @@ $$\chi^2 = 0.3364546$$
 
 Por lo tanto, el valor del estadístico de chi-cuadrado es aproximadamente 0.3364546.
 
-
 -   Estadístico de chi-cuadrado (X-squared) = 0.3364546
 -   Grados de libertad (df) = 1
 -   Valor p (p-value) = 0.5618829
 
-El resultado del test de chi-cuadrado sugiere que no hay evidencia suficiente para rechazar la hipótesis nula de independencia entre las variables "Género" y "Logro de un grado universitario". El valor p alto (0.5618829) indica que cualquier asociación observada es probablemente debida al azar, y no hay una relación estadísticamente significativa entre estas dos variables en los datos.
+El resultado del test de chi-cuadrado sugiere que no hay evidencia suficiente para rechazar la hipótesis nula de independencia entre las variables "Género" y "Logro de un grado universitario".
+El valor p alto (0.5618829) indica que cualquier asociación observada es probablemente debida al azar, y no hay una relación estadísticamente significativa entre estas dos variables en los datos.
 
 **Conclusiones sustantivas**
 
-Según los resultados del test de chi-cuadrado, no existe una asociación estadísticamente significativa entre el género y el logro de un grado universitario en la población estudiada. Esto significa que, en base a los datos y el análisis realizado, no podemos afirmar que haya una relación significativa entre estas dos variables en tus datos.
+Según los resultados del test de chi-cuadrado, no existe una asociación estadísticamente significativa entre el género y el logro de un grado universitario en la población estudiada.
+Esto significa que, en base a los datos y el análisis realizado, no podemos afirmar que haya una relación significativa entre estas dos variables en tus datos.
 
 ### Problema 2:
 
