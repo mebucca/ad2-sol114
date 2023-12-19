@@ -90,8 +90,9 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 | Tarea corta 5    |                |                |   [`[Soluciones TC5]`](https://mebucca.github.io/ad2-sol114/homework/tc_5_answers#1) [`[Soluciones TC5.qmd]`](homework/tc_5_answers.qmd)                                                                         |
 | Tarea corta 6    |                |                |  [`[Soluciones TC6]`](https://mebucca.github.io/ad2-sol114/homework/tc_6_answers#1) [`[Soluciones TC6.qmd]`](homework/tc_6_answers.qmd)                                                                              |
 | Prueba Bonus   |                |                |     [`[Soluciones Prueba Bonus]`](exams/prueba_bonus_answers.pdf)                                                                            |
-| Exámen Final   |  13 de Diciembre              |                |                                                                              |
-
+| Exámen Final   |  13 de Diciembre              |                |   [`[Soluciones Examen]`](exams/final_exam_answers.pdf) [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_examen.html)   |                                                                       |
+| Tareas   |               |                |   [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_tareas.html)    |
+| Evaluación Global   |               |                |   [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_final.html)    
 
 ---
 
