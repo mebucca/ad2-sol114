@@ -63,7 +63,12 @@ notas_finales %>% drop_na(Rut) %>%
   filter(nota_examen > 0) %>%
   select(Rut,nota_final) %>%
   rename(`Nota Final` = nota_final) %>%
+<<<<<<< HEAD
   knitr::kable(digits=1) %>% kable_styling(font_size = 9)
+=======
+  mutate(`P(Nota < tunota)` =rank(`Nota Final`)/n()) %>%
+  knitr::kable(digits=c(0,1,2)) %>% kable_styling(font_size = 9)
+>>>>>>> master
 
 ```
 

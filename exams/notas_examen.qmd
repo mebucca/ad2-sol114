@@ -17,6 +17,14 @@ sheet_url <- "https://docs.google.com/spreadsheets/d/1BFWZx0b44gvvfTgA337I30oJwi
 
 notas_examen  <- gs4_get(sheet_url)
 notas_examen  <- read_sheet(notas_examen, sheet= "Examen")
+<<<<<<< HEAD
+=======
+
+
+notas_examen %>% select(Rut,`1.a`:`7.c`,Nota) %>%  
+  drop_na(Rut,`1.a`) %>%
+  knitr::kable(digits=2) %>% kable_styling(font_size = 8)
+>>>>>>> master
 
 ```
 

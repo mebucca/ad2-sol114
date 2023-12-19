@@ -87,8 +87,8 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 | Prueba 1         | 11 octubre     |                | [`[Soluciones P1]`](exams/prueba_1.pdf) [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_prueba1.html)                                                                                  |
 | Tarea corta 4    | 23 octubre   |  30 octubre              | [`[Soluciones TC4]`](homework/tc_4_answers.pdf) [`[Soluciones TC4.qmd]`](homework/tc_4_answers.qmd)                                                                                    |
 | Prueba 2         | 8 noviembre    |                | [`[Soluciones P2]`](exams/prueba_2.pdf) [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_prueba2.html)                                                                              |
-| Tarea corta 5    |                |                |   [`[Soluciones TC5]`](https://mebucca.github.io/ad2-sol114/homework/tc_5_answers#1) [`[Soluciones TC3.qmd]`](homework/tc_5_answers.qmd)                                                                         |
-| Tarea corta 6    |                |                |  [`[TC6]`](https://mebucca.github.io/ad2-sol114/homework/tc_6#1)  [`[TC6.qmd]`](homework/tc_6.qmd)                                                                               |
+| Tarea corta 5    |                |                |   [`[Soluciones TC5]`](https://mebucca.github.io/ad2-sol114/homework/tc_5_answers#1) [`[Soluciones TC5.qmd]`](homework/tc_5_answers.qmd)                                                                         |
+| Tarea corta 6    |                |                |  [`[Soluciones TC6]`](https://mebucca.github.io/ad2-sol114/homework/tc_6_answers#1) [`[Soluciones TC6.qmd]`](homework/tc_6_answers.qmd)                                                                              |
 | Prueba Bonus   |                |                |     [`[Soluciones Prueba Bonus]`](exams/prueba_bonus_answers.pdf)                                                                            |
 | Exámen Final   |  13 de Diciembre              |                |                                                                              |
 
@@ -101,6 +101,7 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 - Problemas desde *Fundamento de probabilidades* hasta *Teoremas Asintóticos*: [`[Respuestas Problem-set 1]`](problemsets/ejercicios_1.pdf) 
 - Problemas desde *Distribución Normal Standard* hasta *Distribución muestral, sesgo y varianza*: [`[Respuestas Problem-set 2]`](problemsets/ejercicios_2.pdf) 
 - Problemas desde *Distribución muestral, sesgo y varianza* hasta *Intervalos de Confianza*: [`[Respuestas Problem-set 3]`](https://mebucca.github.io/ad2-sol114/problemsets/ejercicios_3#1) 
+- Problemas *Test de Hipótesis*: [`[Respuestas Problem-set 4]`](https://mebucca.github.io/ad2-sol114/problemsets/ejercicios_4#1) 
 
 ---
 
