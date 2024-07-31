@@ -1,0 +1,12 @@
+name: sampdist
+title: sampdist
+username: mebucca
+account: mebucca
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 10264157
+bundleId: 7831723
+url: https://mebucca.shinyapps.io/sampdist/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

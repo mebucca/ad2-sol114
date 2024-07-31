@@ -1,0 +1,13 @@
+name: sim_tlc
+title: sim_tlc
+username: mebucca
+account: mebucca
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 10265957
+bundleId: 7832623
+url: https://mebucca.shinyapps.io/sim_tlc/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: class_9.Rmd|estimado.jpeg|gentle-r.css|libs/header-attrs-2.14/header-attrs.js|libs/header-attrs-2.24/header-attrs.js|libs/remark-css-0.0.1/default-fonts.css|libs/remark-css-0.0.1/default.css|prob.png|stats.png|valdorcia.jpeg|xaringan-themer.css
