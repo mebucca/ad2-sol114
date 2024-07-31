@@ -97,15 +97,13 @@ https://calendar.app.google/U4mohxA18LCZmexr7)
 
 ---
 
-## Recursos estudio
+## Recursos de estudio
 
 
 
 ---
 
-## Recursos computación
-
-### Para usuarios de `R`
+## Recursos computacionales
 
   - En el repositorio de mi curso de *procesamiento avanzado de datos en `R`* puedes encontrar todo el material necesario para aprender `R` desde cero [`[aquí]`](https://mebucca.github.io/dar_soc4001/).
   - Acá pueden encontrar un template para escribir en `RMarkdown` ([`[PDF]`](files/template_rmarkdown.pdf) y [`[.Rmd]`](files/template_rmarkdown.Rmd) ). El uso de `RMarkdown` no es obligatorio, pero es altamente recomendado para escribir sus tareas y trabajos. Hoja de ayuda [`[aquí]`](https://rstudio-pubs-static.s3.amazonaws.com/330387_5a40ca72c3b14824acedceb7d34618d1.html).
