@@ -11,13 +11,9 @@ editor: visual
 library("tinytex")
 ```
 
-Ponderación: 6% de la nota final del curso.
+`Ponderación: 5% de la nota final del curso.`
 
 <br>
-
-*Notar*:
-
--   $e$ corresponde al exponente natural
 
 **1) Exponenciales y Logaritmos**
 
@@ -51,12 +47,14 @@ a)  Calcula la derivada de la siguiente función: $f(x) = 7x^4 - 5x^3 + 2x - 8$
 
 b)  Dada la función: $y = 4 + 3x^2$
 
+```{=html}
+<!-- -->
+```
+1.  Grafica la función.
 
-  1.  Grafica la función.
+2.  Identifica por inspección visual el valor de $x$ en que la función alcanza su mínimo.
 
-  2.  Identifica por inspección visual el valor de $x$ en que la función alcanza su mínimo.
-
-  3.  Determina el valor de la pendiente en ese punto.
+3.  Determina el valor de la pendiente en ese punto.
 
 <br>
 
