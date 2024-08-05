@@ -26,7 +26,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | Día  | Mes        | Contenido                                              | Material                                                                 | Capítulo QSS |
 |------|------------|--------------------------------------------------------|-------------------------------------------------------------------------|--------------|
 | 5    | Agosto     | Introducción                                           | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_0/class_0#1) [`[Code]`](slides/class_0/class_0.Rmd) |              |
-| 7    | Agosto     | Experimentos aleatorios, eventos, probabilidades       |                                                                         |              |
+| 7    | Agosto     | Experimentos aleatorios, eventos, probabilidades       | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_1/class_1#1) [`[Code]`](slides/class_1/class_1.Rmd)                                                                         |              |
 | 12   | Agosto     | Probabilidad condicional, teorema de Bayes, Independencia |                                                                      |              |
 | 14   | Agosto     | Variables aleatorias y distribuciones de probabilidad  |                                                                         |              |
 | 19   | Agosto     | Distribuciones discretas: Bernoulli y Binomial         |                                                                         |              |
@@ -66,7 +66,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 
 | Evaluación     | Asignación    | Entrega      | Material                                                                                  |
 |----------------|---------------|--------------|-------------------------------------------------------------------------------------------|
-| Tarea corta 1  | 5 agosto      | 12 agosto    | [`[TC1]`](https://mebucca.github.io/cda_soc3070/homework/tc_1#1) [`[TC1.qmd]`](homework/tc_1.qmd) |
+| Tarea corta 1  | 5 agosto      | 12 agosto    | [`[TC1]`](https://mebucca.github.io/ad2-sol114/homework/tc_1#1) [`[TC1.qmd]`](homework/tc_1.qmd) |
 | Tarea corta 2  | 12 agosto     | 19 agosto    |                                                                                           |
 | Tarea corta 3  | 26 agosto     | 2 septiembre |                                                                                           |
 | Prueba 1       |               | 4 septiembre |                                                                                           |
