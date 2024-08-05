@@ -86,19 +86,16 @@ class: inverse, center, middle
 <br>
 
 .pull-left[
-.bold[Rebeca Orellana]
+.bold[Elisa Tagle]
 
-- Socióloga Universidad de Chile
+- Estudiante de 4to año de Sociólogía UC
 
-- Estudiante Magíster en Sociología UC
-
-- Investigación:  Dinámicas en internet, movimientos sociales, opinión pública
-
-- Métodos: Redes, procesamiento de lenguaje natural, teoría fundada.
+- Intereses: Análisis de datos sociológicos y económicos, estadística, y teoría sociológica.
 
 ]
+
 .figure-right[
-![rebeca](rebeca.jpeg)
+![elisa](elisa.png)
 ]
 
 ---
@@ -107,20 +104,16 @@ class: inverse, center, middle
 <br>
 
 .pull-left[
-.bold[Matías Deneken]
+.bold[Benjamín Puran]
 
-- Sociólogo Universidad de Concepción
+- Estudiante de 4to año de Sociólogía UC
 
-- Estudiante Magíster en Sociología UC
-
-- Investigación:  Orientación a la dominancia social en personas mapuches y no- mapuches.
-
-- Métodos: Ecuaciones estructurales y modelos de efectos fijos.
+- Intereses: Salud pública, socio-biología, bioestadística y sociología de la salud.
 
 ]
 
 .pull-right[
-![deneken](deneken.jpg)
+![benjamin](benjamin.png)
 ]
 
 ---
@@ -205,6 +198,24 @@ Todo el material del curso será almacenado y actualizado regularmente en reposi
 
 
 .center[![officehours](officehours.jpg)]
+
+
+---
+## Investigación
+
+
+.pull-left[
+
+![workshop](workshop.png)
+
+]
+
+
+.pull-right[
+
+![lab](qcs2.png)
+
+]
 
 ---
 class: inverse, center, middle
