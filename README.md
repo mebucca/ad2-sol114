@@ -72,7 +72,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | Prueba 1       |               | 4 septiembre |                                                                                           |
 | Tarea corta 4  | 23 septiembre | 30 septiembre|                                                                                           |
 | Tarea corta 5  | 9 octubre     | 16 octubre   |                                                                                           |
-| Tarea corta 6  |    | 4 noviembre  |                                                                                           |
+| Tarea corta 6  | 28 octubre   | 4 noviembre  |                                                                                           |
 | Prueba 2       |               | 6 noviembre  |                                                                                           |
 | Tarea corta 7  | 13 noviembre  | 20 noviembre |                                                                                           |
 | Prueba Bonus   |               | 2 diciembre  |                                                                                           |
