@@ -198,6 +198,300 @@ entonces,
 ]
 
 
+<<<<<<< HEAD
+=======
+---
+
+class: fullscreen,left, middle, text-black
+background-image: url("images/typewriter.jpg")
+
+.huge[#Estruc]
+.huge[#turas]
+.huge[#de]
+.huge[#datos]
+
+---
+
+## Vectores
+
+Los vectores son unidad básica de almacenamiento de datos en `R`. Se construyen con el comando `c()`, por **concatenate**.
+
+
+``` r
+x &lt;- c(1, 2, 3, 4, 5)
+y &lt;- c(6:10)
+z &lt;- c(x,y); z
+```
+
+```
+##  [1]  1  2  3  4  5  6  7  8  9 10
+```
+
+``` r
+u &lt;- c("a","b","c")
+v &lt;- letters[4:6]
+w &lt;- c(u,v); w
+```
+
+```
+## [1] "a" "b" "c" "d" "e" "f"
+```
+
+---
+
+## Construcción de vectores
+
+Hay muchas formas no-manuales de contruir un vector. Algunos ejemplos:
+
+
+``` r
+# repetición de un elemento
+rep(3,5)
+```
+
+```
+## [1] 3 3 3 3 3
+```
+
+``` r
+# sequencia desde, hasta, 'by"
+seq(4,12,by=2)
+```
+
+```
+## [1]  4  6  8 10 12
+```
+
+``` r
+# sequencia desde, largo n
+seq(4,9,length.out = 5)
+```
+
+```
+## [1] 4.00 5.25 6.50 7.75 9.00
+```
+
+``` r
+# muestra aleatoria dentro de un rango
+sample(1:50,5)
+```
+
+```
+## [1]  6 48 27 45 24
+```
+
+``` r
+# muestra aleatoria dentro de un rango
+sample(1:50,5)
+```
+
+```
+## [1]  2 24 31 28 30
+```
+
+---
+
+## Operaciones con vectores:
+
+Operadores matemático estándar realizan operaciones "elemento-por-elemento"
+
+
+``` r
+x &lt;- c(1,5,2)
+y &lt;- c(1,2,3)
+
+# adición
+x + y
+```
+
+```
+## [1] 2 7 5
+```
+
+``` r
+# multiplicación/division por una contante
+y/2
+```
+
+```
+## [1] 0.5 1.0 1.5
+```
+
+``` r
+# multiplicación/division por otro vector
+x*y
+```
+
+```
+## [1]  1 10  6
+```
+
+---
+
+## Operaciones con vectores (algebra lineal)
+
+
+``` r
+# transposición
+t(x)
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    5    2
+```
+
+Para multiplicar vectores usamos el operador `%%`
+
+``` r
+# producto punto
+dot &lt;- t(x)%*%y; dot
+```
+
+```
+##      [,1]
+## [1,]   17
+```
+
+``` r
+# producto diadico
+outer &lt;- x%o%y; outer
+```
+
+```
+##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    5   10   15
+## [3,]    2    4    6
+```
+
+---
+
+## Matrices: juntando vectores con igual dimensión
+
+Las matrices pueden construirse uniendo vectores por filas o columnas:
+
+.pull-left[
+
+``` r
+# column-bind
+cbind(x,y)   # matriz 3 x 2
+```
+
+```
+##      x y
+## [1,] 1 1
+## [2,] 5 2
+## [3,] 2 3
+```
+]
+
+--
+.pull-right[
+
+``` r
+# row-bind
+rbind(x,y)   # matriz 2 x 3
+```
+
+```
+##   [,1] [,2] [,3]
+## x    1    5    2
+## y    1    2    3
+```
+]
+
+---
+
+## Matrices: función 'matrix'
+
+También podemos construir matrices usando la función `matrix()`:
+
+
+``` r
+x &lt;- 1:10
+```
+
+.pull-left[
+
+``` r
+matrix(x, nrow=2, ncol=5, byrow=TRUE)
+```
+
+```
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    2    3    4    5
+## [2,]    6    7    8    9   10
+```
+]
+
+.pull-right[
+
+``` r
+matrix(x, nrow=2, ncol=5, byrow=FALSE)
+```
+
+```
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    3    5    7    9
+## [2,]    2    4    6    8   10
+```
+]
+
+---
+
+## Reciclaje
+
+El reciclaje ocurre cuando un vector no tiene las dimensiones correctas.  En esos casos `R` rellenará las dimensiones _repitiendo_ exl vector desde el principio.
+
+
+
+``` r
+matrix(1:5, nrow=2, ncol=5, byrow=FALSE)
+```
+
+```
+##      [,1] [,2] [,3] [,4] [,5]
+## [1,]    1    3    5    2    4
+## [2,]    2    4    1    3    5
+```
+
+---
+
+## Algebra linear con matrices
+
+.pull-left[
+
+``` r
+# Matriz identidad 
+I &lt;- diag(2); I 
+```
+
+```
+##      [,1] [,2]
+## [1,]    1    0
+## [2,]    0    1
+```
+]
+
+--
+.pull-right[
+
+``` r
+# Multiplicación matricial
+A &lt;- matrix(1:4,2,2)
+B &lt;- matrix(5:8,2,2)
+A%*%B
+```
+
+```
+##      [,1] [,2]
+## [1,]   23   31
+## [2,]   34   46
+```
+]
+
+>>>>>>> 31eafd8 (Update)
 --
 
 .full-width[.content-box-secondary[
