@@ -13,7 +13,7 @@ Vamos a simular el experimento de tirar un dado 10,000 veces y calcular la proba
 ```{r, echo=TRUE}
 
 # Establecemos un número de simulaciones
-n_simulaciones <- 10000
+n_simulaciones <- 10
 cat("Número de simulaciones:", n_simulaciones, "\n")
 
 # Seleccionamos un número entre 1 y 6 n veces
