@@ -1,0 +1,562 @@
+---
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#4: Variables Aleatorias Discretas"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["gentle-r.css","xaringan-themer.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  
+  chunk_output_type: console
+---  
+
+class: inverse, center, middle
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+
+style_duo_accent(primary_color = "#F57C6C", secondary_color = "#6A8EAE" ,
+                 background_color = "#f8f7f3",
+                 header_font_google = google_font("Archivo"),
+                 text_font_google   = google_font("Inconsolata"), 
+                 link_color="#E0D77F"
+)
+
+primary_color = "#F57C6C"
+secondary_color = "#6A8EAE"
+
+```
+
+
+---
+class: inverse, center, middle
+
+##Distribuciones Discretas
+### Intuición
+
+---
+### Tiro de penal
+
+Final de la Copa Mundial de la FIFA 1994. Roberto Baggio va a tirar su penal ...
+
+
+.pull-left[
+
+<br>
+<br>
+
+.bold[Número finito de resultados posibles]:
+
+- Gol
+- Fallo
+
+<br>
+.bold[Evento aleatorio]:
+
+- Existe una probabilidad asociada a cada resultado 
+
+]
+
+--
+
+.pull-right[
+<br>
+<br>
+<br>
+.center[![baggio](baggio.gif)]
+]
+
+
+---
+class: inverse, center, middle
+
+## Distribuciones Discretas
+### Distribución Bernoulli
+
+
+---
+
+### Distribución Bernoulli
+
+
+.pull-left[
+- Experimento: tiramos una moneda al aire. 
+
+- $X$ es una variable aleatoria tal que $X=1$ (Cara) o $X=0$ (Sello).
+
+- La probabilidad de obtener Cara es $p=0.7$ y la de Sello es $1-p = 0.3$
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+# Load necessary libraries
+library(ggplot2)
+library(RColorBrewer)
+
+# Function to calculate the probability mass function (PMF) of a Bernoulli distribution
+PMF_bernoulli <- function(x, p) {
+  ifelse(x == 1, p, 1 - p)
+}
+
+# Define the parameter for the Bernoulli distribution
+p <- 0.7      # Probability of success
+
+# Create a data frame for plotting the PMF
+x_values <- c(0, 1)  # Only two possible outcomes: 0 and 1
+PMF_values <- PMF_bernoulli(x_values, p)
+PMF_df <- data.frame(x = x_values, PMF = PMF_values)
+
+# Create the ggplot with "Set1" color palette and transparency
+
+ggplot(data = PMF_df, aes(x = factor(x), y = PMF)) +
+  geom_bar(stat = "identity", color = "black", fill = primary_color, width = 1, alpha=0.8) +
+  labs(x = "Outcome",
+       y = "P(X = x)") +
+  scale_x_discrete(labels = c("Sello (0)", "Cara (1)")) +
+  scale_color_manual(values = primary_color) +
+  scale_fill_manual(values = primary_color) +
+  theme_minimal() +
+  theme(panel.background = element_rect(color = "black", fill = NA, size = 1))  # This line adds the inner border
+
+
+```
+
+]
+
+--
+
+.pull-right[
+
+.bold[Función de masa probabilistica (PMF):]
+
+<br>
+
+X es una variable aleatoria Bernoulli, es decir
+
+\begin{align}
+f(x) =
+  \begin{cases}
+    p  & \quad \text{si } x=1\\
+    1 - p  & \quad \text{si } x=0 \\
+    0 & \quad \text{otro}
+  \end{cases}
+\end{align}
+
+<br>
+<br>
+
+En modo más sintético:
+
+$$f(x) = p^{x}(1-p)^{1-x}  \quad \text{si } x=1 \text{ o } x=0$$
+
+]
+
+
+---
+
+### Distribución Bernoulli
+
+.bold[Ilustración via simulación en] `R`
+
+
+Tiremos una moneda con probabilidad de obtener "Cara" ( $1$ ) de 70% ( $p=0.7$ )
+
+```{r}
+#set.seed(12347)
+moneda <- rbinom(n=1, size=1, p=0.7)
+print(moneda)
+```
+
+<br>
+--
+
+Repitamos el proceso 1000 veces ...
+
+```{r}
+#set.seed(12347)
+monedas <- rbinom(n=1000, size=1, p=0.7)
+```
+
+```{r, echo=FALSE}
+#set.seed(12347)
+monedas <- rbinom(n=1000, size=1, p=0.7)
+print(head(monedas,20))
+print(paste("P(Cara) = ",mean(monedas)))
+```
+
+
+---
+class: inverse, center, middle
+
+## Distribuciones Discretas
+### Distribución Binomial
+
+
+---
+
+### Distribución Binomial 
+
+La distribución binomial es la distribución de la suma de variables Bernoulli *independientes y con distribución idéntica* (.bold[iid]). 
+
+<br>
+--
+
+Ejemplo,
+
+- Supongamos que $X$ es una variable de Bernoulli que toma el valor 1 cuando se obtiene "Cara" al lanzar una moneda
+
+- $\mathbb{P}(X=1)=p$ 
+
+<br>
+--
+
+- Ahora, supongamos que lanzamos la misma moneda 3 veces. Llamamos a estas variables $X_{1}, X_{2}, X_{3}$
+
+- Definamos $Y = X_{1} + X_{2} + X_{3}$ 
+
+--
+
+- $Y$ sigue una distribución Binomial, o $Y \sim \text{Binomial}$
+
+---
+### Distribución Binomial 
+
+
+.bold[Ejercicio rápido:]
+
+<br>
+
+.content-box-primary[
+.bolder[Pregunta 1:]
+¿Cuál es la probabilidad de obtener tres "Caras"? Es decir, ¿Cuál es la probabilidad de que $Y=3$?]
+
+--
+
+.content-box-secondary[
+- Dado que los 3 ensayos son independientes podemos expresar esta probabilidad como:
+
+$$\mathbb{P}(Y=3) =  \mathbb{P}(X_{1}=1,X_{2}=1,X_{3}=1) = \mathbb{P}(X_{1}=1)\mathbb{P}(X_{2}=1)\mathbb{P}(X_{3}=1)$$
+<br>
+
+- Y dado que las tres variables distribuyen Bernoulli con la misma probabilidad $p$, obtenemos: 
+
+$$\mathbb{P}(Y=3) = p \times p \times p =  p^{3}$$
+]
+---
+### Distribución Binomial 
+
+
+.content-box-primary[
+.bolder[Pregunta 2:]
+¿Cuál es la probabilidad de obtener 2 "Caras" con 3 tiros? Es decir, ¿Cuál es la probabilidad de que $Y=2$?
+]
+
+--
+
+- Por simpleza, consideremos la siguiente secuencia: $\{X_{1}=1,X_{2}=1,X_{3}=0\}$, que satisface $Y=2$
+
+--
+
+- La probabilidad de obtener esta secuencia es:
+
+\begin{align}
+  \mathbb{P}(X_{1}=1,X_{2}=1,X_{3}=0)  &= \mathbb{P}(X_{1}=1) \times \mathbb{P}(X_{2}=1) \times \mathbb{P}(X_{3}=0)  \\
+                              &= p \times p \times (1-p) =  p^{2}(1-p)
+\end{align}
+
+--
+
+- Sin embargo, hay 3 secuencias que satisfacen $Y=2$.
+--
+ También $\{X_{1}=1,X_{2}=0,X_{3}=1\}$ y $\{X_{1}=0,X_{2}=1,X_{3}=1\}$, cada una con probabilidad de ocurrencia $p^{2}(1-p)^{1}$. Por tanto:
+
+--
+
+.content-box-secondary[
+.bolder[Respuesta:] la probabilidad de conseguir 2 "Caras" con 3 tiros es:
+$$\mathbb{P}(Y=2) = 3 \times  p^{2}(1-p)^{1}$$
+]
+
+---
+
+### Distribución Binomial 
+
+.bold[Generalización]: lanzamos la misma moneda $n$ veces y la variable $Y$ cuantifica el número de "Caras" (1) obtenidas.
+
+$$Y = \sum^{n}_{i=1} X_{i}$$
+--
+
+.content-box-primary[
+.bolder[Pregunta:]
+¿Cuál es la probabilidad de conseguir $y$ "Caras" con $n$ tiros?
+]
+
+--
+
+* La probabilidad de obtener una secuencia particular con $y$ "Caras" a partir de $n$ lanzamientos es $p^{y}(1-p)^{n-y}$ 
+
+* Existen ${n \choose y} = \frac{n!}{y! (n-y)!}$ secuencias de este tipo...
+
+--
+Por tanto,
+
+$$\mathbb{P}(Y=y) = f(y) = \frac{n!}{y! (n-y)!} \times p^{y} (1-p)^{n-y}$$
+--
+En otras palabras, $Y$ distribuye binomial con .bold[parámetros] $n$ y $p$: $Y \sim \text{Binomial}(n,p)$
+
+
+---
+### Distribución Binomial 
+
+En práctica ...
+<br>
+
+--
+
+ - **Contexto**: Tenemos una moneda que, cuando se lanza, tiene una probabilidad de $p = 0.6$ de caer en "Cara" y una probabilidad de $1-p = 0.4$ de caer en "Sello".
+
+--
+
+- **Problema**:¿Cuál es la probabilidad de obtener 3 "Caras" con 10 lanzamientos?
+
+--
+
+- **Solución**: $X \sim \text{Binomial}(n=10,p=0.6)$
+
+<br>
+--
+
+$\quad \quad \quad \mathbb{P}(X=3) = \binom{10}{3} \times (0.6)^3 \times (0.4)^{10-3}$
+
+<br>
+--
+
+$\quad \quad \quad \mathbb{P}(X=3) = \frac{10!}{3! \times 7!} \times (0.6)^3 \times (0.4)^7$
+
+<br>
+--
+
+$\quad \quad \quad \mathbb{P}(X=3) = \frac{10 \times 9 \times \dots 1}{(3 \times 2 \times1) \times (7 \times 6 \times \dots 1 )} \times (0.6)^3 \times (0.4)^7$
+
+<br>
+--
+
+$\quad \quad \quad \mathbb{P}(X=3) = 120 \times 0.216 \times 0.0028$
+
+<br>
+--
+
+$\quad \quad \quad \mathbb{P}(X=3) \approx 0.0425$
+
+---
+
+### f(x), Distribución Binomial
+
+
+.pull-left[
+- Ahora observamos la distribución completa
+
+- La probabilidad de obtener $0, 1, \dots, 10$ caras es:
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
+
+# Load necessary libraries
+library(ggplot2)
+library(RColorBrewer)
+
+# Parameters for the binomial distribution
+n <- 10       # Number of trials
+p <- 0.6      # Probability of success
+
+# Create a data frame for plotting the PMF
+x_values <- 0:n  # Possible outcomes range from 0 to n
+PMF_values <- dbinom(x_values, n, p)  # PMF for binomial distribution
+PMF_df <- data.frame(x = x_values, PMF = PMF_values)
+
+# Create the ggplot with "Set1" color palette and transparency
+ggplot(data = PMF_df, aes(x = factor(x), y = PMF)) +
+  geom_bar(stat = "identity", color = "black", fill = primary_color, width = 1, alpha=0.8) +
+  labs(x = "Number of Successes",
+       y = "P(X = x)") +
+  scale_x_discrete(labels = as.character(0:10)) +
+  scale_color_manual(values = "black") +
+  scale_fill_manual(values = primary_color) +
+  theme_minimal() +
+  theme(panel.background = element_rect(color = "black", fill = NA, size = 1))  # This line adds the inner border
+
+```
+
+]
+
+--
+
+.pull-right[
+
+.bold[Función de masa probabilistica (PMF):]
+
+<br>
+
+X es una variable aleatoria Binomial, es decir
+
+\begin{align}
+\mathbb{P}(X=x) = f(x) = \frac{n!}{x! (n-x)!}  p^{x} (1-p)^{n-x}
+\end{align}
+
+<br>
+
+En este caso,
+
+$n=10$ y $p=0.6$
+
+]
+
+---
+### F(x), Distribución Binomial
+
+.pull-left[
+- Ahora observamos la distribución completa
+
+- ¿Cual es la probabilidad de obtener 5 monedas o menos?
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
+
+# Parameters for the binomial distribution
+n <- 10       # Number of trials
+p <- 0.6      # Probability of success
+
+# Create a data frame for plotting the PMF
+x_values <- 0:n  # Possible outcomes range from 0 to n
+PMF_values <- dbinom(x_values, n, p)  # PMF for binomial distribution
+PMF_df <- data.frame(x = x_values, PMF = PMF_values)
+
+# Filter the dataframe to get bars from 0 to 5
+overlay_df <- subset(PMF_df, x <= 5)
+
+# Create the ggplot with "Set1" color palette and transparency
+ggplot(data = PMF_df, aes(x = factor(x), y = PMF)) +
+  geom_bar(stat = "identity", color = "black", fill = primary_color, width = 1, alpha=0.8) +
+  geom_bar(data = overlay_df, aes(x = factor(x), y = PMF), stat = "identity", color = "black", fill = secondary_color, width = 1, alpha=0.6) +
+  labs(x = "Number of Successes",
+       y = "P(X = x)") +
+  scale_x_discrete(labels = as.character(0:10)) +
+  scale_color_manual(values = "black") +
+  scale_fill_manual(values = c(primary_color, secondary_color)) +
+  theme_minimal() +
+  theme(panel.background = element_rect(color = "black", fill = NA, size = 1))  # This line adds the inner border
+
+
+```
+
+]
+
+.pull-right[
+
+.bold[Función de distribución acumulada (CDF):]
+
+<br>
+
+X es una variable aleatoria Binomial, es decir
+
+\begin{align}
+F(k; n, p) &= \mathbb{P}(X \leq k) \\ \\
+           &= \sum_{i=0}^{k} \mathbb{P}(X=i) \\ \\
+           &= \sum_{i=0}^{k} \frac{n!}{i! (n-i)!}  p^i (1-p)^{n-i} 
+\end{align}
+
+
+En este caso,
+
+\begin{align}
+F(k=5; n=10, p=0.6) &=  \mathbb{P}(X=0) + \dots + \mathbb{P}(X=5) \\ \\
+                    &\approx 0.366
+\end{align}
+
+]
+
+---
+### F(x), Distribución Binomial
+
+
+.pull-left[
+- Ahora observamos la distribución completa
+
+- ¿Cual es la probabilidad de obtener 5 monedas o menos?
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=8, fig.height=6}
+
+# Parameters for the binomial distribution
+n <- 10       # Number of trials
+p <- 0.6      # Probability of success
+
+# Create a data frame for plotting the CDF
+x_values <- 0:n  # Possible outcomes range from 0 to n
+CDF_values <- pbinom(x_values, n, p)  # CDF for binomial distribution
+CDF_df <- data.frame(x = x_values, CDF = CDF_values)
+
+# Modify the dataframe to create segments for stepwise representation
+CDF_df$start_x <- c(NA, head(CDF_df$x, -1))
+CDF_df$start_CDF <- c(0, head(CDF_df$CDF, -1))
+
+# Filter the dataframe to get values from 0 to 5 for the overlay
+overlay_df <- subset(CDF_df, x <= 5)
+
+# Create the ggplot
+ggplot() +
+  # Horizontal segments for CDF
+  geom_hline(yintercept=0.1501822, linetype = "dashed",  size = 1) + 
+  geom_segment(data = CDF_df, aes(x = start_x, y = CDF, xend = x, yend = CDF), color = primary_color, size = 1.2) +
+  # Vertical segments for CDF
+  geom_segment(data = CDF_df, aes(x = x-1, y = start_CDF, xend = x-1, yend = CDF), color = primary_color, size = 1.2) +
+  labs(x = "Number of Successes", y = "P(X ≤ x)") +
+  scale_x_continuous(breaks = 0:n) +
+  theme_minimal() +
+  theme(panel.background = element_rect(color = "black", fill = NA, size = 1))  # This line adds the inner border
+
+```
+
+]
+
+.pull-right[
+
+.bold[Función de distribución acumulada (CDF):]
+
+<br>
+
+X es una variable aleatoria Binomial, es decir
+
+\begin{align}
+F(k; n, p) &= \mathbb{P}(X \leq k) \\ \\
+           &= \sum_{i=0}^{k} \mathbb{P}(X=i) \\ \\
+           &= \sum_{i=0}^{k} \frac{n!}{i! (n-i)!}  p^i (1-p)^{n-i} 
+\end{align}
+
+
+En este caso,
+
+\begin{align}
+F(k=5; n=10, p=0.6) &=  \mathbb{P}(X=0) + \dots + \mathbb{P}(X=5) \\ \\
+                    &\approx 0.366
+\end{align}
+
+]
+
+
+---
+class: inverse, center, middle
+
+.huge[
+**Hasta la próxima clase. Gracias!**
+]
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+

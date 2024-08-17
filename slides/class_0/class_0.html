@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Análisis de Datos II (SOL114)   Probabilidad e Inferencia Estadística</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# <del>Análisis de Datos II (SOL114)</del> <br> Probabilidad e Inferencia Estadística
+]
+.subtitle[
+## Presentación del curso
+]
+.author[
+### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
+]
+.date[
+### 05 August, 2024
+]
+
+---
+
+
+
+
+---
+class: inverse, center, middle
+
+# Probabilidad &amp; Estadística
+
+---
+## Probabilidad &amp; Estadística
+
+
+--
+
+.center[![prob](prob.png)]
+
+
+---
+## Probabilidad &amp; Estadística
+
+--
+.center[![stats](stats.png)]
+
+
+
+
+---
+class: inverse, center, middle
+
+
+
+#Equipo de trabajo
+
+
+---
+
+## Profesor
+
+&lt;br&gt;
+
+  - Mauricio Bucca, Profesor Asistente - Sociología UC
+  
+  - PhD en Sociología &amp; PhD Minor en Estadística, Cornell University
+
+--
+
+  - .bold[Investigación:] movilidad social intergeneracional,  desigualdades en el mercado laboral, creencias sobre las desigualdades, métodos cuantitativos
+  
+
+  - .bold[Métodos]: modelación estadística, inferencia causal, métodos experimentales y computacionales
+
+---
+## Ayudantes
+
+
+&lt;br&gt;
+
+.pull-left[
+.bold[Elisa Tagle]
+
+- Estudiante de 4to año de Sociólogía UC
+
+- Intereses: Análisis de datos sociológicos y económicos, estadística, y teoría sociológica.
+
+]
+
+.figure-right[
+![elisa](elisa.png)
+]
+
+---
+## Ayudantes
+
+&lt;br&gt;
+
+.pull-left[
+.bold[Benjamín Puran]
+
+- Estudiante de 4to año de Sociólogía UC
+
+- Intereses: Salud pública, socio-biología, bioestadística y sociología de la salud.
+
+]
+
+.pull-right[
+![benjamin](benjamin.png)
+]
+
+---
+class: inverse, center, middle
+
+# Filosofía de enseñanza
+
+---
+### 1. Los "atajos" estadísticos dificultan el aprendizaje
+
+--
+
+.center[
+![pvalue](pvalue.png)
+
+]
+
+---
+### 2. La sola intuición no es suficiente
+
+--
+
+.pull-left[
+.bold[Muchas cosas parecen más difíciles de lo que son]
+.huge[$$\int xf(x)dx := \mu $$]
+]
+
+--
+
+.pull-right[
+.bold[Otras parecen más simples de lo que son]
+.huge[ `$$X   \text{ es una variable}$$`]
+
+]
+
+--
+&lt;br&gt;
+
+- Vacíos de conocimiento, notación, poca exposición a las matemáticas.
+
+- Este curso nivela estos vacíos activamente. No hay carta bajo la manga.
+
+---
+
+### 3. Menos es más
+
+--
+
+.pull-left[.bold[Muchos métodos]
+![methods](methods.png)
+]
+
+--
+
+.pull-right[.bold[Fundamentos sólidos]
+![methods](foundations.jpg)]
+
+
+
+---
+class: inverse, center, middle
+
+# Recursos
+
+---
+
+## Repositorio Github
+
+Todo el material del curso será almacenado y actualizado regularmente en repositorio `Github`:
+
+&lt;br&gt;
+.center[
+
+![github](github.png)
+
+.bold[https://github.com/mebucca/ad2-sol114]
+
+]
+
+---
+## Horario de consulta y ayudantías
+
+
+.center[![officehours](officehours.jpg)]
+
+
+---
+## Investigación
+
+
+.pull-left[
+
+![workshop](workshop.png)
+
+]
+
+
+.pull-right[
+
+![lab](qcs2.png)
+
+]
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

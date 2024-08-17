@@ -1,0 +1,108 @@
+---
+title: "Notebook #4: Variables Aleatorias Discretas"
+output:
+  html_document:
+    df_print: paged
+---
+
+## Ronda de Penales - Simulación Monte Carlo
+
+---
+
+## Ronda de Penales
+
+En esta sección, simularemos una ronda de penales entre Brasil y Chile.
+
+- Primeros 5 penales: $\mathbb{P}(\text{Gol Brasil}) = 0.8$ y $\mathbb{P}(\text{Gol Chile}) = 0.75$
+
+- Después del 5to penal: $\mathbb{P}(\text{Gol Brasil}) = \mathbb{P}(\text{Gol Chile}) = 0.5$
+
+![penales](penales.jpg)
+
+
+---
+
+### Definición de la situación
+
+Para realizar la simulación, consideramos dos casos:
+
+**1. Si no hay empate en los primeros cinco tiros:**
+
+- Goles Brasil = variable binomial(n=5, p=0.8) 
+
+- Goles Chile = variable binomial(n=5, p=0.75) 
+
+**2. Si hay empate en los primeros cinco tiros:**
+
+- Goles Brasil = variable binomial(n=5, p=0.8) + variable bernoulli(p=0.5)
+
+- Goles Chile = variable binomial(n=5, p=0.75) + variable bernoulli(p=0.5)
+
+Luego, determinamos el ganador:
+
+- Si Goles Brasil > Goles Chile $\to$ Gana Brasil
+
+- Si Goles Brasil < Goles Chile $\to$ Gana Chile
+
+---
+
+### Simulación Monte Carlo
+
+En esta sección, definimos la función para realizar una simulación de una ronda de penales. La función `ronda_penales` realiza los lanzamientos y determina el ganador según las reglas establecidas.
+
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+library("tidyverse")
+library("knitr")
+
+p_chile  = 0.75
+p_brasil = 0.8
+
+ronda_penales <- function() {
+  goles_chile  <- rbinom(1, size=5, prob=p_chile)
+  goles_brasil <- rbinom(1, size=5, prob=p_brasil)
+  
+  # Si los dos equipos están empatados después de los primeros cinco tiros, 
+  # pasan gol de oro
+  while (goles_chile == goles_brasil) {
+    goles_chile  <- goles_chile  + rbinom(1, size=1, prob=0.5)
+    goles_brasil <- goles_brasil + rbinom(1, size=1, prob=0.5)
+  }
+  
+  return(c(chile = goles_chile, brasil = goles_brasil))
+}
+
+```
+
+### Ejecución de la simulación
+
+En esta parte, ejecutamos la simulación para una ronda de penales y mostramos el resultado. Dependiendo del resultado, se incluirá una imagen correspondiente al país ganador.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+resultados <- t(replicate(n=1, ronda_penales())) %>% as_tibble() %>%
+  mutate(gana = if_else(chile > brasil, "Chile", "Brasil"))
+
+if (resultados$gana[1] == "Chile") {
+  print(resultados)
+  include_graphics("/Users/Mauricio/Library/Mobile Documents/com~apple~CloudDocs/Teaching/ISUC/2023_2_data_analysis2/repo/slides/class_3/chile.jpg")
+} else {
+  print(resultados)
+  include_graphics("/Users/Mauricio/Library/Mobile Documents/com~apple~CloudDocs/Teaching/ISUC/2023_2_data_analysis2/repo/slides/class_3/brasil.jpg")
+}
+
+```
+
+
+### Multiverso
+
+En esta sección realizamos la situación hipotética de jugar el partido 10,000 veces bajo las mismas circunstancias. Es decir, ejecutamos la simulación 10,000 veces para obtener una estimación de la probabilidad de que cada equipo gane.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+resultados_multiverso <- t(replicate(n=10000, ronda_penales())) %>% as_tibble() %>%
+  mutate(gana = if_else(chile > brasil, "Chile", "Brasil"))
+
+knitr::kable(prop.table(table(resultados_multiverso$gana)), col.names = c("País", "Probabilidad de Ganar"))
+```

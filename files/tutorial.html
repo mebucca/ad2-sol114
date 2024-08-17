@@ -1,0 +1,1302 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.4.555">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="SOL114">
+
+<title>Nivelación matemática</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="tutorial_files/libs/clipboard/clipboard.min.js"></script>
+<script src="tutorial_files/libs/quarto-html/quarto.js"></script>
+<script src="tutorial_files/libs/quarto-html/popper.min.js"></script>
+<script src="tutorial_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="tutorial_files/libs/quarto-html/anchor.min.js"></script>
+<link href="tutorial_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="tutorial_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="tutorial_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="tutorial_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="tutorial_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Nivelación matemática</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>SOL114 </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="funciones" class="level2">
+<h2 class="anchored" data-anchor-id="funciones">1. Funciones</h2>
+<section id="definición-formal" class="level3">
+<h3 class="anchored" data-anchor-id="definición-formal">1.1 Definición Formal</h3>
+<p>Una función <span class="math inline">\(f(x)\)</span> es una regla que asigna a cada elemento <span class="math inline">\(x\)</span> de un conjunto <span class="math inline">\(X\)</span> exactamente un elemento <span class="math inline">\(y\)</span> de un conjunto <span class="math inline">\(Y\)</span>. Formalmente, una función se puede definir como:</p>
+<p><span class="math display">\[f: X \rightarrow Y\]</span></p>
+<p>donde <span class="math inline">\(X\)</span> es el dominio de la función y <span class="math inline">\(Y\)</span> es el codominio. Esto significa que la función toma valores de <span class="math inline">\(X\)</span> (el dominio) y los transforma en valores en <span class="math inline">\(Y\)</span> (el codominio). Cada valor individual en <span class="math inline">\(X\)</span> se llama argumento de la función, y cada valor correspondiente en <span class="math inline">\(Y\)</span> es el valor de la función para ese argumento.</p>
+</section>
+<section id="definición-intuitiva" class="level3">
+<h3 class="anchored" data-anchor-id="definición-intuitiva">1.2 Definición Intuitiva</h3>
+<p>Podemos pensar en una función como una máquina que toma un valor <span class="math inline">\(x\)</span> como entrada y produce un valor <span class="math inline">\(y\)</span> como salida. Esta “máquina” sigue la regla específica dada por la función. Por ejemplo, la función <span class="math inline">\(f(x) = x^2\)</span> toma un número <span class="math inline">\(x\)</span> y produce su cuadrado como salida. Cada valor <span class="math inline">\(x\)</span> tiene un único valor <span class="math inline">\(y\)</span> asociado. Gráficamente, una función representa una curva en un plano cartesiano donde el eje <span class="math inline">\(x\)</span> representa las entradas y el eje <span class="math inline">\(y\)</span> representa las salidas.</p>
+</section>
+<section id="ejemplo-y-gráfico" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplo-y-gráfico">1.3 Ejemplo y Gráfico</h3>
+<p>Consideremos la función <span class="math inline">\(f(x) = 2x + 1\)</span>, donde <span class="math inline">\(x\)</span> pertenece a los números reales.</p>
+<p>Para calcular los valores de esta función, simplemente tomamos cualquier valor de <span class="math inline">\(x\)</span>, lo multiplicamos por 2, y luego sumamos 1. Por ejemplo, si <span class="math inline">\(x = 2\)</span>, entonces <span class="math inline">\(f(x) = 2 \times 2 + 1 = 5\)</span>.</p>
+<p>Podemos visualizar esta función en un gráfico con gráficos más atractivos y una paleta de colores más agradable:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required libraries</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a function to calculate f(x) = 2x + 1</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>f_x <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dv">2</span> <span class="sc">*</span> x <span class="sc">+</span> <span class="dv">1</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame with x values from -5 to 5</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.1</span>)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>data_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x_values)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the y values for f(x) = 2x + 1</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>data_df<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="fu">f_x</span>(data_df<span class="sc">$</span>x)</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot for the function f(x) = 2x + 1</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_df, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#FF7F50"</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Gráfico de la función f(x) = 2x + 1"</span>,</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"x"</span>,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"f(x)"</span>) <span class="sc">+</span></span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="tutorial_files/figure-html/funcion_ejemplo-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Gráfico de la función f(x) = 2x + 1</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>Este gráfico ilustra visualmente cómo cambia el valor de <span class="math inline">\(f(x)\)</span> a medida que <span class="math inline">\(x\)</span> varía de -5 a 5.</p>
+</section>
+</section>
+<section id="funciones-exponenciales" class="level2">
+<h2 class="anchored" data-anchor-id="funciones-exponenciales">2. Funciones Exponenciales</h2>
+<section id="definición-formal-1" class="level3">
+<h3 class="anchored" data-anchor-id="definición-formal-1">2.1 Definición Formal</h3>
+<p>Una función exponencial es una función de la forma <span class="math inline">\(f(x) = a^x\)</span>, donde ‘a’ es una constante positiva diferente de 1. Las funciones exponenciales tienen algunas propiedades importantes que las distinguen de otras funciones.</p>
+</section>
+<section id="propiedades-de-las-funciones-exponenciales" class="level3">
+<h3 class="anchored" data-anchor-id="propiedades-de-las-funciones-exponenciales">2.2 Propiedades de las funciones exponenciales</h3>
+<p>Las funciones exponenciales obedecen las siguientes reglas, que son útiles para manipular y simplificar las expresiones exponenciales:</p>
+<ol type="1">
+<li><p><strong>Producto de potencias</strong>: <span class="math inline">\(a^m \cdot a^n = a^{m+n}\)</span></p>
+<p>Ejemplo: <span class="math inline">\(3^2 \cdot 3^4 = 3^{2+4} = 3^6 = 729\)</span></p></li>
+<li><p><strong>Cociente de potencias</strong>: <span class="math inline">\(a^m / a^n = a^{m-n}\)</span></p>
+<p>Ejemplo: <span class="math inline">\(5^4 / 5^2 = 5^{4-2} = 5^2 = 25\)</span></p></li>
+<li><p><strong>Potencia de una potencia</strong>: <span class="math inline">\((a^m)^n = a^{mn}\)</span></p>
+<p>Ejemplo: <span class="math inline">\((3^3)^2 = 3^{3*2} = 3^6 = 729\)</span></p></li>
+<li><p><strong>Exponente cero</strong>: <span class="math inline">\(a^0 = 1\)</span></p>
+<p>Ejemplo: <span class="math inline">\(10^0 = 1\)</span></p></li>
+<li><p><strong>Exponente negativo</strong>: <span class="math inline">\(a^{-n} = 1/a^n\)</span></p>
+<p>Ejemplo: <span class="math inline">\(4^{-2} = 1/4^2 = 1/16 = 0.0625\)</span></p></li>
+<li><p><strong>Exponentes de productos</strong>: <span class="math inline">\((ab)^n = a^n \cdot b^n\)</span></p>
+<p>Ejemplo: <span class="math inline">\((2*4)^3 = 2^3 \cdot 4^3 = 8 \cdot 64 = 512\)</span></p></li>
+<li><p><strong>Exponentes de cocientes</strong>: <span class="math inline">\((a/b)^n = a^n / b^n\)</span></p>
+<p>Ejemplo: <span class="math inline">\((6/3)^2 = 6^2 / 3^2 = 36 / 9 = 4\)</span></p></li>
+</ol>
+</section>
+<section id="ejemplo-y-gráfico-1" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplo-y-gráfico-1">2.3 Ejemplo y Gráfico</h3>
+<p>Consideremos la función exponencial <span class="math inline">\(f(x) = 2^x\)</span>.</p>
+<p>Para calcular los valores de esta función, simplemente tomamos cualquier valor de <span class="math inline">\(x\)</span> y lo usamos como el exponente de 2. Por ejemplo, si <span class="math inline">\(x = 2\)</span>, entonces <span class="math inline">\(f(x) = 2^2 = 4\)</span>.</p>
+<p>Podemos visualizar esta función en un gráfico con gráficos más atractivos y una paleta de colores más agradable:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame with x values from -3 to 3</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">3</span>, <span class="dv">3</span>, <span class="fl">0.1</span>)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>data_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x_values)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the y values for f(x) = 2^x</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>data_df<span class="sc">$</span>y <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">^</span>x_values</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot for the function f(x) = 2^x</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(data_df, <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">color =</span> <span class="st">"#FF7F0E"</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Gráfico de la función f(x) = 2^x"</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"x"</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"f(x)"</span>) <span class="sc">+</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tutorial_files/figure-html/unnamed-chunk-1-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Este gráfico muestra cómo cambia el valor de <span class="math inline">\(f(x)\)</span> a medida que <span class="math inline">\(x\)</span> varía de -3 a 3. Puedes observar cómo los valores de <span class="math inline">\(f(x)\)</span> crecen rápidamente para valores positivos de <span class="math inline">\(x\)</span> y se acercan a 0 para valores negativos de <span class="math inline">\(x\)</span>, lo cual es una característica distintiva de las funciones exponenciales.</p>
+</section>
+</section>
+<section id="sumatorias" class="level2">
+<h2 class="anchored" data-anchor-id="sumatorias">3. Sumatorias</h2>
+<section id="definición-formal-2" class="level3">
+<h3 class="anchored" data-anchor-id="definición-formal-2">3.1 Definición Formal</h3>
+<p>La sumatoria es una notación matemática que representa la suma de una secuencia de valores. Formalmente, una sumatoria se puede definir como:</p>
+<p><span class="math display">\[\sum_{i=1}^{n} a_i\]</span></p>
+<p>donde <span class="math inline">\(a_i\)</span> son los términos de la secuencia y <span class="math inline">\(n\)</span> es el número total de términos en la secuencia. En esta notación, <span class="math inline">\(i\)</span> es el índice que nos dice qué término de la secuencia estamos sumando, y <span class="math inline">\(n\)</span> es el límite superior, que nos indica hasta qué término debemos sumar.</p>
+</section>
+<section id="definición-intuitiva-1" class="level3">
+<h3 class="anchored" data-anchor-id="definición-intuitiva-1">3.2 Definición Intuitiva</h3>
+<p>Podemos pensar en la sumatoria como la adición de todos los valores de una secuencia. La notación <span class="math inline">\(\sum\)</span> nos indica que debemos sumar todos los términos de la secuencia desde <span class="math inline">\(i = 1\)</span> hasta <span class="math inline">\(i = n\)</span>. Por ejemplo, si tenemos la secuencia <span class="math inline">\(a = [a_1, a_2, a_3, a_4, a_5]\)</span>, entonces la sumatoria de los términos de <span class="math inline">\(a\)</span> sería <span class="math inline">\(a_1 + a_2 + a_3 + a_4 + a_5\)</span>.</p>
+</section>
+<section id="propiedades-y-ejemplo" class="level3">
+<h3 class="anchored" data-anchor-id="propiedades-y-ejemplo">3.3 Propiedades y Ejemplo</h3>
+<p>Las sumatorias tienen varias propiedades que pueden ser útiles para simplificar cálculos. Aquí vamos a examinar dos de ellas.</p>
+<section id="propiedad-1-suma-de-constantes" class="level4">
+<h4 class="anchored" data-anchor-id="propiedad-1-suma-de-constantes">Propiedad 1: Suma de Constantes</h4>
+<p>La sumatoria de una constante multiplicada por el número de términos <span class="math inline">\(n\)</span> es igual a la constante multiplicada por la suma de los términos.</p>
+<p><span class="math display">\[\sum_{i=1}^{n} c = c \cdot n\]</span></p>
+<p>Ejemplo: Consideremos la secuencia de cinco términos: <span class="math inline">\(1, 1, 1, 1, 1\)</span>.</p>
+<ol type="a">
+<li>Encontrar la sumatoria de la secuencia: <span class="math display">\[\sum_{i=1}^{5} 1 = 1 + 1 + 1 + 1 + 1 = 5\]</span></li>
+</ol>
+<p>Por lo tanto, podemos ver que la sumatoria de esta constante (1) multiplicada por el número de términos (5) es igual a la constante (1) multiplicada por la suma de los términos (5).</p>
+</section>
+<section id="propiedad-2-suma-de-términos-consecutivos" class="level4">
+<h4 class="anchored" data-anchor-id="propiedad-2-suma-de-términos-consecutivos">Propiedad 2: Suma de Términos Consecutivos</h4>
+<p>La sumatoria de los <span class="math inline">\(n\)</span> primeros números naturales consecutivos es igual a <span class="math inline">\(\frac{n(n + 1)}{2}\)</span>.</p>
+<p><span class="math display">\[\sum_{i=1}^{n} i = \frac{n(n + 1)}{2}\]</span></p>
+<p>Ejemplo: Consideremos la sumatoria de los primeros cinco números naturales: <span class="math inline">\(1, 2, 3, 4, 5\)</span>.</p>
+<ol type="a">
+<li>Encontrar la sumatoria de los cinco primeros números naturales: <span class="math display">\[\sum_{i=1}^{5} i = 1 + 2 + 3 + 4 + 5 = 15\]</span> <span class="math display">\[\frac{5(5 + 1)}{2} = 15\]</span></li>
+</ol>
+<p>Por lo tanto, podemos ver que la sumatoria de los primeros cinco números naturales es igual a <span class="math inline">\(\frac{5(5 + 1)}{2}\)</span>, que también es 15.</p>
+</section>
+</section>
+<section id="aplicación" class="level3">
+<h3 class="anchored" data-anchor-id="aplicación">3.4 Aplicación</h3>
+<p>Consideremos un escenario en el cual tenemos un conjunto de datos que representa las ventas diarias de una empresa durante una semana:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Día</th>
+<th>Ventas</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Lunes</td>
+<td>1500</td>
+</tr>
+<tr class="even">
+<td>Martes</td>
+<td>1200</td>
+</tr>
+<tr class="odd">
+<td>Miércoles</td>
+<td>1800</td>
+</tr>
+<tr class="even">
+<td>Jueves</td>
+<td>1300</td>
+</tr>
+<tr class="odd">
+<td>Viernes</td>
+<td>1400</td>
+</tr>
+<tr class="even">
+<td>Sábado</td>
+<td>2000</td>
+</tr>
+<tr class="odd">
+<td>Domingo</td>
+<td>1700</td>
+</tr>
+</tbody>
+</table>
+<p>Queremos determinar el total de ventas durante la semana utilizando la sumatoria de los datos proporcionados.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Definir las ventas diarias</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>ventas_diarias <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1500</span>, <span class="dv">1200</span>, <span class="dv">1800</span>, <span class="dv">1300</span>, <span class="dv">1400</span>, <span class="dv">2000</span>, <span class="dv">1700</span>)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular el total de ventas durante la semana</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>total_ventas_semana <span class="ot">&lt;-</span> <span class="fu">sum</span>(ventas_diarias)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(total_ventas_semana)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10900</code></pre>
+</div>
+</div>
+<p>El código de arriba calculará la sumatoria de las ventas diarias durante la semana, lo que nos dará el total de ventas realizadas en ese período de tiempo.</p>
+</section>
+</section>
+<section id="derivadas" class="level2">
+<h2 class="anchored" data-anchor-id="derivadas">4. Derivadas</h2>
+<section id="definición-formal-3" class="level3">
+<h3 class="anchored" data-anchor-id="definición-formal-3">4.1 Definición Formal</h3>
+<p>La derivada de una función <span class="math inline">\(f(x)\)</span> en un punto <span class="math inline">\(x\)</span> se define como el límite del cociente incremental cuando el cambio en <span class="math inline">\(x\)</span> tiende a cero. Formalmente, la derivada se puede definir como:</p>
+<p><span class="math display">\[f'(x) = \lim_{h \to 0} \frac{f(x + h) - f(x)}{h}\]</span></p>
+<p>donde <span class="math inline">\(h\)</span> es una cantidad muy pequeña que representa el cambio en <span class="math inline">\(x\)</span>.</p>
+</section>
+<section id="definición-intuitiva-2" class="level3">
+<h3 class="anchored" data-anchor-id="definición-intuitiva-2">4.2 Definición Intuitiva</h3>
+<p>Podemos pensar en la derivada como la tasa de cambio instantáneo de una función en un punto específico. La derivada nos indica cómo cambia el valor de <span class="math inline">\(y\)</span> con respecto a <span class="math inline">\(x\)</span> en un punto particular.</p>
+<p>La derivada de una función en un punto puede interpretarse como la pendiente de la línea tangente a la gráfica de la función en ese punto. Vamos a mostrar esto con un gráfico utilizando la función <span class="math inline">\(f(x) = x^2\)</span>, y calcularemos la derivada en el punto <span class="math inline">\(x = 2\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector of x values from -1 to 3</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="dv">3</span>, <span class="fl">0.1</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the function f(x) = x^2</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>f_x <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {x<span class="sc">^</span><span class="dv">2</span>}</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the corresponding y values for the function f(x) = x^2</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> <span class="fu">f_x</span>(x_values)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the tangent line t(x) = 4*x - 4</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>t_x <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {<span class="dv">4</span><span class="sc">*</span>x <span class="sc">-</span> <span class="dv">4</span>}</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the corresponding y values for the tangent line</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>y_tangente <span class="ot">&lt;-</span> <span class="fu">t_x</span>(x_values)</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame for the tangent point (2, 4)</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>tangent_point <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="dv">4</span>)</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot for the function f(x) = x^2 and its tangent line at x = 2</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>grafico_tangente <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x_values, <span class="at">y =</span> y_values), <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">"#FF7F50"</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x_values, <span class="at">y =</span> y_tangente), <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">"#6495ED"</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> tangent_point, <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">"black"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="st">"text"</span>, <span class="at">x =</span> <span class="dv">2</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">label =</span> <span class="st">"Punto de tangencia (2,4)"</span>, <span class="at">hjust =</span> <span class="dv">0</span>, <span class="at">vjust =</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Interpretación de la tangente de la derivada"</span>,</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"x"</span>,</span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"f(x), t(x)"</span>) <span class="sc">+</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(grafico_tangente)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="tutorial_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Interpretación de la derivada como tangente</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<p>En este gráfico, la línea azul representa la función <span class="math inline">\(f(x) = x^2\)</span>, la línea roja representa la línea tangente en el punto <span class="math inline">\(x = 2\)</span>, y el punto negro indica el punto de tangencia. Como puedes observar, la pendiente de la línea tangente en <span class="math inline">\(x = 2\)</span> es igual al valor de la derivada de la función en ese punto.</p>
+</section>
+<section id="propiedades-y-ejemplo-1" class="level3">
+<h3 class="anchored" data-anchor-id="propiedades-y-ejemplo-1">4.3 Propiedades y Ejemplo</h3>
+<section id="propiedad-1-regla-de-la-potencia" class="level4">
+<h4 class="anchored" data-anchor-id="propiedad-1-regla-de-la-potencia">Propiedad 1: Regla de la Potencia</h4>
+<p>La derivada de una función <span class="math inline">\(f(x) = x^n\)</span> donde <span class="math inline">\(n\)</span> es una constante, es igual a <span class="math inline">\(n \cdot x^{n-1}\)</span>.</p>
+<p><span class="math display">\[\frac{d}{dx} (x^n) = n \cdot x^{n-1}\]</span></p>
+<p>Ejemplo: Consideremos la función <span class="math inline">\(f(x) = x^2\)</span>.</p>
+<ol type="a">
+<li>Encontrar la derivada de <span class="math inline">\(f(x)\)</span>: <span class="math display">\[\frac{d}{dx} (x^2) = 2x^{2-1} = 2x\]</span></li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector of x values from -5 to 5</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.1</span>)</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the function f(x) = x^2</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>f_x <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {x<span class="sc">^</span><span class="dv">2</span>}</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the corresponding y values for the function f(x) = x^2</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> <span class="fu">f_x</span>(x_values)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the corresponding values for the derivative of f(x) = x^2</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>derivada_values <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> x_values</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot for the function f(x) = x^2 and its derivative</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>grafico_derivada <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x_values, <span class="at">y =</span> y_values), <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">"#FF7F50"</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> x_values, <span class="at">y =</span> derivada_values), <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">"#6495ED"</span>, <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Gráfico de la función f(x) = x^2 y su derivada"</span>,</span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"x"</span>,</span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"f(x) y Derivada"</span>) <span class="sc">+</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#FF7F50"</span>, <span class="st">"#6495ED"</span>)) <span class="sc">+</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-26"><a href="#cb6-26" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(grafico_derivada)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="tutorial_files/figure-html/derivada_ejemplo-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Gráfico de la función f(x) = x^2 y su derivada</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="propiedad-2-regla-de-la-suma" class="level4">
+<h4 class="anchored" data-anchor-id="propiedad-2-regla-de-la-suma">Propiedad 2: Regla de la Suma</h4>
+<p>La derivada de la suma de dos funciones es igual a la suma de las derivadas de esas funciones. Es decir, si <span class="math inline">\(f(x) = g(x) + h(x)\)</span>, entonces <span class="math inline">\(f'(x) = g'(x) + h'(x)\)</span>.</p>
+<p><span class="math display">\[\frac{d}{dx} (g(x) + h(x)) = g'(x) + h'(x)\]</span></p>
+<p>Ejemplo: Consideremos las funciones <span class="math inline">\(g(x) = 2x^2\)</span> y <span class="math inline">\(h(x) = 3x^3\)</span>. Queremos encontrar la derivada de su suma <span class="math inline">\(f(x) = g(x) + h(x)\)</span>:</p>
+<ol type="a">
+<li>Encontrar la derivada de <span class="math inline">\(f(x)\)</span>: Primero, calculamos las derivadas de <span class="math inline">\(g(x)\)</span> y <span class="math inline">\(h(x)\)</span>: <span class="math display">\[g'(x) = 4x\]</span> <span class="math display">\[h'(x) = 9x^2\]</span></li>
+</ol>
+<p>Entonces, <span class="math display">\[f'(x) = g'(x) + h'(x) = 4x + 9x^2\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the corresponding y values for the function f(x) = 2x^2 + 3x^3</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>y_suma_values <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> x_values<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span> <span class="sc">*</span> x_values<span class="sc">^</span><span class="dv">3</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the corresponding values for the derivative of f(x) = 2x^2 + 3x^3</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>derivada_suma_values <span class="ot">&lt;-</span> <span class="dv">4</span> <span class="sc">*</span> x_values <span class="sc">+</span> <span class="dv">9</span> <span class="sc">*</span> x_values<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot for the function f(x) = 2x^2 + 3x^3 and its derivative</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>grafico_derivada_suma <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> x_values, <span class="at">y =</span> y_suma_values, <span class="at">derivada =</span> derivada_suma_values), <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> y_suma_values, <span class="at">color =</span> <span class="st">"Función f(x) = 2x^2 + 3x^3"</span>), <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> derivada_suma_values, <span class="at">color =</span> <span class="st">"Derivada de f(x) = 4x + 9x^2"</span>), <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Gráfico de la función f(x) = 2x^2 + 3x^3 y su derivada"</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"x"</span>,</span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"f(x) y Derivada"</span>) <span class="sc">+</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#FF7F50"</span>, <span class="st">"#6495ED"</span>)) <span class="sc">+</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(grafico_derivada_suma)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="tutorial_files/figure-html/derivada_suma_ejemplo-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Gráfico de la función f(x) = 2x^2 + 3x^3 y su derivada</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="aplicación-1" class="level3">
+<h3 class="anchored" data-anchor-id="aplicación-1">4.4 Aplicación</h3>
+<p>Considera la población de un país en función del tiempo, <span class="math inline">\(P(t)\)</span>, donde <span class="math inline">\(t\)</span> representa el tiempo en años. La tasa de cambio de la población, que se puede considerar como el crecimiento de la población, es simplemente la derivada de <span class="math inline">\(P(t)\)</span> con respecto al tiempo, <span class="math inline">\(P'(t)\)</span>.</p>
+<p>Supongamos que la población de un país en un año <span class="math inline">\(t\)</span> está dada por la función <span class="math inline">\(P(t) = 500 + 20t^2\)</span>. Queremos encontrar la tasa de cambio de la población en el año <span class="math inline">\(t = 10\)</span>.</p>
+<p>Primero, calculamos la derivada de <span class="math inline">\(P(t)\)</span>: <span class="math display">\[P'(t) = \frac{d}{dt} (500 + 20t^2) = 40t\]</span></p>
+<p>Luego, evaluamos la derivada en <span class="math inline">\(t = 10\)</span>: <span class="math display">\[P'(10) = 40 \cdot 10 = 400\]</span></p>
+<p>Por lo tanto, la tasa de cambio de la población en el año <span class="math inline">\(t = 10\)</span> es de 400 personas por año.</p>
+</section>
+</section>
+<section id="integrales-discretas-sumatorias" class="level2">
+<h2 class="anchored" data-anchor-id="integrales-discretas-sumatorias">5. Integrales Discretas (Sumatorias)</h2>
+<section id="definición-formal-4" class="level3">
+<h3 class="anchored" data-anchor-id="definición-formal-4">5.1 Definición Formal</h3>
+<p>La integral discreta de una función <span class="math inline">\(f(x)\)</span> en un conjunto discreto de puntos <span class="math inline">\(\{x_1, x_2, ..., x_n\}\)</span> se puede representar mediante una sumatoria. Formalmente, la integral discreta se puede definir como:</p>
+<p><span class="math display">\[\sum_{i=1}^{n} f(x_i) \cdot \Delta x\]</span></p>
+<p>donde <span class="math inline">\(\Delta x\)</span> es la distancia entre los puntos <span class="math inline">\(x_i\)</span> y <span class="math inline">\(x_{i+1}\)</span>.</p>
+</section>
+<section id="definición-intuitiva-3" class="level3">
+<h3 class="anchored" data-anchor-id="definición-intuitiva-3">5.2 Definición Intuitiva</h3>
+<p>Podemos pensar en la integral discreta como la suma de áreas de rectángulos con base <span class="math inline">\(\Delta x\)</span> y altura <span class="math inline">\(f(x_i)\)</span>, donde <span class="math inline">\(x_i\)</span> son los puntos del conjunto.</p>
+</section>
+<section id="propiedades" class="level3">
+<h3 class="anchored" data-anchor-id="propiedades">5.3 Propiedades</h3>
+<p>La integral discreta tiene las siguientes propiedades:</p>
+<ol type="1">
+<li><p><strong>Linearidad</strong>: La integral discreta de la suma de dos funciones es igual a la suma de las integrales discretas de las dos funciones.</p>
+<p><span class="math display">\[\sum_{i=1}^{n} (f(x_i) + g(x_i)) \cdot \Delta x = \sum_{i=1}^{n} f(x_i) \cdot \Delta x + \sum_{i=1}^{n} g(x_i) \cdot \Delta x\]</span></p></li>
+<li><p><strong>Escalabilidad</strong>: La integral discreta de una constante veces una función es igual a la constante veces la integral discreta de la función.</p>
+<p><span class="math display">\[\sum_{i=1}^{n} (c \cdot f(x_i)) \cdot \Delta x = c \cdot \sum_{i=1}^{n} f(x_i) \cdot \Delta x\]</span></p></li>
+</ol>
+<p>donde <span class="math inline">\(c\)</span> es una constante.</p>
+</section>
+<section id="ejemplo-y-gráfico-2" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplo-y-gráfico-2">5.4 Ejemplo y Gráfico</h3>
+<p>Vamos a ilustrar el concepto de integral discreta utilizando el ejemplo de la función <span class="math inline">\(f(x) = x^2\)</span> y un conjunto de puntos <span class="math inline">\(\{0, 1, 2, 3, 4\}\)</span>.</p>
+<section id="paso-1-definir-la-secuencia-de-puntos" class="level4">
+<h4 class="anchored" data-anchor-id="paso-1-definir-la-secuencia-de-puntos">Paso 1: Definir la secuencia de puntos</h4>
+<p>Comenzamos definiendo una secuencia de puntos desde 0 hasta 4. Estos son los valores de <span class="math inline">\(x\)</span> para los que deseamos calcular la integral discreta.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear la secuencia de puntos</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>puntos <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">4</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(puntos)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0 1 2 3 4</code></pre>
+</div>
+</div>
+</section>
+<section id="paso-2-calcular-los-valores-de-fx" class="level4">
+<h4 class="anchored" data-anchor-id="paso-2-calcular-los-valores-de-fx">Paso 2: Calcular los valores de <span class="math inline">\(f(x)\)</span></h4>
+<p>Para cada valor de <span class="math inline">\(x\)</span>, calculamos el valor correspondiente de <span class="math inline">\(f(x) = x^2\)</span>. Esto se logra al elevar cada valor en la secuencia al cuadrado.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular los valores correspondientes de y para la función f(x) = x^2</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> puntos<span class="sc">^</span><span class="dv">2</span>;</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(y_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1]  0  1  4  9 16</code></pre>
+</div>
+</div>
+</section>
+<section id="paso-3-calcular-delta-x" class="level4">
+<h4 class="anchored" data-anchor-id="paso-3-calcular-delta-x">Paso 3: Calcular <span class="math inline">\(\Delta x\)</span></h4>
+<p>Calculamos <span class="math inline">\(\Delta x\)</span>, que es la distancia entre cada par de puntos sucesivos en la secuencia. En este caso, como los puntos están igualmente espaciados, <span class="math inline">\(\Delta x\)</span> es constante e igual a 1.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular el incremento entre puntos</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>delta_x <span class="ot">&lt;-</span> <span class="fu">diff</span>(puntos)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(delta_x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1 1 1 1</code></pre>
+</div>
+</div>
+</section>
+<section id="paso-4-calcular-la-integral-discreta" class="level4">
+<h4 class="anchored" data-anchor-id="paso-4-calcular-la-integral-discreta">Paso 4: Calcular la integral discreta</h4>
+<p>De acuerdo con la definición formal de la integral discreta, la integral es la suma de los productos <span class="math inline">\(f(x_i) \cdot \Delta x\)</span> para cada <span class="math inline">\(x_i\)</span> en la secuencia. En este caso, multiplicamos cada valor de <span class="math inline">\(f(x)\)</span> por el correspondiente <span class="math inline">\(\Delta x\)</span> y luego sumamos todos estos productos.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular la integral discreta</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>integral_discreta <span class="ot">&lt;-</span> <span class="fu">sum</span>(y_values[<span class="sc">-</span><span class="dv">1</span>] <span class="sc">*</span> delta_x)</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(integral_discreta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 30</code></pre>
+</div>
+</div>
+</section>
+<section id="paso-5-crear-el-gráfico" class="level4">
+<h4 class="anchored" data-anchor-id="paso-5-crear-el-gráfico">Paso 5: Crear el gráfico</h4>
+<p>Finalmente, creamos un gráfico utilizando ggplot2 para visualizar tanto la función <span class="math inline">\(f(x) = x^2\)</span> como la integral discreta. La función se representa como una línea y la integral discreta se representa como el área bajo la curva de la función, correspondiente a la suma de las áreas de los rectángulos con base <span class="math inline">\(\Delta x\)</span> y altura <span class="math inline">\(f(x_i)\)</span>.</p>
+<p>Vamos a usar <code>geom_rect</code> para visualizar los rectángulos que representan los términos de la suma en la integral discreta.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required library</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Assuming puntos and y_values are defined appropriately</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>puntos <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="fl">1.5</span>, <span class="dv">2</span>, <span class="fl">2.5</span>, <span class="dv">3</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> puntos<span class="sc">^</span><span class="dv">2</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe with the integral discrete rectangles</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>integral_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">xmin =</span> puntos[<span class="sc">-</span><span class="fu">length</span>(puntos)],</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>                            <span class="at">xmax =</span> puntos[<span class="sc">-</span><span class="dv">1</span>],</span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>                            <span class="at">ymin =</span> <span class="dv">0</span>,</span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>                            <span class="at">ymax =</span> y_values[<span class="sc">-</span><span class="dv">1</span>])</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe with the function values</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>function_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> puntos, <span class="at">y =</span> y_values)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot for the function f(x) = x^2 and the integral discrete</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>grafico_integral_discreta <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_rect</span>(<span class="at">data =</span> integral_data, <span class="fu">aes</span>(<span class="at">xmin =</span> xmin, <span class="at">xmax =</span> xmax, <span class="at">ymin =</span> ymin, <span class="at">ymax =</span> ymax), <span class="at">fill =</span> <span class="st">"#FF69B4"</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">data =</span> function_data, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">color =</span> <span class="st">"Función f(x) = x^2"</span>), <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">data =</span> function_data, <span class="fu">aes</span>(<span class="at">x =</span> x, <span class="at">y =</span> y), <span class="at">color =</span> <span class="st">"red"</span>, <span class="at">size =</span> <span class="dv">3</span>) <span class="sc">+</span></span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Gráfico de la función f(x) = x^2 y la integral discreta"</span>,</span>
+<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"x"</span>,</span>
+<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"f(x)"</span>) <span class="sc">+</span></span>
+<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Área bajo la curva"</span>) <span class="sc">+</span></span>
+<span id="cb16-26"><a href="#cb16-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#FF7F50"</span>)) <span class="sc">+</span></span>
+<span id="cb16-27"><a href="#cb16-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb16-28"><a href="#cb16-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb16-29"><a href="#cb16-29" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb16-30"><a href="#cb16-30" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span>
+<span id="cb16-31"><a href="#cb16-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-32"><a href="#cb16-32" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(grafico_integral_discreta)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tutorial_files/figure-html/unnamed-chunk-8-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>De esta manera, el gráfico y el código ilustran visualmente cómo se calcula una integral discreta: mediante la suma de áreas de rectángulos con base <span class="math inline">\(\Delta x\)</span> y altura <span class="math inline">\(f(x_i)\)</span>, para cada punto <span class="math inline">\(x_i\)</span> en un conjunto dado. En el gráfico, cada rectángulo representa un término de la suma en la integral discreta.</p>
+</section>
+</section>
+<section id="aplicación-estimación-de-la-población-total" class="level3">
+<h3 class="anchored" data-anchor-id="aplicación-estimación-de-la-población-total">5.5 Aplicación: Estimación de la Población Total</h3>
+<p>Suponga que se tiene una función <span class="math inline">\(P(t)\)</span> que representa la población de un país en el tiempo. Para estimar la población total durante un período de tiempo, se podría utilizar una integral discreta.</p>
+<p>Por ejemplo, supongamos que tenemos la siguiente función de población <span class="math inline">\(P(t) = 50t + 100\)</span> y queremos estimar la población total del país entre los años 2000 (t = 0) y 2005 (t = 5).</p>
+<p>Primero, creamos el conjunto de puntos para los años <span class="math inline">\(\{0, 1, 2, 3, 4, 5\}\)</span>.</p>
+<p>Luego, calculamos los valores de <span class="math inline">\(P(t)\)</span> para estos años: [P(t) = {100, 150, 200, 250, 300, 350}].</p>
+<p>Finalmente, utilizamos la fórmula de la integral discreta para estimar la población total:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Crear el conjunto de puntos para los años</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>años <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">5</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular los valores de P(t)</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>valores_P <span class="ot">&lt;-</span> <span class="dv">50</span> <span class="sc">*</span> años <span class="sc">+</span> <span class="dv">100</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular el incremento entre puntos</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>delta_t <span class="ot">&lt;-</span> <span class="fu">diff</span>(años)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Calcular la integral discreta (población total estimada)</span></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>poblacion_total_estimada <span class="ot">&lt;-</span> <span class="fu">sum</span>(valores_P <span class="sc">*</span> delta_t)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>poblacion_total_estimada</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 1350</code></pre>
+</div>
+</div>
+<p>La población total estimada durante este período de tiempo es 1350.</p>
+</section>
+</section>
+<section id="integrales-continuas" class="level2">
+<h2 class="anchored" data-anchor-id="integrales-continuas">6. Integrales Continuas</h2>
+<section id="definición-formal-5" class="level3">
+<h3 class="anchored" data-anchor-id="definición-formal-5">6.1 Definición Formal</h3>
+<p>La integral de una función <span class="math inline">\(f(x)\)</span> en un intervalo <span class="math inline">\([a, b]\)</span> representa el área bajo la curva de la función en el intervalo dado. Formalmente, la integral se puede definir como:</p>
+<p><span class="math display">\[\int_{a}^{b} f(x) \, dx\]</span></p>
+</section>
+<section id="definición-intuitiva-4" class="level3">
+<h3 class="anchored" data-anchor-id="definición-intuitiva-4">6.2 Definición Intuitiva</h3>
+<p>Podemos pensar en la integral como la suma acumulada de infinitos rectángulos bajo la curva de la función en el intervalo <span class="math inline">\([a, b]\)</span>. La integral nos da una medida del “área” encerrada entre la curva de la función y el eje <span class="math inline">\(x\)</span> en el intervalo dado.</p>
+</section>
+<section id="propiedades-1" class="level3">
+<h3 class="anchored" data-anchor-id="propiedades-1">6.3 Propiedades</h3>
+<section id="propiedad-1-linealidad" class="level4">
+<h4 class="anchored" data-anchor-id="propiedad-1-linealidad">Propiedad 1: Linealidad</h4>
+<p>La integral de una constante multiplicada por una función es igual a la constante multiplicada por la integral de la función.</p>
+<p><span class="math display">\[\int c \cdot f(x) \, dx = c \cdot \int f(x) \, dx\]</span></p>
+</section>
+<section id="propiedad-2-aditividad" class="level4">
+<h4 class="anchored" data-anchor-id="propiedad-2-aditividad">Propiedad 2: Aditividad</h4>
+<p>La integral de la suma de dos funciones es igual a la suma de las integrales de esas funciones.</p>
+<p><span class="math display">\[\int (f(x) + g(x)) \, dx = \int f(x) \, dx + \int g(x) \, dx\]</span></p>
+</section>
+<section id="propiedad-3-intervalo" class="level4">
+<h4 class="anchored" data-anchor-id="propiedad-3-intervalo">Propiedad 3: Intervalo</h4>
+<p>Si se invierte el intervalo de integración, el resultado de la integral se multiplica por -1.</p>
+<p><span class="math display">\[\int_{a}^{b} f(x) \, dx = -\int_{b}^{a} f(x) \, dx\]</span></p>
+</section>
+</section>
+<section id="ejemplo-cómputo-y-representación-gráfica" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplo-cómputo-y-representación-gráfica">6.4 Ejemplo, Cómputo y Representación Gráfica</h3>
+<p>Consideremos la función <span class="math inline">\(f(x) = 2x\)</span> en el intervalo <span class="math inline">\([1, 3]\)</span>.</p>
+<ol type="a">
+<li>Calculemos la integral definida de <span class="math inline">\(f(x)\)</span> en el intervalo <span class="math inline">\([1, 3]\)</span> utilizando el Teorema Fundamental del Cálculo.</li>
+</ol>
+<p>Para hacer esto, primero necesitamos encontrar una antiderivada <span class="math inline">\(F(x)\)</span> de <span class="math inline">\(f(x)\)</span>. Esto se puede hacer integrando <span class="math inline">\(f(x)\)</span>:</p>
+<p><span class="math display">\[F(x) = \int_{1}^{x} 2t \, dt\]</span></p>
+<p>Resolviendo esto obtenemos:</p>
+<p><span class="math display">\[F(x) = \left[ t^2 \right]_{1}^{x} = x^2 - 1\]</span></p>
+<ol start="2" type="a">
+<li>Ahora, calculemos la integral definida de <span class="math inline">\(f(x)\)</span> en el intervalo <span class="math inline">\([1, 3]\)</span> utilizando la segunda parte del Teorema Fundamental del Cálculo:</li>
+</ol>
+<p><span class="math display">\[\int_{1}^{3} 2x \, dx = F(3) - F(1) = (3^2 - 1) - (1^2 - 1) = 9 - 0 = 9\]</span></p>
+<p>Esto significa que el área bajo la curva <span class="math inline">\(f(x) = 2x\)</span> desde <span class="math inline">\(x = 1\)</span> hasta <span class="math inline">\(x = 3\)</span> es de 9 unidades.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Load required library</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a vector of x values from 1 to 3</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="fl">0.01</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the corresponding y values for the function f(x) = 2x</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> x_values</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the corresponding values for the integral of f(x) = 2x</span></span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>F_x_values <span class="ot">&lt;-</span> x_values<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a plot for the function f(x) = 2x and the area under the curve</span></span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>grafico_teorema_fundamental <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> x_values, <span class="at">y =</span> y_values, <span class="at">F_x =</span> F_x_values), <span class="fu">aes</span>(x)) <span class="sc">+</span></span>
+<span id="cb19-15"><a href="#cb19-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> y_values, <span class="at">color =</span> <span class="st">"Función f(x) = 2x"</span>), <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb19-16"><a href="#cb19-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> F_x_values, <span class="at">color =</span> <span class="st">"Integral Definida F(x)"</span>), <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb19-17"><a href="#cb19-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Gráfico de la función f(x) = 2x y su integral definida"</span>,</span>
+<span id="cb19-18"><a href="#cb19-18" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"x"</span>,</span>
+<span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"Valores de f(x) y F(x)"</span>) <span class="sc">+</span></span>
+<span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#FF69B4"</span>, <span class="st">"#FFD700"</span>)) <span class="sc">+</span></span>
+<span id="cb19-21"><a href="#cb19-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb19-22"><a href="#cb19-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb19-23"><a href="#cb19-23" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb19-24"><a href="#cb19-24" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span>
+<span id="cb19-25"><a href="#cb19-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-26"><a href="#cb19-26" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(grafico_teorema_fundamental)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="tutorial_files/figure-html/Ejemplo_teorema_fundamental-1.png" class="img-fluid figure-img" width="672"></p>
+<figcaption>Gráfico de la función f(x) y su integral definida</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="aplicación-2" class="level3">
+<h3 class="anchored" data-anchor-id="aplicación-2">6.5 Aplicación</h3>
+<p>Supongamos que una elección se lleva a cabo a lo largo de un día (de t = 0 a t = 24). La función <span class="math inline">\(V(t) = 100t^2\)</span> representa la cantidad de votos acumulados a la hora <span class="math inline">\(t\)</span>. Para obtener una estimación del total de votos emitidos durante el día, podríamos calcular la integral de <span class="math inline">\(V(t)\)</span> de 0 a 24.</p>
+<p>Primero, definimos la función <span class="math inline">\(V(t)\)</span> y luego calculamos la integral en el intervalo deseado:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Define the function V(t)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>V <span class="ot">&lt;-</span> <span class="cf">function</span>(t) {</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">return</span>(<span class="dv">100</span> <span class="sc">*</span> t<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the integral of V(t) from 0 to 24</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>delta_t <span class="ot">&lt;-</span> <span class="fl">0.01</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>total_votos_estimado <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="fu">V</span>(<span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">24</span>, delta_t))) <span class="sc">*</span> delta_t</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a>total_votos_estimado</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 461088</code></pre>
+</div>
+</div>
+<p>La cantidad total estimada de votos emitidos durante el día es 4.6108804^{5}.</p>
+</section>
+</section>
+<section id="teorema-fundamental-del-cálculo" class="level2">
+<h2 class="anchored" data-anchor-id="teorema-fundamental-del-cálculo">7. Teorema Fundamental del Cálculo</h2>
+<section id="enunciado" class="level3">
+<h3 class="anchored" data-anchor-id="enunciado">7.1 Enunciado</h3>
+<p>El Teorema Fundamental del Cálculo constituye un puente entre la diferenciación y la integración, dos conceptos centrales en el cálculo. Este teorema, en esencia, nos permite evaluar integrales definidas mediante la aplicación del concepto de diferenciación. Se compone de dos partes que juntas forman una explicación coherente de cómo estas dos operaciones fundamentales en cálculo se interrelacionan.</p>
+<section id="teorema-fundamental-del-cálculo-primera-parte" class="level4">
+<h4 class="anchored" data-anchor-id="teorema-fundamental-del-cálculo-primera-parte">Teorema Fundamental del Cálculo (Primera Parte)</h4>
+<p>Dada una función <span class="math inline">\(f(x)\)</span> que es continua en un intervalo <span class="math inline">\([a, b]\)</span>, y otra función <span class="math inline">\(F(x)\)</span> que simboliza la integral definida de <span class="math inline">\(f(x)\)</span> sobre el intervalo <span class="math inline">\([a, x]\)</span>, es decir,</p>
+<p><span class="math display">\[F(x) = \int_{a}^{x} f(t) \, dt\]</span></p>
+<p>entonces, de acuerdo con la primera parte del Teorema Fundamental del</p>
+<p>Cálculo, la derivada de <span class="math inline">\(F(x)\)</span> con respecto a <span class="math inline">\(x\)</span> es precisamente <span class="math inline">\(f(x)\)</span>:</p>
+<p><span class="math display">\[\frac{d}{dx} F(x) = f(x)\]</span></p>
+<p>Esta parte del teorema afirma que si una función <span class="math inline">\(F\)</span> es una antiderivada de <span class="math inline">\(f\)</span> en el intervalo, entonces la derivada de la integral de <span class="math inline">\(f\)</span> de <span class="math inline">\(a\)</span> a <span class="math inline">\(x\)</span> es la función misma.</p>
+</section>
+<section id="teorema-fundamental-del-cálculo-segunda-parte" class="level4">
+<h4 class="anchored" data-anchor-id="teorema-fundamental-del-cálculo-segunda-parte">Teorema Fundamental del Cálculo (Segunda Parte)</h4>
+<p>Supongamos que <span class="math inline">\(f(x)\)</span> es una función continua en el intervalo <span class="math inline">\([a, b]\)</span> y <span class="math inline">\(F(x)\)</span> es una función que representa la integral definida de <span class="math inline">\(f(x)\)</span> de <span class="math inline">\(a\)</span> a <span class="math inline">\(x\)</span>, es decir,</p>
+<p><span class="math display">\[F(x) = \int_{a}^{x} f(t) \, dt\]</span></p>
+<p>Entonces, según la segunda parte del Teorema Fundamental del Cálculo, la integral definida de <span class="math inline">\(f(x)\)</span> en el intervalo <span class="math inline">\([a, b]\)</span> puede calcularse de la siguiente manera:</p>
+<p><span class="math display">\[\int_{a}^{b} f(x) \, dx = F(b) - F(a)\]</span></p>
+<p>Esta parte del teorema simplifica el cálculo de las integrales definidas al evaluar la función antiderivada en los extremos del intervalo.</p>
+</section>
+</section>
+<section id="ejemplo-cómputo-y-representación-gráfica-1" class="level3">
+<h3 class="anchored" data-anchor-id="ejemplo-cómputo-y-representación-gráfica-1">7.2 Ejemplo, Cómputo y Representación Gráfica</h3>
+<p>Consideremos la función <span class="math inline">\(f(x) = 2x^2 + 3\)</span> en el intervalo <span class="math inline">\([1, 3]\)</span>.</p>
+<ol type="a">
+<li>Calculemos la integral definida de <span class="math inline">\(f(x)\)</span> en el sub-intervalo <span class="math inline">\([1, 2]\)</span> utilizando el Teorema Fundamental del Cálculo.</li>
+</ol>
+<p>Primero necesitamos encontrar una antiderivada <span class="math inline">\(F(x)\)</span> de <span class="math inline">\(f(x)\)</span>. En este caso, una antiderivada de <span class="math inline">\(f(x) = 2x^2 + 3\)</span> es <span class="math inline">\(F(x) = \frac{2x^3}{3} + 3x\)</span>. La obtenemos integrando <span class="math inline">\(f(x)\)</span> desde 1 hasta <span class="math inline">\(x\)</span>:</p>
+<p><span class="math display">\[F(x) = \int_{1}^{x} (2t^2 + 3) \, dt\]</span></p>
+<p>Que nos da:</p>
+<p><span class="math display">\[F(x) = \left[ \frac{2t^3}{3} + 3t \right]_{1}^{x} = \frac{2x^3}{3} + 3x - \frac{2}{3} - 3\]</span></p>
+<ol start="2" type="a">
+<li>Ahora, calculemos la integral definida de <span class="math inline">\(f(x)\)</span> en el sub-intervalo <span class="math inline">\([1, 2]\)</span> utilizando la segunda parte del Teorema Fundamental del Cálculo:</li>
+</ol>
+<p><span class="math display">\[\int_{1}^{2} (2x^2 + 3) \, dx = F(2) - F(1) = \left(\frac{2*2^3}{3} + 3*2 - \frac{2}{3} - 3\right) - \left(\frac{2*1^3}{3} + 3*1 - \frac{2}{3} - 3\right) = \frac{23}{3}\]</span></p>
+<p>Por lo tanto, el área bajo la curva <span class="math inline">\(f(x) = 2x^2 + 3\)</span> desde <span class="math inline">\(x = 1\)</span> hasta <span class="math inline">\(x = 2\)</span> es de <span class="math inline">\(\frac{23}{3}\)</span> unidades.</p>
+<p>Ahora, vamos a visualizar esto con un gráfico en R:</p>
+<p>Primero, creamos un vector de valores <span class="math inline">\(x\)</span> en el rango de 1 a 3:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a sequence of x values from 1 to 3</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>x_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">3</span>, <span class="fl">0.01</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(x_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1] 1.00 1.01 1.02 1.03 1.04 1.05 1.06 1.07 1.08 1.09 1.10 1.11 1.12 1.13 1.14
+ [16] 1.15 1.16 1.17 1.18 1.19 1.20 1.21 1.22 1.23 1.24 1.25 1.26 1.27 1.28 1.29
+ [31] 1.30 1.31 1.32 1.33 1.34 1.35 1.36 1.37 1.38 1.39 1.40 1.41 1.42 1.43 1.44
+ [46] 1.45 1.46 1.47 1.48 1.49 1.50 1.51 1.52 1.53 1.54 1.55 1.56 1.57 1.58 1.59
+ [61] 1.60 1.61 1.62 1.63 1.64 1.65 1.66 1.67 1.68 1.69 1.70 1.71 1.72 1.73 1.74
+ [76] 1.75 1.76 1.77 1.78 1.79 1.80 1.81 1.82 1.83 1.84 1.85 1.86 1.87 1.88 1.89
+ [91] 1.90 1.91 1.92 1.93 1.94 1.95 1.96 1.97 1.98 1.99 2.00 2.01 2.02 2.03 2.04
+[106] 2.05 2.06 2.07 2.08 2.09 2.10 2.11 2.12 2.13 2.14 2.15 2.16 2.17 2.18 2.19
+[121] 2.20 2.21 2.22 2.23 2.24 2.25 2.26 2.27 2.28 2.29 2.30 2.31 2.32 2.33 2.34
+[136] 2.35 2.36 2.37 2.38 2.39 2.40 2.41 2.42 2.43 2.44 2.45 2.46 2.47 2.48 2.49
+[151] 2.50 2.51 2.52 2.53 2.54 2.55 2.56 2.57 2.58 2.59 2.60 2.61 2.62 2.63 2.64
+[166] 2.65 2.66 2.67 2.68 2.69 2.70 2.71 2.72 2.73 2.74 2.75 2.76 2.77 2.78 2.79
+[181] 2.80 2.81 2.82 2.83 2.84 2.85 2.86 2.87 2.88 2.89 2.90 2.91 2.92 2.93 2.94
+[196] 2.95 2.96 2.97 2.98 2.99 3.00</code></pre>
+</div>
+</div>
+<p>Luego, calculamos los correspondientes valores de <span class="math inline">\(y\)</span> para la función <span class="math inline">\(f(x) = 2x^2 + 3\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Calculate the corresponding y values for the function f(x) = 2x^2 + 3</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>y_values <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> x_values<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(y_values)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  [1]  5.0000  5.0402  5.0808  5.1218  5.1632  5.2050  5.2472  5.2898  5.3328
+ [10]  5.3762  5.4200  5.4642  5.5088  5.5538  5.5992  5.6450  5.6912  5.7378
+ [19]  5.7848  5.8322  5.8800  5.9282  5.9768  6.0258  6.0752  6.1250  6.1752
+ [28]  6.2258  6.2768  6.3282  6.3800  6.4322  6.4848  6.5378  6.5912  6.6450
+ [37]  6.6992  6.7538  6.8088  6.8642  6.9200  6.9762  7.0328  7.0898  7.1472
+ [46]  7.2050  7.2632  7.3218  7.3808  7.4402  7.5000  7.5602  7.6208  7.6818
+ [55]  7.7432  7.8050  7.8672  7.9298  7.9928  8.0562  8.1200  8.1842  8.2488
+ [64]  8.3138  8.3792  8.4450  8.5112  8.5778  8.6448  8.7122  8.7800  8.8482
+ [73]  8.9168  8.9858  9.0552  9.1250  9.1952  9.2658  9.3368  9.4082  9.4800
+ [82]  9.5522  9.6248  9.6978  9.7712  9.8450  9.9192  9.9938 10.0688 10.1442
+ [91] 10.2200 10.2962 10.3728 10.4498 10.5272 10.6050 10.6832 10.7618 10.8408
+[100] 10.9202 11.0000 11.0802 11.1608 11.2418 11.3232 11.4050 11.4872 11.5698
+[109] 11.6528 11.7362 11.8200 11.9042 11.9888 12.0738 12.1592 12.2450 12.3312
+[118] 12.4178 12.5048 12.5922 12.6800 12.7682 12.8568 12.9458 13.0352 13.1250
+[127] 13.2152 13.3058 13.3968 13.4882 13.5800 13.6722 13.7648 13.8578 13.9512
+[136] 14.0450 14.1392 14.2338 14.3288 14.4242 14.5200 14.6162 14.7128 14.8098
+[145] 14.9072 15.0050 15.1032 15.2018 15.3008 15.4002 15.5000 15.6002 15.7008
+[154] 15.8018 15.9032 16.0050 16.1072 16.2098 16.3128 16.4162 16.5200 16.6242
+[163] 16.7288 16.8338 16.9392 17.0450 17.1512 17.2578 17.3648 17.4722 17.5800
+[172] 17.6882 17.7968 17.9058 18.0152 18.1250 18.2352 18.3458 18.4568 18.5682
+[181] 18.6800 18.7922 18.9048 19.0178 19.1312 19.2450 19.3592 19.4738 19.5888
+[190] 19.7042 19.8200 19.9362 20.0528 20.1698 20.2872 20.4050 20.5232 20.6418
+[199] 20.7608 20.8802 21.0000</code></pre>
+</div>
+</div>
+<p>Y creamos un gráfico que muestre la función <span class="math inline">\(f(x) = 2x^2 + 3\)</span> y el área bajo la curva en el sub-intervalo <span class="math inline">\([1, 2]\)</span>:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a plot for the function f(x) = 2x^2 + 3 and the area under the curve in the interval [1, 2]</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>grafico_integral <span class="ot">&lt;-</span> <span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">x =</span> x_values, <span class="at">y =</span> y_values), <span class="fu">aes</span>(x, y)) <span class="sc">+</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y =</span> y, <span class="at">color =</span> <span class="st">"Función f(x) = 2x^2 + 3"</span>), <span class="at">size =</span> <span class="fl">1.5</span>) <span class="sc">+</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_ribbon</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="fl">0.01</span>), <span class="at">y =</span> <span class="dv">2</span> <span class="sc">*</span> <span class="fu">seq</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="fl">0.01</span>)<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="dv">3</span>), <span class="fu">aes</span>(x, <span class="at">ymin =</span> <span class="dv">0</span>, <span class="at">ymax =</span> y), <span class="at">fill =</span> <span class="st">"#FF69B4"</span>, <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"f(x) = 2x^2 + 3 y área bajo la curva en [1, 2]"</span>,</span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">"x"</span>,</span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">"f(x)"</span>) <span class="sc">+</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_color_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"#FF69B4"</span>, <span class="st">"#FFD700"</span>)) <span class="sc">+</span></span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">plot.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">18</span>, <span class="at">hjust =</span> <span class="fl">0.5</span>),</span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.title =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">14</span>),</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">axis.text =</span> <span class="fu">element_text</span>(<span class="at">size =</span> <span class="dv">12</span>))</span>
+<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(grafico_integral)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tutorial_files/figure-html/unnamed-chunk-11-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Este gráfico muestra la función <span class="math inline">\(f(x) = 2x^2 + 3\)</span> y el área bajo la curva en el sub-intervalo <span class="math inline">\([1, 2]\)</span>, que corresponde a la integral definida que calculamos como <span class="math inline">\(\frac{23}{3}\)</span>.</p>
+</section>
+<section id="aplicación-3" class="level3">
+<h3 class="anchored" data-anchor-id="aplicación-3">7.3 Aplicación</h3>
+<p>Supongamos que <span class="math inline">\(p(t)\)</span> es la tasa de cambio de población en una ciudad, en miles de personas por año, y está dada por la función <span class="math inline">\(p(t) = 3t^2\)</span>, donde <span class="math inline">\(t\)</span> es el tiempo en años desde el inicio de 2020.</p>
+<p>Para encontrar el cambio total en la población desde 2020 hasta 2023 (3 años), podríamos utilizar el Teorema Fundamental del Cálculo.</p>
+<ol type="a">
+<li>Primero, necesitamos encontrar una antiderivada <span class="math inline">\(P(t)\)</span> de <span class="math inline">\(p(t)\)</span>. Esto se puede hacer integrando <span class="math inline">\(p(t)\)</span>:</li>
+</ol>
+<p><span class="math display">\[P(t) = \int_{0}^{t} 3t^2 \, dt\]</span></p>
+<p>Resolviendo esto obtenemos:</p>
+<p><span class="math display">\[P(t) = \left[ t^3 \right]_{0}^{t} = t^3\]</span></p>
+<ol start="2" type="a">
+<li>Ahora,</li>
+</ol>
+<p>podemos calcular el cambio total en la población durante el intervalo <span class="math inline">\([0, 3]\)</span> (desde 2020 hasta 2023) utilizando la segunda parte del Teorema Fundamental del Cálculo:</p>
+<p><span class="math display">\[\int_{0}^{3} 3t^2 \, dt = P(3) - P(0) = (3^3 - 0) = 27\]</span></p>
+<p>Por lo tanto, la población de la ciudad aumentó en 27 mil personas durante estos 3 años.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    text: function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

@@ -1,0 +1,233 @@
+---
+title: "~~Análisis de Datos II (SOL114)~~ <br> Probabilidad e Inferencia Estadística"
+subtitle: "Presentación del curso"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["gentle-r.css","xaringan-themer.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  chunk_output_type: console
+---
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(xaringanthemer)
+style_duo_accent(primary_color = "#972D15", secondary_color = "#1f2026",
+                 background_color = "#f8f7f3",
+                 header_font_google = google_font("Archivo"),
+                 text_font_google   = google_font("Inconsolata"), 
+                 link_color="#7ed694"
+
+)
+
+
+```
+
+
+---
+class: inverse, center, middle
+
+# Probabilidad & Estadística
+
+---
+## Probabilidad & Estadística
+
+
+--
+
+.center[![prob](prob.png)]
+
+
+---
+## Probabilidad & Estadística
+
+--
+.center[![stats](stats.png)]
+
+
+
+
+---
+class: inverse, center, middle
+
+
+
+#Equipo de trabajo
+
+
+---
+
+## Profesor
+
+<br>
+
+  - Mauricio Bucca, Profesor Asistente - Sociología UC
+  
+  - PhD en Sociología & PhD Minor en Estadística, Cornell University
+
+--
+
+  - .bold[Investigación:] movilidad social intergeneracional,  desigualdades en el mercado laboral, creencias sobre las desigualdades, métodos cuantitativos
+  
+
+  - .bold[Métodos]: modelación estadística, inferencia causal, métodos experimentales y computacionales
+
+---
+## Ayudantes
+
+
+<br>
+
+.pull-left[
+.bold[Elisa Tagle]
+
+- Estudiante de 4to año de Sociólogía UC
+
+- Intereses: Análisis de datos sociológicos y económicos, estadística, y teoría sociológica.
+
+]
+
+.figure-right[
+![elisa](elisa.png)
+]
+
+---
+## Ayudantes
+
+<br>
+
+.pull-left[
+.bold[Benjamín Puran]
+
+- Estudiante de 4to año de Sociólogía UC
+
+- Intereses: Salud pública, socio-biología, bioestadística y sociología de la salud.
+
+]
+
+.pull-right[
+![benjamin](benjamin.png)
+]
+
+---
+class: inverse, center, middle
+
+# Filosofía de enseñanza
+
+---
+### 1. Los "atajos" estadísticos dificultan el aprendizaje
+
+--
+
+.center[
+![pvalue](pvalue.png)
+
+]
+
+---
+### 2. La sola intuición no es suficiente
+
+--
+
+.pull-left[
+.bold[Muchas cosas parecen más difíciles de lo que son]
+.huge[$$\int xf(x)dx := \mu $$]
+]
+
+--
+
+.pull-right[
+.bold[Otras parecen más simples de lo que son]
+.huge[ $$X   \text{ es una variable}$$]
+
+]
+
+--
+<br>
+
+- Vacíos de conocimiento, notación, poca exposición a las matemáticas.
+
+- Este curso nivela estos vacíos activamente. No hay carta bajo la manga.
+
+---
+
+### 3. Menos es más
+
+--
+
+.pull-left[.bold[Muchos métodos]
+![methods](methods.png)
+]
+
+--
+
+.pull-right[.bold[Fundamentos sólidos]
+![methods](foundations.jpg)]
+
+
+
+---
+class: inverse, center, middle
+
+# Recursos
+
+---
+
+## Repositorio Github
+
+Todo el material del curso será almacenado y actualizado regularmente en repositorio `Github`:
+
+<br>
+.center[
+
+![github](github.png)
+
+.bold[https://github.com/mebucca/ad2-sol114]
+
+]
+
+---
+## Horario de consulta y ayudantías
+
+
+.center[![officehours](officehours.jpg)]
+
+
+---
+## Investigación
+
+
+.pull-left[
+
+![workshop](workshop.png)
+
+]
+
+
+.pull-right[
+
+![lab](qcs2.png)
+
+]
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+
+

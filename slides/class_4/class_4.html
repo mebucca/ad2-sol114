@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Probabilidad e Inferencia Estadística</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Probabilidad e Inferencia Estadística
+]
+.subtitle[
+## #4: Variables Aleatorias Discretas
+]
+.author[
+### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
+]
+.date[
+### 17 August, 2024
+]
+
+---
+
+
+class: inverse, center, middle
+
+
+
+---
+class: inverse, center, middle
+
+##Distribuciones Discretas
+### Intuición
+
+---
+### Tiro de penal
+
+Final de la Copa Mundial de la FIFA 1994. Roberto Baggio va a tirar su penal ...
+
+
+.pull-left[
+
+&lt;br&gt;
+&lt;br&gt;
+
+.bold[Número finito de resultados posibles]:
+
+- Gol
+- Fallo
+
+&lt;br&gt;
+.bold[Evento aleatorio]:
+
+- Existe una probabilidad asociada a cada resultado 
+
+]
+
+--
+
+.pull-right[
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+.center[![baggio](baggio.gif)]
+]
+
+
+---
+class: inverse, center, middle
+
+## Distribuciones Discretas
+### Distribución Bernoulli
+
+
+---
+
+### Distribución Bernoulli
+
+
+.pull-left[
+- Experimento: tiramos una moneda al aire. 
+
+- `\(X\)` es una variable aleatoria tal que `\(X=1\)` (Cara) o `\(X=0\)` (Sello).
+
+- La probabilidad de obtener Cara es `\(p=0.7\)` y la de Sello es `\(1-p = 0.3\)`
+
+![](class_4_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+
+]
+
+--
+
+.pull-right[
+
+.bold[Función de masa probabilistica (PMF):]
+
+&lt;br&gt;
+
+X es una variable aleatoria Bernoulli, es decir
+
+`\begin{align}
+f(x) =
+  \begin{cases}
+    p  &amp; \quad \text{si } x=1\\
+    1 - p  &amp; \quad \text{si } x=0 \\
+    0 &amp; \quad \text{otro}
+  \end{cases}
+\end{align}`
+
+&lt;br&gt;
+&lt;br&gt;
+
+En modo más sintético:
+
+`$$f(x) = p^{x}(1-p)^{1-x}  \quad \text{si } x=1 \text{ o } x=0$$`
+
+]
+
+
+---
+
+### Distribución Bernoulli
+
+.bold[Ilustración via simulación en] `R`
+
+
+Tiremos una moneda con probabilidad de obtener "Cara" ( `\(1\)` ) de 70% ( `\(p=0.7\)` )
+
+
+``` r
+#set.seed(12347)
+moneda &lt;- rbinom(n=1, size=1, p=0.7)
+print(moneda)
+```
+
+```
+## [1] 1
+```
+
+&lt;br&gt;
+--
+
+Repitamos el proceso 1000 veces ...
+
+
+``` r
+#set.seed(12347)
+monedas &lt;- rbinom(n=1000, size=1, p=0.7)
+```
+
+
+```
+##  [1] 0 1 0 1 1 0 0 1 0 1 1 0 0 0 0 0 0 1 1 1
+```
+
+```
+## [1] "P(Cara) =  0.71"
+```
+
+
+---
+class: inverse, center, middle
+
+## Distribuciones Discretas
+### Distribución Binomial
+
+
+---
+
+### Distribución Binomial 
+
+La distribución binomial es la distribución de la suma de variables Bernoulli *independientes y con distribución idéntica* (.bold[iid]). 
+
+&lt;br&gt;
+--
+
+Ejemplo,
+
+- Supongamos que `\(X\)` es una variable de Bernoulli que toma el valor 1 cuando se obtiene "Cara" al lanzar una moneda
+
+- `\(\mathbb{P}(X=1)=p\)` 
+
+&lt;br&gt;
+--
+
+- Ahora, supongamos que lanzamos la misma moneda 3 veces. Llamamos a estas variables `\(X_{1}, X_{2}, X_{3}\)`
+
+- Definamos `\(Y = X_{1} + X_{2} + X_{3}\)` 
+
+--
+
+- `\(Y\)` sigue una distribución Binomial, o `\(Y \sim \text{Binomial}\)`
+
+---
+### Distribución Binomial 
+
+
+.bold[Ejercicio rápido:]
+
+&lt;br&gt;
+
+.content-box-primary[
+.bolder[Pregunta 1:]
+¿Cuál es la probabilidad de obtener tres "Caras"? Es decir, ¿Cuál es la probabilidad de que `\(Y=3\)`?]
+
+--
+
+.content-box-secondary[
+- Dado que los 3 ensayos son independientes podemos expresar esta probabilidad como:
+
+`$$\mathbb{P}(Y=3) =  \mathbb{P}(X_{1}=1,X_{2}=1,X_{3}=1) = \mathbb{P}(X_{1}=1)\mathbb{P}(X_{2}=1)\mathbb{P}(X_{3}=1)$$`
+&lt;br&gt;
+
+- Y dado que las tres variables distribuyen Bernoulli con la misma probabilidad `\(p\)`, obtenemos: 
+
+`$$\mathbb{P}(Y=3) = p \times p \times p =  p^{3}$$`
+]
+---
+### Distribución Binomial 
+
+
+.content-box-primary[
+.bolder[Pregunta 2:]
+¿Cuál es la probabilidad de obtener 2 "Caras" con 3 tiros? Es decir, ¿Cuál es la probabilidad de que `\(Y=2\)`?
+]
+
+--
+
+- Por simpleza, consideremos la siguiente secuencia: `\(\{X_{1}=1,X_{2}=1,X_{3}=0\}\)`, que satisface `\(Y=2\)`
+
+--
+
+- La probabilidad de obtener esta secuencia es:
+
+`\begin{align}
+  \mathbb{P}(X_{1}=1,X_{2}=1,X_{3}=0)  &amp;= \mathbb{P}(X_{1}=1) \times \mathbb{P}(X_{2}=1) \times \mathbb{P}(X_{3}=0)  \\
+                              &amp;= p \times p \times (1-p) =  p^{2}(1-p)
+\end{align}`
+
+--
+
+- Sin embargo, hay 3 secuencias que satisfacen `\(Y=2\)`.
+--
+ También `\(\{X_{1}=1,X_{2}=0,X_{3}=1\}\)` y `\(\{X_{1}=0,X_{2}=1,X_{3}=1\}\)`, cada una con probabilidad de ocurrencia `\(p^{2}(1-p)^{1}\)`. Por tanto:
+
+--
+
+.content-box-secondary[
+.bolder[Respuesta:] la probabilidad de conseguir 2 "Caras" con 3 tiros es:
+`$$\mathbb{P}(Y=2) = 3 \times  p^{2}(1-p)^{1}$$`
+]
+
+---
+
+### Distribución Binomial 
+
+.bold[Generalización]: lanzamos la misma moneda `\(n\)` veces y la variable `\(Y\)` cuantifica el número de "Caras" (1) obtenidas.
+
+`$$Y = \sum^{n}_{i=1} X_{i}$$`
+--
+
+.content-box-primary[
+.bolder[Pregunta:]
+¿Cuál es la probabilidad de conseguir `\(y\)` "Caras" con `\(n\)` tiros?
+]
+
+--
+
+* La probabilidad de obtener una secuencia particular con `\(y\)` "Caras" a partir de `\(n\)` lanzamientos es `\(p^{y}(1-p)^{n-y}\)` 
+
+* Existen `\({n \choose y} = \frac{n!}{y! (n-y)!}\)` secuencias de este tipo...
+
+--
+Por tanto,
+
+`$$\mathbb{P}(Y=y) = f(y) = \frac{n!}{y! (n-y)!} \times p^{y} (1-p)^{n-y}$$`
+--
+En otras palabras, `\(Y\)` distribuye binomial con .bold[parámetros] `\(n\)` y `\(p\)`: `\(Y \sim \text{Binomial}(n,p)\)`
+
+
+---
+### Distribución Binomial 
+
+En práctica ...
+&lt;br&gt;
+
+--
+
+ - **Contexto**: Tenemos una moneda que, cuando se lanza, tiene una probabilidad de `\(p = 0.6\)` de caer en "Cara" y una probabilidad de `\(1-p = 0.4\)` de caer en "Sello".
+
+--
+
+- **Problema**:¿Cuál es la probabilidad de obtener 3 "Caras" con 10 lanzamientos?
+
+--
+
+- **Solución**: `\(X \sim \text{Binomial}(n=10,p=0.6)\)`
+
+&lt;br&gt;
+--
+
+`\(\quad \quad \quad \mathbb{P}(X=3) = \binom{10}{3} \times (0.6)^3 \times (0.4)^{10-3}\)`
+
+&lt;br&gt;
+--
+
+`\(\quad \quad \quad \mathbb{P}(X=3) = \frac{10!}{3! \times 7!} \times (0.6)^3 \times (0.4)^7\)`
+
+&lt;br&gt;
+--
+
+`\(\quad \quad \quad \mathbb{P}(X=3) = \frac{10 \times 9 \times \dots 1}{(3 \times 2 \times1) \times (7 \times 6 \times \dots 1 )} \times (0.6)^3 \times (0.4)^7\)`
+
+&lt;br&gt;
+--
+
+`\(\quad \quad \quad \mathbb{P}(X=3) = 120 \times 0.216 \times 0.0028\)`
+
+&lt;br&gt;
+--
+
+`\(\quad \quad \quad \mathbb{P}(X=3) \approx 0.0425\)`
+
+---
+
+### f(x), Distribución Binomial
+
+
+.pull-left[
+- Ahora observamos la distribución completa
+
+- La probabilidad de obtener `\(0, 1, \dots, 10\)` caras es:
+
+![](class_4_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+
+]
+
+--
+
+.pull-right[
+
+.bold[Función de masa probabilistica (PMF):]
+
+&lt;br&gt;
+
+X es una variable aleatoria Binomial, es decir
+
+`\begin{align}
+\mathbb{P}(X=x) = f(x) = \frac{n!}{x! (n-x)!}  p^{x} (1-p)^{n-x}
+\end{align}`
+
+&lt;br&gt;
+
+En este caso,
+
+`\(n=10\)` y `\(p=0.6\)`
+
+]
+
+---
+### F(x), Distribución Binomial
+
+.pull-left[
+- Ahora observamos la distribución completa
+
+- ¿Cual es la probabilidad de obtener 5 monedas o menos?
+
+![](class_4_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
+]
+
+.pull-right[
+
+.bold[Función de distribución acumulada (CDF):]
+
+&lt;br&gt;
+
+X es una variable aleatoria Binomial, es decir
+
+`\begin{align}
+F(k; n, p) &amp;= \mathbb{P}(X \leq k) \\ \\
+           &amp;= \sum_{i=0}^{k} \mathbb{P}(X=i) \\ \\
+           &amp;= \sum_{i=0}^{k} \frac{n!}{i! (n-i)!}  p^i (1-p)^{n-i} 
+\end{align}`
+
+
+En este caso,
+
+`\begin{align}
+F(k=5; n=10, p=0.6) &amp;=  \mathbb{P}(X=0) + \dots + \mathbb{P}(X=5) \\ \\
+                    &amp;\approx 0.366
+\end{align}`
+
+]
+
+---
+### F(x), Distribución Binomial
+
+
+.pull-left[
+- Ahora observamos la distribución completa
+
+- ¿Cual es la probabilidad de obtener 5 monedas o menos?
+
+![](class_4_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+
+]
+
+.pull-right[
+
+.bold[Función de distribución acumulada (CDF):]
+
+&lt;br&gt;
+
+X es una variable aleatoria Binomial, es decir
+
+`\begin{align}
+F(k; n, p) &amp;= \mathbb{P}(X \leq k) \\ \\
+           &amp;= \sum_{i=0}^{k} \mathbb{P}(X=i) \\ \\
+           &amp;= \sum_{i=0}^{k} \frac{n!}{i! (n-i)!}  p^i (1-p)^{n-i} 
+\end{align}`
+
+
+En este caso,
+
+`\begin{align}
+F(k=5; n=10, p=0.6) &amp;=  \mathbb{P}(X=0) + \dots + \mathbb{P}(X=5) \\ \\
+                    &amp;\approx 0.366
+\end{align}`
+
+]
+
+
+---
+class: inverse, center, middle
+
+.huge[
+**Hasta la próxima clase. Gracias!**
+]
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

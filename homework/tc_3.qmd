@@ -1,0 +1,50 @@
+---
+title: "Tarea corta #3"
+author: "SOL114"
+format: html
+editor: visual
+---
+
+```{r, echo=FALSE}
+# Escribir install.packages("tinytex") en la consola para instalar "tinytex"
+# Carga "tinytex" para compilar PDF
+library("tinytex")
+```
+
+`Ponderación: 6% de la nota final del curso.`
+
+## Problema
+
+![Alexis](alexis.png)
+
+Alexis Sánchez, quien actualmente gana \$5.0 millones de dólares al año jugando en el Inter de Milán, está considerando la posibilidad de regresar a Chile para unirse al equipo de sus amores, la Universidad de Chile. En un esfuerzo por atraerlo, la Universidad de Chile le ha ofrecido un atractivo paquete salarial compuesto por dos elementos:
+
+-   **Una cantidad fija** de \$3.0 millones al año, independientemente de su rendimiento.
+-   **Un retorno adicional** de \$1.2 millones por cada unidad de rendimiento $X$, donde $X$ refleja su desempeño relativo en comparación con otros jugadores en la liga chilena.
+
+El rendimiento $X$ está medido en desviaciones estándar y sigue una distribución normal con media 0 y desviación estándar 1, es decir, $X \sim \text{Normal}(\mu = 0, \sigma = 1)$. Esto significa que:
+
+-   Si $X = 0$, su rendimiento es exactamente promedio de la liga chilena
+-   Si $X > 0$, su rendimiento está por encima del promedio de la liga (medido en desviaciones estándar).
+-   Si $X < 0$, su rendimiento está por debajo del promedio de la liga (medido en desviaciones estándar).
+
+Bajo estas condiciones, el ingreso esperado de Alexis en la Universidad de Chile se calcula con la siguiente fórmula:
+
+$$S_U = 3.0 + 1.2  X \, \text{millones de dólares al año}$$
+
+### Preguntas
+
+<br>
+
+1)  Siendo un jugador de élite, Alexis confía en que su rendimiento estará al menos 3 desviaciones estándar por encima del promedio de la liga chilena. Con este supuesto, Alexis evalúa si el salario que podría ganar en la Universidad de Chile superaría su sueldo actual. Si el salario proyectado en la Universidad de Chile resulta ser mayor que su sueldo actual, Alexis está dispuesto a cambiar de equipo.
+
+Asumiendo que su estimación es correcta, ¿cuánto podría esperar ganar como mínimo en la Universidad de Chile? ¿Debería tomar la decisión de cambiar de equipo?
+
+<br>
+
+2)  Determina la distribución del salario esperado de Alexis en la Universidad de Chile, $S_U$.
+
+<br>
+
+3)  Si el rendimiento de Alexis efectivamente se encuentra al menos 3 desviaciones estándar por encima del promedio de la liga chilena, ¿qué porcentaje de jugadores en esa liga tendría un rendimiento inferior al de Alexis?
+
