@@ -1,0 +1,193 @@
+---
+title: "Ayudantía 1"
+author: "Benjamín Puran"
+date: "2024-08-13"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+# **RMarkdown y Quarto**
+
+## RMarkdown
+
+Está específicamente diseñado para usuarios de R. Permite crear documentos que combinan código (principalmente R, aunque también soporta otros lenguajes como Python) y texto. Se utiliza principalmente para crear informes, presentaciones y dashboards dentro de la comunidad de R.
+
+## Quarto
+
+`Quarto` es una herramienta más general y flexible, diseñada como una alternativa de próxima generación a RMarkdown. Soporta múltiples lenguajes de programación (R, Python, Julia, Observable, etc.) y no está limitado a un lenguaje específico. `Quarto` está diseñado para ser una herramienta integral que permite crear no solo informes, sino también blogs, sitios web, presentaciones y artículos científicos.
+
+`Rmarkdown` soporta una variedad de formato de salida como HTLM, PDF o Word. `Quarto`, por otra parte, una gama más amplia de formatos de salida y permite una mayor personalización y configuración a través de su sistema de mandatos YAML.
+
+## Código ("chunks")
+
+`RMarkdown` permite introducir código de `R` en el documento de texto, evaluar tal código y mostrar los resultados directamente en el informe. A modo de ejemplo, comenzaremos mostrando un `summary` de la base de datos `iris`, que viene incluida en `R`.
+
+```{r}
+summary(iris)
+```
+
+El trozo de arriba es un chunk de código `R`. Al compilar el documento, (click en el botón `knitr`, en el panel) el código se ejecutará y mostrarán los resultados en el documento final. Los chunks pueden tienen diversas opciones que permiten una mayor flexibilidad en como se muestra el código y los resultados. Las opciones más usadas son:
+
+-   echo
+-   eval
+
+Por ejemplo, el chunk abajo mostrará el código (`echo = TRUE`), lo evaluará y mostrará los resultados en el documento final (`eval = TRUE`). Así se ve:
+
+```{r, echo = TRUE, eval = TRUE}
+a <- summary(iris)
+print(a)
+```
+
+Si sólo queremos mostrar el código (`echo = TRUE`) pero no evaluarlo (`eval = FALSE`), escribimos lo siguiente:
+
+```{r, echo = TRUE, eval = FALSE}
+a <- summary(iris)
+print(a)
+```
+
+Por el contrario, si queremos evaluar el código, mostrar sus resultados, pero no mostrar el código mismo, escribimos:
+
+```{r, echo = FALSE, eval = TRUE}
+summarya <- summary(iris)
+print(a)
+```
+
+Por último, si queremos NO mostrar el código (`echo = FALSE`), SI evaluarlo (`eval = FALSE`), PERO NO se mostrar los resultados (`results = "hide"`), escribimos:
+
+```{r, echo = FALSE, eval = TRUE, results = "hide"}
+a <- summary(iris)
+print(a)
+```
+
+Que el código haya sido evaluado significa que el objeto "a" existirá en la memoria y podrá ser usado para posterior análisis.
+
+*Escribir install.packages("tinytex") en la consola para instalar "tinytex"* *Carga "tinytex" para compilar PDF*
+
+```{r, echo=FALSE}
+library("tinytex")
+```
+
+# Tidyverse
+
+Es un conjunto de paquetes de R diseñado para hacer que la ciencia de datos sea más fácil, consistente y eficiente.
+
+```{r}
+library(tidyverse)
+```
+
+##readr: Cargar archivos .cvs
+
+```{r}
+library("readr")
+```
+
+##readr: Cargar archivos .dta (Stata)
+
+```{r}
+library("haven")
+```
+
+##Crear un tibble
+
+```{r}
+library("tibble")
+```
+
+mi_tibble \<- tibble( columna1 = c(1, 2, 3), columna2 = c("A", "B", "C") )
+
+print(mi_tibble)
+
+```{r}
+df <- data.frame(
+  x = 1:3,
+  y = c("A", "B", "C")
+)
+
+print(df)
+```
+
+```{r}
+library(tibble)
+
+tib <- tibble(
+  x = 1:3,
+  y = c("A", "B", "C")
+)
+
+print(tib)
+```
+
+# Comandos básicos
+
+## Operadores básicos
+
+-   `2 + 2`: suma
+
+-   `2/2`: división
+
+-   `2*2`: multiplicación
+
+-   `2^2`: exponente
+
+-   `sqrt(2)`: raíz cuadrada
+
+-   `log(2)`: logaritmo natural
+
+-   `exp(2)`: exponencial
+
+-   `2 == 2`: evaluación lógica
+
+-   `42 >= 2`: evaluación lógica
+
+-   `2 <= 42`: evaluación lógica
+
+-   `2 != 42`: evaluación lógica
+
+-   `23 %/% 2`: división por entero → 11
+
+## Símbolos básicos
+
+-   `x <- 7`: operador de asignación
+
+-   `x = 7`: igual, operador de asignación
+
+-   `x == 7`: evaluación lógica
+
+## Vectores
+
+Son la unidad básica de almacenamiento de datos en R. Se construye con el comando c(), por concatenate.
+
+-   `x <- c(1, 2, 3, 4, 5)`: crea un vector `x` con los elementos 1, 2, 3, 4, 5
+
+-   `y <- c(6:10)`: crea un vector `y` con los elementos del 6 al 10
+
+-   `z <- c(x, y); z`: combina los vectores `x` e `y` en un nuevo vector `z`, y muestra el contenido de `z`
+
+### Operaciones con vectores
+
+-   `x <- c(1, 5, 2)`: crea un vector `x` con los elementos 1, 5, 2
+
+-   `y <- c(1, 2, 3)`: crea un vector `y` con los elementos 1, 2, 3
+
+-   `x + y`: suma los elementos de los vectores `x` e `y` elemento por elemento
+
+-   `y / 2`: divide cada elemento del vector `y` por 2
+
+-   `x * y`: multiplica los elementos de los vectores `x` e `y` elemento por elemento
+
+### Construcción de vectores
+
+-   `rep(3, 5)`: repite el valor 3 cinco veces, creando un vector
+
+-   `seq(4, 12, by = 2)`: genera una secuencia de números desde 4 hasta 12 con un incremento de 2
+
+# Trabajo en clases
+
+Con RMarkdown o Quarter realiza los siguientes ejercicios:
+
+1\. Resuelve por x: $3^{x} = 27$
+
+2\. Simplifica: $\frac{e^{10x}}{e^{8x}}$
+
+3\. Calcula la derivada de: $f(x) = 3x^2 - 9x - 2$
