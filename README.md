@@ -34,7 +34,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 26   | Agosto     | Momentos: valor esperado & varianza                    |   [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_6/class_6#1) [`[Code]`](slides/class_6/class_6.Rmd)                                                                       |      6.3.5        |
 | 28   | Agosto     | Estandarización: puntaje Z                             |                                                                         |     6.3.4          |
 | 2    | Septiembre | Distribución Normal Standard                           |                                                                         |    6.3.4           |
-| 4    | Septiembre | PRUEBA I                                               |                                                                         |              |
+| 4    | Septiembre | PRUEBA I  | [`[Problemset #1]`](https://mebucca.github.io/ad2-sol114/materials/problemset_1#1) [`[Prueba 1 2023]`](materials/prueba_1_2023.pdf)                                                                         |              |
 | 9    | Septiembre | Ley de los grandes números                             |                                                                         |      6.4.1        |
 | 11   | Septiembre | Teorema del límite central                             |                                                                         |      6.4.2         |
 | 23   | Septiembre | Estimación puntual                                     |                                                                         |              |
