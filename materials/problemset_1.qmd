@@ -1,0 +1,752 @@
+---
+title: "Ejercicios SOL114"
+author: "Mauricio Bucca"
+format: html
+editor: visual
+---
+
+1.  Se lanza una moneda y un dado. Enumera el espacio muestral.
+
+El espacio muestral para este experimento se compone de todas las posibles combinaciones de resultados de lanzar una moneda y un dado. El espacio muestral se denota como $\Omega$:
+
+$$\Omega = \{(Cara, 1), (Cara, 2), \ldots, (Cara, 6), (Sello, 1), (Sello, 2), \ldots, (Sello, 6)\}$$
+
+Donde "Cara" y "Sello" representan los posibles resultados de lanzar la moneda, y los números del 1 al 6 representan los posibles resultados de lanzar el dado.
+
+2.  Proporciona un ejemplo en el que dos eventos sean dependientes.
+
+-   Ejemplo 1: Imagina que tienes una baraja de cartas y sacas dos cartas consecutivas sin reemplazo. La probabilidad de obtener una carta específica en el segundo intento dependerá del resultado del primer intento, ya que si sacas una carta en el primer intento, habrá una carta menos en la baraja, lo que cambiará la probabilidad del segundo evento. Esto demuestra la dependencia entre los eventos, ya que el resultado del primer evento afecta al segundo evento.
+
+-   Ejemplo 2: Supongamos que estás realizando un estudio sobre el nivel de educación y el salario de las personas en una determinada población. En este estudio, dos eventos pueden ser dependientes: el nivel de educación y el salario.
+
+La hipótesis es que las personas con un nivel de educación más alto tienden a tener salarios más altos. En este caso, la educación y el salario están relacionados de manera dependiente. Si una persona obtiene un título universitario, es más probable que tenga un salario más alto en comparación con alguien que solo tiene educación secundaria.
+
+Por lo tanto, en este ejemplo, la educación (obtener un título universitario o no) y el salario (alto o bajo) son eventos dependientes, ya que el resultado de uno (nivel de educación) influye en el resultado del otro (salario).
+
+3.  Una bolsa contiene 4 bolas rojas, 6 bolas azules y 5 bolas verdes. Si se saca una bola al azar, encuentra la probabilidad de que no sea ni roja ni azul.
+
+Primero, calculemos la probabilidad de sacar una bola roja o azul:
+
+$$P(\text{Roja o azul}) = P(\text{Roja}) + P(\text{Azul}) = \frac{4}{15} + \frac{6}{15} = \frac{10}{15}$$
+
+Ahora, utilizamos la propiedad de probabilidad complementaria. La probabilidad de que no sea ni roja ni azul es el complemento de la probabilidad de que sea roja o azul:
+
+$$
+P(\text{Ni roja ni azul}) = 1 - P(\text{Roja o azul}) = 1 - \frac{10}{15} = \frac{15}{15} - \frac{10}{15} = \frac{5}{15} = \frac{1}{3}
+$$
+
+Por lo tanto, la probabilidad de que al sacar una bola al azar no sea ni roja ni azul es $\frac{1}{3}$.
+
+4.  Si un jugador de baloncesto tiene una precisión de tiros libres del 90%, ¿cuál es la probabilidad de que falle dos veces seguidas?
+
+Si un jugador tiene una precisión de tiros libres del 90%, la probabilidad de fallar un tiro libre es del 10%. Para calcular la probabilidad de fallar dos tiros libres seguidos, simplemente multiplicamos las probabilidades:
+
+$$P(\text{Fallar dos tiros seguidos}) = P(\text{Fallar uno}) \cdot P(\text{Fallar otro}) = 0.1 \cdot 0.1 = 0.01$$
+
+La probabilidad de que falle dos tiros libres seguidos es 0.01 o 1%.
+
+5.  ¿Cómo se define la independencia de dos eventos en probabilidad?
+
+Dos eventos son independientes si la ocurrencia de uno no afecta la probabilidad de ocurrencia del otro. Matemáticamente, dos eventos $A$ y $B$ son independientes si:
+
+$$P(A \cap B) = P(A) \cdot P(B)$$
+
+6.  Hay 7 bolas rojas y 3 bolas verdes en una caja. Se saca una bola al azar, se anota y luego se remueve de la bolsa. Si se saca una bola roja primero, ¿cuál es la probabilidad de que una bola verde se saque en segundo lugar?
+
+    Si sacamos una bola roja primero, la probabilidad de sacar una bola verde en segundo lugar se calcula como:
+
+$$P(\text{Bola verde después de roja}) = \frac{\text{Número de bolas verdes}}{\text{Total de bolas restantes}} = \frac{3}{9} = \frac{1}{3}$$
+
+Por lo tanto, la probabilidad es de $\frac{1}{3}$ de sacar una bola verde después de sacar una bola roja.
+
+7.  En una encuesta a 100 personas, 65 beben té, 40 beben café y 10 no beben ninguno de los dos. Encuentra la probabilidad de que una persona seleccionada al azar beba té y café.
+
+Para encontrar la probabilidad de que una persona seleccionada al azar beba té y café, puedes usar el principio de inclusión-exclusión. Primero, calculamos las probabilidades individuales de beber té y café:
+
+$$P(\text{Te}) = \frac{65}{100} = 0.65$$ $$P(\text{Café}) = \frac{40}{100} = 0.40$$
+
+Luego, usamos la fórmula de inclusión-exclusión para encontrar la probabilidad conjunta:
+
+$$P(\text{Te y Café}) = P(\text{Te}) + P(\text{Café}) - P(\text{Te} \cap \text{Café})$$
+
+Dado que 10 personas no beben ninguno de los dos, $P(\text{Te} \cap \text{Café}) = \frac{10}{100} = 0.10$, podemos calcular:
+
+$$P(\text{Te y Café}) = 0.65 + 0.40 - 0.10 = 0.95$$
+
+Por lo tanto, la probabilidad de que una persona seleccionada al azar beba té y café es 0.95 o 95%.
+
+8.  Un comerciante sabe que el 30% de sus clientes entran a la tienda después de ver un anuncio. De estos, el 10% realiza una compra. De los clientes que no vieron el anuncio, el 5% realiza una compra. Si un cliente realiza una compra, ¿cuál es la probabilidad de que haya visto el anuncio?
+
+Utilizamos el teorema de Bayes para calcular la probabilidad de haber visto el anuncio dado que el cliente realiza una compra:
+
+$$P(\text{Vio el anuncio | Compra}) = \frac{P(\text{Compra | Vio el anuncio}) \cdot P(\text{Vio el anuncio})}{P(\text{Compra})}$$
+
+Dado que el 30% de los clientes vio el anuncio y el 10% de ellos realizó una compra, y el 70% no vio el anuncio y el 5% de ellos realizó una compra:
+
+$$P(\text{Vio el anuncio | Compra}) = \frac{(0.10) \cdot (0.30)}{(0.10 \cdot 0.30) + (0.05 \cdot 0.70)} = \frac{0.03}{0.03 + 0.035} \approx 0.46$$
+
+Por lo tanto, la probabilidad de que un cliente haya visto el anuncio dado que realizó una compra es aproximadamente 0.46 o 46%.
+
+9.  En una comunidad, hay dos clubes sociales prominentes. Los miembros del Club A tienen un 75% de probabilidad de asistir a un gran evento comunitario, mientras que los miembros del Club B tienen solo un 50% de probabilidad. Dado que el 30% de la comunidad pertenece al Club A y el resto al Club B: si una persona es vista en un evento comunitario, ¿cuál es la probabilidad de que sea del Club A?
+
+Usamos el teorema de Bayes para calcular la probabilidad de ser del Club A dado que asiste al evento comunitario:
+
+$$P(\text{Club A | Asiste al evento}) = \frac{P(\text{Asiste al evento | Club A}) \cdot P(\text{Club A})}{P(\text{Asiste al evento})}$$
+
+Dado que los miembros del Club A tienen un 75% de probabilidad de asistir y el 30% de la comunidad pertenece al Club A, mientras que los miembros del Club B tienen un 50% de probabilidad de asistir:
+
+$$P(\text{Club A | Asiste al evento}) = \frac{(0.75) \cdot (0.30)}{(0.75 \cdot 0.30) + (0.50 \cdot 0.70)} = \frac{0.225}{0.225 + 0.35} \approx 0.39$$
+
+Por lo tanto, la probabilidad de que una persona sea del Club A dado que asiste al evento comunitario es aproximadamente 0.39 o 39%.
+
+10. Si la probabilidad de A dado B es 0.6 y la probabilidad de B es 0.2, ¿cuál es la probabilidad conjunta de A y B?
+
+La probabilidad conjunta de dos eventos, $A$ y $B$, se denota como $P(A \cap B)$. Dado que la probabilidad condicional de $A$ dado $B$ es $P(A | B) = 0.6$ y la probabilidad de $B$ es $P(B) = 0.2$, podemos usar la definición de probabilidad condicional:
+
+$$P(A | B) = \frac{P(A \cap B)}{P(B)}$$
+
+Despejamos $P(A \cap B)$:
+
+$$P(A \cap B) = P(A | B) \cdot P(B) = (0.6) \cdot (0.2) = 0.12$$
+
+Por lo tanto, la probabilidad conjunta de $A$ y $B$ es 0.12 o 12%.
+
+11. Sea $X$ una variable aleatoria que representa el número de caras obtenidas cuando se lanza una moneda 3 veces. Encuentra $P(X = 2)$.
+
+Para el evento de obtener exactamente 2 caras al lanzar una moneda 3 veces, podemos usar la distribución binomial. La probabilidad de obtener exactamente $k$ éxitos (caras) en $n$ intentos (lanzamientos) está dada por: $$P(X = k) = \binom{n}{k} \cdot p^k \cdot (1-p)^{n-k}$$ Donde $\binom{n}{k} = \frac{n!}{k!(n-k)!}$. En este caso, $n=3$, $k=2$ y $p=0.5$:
+
+$$P(X = 2) = \binom{3}{2} \cdot (0.5)^2 \cdot (0.5)^{1}$$ $$P(X = 2) = 3 \cdot 0.25 \cdot 0.5$$ $$P(X = 2) = 0.375$$
+
+12. Dada una variable aleatoria discreta $X$ con la siguiente distribución de probabilidad: $P(X = 0) = 0.2$, $P(X = 1) = 0.3$, $P(X = 2) = 0.5$. Calcula $\text{E}(X)$.
+
+El valor esperado de $X$, denotado como $E[X]$, está definido como:
+
+$$E[X] = \sum x_i P(X=x_i)$$ $$E[X] = 0\cdot0.2 + 1\cdot0.3 + 2\cdot0.5$$ $$E[X] = 0 + 0.3 + 1.0$$ $$E[X] = 1.3$$
+
+13. Usando el problema anterior, calcula $\text{Var}(X)$.
+
+La varianza, $\text{Var}(X)$, está dada por:
+
+$$\text{Var}(X) = E[(X - E[X])^2]$$
+
+$$\text{Var}(X) = \sum (x_i - E[X])^2 P(X=x_i)$$ $$\text{Var}(X) = (0 - 1.3)^2\cdot0.2 + (1 - 1.3)^2\cdot0.3 + (2 - 1.3)^2\cdot0.5$$ $$\text{Var}(X) = (1.69\cdot0.2) + (0.09\cdot0.3) + (0.49\cdot0.5)$$ $$\text{Var}(X) = 0.338 + 0.027 + 0.245$$ $$\text{Var}(X) = 0.61$$
+
+14. Sean $X$ y $Y$ dos variables aleatorias con las siguientes propiedades:
+
+    -   $E[X] = 3$, $\text{Var}(X) = 4$
+
+    -   $E[Y] = 5$, $\text{Var}(Y) = 9$
+
+    Encuentra el valor esperado y la varianza para $Z = 2X - 3Y$.
+
+#### Valor esperado de $Z$:
+
+$$E[Z] = E[2X - 3Y]$$ $$E[Z] = 2E[X] - 3E[Y]$$ $$E[Z] = 2 \times 3 - 3 \times 5$$ $$E[Z] = 6 - 15$$ $$E[Z] = -9$$
+
+#### Varianza de $Z$:
+
+$$\text{Var}(Z) = \text{Var}(2X - 3Y)$$ Como (X) y (Y) son independientes: $$\text{Var}(Z) = 4\text{Var}(X) + 9\text{Var}(Y)$$ $$\text{Var}(Z) = 4 \times 4 + 9 \times 9$$ $$\text{Var}(Z) = 16 + 81$$ $$\text{Var}(Z) = 97$$
+
+15. Supongamos que ( $X_1, X_2, \ldots, X_5$ ) son variables aleatorias independientes e idénticamente distribuidas con ( $E[X_i] = 4$ ) y ( $\text{Var}(X_i) = 6$ ).
+
+Encuentra el valor esperado y la varianza de ( $Y = \frac{1}{5} \sum_{i=1}^{5} X_i$ ), el promedio aritmético de las cinco variables aleatorias.
+
+$$E[Y] = E\left[\frac{1}{5}\sum_{i=1}^{5} X_i\right]$$
+
+$$E[Y] = \frac{1}{5}E\left[\sum_{i=1}^{5} X_i\right]$$ $$E[Y] = \frac{1}{5} \sum_{i=1}^{5} E[X_i]$$ $$E[Y] = \frac{1}{5} \times 5 \times 4$$ $$E[Y] = 4$$
+
+Para la varianza, como las $X_i$ son independientes:
+
+$$\text{Var}(Y) = \text{Var}\left(\frac{1}{5}\sum_{i=1}^{5} X_i\right)$$ $$\text{Var}(Y) = \frac{1}{25}\sum_{i=1}^{5} \text{Var}(X_i)$$ $$\text{Var}(Y) = \frac{1}{25} \times 5 \times 6$$ $$\text{Var}(Y) = \frac{6}{5}$$
+
+16. Supongamos que tienes 3 variables aleatorias independientes: $A$, $B$ y $C$, donde:
+
+-   $E[A] = 3$, $\text{Var}(A) = 9$
+
+-   $E[B] = 5$, $\text{Var}(B) = 4$
+
+-   $E[C] = 2$, $\text{Var}(C) = 1$
+
+Calcula el valor esperado y la varianza de $Z = \frac{A + B + C}{3}$.
+
+$$E[Z] = E\left[\frac{A + B + C}{3}\right]$$
+
+$$E[Z] = \frac{1}{3}(E[A] + E[B] + E[C])$$ $$E[Z] = \frac{1}{3}(3 + 5 + 2)$$ $$E[Z] = \frac{1}{3} \times 10$$ $$E[Z] = \frac{10}{3}$$
+
+$$\text{Var}(Z) = \text{Var}\left(\frac{A + B + C}{3}\right)$$
+
+$$\text{Var}(Z) = \frac{1}{9}\left(\text{Var}(A) + \text{Var}(B) + \text{Var}(C)\right)$$ $$\text{Var}(Z) = \frac{1}{9}(9 + 4 + 1)$$ $$\text{Var}(Z) = \frac{1}{9} \times 14$$ $$\text{Var}(Z) = \frac{14}{9}$$
+
+17. Sea $Y$ el número de caras obtenidas al lanzar 4 monedas. Encuentra la distribución de probabilidad de $Y$.
+
+La distribución de probabilidad de $Y$, que sigue una distribución binomial para $n=4$ y $p=0.5$ es: $$P(Y = k) = \binom{4}{k}(0.5)^k(0.5)^{4-k}$$ Donde $k$ puede ser 0, 1, 2, 3 o 4.
+
+18. Un juego consiste en sacar una carta de un mazo. Si sacas un as, ganas \$50; un rey, ganas \$30; y cualquier otra carta, pierdes \$10. Calcula las ganancias esperadas de este juego.
+
+Las posibilidades son: As (4/52), Rey (probabilidad = 4/52) y otras (44/52). $$E[X] = (50 \times \frac{4}{52}) + (30 \times \frac{4}{52}) - (10 \times \frac{44}{52})$$ $$E[X] = \frac{(200 + 120 - 440)}{52}$$ $$E[X] = \frac{-120}{52}$$ $$E[X] \approx -2.31$$
+
+19. Si $Y$ es la suma de dinero ganado después de 10 extracciones, encuentra el valor esperado de $Y$.
+
+Si $Y$ es la suma ganada después de 10 extracciones, entonces
+
+$$E[Y] = 10E[X]$$
+
+$$E[Y] = 10 \times (-2.31)$$
+
+$$E[Y] = -23.10$$
+
+20. Una librería vende un libro de texto particular con un 30% de descuento con una probabilidad de 0.6 y un 20% de descuento con una probabilidad de 0.4. Si el precio original del libro es de \$50, encuentra el precio esperado después del descuento.
+
+$$E[\text{precio}] = 0.6 \times (50 \times 0.7) + 0.4 \times (50 \times 0.8)$$
+
+$$E[\text{precio}] = 0.6 \times 35 + 0.4 \times 40$$ $$E[\text{precio}] = 21 + 16$$ $$E[\text{precio}] = 37$$
+
+21. Una empresa fabrica bombillas, el 98% de las cuales duran más de 1000 horas y el 2% falla antes de eso. Si se prueban 50 bombillas, ¿cuál es la probabilidad de que al menos 3 fallen antes de las 1000 horas?
+
+Dado que el 98% de las bombillas duran más de 1000 horas y el 2% fallan antes de eso, podemos decir que la probabilidad de que una bombilla falle antes de las 1000 horas es del 2% o 0.02.
+
+Para calcular la probabilidad de que al menos 3 de 50 bombillas fallen antes de las 1000 horas, podemos usar la distribución binomial complementaria. La probabilidad de que al menos 3 fallen es igual a 1 menos la probabilidad de que 0, 1 o 2 fallen:
+
+$$P(X \geq 3) = 1 - P(X < 3)$$
+
+Donde $X$ es una variable aleatoria que representa el número de bombillas que fallan antes de las 1000 horas, y sigue una distribución binomial con $n = 50$ (el número de bombillas probadas) y $p = 0.02$ (la probabilidad de que una bombilla falle antes de las 1000 horas).
+
+$$P(X < 3) = P(X = 0) + P(X = 1) + P(X = 2)$$
+
+Ahora, utilizamos la fórmula de la distribución binomial para calcular cada una de estas probabilidades:
+
+$$P(X = k) = \binom{n}{k} \cdot p^k \cdot (1-p)^{n-k}$$
+
+Donde $\binom{n}{k}$ representa el coeficiente binomial, que es igual a $\frac{n!}{k!(n-k)!}$.
+
+Para $P(X = 0)$: $$P(X = 0) = \binom{50}{0} \cdot (0.02)^0 \cdot (1-0.02)^{50-0} = 1 \cdot 1 \cdot 0.98^{50}$$
+
+Para $P(X = 1)$: $$P(X = 1) = \binom{50}{1} \cdot (0.02)^1 \cdot (1-0.02)^{50-1} = 50 \cdot 0.02 \cdot 0.98^{49}$$
+
+Para $P(X = 2)$: $$P(X = 2) = \binom{50}{2} \cdot (0.02)^2 \cdot (1-0.02)^{50-2} = \frac{50 \cdot 49}{2} \cdot (0.02)^2 \cdot 0.98^{48}$$
+
+Luego, calculamos $P(X < 3)$ y finalmente $P(X \geq 3)$.
+
+22. Se sacan tres cartas de un mazo de 52 cartas sin reemplazo. ¿Cuál es la probabilidad de que las tres sean ases?
+
+Para este problema, estamos sacando tres cartas de un mazo de 52 cartas sin reemplazo, y queremos encontrar la probabilidad de que las tres cartas sean ases.
+
+La probabilidad de sacar un as en la primera carta es $\frac{4}{52}$ (hay 4 ases en un mazo de 52 cartas).
+
+Después de sacar un as en la primera carta, quedan 3 ases en un total de 51 cartas para la segunda carta, por lo que la probabilidad de sacar un as en la segunda carta es $\frac{3}{51}$.
+
+Finalmente, después de sacar dos ases en las dos primeras cartas, quedan 2 ases en un total de 50 cartas para la tercera carta, por lo que la probabilidad de sacar un as en la tercera carta es $\frac{2}{50}$.
+
+Multiplicamos estas probabilidades para obtener la probabilidad conjunta de sacar tres ases en sucesión:
+
+$$P(\text{Tres ases}) = \frac{4}{52} \cdot \frac{3}{51} \cdot \frac{2}{50}$$
+
+23. En una competición de tiro al blanco, un jugador tiene una probabilidad del 80% de acertar el blanco en cada intento. Si dispara 10 veces, ¿cuál es la probabilidad de que acierte al menos 7 veces pero no más de 9?
+
+Para calcular la probabilidad de que un jugador acierte al menos 7 veces pero no más de 9 veces de 10 intentos, podemos usar la distribución binomial.
+
+La probabilidad de acertar en un intento es $p = 0.8$, y el número de intentos es $n = 10$.
+
+Primero, calculemos la probabilidad de acertar exactamente 7 veces:
+
+$$P(X = 7) = \binom{10}{7} \cdot (0.8)^7 \cdot (0.2)^{10-7}$$
+
+Luego, calculemos la probabilidad de acertar exactamente 8 veces:
+
+$$P(X = 8) = \binom{10}{8} \cdot (0.8)^8 \cdot (0.2)^{10-8}$$
+
+Y la probabilidad de acertar exactamente 9 veces:
+
+$$P(X = 9) = \binom{10}{9} \cdot (0.8)^9 \cdot (0.2)^{10-9}$$
+
+Finalmente, sumamos estas tres probabilidades para encontrar la probabilidad de acertar al menos 7 veces pero no más de 9 veces:
+
+$$P(7 \leq X \leq 9) = P(X = 7) + P(X = 8) + P(X = 9)$$
+
+24. Un estudio reveló que el 25% de los estudiantes bebe café, el 50% bebe té y el 25% bebe ambos. Si se selecciona un estudiante al azar, ¿cuál es la probabilidad de que beba solo té?
+
+Dado que el 25% de los estudiantes bebe café, el 50% bebe té y el 25% bebe ambos, podemos calcular la probabilidad de que un estudiante beba solo té utilizando el principio de inclusión-exclusión.
+
+La probabilidad de beber solo café sería $0.25 - 0.25 \cdot 0.50$ (restamos la probabilidad de beber ambos). Por lo tanto, la probabilidad de beber solo té es:
+
+$$P(\text{Solo té}) = 0.50 - 0.25 \cdot 0.50 = 0.50 - 0.125 = 0.375$$
+
+25. En una ciudad, el 60% de las personas usa el transporte público y el 20% camina al trabajo. Dado que una persona camina al trabajo, hay un 5% de probabilidad de que también use el transporte público en algún punto. Si una persona fue vista en el transporte público, ¿cuál es la probabilidad de que también camine al trabajo?
+
+Dado que el 60% de las personas usa el transporte público y el 20% camina al trabajo, y si una persona camina al trabajo, hay un 5% de probabilidad de que también use el transporte público en algún momento, podemos calcular la probabilidad de que una persona que fue vista en el transporte público también camine al trabajo utilizando la probabilidad condicional.
+
+Denotemos:
+
+$A$ = Evento de usar el transporte público. $B$ = Evento de caminar al trabajo.
+
+Queremos calcular $P(B|A)$, es decir, la probabilidad de que una persona camine al trabajo dado que fue vista en el transporte público.
+
+Usamos la fórmula de probabilidad condicional:
+
+$$P(B | A) = \frac{P(B \cap A)}{P(A)}$$
+
+Sabemos que $P(A) = 0.60$ y $P(B) = 0.20$.
+
+Además, $P(A \cap B) = P(A) \cdot P(B|A)$ (la probabilidad de usar el transporte público y caminar al trabajo).
+
+Pero dado que estamos buscando $P(B|A)$, podemos reorganizar la fórmula para obtener:
+
+$$P(B|A) = \frac{P(A \cap B)}{P(A)}$$
+
+Sustituyendo los valores conocidos:
+
+$$P(B|A) = \frac{0.05}{0.60}$$
+
+26. Un boxeador tiene un 70% de probabilidad de ganar un combate si ha tenido más de 6 meses de entrenamiento, y un 40% si ha tenido menos. Si el 80% de los boxeadores han tenido más de 6 meses de entrenamiento, y se selecciona un boxeador ganador al azar, ¿cuál es la probabilidad de que haya tenido más de 6 meses de entrenamiento?
+
+Dado que el 80% de los boxeadores han tenido más de 6 meses de entrenamiento y un boxeador tiene un 70% de probabilidad de ganar si ha tenido más de 6 meses de entrenamiento, podemos calcular la probabilidad de que un boxeador ganador haya tenido más de 6 meses de entrenamiento utilizando la probabilidad condicional.
+
+Denotemos:
+
+$T$ = Evento de tener más de 6 meses de entrenamiento. $G$ = Evento de ganar el combate.
+
+Queremos calcular $P(T|G)$, es decir, la probabilidad de que un boxeador haya tenido más de 6 meses de entrenamiento dado que ganó el combate. Usamos la fórmula de probabilidad condicional:
+
+$$P(T|G) = \frac{P(T \cap G)}{P(G)}$$
+
+Sabemos que $P(T) = 0.80$ y $P(G|T) = 0.70$ (la probabilidad de ganar dado que ha tenido más de 6 meses de entrenamiento). Además, $P(T \cap G) = P(T) \cdot P(G|T)$ (la probabilidad de tener más de 6 meses de entrenamiento y ganar el combate). Sustituyendo los valores conocidos:
+
+$$P(T|G) = \frac{0.80 \cdot 0.70}{P(G)}$$
+
+Para encontrar $P(G)$, podemos usar el teorema de probabilidad total:
+
+$$P(G) = P(T) \cdot P(G|T) + P(\neg T) \cdot P(G|\neg T)$$
+
+Donde $\neg T$ denota no tener más de 6 meses de entrenamiento y $P(G|\neg T)$ es la probabilidad de ganar dado que no ha tenido más de 6 meses de entrenamiento. Luego, podemos sustituir este valor en la ecuación anterior para encontrar $P(T|G)$.
+
+27. Dada una distribución binomial con $n = 10$ y $p = 0.5$, calcula la probabilidad de que $X \leq 3$.
+
+Dada una distribución binomial con $n = 10$ y $p = 0.5$, queremos calcular la probabilidad de que $X \leq 3$.
+
+Utilizamos la función de masa de probabilidad de la distribución binomial:
+
+$$P(X = k) = \binom{n}{k} \cdot p^k \cdot (1-p)^{n-k}$$
+
+Para calcular $P(X \leq 3)$, sumamos las probabilidades para $k = 0, 1, 2, 3$:
+
+$$P(X \leq 3) = P(X = 0) + P(X = 1) + P(X = 2) + P(X = 3)$$
+
+28. Usando la función de masa de probabilidad binomial, si se lanza una moneda 6 veces, ¿cuál es la probabilidad de obtener 2 caras y 4 sellos?
+
+Para calcular la probabilidad de obtener 2 caras y 4 sellos en 6 lanzamientos de una moneda, podemos usar la función de masa de probabilidad binomial.
+
+La probabilidad de obtener una cara en un lanzamiento es $p$, y la probabilidad de obtener un sello es $1 - p$. El número de lanzamientos es $n = 6$.
+
+La probabilidad de obtener exactamente 2 caras y 4 sellos se puede calcular utilizando la fórmula de la distribución binomial:
+
+$$P(X = 2) = \binom{6}{2} \cdot p^2 \cdot (1-p)^{6-2}$$
+
+29. Si $V$ es una variable aleatoria normal estándar, ¿cuál es la probabilidad $P(-2.33 < V < 0)$?
+
+Si $V$ es una variable aleatoria normal estándar, queremos calcular $P(-2.33 < V < 0)$.
+
+Podemos utilizar la función de distribución acumulativa (CDF) y la función inversa de distribución acumulativa (CDF inversa) de la distribución normal estándar (tabla Z) para encontrar esta probabilidad:
+
+$$P(-2.33 < V < 0) = P(V < 0) - P(V < -2.33) = \Phi(0) - \Phi(-2.33) ≈ 0.0099$$
+
+Donde $\Phi(x)$ es la función de distribución acumulativa de la distribución normal estándar.
+
+30. En un juego de lanzamiento de dardos, si un jugador acierta el blanco central con una probabilidad de 0.1 y el anillo exterior con una probabilidad de 0.3, ¿cuál es la varianza de los puntos obtenidos después de 10 lanzamientos, considerando que el blanco central da 5 puntos y el anillo exterior da 2 puntos?
+
+Para calcular la varianza de los puntos obtenidos después de 10 lanzamientos en un juego de lanzamiento de dardos, donde un jugador acierta el centro con una probabilidad de 0.1 y el anillo exterior con una probabilidad de 0.3, podemos seguir los pasos que mencionaste.
+
+Primero, definamos las variables y sus probabilidades:
+
+-   $X$ es la variable aleatoria que representa el número de puntos en un lanzamiento.
+-   $x_1$ es el resultado de obtener 5 puntos (probabilidad $P(X = x_1) = 0.1$).
+-   $x_2$ es el resultado de obtener 2 puntos (probabilidad $P(X = x_2) = 0.3$).
+
+Calculamos la media $\mu$ de $X$ utilizando la fórmula que mencionaste:
+
+$$\mu = \sum_{i=1}^2 x_i \cdot P(X = x_i)$$ $$\mu = (5 \cdot 0.1) + (2 \cdot 0.3) = 0.5 + 0.6 = 1.1$$
+
+Ahora, utilizamos la fórmula de la varianza para calcular $\text{Var}(X)$:
+
+$$\text{Var}(X) = \sum_{i=1}^2 (x_i - \mu)^2 \cdot P(X = x_i)$$
+
+Para $x_1 = 5$:
+
+$$(5 - 1.1)^2 \cdot 0.1 = 3.9^2 \cdot 0.1 = 15.21 \cdot 0.1 = 1.521$$
+
+Para $x_2 = 2$:
+
+$$(2 - 1.1)^2 \cdot 0.3 = 0.9^2 \cdot 0.3 = 0.81 \cdot 0.3 = 0.243$$
+
+Ahora sumamos estas dos contribuciones:
+
+$$\text{Var}(X) = 1.521 + 0.243 = 1.764$$
+
+Por lo tanto, la varianza de los puntos obtenidos después de 10 lanzamientos en este juego de dardos es de 1.764.
+
+31. Si $U$ es una variable aleatoria que sigue una distribución uniforme entre 10 y 20, encuentra $\text{E}(U)$ y $\text{Var}(U)$.
+
+**Media** ($E(U)$): La media de una distribución uniforme se calcula como el valor promedio ponderado de todos los valores posibles dentro del intervalo. Matemáticamente, se expresa como una integral:
+
+$$E(U) = \int_{a}^{b} x \cdot f(x) \, dx$$ Donde $a$ y $b$ son los extremos del intervalo (en este caso, 10 y 20) y $f(x)$ es la función de densidad de probabilidad uniforme. Para una distribución uniforme, $f(x)$ es constante en el intervalo y se iguala a $\frac{1}{b - a}$.
+
+$$E(U) = \int_{10}^{20} x \cdot \frac{1}{20 - 10} \, dx = \int_{10}^{20} \frac{x}{10} \, dx$$ Resolviendo la integral:
+
+$$E(U) = \left[\frac{1}{20} \cdot \frac{x^2}{2}\right]_{10}^{20} = \left[\frac{x^2}{40}\right]_{10}^{20} = \frac{20^2}{40} - \frac{10^2}{40} = \frac{400}{40} - \frac{100}{40} = \frac{300}{40} = 15$$
+
+**Varianza** ($\text{Var}(U)$): La varianza de una distribución uniforme se calcula como la integral del cuadrado de la diferencia entre cada valor en el intervalo y la media, ponderada por la función de densidad de probabilidad uniforme:
+
+$$\text{Var}(U) = \int_{a}^{b} (x - E(U))^2 \cdot f(x) \, dx$$ Sustituyendo los valores $a = 10$ y $b = 20$:
+
+$$\text{Var}(U) = \int_{10}^{20} \left(x - 15\right)^2 \cdot \frac{1}{20 - 10} \, dx = \int_{10}^{20} \left(x - 15\right)^2 \cdot \frac{1}{10} \, dx$$
+
+Resolviendo esta integral:
+
+$$\text{Var}(U) = \frac{1}{10} \int_{10}^{20} \left(x - 15\right)^2 \, dx$$ Desarrollando y resolviendo la integral:
+
+$$\text{Var}(U) = \frac{1}{10} \left[\frac{(x - 15)^3}{3}\right]_{10}^{20} = \frac{1}{30} \left[(20 - 15)^3 - (10 - 15)^3\right] = \frac{1}{30} \left[5^3 - (-5)^3\right] = \frac{1}{30} \cdot 250 = \frac{250}{30} \approx 8.33\overline{3}$$
+
+32. En una caja hay 3 focos defectuosos y 7 buenos. Si se sacan 3 focos al azar, ¿cuál es la probabilidad de que al menos uno sea defectuoso?
+
+Para calcular la probabilidad de que al menos uno de los tres focos seleccionados al azar sea defectuoso, podemos utilizar el enfoque de probabilidad complementaria.
+
+Primero, calculamos la probabilidad de que ninguno de los tres focos sea defectuoso y luego restamos ese valor de 1 para obtener la probabilidad de que al menos uno sea defectuoso.
+
+La probabilidad de seleccionar un foco bueno en un solo intento es $P(\text{Bueno}) = \frac{7}{10}$ ya que hay 7 focos buenos de un total de 10. Entonces, la probabilidad de que ninguno de los tres focos sea defectuoso en tres intentos es:
+
+$$P(\text{Ninguno Defectuoso}) = \left(\frac{7}{10}\right)^3$$
+
+Para obtener la probabilidad de que al menos uno sea defectuoso, restamos esto de 1:
+
+$$P(\text{Al menos uno Defectuoso}) = 1 - P(\text{Ninguno Defectuoso})$$
+
+33. Si $Z$ es una variable aleatoria normal estándar, encuentra el valor de $z$ tal que $P(Z > z) = 0.05$.
+
+Si $Z$ es una variable aleatoria normal estándar, queremos encontrar el valor de $z$ tal que $P(Z > z) = 0.05$.
+
+Podemos utilizar la función inversa de la función de distribución acumulativa (CDF) de la distribución normal estándar ($\Phi^{-1}$) para encontrar $z$:
+
+$$P(Z > z) = 0.05 \implies 1 - P(Z \leq z) = 0.05$$
+
+Utilizando $\Phi^{-1}$, encontramos el valor de $z$ que corresponde a un área acumulada de 0.95 (1 - 0.05):
+
+$$z = \Phi^{-1}(0.95) ≈ 1.645$$
+
+34. ¿Cuál es el valor de $z$ en una distribución $Z$ tal que $P(Z < z) = 0.10$?
+
+Para encontrar el valor de $z$ en una distribución $Z$ tal que $P(Z < z) = 0.10$, también podemos utilizar la función inversa de la función de distribución acumulativa (CDF) de la distribución normal estándar ($\Phi^{-1}$):
+
+$$P(Z < z) = 0.10$$ Utilizando $\Phi^{-1}$, encontramos el valor de $z$ que corresponde a un área acumulada de 0.10.
+
+$$z = \Phi^{-1}(0.10) ≈ −1.28$$
+
+35. Si $Z$ es una variable aleatoria normal estándar, ¿cuál es la probabilidad $P(-1.96 < Z < 1.96)$?
+
+Si $Z$ es una variable aleatoria normal estándar, queremos calcular la probabilidad $P(-1.96 < Z < 1.96)$.
+
+Podemos utilizar la función de distribución acumulativa (CDF) de la distribución normal estándar ($\Phi$):
+
+$$P(-1.96 < Z < 1.96) = \Phi(1.96) - \Phi(-1.96) =0.975−0.025=0.95$$
+
+Donde $\Phi(x)$ es la función de distribución acumulativa de la distribución normal estándar.
+
+36. Explica el concepto de una función de densidad de probabilidad (pdf).
+
+Una Función de Densidad de Probabilidad (PDF) describe cómo se distribuyen las probabilidades en todo el dominio de una variable aleatoria continua. La PDF asigna una densidad de probabilidad a cada punto en el dominio de la variable.
+
+Matemáticamente, la PDF se denota como $f(x)$ y debe cumplir dos condiciones:
+
+-   $f(x) \geq 0$ para todos los valores de $x$.
+-   El área total bajo la curva de la PDF debe ser igual a 1.
+
+La PDF no proporciona directamente probabilidades puntuales, pero se utiliza para calcular probabilidades en intervalos. La probabilidad de que una variable aleatoria caiga dentro de un intervalo $[a, b]$ se calcula como la integral de la PDF en ese intervalo:
+
+$$P(a \leq X \leq b) = \int_{a}^{b} f(x) \, dx$$
+
+37. Las alturas de un grupo de atletas están distribuidas uniformemente entre 5.5 y 6.5 pies. ¿Cuál es la probabilidad de que un atleta seleccionado al azar mida más de 6 pies?
+
+La probabilidad de que un atleta seleccionado al azar tenga una altura de más de 6 pies en una distribución uniforme entre 5.5 y 6.5 pies se puede calcular utilizando la fórmula de probabilidad de una distribución uniforme.
+
+La fórmula general para la función de densidad de probabilidad (PDF) de una distribución uniforme es:
+
+$$f(x) = \frac{1}{b - a}$$
+
+Donde:
+
+-   $a$ es el límite inferior del intervalo (5.5 pies en este caso).
+-   $b$ es el límite superior del intervalo (6.5 pies en este caso).
+
+La PDF es constante en este intervalo porque todos los valores tienen la misma probabilidad.
+
+Para calcular la probabilidad de que un atleta tenga una altura mayor a 6 pies, necesitamos calcular el área bajo la curva de la PDF desde 6 hasta 6.5 pies. Esto se hace mediante una integral:
+
+$$P(\text{Altura} > 6 \text{ pies}) = \int_{6}^{6.5} f(x) \, dx$$
+
+Sustituyendo $f(x) = \frac{1}{6.5 - 5.5} = \frac{1}{1} = 1$ en la integral:
+
+$$P(\text{Altura} > 6 \text{ pies}) = \int_{6}^{6.5} 1 \, dx$$
+
+Resolviendo la integral:
+
+$$P(\text{Altura} > 6 \text{ pies}) = \left[x\right]_{6}^{6.5} = 6.5 - 6 = 0.5$$
+
+Entonces, la probabilidad de que un atleta seleccionado al azar tenga una altura mayor a 6 pies es del 0.5 o del 50%.
+
+39. Una región tiene una precipitación anual promedio que puede modelarse como una variable aleatoria continua, distribuida normalmente con una media de 1000mm y una desviación estándar de 150mm. Encuentra la probabilidad de que en un año dado, la precipitación esté entre 800mm y 1200mm.
+
+Para encontrar la probabilidad de que en un año dado la precipitación esté entre 800mm y 1200mm en una distribución normal con media $\mu = 1000$mm y desviación estándar $\sigma = 150$mm, primero estandarizamos los valores 800mm y 1200mm utilizando la fórmula Z:
+
+$$Z = \frac{X - \mu}{\sigma}$$
+
+Donde: - $X$ es el valor que queremos estandarizar. - $\mu$ es la media de la distribución (1000mm). - $\sigma$ es la desviación estándar de la distribución (150mm).
+
+Para $X = 800$mm:
+
+$$Z_1 = \frac{800 - 1000}{150} = -\frac{200}{150} = -\frac{4}{3}$$
+
+Para $X = 1200$mm:
+
+$$Z_2 = \frac{1200 - 1000}{150} = \frac{200}{150} = \frac{4}{3}$$
+
+Ahora que tenemos las puntuaciones Z correspondientes, podemos utilizar la distribución normal estándar (Z) para encontrar la probabilidad de que $Z$ esté entre $-\frac{4}{3}$ y $\frac{4}{3}$.
+
+$$P\left(-\frac{4}{3} \leq Z \leq \frac{4}{3}\right) = \Phi\left(\frac{4}{3}\right) - \Phi\left(-\frac{4}{3}\right)$$
+
+Donde $\Phi(z)$ es la función de distribución acumulativa (CDF) de la distribución normal estándar.
+
+Consultando las tablas de la distribución normal estándar o utilizando una calculadora estadística, encontramos:
+
+$$\Phi\left(\frac{4}{3}\right) \approx 0.9082$$ $$\Phi\left(-\frac{4}{3}\right) \approx 0.0918$$
+
+Luego, calculamos la probabilidad:
+
+$$P\left(-\frac{4}{3} \leq Z \leq \frac{4}{3}\right) = 0.9082 - 0.0918 = 0.8164$$
+
+Por lo tanto, la probabilidad de que en un año dado la precipitación esté entre 800mm y 1200mm es aproximadamente $0.8164$ o $81.64\%$.
+
+40. La altura de los hombres adultos en una cierta población se distribuye normalmente con una media de 175 cm y una desviación estándar de 7 cm. ¿Qué proporción de esta población mide más de 189 cm?
+
+Para calcular la proporción de la población que mide más de 189 cm, primero necesitamos estandarizar la altura utilizando la fórmula Z:
+
+$$Z = \frac{X - \mu}{\sigma}$$
+
+Donde: - $X$ es el valor que queremos evaluar (189 cm en este caso). - $\mu$ es la media de la población (175 cm). - $\sigma$ es la desviación estándar de la población (7 cm).
+
+$$Z = \frac{189 - 175}{7} = \frac{14}{7} = 2$$
+
+Luego, utilizamos Φ(Z) para encontrar la proporción de la población que mide menos de 189 cm y restamos esto de 1 para obtener la proporción que mide más de 189 cm:
+
+$$P(Z > 2) = 1 - \Phi(2)$$
+
+Consultando una tabla de valores Z o usando una calculadora, encontramos que Φ(2) es aproximadamente 0.9772.
+
+$$P(Z > 2) = 1 - 0.9772 ≈ 0.0228$$
+
+Por lo tanto, alrededor del 2.28% de esta población mide más de 189 cm.
+
+41. Los resultados de un examen en una clase grande se distribuyen normalmente con una media de 70 y una desviación estándar de 10. Si la puntuación aprobatoria es 50, ¿qué porcentaje de estudiantes reprueba el examen?
+
+Para calcular el porcentaje de estudiantes que reprueba el examen (obtienen menos de 50 puntos), primero estandarizamos la puntuación Z:
+
+$$Z = \frac{X - \mu}{\sigma}$$
+
+Donde: - $X$ es el valor que queremos evaluar (50 puntos en este caso). - $\mu$ es la media de la población (70 puntos). - $\sigma$ es la desviación estándar de la población (10 puntos).
+
+$$Z = \frac{50 - 70}{10} = \frac{-20}{10} = -2$$
+
+Luego, utilizamos Φ(Z) para encontrar la proporción de estudiantes que obtienen menos de 50 puntos:
+
+$$P(Z < -2) = \Phi(-2)$$
+
+Consultando una tabla de valores Z o usando una calculadora, encontramos que Φ(-2) es aproximadamente 0.0228.
+
+Por lo tanto, alrededor del 2.28% de los estudiantes reprueba el examen.
+
+42. En un estudio sobre la relación entre horas de estudio y rendimiento académico, se descubrió que el número de horas que los estudiantes estudiaban para un examen en particular se distribuía normalmente.El tiempo promedio de estudio era de 5 horas con una desviación estándar de 0.75 horas. ¿Qué porcentaje de estudiantes estudió entre 4.25 horas y 5.75 horas para el examen?
+
+Para calcular el porcentaje de estudiantes que estudió entre 4.25 horas y 5.75 horas, primero estandarizamos ambos valores Z:
+
+Para 4.25 horas: $$Z_1 = \frac{4.25 - 5}{0.75} = -0.8333$$
+
+Para 5.75 horas: $$Z_2 = \frac{5.75 - 5}{0.75} = 1.3333$$
+
+Luego, utilizamos las funciones Φ(Z) para encontrar las proporciones correspondientes:
+
+$$P(-0.8333 < Z < 1.3333) = \Phi(1.3333) - \Phi(-0.8333)$$
+
+Consultando una tabla de valores Z o usando una calculadora, encontramos que Φ(1.3333) es aproximadamente 0.9082 y Φ(-0.8333) es aproximadamente 0.2023.
+
+$$P(-0.8333 < Z < 1.3333) ≈ 0.9082 - 0.2023 ≈ 0.7059$$
+
+Por lo tanto, aproximadamente el 70.59% de los estudiantes estudió entre 4.25 y 5.75 horas para el examen.
+
+43. Un país informa que el número de inmigrantes en un año se distribuye normalmente con una media de 5,000 y una desviación estándar de 800. También observan que el número de emigrantes (personas que abandonan el país) también se distribuye normalmente, con una media de 3,000 y una desviación estándar de 500. ¿En qué proporción de años la migración neta (inmigrantes - emigrantes) es positiva en más de 1000?
+
+Cuando tenemos dos variables aleatorias, como el número de inmigrantes y emigrantes, y queremos encontrar la media y la desviación estándar de su diferencia (migración neta), usamos las siguientes propiedades.
+
+-   **Media (Valor Esperado) de la Suma/Diferencia de Variables Aleatorias:** La media de la suma (o diferencia) de dos variables aleatorias es igual a la suma (o diferencia) de sus medias individuales.
+
+Matemáticamente:
+
+Para dos variables aleatorias X e Y, Media(X + Y) = Media(X) + Media(Y)
+
+En este caso, la Media de la migración neta = Media de los inmigrantes - Media de los emigrantes.
+
+-   **Varianza de la Suma/Diferencia de Variables Aleatorias Independientes:** Cuando se trata de variables aleatorias independientes, la varianza de la suma (o diferencia) de estas variables es igual a la suma de sus varianzas individuales.
+
+Matemáticamente:
+
+Para dos variables aleatorias independientes X e Y, Var(X + Y) = Var(X) + Var(Y)
+
+En este caso, utilizamos la fórmula de la desviación estándar (σ = √Var) para calcular la desviación estándar.
+
+Aplicando estas propiedades al número de inmigrantes y emigrantes, podemos calcular la media y la desviación estándar de la migración neta de la siguiente manera:
+
+Media de la migración neta = Media de los inmigrantes - Media de los emigrantes
+
+Desviación estándar de la migración neta = √(Var(inmigrantes) + Var(emigrantes))
+
+Posteriormente, calculamos cada uno de estos valores utilizando los datos proporcionados (media y desviación estándar de los inmigrantes y emigrantes) para determinar las características de Media de migración neta = 5,000 - 3,000 = 2,000
+
+-   Desviación estándar de migración neta = sqrt((800)\^2 + (500)\^2) ≈ 942.81
+
+Ahora, estandarizamos el valor de 1000 para la migración neta utilizando la fórmula Z:
+
+$$Z = \frac{X - \mu}{\sigma}$$
+
+Donde: - $X$ es el valor que queremos evaluar (1000 en este caso). - $\mu$ es la media de migración neta (2,000). - $\sigma$ es la desviación estándar de migración neta (aproximadamente 942.81).
+
+$$Z = \frac{1000 - 2000}{942.81} ≈ -1.0592$$
+
+Luego, utilizamos Φ(Z) para encontrar la proporción de años en los que la migración neta es positiva en más de 1000:
+
+$$P(Z > -1.0592) = 1 - \Phi(-1.0592)$$
+
+Consultando una tabla de valores Z o usando una calculadora, encontramos que Φ(-1.0592) es aproximadamente 0.8551.
+
+$$P(Z > -1.0592) ≈ 1 - 0.8551 ≈ 0.1449$$
+
+Por lo tanto, en aproximadamente el 14.49% de los años, la migración neta es positiva en más de 1000.
+
+44. Sophie tomó un examen estandarizado y obtuvo 86 de 100. Los resultados del examen para dos prestigiosas instituciones académicas, Harvard y la PUC, donde Sophie está considerando postular, son los siguientes: En Harvard, los resultados del examen se distribuyen normalmente con una media de 85 y una desviación estándar de 1. En PUC, los resultados del examen se distribuyen normalmente con una media de 83 y una desviación estándar de 15. Determina la puntuación Z de Sophie para ambas instituciones. Basándose en estas puntuaciones Z, ¿en cuál institución está Sophie relativamente mejor posicionada con respecto a otros solicitantes?
+
+Para determinar la puntuación Z de Sophie en ambas instituciones, usamos la fórmula Z:
+
+$$Z = \frac{X - \mu}{\sigma}$$
+
+Donde: - $X$ es la puntuación de Sophie (86). - $\mu$ es la media de la institución. - $\sigma$ es la desviación estándar de la institución.
+
+Para Harvard: - Media ($\mu$) = 85 - Desviación estándar ($\sigma$) = 1
+
+$$Z_{Harvard} = \frac{86 - 85}{1} = 1$$
+
+Para PUC: - Media ($\mu$) = 83 - Desviación estándar ($\sigma$) = 15
+
+$$Z_{PUC} = \frac{86 - 83}{15} = 0.2$$
+
+Sophie tiene una puntuación Z de 1 en Harvard y 0.2 en PUC. En términos relativos, Sophie está mejor posicionada en Harvard, ya que su puntuación Z es más alta en comparación con otros solicitantes en Harvard que en PUC.
+
+45. Supongamos que las puntuaciones de crédito de los solicitantes de préstamos en un cierto banco siguen una distribución normal con una puntuación promedio de 650 y una desviación estándar de 50. Si el banco típicamente aprueba préstamos para solicitantes con puntuaciones de crédito en el 20% superior, ¿cuál es la puntuación mínima de crédito requerida para la aprobación de un préstamo?
+
+46. Para encontrar la puntuación mínima de crédito requerida para la aprobación de un préstamo en el 20% superior, primero calculamos el valor Z correspondiente al percentil 80 (ya que el 20% superior está en el percentil 80).
+
+Usando una tabla de valores Z o una calculadora, encontramos que Φ(Z) ≈ 0.8413 corresponde al percentil 80.
+
+Luego, usamos la fórmula Z para encontrar el valor Z:
+
+$$Z = \Phi^{-1}(0.8413)$$
+
+Donde Φ\^-1 es la función inversa de Φ.
+
+Consultando una tabla de valores Z o usando una calculadora, encontramos que Z ≈ 0.8416.
+
+Ahora, despejamos la fórmula Z para encontrar la puntuación mínima de crédito (X):
+
+$$X = Z * \sigma + \mu$$
+
+Donde:
+
+-   $\sigma$ es la desviación estándar de las puntuaciones de crédito (50).
+-   $\mu$ es la media de las puntuaciones de crédito (650).
+
+$$X = 0.8416 * 50 + 650 ≈ 692.08$$
+
+Por lo tanto, la puntuación mínima de crédito requerida para la aprobación de un préstamo es aproximadamente 692.08.
+
+47. En un examen de admisión universitaria, las puntuaciones siguen una distribución normal con una puntuación promedio de 1200 y una desviación estándar de 100. Si un estudiante obtiene una puntuación de 1400 en este examen, ¿en qué percentil se encuentra su puntuación entre todos los que tomaron el examen?
+
+Para encontrar en qué percentil se encuentra una puntuación de 1400 en una distribución normal con media de 1200 y desviación estándar de 100, primero calculamos el valor Z correspondiente a la puntuación de 1400 utilizando la fórmula Z:
+
+$$Z = \frac{X - \mu}{\sigma}$$
+
+Donde:
+
+-   $X$ es la puntuación del estudiante (1400).
+-   $\mu$ es la media de las puntuaciones (1200).
+-   $\sigma$ es la desviación estándar de las puntuaciones (100).
+
+$$Z = \frac{1400 - 1200}{100} = 2$$
+
+Luego, utilizamos una tabla de valores Z o una calculadora para encontrar el área bajo la curva normal a la derecha de Z = 2, que representa el percentil en el que se encuentra la puntuación. Φ(Z) para Z = 2 es aproximadamente 0.9772.
+
+Esto significa que el estudiante se encuentra en el percentil 97.72, lo que indica que ha superado aproximadamente al 97.72% de los estudiantes que tomaron el examen.
+
+48. Supongamos que estás estudiando una población con una media de CI conocida de 100 y una varianza conocida de 15. Si tomas muestras aleatorias de diferentes tamaños (por ejemplo, 30, 75, 150), discute cómo se aplica el Teorema del Límite Central (TLC) si el CI sigue una distribución uniforme. Incluye reflexiones sobre los efectos del tamaño de la muestra.
+
+El Teorema del Límite Central (TLC) es un concepto fundamental en estadísticas que establece que, cuando se toman muestras aleatorias suficientemente grandes de una población, la distribución de las medias muestrales se aproxima a una distribución normal, independientemente de la distribución original de la población.
+
+Esto es cierto incluso si la población de la que se extraen las muestras no sigue una distribución normal. El TLC es una herramienta poderosa porque permite hacer inferencias sobre la población utilizando la distribución normal, que es ampliamente comprendida y estudiada.
+
+-   Muestras aleatorias grandes: El TLC establece que cuanto mayor sea el tamaño de la muestra, mejor se aproximará la distribución de las medias muestrales a una distribución normal. En otras palabras, a medida que el tamaño de la muestra aumenta, la distribución de las medias muestrales se vuelve más simétrica y se acerca más a una campana de Gauss. Esto significa que, incluso si la población original es uniforme, las medias de las muestras aleatorias grandes tendrán una distribución que se asemeja cada vez más a una distribución normal.
+
+-   Centralidad y dispersión: A medida que el tamaño de la muestra aumenta, la media de las medias muestrales se acercará a la media de la población original, que en este caso es de 100. Además, la desviación estándar de las medias muestrales se reducirá en función del tamaño de la muestra y se puede calcular utilizando la fórmula σ/√n, donde σ es la desviación estándar de la población y n es el tamaño de la muestra. Por lo tanto, a medida que aumenta el tamaño de la muestra, las medias muestrales serán más precisas y estarán más cerca de la media poblacional.
+
+-   Distribución normal aproximada: Cuanto mayor sea el tamaño de la muestra, más se acercarán las medias muestrales a una distribución normal. Esto es útil porque puedes utilizar las propiedades de la distribución normal para realizar inferencias estadísticas, como calcular intervalos de confianza o realizar pruebas de hipótesis.
+
+En resumen, el Teorema del Límite Central es aplicable en este escenario donde la población sigue una distribución uniforme. A medida que el tamaño de la muestra aumenta, las medias muestrales se aproximarán cada vez más a una distribución normal, lo que te permite realizar análisis estadísticos más precisos y confiables sobre la población, incluso cuando la distribución original es no normal. Sin embargo, hay que tener en cuenta que el TLC establece que el tamaño de la muestra debe ser "suficientemente grande" para que la aproximación a la normalidad sea válida, y lo que se considera suficientemente grande puede depender del contexto específico de tu estudio y de la distribución original de la población.
+
+49. Estás llevando a cabo un estudio sobre la distribución de ingresos en una ciudad. En la población, se conoce que el ingreso promedio es de \$45,000, y la verdadera desviación estándar de la poblaciónes de \$8,000. Recopilas una muestra aleatoria de 200 hogares de la población. Deriva la distribución de la media muestral y calcula los valores que se encuentran a una desviación estándar por debajo y por encima del promedio de la media muestral.
+
+Dado que tenemos una muestra aleatoria de 200 hogares de la población, la distribución de la media muestral seguirá una distribución normal, con la misma media que la población original (\$45,000) y una desviación estándar calculada como la desviación estándar de la población dividida por la raíz cuadrada del tamaño de la muestra:
+
+La desviación estándar de la media muestral es $\sigma\bar{x} = \frac{\sigma}{\sqrt{n}}$, entonces:
+
+```{=tex}
+\begin{align*}
+\sigma\bar{x} &= \frac{\$8,000}{\sqrt{200}} \\ \\
+&= \frac{\$8,000}{14.14} \\ \\
+&\approx \$565.69
+\end{align*}
+```
+Por lo tanto, la distribución de la media muestral tendrá una media de \$45,000 y una desviación estándar de aproximadamente \$565.69.
+
+Para calcular los valores que están a una desviación estándar por debajo y por encima de la media muestral, simplemente tenemos que restar o sumar la desviación estándar de la media muestral a la media muestral:
+
+Valor a una desviación estándar por debajo de la media muestral: \$45,000 - \$565.69 ≈ \$44,434.31
+
+Valor a una desviación estándar por encima de la media muestral: \$45,000 + \$565.69 ≈ \$45,565.69
+
+Por lo tanto, aproximadamente el 68% de nuestras medias muestrales estarán dentro del rango de \$44,434.31 a \$45,565.69, que es una desviación estándar por debajo y por encima de la media muestral, debido a la propiedad de la distribución normal que establece que alrededor del 68% de los datos se encuentran dentro de una desviación estándar de la media en una distribución normal.
+
+50. Estás llevando a cabo un estudio sobre la distribución de ingresos en una ciudad. En la población, se conoce que el ingreso promedio es de \$45,000, y la verdadera desviación estándar de la poblaciónes de \$8,000. Recopilas una muestra aleatoria de 10,000 hogares de la población. Deriva la distribución de la media muestral y encuentra el percentil 10 y el percentil 90 en la distribución de la media muestral.
+
+Para encontrar los percentiles utilizando la función inversa de la distribución normal estándar (también conocida como la tabla Z o la inversa de la función de distribución acumulativa, Φ⁻¹), puedes utilizar la fórmula:
+
+```{=tex}
+\begin{align*}
+\text{Percentil} &= \mu + Z \cdot \sigma_{\bar{x}} \\ \\
+\text{Donde:} \\ \\
+\text{- Percentil} & \text{ es el valor que estás tratando de encontrar.} \\
+\text{- } \mu & \text{ es la media de la distribución de la media muestral (\$45,000).} \\
+\text{- } Z & \text{ es la puntuación Z correspondiente al percentil deseado.} \\
+\text{- } \sigma_{\bar{x}} & \text{ es la desviación estándar de la distribución de la media muestral (\$80).}
+\end{align*}
+```
+ara el percentil 10 (P10), necesitas encontrar la puntuación Z asociada al percentil 10, que es -1.28 (puedes buscar esto en la tabla de la distribución normal estándar o utilizar una calculadora que proporcione la función inversa de la distribución normal estándar Φ⁻¹).
+
+Percentil 10 (P10): P10 = \$45,000 + (-1.28) \* \$80 P10 = \$45,000 - \$102.40 P10 ≈ \$44,897.60
+
+Para el percentil 90 (P90), necesitas encontrar la puntuación Z asociada al percentil 90, que es 1.28.
+
+Percentil 90 (P90): P90 = \$45,000 + 1.28 \* \$80 P90 = \$45,000 + \$102.40 P90 ≈ \$45,102.40
+
+Entonces, utilizando la función inversa de la distribución normal estándar de manera explícita, el percentil 10 (P10) es aproximadamente \$44,897.60, y el percentil 90 (P90) es aproximadamente \$45,102.40 en la distribución de la media muestral en este estudio sobre la distribución de ingresos en la ciudad.

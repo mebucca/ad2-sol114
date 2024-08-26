@@ -1,0 +1,13 @@
+name: class_5
+title: class_5
+username: mebucca
+account: mebucca
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 9715416
+bundleId: 7623977
+url: https://mebucca.shinyapps.io/class_5/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE
+ignoredFiles: class_5.html|class_5.Rmd|gentle-r.css|joint_marginal.jpg|momentos.jpg|xaringan-themer.css|class_5_files|libs
