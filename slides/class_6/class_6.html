@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Probabilidad e Inferencia Estadística</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Probabilidad e Inferencia Estadística
+]
+.subtitle[
+## #6: Momentos de una distribución
+]
+.author[
+### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
+]
+.date[
+### 26 August, 2024
+]
+
+---
+
+
+class:  fullscreen, center, middle
+
+
+
+
+![mometos](momentos.jpg)
+---
+class: inverse, center, middle
+
+#Primer momento
+##Valor Esperado
+
+---
+## Valor Esperado
+
+El valor esperado de una variable es el análogo teórico de un promedio. Los posibles valores de la variable se ponderan por su probabilidad de ocurrencia. En el caso de variables discretas:
+
+&lt;br&gt;
+--
+
+`\begin{align}
+\mathbb{E}(X) &amp;= \sum_{i} x_{i} \times \mathbb{P}(X=x_{i}) \\
+&amp;\equiv  \sum_{i} x_{i} \times f(x_{i})
+\end{align}`
+
+&lt;br&gt;
+--
+Es teórico porque esta información la podemos saber *a priori*, sin necesidad de datos. 
+
+--
+
+Análogamente, para variables continuas:
+
+`\begin{align}
+\mathbb{E}(X) =  \int x f(x)dx
+\end{align}`
+
+---
+## Valor Esperado, variable discreta
+
+Por ejemplo, supongamos que `\(Y\)` es una variable que resulta de tirar un dado "justo".  ¿Cuál es el valor esperado de `\(Y\)`?
+
+&lt;br&gt;
+--
+
+`\begin{align}
+\mathbb{E}(Y) &amp;= \sum_{i}y_{i} \times f(y_{i})  \\ \\
+     &amp;= \sum_{i}y_{i} \times \mathbb{P}(Y=y_{i})  \\ \\
+     &amp;=  1 \times  \frac{1}{6}+ 2 \times \frac{1}{6} + \dots + 6 \times \frac{1}{6}  \\ \\
+     &amp;= 3.5
+\end{align}`
+
+---
+## Valor Esperado, algunas propiedades útiles  
+
+&lt;br&gt;
+--
+
+1) El valor esperado de una constante es una constante.
+
+`$$\mathbb{E}(c)=c$$`
+&lt;br&gt;
+--
+
+2) Si `\(X\)` es una variable aleatoria y `\(c\)` una constante, entonces 
+
+`$$\mathbb{E}(X + c)= \mathbb{E}(X) + c$$`
+
+&lt;br&gt;
+--
+
+3) Si `\(X\)` es una variable aleatoria y `\(c\)` una constante, entonces 
+
+`$$\mathbb{E}(c X)= c \mathbb{E}(X)$$`
+&lt;br&gt;
+--
+
+4) Si `\(X\)` e `\(Y\)` son variables aleatorias (sin importar si `\(X \bot Y\)` o no), entonces
+
+`$$\mathbb{E}(X + Y)=  \mathbb{E}(X) + \mathbb{E}(Y)$$`
+
+
+---
+## Valor Esperado, ejemplo
+
+Por ejemplo, supongamos que `\(X_{i}\)` es la variable que resulta de tirar un dado "justo". Participamos de un concurso que consiste en tirar el mismo dado 10 veces. El premio (G) es $ `\(1000\)` de base, más el resultado de cada dado `\(i\)` multiplicado por 100.
+--
+
+ ¿Cuánto es el premio esperado?
+
+--
+
+.center[
+![](class_6_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+]
+
+---
+
+## Valor Esperado, ejemplo
+
+Por ejemplo, supongamos que `\(X_{i}\)` es la variable que resulta de tirar un dado "justo". Participamos de un concurso que consiste en tirar el mismo dado 10 veces. El premio (G) es $ `\(1000\)` de base, más el resultado de cada dado `\(i\)` multiplicado por 100. ¿Cuánto es el premio esperado?
+
+&lt;br&gt;
+--
+
+`$$G = 1000 + \sum^{n=10}_{i=1} X_{i} \times 100 \quad \text{ por tanto,}$$`
+
+--
+
+`$$\mathbb{E}(G) = \mathbb{E}(1000 + \sum^{n=10}_{i=1} X_{i} \times 100)$$`
+
+--
+
+`$$\mathbb{E}(G) = 1000 + 100 \times \sum^{n=10}_{i=1}\mathbb{E}(X_{i})$$`
+
+--
+
+$$\mathbb{E}(G) = 1000 + 10 (3.5 + 3.5 + \dots + 3.5)) = 1000 + 100 \times 10 \times 3.5 = \$4500$$ 
+
+---
+
+---
+class: inverse, center, middle
+
+#Segundo momento
+##Varianza
+
+
+---
+## Varianza 
+
+La varianza de una variable aleatoria es el análogo teórico de la varianza de los datos.
+--
+ Mide cuánta dispersión existe en torno al centro (la media). Formalmente, en el caso de variables aleatorias discretas:
+
+&lt;br&gt;
+
+`$$\mathbb{Var}(X) = \sum_{i} \bigg( x_{i} - \mathbb{E}(X) \bigg)^{2} \times f(x_{i})$$`
+&lt;br&gt;
+--
+
+Análogamente, para variables continuas:
+
+`\begin{align}
+\mathbb{Var}(X) =  \int \bigg(x -  \mathbb{E}(X)\bigg)^{2} f(x)dx
+\end{align}`
+
+---
+## Varianza
+Por ejemplo, si `\(Y\)` es una variable que resulta de tirar un dado "justo", ¿cuál es la varianza de `\(Y\)`?
+
+&lt;br&gt;
+--
+
+`\begin{align}
+\mathbb{Var}(Y) &amp;= \sum_{i} \bigg( y_{i} - \mathbb{E}(Y) \bigg)^{2} \times f(y_{i})   \\ \\
+     &amp;=  (1 - 3.5)^{2} \times  \frac{1}{6} + (2-3.5)^{2} \times \frac{1}{6} + \dots + (6-3.5)^{2} \times \frac{1}{6}  \\ \\
+     &amp;= 2.91
+\end{align}`
+
+
+---
+## Varianza, algunas propiedades útiles  
+
+
+&lt;br&gt;
+--
+
+1) La varianza de una constante es cero.
+
+&lt;br&gt;
+
+`$$\mathbb{Var}(c)=0$$`
+
+&lt;br&gt;
+--
+
+2) Si `\(X\)` es una variable aleatoria y `\(c\)` una constante, entonces 
+
+&lt;br&gt;
+
+`$$\mathbb{Var}(c X)= c^{2} \mathbb{Var}(X)$$`
+
+&lt;br&gt;
+--
+
+3) Si `\(X\)` e `\(Y\)` son dos variables aleatorias .bold[independientes], entonces
+
+&lt;br&gt;
+
+`$$\mathbb{Var}(X \pm Y) =  \mathbb{Var}(X) + \mathbb{Var}(Y)$$`
+
+
+---
+## Varianza, ejemplo  
+
+Por ejemplo, supongamos que `\(X_{i}\)` es la variable que resulta de tirar un dado "justo". Participamos de un concurso que consiste en tirar el mismo dado 10 veces. El premio (G) es $ `\(1000\)` de base, más el resultado de cada dado `\(i\)` multiplicado por 100.
+--
+
+ ¿Cuánto es la desviación estándar del premio?
+
+--
+
+.center[
+![](class_6_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+]
+
+
+---
+## Varianza, ejemplo  
+
+Por ejemplo, supongamos que `\(X_{i}\)` es la variable que resulta de tirar un dado "justo". Participamos de un concurso que consiste en tirar el mismo dado 10 veces. El premio (G) es $ `\(1000\)` de base, más el resultado de cada dado `\(i\)` multiplicado por 100. ¿Cuánto es la desviación estándar del premio?
+
+&lt;br&gt;
+--
+
+`$$G = 1000 + \sum^{n=10}_{i=1} X_{i} \times 100 \quad \text{ por tanto,}$$`
+
+--
+
+`$$\mathbb{Var}(G) = \mathbb{Var}(1000 + \sum^{n=10}_{i=1} X_{i} \times 100)$$`
+
+--
+
+`$$\mathbb{Var}(G) = \mathbb{Var}(1000) + 100^{2} \times \sum^{n=10}_{i=1}\mathbb{Var}(X_{i})$$`
+
+--
+
+$$\mathbb{Var}(G) =  0 +  100^{2} \times 10 \times 2.9167 = \$291,670$$ 
+
+
+&lt;br&gt;
+--
+
+$$\sigma_{G} = \sqrt{0 + 100 \times 100 \times 291,670} = \$ 539.88$$
+
+---
+
+class: inverse, center, middle
+
+.huge[
+**Hasta la próxima clase. Gracias!**
+]
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

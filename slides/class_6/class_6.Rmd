@@ -1,6 +1,6 @@
 ---
 title: "Probabilidad e Inferencia Estadística"
-subtitle: "#5: Momentos de una distribución"
+subtitle: "#6: Momentos de una distribución"
 author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -80,14 +80,6 @@ Por ejemplo, supongamos que $Y$ es una variable que resulta de tirar un dado "ju
      &=  1 \times  \frac{1}{6}+ 2 \times \frac{1}{6} + \dots + 6 \times \frac{1}{6}  \\ \\
      &= 3.5
 \end{align}
-
-
----
-## Valor Esperado, variable continua: $\int x f(x) dx$
-
-
-
-<iframe src="https://mebucca.shinyapps.io/class_5/" style="width: 120%; height:100%;"></iframe>
 
 ---
 ## Valor Esperado, algunas propiedades útiles  
