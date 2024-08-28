@@ -1,0 +1,468 @@
+---
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#7: Estandarización (puntaje Z)"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["gentle-r.css","xaringan-themer.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  
+  chunk_output_type: console
+---  
+
+class:  fullscreen, center, middle
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(xaringanthemer)
+style_duo_accent(primary_color = "#D18229", secondary_color = "#4E5354" ,
+                 background_color = "#f8f7f3",
+                 header_font_google = google_font("Archivo"),
+                 text_font_google   = google_font("Inconsolata"), 
+                 link_color="#98C0C3"
+
+)
+```
+
+## Momentos
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+.center[
+
+|   Momento         | Notación parámetro teórico/poblacional | Intuición                    |
+|-------------------|----------------------------------------|------------------------------|
+| **Valor Esperado**| $\mathbb{E}(X) = \mu$                           | Punto de equilibrio o centro |
+| **Varianza**      | $\mathbb{Var}(X) = \sigma^2$                    | Dispersión en torno al centro|
+
+]
+
+
+
+--
+<br>
+
+.bold[Ejemplo:]
+
+$$X \sim \text{Normal}(\mu,\sigma)$$
+
+La variable aleatoria $X$ sigue una distribución Normal con valor esperado $\mu$ y desviación estándard $\sigma$.
+
+
+---
+class: inverse, center, middle
+
+#Estandarización
+##(puntaje Z)
+
+
+---
+## Puntaje Z
+
+
+<br>
+--
+
+Sea $X$ es una variable aleatorial, tal que:
+
+<br>
+
+  - $\mathbb{E}(X) = \mu$ 
+  
+  - $\mathbb{Var}(X) = \sigma^2$. Equivalentemente, $\sqrt{\mathbb{Var}(X)} = \sigma$  
+
+
+<br>
+--
+
+El puntaje Z de dicha variable se define como:
+
+<br>
+
+
+\begin{align}
+    Z &= \frac{X - \mathbb{E}(X)}{\sqrt{\mathbb{Var}(X)}} \\  \\
+    &= \frac{X - \mu}{\sigma}
+\end{align}
+
+
+---
+## Valor esperado de Z
+
+El valor esperado de una variable Z es 0:
+
+<br>
+
+$$
+\begin{aligned}
+    \mathbb{E}(Z) &= \mathbb{E}\left(\frac{X - \mu}{\sigma}\right) \\ \\
+    &= \frac{1}{\sigma} \mathbb{E}(X - \mu) \\ \\
+    &= \frac{1}{\sigma} ( \mathbb{E}(X) - \mathbb{E}(\mu) )  \\ \\
+    &= \frac{\mu - \mu}{\sigma}  = 0
+\end{aligned}
+$$
+
+--
+<br>
+.bold[Des-centrar una variable:] cada valor individual $x$ se desplaza por la misma cantidad, $-\mu$ .
+
+---
+## Varianza de Z
+
+
+La varianza (y desviación standard) de una variable Z es 1:
+
+<br>
+
+
+\begin{aligned}
+\mathbb{Var}(Z) &= \mathbb{Var}\left(\frac{X - \mu}{\sigma}\right) \\ \\
+                &= \frac{1}{\sigma^2} \mathbb{Var}(X - \mu) \\ \\
+                &= \frac{1}{\sigma^2} ( \mathbb{Var}(X) -  \mathbb{Var}(\mu) ) \\ \\
+                &= \frac{\sigma^2 - 0}{\sigma^2} = 1
+\end{aligned}
+
+--
+<br>
+.bold[Re-escalamiento de una variable:] cada valor individual $x$ se escala por $\frac{1}{\sigma}$
+
+---
+## Propiedades variable en pje. Z
+
+<br>
+
+.pull-left[
+
+- .bold[Sin unidad:] Toda variable en puntaje Z tiene la misma media y la misma desviación estándar. Útil para comparar valores que provienen de distintas distribuciones ("estandarizar").
+
+<br>
+
+- .bold[Preserva forma:] des-centramiento y re-escalamiento no cambia la forma de la distribución original.
+]
+
+
+
+.pull-right[
+
+```{r, echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+
+# Required Libraries
+library(tidyverse)
+library(gridExtra)
+
+# Number of simulations
+simulations <- 10000
+
+# Create a 2x2 grid for the plots
+grid <- grid.arrange
+
+# Simulate normal distribution with mean=5 and sd=3
+set.seed(123)
+normal_dist <- rnorm(simulations, mean=5, sd=3)
+normal_df <- tibble(value = normal_dist)
+mean_norm <- mean(normal_dist)
+std_norm <- sd(normal_dist)
+
+# Normal Distribution Plot
+normal_plot <- ggplot(normal_df, aes(x = value)) +
+  geom_density(aes(y = ..density..), fill = "#4E5354", alpha = 0.7) +
+  geom_vline(xintercept = c(mean_norm - std_norm, mean_norm + std_norm), color = "#D18229", linetype="dashed", size = 1) +
+  labs(y = "Density", x = "Value", title = "Normal Distribution (mu=5, sd=3)") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 12),
+    axis.text.x = element_text(size = 12),
+    axis.title.y = element_text(size = 14),
+    axis.title.x = element_text(size = 14),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+
+# Z-score for Normal Distribution
+z_normal_dist <- scale(normal_dist)
+z_normal_df <- tibble(value = as.vector(z_normal_dist))
+
+# Z-score Normal Distribution Plot
+z_normal_plot <- ggplot(z_normal_df, aes(x = value)) +
+  geom_density(aes(y = ..density..), fill = "#4E5354", alpha = 0.7) +
+  geom_vline(xintercept = c(-1, 1), color = "#D18229", linetype="dashed", size = 1) +
+  labs(y = "Density", x = "Z-Score", title = "Z-Scores of Normal Distribution") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 12),
+    axis.text.x = element_text(size = 12),
+    axis.title.y = element_text(size = 14),
+    axis.title.x = element_text(size = 14),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Simulate Poisson distribution with lambda=20
+poisson_dist <- rpois(simulations, lambda = 20)
+poisson_df <- tibble(value = poisson_dist)
+mean_poisson <- mean(poisson_dist)
+std_poisson <- sd(poisson_dist)
+
+# Poisson Distribution Plot
+poisson_plot <- ggplot(poisson_df, aes(x = value)) +
+  geom_density(aes(y = ..density..), fill = "#4E5354", alpha = 0.7) +
+  geom_vline(xintercept = c(mean_poisson - std_poisson, mean_poisson + std_poisson), color = "#D18229", linetype="dashed", size = 1) +
+  labs(y = "Density", x = "Value", title = "Poisson Distribution (mu=20)") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 12),
+    axis.text.x = element_text(size = 12),
+    axis.title.y = element_text(size = 14),
+    axis.title.x = element_text(size = 14),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+
+# Z-score for Poisson Distribution
+z_poisson_dist <- scale(poisson_dist)
+z_poisson_df <- tibble(value = as.vector(z_poisson_dist))
+
+# Z-score Poisson Distribution Plot
+z_poisson_plot <- ggplot(z_poisson_df, aes(x = value)) +
+  geom_density(aes(y = ..density..), fill = "#4E5354", alpha = 0.7) +
+  geom_vline(xintercept = c(-1, 1), color = "#D18229", linetype="dashed", size = 1) +
+  labs(y = "Density", x = "Z-Score", title = "Z-Scores of Poisson Distribution") +
+  
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 12),
+    axis.text.x = element_text(size = 12),
+    axis.title.y = element_text(size = 14),
+    axis.title.x = element_text(size = 14),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Arrange the plots in a 2x2 grid
+grid(normal_plot, z_normal_plot, poisson_plot, z_poisson_plot, ncol = 2)
+```
+]
+
+---
+class: inverse, center, middle
+
+#Ejemplo
+##Altura en dos "poblaciones"
+
+
+---
+## Altura en dos "poblaciones"
+
+<br>
+<br>
+
+.center[
+  ![faroe](faroe.png)
+]
+
+
+---
+## Altura en dos "poblaciones"
+
+.bold[Proceso "generador" de datos]
+
+Supongamo que acuerdo a determinantes genèticos, la altura de un hombre de Islas Faroe y la de una mujer de Filipinas pueden describirse respectivamente como una .bold[realización] de las siguientes variables aleatorias:
+
+.pull-left[
+
+<br>
+
+-  Hombre Islas Faroe
+
+$$A_{HIF}\sim \text{Normal}(\mu = 179,\sigma = 5)$$
+
+
+<br>
+
+- Mujer Filipinas
+
+$$A_{MF}\sim \text{Normal}(\mu = 150,\sigma = 7)$$
+
+
+
+]
+
+.pull-right[
+
+```{r, echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+# Librerías requeridas
+library(tidyverse)
+
+# Parámetros para las distribuciones normales de Faroe y Filipinas
+mu_faroe <- 179
+sigma_faroe <- 5
+mu_filip <- 150
+sigma_filip <- 7
+
+# Creamos una secuencia de valores para el eje x
+x_vals <- seq(130, 200, by = 0.1)
+
+# Calculamos las densidades para cada grupo
+y_vals_faroe <- dnorm(x_vals, mean=mu_faroe, sd=sigma_faroe)
+y_vals_filip <- dnorm(x_vals, mean=mu_filip, sd=sigma_filip)
+
+# Combinamos en un único dataframe
+df <- tibble(valor = c(x_vals, x_vals),
+             densidad = c(y_vals_faroe, y_vals_filip),
+             pais = c(rep("Hombre de Faroe", length(x_vals)), rep("Mujer de Filipinas", length(x_vals))))
+
+# Creamos la gráfica
+grafica <- ggplot(df, aes(x = valor, y = densidad, color = pais)) +
+  geom_line(size = 1) +
+
+  scale_color_manual(values = c("Hombre de Faroe" = "#4E5354", "Mujer de Filipinas" = "#D18229")) +
+
+  geom_vline(aes(xintercept = mu_faroe), linetype="solid", size = 1, color="#4E5354") +
+  geom_vline(aes(xintercept = mu_faroe - sigma_faroe), linetype="dashed", size = 1, color="#4E5354") +
+  geom_vline(aes(xintercept = mu_faroe + sigma_faroe), linetype="dashed", size = 1, color="#4E5354") +
+
+  geom_vline(aes(xintercept = mu_filip), linetype="solid", size = 1, color="#D18229") +
+  geom_vline(aes(xintercept = mu_filip - sigma_filip), linetype="dashed", size = 1, color="#D18229") +
+  geom_vline(aes(xintercept = mu_filip + sigma_filip), linetype="dashed", size = 1, color="#D18229") +
+
+  annotate("text", x = mu_faroe -1.5 , y = 0.003, label = expression(mu), size = 5) +
+  annotate("text", x = mu_faroe -1.5  - sigma_faroe, y = 0.003, label = expression(-sigma), size = 5) +
+  annotate("text", x = mu_faroe -1.5  + sigma_faroe, y = 0.003, label = expression(sigma), size = 5) +
+
+  annotate("text", x = mu_filip - 1.5, y = 0.003, label = expression(mu), size = 5) +
+  annotate("text", x = mu_filip - 1.5 - sigma_filip, y = 0.003, label = expression(-sigma), size = 5) +
+  annotate("text", x = mu_filip - 1.5 + sigma_filip, y = 0.003, label = expression(sigma), size = 5) +
+
+  labs(y = "Densidad", x = "Altura (cm)", title = "Distribución de Alturas en Hombre de Faroe y Mujer de Filipinas") +
+
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 12),
+    axis.text.x = element_text(size = 12),
+    axis.title.y = element_text(size = 14),
+    axis.title.x = element_text(size = 14),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
+    legend.position = "bottom"
+  )
+
+print(grafica)
+```
+]
+
+
+---
+## Altura en dos "poblaciones"
+
+```{r, echo=TRUE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+
+mu_faroe=179; sigma_faroe=5
+mu_filip=150; sigma_filip=7
+
+hombres_faroe <- rnorm(n=53000, mean = mu_faroe, sd=sigma_faroe)
+mujeres_filip <- rnorm(n=113000000, mean = mu_filip, sd=sigma_filip)
+
+hombres_faroe_z <- (hombres_faroe - mu_faroe)/sigma_faroe
+mujeres_filip_z <- (mujeres_filip - mu_filip)/sigma_filip
+
+datos_faroe <- data_frame(altura = hombres_faroe, z=hombres_faroe_z)
+datos_filip <- data_frame(altura = mujeres_filip, z=mujeres_filip_z)
+
+```
+
+--
+
+.pull-left[
+```{r, echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+head(datos_faroe)
+```
+]
+
+
+.pull-right[
+```{r, echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+head(datos_filip)
+```
+]
+
+
+
+---
+## Altura en dos "poblaciones"
+
+
+.pull-left[
+
+.bold[Población simulada]
+
+
+```{r, echo=FALSE, fig.height=6, fig.width=10, message=FALSE, warning=FALSE}
+library(knitr)
+# Calculate mean heights
+mean_faroe <- mean(datos_faroe$altura)
+mean_filip <- mean(datos_filip$altura)
+
+# Create a data frame for the table
+tabla <- data_frame(
+  País = c("Islas Feroe", "Filipinas"),
+  Género = c("H", "M"),
+  Población = c("~53,000", "~113 millones"),
+  `Altura Promedio (cms)` = c(round(mean_faroe, 2), round(mean_filip, 2))
+)
+
+# Render the table using kable
+knitr::kable(tabla, align = c('c', 'c', 'c', 'c'), col.names = c("País", "Género", "Población", "Altura Promedio (cms)"))
+```
+
+
+<br>
+
+.bold[Población existente]
+
+
+| País          |   Género   |   Población   | Altura Promedio (cms) |
+|:-------------:|:----------:|:-------------:|:--------------------:|
+| Islas Feroe   |     H      |   ~53,000    |         179.00     |
+| Filipinas     |     M      | ~113 millones |         150.00          |
+
+
+]
+
+
+
+.pull-right[
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+
+![faroe](faroe.png)
+]
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+
+
