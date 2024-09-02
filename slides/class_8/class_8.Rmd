@@ -1,0 +1,1038 @@
+---
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#8: Distribución Normal Standard"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["gentle-r.css","xaringan-themer.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  
+  chunz_output_type: console
+---  
+class: inverse, center, middle
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(xaringanthemer)
+style_duo_accent(primary_color = "#003366", secondary_color = "#FFFFF0" ,
+                 background_color = "#f8f7f3",
+                 header_font_google = google_font("Archivo"),
+                 text_font_google   = google_font("Inconsolata"), 
+                 link_color= "#FF0033" 
+
+)
+```
+
+
+
+
+#Distribución Normal Standard
+
+---
+##Distribución Normal Standard
+
+--
+
+- $X$ es una variable aleatoria que sigue una distribución Normal con valor esperado $\mu$ y desviación estándard $\sigma$.
+
+$$X \sim \text{Normal}(\mu,\sigma)$$
+
+<br>
+--
+
+- Consideremos una nueva variable aleatoria $Z$, tal que
+
+
+$$Z = \frac{X-\mu}{\sigma}$$
+
+--
+
+.bold[Pregunta: ¿Cual es la distribución de Z?]
+
+<br>
+.content-box-secondary[
+.bolder[Respuesta]:
+$$Z \sim \text{Normal}(0,1)$$
+
+]
+
+
+---
+##Distribución Normal Standard
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=7}
+library(ggplot2)
+library(gridExtra)
+
+# Data preparation
+x <- seq(-10, 40, length.out=1000)
+y <- dnorm(x, mean=15, sd=7)
+
+data <- data.frame(x, y)
+
+# Standardization
+zz <- (x - 15) / 7
+y_standard <- dnorm(zz, mean=0, sd=1)
+
+data_standard <- data.frame(zz, y_standard)
+
+# Original distribution plot
+p1 <- ggplot(data, aes(x, y)) +
+  geom_line(color = "#FF0033") +
+  geom_segment(aes(x = -10, y = 0, xend = 40, yend = 0), color = "black") +
+  geom_vline(aes(xintercept=15), color="#003366", linetype="dashed") +
+  annotate("text", x = 30, y = 0.05, label = expression(paste(mu[X], " = 15, ", sigma[X], " = 7")), size = 7) +
+  labs(x="x", y="f(x)") +
+   theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+
+# Standardized distribution plot
+p2 <- ggplot(data_standard, aes(zz, y_standard)) +
+  geom_line(color = "#FF0033") +
+  geom_segment(aes(x = -4, y = 0, xend = 4, yend = 0), color = "black") +
+  geom_vline(aes(xintercept=0), color="#003366", linetype="dashed") +
+  annotate("text", x = 3, y = 0.35, label = expression(paste(mu[Z], " = 0, ", sigma[Z], " = 1")), size = 7) +
+  labs(x=expression(paste("Z = ",(X-mu[X])/sigma[X])), y="f(z)") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+
+# Combine both plots
+grid.arrange(p1, p2, ncol=1)
+
+```
+]
+
+
+.pull-right[
+
+.bold[Función de densidad probabilística]
+
+<br>
+$$f(x) = \frac{1}{7 \sqrt{2\pi}} e^{-\frac{(x - 15)^2}{2 \times 7^2}}
+$$
+
+<br><br><br><br><br>
+
+$$f(z) = \frac{1}{ \sqrt{2\pi}} e^{-\frac{z^2}{2}}
+$$
+]
+
+---
+##Distribución Normal Standard
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=7}
+
+# Standardized distribution plot
+z=-1
+p2 <- ggplot(data_standard, aes(zz, y_standard)) +
+  geom_line() +
+  geom_segment(aes(x = -4, y = 0, xend = 4, yend = 0), color = "black") +
+  geom_area(aes(x = ifelse(zz <= z, zz, NA)), fill = "#FF0033", alpha = 0.4) +  # Left of mean
+  geom_segment(aes(x = z, y = 0, xend = z, yend = dnorm(-z, mean=0, sd=1)), color = "#003366") +
+  annotate("text", x = z - 1.2, y = dnorm(z, mean=0, sd=1) , label = "Z = -z", hjust = 0, size = 7) +
+  annotate("text", x = 3, y = 0.35, label = expression(paste(mu[Z], " = 0, ", sigma[Z], " = 1")), size = 7) +
+  labs(x=expression(paste("Z = ",(X-mu[X])/sigma[X])), y="f(z)") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(p2)
+```
+]
+
+
+.pull-right[
+
+.bold[Función de probabilidad acumulada (CDF):]
+
+
+\begin{align}
+F(-z) &= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e^{-\frac{z^2}{2}} dx
+\end{align}
+
+En este caso, $-z=-1$
+
+- No tenemos una fórmula analítica sencilla para $F(-z)$.
+
+- Por convención la .bold[CDF de una Normal Standard se denota] $\Phi(.)$, tal que 
+
+  - $\Phi(-z): F(-z)$
+
+
+- En `R` podemos calcular $\Phi(-1)$ fácilmente: 
+
+```{r}
+pnorm(-1)
+```
+]
+
+
+---
+class: inverse, center, middle
+
+#Propiedades de la Normal Standard
+
+---
+##1) Simetría
+
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=7}
+
+# Standardized distribution plot
+
+z=1
+p2 <- ggplot(data_standard, aes(zz, y_standard)) +
+  geom_line() +
+  geom_segment(aes(x = -4, y = 0, xend = 4, yend = 0), color = "black") +
+  geom_area(aes(x = ifelse(zz <= -z, zz, NA)), fill = "#003366", alpha = 0.4) +  # Left of mean
+  geom_segment(aes(x = z, y = 0, xend = z, yend = dnorm(-z, mean=0, sd=1)), color = "#FF0033") +
+  annotate("text", x = z + 0.3, y = dnorm(z, mean=0, sd=1) , label = "Z = z", hjust = 0, size = 7) +
+  geom_area(aes(x = ifelse(zz >= z, zz, NA)), fill = "#FF0033", alpha = 0.4) +  # Left of mean
+  geom_segment(aes(x = -z, y = 0, xend = -z, yend = dnorm(-z, mean=0, sd=1)), color = "#003366") +
+    annotate("text", x = -z - 1.2, y = dnorm(-z, mean=0, sd=1) , label = "Z = -z", hjust = 0, size = 7) +
+    labs(x=expression(paste("Z = ",(X-mu[X])/sigma[X])), y="f(z)") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(p2)
+```
+]
+
+
+.pull-right[
+
+Si
+\begin{align}
+ \mathbb{P}(Z \leq -z) = \Phi(-z)  = p
+\end{align}
+
+entonces 
+
+\begin{align}
+ \mathbb{P}(Z \geq z) =  1 - \Phi(z) = p
+\end{align}
+
+<br>
+En este caso, $z=1$ y $-z=-1$ 
+
+]
+
+
+---
+##1) Simetría
+
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=7}
+
+# Standardized distribution plot
+
+z=1
+p2 <- ggplot(data_standard, aes(zz, y_standard)) +
+  geom_line() +
+  geom_segment(aes(x = -4, y = 0, xend = 4, yend = 0), color = "black") +
+  geom_area(aes(x = ifelse(zz <= -z, zz, NA)), fill = "#003366", alpha = 0.4) +  # Left of mean
+  geom_segment(aes(x = z, y = 0, xend = z, yend = dnorm(-z, mean=0, sd=1)), color = "#FF0033") +
+  annotate("text", x = z + 0.3, y = dnorm(z, mean=0, sd=1) , label = "Z = z", hjust = 0, size = 7) +
+  geom_area(aes(x = ifelse(zz >= z, zz, NA)), fill = "#FF0033", alpha = 0.4) +  # Left of mean
+  geom_segment(aes(x = -z, y = 0, xend = -z, yend = dnorm(-z, mean=0, sd=1)), color = "#003366") +
+    annotate("text", x = -z - 1.2, y = dnorm(-z, mean=0, sd=1) , label = "Z = -z", hjust = 0, size = 7) +
+    labs(x=expression(paste("Z = ",(X-mu[X])/sigma[X])), y="f(z)") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(p2)
+```
+]
+
+
+.pull-right[
+
+En `R`, 
+
+- $\mathbb{P}(Z \leq -1) = \Phi(-1) =$
+
+```{r}
+pnorm(-1)
+```
+
+<br> y <br>
+
+- $\mathbb{P}(Z \geq 1) = 1 - \Phi(1) =$
+
+```{r}
+1- pnorm(q=1)
+```
+
+]
+
+---
+##2) Probabilidad en las colas
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=7}
+
+# Standardized distribution plot
+
+z=1
+p2 <- ggplot(data_standard, aes(zz, y_standard)) +
+  geom_line() +
+  geom_segment(aes(x = -4, y = 0, xend = 4, yend = 0), color = "black") +
+  geom_area(aes(x = ifelse(zz <= -z, zz, NA)), fill = "#003366", alpha = 0.4) +  # Left of mean
+  geom_segment(aes(x = z, y = 0, xend = z, yend = dnorm(-z, mean=0, sd=1)), color = "#003366") +
+  annotate("text", x = z + 0.3, y = dnorm(z, mean=0, sd=1) , label = "Z = z", hjust = 0, size = 7) +
+  geom_area(aes(x = ifelse(zz >= z, zz, NA)), fill = "#003366", alpha = 0.4) +  # Left of mean
+  geom_segment(aes(x = -z, y = 0, xend = -z, yend = dnorm(-z, mean=0, sd=1)), color = "#003366") +
+    annotate("text", x = -z - 1.2, y = dnorm(-z, mean=0, sd=1) , label = "Z = -z", hjust = 0, size = 7) +
+    labs(x=expression(paste("Z = ",(X-mu[X])/sigma[X])), y="f(z)") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(p2)
+```
+]
+
+
+.pull-right[
+
+\begin{align}
+\mathbb{P}( Z \leq -z  \quad \text{or} \quad   Z \geq z ) &= \\ \\
+ &= \Phi(-z) + (1 - \Phi(z)) \quad \text{ por simetría} &= \\ \\
+ &= 2 \times \Phi(-z) 
+\end{align}
+
+<br> <br>
+
+Por ejemplo,  $\mathbb{P}( Z \leq -1  \quad \text{or} \quad   Z \geq 1 )$
+
+```{r}
+2*pnorm(-1)
+```
+
+]
+
+
+
+---
+##2) Probabilidad central
+
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=7}
+
+# Standardized distribution plot
+
+z=1
+p2 <- ggplot(data_standard, aes(zz, y_standard)) +
+  geom_line() +
+  geom_segment(aes(x = -4, y = 0, xend = 4, yend = 0), color = "black") +
+  geom_area(aes(x = ifelse(zz <= z & zz >= -z, zz, NA)), fill = "#003366", alpha = 0.4) +  # Left of mean
+  geom_segment(aes(x = z, y = 0, xend = z, yend = dnorm(-z, mean=0, sd=1)), color = "#003366") +
+  annotate("text", x = z + 0.3, y = dnorm(z, mean=0, sd=1) , label = "Z = z", hjust = 0, size = 7) +
+  geom_segment(aes(x = -z, y = 0, xend = -z, yend = dnorm(-z, mean=0, sd=1)), color = "#003366") +
+    annotate("text", x = -z - 1.2, y = dnorm(-z, mean=0, sd=1) , label = "Z = -z", hjust = 0, size = 7) +
+    labs(x=expression(paste("Z = ",(X-mu[X])/sigma[X])), y="f(z)") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(p2)
+```
+]
+
+
+.pull-right[
+
+\begin{align}
+\mathbb{P}( -z \leq Z \leq z) &=  \mathbb{P}( |Z| \leq z) \\ \\
+ &= \Phi(z)  - \Phi(-z)   \quad \text{ por simetría} \\ \\
+ &= 1 - 2 \times \Phi(-z) 
+\end{align}
+
+<br> <br>
+
+Por ejemplo,  $\mathbb{P}(-1 \leq Z \leq 1)$
+
+```{r}
+1 - 2*pnorm(-1)
+```
+
+]
+
+
+---
+##3) Probabilidad central: σ y 2σ
+
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=7}
+# Standardized distribution plot
+library(ggplot2)
+
+# Create data
+zz <- seq(-4, 4, length.out=1000)
+y_standard <- dnorm(zz, mean=0, sd=1)
+data_standard <- data.frame(zz, y_standard)
+
+# Plot
+p2 <- ggplot(data_standard, aes(zz, y_standard)) +
+  geom_line() +
+  geom_segment(aes(x = -4, y = 0, xend = 4, yend = 0), color = "black") +
+
+  # Areas for -1 to 1 and -2 to 2
+  geom_area(aes(x = ifelse(zz <= 1 & zz >= -1, zz, NA)), fill = "#FF0033", alpha = 0.4) +
+  geom_area(aes(x = ifelse(zz <= 2 & zz >= -2, zz, NA)), fill = "#003366", alpha = 0.2) +
+
+  # Vertical lines at z = -1, 1, -2, 2
+  geom_segment(aes(x = 1, y = 0, xend = 1, yend = dnorm(1, mean=0, sd=1)), color = "#FF0033") +
+  geom_segment(aes(x = -1, y = 0, xend = -1, yend = dnorm(-1, mean=0, sd=1)), color = "#FF0033") +
+  geom_segment(aes(x = 2, y = 0, xend = 2, yend = dnorm(2, mean=0, sd=1)), color = "#003366") +
+  geom_segment(aes(x = -2, y = 0, xend = -2, yend = dnorm(-2, mean=0, sd=1)), color = "#003366") +
+
+  # Annotations for probabilities
+  annotate("text", x = -2.7, y = 0.38, label = "P(|Z|<1) ≈ 68%", fontface = "bold", color = "#FF0033", size = 6) +
+  annotate("text", x = -2.7, y = 0.35, label = "P(|Z|<2) ≈ 96%", fontface = "bold", color = "#003366", size = 6) +
+
+  labs(x=expression(paste("Z = ",(X-mu[X])/sigma[X])), y="f(z)") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(p2)
+
+```
+]
+
+
+.pull-right[
+
+En una Normal Standard: 
+
+- La probabilidad de encontrar .bold[valores a menos de 1σ] respecto de la media es aprox. 68\%.
+
+\begin{align}
+\mathbb{P}( -1 \leq Z \leq 1) = 1 - 2 \times \Phi(-1) 
+\end{align}
+
+```{r}
+1 - 2*pnorm(-1)
+```
+
+
+- La probabilidad de encontrar .bold[valores a menos de 2σ] respecto de la media es aprox. 96\%.
+
+\begin{align}
+\mathbb{P}( -2 \leq Z \leq 2) = 1 - 2 \times \Phi(-2) 
+\end{align}
+
+```{r}
+1 - 2*pnorm(-2)
+```
+
+]
+
+---
+class: inverse, center, middle
+
+#Quantiles de la Normal Standard
+
+---
+##Función de Quantiles de la Normal Standard
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=7}
+library(ggplot2)
+
+# Generate data for the inverse CDF (Quantile function)
+p_values <- seq(0.001, 0.999, by = 0.001)
+x_values <- qnorm(p_values)
+
+data_inverse_cdf <- data.frame(p_values, x_values)
+
+# Create the ggplot
+p_inverse_cdf <- ggplot(data_inverse_cdf, aes(x = p_values, y = x_values)) +
+  geom_line(color = "#FF0033") +
+  geom_segment(aes(x = 0, y = qnorm(0.05), xend = 0.05, yend = qnorm(0.05)), color = "#00336640") +
+  geom_segment(aes(x = 0, y = qnorm(0.25), xend = 0.25, yend = qnorm(0.25)), color = "#00336640") +
+  geom_segment(aes(x = 0, y = qnorm(0.5), xend = 0.5, yend = qnorm(0.5)), color = "#00336640") +
+  geom_segment(aes(x = 0, y = qnorm(0.75), xend = 0.75, yend = qnorm(0.75)), color = "#00336640") +
+  geom_segment(aes(x = 0, y = qnorm(0.975), xend = 0.975, yend = qnorm(0.975)), color = "#00336640") +
+  geom_segment(aes(x = 0.05, y = -4, xend = 0.05, yend = qnorm(0.05)), color = "#00336640") +
+  geom_segment(aes(x = 0.25, y = -4, xend = 0.25, yend = qnorm(0.25)), color = "#00336640") +
+  geom_segment(aes(x = 0.5, y = -4, xend = 0.5, yend = qnorm(0.5)), color = "#00336640") +
+  geom_segment(aes(x = 0.75, y = -4, xend = 0.75, yend = qnorm(0.75)), color = "#00336640") +
+  geom_segment(aes(x = 0.975, y = -4, xend = 0.975, yend = qnorm(0.975)), color = "#00336640") +
+  labs(x = "p: P(Z < z)", y = expression({Phi^{-1}}(p))) +
+  scale_x_continuous(breaks = c(0.05, 0.25, 0.5, 0.75, 0.975)) +
+  scale_y_continuous(breaks = c(qnorm(0.05), qnorm(0.25), qnorm(0.5), qnorm(0.75), qnorm(0.975))) +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 12),
+    axis.text.x = element_text(size = 12),
+    axis.title.y = element_text(size = 14),
+    axis.title.x = element_text(size = 14),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(p_inverse_cdf)
+
+```
+]
+
+
+.pull-right[
+
+En terminos generales, la .bold[función de quantiles] es la inversa de la función de densidad acumulada (CDF): 
+
+-  En una Normal Standard la CDF $\Phi(z)$ entrega $p = \mathbb{P}(Z \leq z)$.
+
+- La inversa de la CDF, $\Phi^{-1}(p)$ entrega el valor $z$ tal que $\mathbb{P}(Z \leq z) = p$.
+
+
+- No hay fórmula analítica sencilla para $\Phi^{-1}(p)$, pero podemos calcularlo en `R`.
+
+
+.bold[Ejemplo:] ¿Bajo que valor de una Normal Standard se acumula el 90% de la probabilidad?
+
+```{r}
+qnorm(p=0.1); qnorm(p=0.9)
+```
+
+]
+
+
+
+
+---
+class: inverse, center, middle
+
+# De Normal Standard a
+# Normal con parámetros arbitrarios
+
+
+---
+### De Normal Standard a Normal con parámetros arbitrarios
+
+
+Si $$Z = \frac{X-\mu}{\sigma}$$
+
+entonces 
+
+$$X = \mu + \sigma Z  $$
+
+<br>
+<br>
+<br>
+--
+
+Si sabemos que $Z \sim \text{Normal}(0,1)$, ¿Cual es la distrubución de $X$?
+
+
+<br>
+--
+
+
+$$X \sim  \text{Normal}(\mu,\sigma)$$
+
+
+---
+### Función de probabilidad acumulada
+
+
+.pull-left[
+
+$X \leq x \implies  \frac{X-\mu}{\sigma} \leq  \frac{x-\mu}{\sigma}$
+
+$X \leq x \implies  Z \leq  z$
+
+<br>
+
+Dado que $x = \mu + \sigma z \quad$ entonces:
+
+
+$$\mathbb{P}(X \leq  x ) = \mathbb{P}(X \leq \mu + \sigma z ) =  \mathbb{P}(Z \leq z)$$
+<br>
+- Sabemos que $\mathbb{P}(Z \leq z) = \Phi(z)$
+
+.content-box-secondary[
+.bolder[Por tanto:]
+$$F_{X}(x) = F_{X}( \mu + \sigma z) = \Phi(z)$$
+]
+
+]
+
+.pull-right[
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+# Load libraries
+library(ggplot2)
+library(gridExtra)
+
+# Generate data
+p_values <- seq(0.01, 0.99, by = 0.01)
+z_values <- qnorm(p_values)
+data_standard <- data.frame(p_values, z_values)
+
+mu <- 5
+sigma <- 3
+x_values <- mu + sigma * z_values
+data_transformed <- data.frame(p_values, x_values)
+
+# Define p = 0.75
+p_value <- 0.75
+z_value_at_p <- round(qnorm(p_value), 2)
+x_value_at_p <- round(mu + sigma * qnorm(p_value), 2)
+
+# Create standard normal CDF plot
+p1 <- ggplot(data_standard, aes(x = z_values, y = p_values)) +
+  geom_line(color = "black") +
+  geom_segment(aes(x = min(z_values), y = p_value, xend = z_value_at_p, yend = p_value), color = "#FF0033") +
+  geom_segment(aes(x = z_value_at_p, y = 0, xend = z_value_at_p, yend = p_value), color = "#FF0033") +
+  annotate("text", x = max(z_values) - 1.3, y = 0.95, label = expression(paste(mu == 0, "\n", sigma == 1)), hjust = 1, size = 5) +
+  annotate("text", x = z_value_at_p + 0.2, y = 0.05, label = paste("z=", z_value_at_p), hjust = 0, size = 6, fontface = "bold", color = "#FF0033") +
+  labs(x = "Z", y = "p") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Create transformed normal CDF plot
+p2 <- ggplot(data_transformed, aes(x = x_values, y = p_values)) +
+  geom_line(color = "black") +
+  geom_segment(aes(x = min(x_values), y = p_value, xend = x_value_at_p, yend = p_value), color = "#003366") +
+  geom_segment(aes(x = x_value_at_p, y = 0, xend = x_value_at_p, yend = p_value), color = "#003366") +
+  annotate("text", x = max(x_values) - 3.7, y = 0.95, label = expression(paste(mu == 5, "\n", sigma == 3)), hjust = 1, size = 5) +
+  annotate("text", x = x_value_at_p + 0.5, y = 0.05, label = paste("x= 5 + 3*z =", x_value_at_p), hjust = 0, size = 6, fontface = "bold", color = "#003366") +
+  labs(x = "X", y = "p") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Combine both CDF plots
+grid.arrange(p1, p2, ncol = 1)
+```
+
+]
+
+---
+###  Función de probabilidad acumulada
+
+
+.bold[Ejemplo:]
+
+- Si $X \sim  \text{Normal}(\mu=5,\sigma=3)$
+
+- ¿Cuanta es la probabilidad de obtener un valor $X \leq 3.48$?
+
+--
+
+.bold[Respuesta:]
+
+
+- Sabemos que: $F_{X}(x) = F_{X}( \mu + \sigma z) = \Phi(z)$, por tanto,
+
+$$F_{X}(3.48) = \Phi\Big( (3.48 - 5)/3 \Big) = 0.306$$
+
+
+--
+
+.pull-left[
+.bolder[En `R`]:
+```{r}
+z  <- (3.48 - 5)/3
+p <- pnorm(z); print(p)
+```
+
+]
+
+--
+
+.pull-right[
+<br>
+.bolder[Chequeamos el resultado]
+```{r}
+pnorm(3.48, mean=5, sd=3)
+```
+]
+
+---
+###  Función de probabilidad acumulada inversa
+
+
+.pull-left[- Si $\Phi^{-1}(p)=z$ y
+
+- $x = \mu + \sigma z$
+
+- $x = \mu + \sigma \Phi^{-1}(p)$
+
+
+<br>
+
+.content-box-secondary[
+.bolder[Entonces:]
+$$F^{-1}_{X}(p) = \mu + \sigma \Phi^{-1}(p)$$
+]
+
+]
+
+.pull-right[
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+# Load libraries
+library(ggplot2)
+library(gridExtra)
+
+# Generate data
+p_values <- seq(0.01, 0.99, by = 0.01)
+z_values <- qnorm(p_values)
+data_standard <- data.frame(p_values, z_values)
+
+mu <- 5
+sigma <- 3
+x_values <- mu + sigma * z_values
+data_transformed <- data.frame(p_values, x_values)
+
+# Define p = 0.75
+p_value <- 0.75
+z_value_at_p <- round(qnorm(p_value), 2)
+x_value_at_p <- round(mu + sigma * qnorm(p_value), 2)
+
+# Create standard normal plot
+p1 <- ggplot(data_standard, aes(x = p_values, y = z_values)) +
+  geom_line(color = "black") +
+  geom_segment(aes(x = p_value, y = min(z_values), xend = p_value, yend = z_value_at_p), color = "#FF0033") +
+  geom_segment(aes(x = 0, y = z_value_at_p, xend = p_value, yend = z_value_at_p), color = "#FF0033") +
+  annotate("text", x = 0.9, y = max(z_values) - 0.2, label = expression(paste(mu == 0, "\n", sigma == 1)), hjust = 1, size = 5) +
+  annotate("text", x = 0.01, y = z_value_at_p + 0.3, label = paste("z=", z_value_at_p), hjust = 0, size = 4, fontface = "bold", color = "#FF0033") +
+  labs(x = "p", y = "Z") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Create transformed normal plot
+p2 <- ggplot(data_transformed, aes(x = p_values, y = x_values)) +
+  geom_line(color = "black") +
+  geom_segment(aes(x = p_value, y = min(x_values), xend = p_value, yend = x_value_at_p), color = "#003366") +
+  geom_segment(aes(x = 0, y = x_value_at_p, xend = p_value, yend = x_value_at_p), color = "#003366") +
+  annotate("text", x = 0.9, y = max(x_values) - 0.5, label = expression(paste(mu == 5, "\n", sigma == 3)), hjust = 1, size = 5) +
+  annotate("text", x = 0.01, y = x_value_at_p + 1, label = paste("x = 5 + 3*Phi_inv(0.75) = ", x_value_at_p), hjust = 0, size = 4, fontface = "bold", color = "#003366") +
+  labs(x = "p", y = "X") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Combine both plots
+grid.arrange(p1, p2, ncol = 1)
+
+```
+
+]
+
+
+
+
+---
+###  Función de probabilidad acumulada inversa
+
+
+.bold[Ejemplo:]
+
+- Si $X \sim  \text{Normal}(\mu=5,\sigma=3)$
+
+- ¿Bajo que valor de $X$ se acumula el 30% de la densidad probabilística?
+
+--
+
+.bold[Respuesta:]
+
+
+- Sabemos que: $F^{-1}_{X}(p) = \mu + \sigma \Phi^{-1}(p)$, por tanto,
+
+$$F^{-1}_{X}(0.3) = 5 + 3 \Phi^{-1}(0.3) = 3.43$$
+
+
+--
+
+.pull-left[
+.bolder[En `R`]:
+```{r}
+z_30 <- qnorm(0.3); print(z_30)
+x_30 <- 5 + 3*z_30; print(x_30 )
+```
+
+]
+
+--
+
+.pull-right[
+<br>
+.bolder[Chequeamos el resultado]
+```{r}
+qnorm(p=0.3, mean=5, sd=3)
+```
+]
+
+
+---
+### Contrucción de Intervalos
+
+Si $X \sim  \text{Normal}(\mu,\sigma)$, ¿Cuales son los valores $x_1$ y $x_2$ tales que $\mathbb{P}( x_1 \leq X \leq x_2) = p$ ?
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=7}
+
+library(ggplot2)
+
+# Generate data for a normal distribution with mean 5 and standard deviation 3
+data_new <- data.frame(
+  x = seq(-4, 14, by = 0.1),
+  y = dnorm(seq(-4, 14, by = 0.1), mean = 5, sd = 3)
+)
+
+# Define the z values
+z1 = 8  # upper bound
+z2 = 2  # lower bound
+
+p2 <- ggplot(data_new, aes(x, y)) +
+  geom_line() +
+  geom_segment(aes(x = min(x), y = 0, xend = max(x), yend = 0), color = "black") +
+
+  # Central area under the curve
+  geom_area(aes(x = ifelse(x <= z1 & x >= z2, x, NA)), fill = "#003366", alpha = 0.2) +
+
+  # Tails under the curve
+  geom_area(aes(x = ifelse(x > z1, x, NA)), fill = "#FF0033", alpha = 0.2) +
+  geom_area(aes(x = ifelse(x < z2, x, NA)), fill = "#FF0033", alpha = 0.2) +
+
+  # Vertical lines
+  geom_segment(aes(x = z1, y = 0, xend = z1, yend = dnorm(z1, mean = 5, sd = 3)), color = "#FF0033") +
+  geom_segment(aes(x = z2, y = 0, xend = z2, yend = dnorm(z2, mean = 5, sd = 3)), color = "#FF0033") +
+
+  # Annotations moved down and centered
+  annotate("text", x = (z1 + z2) / 2, y = max(data_new$y) / 4, label = "p = P(x_1 < X < x_2)", fontface = "bold", hjust = 0.5, size= 4.5) +
+  annotate("text", x = z1 + 1.5, y = max(data_new$y) / 10, label = "(1-p)/2",  fontface = "bold", hjust = 0.5, size = 4.5) +
+  annotate("text", x = z2 - 1.5, y = max(data_new$y) / 10, label = "(1-p)/2",  fontface = "bold", hjust = 0.5, size = 4.5) +
+annotate("text", x = Inf, y = Inf, label = "mu = 5\nsigma = 3\np = 0.9", hjust = 1.1, vjust = 1.2, nudge_x = -0.2, nudge_y = -0.2, size = 6) +
+
+  # Labels and theme
+  labs(x = "X", y = "f(x)") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 12),
+    axis.text.x = element_text(size = 12),
+    axis.title.y = element_text(size = 14),
+    axis.title.x = element_text(size = 14),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(p2)
+
+
+```
+]
+
+.pull-right[
+
+.bold[Despejando por] $x_1$:
+
+\begin{align}
+F_{X}(x_1) &= (1-p)/2  \quad \text{ aplicando función inversa (quantiles)} \\
+          x_1 &= F^{-1}_{X}\Big( (1-p)/2 \Big)
+\end{align}
+
+Dado que  $F^{-1}_{X}(q) =  \mu + \sigma \Phi^{-1}(q)$, concluimos que 
+$$x_1 = F^{-1}_{X}\Big( (1-p)/2 \Big) = \mu + \sigma \Phi^{-1}\Big((1-p)/2\Big)$$
+
+<br>
+.bold[En este caso]:
+```{r}
+z_5 <- qnorm( 0.1/2 ); print(z_5) 
+x1 <- 5 + 3*z_5; print(x1)
+```
+
+]
+
+
+---
+### Contrucción de Intervalos
+
+Si $X \sim  \text{Normal}(\mu,\sigma)$, ¿Cuales son los valores $x_1$ y $x_2$ tales que $\mathbb{P}( x_1 \leq X \leq x_2) = p$ ?
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=7}
+
+library(ggplot2)
+
+# Generate data for a normal distribution with mean 5 and standard deviation 3
+data_new <- data.frame(
+  x = seq(-4, 14, by = 0.1),
+  y = dnorm(seq(-4, 14, by = 0.1), mean = 5, sd = 3)
+)
+
+# Define the z values
+z1 = 8  # upper bound
+z2 = 2  # lower bound
+
+p2 <- ggplot(data_new, aes(x, y)) +
+  geom_line() +
+  geom_segment(aes(x = min(x), y = 0, xend = max(x), yend = 0), color = "black") +
+
+  # Central area under the curve
+  geom_area(aes(x = ifelse(x <= z1 & x >= z2, x, NA)), fill = "#003366", alpha = 0.2) +
+
+  # Tails under the curve
+  geom_area(aes(x = ifelse(x > z1, x, NA)), fill = "#FF0033", alpha = 0.2) +
+  geom_area(aes(x = ifelse(x < z2, x, NA)), fill = "#FF0033", alpha = 0.2) +
+
+  # Vertical lines
+  geom_segment(aes(x = z1, y = 0, xend = z1, yend = dnorm(z1, mean = 5, sd = 3)), color = "#FF0033") +
+  geom_segment(aes(x = z2, y = 0, xend = z2, yend = dnorm(z2, mean = 5, sd = 3)), color = "#FF0033") +
+
+  # Annotations moved down and centered
+  annotate("text", x = (z1 + z2) / 2, y = max(data_new$y) / 4, label = "p = P(x_1 < X < x_2)", fontface = "bold", hjust = 0.5, size= 4.5) +
+  annotate("text", x = z1 + 1.5, y = max(data_new$y) / 10, label = "(1-p)/2",  fontface = "bold", hjust = 0.5, size = 4.5) +
+  annotate("text", x = z2 - 1.5, y = max(data_new$y) / 10, label = "(1-p)/2",  fontface = "bold", hjust = 0.5, size = 4.5) +
+annotate("text", x = Inf, y = Inf, label = "mu = 5\nsigma = 3\np = 0.9", hjust = 1.1, vjust = 1.2, nudge_x = -0.2, nudge_y = -0.2, size = 6) +
+
+  # Labels and theme
+  labs(x = "X", y = "f(x)") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 12),
+    axis.text.x = element_text(size = 12),
+    axis.title.y = element_text(size = 14),
+    axis.title.x = element_text(size = 14),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(p2)
+
+
+```
+]
+
+.pull-right[
+
+.bold[Despejando por] $x_2$:
+
+\begin{align}
+1 - F_{X}(x_2) &=  (1-p)/2 \\
+          1 - (1-p)/2  &= F_{X}(x_2)  \\
+          F^{-1}_{X}\Big( 1-  (1-p)/2 \Big) &= x_2
+\end{align}
+
+Dado que  $F^{-1}_{X}(q) =  \mu + \sigma \Phi^{-1}(q)$, concluimos que 
+$$x_2 = F^{-1}_{X}\Big( 1- (1-p)/2 \Big) = \mu + \sigma \Phi^{-1}\Big( 1- (1-p)/2 \Big)$$
+
+
+.bold[En este caso]:
+```{r}
+z_95 <- qnorm( 1 - 0.1/2 ); print(z) 
+x2 <- 5 + 3*z_95; print(x2)
+```
+
+]
+
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+
+
