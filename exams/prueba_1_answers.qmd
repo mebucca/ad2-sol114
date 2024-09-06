@@ -1,0 +1,329 @@
+---
+title: "_________________________________________"
+author: "Prueba 1 SOL114"
+format: pdf
+editor: visual
+geometry:
+  - left=.5in
+  - textwidth=5.5in
+  - marginparsep=.25in
+  - marginparwidth=2.25in
+---
+
+**Problema I. (10%)**
+
+Supongamos que existe una enfermedad rara que afecta al 0.1% de la población. Hay un test médico para detectar esta enfermedad que tiene las siguientes características:
+
+-   Probabilidad de que el test sea positivo si una persona tiene la enfermedad:
+
+    $$P(\text{Positivo}|\text{Enfermedad}) = 0.99$$
+
+-   Probabilidad de que el test sea positivo si una persona no tiene la enfermedad:
+
+    $$P(\text{Positivo}|\text{No Enfermedad}) = 0.05$$
+
+Una persona se hace el test y el resultado es positivo. Usa el Teorema de Bayes para determinar cuál es la probabilidad de que esta persona realmente tenga la enfermedad.Es decir: $P(\text{Enfermedad} | \text{Positivo})$.
+
+**Solución:**
+
+-   Probabilidad de tener la enfermedad: $P(\text{Enfermedad}) = 0.001$ (0.1% de la población).
+
+-   Probabilidad de que el test sea positivo si tienes la enfermedad: $P(\text{Positivo}|\text{Enfermedad}) = 0.99$.
+
+-   Probabilidad de no tener la enfermedad: $P(\text{No Enfermedad}) = 1 - 0.001 = 0.999$.
+
+-   Probabilidad de que el test sea positivo si no tienes la enfermedad: $P(\text{Positivo}|\text{No Enfermedad}) = 0.05$.
+
+Luego, la probabilidad de obtener un resultado positivo en general se calcula considerando tanto a las personas que tienen la enfermedad como a las que no la tienen:
+
+$$P(\text{Positivo}) = P(\text{Positivo}|\text{Enfermedad}) \times P(\text{Enfermedad}) + P(\text{Positivo}|\text{No Enfermedad}) \times P(\text{No Enfermedad})$$
+
+Sustituyendo los valores:
+
+$$P(\text{Positivo}) = (0.99 \times 0.001) + (0.05 \times 0.999)$$
+
+$$P(\text{Positivo}) = 0.00099 + 0.04995 = 0.05094$$
+
+Aplicabdo el Teorema de Bayes encontramos la probabilidad de tener la enfermedad dado que el resultado del test es positivo:
+
+$$P(\text{Enfermedad}|\text{Positivo}) = \frac{P(\text{Positivo}|\text{Enfermedad}) \times P(\text{Enfermedad})}{P(\text{Positivo})}$$ Sustituyendo los valores:
+
+$$P(\text{Enfermedad}|\text{Positivo}) = \frac{0.99 \times 0.001}{0.05094} \approx \frac{0.00099}{0.05094} \approx 0.01943$$
+
+Luego, la probabilidad de que la persona realmente tenga la enfermedad dado que el test resultó positivo es aproximadamente **1.94%**. Aunque el test es muy preciso, debido a que la enfermedad es muy rara, la probabilidad de realmente tenerla después de un resultado positivo es bastante baja.
+
+\newpage
+
+**Problema II:**
+
+Una empresa está considerando lanzar un nuevo producto al mercado. Antes de hacerlo, realizan una encuesta entre sus consumidores potenciales. Cada encuestado puede dar una respuesta "Positiva" o "Negativa" respecto al producto. Supongamos que la probabilidad de que un encuestado elegido al azar dé una respuesta "Positiva" es $r$.
+
+**Parte i. (5%)** Si la respuesta de un encuestado es un evento aleatorio, describe el espacio muestral.
+
+**Solución:**\
+El espacio muestral es el conjunto de todos los posibles resultados de la respuesta de un encuestado. En este caso, un encuestado puede dar una respuesta "Positiva" o "Negativa".
+
+El espacio muestral $\Omega$ se define como:
+
+$$\Omega = \{ \text{"Positiva"}, \text{"Negativa"} \}$$ Esto significa que el espacio muestral consta de dos posibles resultados: que un encuestado dé una respuesta "Positiva" o "Negativa".
+
+**Parte ii. (7%)** Indica que distribución de probabilidad describe adecuadamente cada respuesta individual. Especifica su función de masa probabilística y explica cada uno de los componentes de la expresión.
+
+**Solución:**
+
+La distribución de probabilidad que describe adecuadamente cada respuesta individual en este contexto es la **Distribución de Bernoulli**. Esta distribución se utiliza cuando hay un experimento aleatorio con dos posibles resultados: éxito (en este caso, una respuesta "Positiva") y fracaso (una respuesta "Negativa").
+
+La función de masa de probabilidad (PMF) de una variable $X$ que distribuye Bernoulli es:
+
+$$P(X = x) = \begin{cases} 
+r & \text{si } x = 1 \ (\text{"Positiva"})\\
+1 - r & \text{si } x = 0 \ (\text{"Negativa"})
+\end{cases}$$
+
+donde
+
+-   $r$: Es la probabilidad de que un encuestado elegido al azar dé una respuesta "Positiva". Esto corresponde a $P(X = 1)$.
+
+-   $1 - r$: Es la probabilidad de que un encuestado dé una respuesta "Negativa". Esto corresponde a $P(X = 0)$.
+
+-   $X = 1$: Indica que el encuestado ha dado una respuesta "Positiva".
+
+-   $X = 0$: Indica que el encuestado ha dado una respuesta "Negativa".
+
+**Parte iii. (13%)** Dado que $r$ es la probabilidad de que un encuestado seleccionado al azar dé una respuesta "Positiva", expresa la probabilidad de que, al observar las respuestas de 4 encuestados seleccionados al azar (de la misma población y cuyas respuestas son independientes entre si), exactamente 2 den una respuesta "Positiva" y los otros 2 den una respuesta "Negativa". Explica cada uno de los componentes de la expresión.
+
+**Solución:**
+
+Este problema se puede resolver utilizando la distribución binomial, ya que estamos considerando un número fijo de ensayos (4 encuestados) y cada ensayo tiene dos posibles resultados ("Positiva" o "Negativa"). La probabilidad de que exactamente 2 de los 4 encuestados den una respuesta "Positiva" es:
+
+$$
+P(X = 2) = \binom{4}{2} r^2 (1-r)^2
+$$
+
+Donde: - $\binom{4}{2}$ es el número de combinaciones posibles de 2 respuestas "Positivas" entre 4 encuestados, que es igual a $\frac{4!}{2!(4-2)!} = 6$. - $r^2$ es la probabilidad de que 2 encuestados den una respuesta "Positiva". - $(1-r)^2$ es la probabilidad de que los otros 2 encuestados den una respuesta "Negativa".
+
+Por lo tanto, la probabilidad es: $$
+P(X = 2) = 6 \times r^2 \times (1-r)^2
+$$
+
+**Parte iv. (5%)** Supongamos que las respuestas "Positivas" y "Negativas" no están influenciadas por el género del encuestado, y que el 60% de los encuestados son mujeres. Determina la probabilidad $P(\text{Mujer} \mid \text{"Positiva"})$.
+
+**Solución:**
+
+En este caso, se nos dice que la probabilidad de dar una respuesta "Positiva" es independiente del género del encuestado. Esto significa que, dado que un encuestado dio una respuesta "Positiva", la probabilidad de que sea una mujer es simplemente la probabilidad de que cualquier encuestado sea una mujer, sin importar la respuesta.
+
+Podemos usar la definición de independencia para expresar esto:
+
+$$P(\text{Mujer} \mid \text{"Positiva"}) = P(\text{Mujer})$$
+
+Dado que el 60% de los encuestados son mujeres:
+
+$$P(\text{Mujer}) = 0.6$$ La probabilidad de que un encuestado sea una mujer dado que dio una respuesta "Positiva" es **60%**, que es exactamente la proporción de mujeres en la muestra. Esto se debe a que la respuesta "Positiva" no influye en la probabilidad de que un encuestado sea mujer, reflejando la independencia entre la respuesta y el género.
+
+\newpage
+
+**Problema III:**
+
+Una socióloga está estudiando la brecha salarial entre hombres y mujeres para el año 2024. Su estudio define la brecha salarial $G$ como la diferencia entre los ingresos de los hombres y los ingresos de las mujeres:
+
+$$G = Y_h - Y_w$$
+
+Donde: - $Y_h$ es la variable aleatoria que representa los ingresos de los hombres, la cual sigue una distribución normal con media $\mu_h$ y desviación estándar $\sigma_h$.
+
+-   \$Y_w \$es la variable aleatoria que representa los ingresos de las mujeres, la cual sigue una distribución normal con media $\mu_w$ y desviación estándar $\sigma_w$.
+
+Específicamente, los ingresos de hombres y mujeres tienen las siguientes características:
+
+-   $Y_h \sim \text{Normal}(\mu_h = 25, \sigma_h = 2.45)$ (en miles de pesos)
+-   $Y_w \sim \text{Normal}(\mu_w = 20, \sigma_w = 3.16)$ (en miles de pesos)
+
+**Parte i. (10%)** Determinar la distribución de la brecha salarial $G$: tipo de distribución, valor esperado y desviación estándard de $G$.
+
+Recordar: Si $Y_h$ y $Y_w$ son variables normales independientes, entonces la diferencia $G = Y_h - Y_w$ también sigue una distribución normal.
+
+**Solución:**
+
+Si $Y_h$ y $Y_w$ son variables normales independientes, entonces la diferencia $G = Y_h - Y_w$ también sigue una distribución normal:
+
+$$G \sim \text{Normal}(\mu_G, \sigma_G^2)$$
+
+Donde:
+
+-   El valor esperado de $G$ es:
+
+$$\mu_G = E(G) = E(Y_h - Y_w) = E(Y_h) - E(Y_w) = \mu_h - \mu_w$$
+
+-   La varianza de $G$ es:
+
+$$\sigma_G^2 = \text{Var}(G) = \text{Var}(Y_h - Y_w) = \text{Var}(Y_h) + \text{Var}(Y_w) = \sigma_h^2 + \sigma_w^2$$
+
+Y la desviación estándar de $G$ es:
+
+$$\sigma_G = \sqrt{\sigma_h^2 + \sigma_w^2}$$
+
+Luego,
+
+-   $$ \mu_G = \mu_h - \mu_w = 25 - 20 = 5$$
+
+-   $$\sigma_G = \sqrt{(2.45)^2 + (3.16)^2} = \sqrt{6 + 10} = \sqrt{16} = 4$$
+
+Por tanto, la brecha salarial $G$ sigue una distribución normal $G \sim \text{Normal}(\mu_G =5, \sigma_G=4)$, donde la media es 5 mil pesos chilenos y una desviación estándard de 4 mil pesos.
+
+**Parte ii. (5%)** Expresa matemáticamente cómo determinar la probabilidad de la brecha salarial se encuentre entre 3 y 10 mil pesos: $P(3 < G < 10)$ y explica en palabras la intuición detrás de esta expresión.
+
+```         
+*Nota: Hay una integral involucrada. No deben resolver la integral.*
+```
+
+**Solución:**
+
+Queremos encontrar la probabilidad de que la brecha salarial $G$, que es la diferencia entre los ingresos de los hombres y las mujeres, se encuentre entre 3 y 10 miles de pesos. Sabemos que $G$ sigue una distribución normal con media $\mu_G = 5$ miles de pesos chilenos y desviación estándar $\sigma_G = 4$ miles de pesos chilenos. Esto se denota como:
+
+$$G \sim N(\mu_G = 5, \sigma_G^2 = 16)$$
+
+La probabilidad de que $G$ esté entre 3 y 10 se denota matemáticamente como $P(3 < G < 10)$. Esta probabilidad es el área bajo la curva de la distribución normal de $G$ entre los puntos 3 y 10. Para calcular esta probabilidad, necesitamos integrar la función de densidad de probabilidad de $G$ desde 3 hasta 10. La función de densidad de probabilidad para una variable normal se expresa como:
+
+$$f_G(x) = \frac{1}{\sigma_G \sqrt{2\pi}} \exp\left(-\frac{(x - \mu_G)^2}{2\sigma_G^2}\right)$$
+
+Entonces, la probabilidad $P(3 < G < 10)$ se calcula mediante la siguiente integral:
+
+$$P(3 < G < 10) = \int_{3}^{10} \frac{1}{4 \sqrt{2\pi}} \exp\left(-\frac{(x - 5)^2}{2(16)}\right) dx$$
+
+Esta integral representa el área bajo la curva de la distribución normal de $G$ entre los valores 3 y 10. Dado que la función de densidad de probabilidad es una función de la distribución normal, calcular esta integralnos da la probabilidad exacta de que la brecha salarial se encuentre dentro de este rango.
+
+**Parte iii. (10%)** Calcula la probabilidad de que el salario de una mujer sea mayor que el de un hombre.
+
+*Nota:Para realizar este cálculo resulta conveniente usar la función* $\Phi$ después de estandar la variable $G$
+
+**Solución:**
+
+Para calcular la probabilidad de que el salario de una mujer sea mayor que el de un hombre, necesitamos encontrar la probabilidad de que la brecha salarial $G = Y_h - Y_w$ sea menor que 0. Esto es:
+
+$$P(Y_w > Y_h) = P(G < 0)$$
+
+Dado que $G$ sigue una distribución normal $G \sim N(\mu_G, \sigma_G^2)$ con $\mu_G = 5$ y $\sigma_G = 4$, queremos encontrar:
+
+$$P(G < 0)$$
+
+Para hacer esto, primero estandarizamos la variable $G$ utilizando la transformación $Z$, que es una variable normal estándar $Z \sim N(0, 1)$. La transformación se realiza como sigue:
+
+$$Z = \frac{G - \mu_G}{\sigma_G}$$
+
+Sustituyendo los valores de $\mu_G$ y $\sigma_G$:
+
+$$Z = \frac{G - 5}{4}$$
+
+Ahora, queremos calcular $P(G < 0)$, que se convierte en:
+
+$$P\left(\frac{G - 5}{4} < \frac{0 - 5}{4}\right) = P\left(Z < \frac{-5}{4}\right) = P\left(Z < -1.25\right)$$
+
+Esta probabilidad se puede obtener usando la función de distribución acumulativa de la normal estándar, denotada como $\Phi(z)$. Por lo tanto:
+
+$$P(G < 0) = \Phi(-1.25)$$
+
+Usando tablas de la distribución normal estándar o una calculadora, encontramos que:
+
+$$\Phi(-1.25) \approx 0.1056$$
+
+Luego, la probabilidad de que el salario de una mujer sea mayor que el de un hombre es aproximadamente **0.1056**, o **10.56%**.
+
+**Parte iv. (10%)** Calcula el salario mínimos de un hombre y una mujer que se encuentran en el 10% más rico de las personas de sus respectivo género.
+
+**Solución:**
+
+Para calcular el salario mínimo de un hombre y una mujer que se encuentran en el 10% más rico de las personas de su respectivo género, necesitamos encontrar el percentil 90 (es decir, el valor por debajo del cual se encuentra el 90% de las observaciones) en la distribución de ingresos de cada género.
+
+Los ingresos de los hombres siguen una distribución normal:
+
+$$Y_h \sim N(\mu_h = 25, \sigma_h = 2.45) \ \text{(miles de pesos)}$$
+
+Queremos encontrar el valor $y_h^{*}$ tal que:
+
+$$P(Y_h > y_h^{*}) = 0.10$$
+
+Equivalente a encontrar el percentil 90, es decir, el valor $y_h^{*}$ tal que:
+
+$$P(Y_h \leq y_h^{*}) = 0.90$$
+
+Esto se traduce en:
+
+$$y_h^{*} = \mu_h + z_{0.90} \cdot \sigma_h$$
+
+Donde $z_{0.90}$ es el valor correspondiente al percentil 90 de la distribución normal estándar $Z \sim N(0, 1)$, que es aproximadamente 1.28. Sustituyendo los valores:
+
+$$y_h^{*} = 25 + 1.28 \times 2.45 \approx 25 + 3.14 \approx 28.14 \ \text{(miles de pesos)}$$
+
+Por su parte, los ingresos de las mujeres siguen una distribución normal:
+
+$$Y_w \sim N(\mu_w = 20, \sigma_w = 3.16) \ \text{(miles de pesos)}$$
+
+De manera similar, queremos encontrar el valor $y_w^{*}$ tal que:
+
+$$P(Y_w > y_w^{*}) = 0.10$$
+
+O equivalentemente:
+
+$$P(Y_w \leq y_w^{*}) = 0.90$$
+
+Esto se traduce en:
+
+$$y_w^{*} = \mu_w + z_{0.90} \cdot \sigma_w$$
+
+Sustituyendo los valores:
+
+$$
+y_w^{*} = 20 + 1.28 \times 3.16 \approx 20 + 4.04 \approx 24.04 \ \text{(miles de pesos)}
+$$
+
+Luego,
+
+-   El salario mínimo de un hombre que se encuentra en el 10% más rico de su género es **28.14 mil pesos**.
+
+-   El salario mínimo de una mujer que se encuentra en el 10% más rico de su género es **24.04 mil pesos**.
+
+\newpage
+
+**Problema VI: Verdadero o Falso (5% cada uno, 25% total)**
+
+Justificar brevemente en caso de indicar Falso.
+
+1.  La función de densidad de probabilidad $f(x)$ de una variable aleatoria continua $X$ puede ser mayor que 1 para algunos valores de $x$.
+
+    -   **Verdadero**. La función de densidad de probabilidad $f(x)$ puede tomar valores mayores que 1, siempre y cuando la integral total $\int_{-\infty}^{\infty} f(x) \, dx = 1$ se mantenga. Esto puede ocurrir, por ejemplo, en distribuciones con soporte en intervalos muy pequeños.
+
+2.  La función de distribución acumulativa $F(x)$ de una variable aleatoria continua es la derivada de la función de densidad de probabilidad $f(x)$.
+
+    -   **Falso**. La función de distribución acumulativa $F(x)$ es la integral de la función de densidad $f(x)$ desde (-\infty) hasta $x$. Es decir, $F(x) = \int_{-\infty}^{x} f(t) \, dt$. La derivada de $F(x)$ con respecto a $x$ es $f(x)$.
+
+3.  Si dos eventos $A$ y $B$ son independientes, entonces $P(A \cap B) = P(A) \times P(B)$.
+
+    -   **Verdadero**. Esta es la definición de independencia entre dos eventos. La probabilidad de que ambos eventos ocurran es el producto de sus probabilidades individuales si los eventos son independientes.
+
+4.  El valor de $f(5)$ para una variable aleatoria continua $X$ representa la probabilidad de que $X$ tome exactamente el valor 5.
+
+    -   **Falso**. Para una variable aleatoria continua, $f(5)$ no representa la probabilidad de que $X$ tome exactamente el valor 5, ya que esa probabilidad es 0. $f(5)$ representa la densidad de probabilidad en 5, es decir, cuánto contribuye ese punto a la probabilidad en un pequeño intervalo alrededor de 5.
+
+5.  El valor de $F(5)$ para una variable aleatoria continua $X$ representa la probabilidad de que $X$ sea menor o igual a 5.
+
+    -   **Verdadero**. La función de distribución acumulativa $F(5)$ nos da la probabilidad de que la variable aleatoria continua $X$ tome un valor menor o igual a 5.
+
+\newpage
+
+## Probabilidad acumulada en distribución Normal Standard (mitad positiva)
+
+```{r echo=FALSE}
+library(pacman)
+p_load(knitr,xtable)
+# Create a vector of values from -3 to 3 with intervals of 0.1
+x <- seq(0, 3, by = 0.01)
+
+# Calculate the CDF values for the standard normal distribution
+cdf_values <- pnorm(x)
+
+# Create a data frame to store the values
+cdf_table <- data.frame(z = x, phi= cdf_values)
+
+# Create an xtable object
+knitr::kable(cdf_table, digits = 5,
+                             col.names=c("Z=z","$\\Phi(z)$"), align="ccc")
+```

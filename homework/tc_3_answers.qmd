@@ -1,0 +1,100 @@
+---
+title: "Tarea corta #3, respuestas"
+author: "SOL114"
+format: html
+editor: visual
+---
+
+```{r, echo=FALSE}
+# Escribir install.packages("tinytex") en la consola para instalar "tinytex"
+# Carga "tinytex" para compilar PDF
+library("tinytex")
+```
+
+`Ponderación: 6% de la nota final del curso.`
+
+## Problema
+
+![Alexis](alexis.png)
+
+Alexis Sánchez, quien actualmente gana \$5.0 millones de dólares al año jugando en el Inter de Milán, está considerando la posibilidad de regresar a Chile para unirse al equipo de sus amores, la Universidad de Chile. En un esfuerzo por atraerlo, la Universidad de Chile le ha ofrecido un atractivo paquete salarial compuesto por dos elementos:
+
+-   **Una cantidad fija** de \$3.0 millones al año, independientemente de su rendimiento.
+-   **Un retorno adicional** de \$1.2 millones por cada unidad de rendimiento $X$, donde $X$ refleja su desempeño relativo en comparación con otros jugadores en la liga chilena.
+
+El rendimiento $X$ está medido en desviaciones estándar y sigue una distribución normal con media 0 y desviación estándar 1, es decir, $X \sim \text{Normal}(\mu = 0, \sigma = 1)$. Esto significa que:
+
+-   Si $X = 0$, su rendimiento es exactamente promedio de la liga chilena
+-   Si $X > 0$, su rendimiento está por encima del promedio de la liga (medido en desviaciones estándar).
+-   Si $X < 0$, su rendimiento está por debajo del promedio de la liga (medido en desviaciones estándar).
+
+Bajo estas condiciones, el ingreso esperado de Alexis en la Universidad de Chile se calcula con la siguiente fórmula:
+
+$$S_U = 3.0 + 1.2  X \, \text{millones de dólares al año}$$
+
+### Preguntas
+
+1)  Siendo un jugador de élite, Alexis confía en que su rendimiento estará al menos 3 desviaciones estándar por encima del promedio de la liga chilena. Con este supuesto, Alexis evalúa si el salario que podría ganar en la Universidad de Chile superaría su sueldo actual. Si el salario proyectado en la Universidad de Chile resulta ser mayor que su sueldo actual, Alexis está dispuesto a cambiar de equipo.
+
+Asumiendo que su estimación es correcta, ¿cuánto podría esperar ganar como mínimo en la Universidad de Chile? ¿Debería tomar la decisión de cambiar de equipo?
+
+> **Solución:**
+>
+> Dado que Alexis confía en que su rendimiento estará al menos 3 desviaciones estándar por encima del promedio de la liga chilena, utilizamos la fórmula de \$ S_U\$:
+>
+> $$S_U = 3.0 + 1.2  X \, \text{millones de dólares al año}$$
+>
+> Sustituyendo los valores en la fórmula:
+>
+> $$S_U = 3.0 + 1.2 \times 3 = 3.0 + 3.6 = 6.6 \, \text{millones de dólares al año}$$
+>
+> Por tanto,
+>
+> -   Salario proyectado en la Universidad de Chile: \$6.6 millones al año
+> -   Salario actual en el Inter de Milán: \$5.0 millones al año
+>
+> Dado que el salario proyectado en la Universidad de Chile (\$6.6 millones) es mayor que su sueldo actual en el Inter de Milán (\$5.0 millones), **Alexis debería considerar cambiar de equipo** si confía en que su rendimiento se mantendrá al menos 3 desviaciones estándar por encima del promedio de la liga chilena.
+
+2)  Determina la distribución del salario esperado de Alexis en la Universidad de Chile, $S_U$.
+
+> **Solución:**
+>
+> El salario $S_U$ está dado por:
+>
+> $$S_U = 3.0 + 1.2 \times 3 = 3.0 + 3.6 = 6.6 \, \text{millones de dólares al año}$$
+>
+> Por tanto,
+>
+> -   El valor esperado de $S_U$ es:
+>
+> $$\mathbb{E}(S_U) = \mathbb{E}(3.0 + 1.2  X_U) = 3.0 + 1.2  \mathbb{E}(X_U)$$
+>
+> Dado que $\mathbb{E}(X_U) = 0$ entonces:
+>
+> $$\mathbb{E}(S_U) = 3.0 + 1.2  \times 0 = 3.0 \, \text{millones de dólares}$$
+>
+> -   La varianza $\text{Var}(S_U)$ está dada por:
+>
+> $$\text{Var}(S_U) = \mathbb{Var}(3.0) + 1.2^2   \mathbb{Var}(X) = 1.2^2$$
+>
+> Dado que $S_U$ es una transformación lineal de una variable con distribución normal entonces su distribución también es normal. Formalmente, la distribución del salario esperado de Alexis en la Universidad de Chile es:
+>
+> $$S_U \sim \text{Normal}(\mu = 3.0, \sigma = 1.44)$$
+>
+> Esto significa que, en promedio, Alexis podría esperar ganar \$3.0 millones al año, con una variabilidad en torno a esta media de \$1.2 millones de dólares.
+
+3)  Si el rendimiento de Alexis efectivamente se encuentra al menos 3 desviaciones estándar por encima del promedio de la liga chilena, ¿qué porcentaje de jugadores en esa liga tendría un rendimiento inferior al de Alexis?
+
+> **Solución:**
+>
+> Dado que el rendimiento de Alexis estaría al menos 3 desviaciones estándar por encima del promedio de la liga chilena, estamos interesados en la puntuación Z, que representa el número de desviaciones estándar por encima o por debajo de la media. En este caso:
+>
+> $z = 3$
+>
+> Para encontrar el porcentaje de jugadores que tendría un rendimiento inferior al de Alexis, usamos la función de distribución acumulativa (CDF) de la distribución normal estándar, que se denota como $\Phi(z)$. La CDF nos da la probabilidad de que una variable aleatoria normal estándar sea menor o igual a un valor dado $z$.
+>
+> Para $z = 3$, utilizamos la función CDF para la distribución normal estándar:
+>
+> $$\Phi(3) \approx 0.99865$$
+>
+> Esto significa que si el rendimiento de Alexis está 3 desviaciones estándar por encima del promedio de la liga chilena, aproximadamente el **99.87%** de los jugadores en la liga tendrían un rendimiento inferior al suyo. En otras palabras, Alexis estaría en el **0.13%** superior de todos los jugadores en términos de rendimiento en la liga chilena.
