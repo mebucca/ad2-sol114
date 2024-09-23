@@ -68,7 +68,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | Tarea corta 1  | 5 agosto      | 12 agosto    | [`[TC1 sols]`](https://mebucca.github.io/ad2-sol114/homework/tc_1_answers#1) [`[TC1.qmd sols]`](homework/tc_1_answers.qmd) |
 | Tarea corta 2  | 12 agosto     | 19 agosto    | [`[TC2 sols]`](https://mebucca.github.io/ad2-sol114/homework/tc_2_answers#1) [`[TC2.qmd sols]`](homework/tc_2_answers.qmd) |
 | Tarea corta 3  | 26 agosto     | 2 septiembre | [`[TC3 sols]`](https://mebucca.github.io/ad2-sol114/homework/tc_3_answers#1) [`[TC3.qmd sols]`](homework/tc_3_answers.qmd) |
-| Prueba 1       |               | 4 septiembre |     [`[P1 sols]`](exams/prueba_1_answers.pdf)  [`[P1.qmd sols]`](exams/prueba_1_answers.qmd)                                                                                      |
+| Prueba 1       |               | 4 septiembre |     [`[P1 sols]`](exams/prueba_1_answers.pdf)  [`[P1.qmd sols]`](exams/prueba_1_answers.qmd) [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_prueba1.html)                                                                                        |
 | Tarea corta 4  | 23 septiembre | 30 septiembre|                                                                                           |
 | Tarea corta 5  | 9 octubre     | 16 octubre   |                                                                                           |
 | Tarea corta 6  | 28 octubre    | 4 noviembre  |                                                                                           |
