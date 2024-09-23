@@ -63,16 +63,16 @@ class: inverse, center, middle
 ## # A tibble: 100 × 3
 ##    year   educ   age
 ##    &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 2010     14    61
-##  2 2010     12    21
-##  3 2016     12    73
-##  4 2014     13    21
-##  5 1987     15    47
-##  6 1993     14    27
-##  7 1991     13    39
-##  8 2014     15    67
-##  9 2012     14    42
-## 10 2014     15    22
+##  1 1998     13    89
+##  2 2010     12    55
+##  3 1982      6    70
+##  4 1998     17    38
+##  5 2016     11    59
+##  6 2006     16    37
+##  7 1998     12    39
+##  8 1993     17    44
+##  9 1987     14    26
+## 10 1996     12    21
 ## # ℹ 90 more rows
 ```
 ]
@@ -133,18 +133,25 @@ En resumen:
 .pull-left[
 
 ```
-##   year educ age
-## 1 2010   14  61
-## 2 2010   12  21
-## 3 2016   12  73
-## 4 2014   13  21
-## 5 1987   15  47
-## 6 1993   14  27
+## # A tibble: 100 × 3
+##    year   educ   age
+##    &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 1998     13    89
+##  2 2010     12    55
+##  3 1982      6    70
+##  4 1998     17    38
+##  5 2016     11    59
+##  6 2006     16    37
+##  7 1998     12    39
+##  8 1993     17    44
+##  9 1987     14    26
+## 10 1996     12    21
+## # ℹ 90 more rows
 ```
 
 ```
 ## mu_hat 
-##   13.3
+##  12.94
 ```
 ]
 
@@ -153,7 +160,7 @@ En resumen:
 
 - La socióloga decide *estimar* el promedio de años de escolaridad en USA ( `\(\mu\)` ) usando la media muestral como *estimador*.
 
-- `\(\hat{\mu} =  \frac{\sum \text{educ}_{i}}{n} = 12.93\)` es nuestro *estimado* 
+- `\(\hat{\mu} =  \frac{\sum \text{educ}_{i}}{n} =\)`  12.94 es nuestro *estimado* 
 
 - ¿Que tanto podemos confiar en nuestro .bold[estimado] basado en esta muestra en particular?
 
@@ -211,9 +218,9 @@ dado `\(n\)`, generados por el mismo proceso (o a partir de la misma población)
 
 - La variable `\(\text{educ}\)` en la población de USA distribuye Normal con `\(\mu=12.85\)` y `\(\sigma=3.464\)`.
 
-- Tomamos 5000 muestras alesatorias de tamaño 200 a partir de esta población: `\(m_{200_i}\)`
+- Tomamos 5000 muestras alesatorias de tamaño 100 a partir de esta población: `\(m_{100_i}\)`
 
-- En cada muestra calculamos la media muestral de la variable `\(X\)`: `\(\bar{X}_{200_i}\)`   
+- En cada muestra calculamos la media muestral de la variable `\(X\)`: `\(\bar{X}_{100_i}\)`   
 
 --
 
@@ -228,8 +235,8 @@ educ_poblacion &lt;- tibble(educ = rnorm(n=10^6, mean=12.85, sd=3.464))
 resultados &lt;- tibble(estimado = numeric(5000))
 
 for (i in 1:5000) {
-  # tomamos 5000 muestras de tamaño 200
-  muestra_i &lt;- sample_n(educ_poblacion, size=200, replace = TRUE)
+  # tomamos 5000 muestras de tamaño 100
+  muestra_i &lt;- sample_n(educ_poblacion, size=100, replace = TRUE)
   
   # en cada muestra calculamos media y guardamos resultado
   resultados$estimado[i] &lt;- mean(muestra_i$educ)
@@ -247,21 +254,21 @@ La colección de estimados se ve así:
 ## # A tibble: 5,000 × 1
 ##    estimado
 ##       &lt;dbl&gt;
-##  1     13.1
-##  2     13.0
-##  3     12.6
-##  4     12.9
-##  5     12.9
-##  6     12.8
-##  7     13.4
-##  8     12.4
-##  9     12.6
-## 10     12.5
-## 11     13.0
-## 12     13.0
+##  1     13.3
+##  2     13.1
+##  3     13.2
+##  4     12.7
+##  5     12.4
+##  6     12.6
+##  7     12.6
+##  8     13.5
+##  9     13.6
+## 10     12.2
+## 11     13.2
+## 12     12.9
 ## 13     12.8
-## 14     13.0
-## 15     13.3
+## 14     13.4
+## 15     12.6
 ## # ℹ 4,985 more rows
 ```
 ]
@@ -293,21 +300,21 @@ La colección de estimados se ve así:
 ## # A tibble: 5,000 × 1
 ##    estimado
 ##       &lt;dbl&gt;
-##  1     13.1
-##  2     13.0
-##  3     12.6
-##  4     12.9
-##  5     12.9
-##  6     12.8
-##  7     13.4
-##  8     12.4
-##  9     12.6
-## 10     12.5
-## 11     13.0
-## 12     13.0
+##  1     13.3
+##  2     13.1
+##  3     13.2
+##  4     12.7
+##  5     12.4
+##  6     12.6
+##  7     12.6
+##  8     13.5
+##  9     13.6
+## 10     12.2
+## 11     13.2
+## 12     12.9
 ## 13     12.8
-## 14     13.0
-## 15     13.3
+## 14     13.4
+## 15     12.6
 ## # ℹ 4,985 more rows
 ```
 ]
@@ -327,7 +334,7 @@ La colección de estimados se ve así:
 &lt;br&gt;
 - En nuestro caso:
 
-  `$$\bar{X}_{200} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{200}}\bigg)$$`
+  `$$\bar{X}_{100} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{100}}\bigg)$$`
     
 ]
 
@@ -344,7 +351,7 @@ La colección de estimados se ve así:
 
 &lt;br&gt;
 
-  `$$\bar{X}_{200} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{200}}\bigg)$$`
+  `$$\bar{X}_{100} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{100}}\bigg)$$`
 
 ]
 
@@ -362,7 +369,7 @@ La colección de estimados se ve así:
 
 &lt;br&gt;
 
-  `$$\bar{X}_{200} \sim \text{Normal}\bigg(4, \frac{3.464}{\sqrt{200}}\bigg)$$`
+  `$$\bar{X}_{100} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{100}}\bigg)$$`
 
 &lt;br&gt;
 
@@ -392,7 +399,7 @@ class: inverse, center, middle
 Por ejemplo:
 
 
-`\(\bar{X}_{200}\)` =  13.3
+`\(\bar{X}_{100}\)` =  12.94
 
 &lt;br&gt;
 

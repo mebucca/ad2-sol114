@@ -130,7 +130,7 @@ $$\color{white}{\text{estimador}(\underbrace{\beta}_{\text{estimando}}): f(\text
 
 .pull-left[
 ```{r, echo=F}
-mimuestra %>% head()
+mimuestra %>% as_tibble()
 
 c(mu_hat = mean(mimuestra$educ, na.rm = F))
 ```
@@ -141,7 +141,7 @@ c(mu_hat = mean(mimuestra$educ, na.rm = F))
 
 - La socióloga decide *estimar* el promedio de años de escolaridad en USA ( $\mu$ ) usando la media muestral como *estimador*.
 
-- $\hat{\mu} =  \frac{\sum \text{educ}_{i}}{n} = 12.93$ es nuestro *estimado* 
+- $\hat{\mu} =  \frac{\sum \text{educ}_{i}}{n} =$  `r c(mu_hat = mean(mimuestra$educ, na.rm = F))` es nuestro *estimado* 
 
 - ¿Que tanto podemos confiar en nuestro .bold[estimado] basado en esta muestra en particular?
 
@@ -199,9 +199,9 @@ dado $n$, generados por el mismo proceso (o a partir de la misma población).
 
 - La variable $\text{educ}$ en la población de USA distribuye Normal con $\mu=12.85$ y $\sigma=3.464$.
 
-- Tomamos 5000 muestras alesatorias de tamaño 200 a partir de esta población: $m_{200_i}$
+- Tomamos 5000 muestras alesatorias de tamaño 100 a partir de esta población: $m_{100_i}$
 
-- En cada muestra calculamos la media muestral de la variable $X$: $\bar{X}_{200_i}$   
+- En cada muestra calculamos la media muestral de la variable $X$: $\bar{X}_{100_i}$   
 
 --
 
@@ -216,8 +216,8 @@ educ_poblacion <- tibble(educ = rnorm(n=10^6, mean=12.85, sd=3.464))
 resultados <- tibble(estimado = numeric(5000))
 
 for (i in 1:5000) {
-  # tomamos 5000 muestras de tamaño 200
-  muestra_i <- sample_n(educ_poblacion, size=200, replace = TRUE)
+  # tomamos 5000 muestras de tamaño 100
+  muestra_i <- sample_n(educ_poblacion, size=100, replace = TRUE)
   
   # en cada muestra calculamos media y guardamos resultado
   resultados$estimado[i] <- mean(muestra_i$educ)
@@ -278,7 +278,7 @@ resultados %>% as_tibble() %>% print(n=15)
 <br>
 - En nuestro caso:
 
-  $$\bar{X}_{200} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{200}}\bigg)$$
+  $$\bar{X}_{100} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{100}}\bigg)$$
     
 ]
 
@@ -298,7 +298,7 @@ third_color     <- "#A8C3E6"
 
 # Create the normal distribution data
 x_values <- seq(11, 15, by = 0.01)
-y_values <- dnorm(x_values, mean = 12.85, sd = 3.464/sqrt(200))
+y_values <- dnorm(x_values, mean = 12.85, sd = 3.464/sqrt(100))
 normal_data <- data.frame(x = x_values, y = y_values)
 
 # Create the ggplot
@@ -329,7 +329,7 @@ print(normal_distribution_plot)
 
 <br>
 
-  $$\bar{X}_{200} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{200}}\bigg)$$
+  $$\bar{X}_{100} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{100}}\bigg)$$
 
 ]
 
@@ -347,7 +347,7 @@ third_color     <- "#A8C3E6"
 
 # Create the normal distribution data
 x_values <- seq(11, 15, by = 0.01)
-y_values <- dnorm(x_values, mean = 12.85, sd = 3.464/sqrt(200))
+y_values <- dnorm(x_values, mean = 12.85, sd = 3.464/sqrt(100))
 normal_data <- data.frame(x = x_values, y = y_values)
 
 # Create the ggplot
@@ -382,7 +382,7 @@ print(normal_distribution_plot)
 
 <br>
 
-  $$\bar{X}_{200} \sim \text{Normal}\bigg(4, \frac{3.464}{\sqrt{200}}\bigg)$$
+  $$\bar{X}_{100} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{100}}\bigg)$$
 
 <br>
 
@@ -412,7 +412,7 @@ class: inverse, center, middle
 Por ejemplo:
 
 
-$\bar{X}_{200}$ =  `r c(mu_hat = mean(mimuestra$educ, na.rm = F))`
+$\bar{X}_{100}$ =  `r c(mu_hat = mean(mimuestra$educ, na.rm = F))`
 
 <br>
 
@@ -439,7 +439,7 @@ third_color     <- "#A8C3E6"
 
 # Create the normal distribution data
 x_values <- seq(11, 15, by = 0.01)
-y_values <- dnorm(x_values, mean = 12.85, sd = 3.464/sqrt(200))
+y_values <- dnorm(x_values, mean = 12.85, sd = 3.464/sqrt(100))
 normal_data <- data.frame(x = x_values, y = y_values)
 
 # Create the ggplot
@@ -448,7 +448,7 @@ normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
   geom_line(color = primary_color, size = 1) +
   geom_vline(xintercept = 12.85, linetype = "dashed", size=1.5) +
   annotate("text", x = 13.1, y = 0.25, label = expression(mu), size = 12) +
-  geom_point(aes(x=mean(mimuestra$educ, na.rm = F),y=dnorm(mean(mimuestra$educ, na.rm = F), mean = 12.85, sd = 3.464/sqrt(200))), size=5, colour="red") +
+  geom_point(aes(x=mean(mimuestra$educ, na.rm = F),y=dnorm(mean(mimuestra$educ, na.rm = F), mean = 12.85, sd = 3.464/sqrt(100))), size=5, colour="red") +
   labs(
        x = expression(bar(X)),
        y = "Densidad") +
