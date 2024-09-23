@@ -159,6 +159,9 @@ set.seed(123)
 N <- 1000000
 poblacion_data <- tibble(value = runif(N, min = 5, max = 20))
 
+mean(poblacion_data$value)
+sd(poblacion_data$value)
+
 # Parámetros de simulación
 n_experimentos <- 1000
 
