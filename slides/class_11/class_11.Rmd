@@ -1,0 +1,489 @@
+---
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#9: Estimador y su Distribución Muestral"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["gentle-r.css","xaringan-themer.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  
+  chunz_output_type: console
+---  
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(xaringanthemer)
+style_duo_accent(primary_color ="#D32F2F", secondary_color ="#FAD9A1",
+                 background_color = "#f8f7f3",
+                 header_font_google = google_font("Archivo"),
+                 text_font_google   = google_font("Inconsolata"), 
+                 link_color= "#1A5276"
+
+)
+```
+
+
+## Estadística
+
+.center[![stats](stats.png)]
+
+---
+class: inverse, center, middle
+
+
+#Estimación
+
+
+---
+#Estimación
+
+
+```{r, echo=F}
+library("carData")
+data("GSSvocab") #tratemos esta base de datos como la población
+mu <- mean(GSSvocab$educ,na.rm=T) #parámetro poblacional
+mipoblacion <- GSSvocab %>%
+  mutate(educ=if_else(educ==0,NA,educ)) %>% 
+  drop_na(educ) %>% select(year,educ,age) 
+
+mimuestra <- mipoblacion %>% sample_n(100)
+rownames(mimuestra) <- NULL
+
+```
+
+
+- Una socióloga quiere saber el promedio de años de escolaridad en USA
+  
+--
+
+- La socióloga toma una muestra aleatoria de 100 personas $m: \{X_1, \dots, X_{100} \}$. Los datos se ven así: 
+
+--
+
+.pull-left[
+```{r, echo=F}
+mimuestra %>% as_tibble()
+```
+]
+
+--
+
+.pull-right[
+
+<br>
+
+- .bold[Datos]: realización de $n$ variables aleatorias 
+
+- Normalmente *.bold[no conocemos]* la distribución de las variables.
+
+- .bold[Estadística]: aprender de los datos para .bold[estimar] los parámetros que los generan
+
+]
+
+
+
+---
+## Estimando, Estimador y Estimado
+
+--
+
+- El .bold[estimando] es aquello que queremos conocer. Dicho de otra forma, es el parámetro (poblacional/teórico) de interés. Llamémoslo $\beta$.
+  - Ej. $\beta:$ "promedio de años de escolaridad en USA"
+
+--
+
+- Un .bold[estimador] es una función - una formula - que aplicamos a los datos para obtener una *aproximación*  del parámetro de nuestro parámetro de interés o *estimando*. Denotémos el estimador como  $f(\text{datos})$.
+  - Ej. $f(\text{datos}): \frac{\sum{\text{datos}}}{n}$ 
+
+--
+
+- El .bold[estimado] es la cantidad obtenida al aplicar el *estimador* a los datos. Este número es una aproximación del *estimando*. Denotémoslo como $\hat{\beta}$.
+  - Ej. $\hat{\beta} = 11.6$ 
+
+
+--
+En resumen: 
+.content-box-primary[
+$$\color{white}{\text{estimador}(\underbrace{\beta}_{\text{estimando}}): f(\text{datos}) = \underbrace{\hat{\beta}}_{\text{estimado}}}$$
+]
+
+---
+## Estimando, Estimador y Estimado
+
+.center[![estimado](estimado.jpeg)]
+
+
+---
+## Estimando, Estimador y Estimado
+
+
+<br>
+
+.pull-left[
+```{r, echo=F}
+mimuestra %>% head()
+
+c(mu_hat = mean(mimuestra$educ, na.rm = F))
+```
+]
+
+.pull-right[
+
+
+- La socióloga decide *estimar* el promedio de años de escolaridad en USA ( $\mu$ ) usando la media muestral como *estimador*.
+
+- $\hat{\mu} =  \frac{\sum \text{educ}_{i}}{n} = 12.93$ es nuestro *estimado* 
+
+- ¿Que tanto podemos confiar en nuestro .bold[estimado] basado en esta muestra en particular?
+
+
+- .bold[Respuesta:] Necesitamos conocer la distribución muestral de nuestro estimador
+]
+
+
+
+
+
+---
+class: inverse, center, middle
+
+
+#Distribución Muestral de un estimador
+
+---
+##Distribución Muestral
+
+--
+
+Si $\hat{\beta}$ es un estimador definido como $\hat{\beta}: f(\text{datos})$, la **distribución muestral** de $\hat{\beta}$ es la distribución de probabilidad de todos los valores posibles que $\hat{\beta}$ puede tomar, calculados a partir de todas las posibles muestras de un tamaño dado $n$, tomadas de la misma población o generados por el mismo proceso. 
+
+<br>
+--
+
+
+.bold[Paso a paso,]
+
+
+--
+
+- Tomamos todas las posibles muestras $m_{i}: \{ X_1, X_2, ..., X_n \}$ de un tamaño  
+dado $n$, generados por el mismo proceso (o a partir de la misma población).
+
+--
+
+- En cada $m_{i}$ aplicamos nuestro estimador y obtenemos $\hat{\beta}_{i}$. Formalmente, $f(m_{i}) = \hat{\beta}_{i}$.
+
+--
+
+- La .bold[distribución muestral] del estimador $\hat{\beta}$ refiere a la distribución de la colección obtenida de estimados $\hat{\beta}_{i}$.
+
+--
+
+- Como toda distribución de probabilidades, la .bold[distribución muestral] indica la probabilidad de que el estimador $\hat{\beta}$ tome diferentes valores.
+
+
+
+---
+##Distribución Muestral de la media muestral
+
+#### Ejemplo via Simulación Monte Carlo
+
+- La variable $\text{educ}$ en la población de USA distribuye Normal con $\mu=12.85$ y $\sigma=3.464$.
+
+- Tomamos 5000 muestras alesatorias de tamaño 200 a partir de esta población: $m_{200_i}$
+
+- En cada muestra calculamos la media muestral de la variable $X$: $\bar{X}_{200_i}$   
+
+--
+
+.bold[Implementación en `R`:]
+
+```{r, echo=T, eval=T, fig.height=8, fig.width=8,  message=FALSE, warning=FALSE}
+
+# población (N=un millón, media=4, sd=3)
+educ_poblacion <- tibble(educ = rnorm(n=10^6, mean=12.85, sd=3.464))
+
+# simulación: 
+resultados <- tibble(estimado = numeric(5000))
+
+for (i in 1:5000) {
+  # tomamos 5000 muestras de tamaño 200
+  muestra_i <- sample_n(educ_poblacion, size=200, replace = TRUE)
+  
+  # en cada muestra calculamos media y guardamos resultado
+  resultados$estimado[i] <- mean(muestra_i$educ)
+}
+
+```
+
+---
+##Distribución Muestral de la media muestral
+
+La colección de estimados se ve así:
+
+.pull-left[
+```{r, echo=F}
+resultados %>% as_tibble() %>% print(n=15)
+```
+]
+
+--
+
+.pull-right[
+
+- La estimación de la media muestral es aleatorias porque las muestras son aleatorias
+
+- ¿Cómo se distribuyen estas estimaciones?
+
+<br>
+- El .bold[Teoréma del Límite Central] nos dice que:
+
+  $$\bar{X}_{n} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)$$
+  
+]
+
+
+---
+##Distribución Muestral
+
+La colección de estimados se ve así:
+
+.pull-left[
+```{r, echo=F}
+resultados %>% as_tibble() %>% print(n=15)
+```
+]
+
+
+.pull-right[
+
+- La estimación de la media muestral es aleatorias porque las muestras son aleatorias
+
+- ¿Cómo se distribuyen estas estimaciones?
+
+<br>
+- El .bold[Teoréma del Límite Central] nos dice que:
+
+  $$\bar{X}_{n} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)$$
+
+<br>
+- En nuestro caso:
+
+  $$\bar{X}_{200} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{200}}\bigg)$$
+    
+]
+
+---
+##Distribución Muestral de la media muestral
+
+.pull-left[
+```{r, echo=FALSE, fig.height=8, fig.width=8,  message=FALSE, warning=FALSE}
+
+library(ggplot2)
+
+# Color definitions
+primary_color   <- "#FF2400"
+secondary_color <- "#FFD700"
+third_color     <- "#A8C3E6" 
+
+
+# Create the normal distribution data
+x_values <- seq(11, 15, by = 0.01)
+y_values <- dnorm(x_values, mean = 12.85, sd = 3.464/sqrt(200))
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_line(color = primary_color, size = 1) +
+  labs(
+       x = expression(bar(X)),
+       y = "Densidad") +
+  
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(normal_distribution_plot)
+```
+]
+
+.pull-right[
+
+- El .bold[Teoréma del Límite Central] nos dice que:
+
+<br>
+
+  $$\bar{X}_{200} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{200}}\bigg)$$
+
+]
+
+
+---
+##Distribución Muestral de la media muestral
+
+.pull-left[
+```{r, echo=FALSE, fig.height=8, fig.width=8,  message=FALSE, warning=FALSE}
+
+# Color definitions
+primary_color   <- "#FF2400"
+secondary_color <- "#FFD700"
+third_color     <- "#A8C3E6" 
+
+# Create the normal distribution data
+x_values <- seq(11, 15, by = 0.01)
+y_values <- dnorm(x_values, mean = 12.85, sd = 3.464/sqrt(200))
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_histogram(data = resultados, aes(x = estimado, y = ..density..), fill = secondary_color, bins = 100, color=secondary_color, alpha = 0.4) +
+  geom_line(color = primary_color, size = 1) +
+  geom_vline(xintercept = 12.85, linetype = "dashed", size=1.5) +
+  annotate("text", x = 13.1, y = 0.25, label = expression(mu), size = 12) +
+  labs(
+       x = expression(bar(X)),
+       y = "Densidad") +
+  
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(normal_distribution_plot)
+
+```
+]
+
+.pull-right[
+
+- El .bold[Teoréma del Límite Central] nos dice que:
+
+<br>
+
+  $$\bar{X}_{200} \sim \text{Normal}\bigg(4, \frac{3.464}{\sqrt{200}}\bigg)$$
+
+<br>
+
+- Nuestra simulación confirma la teoría
+
+]
+
+
+---  
+class: inverse, center, middle
+
+#Estimación Puntual
+
+---
+##Estimación Puntual
+
+
+.pull-left[
+
+
+- Cuando contamos con .bold[UNA] muestra no tenemos una distribución de estimados
+
+- Tenemos una .bold[estimación puntual]
+
+
+<br>
+Por ejemplo:
+
+
+$\bar{X}_{200}$ =  `r c(mu_hat = mean(mimuestra$educ, na.rm = F))`
+
+<br>
+
+- Sabemos que la media muestral es un estimador *insesgado* de la media poblacional (en promedio coinciden)
+
+- Sin embargo, .bold[la estimación puntal no necesariamente corresponde al parámetro poblacional].
+
+- No nos tomamos este número TAN enserio: .bold[estimación de intervalos].
+ 
+]
+
+
+.pull-right[
+```{r, echo=FALSE, fig.height=8, fig.width=8,  message=FALSE, warning=FALSE}
+
+library(ggplot2)
+
+
+# Color definitions
+primary_color   <- "#FF2400"
+secondary_color <- "#FFD700"
+third_color     <- "#A8C3E6" 
+
+
+# Create the normal distribution data
+x_values <- seq(11, 15, by = 0.01)
+y_values <- dnorm(x_values, mean = 12.85, sd = 3.464/sqrt(200))
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_histogram(data=resultados, aes(x=estimado, y = ..density..), fill = secondary_color, bins = 100, color=secondary_color, alpha=0.4) +
+  geom_line(color = primary_color, size = 1) +
+  geom_vline(xintercept = 12.85, linetype = "dashed", size=1.5) +
+  annotate("text", x = 13.1, y = 0.25, label = expression(mu), size = 12) +
+  geom_point(aes(x=mean(mimuestra$educ, na.rm = F),y=dnorm(mean(mimuestra$educ, na.rm = F), mean = 12.85, sd = 3.464/sqrt(200))), size=5, colour="red") +
+  labs(
+       x = expression(bar(X)),
+       y = "Densidad") +
+  
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(normal_distribution_plot)
+```
+]
+
+
+---
+class: inverse, center, middle
+
+##Hasta la próxima clase. Gracias!
+
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+
+
+
+
+
+

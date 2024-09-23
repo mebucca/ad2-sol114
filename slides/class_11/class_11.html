@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Probabilidad e Inferencia Estadística</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Probabilidad e Inferencia Estadística
+]
+.subtitle[
+## #9: Estimador y su Distribución Muestral
+]
+.author[
+### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
+]
+.date[
+### 23 September, 2024
+]
+
+---
+
+
+
+
+
+## Estadística
+
+.center[![stats](stats.png)]
+
+---
+class: inverse, center, middle
+
+
+#Estimación
+
+
+---
+#Estimación
+
+
+
+
+
+- Una socióloga quiere saber el promedio de años de escolaridad en USA
+  
+--
+
+- La socióloga toma una muestra aleatoria de 100 personas `\(m: \{X_1, \dots, X_{100} \}\)`. Los datos se ven así: 
+
+--
+
+.pull-left[
+
+```
+## # A tibble: 100 × 3
+##    year   educ   age
+##    &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
+##  1 2010     12    58
+##  2 1978     12    27
+##  3 1982     20    55
+##  4 1984     10    82
+##  5 1978     15    43
+##  6 1982     12    23
+##  7 2016     14    27
+##  8 2014     13    57
+##  9 2006     10    24
+## 10 2008      7    44
+## # ℹ 90 more rows
+```
+]
+
+--
+
+.pull-right[
+
+&lt;br&gt;
+
+- .bold[Datos]: realización de `\(n\)` variables aleatorias 
+
+- Normalmente *.bold[no conocemos]* la distribución de las variables.
+
+- .bold[Estadística]: aprender de los datos para .bold[estimar] los parámetros que los generan
+
+]
+
+
+
+---
+## Estimando, Estimador y Estimado
+
+--
+
+- El .bold[estimando] es aquello que queremos conocer. Dicho de otra forma, es el parámetro (poblacional/teórico) de interés. Llamémoslo `\(\beta\)`.
+  - Ej. `\(\beta:\)` "promedio de años de escolaridad en USA"
+
+--
+
+- Un .bold[estimador] es una función - una formula - que aplicamos a los datos para obtener una *aproximación*  del parámetro de nuestro parámetro de interés o *estimando*. Denotémos el estimador como  `\(f(\text{datos})\)`.
+  - Ej. `\(f(\text{datos}): \frac{\sum{\text{datos}}}{n}\)` 
+
+--
+
+- El .bold[estimado] es la cantidad obtenida al aplicar el *estimador* a los datos. Este número es una aproximación del *estimando*. Denotémoslo como `\(\hat{\beta}\)`.
+  - Ej. `\(\hat{\beta} = 11.6\)` 
+
+
+--
+En resumen: 
+.content-box-primary[
+`$$\color{white}{\text{estimador}(\underbrace{\beta}_{\text{estimando}}): f(\text{datos}) = \underbrace{\hat{\beta}}_{\text{estimado}}}$$`
+]
+
+---
+## Estimando, Estimador y Estimado
+
+.center[![estimado](estimado.jpeg)]
+
+
+---
+## Estimando, Estimador y Estimado
+
+
+&lt;br&gt;
+
+.pull-left[
+
+```
+##   year educ age
+## 1 2010   12  58
+## 2 1978   12  27
+## 3 1982   20  55
+## 4 1984   10  82
+## 5 1978   15  43
+## 6 1982   12  23
+```
+
+```
+## mu_hat 
+##  13.64
+```
+]
+
+.pull-right[
+
+
+- La socióloga decide *estimar* el promedio de años de escolaridad en USA ( `\(\mu\)` ) usando la media muestral como *estimador*.
+
+- `\(\hat{\mu} =  \frac{\sum \text{educ}_{i}}{n} = 12.93\)` es nuestro *estimado* 
+
+- ¿Que tanto podemos confiar en nuestro .bold[estimado] basado en esta muestra en particular?
+
+
+- .bold[Respuesta:] Necesitamos conocer la distribución muestral de nuestro estimador
+]
+
+
+
+
+
+---
+class: inverse, center, middle
+
+
+#Distribución Muestral de un estimador
+
+---
+##Distribución Muestral
+
+--
+
+Si `\(\hat{\beta}\)` es un estimador definido como `\(\hat{\beta}: f(\text{datos})\)`, la **distribución muestral** de `\(\hat{\beta}\)` es la distribución de probabilidad de todos los valores posibles que `\(\hat{\beta}\)` puede tomar, calculados a partir de todas las posibles muestras de un tamaño dado `\(n\)`, tomadas de la misma población o generados por el mismo proceso. 
+
+&lt;br&gt;
+--
+
+
+.bold[Paso a paso,]
+
+
+--
+
+- Tomamos todas las posibles muestras `\(m_{i}: \{ X_1, X_2, ..., X_n \}\)` de un tamaño  
+dado `\(n\)`, generados por el mismo proceso (o a partir de la misma población).
+
+--
+
+- En cada `\(m_{i}\)` aplicamos nuestro estimador y obtenemos `\(\hat{\beta}_{i}\)`. Formalmente, `\(f(m_{i}) = \hat{\beta}_{i}\)`.
+
+--
+
+- La .bold[distribución muestral] del estimador `\(\hat{\beta}\)` refiere a la distribución de la colección obtenida de estimados `\(\hat{\beta}_{i}\)`.
+
+--
+
+- Como toda distribución de probabilidades, la .bold[distribución muestral] indica la probabilidad de que el estimador `\(\hat{\beta}\)` tome diferentes valores.
+
+
+
+---
+##Distribución Muestral de la media muestral
+
+#### Ejemplo via Simulación Monte Carlo
+
+- La variable `\(\text{educ}\)` en la población de USA distribuye Normal con `\(\mu=12.85\)` y `\(\sigma=3.464\)`.
+
+- Tomamos 5000 muestras alesatorias de tamaño 200 a partir de esta población: `\(m_{200_i}\)`
+
+- En cada muestra calculamos la media muestral de la variable `\(X\)`: `\(\bar{X}_{200_i}\)`   
+
+--
+
+.bold[Implementación en `R`:]
+
+
+``` r
+# población (N=un millón, media=4, sd=3)
+educ_poblacion &lt;- tibble(educ = rnorm(n=10^6, mean=12.85, sd=3.464))
+
+# simulación: 
+resultados &lt;- tibble(estimado = numeric(5000))
+
+for (i in 1:5000) {
+  # tomamos 5000 muestras de tamaño 200
+  muestra_i &lt;- sample_n(educ_poblacion, size=200, replace = TRUE)
+  
+  # en cada muestra calculamos media y guardamos resultado
+  resultados$estimado[i] &lt;- mean(muestra_i$educ)
+}
+```
+
+---
+##Distribución Muestral de la media muestral
+
+La colección de estimados se ve así:
+
+.pull-left[
+
+```
+## # A tibble: 5,000 × 1
+##    estimado
+##       &lt;dbl&gt;
+##  1     12.9
+##  2     13.1
+##  3     12.9
+##  4     13.1
+##  5     12.8
+##  6     13.0
+##  7     12.9
+##  8     12.7
+##  9     12.9
+## 10     12.6
+## 11     12.5
+## 12     12.6
+## 13     12.8
+## 14     13.0
+## 15     12.9
+## # ℹ 4,985 more rows
+```
+]
+
+--
+
+.pull-right[
+
+- La estimación de la media muestral es aleatorias porque las muestras son aleatorias
+
+- ¿Cómo se distribuyen estas estimaciones?
+
+&lt;br&gt;
+- El .bold[Teoréma del Límite Central] nos dice que:
+
+  `$$\bar{X}_{n} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)$$`
+  
+]
+
+
+---
+##Distribución Muestral
+
+La colección de estimados se ve así:
+
+.pull-left[
+
+```
+## # A tibble: 5,000 × 1
+##    estimado
+##       &lt;dbl&gt;
+##  1     12.9
+##  2     13.1
+##  3     12.9
+##  4     13.1
+##  5     12.8
+##  6     13.0
+##  7     12.9
+##  8     12.7
+##  9     12.9
+## 10     12.6
+## 11     12.5
+## 12     12.6
+## 13     12.8
+## 14     13.0
+## 15     12.9
+## # ℹ 4,985 more rows
+```
+]
+
+
+.pull-right[
+
+- La estimación de la media muestral es aleatorias porque las muestras son aleatorias
+
+- ¿Cómo se distribuyen estas estimaciones?
+
+&lt;br&gt;
+- El .bold[Teoréma del Límite Central] nos dice que:
+
+  `$$\bar{X}_{n} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)$$`
+
+&lt;br&gt;
+- En nuestro caso:
+
+  `$$\bar{X}_{200} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{200}}\bigg)$$`
+    
+]
+
+---
+##Distribución Muestral de la media muestral
+
+.pull-left[
+![](class_11_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+
+- El .bold[Teoréma del Límite Central] nos dice que:
+
+&lt;br&gt;
+
+  `$$\bar{X}_{200} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{200}}\bigg)$$`
+
+]
+
+
+---
+##Distribución Muestral de la media muestral
+
+.pull-left[
+![](class_11_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+
+- El .bold[Teoréma del Límite Central] nos dice que:
+
+&lt;br&gt;
+
+  `$$\bar{X}_{200} \sim \text{Normal}\bigg(4, \frac{3.464}{\sqrt{200}}\bigg)$$`
+
+&lt;br&gt;
+
+- Nuestra simulación confirma la teoría
+
+]
+
+
+---  
+class: inverse, center, middle
+
+#Estimación Puntual
+
+---
+##Estimación Puntual
+
+
+.pull-left[
+
+
+- Cuando contamos con .bold[UNA] muestra no tenemos una distribución de estimados
+
+- Tenemos una .bold[estimación puntual]
+
+
+&lt;br&gt;
+Por ejemplo:
+
+
+`\(\bar{X}_{200}\)` =  13.64
+
+&lt;br&gt;
+
+- Sabemos que la media muestral es un estimador *insesgado* de la media poblacional (en promedio coinciden)
+
+- Sin embargo, .bold[la estimación puntal no necesariamente corresponde al parámetro poblacional].
+
+- No nos tomamos este número TAN enserio: .bold[estimación de intervalos].
+ 
+]
+
+
+.pull-right[
+![](class_11_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+]
+
+
+---
+class: inverse, center, middle
+
+##Hasta la próxima clase. Gracias!
+
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
