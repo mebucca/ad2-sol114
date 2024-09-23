@@ -1,0 +1,182 @@
+---
+title: "Notebook #10: Ley de los Grandes Números y Teorema del Límite Central"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+## Introducción
+
+Este notebook tiene como objetivo demostrar, a través de simulaciones, dos conceptos fundamentales de la probabilidad y estadística:
+
+- La **Ley de los Grandes Números (LLN)**, que establece que conforme realizamos más repeticiones de un experimento aleatorio, el promedio de los resultados tiende a acercarse al valor esperado (convergencia en probabilidad). También se abordará cómo la desviación estándar de la media muestral disminuye a medida que el tamaño de la muestra aumenta.
+  
+- El **Teorema del Límite Central (CLT)**, que indica que, para una muestra suficientemente grande, la distribución de las medias muestrales de una variable aleatoria se aproxima a una distribución normal (convergencia en distribución), sin importar la distribución original de la variable.
+
+---
+
+## Ley de los Grandes Números (LLN)
+
+La **Ley de los Grandes Números** establece que, a medida que el número de repeticiones o el tamaño de la muestra aumenta, el promedio de los resultados obtenidos se acerca al valor esperado teórico de la variable aleatoria.
+
+### Fórmula de Convergencia en Probabilidad
+
+Si \( X_1, X_2, \dots, X_n \) son variables aleatorias independientes e idénticamente distribuidas (iid) con esperanza matemática \( \mu \), la **Ley de los Grandes Números** en términos de **convergencia en probabilidad** establece que el promedio muestral \( \overline{X}_n \) converge al valor esperado \( \mu \) a medida que \( n \to \infty \):
+
+\[
+\overline{X}_n = \frac{1}{n} \sum_{i=1}^{n} X_i \xrightarrow{p} \mu \quad \text{cuando} \quad n \to \infty
+\]
+
+donde \( \xrightarrow{p} \) denota convergencia en probabilidad.
+
+Adicionalmente, a medida que el tamaño de la muestra aumenta, la desviación estándar de la media muestral disminuye según la siguiente fórmula:
+
+\[
+\text{Desviación estándar de la media} = \frac{\sigma}{\sqrt{n}}
+\]
+
+Esto significa que, a mayor tamaño muestral, la media muestral se aproxima cada vez más al valor esperado, y la variabilidad de la media disminuye.
+
+---
+
+## Teorema del Límite Central (CLT)
+
+El **Teorema del Límite Central** afirma que, independientemente de la distribución original de una variable aleatoria, la distribución de las medias muestrales de muestras grandes sigue una distribución normal.
+
+### Fórmula de Convergencia en Distribución
+
+Si \( X_1, X_2, \dots, X_n \) son variables aleatorias independientes e idénticamente distribuidas con media \( \mu \) y desviación estándar \( \sigma \), el **Teorema del Límite Central** establece que la media muestral \( \overline{X}_n \) converge en distribución a una normal estándar cuando \( n \) es suficientemente grande:
+
+\[
+\frac{\overline{X}_n - \mu}{\frac{\sigma}{\sqrt{n}}} \xrightarrow{d} N(0, 1) \quad \text{cuando} \quad n \to \infty
+\]
+
+donde \( \xrightarrow{d} \) denota convergencia en distribución y \( N(0,1) \) representa la distribución normal estándar.
+
+
+---
+
+## Simulación
+
+Imagina que tenemos una variable \(X\) que sigue una **distribución uniforme** en la población, es decir, todos los valores entre un mínimo y un máximo tienen la misma probabilidad de ocurrir. 
+
+```{r, echo=F, message=FALSE, warning=FALSE}
+
+# Cargamos librerías
+library(ggplot2)
+library(dplyr)
+
+# Generamos la población (distribución uniforme entre 5 y 20)
+set.seed(123)
+N <- 1000000
+poblacion_data <- tibble(value = runif(N, min = 5, max = 20))
+
+# Graficamos la distribución de la población
+ggplot(poblacion_data, aes(x = value)) +
+  geom_histogram(aes(y = ..density..), bins = 100, fill = "lightblue", color = "black") +
+  labs(title = "Distribución Uniforme en la Población", x = "Valor de x", y = "Densidad") +
+  theme_minimal()
+
+```
+
+Como es común en las ciencias empíricas, no siempre tenemos acceso a toda la población, por lo que usalmente trabajamos con **muestras** de la población. 
+
+**¿Qué pasaría si quisiéramos estimar el promedio de esta variable en la población, pero usando solo los datoa contenidos en UNA muestra?** 
+
+Los teoremas de convergencia (LGN y TLC) nos indican que la respuesta depende del tamaño de la muestra que usemos. Por tanto, usando simulaciones vamos a evaluar tres tamaños de muestra:
+
+- **\(n = 30\)**: una muestra pequeña.
+- **\(n = 100\)**: una muestra de tamaño moderado.
+- **\(n = 500\)**: una muestra más grande.
+
+
+### Función para Simulación
+
+Creaos una funció que implementa una simulación del **Teorema del Límite Central**. La función toma como parámetros el tamaño de la muestra \(n\), el número de repeticiones \(n_{\text{experimentos}}\), y la población de donde se extraen las muestras.
+
+La función calcula las siguientes cantidades:
+
+- **Media muestral**: promedio de las medias obtenidas en cada experimento.
+
+- **Desviación estándar muestral**: desviación estándar de las medias obtenidas.
+
+- **Media teórica** \( \mu \): valor teórico de la media de la población.
+
+- **Desviación estándar teórica** \( \sigma / \sqrt{n} \): desviación estándar teórica de las medias muestrales.
+
+
+La función también genera un gráfico con la distribución de las medias muestrales.
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+
+# Cargamos librerías
+library(tidyverse)
+
+# Función de simulación del CLT
+simulacion_clt <- function(n_muestra, n_experimentos, poblacion_data) {
+  resultados_medias <- numeric(n_experimentos)
+  
+  # Realizamos la simulación de las muestras y sus medias
+  for (i in 1:n_experimentos) {
+    muestra <- sample_n(poblacion_data, size = n_muestra)  # Tomar muestra aleatoria
+    resultados_medias[i] <- mean(muestra$value)  # Calcular la media de la muestra
+  }
+  
+  # Calcular la media y desviación estándar de las medias muestrales
+  media_muestral_observada <- mean(resultados_medias)
+  sd_muestral_observada <- sd(resultados_medias)
+  
+  # Comparar con valores teóricos
+  media_teorica <- mean(poblacion_data$value)
+  sd_teorica <- sd(poblacion_data$value) / sqrt(n_muestra)
+  
+  # Graficar distribución de medias muestrales
+  plot <- tibble(value = resultados_medias) %>%
+    ggplot(aes(x = value)) +
+    geom_histogram(aes(y = ..density..), bins = 100, fill = "lightblue", color = "black") +
+    labs(x = "Media Muestral", y = "Densidad") +
+    xlim(5, 20) + ylim(0, 2) +
+    theme_bw()
+  
+  # Devolver un resumen de los resultados
+  list(n = n_muestra, grafico = plot,
+    media_muestral_observada = media_muestral_observada,
+    media_teorica = media_teorica,
+    sd_muestral_observada = sd_muestral_observada,
+    sd_teorica = sd_teorica)
+  
+}
+
+```
+
+### Implementación de la Simulación
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+
+# Generamos la población (distribución uniforme entre 5 y 20)
+set.seed(123)
+N <- 1000000
+poblacion_data <- tibble(value = runif(N, min = 5, max = 20))
+
+# Parámetros de simulación
+n_experimentos <- 1000
+
+# Simulación para n = 30, 100, 500
+
+# Lista de tamaños de muestra
+n_muestras <- c(30, 100, 500)
+
+map(n_muestras, ~ simulacion_clt(.x, n_experimentos, poblacion_data))
+
+```
+
+---
+
+## Conclusión
+
+- **Ley de los Grandes Números (LLN):** A medida que aumentamos el tamaño de la muestra, el promedio de los resultados converge al valor esperado \( \mu \), y la desviación estándar de la media muestral disminuye según la fórmula \( \frac{\sigma}{\sqrt{n}} \).
+  
+- **Teorema del Límite Central (CLT):** Con tamaños de muestra mayores, la distribución de las medias muestrales se ajusta a una distribución normal estándar. Esto es evidente en los resultados de las simulaciones, donde el promedio muestral y la desviación estándar de las medias se acercan a los valores teóricos conforme \( n \) aumenta.
+
+

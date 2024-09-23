@@ -1,0 +1,629 @@
+---
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#9: Teoremas Asintóticos"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["gentle-r.css","xaringan-themer.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  
+  chunz_output_type: console
+---  
+class: inverse, center, middle
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(xaringanthemer)
+style_duo_accent(primary_color ="#4B6F44", secondary_color ="#F4C430",
+                 background_color = "#f8f7f3",
+                 header_font_google = google_font("Archivo"),
+                 text_font_google   = google_font("Inconsolata"), 
+                 link_color= "#C05A50"
+
+)
+```
+
+
+
+#Teoremas Asintóticos
+
+
+---
+class: inverse, center, middle
+
+#Ley de los Grandes Números
+## Convergencia en Probabilidad
+
+
+---
+## Ley de los Grandes Números
+
+
+
+- $X$ es una variable aleatoria con primer momento $\mathbb{E}(X) = \mu$
+
+- Generamos/tomamos una muestra $\{X_{1},X_{2}, \dots, X_{n}\}$ de tamaño $n$ donde:
+  
+    - Cada $X_{i}$ sigue la misma distribución que la variable aleatoria $X$
+    - Las $X_{i}$'s son independientes entre si
+
+--
+
+- La media aritmética en .bold[esta muestra] es  $\bar{X}_{n} = \frac{1}{n}\sum_{i=1}^{n}X_i$
+
+- $\bar{X}_{n}$ es .bold[aleatoria] porque las $X_{i}$'s son aleatorias.
+
+
+<br>
+--
+
+.bold[Ley de los Grandes Números] establece que, a medida que el tamaño de una muestra aleatoria crece, la media aritmética de la muestra .bold[converge en probabilidad] al promedio teórico/poblacional: $\bar{X} \overset{p}{\to} \mathbb{E}(X)$.
+
+
+
+.content-box-primary[
+.bolder[Matemáticamente,]
+$$\color{white}{\lim_{n \to \infty}\mathbb{P}\left( \left| \bar{X} - \mu \right| \geq \epsilon \right) = 0}$$
+]
+
+
+---
+## Ley de los Grandes Números
+
+.bold[Convergencia en Probabilidad]
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=7}
+# Load ggplot2 paczage for visualization
+library(ggplot2)
+
+# Initialize a vector to store the sample means
+sample_means <- c()
+
+# Initialize an empty dataframe for the plot
+plot_data <- data.frame(x = integer(0), y = double(0))
+
+# epsilon value for the lines
+epsilon <- 0.15
+
+# Plot configuration with ggplot2
+p <- ggplot() +
+  geom_line(data = plot_data, aes(x = x, y = y), color = "#4B6F44") +
+  xlab("n: tamaño muestra (# dados lanzados)") +
+  ylab(expression(paste(bar(X)[n], ": promedio muestral"))) + # Updated y-axis label
+  ylim(2.5, 4.5) + 
+  xlim(1, 6000) + 
+  geom_segment(aes(x = 1, y = 3.5, xend = 5000, yend = 3.5), color = "#4B6F44") + 
+  geom_segment(aes(x = 1, y = 3.5 + epsilon, xend = 5000, yend = 3.5 + epsilon), color = "#C05A50", linetype = "dashed") +
+  geom_segment(aes(x = 1, y = 3.5 - epsilon, xend = 5000, yend = 3.5 - epsilon), color = "#C05A50", linetype = "dashed") +
+  annotate("text", x = 5550, y = 3.5, label = "µ = 3.5", size = 5, color = "#4B6F44") +  # Added text for µ
+  annotate("text", x = 3000, y = 3.5 + epsilon + 0.15, label = expression(paste("µ + ", epsilon)), size = 5, color = "#C05A50") +  # Added text for upper epsilon line
+  annotate("text", x = 3000, y = 3.5 - epsilon - 0.15, label = expression(paste("µ - ", epsilon)), size = 5, color = "#C05A50") +  # Added text for lower epsilon line
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Loop to simulate the Law of Large Numbers with dice rolling
+for (n in 1:5000) {
+  # Roll a die n times
+  sample <- sample(1:6, size = n, replace = TRUE)
+  
+  # Calculate the sample mean
+  sample_mean <- mean(sample)
+  
+  # Add the sample mean to the vector of sample means
+  sample_means <- c(sample_means, sample_mean)
+  
+  # Add data to the dataframe for the plot
+  plot_data <- rbind(plot_data, data.frame(x = n, y = sample_mean))
+  
+  # Update the plot
+  if (n %% 5000 == 0) {
+    print(p + geom_point(data = plot_data, aes(x = x, y = y), size = 0.5, color = "#4B6F44", alpha=0.15) +
+            geom_line(data = plot_data, aes(x = x, y = y), size = 0.5, color = "#4B6F44", alpha=0.15)
+    )
+  }
+  
+  # Pause for 0.01 seconds between each iteration
+  Sys.sleep(0.001)
+}
+
+```
+]
+
+
+.pull-right[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=7}
+# Load ggplot2 package for visualization
+library(ggplot2)
+
+# Initialize a dataframe for the plot
+plot_data <- data.frame(sample_size = integer(0), mean_outside_epsilon = double(0))
+
+# ε (epsilon) value for the range
+epsilon <- 0.15
+
+# True mean of rolling a 6-sided die
+true_mean <- 3.5
+
+# Sample sizes to consider (skipping 0 as it's not a meaningful sample size for this context)
+sample_sizes <- seq(1, 6000, by = 50)
+
+# Loop through different sample sizes
+for (sample_size in sample_sizes) {
+  
+  # Counter for means outside the ε range
+  count_outside_epsilon <- 0
+  
+  # Draw 1000 samples for each sample size
+  for (i in 1:100) {
+    
+    # Roll a die "sample_size" times
+    sample <- sample(1:6, size = sample_size, replace = TRUE)
+    
+    # Calculate the sample mean
+    sample_mean <- mean(sample)
+    
+    # Check if the sample mean is outside the ε range
+    if (abs(sample_mean - true_mean) > epsilon) {
+      count_outside_epsilon <- count_outside_epsilon + 1
+    }
+  }
+  
+  # Calculate percentage of sample means outside ε range
+  percentage_outside_epsilon <- (count_outside_epsilon / 1000) * 100
+  
+  # Add data to the dataframe for the plot
+  plot_data <- rbind(plot_data, data.frame(sample_size = sample_size, mean_outside_epsilon = percentage_outside_epsilon))
+  
+}
+
+# Plotting
+ggplot(data = plot_data, aes(x = sample_size, y = mean_outside_epsilon)) +
+  geom_line(color = "#4B6F44", size = 0.8, alpha=0.7) +
+  geom_point(color = "#4B6F44", size = 1.2) +
+  xlab("n: tamaño muestra (# dados lanzados)") +
+  ylab(expression(paste("Porcentaje de ", bar(X)[n], "'s en (", -epsilon, ", ", epsilon, ")" ))) +
+  theme_minimal() +
+  xlim(1,6000) + 
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+```
+]
+
+---
+class: inverse, center, middle
+
+#Valor Esperado y Varianza
+#de la
+#Media Muestral
+
+---
+##Valor Esperado de la Media Muestral
+
+.pull-left[
+
+- $X$ es una variable aleatoria con primer momento $\mathbb{E}(X) = \mu$
+
+- Generamos/tomamos una muestra $n$ del tipo:
+
+
+- $\{X_{1},X_{2}, \dots, X_{n}\}$
+
+- Las $X_{i}$'s son .bold[iid]
+    
+- En cada muestra calculamos la .bold[media muestral],  $\bar{X}_{n}$
+
+- $\bar{X}_{n}$ es .bold[aleatoria] porque las $X_{i}$'s son aleatorias.
+
+<br>
+
+.bold[¿Cuál es el promedio de dichas medias muestrales?]
+
+]
+
+--
+
+.pull-right[
+
+\begin{align}
+\mathbb{E}(\bar{X}_{n}) &= \mathbb{E}\big(\frac{1}{n} \sum^{n}_{i=1} X_{i} \big) \\ \\
+&=\frac{1}{n}\mathbb{E}\big( X_{1} + X_{2} + \cdots + X_{n} \big) \\ \\
+&=\frac{1}{n}\big( \mathbb{E}(X_{1}) + \mathbb{E}(X_{2}) + \cdots  + \mathbb{E}(X_{n})\big) \\ \\
+&=\frac{1}{n}\big( \mu + \mu + \cdots + \mu \big) \\ \\
+&=\frac{1}{n}\big( n \mu \big) \\ \\
+&=\mu
+\end{align}
+]
+
+---
+##Valor Esperado de la Media Muestral
+
+Para cualquier $n$ el promedio de esas las diferentes $\bar{X}_{n}$'s es igual a $\mathbb{E}(X)$.
+
+.center[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=7}
+
+# Load ggplot2 package for visualization
+library(ggplot2)
+
+# Initialize a dataframe for the individual sample means and another for the averages
+sample_means_data <- data.frame(sample_size = integer(0), sample_mean = double(0))
+averages_data <- data.frame(sample_size = integer(0), avg_sample_mean = double(0))
+
+# True mean of rolling a 6-sided die
+true_mean <- 3.5
+
+# Sample sizes to consider
+sample_sizes <- seq(1, 6000, by = 50)
+
+# Loop through different sample sizes
+for (sample_size in sample_sizes) {
+  
+  sum_sample_means <- 0
+  
+  # Draw 1000 samples for each sample size
+  for (i in 1:100) {
+    
+    # Roll a die "sample_size" times
+    sample <- sample(1:6, size = sample_size, replace = TRUE)
+    
+    # Calculate the sample mean
+    sample_mean <- mean(sample)
+    sum_sample_means <- sum_sample_means + sample_mean
+    
+    # Add individual sample mean to the dataframe
+    sample_means_data <- rbind(sample_means_data, data.frame(sample_size = sample_size, sample_mean = sample_mean))
+  }
+  
+  # Calculate average of sample means for the current sample size
+  avg_of_sample_means <- sum_sample_means / 100
+  
+  # Add average to the averages dataframe
+  averages_data <- rbind(averages_data, data.frame(sample_size = sample_size, avg_sample_mean = avg_of_sample_means))
+}
+
+# Plotting
+ggplot() +
+  geom_line(data = averages_data, aes(x = sample_size, y = 3.5, color = "a"), size = 1.5) +   
+  geom_line(data = averages_data, aes(x = sample_size, y = avg_sample_mean, color = "b"), size = 1.5, alpha=0.5) +
+  scale_color_manual(
+    values = c("a" = "#4B6F44", "b" = "#C05A50"), 
+    labels = c(expression(E(bar(X)[n]) == mu), expression(paste("Promedio de ",bar(X)[n],"'s"))
+  )) +
+  xlab("n: tamaño muestra (# dados lanzados)") +
+  ylab(expression(bar(X)[n])) + 
+  ylim(2.5, 4.5) + 
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
+    legend.position = c(0.95, 0.95),
+    legend.justification = c("right", "top"),
+    legend.background = element_blank(),
+    legend.box.background = element_rect(color="transparent", fill = "transparent"),
+    legend.box.margin = margin(0,0,0,0),
+    legend.title = element_blank(),
+    legend.key = element_blank() # Removes the border around the legend items
+  )
+
+```
+]
+
+
+---
+## Varianza y Desviación Standard de la Media Muestral
+
+.pull-left[
+
+- $X$ es una variable aleatoria con primer momento $\mathbb{E}(X) = \mu$
+
+- Generamos/tomamos una muestra $n$ del tipo:
+
+
+- $\{X_{1},X_{2}, \dots, X_{n}\}$
+
+- Las $X_{i}$'s son .bold[iid]
+    
+- En cada muestra calculamos la .bold[media muestral],  $\bar{X}_{n}$
+
+- $\bar{X}_{n}$ es .bold[aleatoria] porque las $X_{i}$'s son aleatorias.
+
+<br>
+
+.bold[¿Cuanto varían dichas medias muestrales?]
+
+]
+
+--
+
+.pull-right[
+
+\begin{align}
+\text{Var}(\bar{X}) &= \text{Var}\big(\frac{1}{n} \sum^{n}_{i=1} X_{i} \big) \\
+&= \frac{1}{n^2} \text{Var}\big( \sum^{n}_{i=1} X_{i} \big) \\ \\
+&=\frac{1}{n^2}\big( \text{Var}(X_{1}) + \text{Var}(X_{2}) + \cdots + \text{Var}(X_{n})\big) \\ \\
+&=\frac{1}{n^2}\big( \sigma^2 + \sigma^2 + \cdots + \sigma^2 \big) \\ \\
+&=\frac{1}{n^2}\big( n \sigma^2 \big) \\ \\
+&=\frac{\sigma^2}{n} \implies \quad \sqrt{\text{Var}(\bar{X})}  = \frac{\sigma}{\sqrt{n}}
+\end{align}
+]
+
+
+
+---
+## Varianza de la Media Muestral
+
+A medida que aumenta $n$ los diferentes $\bar{X}_{n}$'s se concentran más cerca del promedio de las $\bar{X}_{n}$'s (que, a su vez, coincide con $\mathbb{E}(X)$).
+
+.center[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=7}
+
+# Load ggplot2 package for visualization
+library(ggplot2)
+
+# Initialize a dataframe for the individual sample means and another for the averages
+sample_means_data <- data.frame(sample_size = integer(0), sample_mean = double(0))
+averages_data <- data.frame(sample_size = integer(0), avg_sample_mean = double(0))
+
+# True mean of rolling a 6-sided die
+true_mean <- 3.5
+
+# Sample sizes to consider
+sample_sizes <- seq(1, 6000, by = 50)
+
+# Loop through different sample sizes
+for (sample_size in sample_sizes) {
+  
+  sum_sample_means <- 0
+  
+  # Draw 1000 samples for each sample size
+  for (i in 1:100) {
+    
+    # Roll a die "sample_size" times
+    sample <- sample(1:6, size = sample_size, replace = TRUE)
+    
+    # Calculate the sample mean
+    sample_mean <- mean(sample)
+    sum_sample_means <- sum_sample_means + sample_mean
+    
+    # Add individual sample mean to the dataframe
+    sample_means_data <- rbind(sample_means_data, data.frame(sample_size = sample_size, sample_mean = sample_mean))
+  }
+  
+  # Calculate average of sample means for the current sample size
+  avg_of_sample_means <- sum_sample_means / 100
+  
+  # Add average to the averages dataframe
+  averages_data <- rbind(averages_data, data.frame(sample_size = sample_size, avg_sample_mean = avg_of_sample_means))
+}
+
+# Plotting
+ggplot() +
+  geom_point(data = sample_means_data, aes(x = sample_size, y = sample_mean, color = "Individual Sample Mean"), size = 0.5, alpha=0.05) +
+  geom_line(data = averages_data, aes(x = sample_size, y = 3.5, color = "Average of Sample Means"), size = 1) +
+  scale_color_manual(
+    values = c("Individual Sample Mean" = "#4B6F44", "Average of Sample Means" = "#C05A50"), 
+    labels = c(expression(E(bar(X)[n]) == mu), expression(bar(X)[n]))
+  ) +
+  xlab("n: tamaño muestra (# dados lanzados)") +
+  ylab(expression(bar(X)[n])) + 
+  ylim(2.5, 4.5) + 
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
+    legend.position = c(0.95, 0.95),
+    legend.justification = c("right", "top"),
+    legend.background = element_blank(),
+    legend.box.background = element_rect(color="transparent", fill = "transparent"),
+    legend.box.margin = margin(0,0,0,0),
+    legend.title = element_blank(),
+    legend.key = element_blank() # Removes the border around the legend items
+  )
+```
+]
+
+
+---
+## Varianza de la Media Muestral
+
+A medida que aumenta $n$ la desviación standard de $\bar{X}_{n}$'s .bold[disminuye a una taza decreciente] específica.
+
+.center[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=7}
+
+library(ggplot2)
+
+# True variance of rolling a 6-sided die
+variance <- 2.9166667
+
+# Data frame for the standard deviations
+sd_data <- data.frame(sample_size = integer(0), sample_sd = double(0), theoretical_sd = double(0))
+
+# Sample sizes to consider
+sample_sizes <- seq(1, 600, by = 5)
+
+# Loop through different sample sizes
+for (sample_size in sample_sizes) {
+  
+  sample_means <- numeric(100) # array to store the sample means for each sample
+  
+  # Draw 100 samples for each sample size
+  for (i in 1:100) {
+    
+    # Roll a die "sample_size" times
+    sample <- sample(1:6, size = sample_size, replace = TRUE)
+    
+    # Calculate the sample mean and store it
+    sample_means[i] <- mean(sample)
+  }
+  
+  # Calculate the standard deviation of the sample means
+  sd_sample_means <- sd(sample_means)
+  
+  # Compute theoretical SD
+  theoretical_sd <- sqrt(variance)/sqrt(sample_size)
+  
+  # Add to the data frame
+  sd_data <- rbind(sd_data, data.frame(sample_size = sample_size, sample_sd = sd_sample_means, theoretical_sd = theoretical_sd))
+}
+
+# Plotting
+ggplot(data = sd_data, aes(x = sample_size)) +
+  geom_line(aes(y = sample_sd, color = "sample_sd"), size = 1) +
+  geom_line(aes(y = theoretical_sd, color = "theoretical_sd"), linetype = "dashed", size = 1) +
+  scale_color_manual(
+    values = c("sample_sd" = "#4B6F44", "theoretical_sd" = "#C05A50"),
+    labels = c(expression(Desviación~estándar~de~bar(X)[n]), expression(sqrt(Var(bar(X)[n])) == sigma/sqrt(n))
+    )) +
+  xlab("n: tamaño muestra (# dados lanzados)") +
+  ylab(expression(Desviación~estándar~de~bar(X)[n])) + 
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 14),
+    axis.text.x = element_text(size = 14),
+    axis.title.y = element_text(size = 16),
+    axis.title.x = element_text(size = 16),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
+    legend.title = element_blank(),
+    legend.position = c(0.95, 0.95),
+    legend.justification = c("right", "top"),
+    legend.background = element_blank()
+  ) +
+  annotate("text", x = 500, y = 0.25, label = expression(paste(frac("d", dn) * (sigma/sqrt(n)), " = ", frac(-sigma, 2 * sqrt(n)^3))), parse = TRUE)
+
+```
+]
+
+---
+## Corolario
+
+Típicamente contamos con .bold[sólo una muestra], con un $n$ fijo. 
+
+.bold[¿"Cuán bien" nuestro estimado muestral] $\bar{X}_{n}$ .bold[captura el parámetro verdadero E(X)?] 
+
+--
+.center[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=7}
+
+library(ggplot2)
+
+# Initialize a dataframe for the individual sample means and another for the averages
+sample_means_data <- data.frame(sample_size = integer(0), sample_mean = double(0))
+averages_data <- data.frame(sample_size = integer(0), avg_sample_mean = double(0))
+
+# True mean of rolling a 6-sided die
+true_mean <- 3.5
+
+# Sample sizes to consider
+sample_sizes <- seq(1, 6000, by = 50)
+
+# Loop through different sample sizes
+for (sample_size in sample_sizes) {
+  
+  sum_sample_means <- 0
+  
+  # Draw 1000 samples for each sample size
+  n_sims=100
+  for (i in 1:n_sims) {
+    
+    # Roll a die "sample_size" times
+    sample <- sample(1:6, size = sample_size, replace = TRUE)
+    
+    # Calculate the sample mean
+    sample_mean <- mean(sample)
+    sum_sample_means <- sum_sample_means + sample_mean
+    
+    # Add individual sample mean to the dataframe
+    sample_means_data <- rbind(sample_means_data, data.frame(sample_size = sample_size, sample_mean = sample_mean))
+  }
+  
+  # Calculate average of sample means for the current sample size
+  avg_of_sample_means <- sum_sample_means / n_sims
+  
+  # Add average to the averages dataframe
+  averages_data <- rbind(averages_data, data.frame(sample_size = sample_size, avg_sample_mean = avg_of_sample_means))
+}
+
+# Select one data point that is farther from the true mean
+far_from_mean <- sample_means_data[abs(sample_means_data$sample_mean - true_mean) > 0.4, ]
+selected_far <- sample(1:nrow(far_from_mean), 1)
+
+# Select 4 more random points excluding the one chosen above
+remaining_rows <- setdiff(1:nrow(sample_means_data), as.numeric(rownames(far_from_mean)[selected_far]))
+selected_remaining <- sample(remaining_rows, 4)
+
+selected_rows <- c(as.numeric(rownames(far_from_mean)[selected_far]), selected_remaining)
+
+# Plotting
+ggplot() +
+  geom_point(data = sample_means_data, aes(x = sample_size, y = sample_mean, color = "Individual Sample Mean"), size = 0.5, alpha=0.05) +
+  geom_line(data = averages_data, aes(x = sample_size, y = 3.5, color = "Average of Sample Means"), size = 1) +
+  geom_point(data = sample_means_data[selected_rows,], aes(x = sample_size, y = sample_mean), color = "black", size = 3) + 
+  scale_color_manual(
+    values = c("Individual Sample Mean" = "#4B6F44", "Average of Sample Means" = "#C05A50"), 
+    labels = c(expression(E(bar(X)[n]) == mu), expression(bar(X)[n]))
+  ) +
+  xlab("n: tamaño muestra (# dados lanzados)") +
+  ylab(expression(bar(X)[n])) + 
+  ylim(2.5, 4.5) + 
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
+    legend.position = c(0.95, 0.95),
+    legend.justification = c("right", "top"),
+    legend.background = element_blank(),
+    legend.box.background = element_rect(color="transparent", fill = "transparent"),
+    legend.box.margin = margin(0,0,0,0),
+    legend.title = element_blank(),
+    legend.key = element_blank() # Removes the border around the legend items
+  )
+
+``` 
+]
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+
+

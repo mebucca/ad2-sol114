@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Probabilidad e Inferencia Estadística</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Probabilidad e Inferencia Estadística
+]
+.subtitle[
+## #9: Teoremas Asintóticos
+]
+.author[
+### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
+]
+.date[
+### 20 September, 2024
+]
+
+---
+
+class: inverse, center, middle
+
+
+
+
+
+#Teoremas Asintóticos
+
+
+---
+class: inverse, center, middle
+
+#Ley de los Grandes Números
+## Convergencia en Probabilidad
+
+
+---
+## Ley de los Grandes Números
+
+
+
+- `\(X\)` es una variable aleatoria con primer momento `\(\mathbb{E}(X) = \mu\)`
+
+- Generamos/tomamos una muestra `\(\{X_{1},X_{2}, \dots, X_{n}\}\)` de tamaño `\(n\)` donde:
+  
+    - Cada `\(X_{i}\)` sigue la misma distribución que la variable aleatoria `\(X\)`
+    - Las `\(X_{i}\)`'s son independientes entre si
+
+--
+
+- La media aritmética en .bold[esta muestra] es  `\(\bar{X}_{n} = \frac{1}{n}\sum_{i=1}^{n}X_i\)`
+
+- `\(\bar{X}_{n}\)` es .bold[aleatoria] porque las `\(X_{i}\)`'s son aleatorias.
+
+
+&lt;br&gt;
+--
+
+.bold[Ley de los Grandes Números] establece que, a medida que el tamaño de una muestra aleatoria crece, la media aritmética de la muestra .bold[converge en probabilidad] al promedio teórico/poblacional: `\(\bar{X} \overset{p}{\to} \mathbb{E}(X)\)`.
+
+
+
+.content-box-primary[
+.bolder[Matemáticamente,]
+`$$\color{white}{\lim_{n \to \infty}\mathbb{P}\left( \left| \bar{X} - \mu \right| \geq \epsilon \right) = 0}$$`
+]
+
+
+---
+## Ley de los Grandes Números
+
+.bold[Convergencia en Probabilidad]
+.pull-left[
+![](class_9_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+]
+
+
+.pull-right[
+![](class_9_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+]
+
+---
+class: inverse, center, middle
+
+#Valor Esperado y Varianza
+#de la
+#Media Muestral
+
+---
+##Valor Esperado de la Media Muestral
+
+.pull-left[
+
+- `\(X\)` es una variable aleatoria con primer momento `\(\mathbb{E}(X) = \mu\)`
+
+- Generamos/tomamos una muestra `\(n\)` del tipo:
+
+
+- `\(\{X_{1},X_{2}, \dots, X_{n}\}\)`
+
+- Las `\(X_{i}\)`'s son .bold[iid]
+    
+- En cada muestra calculamos la .bold[media muestral],  `\(\bar{X}_{n}\)`
+
+- `\(\bar{X}_{n}\)` es .bold[aleatoria] porque las `\(X_{i}\)`'s son aleatorias.
+
+&lt;br&gt;
+
+.bold[¿Cuál es el promedio de dichas medias muestrales?]
+
+]
+
+--
+
+.pull-right[
+
+`\begin{align}
+\mathbb{E}(\bar{X}_{n}) &amp;= \mathbb{E}\big(\frac{1}{n} \sum^{n}_{i=1} X_{i} \big) \\ \\
+&amp;=\frac{1}{n}\mathbb{E}\big( X_{1} + X_{2} + \cdots + X_{n} \big) \\ \\
+&amp;=\frac{1}{n}\big( \mathbb{E}(X_{1}) + \mathbb{E}(X_{2}) + \cdots  + \mathbb{E}(X_{n})\big) \\ \\
+&amp;=\frac{1}{n}\big( \mu + \mu + \cdots + \mu \big) \\ \\
+&amp;=\frac{1}{n}\big( n \mu \big) \\ \\
+&amp;=\mu
+\end{align}`
+]
+
+---
+##Valor Esperado de la Media Muestral
+
+Para cualquier `\(n\)` el promedio de esas las diferentes `\(\bar{X}_{n}\)`'s es igual a `\(\mathbb{E}(X)\)`.
+
+.center[
+![](class_9_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+]
+
+
+---
+## Varianza y Desviación Standard de la Media Muestral
+
+.pull-left[
+
+- `\(X\)` es una variable aleatoria con primer momento `\(\mathbb{E}(X) = \mu\)`
+
+- Generamos/tomamos una muestra `\(n\)` del tipo:
+
+
+- `\(\{X_{1},X_{2}, \dots, X_{n}\}\)`
+
+- Las `\(X_{i}\)`'s son .bold[iid]
+    
+- En cada muestra calculamos la .bold[media muestral],  `\(\bar{X}_{n}\)`
+
+- `\(\bar{X}_{n}\)` es .bold[aleatoria] porque las `\(X_{i}\)`'s son aleatorias.
+
+&lt;br&gt;
+
+.bold[¿Cuanto varían dichas medias muestrales?]
+
+]
+
+--
+
+.pull-right[
+
+`\begin{align}
+\text{Var}(\bar{X}) &amp;= \text{Var}\big(\frac{1}{n} \sum^{n}_{i=1} X_{i} \big) \\
+&amp;= \frac{1}{n^2} \text{Var}\big( \sum^{n}_{i=1} X_{i} \big) \\ \\
+&amp;=\frac{1}{n^2}\big( \text{Var}(X_{1}) + \text{Var}(X_{2}) + \cdots + \text{Var}(X_{n})\big) \\ \\
+&amp;=\frac{1}{n^2}\big( \sigma^2 + \sigma^2 + \cdots + \sigma^2 \big) \\ \\
+&amp;=\frac{1}{n^2}\big( n \sigma^2 \big) \\ \\
+&amp;=\frac{\sigma^2}{n} \implies \quad \sqrt{\text{Var}(\bar{X})}  = \frac{\sigma}{\sqrt{n}}
+\end{align}`
+]
+
+
+
+---
+## Varianza de la Media Muestral
+
+A medida que aumenta `\(n\)` los diferentes `\(\bar{X}_{n}\)`'s se concentran más cerca del promedio de las `\(\bar{X}_{n}\)`'s (que, a su vez, coincide con `\(\mathbb{E}(X)\)`).
+
+.center[
+![](class_9_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+]
+
+
+---
+## Varianza de la Media Muestral
+
+A medida que aumenta `\(n\)` la desviación standard de `\(\bar{X}_{n}\)`'s .bold[disminuye a una taza decreciente] específica.
+
+.center[
+![](class_9_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+]
+
+---
+## Corolario
+
+Típicamente contamos con .bold[sólo una muestra], con un `\(n\)` fijo. 
+
+.bold[¿"Cuán bien" nuestro estimado muestral] `\(\bar{X}_{n}\)` .bold[captura el parámetro verdadero E(X)?] 
+
+--
+.center[
+![](class_9_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+]
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

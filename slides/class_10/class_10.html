@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Probabilidad e Inferencia Estadística</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Probabilidad e Inferencia Estadística
+]
+.subtitle[
+## #9: Teoremas Asintóticos
+]
+.author[
+### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
+]
+.date[
+### 20 September, 2024
+]
+
+---
+
+class: inverse, center, middle
+
+
+
+
+
+#Teoremas Asintóticos
+
+
+---
+class: inverse, center, middle
+
+#Teorema del Límite Central
+##Convergencia en Distribution
+
+---
+## Teorema del Límite Central
+
+&lt;br&gt;
+
+
+- `\(X\)` es una variable aleatoria con primer momento `\(\mathbb{E}(X) = \mu\)`
+
+- Generamos/tomamos una muestra `\(\{X_{1},X_{2}, \dots, X_{n}\}\)` de tamaño `\(n\)` donde todas las `\(X_{i}\)`'s son .bold[iid].
+    
+- La media aritmética en .bold[esta muestra] es  `\(\bar{X}_{n} = \frac{1}{n}\sum_{i=1}^{n}X_i\)`, donde `\(\bar{X}_{n}\)` es .bold[aleatoria] porque las `\(X_{i}\)`'s son aleatorias. 
+
+- Sabemos que `\(\mathbb{E}(\bar{X}_{n}) = \mu\)` and `\(\sqrt{\mathbb{Var}\big(\bar{X}_{n} \big)}=\frac{\sigma}{\sqrt{n}}\)`.
+
+--
+
+- .bold[¿Cual es la distribución de] `\(\bar{X}_{n}\)`?
+
+---
+##Teorema del Límite Central (parte 1)
+A medida que el tamaño de una muestra crece, la media aritmética de la muestra .bold[converge en distribución] a un distribución normal con los siguientes parámetros.
+
+
+
+.content-box-primary[
+`$$\color{white}{\bar{X} \overset{d}{\to}
+ \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)}$$`
+]
+
+&lt;br&gt;
+--
+Específicamente,
+
+- .bold[Convergencia en distribución]: A medida que `\(n\)` aumenta `\(\bar{X}\)` tiende a seguir una .bold[distribución normal], .bold[sin importar la distribución original de las variables aleatorias].
+
+- .bold[Inmediatez de la convergencia]: Si las variables originales distribuyen normal la distribución de las medias muestrales será normal, independient del tamaño de la muestra.
+
+- .bold[Variable degenerada en µ]:  A medida que `\(n \to \infty\)`, `\(\bar{X}\)` tiende a transformarse en una constante (variable "degenerada").
+
+
+---
+##Teorema del Límite Central (parte 1)
+
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+.bold[Gráficamente,]
+
+![](class_10_files/figure-html/unnamed-chunk-1-1.png)&lt;!-- --&gt;
+
+&lt;br&gt;
+
+
+---
+##Teorema del Límite Central (parte 1)
+
+.bold[¿Por qué]: `\(\bar{X} \sim \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)\)`?
+
+--
+&lt;br&gt;
+
+.img-right[
+.center[
+![magic](https://media.tenor.com/SWKI18Zs_H8AAAAd/magic-meme.gif)
+]
+]
+
+
+---
+##Teorema del Límite Central (parte 1)
+
+.bold[¿Por qué]: `\(\bar{X} \sim \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)\)`?
+
+
+Recordemos que `\(\bar{X}\)` es la suma de variables aleatorias `\(\frac{1}{n}(X_{1} + X_{2} + \dots + X_{n} )\)`
+
+--
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+![](class_10_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+
+
+---
+##Teorema del Límite Central (parte 2)
+
+.bold[Teorema del Límite Central (parte 1)]: Si `\(\bar{X} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)\)`, entonces
+
+.content-box-primary[
+`$$\color{white}{ \frac{\sqrt{n}(\bar{X} - \mu)}{\sigma}  \sim
+ \text{Normal}(0, 1)}$$`
+]
+
+--
+
+.bold[¿Por qué?]
+
+--
+
+.pull-left[
+`\begin{align}
+\frac{(\bar{X} - \mu)}{\frac{\sigma}{\sqrt{n}}} &amp;= \frac{n (\bar{X} - \mu)}{\sqrt{n}\sigma}  \\ 
+&amp;=\frac{  (X_{1} + X_{2} + \dots + X_{n} ) - (\mu + \mu +  \dots + \mu )}{\sqrt{n}\sigma} \\
+&amp;= \frac{1}{\sqrt{n}} \sum_{i=1}^{n}{Z_{i}} \quad \text{ donde } Z_{i} \sim \text{Normal}(0, 1)
+\end{align}`
+]
+
+--
+
+.pull-left[
+
+`\(\quad \quad \quad \quad \quad \quad \quad \quad \mathbb{E}(\sum_{i=1}^{n}{Z_{i}}) = 0, \quad \mathbb{Var}(\sum_{i=1}^{n}{Z_{i}}) = n\)`
+
+&lt;br&gt; 
+`\(\quad \quad \quad \quad \quad \quad \quad \quad \sqrt{\mathbb{Var}(\sum_{i=1}^{n}{Z_{i}})} = \sqrt{n}\)` 
+
+&lt;br&gt;
+`\(\quad \quad \quad \quad\)` Por tanto 
+
+`\(\frac{1}{\sqrt{n}} \sum_{i=1}^{n}{Z_{i}} \sim \frac{1}{\sqrt{n}} \text{Normal}(0, n) \sim \text{Normal}(0, 1)\)` 
+
+]
+
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
