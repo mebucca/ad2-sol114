@@ -21,8 +21,16 @@ notas <- read_sheet(notas_prueba1, sheet= "Prueba 1")
 
 data_grades <- notas %>% drop_na(Nota) %>%
   filter(Nota>0) %>%
-  select(Rut,`I`:Nota) %>%  
+  select(Rut,`I`:Revisor) %>%  
   mutate(`P(Nota < tunota)` =rank(Nota)/n()) 
+
+model <- lm(Nota ~ Revisor, data = data_grades)
+
+data_grades <- data_grades %>% 
+  mutate(Nota = case_when(Revisor == "MB" ~ Nota,
+                          Revisor == "ET" ~ Nota + (model$coefficients[3] -       model$coefficients[2]),
+                          Revisor == "BP" ~ Nota + model$coefficients[3])
+)
 
 data_grades %>% select(Rut,`I`:Nota) %>%  
   mutate(`P(Nota < tunota)` =rank(Nota)/n()) %>%
@@ -72,7 +80,7 @@ p <- ggplot(data_grades, aes(x = Nota)) +
 print(p)
 ```
 
-Usando un Gaussian mixture model encontramos 3 clusters de notas:
+Usando un Gaussian mixture model encontramos 4 clusters de notas:
 
 ```{r, echo=F, message=FALSE, warning=FALSE}
 
