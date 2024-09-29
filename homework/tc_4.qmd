@@ -1,0 +1,57 @@
+---
+title: "SOL114 Análisis de Datos II"
+author: "Tarea corta 4"
+format: html
+editor: visual
+---
+
+## Problema I
+
+En un estudio reciente, se seleccionó una muestra aleatoria de 1089 chilenos y chilenas mayores de 25 años para consultarles sobre su nivel de escolaridad. Los resultados muestran que, en promedio, los participantes tienen 12.5 años de escolaridad. Estudios anteriores indican que la desviación estándar poblacional es de 3.2 años.
+
+1.  Construye intervalos de confianza al 90% y al 95% para el promedio de años de escolaridad de la población. Interpreta los resultados.
+
+2.  ¿Cuál es la probabilidad de que la media muestral *subestime* el verdadero promedio poblacional por más de 1 años de escolaridad?
+
+
+
+## Problema II
+
+En esta pregunta usarás datos de una encuesta realizada por FLACSO/Chile en Abril y Mayo de 1988 sobre intención de voto en el plebiscito de 1989
+
+En particular, trabajarás con la variable `voto_si`, que mide si una persona pretende votar SI (`voto_si==1`) o NO (`voto_si==0`).
+
+1.  Calcula la proporción de individuos que pretenden votar SI en el plebiscito.
+
+2.  Calcula un intervalo al 82% de confianza para la proporción estimada en la pregunta anterior.
+
+3.  ¿Que conclusión sustantiva podemos sacar en vista de los resultados obtenidos?
+
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+library(carData)
+library(tidyverse)
+data(Chile)
+
+data_plebiscito89 <- Chile %>% mutate(voto_si = 
+  case_when(vote=="Y" ~ 1, vote=="N" ~ 0)) 
+
+head(data_plebiscito89)
+```
+
+Usando un método distinto (Boostrap) obtenemos las siguientes respuestas a las preguntas planteadas anteriormente. Puedes usar estos valores para chequear (aproximativamente) tus respuestas.
+
+```{r, echo=F, message=FALSE, warning=FALSE}
+bs_p <- NULL
+
+bs <- function() {
+  bs_sample <- sample_n(data_plebiscito89, nrow(data_plebiscito89), replace=T)
+  bs_p <- mean(bs_sample$voto_si, na.rm=T)
+}
+
+bs_sampdist <- replicate(n=1000,bs())
+
+cat("Proporción bootstrap =", round(mean(bs_sampdist),2));
+cat("Bootstrap IC al 82% =", round(quantile(bs_sampdist, p=c(0.09,0.91)),2))
+
+```
