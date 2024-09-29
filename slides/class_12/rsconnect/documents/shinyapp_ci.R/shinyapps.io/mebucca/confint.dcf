@@ -1,0 +1,12 @@
+name: confint
+title:
+username: mebucca
+account: mebucca
+server: shinyapps.io
+hostUrl: https://api.shinyapps.io/v1
+appId: 10263450
+bundleId: 7831719
+url: https://mebucca.shinyapps.io/confint/
+version: 1
+asMultiple: FALSE
+asStatic: FALSE

@@ -1,0 +1,532 @@
+---
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#12: Estimación de Intervalos"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["gentle-r.css","xaringan-themer.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  chunz_output_type: console
+---  
+class: inverse, center, middle
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(xaringanthemer)
+style_duo_accent(primary_color = "#556B2F", secondary_color = "#DAA996",
+                 background_color = "#f8f7f3",
+                 header_font_google = google_font("Archivo"),
+                 text_font_google   = google_font("Inconsolata"), 
+                 link_color= "#FFD700"
+
+)
+```
+
+# Estimación de Intervalos
+
+---
+##Estimación Puntual
+
+.pull-left[
+
+
+- Cuando contamos con .bold[UNA] muestra no tenemos una distribución de estimados
+
+- Tenemos una .bold[estimación puntual]
+
+
+<br>
+Por ejemplo:
+
+```{r, echo=FALSE, fig.height=8, fig.width=8,  message=FALSE, warning=FALSE}
+set.seed(1234)  
+x_poblacion <- tibble(x = rnorm(n=10^6, mean=4, sd=3))
+mi_muestra <- sample_n(x_poblacion, size=200, replace = TRUE)
+```
+$\bar{X}_{200}$ =  `r mean(mi_muestra$x)`
+
+<br>
+
+
+- Sabemos que la media muestral es un estimador insesgado de la media poblacional (es promedio coinciden)
+
+- Sin embargo, .bold[la estimación puntal no necesariamente corresponde al parámetro poblacional].
+
+- No nos tomamos este número tan enserio
+ 
+]
+
+
+.pull-right[
+```{r, echo=FALSE, fig.height=8, fig.width=8,  message=FALSE, warning=FALSE}
+
+library(ggplot2)
+
+set.seed(5001)
+
+# Color definitions
+primary_color   <- "#DAA996"
+secondary_color <- "#556B2F"
+third_color     <- "#FFD700" 
+
+# Create the normal distribution data
+x_values <- seq(2.5, 5.5, by = 0.01)
+y_values <- dnorm(x_values, mean = 4, sd = 3/sqrt(200))
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_line(color = primary_color, size = 1) +
+  geom_vline(xintercept = 4, linetype = "dashed", size=1.5) +
+  annotate("text", x = 4.2, y = 0.25, label = expression(mu), size = 12) +
+  geom_point(aes(x=mean(mi_muestra$x),y=dnorm(mean(mi_muestra$x), mean = 4, sd = 3/sqrt(200))), size=5, colour="red") +
+  labs(
+       x = expression(bar(X)),
+       y = "Densidad") +
+  
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(normal_distribution_plot)
+```
+]
+
+
+---  
+class: inverse, center, middle
+
+#Error en estimación
+
+---
+##Error en estimación
+
+¿Qué tan probable es que que nuestro estimador se equivoque? ¿en cuanto?
+
+--
+
+Definamos un nivel de error $e$.
+--
+ La probabilidad de que el estimado $\bar{X}_{n}$ esté a una distancia $e$ respecto del parámetro poblacional: 
+
+$$\mathbb{P}( |\bar{X} - \mu| < e) =  \quad \mathbb{P}(-e < \bar{X} - \mu < e)$$
+
+<br>
+--
+
+dividendo por el error estándard (SE) de $\bar{X}$: $\quad \quad \mathbb{P}\bigg(\frac{-e }{\sigma/\sqrt{n}} < Z_{\bar{X}}  < \frac{e}{\sigma/\sqrt{n}}\bigg) =$
+
+--
+
+.pull-left[
+
+```{r, echo=FALSE, fig.height=3.8, fig.width=4.5,  message=FALSE, warning=FALSE}
+
+# Create the normal distribution data
+x_values <- seq(-3, 3, by = 0.01)
+y_values <- dnorm(x_values)
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Define the alpha level (e.g., 0.05 for 95% confidence)
+alpha <- 0.05
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_line(color = secondary_color, size = 1) +
+  
+  # Add a shaded central 95% area
+  geom_ribbon(data = normal_data %>% 
+                filter(x >= qnorm(alpha / 2) & x <= qnorm(1 - alpha / 2)),
+              aes(x = x, ymin = 0, ymax = y),
+              fill = secondary_color, alpha = 0.4) +
+  
+  # Add vertical segments at the borders of the central area
+  geom_segment(x = qnorm(alpha / 2), xend = qnorm(alpha / 2),
+               y = 0, yend = max(normal_data$y),
+               color = primary_color) +
+  geom_segment(x = qnorm(1 - alpha / 2), xend = qnorm(1 - alpha / 2),
+               y = 0, yend = max(normal_data$y),
+               color = primary_color) +
+  # Add annotations "LI" and "LS" next to the vertical segments
+  labs(
+    x = expression(Z[bar(X)]),
+    y = "Densidad") +
+
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(normal_distribution_plot)
+
+```
+]
+
+.pull-right[
+
+Usamos las propiedades de una Normal Standard para calcular esta probabilidad:
+
+<br>
+
+$$ = \Phi\Bigg({\frac{e }{\sigma/\sqrt{n}}}\Bigg) - \Phi\Bigg(\frac{-e }{\sigma/\sqrt{n}}\Bigg)$$
+]
+
+---
+##Error en estimación, ejemplo
+
+  - La variable $X$ en la población distribuye Normal con $\sigma=3.464$.
+  - Tomamos un muestra aleaatorias de tamaño 200 y estimamos la media muestral $\bar{X}_{200}$.
+  
+--
+
+.bold[¿Cual es la probabilidad de que nuestro estimado difiera como máximo en 0.25 puntos respecto de la media poblacional?] (en cualquier dirección)
+
+--
+
+$$\mathbb{P}(-e < \bar{X} - \mu < e) = \mathbb{P}(-0.25 < \bar{X} - \mu < 0.25)$$ 
+
+<br>
+--
+
+Dividimos por el error estándard (SE) de $\bar{X}$, donde  $SE_{\bar{X}} = \sigma/\sqrt{n} =  3.464/\sqrt{200} \approx 0.245$
+
+--
+
+.pull-left[
+\begin{align}
+\mathbb{P}(-0.25 < \bar{X} - \mu < 0.25) &= \mathbb{P}\bigg(\frac{-0.25}{0.245} < Z_{\bar{X}}  < \frac{0.25}{0.245}\bigg)   \\ \\
+&= \mathbb{P}\bigg(−1.02 < Z_{\bar{X}}  < 1.02 \bigg) \\ \\
+&= 1 - 2 \cdot \Phi(−1.02) \approx 0.6922 \\ \\
+\end{align}
+]
+
+
+.pull-right[
+```{r, echo=FALSE, fig.height=3.8, fig.width=4.5,  message=FALSE, warning=FALSE}
+
+# Create the normal distribution data
+x_values <- seq(-5, 5, by = 0.01)
+y_values <- dnorm(x_values, mean = 0, sd = 1)  # Standard normal distribution
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Define the alpha level (e.g., 0.05 for 95% confidence)
+alpha <- 0.05
+
+# Calculate Z values for the shaded area
+z_lower <- -1.02041
+z_upper <- 1.02041
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_line(color = secondary_color, size = 1) +
+  
+  # Add a shaded central area
+  geom_ribbon(data = normal_data %>% 
+                filter(x >= z_lower & x <= z_upper),
+              aes(x = x, ymin = 0, ymax = y),
+              fill = secondary_color, alpha = 0.4) +
+  
+  # Add vertical segments at the borders of the central area
+  geom_segment(x = z_lower, xend = z_lower,
+               y = 0, yend = max(normal_data$y),
+               color = primary_color) +
+  geom_segment(x = z_upper, xend = z_upper,
+               y = 0, yend = max(normal_data$y),
+               color = primary_color) +
+  
+  # Add annotations "LI" and "LS" next to the vertical segments
+  geom_text(aes(x = z_lower - 0.4, y = max(normal_data$y) + 0.02, label = "-1.02"),
+            size = 6, hjust = 0.4) +
+  geom_text(aes(x = z_upper + 0.6, y = max(normal_data$y) + 0.02, label = "1.02"),
+            size = 6, hjust = 1.1) +
+  
+  # Add probability calculation annotation
+  geom_text(aes(x = 0, y = 0.05, label = "0.69"), size = 5) +
+  
+  labs(
+    x = expression(Z[bar(X)]),
+    y = "Densidad",
+  ) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text = element_blank(),  
+    axis.ticks = element_blank(),  
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(normal_distribution_plot)
+
+
+```
+]
+
+
+---
+class: inverse, center, middle
+
+
+#Intervalos de confianza
+
+
+---
+##Intervalos de confianza
+
+.pull-left[
+Anteriormente calculamos la probabilidad de que el estimado $\bar{X}_{n}$ esté a una distancia $e$ respecto del parámetro poblacional: 
+]
+
+.pull-right[
+$$\mathbb{P}\bigg(-e < \bar{X} - \mu < e\bigg) = \mathbb{P}\bigg(\frac{-e }{\sigma/\sqrt{n}} < Z_{\bar{X}}  < \frac{e}{\sigma/\sqrt{n}}\bigg)$$
+]
+
+<br>
+--
+
+Un .bold[intervalo de confianza] consiste en el proceso inverso:
+
+> Buscar un intervalo de valores tal que el .bold[parámetro poblacional se encuentre dentro del intervalo] con una cierta probabilidad arbitraria (nivel de confianza). 
+
+
+<br>
+--
+
+Definamos un .bold[Nivel de Confianza] = $1 - \alpha$ 
+
+--
+
+El intervalo $(a,b)$ es un intervalo de confianza al  $100 \cdot (1 - \alpha) \%$ para el estimador $\bar{X}_{n}$ de la media poblacional $\mu$ si:
+
+
+.content-box-primary[
+$$\color{white}{\mathbb{P}(a < \mu < b ) = 1 - \alpha}$$
+]
+
+
+
+donde $a$ y $b$ son funciones de $\bar{X}_{n}$. 
+--
+.bold[¿Cómo determinamos los valores de a y b?]
+
+
+---
+##Intervalos de confianza, paso a paso:
+
+
+i. Estandarizamos la media muestral:  $Z_{\bar{X}} = \frac{\bar{X} - \mu}{\sigma_{\bar{X}}} \quad$ donde $\quad \sigma_{\bar{X}}= \sigma/\sqrt{n}$ o Error Estándard (EE).
+
+  - Por TLC sabemos $\frac{\bar{X} - \mu}{\sigma_{\bar{X}}} \sim \text{Normal}(0,1)$
+
+--
+
+ii. Definimos el nivel de confianza $1 - \alpha$ y buscamos los "valores críticos" $(-C,C)$ tales que:
+$$\mathbb{P}\bigg( -C < \frac{\bar{X} - \mu}{\sigma_{\bar{X}}}  < C \bigg) = 1 - \alpha$$
+
+
+.pull-left[
+```{r, echo=FALSE, fig.height=3.8, fig.width=4.5,  message=FALSE, warning=FALSE}
+
+# Create the normal distribution data
+x_values <- seq(-3, 3, by = 0.01)
+y_values <- dnorm(x_values)
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Define the alpha level (e.g., 0.05 for 95% confidence)
+alpha <- 0.05
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_line(color = secondary_color, size = 1) +
+  
+  # Add a shaded central 95% area
+  geom_ribbon(data = normal_data %>% 
+                filter(x >= qnorm(alpha / 2) & x <= qnorm(1 - alpha / 2)),
+              aes(x = x, ymin = 0, ymax = y),
+              fill = secondary_color, alpha = 0.4) +
+  
+  # Add vertical segments at the borders of the central area
+  geom_segment(x = qnorm(alpha / 2), xend = qnorm(alpha / 2),
+               y = 0, yend = max(normal_data$y),
+               color = primary_color) +
+  geom_segment(x = qnorm(1 - alpha / 2), xend = qnorm(1 - alpha / 2),
+               y = 0, yend = max(normal_data$y),
+               color = primary_color) +
+  
+  # Add annotations "LI" and "LS" next to the vertical segments
+  geom_text(aes(x = qnorm(alpha / 2) - 0.6, y = max(normal_data$y) + 0.02, label = "-C"),
+            size = 4, hjust = -0.1) +
+  geom_text(aes(x = qnorm(1 - alpha / 2) + 0.6, y = max(normal_data$y) + 0.02, label = "C"),
+            size = 4, hjust = 1.1) +
+  
+  labs(
+    x = expression(Z[bar(X)]),
+    y = "Densidad") +
+  
+  # Annotate in the middle as 1 - alpha (in math)
+  annotate("text", x = 0, y = 0.1, label = expression(1 - alpha), size = 9) +
+  
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text = element_blank(),  
+    axis.ticks = element_blank(),  
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(normal_distribution_plot)
+
+```
+]
+
+.pull-right[
+
+<br>
+
+En cada cola se acumula un probabilidad de $\alpha/2$.
+
+- $\quad C = \Phi^{-1}(1 - \alpha/2)$ $\equiv$ $Z_{\alpha/2}$
+
+- $-C = \Phi^{-1}(\alpha/2)$ $\equiv$ $-Z_{\alpha/2}$
+
+
+]
+
+---
+##Intervalos de confianza, paso a paso:
+
+
+ii. $\mathbb{P}\bigg( -C < \frac{\bar{X} - \mu}{\sigma_{\bar{X}}}  < C \bigg) = 1 - \alpha$
+
+--
+
+iii. $\mathbb{P}\bigg( \Phi^{-1}(\alpha/2) < \frac{\bar{X} - \mu}{\sigma_{\bar{X}}}  < \Phi^{-1}(1 - \alpha/2) \bigg) = 1 - \alpha$
+
+> por simpleza re-escrimos $\Phi^{-1}(\alpha/2)$ y $\Phi^{-1}(1 - \alpha/2)$ como $-Z_{(\alpha/2)}$ y $Z_{(\alpha/2)}$ respectivamente.
+
+--
+
+iv. $\mathbb{P}\bigg( -Z_{(\alpha/2)} < \frac{\bar{X} - \mu}{\sigma_{\bar{X}}}  < Z_{(\alpha/2)} \bigg) = 1 - \alpha$
+
+--
+
+v. $\mathbb{P}\bigg( -Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} < \bar{X} - \mu < Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} \bigg) = 1 - \alpha$
+
+
+
+--
+
+vi. $\mathbb{P}\bigg( -Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} < \mu -  \bar{X} < Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} \bigg) = 1 - \alpha$ 
+
+--
+
+vii. $\mathbb{P}\bigg( \bar{X} - Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} < \mu  < \bar{X} + Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} \bigg) = 1 - \alpha$ 
+
+
+---
+##Intervalos de confianza
+
+En resumen,
+
+El intervalo $(a,b)$ es un intervalo de confianza al  $100 \cdot (1 - \alpha) \%$ para el estimador $\bar{X}_{n}$ de la media poblacional $\mu$ si:
+
+$$\mathbb{P}(a < \mu < b ) = 1 - \alpha$$
+
+--
+
+Más específicamente,
+
+
+.content-box-primary[
+$$\color{white}{\mathbb{P}\bigg( \bar{X} - Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} < \mu  < \bar{X} + Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} \bigg) = 1 - \alpha}$$
+]
+
+donde:
+
+- $\sigma_{\bar{X}}= \sigma/\sqrt{n}$
+
+- $-Z_{\alpha/2} = \Phi^{-1}(\alpha/2)$
+
+- $\quad Z_{\alpha/2} = \Phi^{-1}(1 - \alpha/2)$
+
+
+---
+##Intervalos de confianza, qué es y qué no
+
+--
+
+Un intervalo al $100 \cdot (1 - \alpha)\%$ de confianza $CI: (\bar{X} - Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} , \bar{X} + Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} )$ ...
+
+
+--
+
+.bold[NO ES:] 
+
+.content-box-secondary[
+$\color{black}{\text{La probabilidad de que la media poblacional } \mu \text{ tome valores entre } \bar{X} -  Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} \quad \text{y} \quad  \bar{X} + Z_{(\alpha/2)}\cdot \sigma_{\bar{X}}}$
+]
+
+
+--
+
+> $\mu$ es un valor fijo y no es una variable aleatoria que tome valores en un intervalo. La aleatoriedad la aporta $\bar{X}$ por el hecho de estar calculado en una muestra aleatoria.
+
+--
+
+.bold[ES:]
+.content-box-primary[
+$\color{white}{\text{La probabilidad de que un intervalo entre } \bar{X} -  Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} \quad \text{y} \quad  \bar{X} + Z_{(\alpha/2)}\cdot \sigma_{\bar{X} \quad} \text{contenga la media poblacional } \mu}$
+
+]
+
+
+> Si tomamos infinitas muestras de tamaño $n$ a partir de la misma población y en cada uno construimos un intervalo en torno al promedio muestral $\bar{X}$, el $100 \cdot (1 - \alpha)\%$ de dichos intervalor contendrá $\mu$.
+
+
+---
+class: inverse, center, middle
+
+#Intervalos de confianza
+
+###Ejemplo
+
+
+ [`[Shiny App]`](https://github.com/mebucca/ad2-sol114/blob/master/slides/class_12/shinyapp_ci.R)
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+
+

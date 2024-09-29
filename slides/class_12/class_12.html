@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Probabilidad e Inferencia Estadística</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Probabilidad e Inferencia Estadística
+]
+.subtitle[
+## #12: Estimación de Intervalos
+]
+.author[
+### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
+]
+.date[
+### 29 September, 2024
+]
+
+---
+
+class: inverse, center, middle
+
+
+
+# Estimación de Intervalos
+
+---
+##Estimación Puntual
+
+.pull-left[
+
+
+- Cuando contamos con .bold[UNA] muestra no tenemos una distribución de estimados
+
+- Tenemos una .bold[estimación puntual]
+
+
+&lt;br&gt;
+Por ejemplo:
+
+
+`\(\bar{X}_{200}\)` =  4.0658543
+
+&lt;br&gt;
+
+
+- Sabemos que la media muestral es un estimador insesgado de la media poblacional (es promedio coinciden)
+
+- Sin embargo, .bold[la estimación puntal no necesariamente corresponde al parámetro poblacional].
+
+- No nos tomamos este número tan enserio
+ 
+]
+
+
+.pull-right[
+![](class_12_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+]
+
+
+---  
+class: inverse, center, middle
+
+#Error en estimación
+
+---
+##Error en estimación
+
+¿Qué tan probable es que que nuestro estimador se equivoque? ¿en cuanto?
+
+--
+
+Definamos un nivel de error `\(e\)`.
+--
+ La probabilidad de que el estimado `\(\bar{X}_{n}\)` esté a una distancia `\(e\)` respecto del parámetro poblacional: 
+
+`$$\mathbb{P}( |\bar{X} - \mu| &lt; e) =  \quad \mathbb{P}(-e &lt; \bar{X} - \mu &lt; e)$$`
+
+&lt;br&gt;
+--
+
+dividendo por el error estándard (SE) de `\(\bar{X}\)`: `\(\quad \quad \mathbb{P}\bigg(\frac{-e }{\sigma/\sqrt{n}} &lt; Z_{\bar{X}}  &lt; \frac{e}{\sigma/\sqrt{n}}\bigg) =\)`
+
+--
+
+.pull-left[
+
+![](class_12_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+
+Usamos las propiedades de una Normal Standard para calcular esta probabilidad:
+
+&lt;br&gt;
+
+$$ = \Phi\Bigg({\frac{e }{\sigma/\sqrt{n}}}\Bigg) - \Phi\Bigg(\frac{-e }{\sigma/\sqrt{n}}\Bigg)$$
+]
+
+---
+##Error en estimación, ejemplo
+
+  - La variable `\(X\)` en la población distribuye Normal con `\(\sigma=3.464\)`.
+  - Tomamos un muestra aleaatorias de tamaño 200 y estimamos la media muestral `\(\bar{X}_{200}\)`.
+  
+--
+
+.bold[¿Cual es la probabilidad de que nuestro estimado difiera como máximo en 0.25 puntos respecto de la media poblacional?] (en cualquier dirección)
+
+--
+
+`$$\mathbb{P}(-e &lt; \bar{X} - \mu &lt; e) = \mathbb{P}(-0.25 &lt; \bar{X} - \mu &lt; 0.25)$$` 
+
+&lt;br&gt;
+--
+
+Dividimos por el error estándard (SE) de `\(\bar{X}\)`, donde  `\(SE_{\bar{X}} = \sigma/\sqrt{n} =  3.464/\sqrt{200} \approx 0.245\)`
+
+--
+
+.pull-left[
+`\begin{align}
+\mathbb{P}(-0.25 &lt; \bar{X} - \mu &lt; 0.25) &amp;= \mathbb{P}\bigg(\frac{-0.25}{0.245} &lt; Z_{\bar{X}}  &lt; \frac{0.25}{0.245}\bigg)   \\ \\
+&amp;= \mathbb{P}\bigg(−1.02 &lt; Z_{\bar{X}}  &lt; 1.02 \bigg) \\ \\
+&amp;= 1 - 2 \cdot \Phi(−1.02) \approx 0.6922 \\ \\
+\end{align}`
+]
+
+
+.pull-right[
+![](class_12_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+]
+
+
+---
+class: inverse, center, middle
+
+
+#Intervalos de confianza
+
+
+---
+##Intervalos de confianza
+
+.pull-left[
+Anteriormente calculamos la probabilidad de que el estimado `\(\bar{X}_{n}\)` esté a una distancia `\(e\)` respecto del parámetro poblacional: 
+]
+
+.pull-right[
+`$$\mathbb{P}\bigg(-e &lt; \bar{X} - \mu &lt; e\bigg) = \mathbb{P}\bigg(\frac{-e }{\sigma/\sqrt{n}} &lt; Z_{\bar{X}}  &lt; \frac{e}{\sigma/\sqrt{n}}\bigg)$$`
+]
+
+&lt;br&gt;
+--
+
+Un .bold[intervalo de confianza] consiste en el proceso inverso:
+
+&gt; Buscar un intervalo de valores tal que el .bold[parámetro poblacional se encuentre dentro del intervalo] con una cierta probabilidad arbitraria (nivel de confianza). 
+
+
+&lt;br&gt;
+--
+
+Definamos un .bold[Nivel de Confianza] = `\(1 - \alpha\)` 
+
+--
+
+El intervalo `\((a,b)\)` es un intervalo de confianza al  `\(100 \cdot (1 - \alpha) \%\)` para el estimador `\(\bar{X}_{n}\)` de la media poblacional `\(\mu\)` si:
+
+
+.content-box-primary[
+`$$\color{white}{\mathbb{P}(a &lt; \mu &lt; b ) = 1 - \alpha}$$`
+]
+
+
+
+donde `\(a\)` y `\(b\)` son funciones de `\(\bar{X}_{n}\)`. 
+--
+.bold[¿Cómo determinamos los valores de a y b?]
+
+
+---
+##Intervalos de confianza, paso a paso:
+
+
+i. Estandarizamos la media muestral:  `\(Z_{\bar{X}} = \frac{\bar{X} - \mu}{\sigma_{\bar{X}}} \quad\)` donde `\(\quad \sigma_{\bar{X}}= \sigma/\sqrt{n}\)` o Error Estándard (EE).
+
+  - Por TLC sabemos `\(\frac{\bar{X} - \mu}{\sigma_{\bar{X}}} \sim \text{Normal}(0,1)\)`
+
+--
+
+ii. Definimos el nivel de confianza `\(1 - \alpha\)` y buscamos los "valores críticos" `\((-C,C)\)` tales que:
+`$$\mathbb{P}\bigg( -C &lt; \frac{\bar{X} - \mu}{\sigma_{\bar{X}}}  &lt; C \bigg) = 1 - \alpha$$`
+
+
+.pull-left[
+![](class_12_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+]
+
+.pull-right[
+
+&lt;br&gt;
+
+En cada cola se acumula un probabilidad de `\(\alpha/2\)`.
+
+- `\(\quad C = \Phi^{-1}(1 - \alpha/2)\)` `\(\equiv\)` `\(Z_{\alpha/2}\)`
+
+- `\(-C = \Phi^{-1}(\alpha/2)\)` `\(\equiv\)` `\(-Z_{\alpha/2}\)`
+
+
+]
+
+---
+##Intervalos de confianza, paso a paso:
+
+
+ii. `\(\mathbb{P}\bigg( -C &lt; \frac{\bar{X} - \mu}{\sigma_{\bar{X}}}  &lt; C \bigg) = 1 - \alpha\)`
+
+--
+
+iii. `\(\mathbb{P}\bigg( \Phi^{-1}(\alpha/2) &lt; \frac{\bar{X} - \mu}{\sigma_{\bar{X}}}  &lt; \Phi^{-1}(1 - \alpha/2) \bigg) = 1 - \alpha\)`
+
+&gt; por simpleza re-escrimos `\(\Phi^{-1}(\alpha/2)\)` y `\(\Phi^{-1}(1 - \alpha/2)\)` como `\(-Z_{(\alpha/2)}\)` y `\(Z_{(\alpha/2)}\)` respectivamente.
+
+--
+
+iv. `\(\mathbb{P}\bigg( -Z_{(\alpha/2)} &lt; \frac{\bar{X} - \mu}{\sigma_{\bar{X}}}  &lt; Z_{(\alpha/2)} \bigg) = 1 - \alpha\)`
+
+--
+
+v. `\(\mathbb{P}\bigg( -Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} &lt; \bar{X} - \mu &lt; Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} \bigg) = 1 - \alpha\)`
+
+
+
+--
+
+vi. `\(\mathbb{P}\bigg( -Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} &lt; \mu -  \bar{X} &lt; Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} \bigg) = 1 - \alpha\)` 
+
+--
+
+vii. `\(\mathbb{P}\bigg( \bar{X} - Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} &lt; \mu  &lt; \bar{X} + Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} \bigg) = 1 - \alpha\)` 
+
+
+---
+##Intervalos de confianza
+
+En resumen,
+
+El intervalo `\((a,b)\)` es un intervalo de confianza al  `\(100 \cdot (1 - \alpha) \%\)` para el estimador `\(\bar{X}_{n}\)` de la media poblacional `\(\mu\)` si:
+
+`$$\mathbb{P}(a &lt; \mu &lt; b ) = 1 - \alpha$$`
+
+--
+
+Más específicamente,
+
+
+.content-box-primary[
+`$$\color{white}{\mathbb{P}\bigg( \bar{X} - Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} &lt; \mu  &lt; \bar{X} + Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} \bigg) = 1 - \alpha}$$`
+]
+
+donde:
+
+- `\(\sigma_{\bar{X}}= \sigma/\sqrt{n}\)`
+
+- `\(-Z_{\alpha/2} = \Phi^{-1}(\alpha/2)\)`
+
+- `\(\quad Z_{\alpha/2} = \Phi^{-1}(1 - \alpha/2)\)`
+
+
+---
+##Intervalos de confianza, qué es y qué no
+
+--
+
+Un intervalo al `\(100 \cdot (1 - \alpha)\%\)` de confianza `\(CI: (\bar{X} - Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} , \bar{X} + Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} )\)` ...
+
+
+--
+
+.bold[NO ES:] 
+
+.content-box-secondary[
+`\(\color{black}{\text{La probabilidad de que la media poblacional } \mu \text{ tome valores entre } \bar{X} -  Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} \quad \text{y} \quad  \bar{X} + Z_{(\alpha/2)}\cdot \sigma_{\bar{X}}}\)`
+]
+
+
+--
+
+&gt; `\(\mu\)` es un valor fijo y no es una variable aleatoria que tome valores en un intervalo. La aleatoriedad la aporta `\(\bar{X}\)` por el hecho de estar calculado en una muestra aleatoria.
+
+--
+
+.bold[ES:]
+.content-box-primary[
+`\(\color{white}{\text{La probabilidad de que un intervalo entre } \bar{X} -  Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} \quad \text{y} \quad  \bar{X} + Z_{(\alpha/2)}\cdot \sigma_{\bar{X} \quad} \text{contenga la media poblacional } \mu}\)`
+
+]
+
+
+&gt; Si tomamos infinitas muestras de tamaño `\(n\)` a partir de la misma población y en cada uno construimos un intervalo en torno al promedio muestral `\(\bar{X}\)`, el `\(100 \cdot (1 - \alpha)\%\)` de dichos intervalor contendrá `\(\mu\)`.
+
+
+---
+class: inverse, center, middle
+
+#Intervalos de confianza
+
+###Ejemplo
+
+
+ [`[Shiny App]`](https://github.com/mebucca/ad2-sol114/blob/master/slides/class_12/shinyapp_ci.R)
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
