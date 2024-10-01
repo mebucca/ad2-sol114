@@ -1,0 +1,435 @@
+---
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#13: Intervalos de Confianza"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["gentle-r.css","xaringan-themer.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  chunz_output_type: console
+---  
+class: inverse, center, middle
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(xaringanthemer)
+style_duo_accent(primary_color = "#A67C52", secondary_color = "#FAF3E0",
+                 background_color = "#f8f7f3", 
+                 header_font_google = google_font("Archivo"),
+                 text_font_google   = google_font("Inconsolata"), 
+                 link_color= "#D32F2F"
+
+)
+```
+
+# Intervalos de Confianza para
+## medias y proporciones muestrales
+
+
+---
+##Intervalos de confianza
+
+
+El intervalo de confianza $\bar{X} \pm Z_{(\alpha/2)} \cdot \sigma_{\bar{X}}$ al $100 \cdot (1 - \alpha) \%$ de confianza para el estimador $\bar{X}_{n}$ es el intervalo tal que:
+
+
+.content-box-primary[
+$$\color{white}{\mathbb{P}\bigg( \bar{X} - Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} < \mu  < \bar{X} + Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} \bigg) = 1 - \alpha}$$
+]
+
+
+--
+<br>
+
+En palabras, un intervalo de confianza de este tipo indica que:
+
+
+.content-box-secondary[
+$\color{black}{1-\alpha \quad \text{es la probabilidad de que un intervalo entre } \bar{X} -  Z_{(\alpha/2)} \cdot \sigma_{\bar{X}} \quad \text{y} \quad  \bar{X} + Z_{(\alpha/2)}\cdot \sigma_{\bar{X}} \\ \text{contenga la media poblacional } \mu}$
+
+]
+
+El intervalo es aleatorio, no $\mu$.
+
+---
+##Intervalos de confianza
+
+
+ 
+.bold[Intervalos de Confianza comunmente usados:]
+
+|      Nivel de significancia (α)      |   Nivel de confianza   | Valor crítico  $Z_{\alpha/2}$ |   Expresión en R   |
+|:------------------------------------:|:----------------------:|:-------------------------------:|:------------------:|
+|                 0.01                 |          99%           |               2.58               | `qnorm(0.995)`     |
+|                 0.05                 |          95%           |               1.96               | `qnorm(0.975)`     |
+|                 0.10                 |          90%           |               1.64               | `qnorm(0.95)`      |
+
+
+<br>
+--
+
+.bold[Trade-off entre precisión y confianza]
+
+
+$$IC: \bar{X} \pm Z_{(\alpha/2)} \cdot \sigma/\sqrt{n}$$
+
+- $\downarrow  \alpha\implies \uparrow Z_{\alpha/2}$: Un nivel de confianza más altoo (mayor seguridad de que intervalo contiene el parámetro poblacional) conduce a un intervalo de confianza más amplio (menor precisión).
+
+- $\downarrow Z_{\alpha/2}  \implies \uparrow \alpha$: Un intervalo más preciso (menor el rango de valores en qu se encuentraría el parámetro poblacional) conlleva un nivel de confianza más bajo.
+
+-  $\uparrow n \implies$ intervalo más estrecho. $\uparrow \sigma \implies$ intervalo más ancho.
+
+---
+class: inverse, center, middle
+
+#Intervalos de confianza
+##Ejemplo
+
+---
+##Las mujeres en el mercado laboral
+
+
+.pull-left[
+![women](https://wbhm.org/wp-content/uploads/2023/10/gettyimages-2666616-930494094c2bc07b528ff36d8b481f35c097fb14-2-800x450.jpg)
+]
+.pull-right[
+![goldin](https://cdn.corrieredellosport.it/img/990/495/2023/10/09/181036087-9d1453e1-65e2-43be-a2be-c42861da4f93.jpg)
+
+]
+
+---
+##Promedio de ingreso mujeres
+
+```{r, echo=F}
+library("tidyverse")
+url <- "https://raw.githubusercontent.com/mebucca/dar_soc4001/master/data/sample_casen2017.csv"
+
+casen2017_mujeres <- read.csv(url) %>% as_tibble() %>%
+  mutate(ingreso = yautcor) %>%    
+  select(region,sexo,edad,educ,ingreso) %>% filter(sexo==2) %>%
+  mutate(univ = case_when(educ==11 | educ==12 & edad > 27 ~ 1, educ < 11 & edad > 27 ~ 0))
+```
+
+.center[
+```{r, echo=F}
+  print(casen2017_mujeres, n=20)
+```
+]
+
+
+---
+##Promedio de ingreso mujeres
+
+```{r, echo=T}
+#i. Calcula media muestral 
+
+mu_muestra <- mean(casen2017_mujeres$ingreso, na.rm=T) #<<
+
+cat("Media muestral:", mu_muestra)
+
+```
+
+--
+
+.bold[Instrucción:] Calcula un intervalo al 99% de confianza y otro al 90%.
+
+
+* Supongamos que la desviación estándard en la población es conocida:  $\sigma = 583454$ 
+
+---
+##Promedio de ingreso mujeres, IC al 99%
+
+```{r, echo=T}
+
+#ii. Decidir nivel de confianza
+conf <- 0.99;  alpha <- 1 - conf 
+
+#iii. Calcular valores críticos
+z_inf <- qnorm(alpha/2)
+z_sup <- qnorm(1 - alpha/2)
+
+#iv. Calcular error estándard del promedio muestal
+sigma_poblacion <- 583454 # desviación estándar ingreso de mujeres en la población.
+n <- sum(!is.na(casen2017_mujeres$ingreso)) #cuenta observaciones (sin NAs) en ingreso
+ee <- sigma_poblacion/sqrt(n)
+
+#v. Calcular limites del intervalo de confianza:
+ic_inf = mu_muestra + z_inf*ee 
+ic_sup = mu_muestra + z_sup*ee 
+
+cat("Intervalo al", 100*conf, "% de confianza: (",ic_inf,",",ic_sup,")")
+
+```
+
+---
+##Promedio de ingreso mujeres, IC al 90%
+
+```{r, echo=t}
+
+#ii. Decidir nivel de confianza
+conf <- 0.90; alpha <- 1 - conf 
+
+#iii. Calcular valores críticos
+z_inf <- qnorm(alpha/2)
+z_sup <- qnorm(1 - alpha/2)
+
+#iv. Calcular error estándard del promedio muestal
+sigma_poblacion <- 583454 # desviación estándar ingreso de mujeres en la población.
+n <- sum(!is.na(casen2017_mujeres$ingreso)) #cuenta observaciones (sin NAs) en ingreso
+ee <- sigma_poblacion/sqrt(n)
+
+#v. Calcular limites del intervalo de confianza:
+ic_inf = mu_muestra + z_inf*ee 
+ic_sup = mu_muestra + z_sup*ee 
+
+cat("Intervalo al", 100*conf, "% de confianza: (",ic_inf,",",ic_sup,")")
+
+```
+
+
+---
+class: inverse, center, middle
+
+##Intervalos de Confiaza para proporciones
+
+
+---
+##Estimación de una proporción
+
+--
+
+.bold[Situación:]
+
+- $X$ es una variable dicotómica (0/1) que sigue una distribución Bernoulli con probabilidad de éxito $\mathbb{P}(X=1)=p$.
+
+- Tomamos una muestra aleatoria de tamaño $n$ a partir de la población.
+
+- Usamos la proporción muestral $\hat{p} = \frac{\sum_{i=1}^{n}X_{i}}{n}$ como un estimador de la problabilidad de éxito en la población.
+--
+
+  - $\hat{p} \equiv \bar{X}$
+
+- ¿Cual es la distribución muestral de $\hat{p}$?. Es decir: Si repetimos el proceso de muestreo y estimación muchas veces, $\hat{p}$ variará de una muestra a otra. ¿Cual es la distribución de todas estas proporciones muestrales?
+
+---
+## *Detour*: valor esperado y varianza de una variable Bernoulli
+
+
+- Cuando estimados una proporción asumimos que cada observación es la manifestación de una variable aleatoria Bernoulli.
+
+- Para determinar la distribución muestral de una proporción vamos a necesitar conocer el valor esperado y la varianza de una variable Bernoulli.
+
+
+--
+
+.pull-left[
+.bold[Valor esperado] de una Bernoulli:
+
+\begin{align}
+\mathbb{E}(X) = \sum_{i} x_{i} \times \mathbb{P}(X=x_{i}) &= \sum_{i} x_{i} \times p^{x_{i}}(1-p)^{1 - x_{i}} \\ 
+     &= 1 \times p + 0 \times (1-p) \\ 
+     &= p
+\end{align}
+]
+
+--
+
+.pull-right[
+.bold[Varianza] de una Bernoulli:
+
+\begin{align}
+\mathbb{Var}(X) &= \sum_{i} \bigg( x_{i} - \mathbb{E}(X) \bigg)^{2} \times \mathbb{P}(X=x_{i})  \\ \\
+ &= (1 - \mathbb{E}(X))^{2} \times \mathbb{P}(X=1) + (0 - \mathbb{E}(X))^{2} \times \mathbb{P}(X=0) \\ \\
+ &= (1 - p)^{2} \times p +  (0 - p)^{2} \times (1-p) \\ \\
+ &=p (1-p)
+\end{align}
+]
+
+--
+
+* .bold[Varianza máxima] cuando $p=0.5 \implies p(1-p)=0.25$
+
+---
+##Distribución muestral de $\hat{p}$
+
+--
+
+- Nos preguntamos por el valor esperado y varianza de la proporción muestral.
+
+--
+
+- La proporción muestral es: $\hat{p}_{n}=  \frac{\sum_{i=1}^{n}X_{i}}{n} \equiv \bar{X}$, donde las $X$'s son Bernoulli y .bold[iid].
+
+--
+
+.pull-left[
+\begin{align}
+\mathbb{E}(\hat{p}_{n}) &= \mathbb{E}\bigg(\frac{1}{n} \sum^{n}_{i=1} X_{i} \bigg) = \frac{1}{n}\mathbb{E}\big( X_{1}  + \cdots + X_{n} \big)\\ \\
+&=\frac{1}{n}\big( \mathbb{E}(X_{1}) +  \cdots  + \mathbb{E}(X_{n})\big) \\ \\
+&=\frac{1}{n}\big( p + \cdots + p \big) = \frac{1}{n}\big( n \cdot p \big) \\ \\
+&=p
+\end{align}
+]
+
+--
+
+.pull-rigth[
+\begin{align}
+\text{Var}(\hat{p}_{n}) &= \text{Var}\bigg(\frac{1}{n} \sum^{n}_{i=1} X_{i} \bigg) =  \frac{1}{n^2} \text{Var}\bigg( \sum^{n}_{i=1} X_{i} \bigg)  \\ \\
+&=\frac{1}{n^2}\big( \text{Var}(X_{1}) +  \cdots + \text{Var}(X_{n})\big) \\ \\
+&=\frac{1}{n^2}\big( p(1-p) + \cdots + p(1-p) \big) \\ \\
+&=\frac{1}{n^2}\big( n \cdot p(1-p) \big) \\ \\
+&=\frac{p(1-p)}{n} \implies \quad \sqrt{\text{Var}(\hat{p}_{n})} = \frac{\sqrt{p(1-p)}}{\sqrt{n}}
+\end{align}
+]
+
+---
+##Distribución muestral de $\hat{p}$
+
+En resumen, $\hat{p}_{n}$ es un estimados insesgado y consitente de $p$.
+
+- $\mathbb{E}(\hat{p}_{n}) = p$  
+
+- $\sqrt{\text{Var}(\hat{p}_{n})} = \frac{\sqrt{p(1-p)}}{\sqrt{n}}$
+
+--
+
+- ¿Cual es la distribución de $\hat{p}_{n}$?. 
+--
+También en este caso aplica el TLC. Para $n$ suficientente grande:
+
+<br>
+--
+
+.pull-left[
+.content-box-secondary[
+$$\color{black}{\hat{p} \overset{d}{\to}
+ \text{Normal}\Bigg(p, \frac{\sqrt{p(1-p)}}{\sqrt{n}}\Bigg)}$$
+]
+]
+
+.pull-right[
+.content-box-secondary[
+$$\color{black}{ \frac{\hat{p} - p}{\sqrt{p(1-p)}/\sqrt{n}}  \sim
+ \text{Normal}(0, 1)}$$
+]
+]
+
+<br>
+--
+
+- Típicamente se considera "grande" si $n\cdot p >  5$  y $n\cdot (1-p) > 5$ 
+
+
+---
+##Intervalos de confianza para una proporción muestral
+
+<br>
+
+Un intervalo de confianza al $100 \cdot (1 - \alpha) \%$ para el estimador $\hat{p}_{n}$ está dado por:
+
+
+.content-box-secondary[
+$$\color{black}{\mathbb{P}\bigg( \hat{p} - Z_{(\alpha/2)} \cdot \sigma_{\hat{p}} <  p  < \hat{p} + Z_{(\alpha/2)} \cdot \sigma_{\hat{p} } \bigg) = 1 - \alpha}$$
+]
+
+<br>
+
+donde:
+
+- $\sigma_{\hat{p}}= \sqrt{p(1-p)}/\sqrt{n}$
+
+- $-Z_{\alpha/2} = \Phi^{-1}(\alpha/2)$
+
+- $\quad Z_{\alpha/2} = \Phi^{-1}(1 - \alpha/2)$
+
+---
+##Proporción de mujeres con grado universitario
+###*(mayores de 27)
+
+```{r, echo=T}
+#i. Calcula proporción muestral 
+
+p_muestra <- mean(casen2017_mujeres$univ, na.rm=T) #<<
+
+cat("Proporción muestral:", p_muestra)
+
+```
+
+--
+
+.bold[Instrucción:] Calcula un intervalo al 99% de confianza y otro al 90%.
+
+
+
+---
+##Proporción de mujeres con grado universitario, IC al 99%
+
+```{r, echo=T}
+
+#ii. Decidir nivel de confianza
+conf <- 0.99;  alpha <- 1 - conf 
+
+#iii. Calcular valores críticos
+z_inf <- qnorm(alpha/2)
+z_sup <- qnorm(1 - alpha/2)
+
+
+#iv. calcula error estándard
+n <- sum(!is.na(casen2017_mujeres$univ)) #cuenta observaciones (sin NAs) en univ
+ee <- sqrt(p_muestra*(1-p_muestra))/sqrt(n)
+
+#v. Calcular limites del intervalo de confianza:
+ic_inf = p_muestra + z_inf*ee 
+ic_sup = p_muestra + z_sup*ee 
+
+cat("Intervalo al", 100*conf, "% de confianza: (",ic_inf,",",ic_sup,")")
+
+```
+
+---
+##Proporción de mujeres con grado universitario, IC al 90%
+
+```{r, echo=T}
+#ii. Decidir nivel de confianza
+conf <- 0.90; alpha <- 1 - conf 
+
+#iii. Calcular valores críticos
+z_inf <- qnorm(alpha/2)
+z_sup <- qnorm(1 - alpha/2)
+
+#iv. calcula error estándard
+n <- sum(!is.na(casen2017_mujeres$univ)) #cuenta observaciones (sin NAs) en univ
+ee <- sqrt(p_muestra*(1-p_muestra))/sqrt(n)
+
+#v. Calcular limites del intervalo de confianza:
+ic_inf = p_muestra + z_inf*ee 
+ic_sup = p_muestra + z_sup*ee 
+
+cat("Intervalo al", 100*conf, "% de confianza: (",ic_inf,",",ic_sup,")")
+
+```
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+
+
