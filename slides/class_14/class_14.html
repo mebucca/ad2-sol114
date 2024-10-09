@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Probabilidad e Inferencia Estadística</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Probabilidad e Inferencia Estadística
+]
+.subtitle[
+## #14: IC con varianza desconocida &amp; Margen de Error
+]
+.author[
+### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
+]
+.date[
+### 08 October, 2024
+]
+
+---
+
+class: inverse, center, middle
+
+
+
+
+
+# Intervalos de confianza
+## con varianza desconocida
+
+
+---
+## Intervalos de confianza con varianza desconocida
+
+.pull-left[
+.bold[Promedio de ingreso mujeres]
+
+
+
+.center[
+
+```
+## # A tibble: 513 × 6
+##    region  sexo  edad  educ ingreso  univ
+##     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;dbl&gt;
+##  1      2     2     6     1      NA    NA
+##  2     13     2    28     6      NA     0
+##  3      4     2    56     3      NA     0
+##  4      5     2    47     6  180000     0
+##  5     13     2    69     1  145000     0
+##  6     10     2     0     0      NA    NA
+##  7     13     2    59     8  500000     0
+##  8      4     2    28     8  330000     0
+##  9      9     2    30    11  652533     1
+## 10      9     2    36     5   95000     0
+## 11     15     2    24     7   60000    NA
+## 12      5     2    43     5    2083     0
+## 13     13     2    17     3      NA    NA
+## 14     14     2    21     9      NA    NA
+## 15     14     2    86    11  450000     1
+## # ℹ 498 more rows
+```
+]
+
+]
+
+.pull-right[
+
+```
+## Media muestral: 368070.1
+```
+
+.bold[Instrucción:] Calcula un intervalo al 99% de confianza y otro al 90%.
+
+
+* Supongamos que la desviación estándard en la población es conocida:  `\(\sigma = 583454\)` 
+
+
+]
+
+---
+## Intervalos de confianza con varianza desconocida
+
+.pull-left[
+.bold[Promedio de ingreso mujeres]
+
+
+
+.center[
+
+```
+## # A tibble: 513 × 6
+##    region  sexo  edad  educ ingreso  univ
+##     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;dbl&gt;
+##  1      2     2     6     1      NA    NA
+##  2     13     2    28     6      NA     0
+##  3      4     2    56     3      NA     0
+##  4      5     2    47     6  180000     0
+##  5     13     2    69     1  145000     0
+##  6     10     2     0     0      NA    NA
+##  7     13     2    59     8  500000     0
+##  8      4     2    28     8  330000     0
+##  9      9     2    30    11  652533     1
+## 10      9     2    36     5   95000     0
+## 11     15     2    24     7   60000    NA
+## 12      5     2    43     5    2083     0
+## 13     13     2    17     3      NA    NA
+## 14     14     2    21     9      NA    NA
+## 15     14     2    86    11  450000     1
+## # ℹ 498 more rows
+```
+]
+
+]
+
+.pull-right[
+
+```
+## Media muestral: 368070.1
+```
+
+.bold[Instrucción:] Calcula un intervalo al 99% de confianza y otro al 90%.
+
+
+* ~~Supongamos que la desviación estándard en la población es conocida: σ = 583454~~ 
+
+* .bold[No conocemos la varianza poblacional]. Necesitamos estimarla a partir de los datos.
+
+![horror](https://christandpopculture.com/wp-content/uploads/2015/12/shave-home-alone-gif.gif)
+
+]
+
+---
+## Estimación de la varianza
+
+- `\(X\)` es una variable aleatoria con `\(\mathbb{E}(X) =\mu\)` y `\(\mathbb{Var}(X) =\sigma^2\)`
+- `\(\{ x_1, x_2, ..., x_n \}\)` es una muestra aleatoria donde todas las `\(x^{'}_{s}\)` son independientes y siguen la misma distribución (iid). 
+
+--
+
+- `\(\bar{X}\)` es un estimador insesgado de `\(\mu\)`: `\(\mathbb{E}(\bar{X}) =\mu\)` 
+
+--
+
+- ¿Cómo estimamos `\(\sigma^2\)`?
+
+
+---
+## Estimación de la varianza
+
+--
+
+`\(\sigma^2_{\text{naive}} = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2\)`
+
+&lt;br&gt;
+--
+
+.bold[Problema]: `\(\sigma^2_{\text{naive}}\)` no es un buen estimador de la `\(\sigma^2\)`
+
+--
+
+`\(\mathbb{E}[\sigma^2_{\text{naive}}] = \sigma^2 - \frac{\sigma^2}{n} = \sigma^2 \big(\frac{n-1}{n} \big)\)`
+
+  - Subestima la varianza poblacional: `\(\sigma^2 &gt; \sigma^2 \big(\frac{n-1}{n} \big)\)`
+
+&lt;br&gt;
+--
+
+.bold[Correción]: `\(\mathbb{E}[\big(\frac{n}{n-1} \big) \sigma^2_{\text{naive}}] = \sigma^2 \big(\frac{n-1}{n} \big)\big(\frac{n}{n-1} \big) = \sigma^2\)`
+
+
+Para corregir este sesgo, necesitamos multiplicar `\(\sigma^2_{\text{naive}}\)` por el factor `\(\frac{n}{n-1}\)`, lo que conduce al estimador insesgado:
+
+
+`$$s^2 = \frac{n}{n-1} \cdot \sigma^2_{\text{naive}} = \bigg(\frac{n}{n-1}\bigg) \cdot\frac{1}{n}\sum_{i=1}^{n} (x_i - \bar{x})^2 =  \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2$$`
+
+&lt;br&gt;
+  - `\(s^2\)` es un estimador insesgado de la  la varianza poblacional `\(\sigma^2\)`.
+
+
+---
+##Promedio de ingreso mujeres
+
+
+
+.center[
+
+```
+## # A tibble: 513 × 6
+##    region  sexo  edad  educ ingreso  univ
+##     &lt;int&gt; &lt;int&gt; &lt;int&gt; &lt;int&gt;   &lt;int&gt; &lt;dbl&gt;
+##  1      2     2     6     1      NA    NA
+##  2     13     2    28     6      NA     0
+##  3      4     2    56     3      NA     0
+##  4      5     2    47     6  180000     0
+##  5     13     2    69     1  145000     0
+##  6     10     2     0     0      NA    NA
+##  7     13     2    59     8  500000     0
+##  8      4     2    28     8  330000     0
+##  9      9     2    30    11  652533     1
+## 10      9     2    36     5   95000     0
+## 11     15     2    24     7   60000    NA
+## 12      5     2    43     5    2083     0
+## 13     13     2    17     3      NA    NA
+## 14     14     2    21     9      NA    NA
+## 15     14     2    86    11  450000     1
+## 16      1     2    36     1  265000     0
+## 17      2     2    27     3      NA    NA
+## 18      7     2    20     9      NA    NA
+## 19      8     2    72     7  245874     0
+## 20      8     2    28     5  350000     0
+## # ℹ 493 more rows
+```
+]
+
+
+---
+##Promedio de ingreso mujeres
+
+
+``` r
+#i. Calcula media muestral 
+
+*mu_muestra &lt;- mean(casen2017_mujeres$ingreso, na.rm=T)
+
+cat("Media muestral:", mu_muestra)
+```
+
+```
+## Media muestral: 368070.1
+```
+
+--
+
+.bold[Instrucción:] Calcula un intervalo al 95% de confianza.
+
+
+* No conocemos la desviación estándar de los ingresos de las mujeres en la población. Debemos estimarla.
+
+---
+##Promedio de ingreso mujeres, IC al 95%
+
+
+``` r
+#i. nivel de confianza: 0.95 -&gt; alpha=0.05
+
+#ii. Calcular valores críticos
+z_inf &lt;- qnorm(0.05/2);  z_sup &lt;- qnorm(1 - 0.05/2)
+
+#iii. estimación varianza y desviación estandar ingresos mujeres
+n &lt;- sum(!is.na(casen2017_mujeres$ingreso)) #cuenta observaciones (sin NAs) en ingreso
+s2 &lt;- sum((casen2017_mujeres$ingreso - mean(casen2017_mujeres$ingreso,na.rm=T))^2,na.rm=T)/(n-1)
+s  &lt;- sqrt(s2)
+print(c(manual=s,comandoR=sd(casen2017_mujeres$ingreso,na.rm = T)))
+```
+
+```
+##   manual comandoR 
+## 452424.4 452424.4
+```
+
+``` r
+#iv. error estándar
+ee &lt;- s/sqrt(n)
+
+#v. Calcular limites del intervalo de confianza:
+ic= mu_muestra + c(z_inf,z_sup)*ee 
+cat("Intervalo al 95% de confianza: (",ic[1],",",ic[2],")")
+```
+
+```
+## Intervalo al 95% de confianza: ( 311762.3 , 424377.8 )
+```
+
+---
+class: inverse, center, middle
+
+#Margen de Error
+
+---
+##Margen de Error
+
+![lt](latercera.png)
+--
+
+En encuestología es común escuchar el término .bold[margen de error].
+
+
+---
+##Margen de Error
+
+¿Qué es el margen de error?
+
+&lt;br&gt;
+--
+
+`$$IC: \bar{X} \pm Z_{(\alpha/2)} \cdot \sigma/\sqrt{n}$$`
+
+
+---
+##Margen de Error
+
+¿Qué es el margen de error?: la mitad del ancho del intervalo de confianza
+
+
+&lt;br&gt;
+
+`$$IC: \bar{X} \pm \underbrace{ \color{#4B0082}{Z_{(\alpha/2)} \cdot \sigma/\sqrt{n}}}_{\color{#228B22}{\text{MARGEN DE ERROR}}}$$`
+--
+
+Por ejemplo, si una encuestra reporta que: &lt;br&gt;
+
+&gt; "58% de los encuenstados señalan que votarán "A favor" en el plebiscito de salida" ... "La metodología considera máxima varianza, con un 95% de confianza y 2,8% de margen de error" (sic)
+
+--
+
+IC: `\(\hat{p} \pm 0.028 =\)`  
+
+
+---
+##Margen de Error
+
+Podemos usar esta fórmula para determinar el tamaño muestral necesario para alcanzar un nivel deseado de precisión (margen de error, ME).
+
+--
+
+Si, `\(\text{ME} = \pm Z_{(\alpha/2)} \cdot \sigma/\sqrt{n} \quad\)` despejado por `\(n\)` obtenemos:
+
+&lt;br&gt;
+--
+
+$$ n  = \frac{Z^2_{(\alpha/2)} \cdot \sigma^2}{\text{ME}^2}$$
+
+donde,
+
+--
+
+- `\(Z_{(\alpha/2)}\)` es el valor crítico asociado al nivel de confianza elegido. Típicamente se trabaja el 95% de confianza `\(\implies Z_{(\alpha/2)} = 1.96 \approx 2\)`
+
+--
+
+- `\(\sigma^2\)` es la varianza poblacional de la variable en cuestión. Usualmente desconocida.
+  
+  - Para variables dicotómicas se asume .bold[varianza máxima]. El máximo de `\(\mathbb{Var}(X) = p(1-p)\)` ocurre cuando `\(p=0.5 \implies p(1-p)=0.25\)`
+
+--
+
+- `\(\text{ME}\)` es el nivel de precisión al que queremos trabajar.  
+
+
+
+
+---
+##Margen de Error
+
+Dado que es común trabajar al 95% de confianza ( `\(Z_{(\alpha/2)} \approx 2\)` ) y asumir que la variable de interés es dicotómica con varianza máxima ( `\(\sigma^2=0.25\)` ), la fórmula para calcular el tamaño muestral se transforma en:
+
+&lt;br&gt;
+--
+`$$n  = \frac{Z^2_{(\alpha/2)} \cdot \sigma^2}{\text{ME}^2} \approx  \frac{2^2 \cdot 0.25}{\text{ME}^2} =  \frac{1}{\text{ME}^2}$$`
+
+&lt;br&gt;
+--
+
+Por ejemplo, si vamos a estimar una proporciòn y que trabajar con un margen de error de 2 puntos porcentuales (ME = 0.02) al 95% de confianza, entonces necesitamos una muestra de tamaño:
+
+
+`$$n  \approx \frac{1}{\text{0.02}^2} = 2500$$`
+&lt;br&gt;
+--
+
+.bold[IMPORTANTE:] El margen de error es específico a una variable. NO existe tal cosa como el .bold[margen de error de la encuesta].
+
+---
+class: inverse, middle
+
+
+.pull-left[
+##*"El margen de error de la encuesta es de 0.0x puntos porcentuales"*
+]
+
+--
+
+.pull-right[
+![nail](nailedit.jpeg)
+]
+
+
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

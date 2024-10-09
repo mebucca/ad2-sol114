@@ -1,0 +1,363 @@
+---
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#14: IC con varianza desconocida & Margen de Error"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["gentle-r.css","xaringan-themer.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  chunz_output_type: console
+---  
+class: inverse, center, middle
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(xaringanthemer)
+style_duo_accent(primary_color = "#228B22", secondary_color = "#4B0082",
+                 background_color = "#f8f7f3", 
+                 header_font_google = google_font("Archivo"),
+                 text_font_google   = google_font("Inconsolata"), 
+                 link_color= "#D8BFD8"
+
+)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = T, echo = T)
+```
+
+# Intervalos de confianza
+## con varianza desconocida
+
+
+---
+## Intervalos de confianza con varianza desconocida
+
+.pull-left[
+.bold[Promedio de ingreso mujeres]
+
+```{r, echo=F}
+library("tidyverse")
+url <- "https://raw.githubusercontent.com/mebucca/dar_soc4001/master/data/sample_casen2017.csv"
+
+casen2017_mujeres <- read.csv(url) %>% as_tibble() %>%
+  mutate(ingreso = yautcor) %>%    
+  select(region,sexo,edad,educ,ingreso) %>% filter(sexo==2) %>%
+  mutate(univ = case_when(educ==11 | educ==12 & edad > 27 ~ 1, educ < 11 & edad > 27 ~ 0))
+```
+
+.center[
+```{r, echo=F}
+  print(casen2017_mujeres, n=15)
+```
+]
+
+]
+
+.pull-right[
+```{r, echo=F}
+#i. Calcula media muestral 
+mu_muestra <- mean(casen2017_mujeres$ingreso, na.rm=T) #<<
+cat("Media muestral:", mu_muestra)
+```
+
+.bold[Instrucción:] Calcula un intervalo al 99% de confianza y otro al 90%.
+
+
+* Supongamos que la desviación estándard en la población es conocida:  $\sigma = 583454$ 
+
+
+]
+
+---
+## Intervalos de confianza con varianza desconocida
+
+.pull-left[
+.bold[Promedio de ingreso mujeres]
+
+```{r, echo=F}
+library("tidyverse")
+url <- "https://raw.githubusercontent.com/mebucca/dar_soc4001/master/data/sample_casen2017.csv"
+
+casen2017_mujeres <- read.csv(url) %>% as_tibble() %>%
+  mutate(ingreso = yautcor) %>%    
+  select(region,sexo,edad,educ,ingreso) %>% filter(sexo==2) %>%
+  mutate(univ = case_when(educ==11 | educ==12 & edad > 27 ~ 1, educ < 11 & edad > 27 ~ 0))
+```
+
+.center[
+```{r, echo=F}
+  print(casen2017_mujeres, n=15)
+```
+]
+
+]
+
+.pull-right[
+```{r, echo=F}
+#i. Calcula media muestral 
+mu_muestra <- mean(casen2017_mujeres$ingreso, na.rm=T) #<<
+cat("Media muestral:", mu_muestra)
+```
+
+.bold[Instrucción:] Calcula un intervalo al 99% de confianza y otro al 90%.
+
+
+* ~~Supongamos que la desviación estándard en la población es conocida: σ = 583454~~ 
+
+* .bold[No conocemos la varianza poblacional]. Necesitamos estimarla a partir de los datos.
+
+![horror](https://christandpopculture.com/wp-content/uploads/2015/12/shave-home-alone-gif.gif)
+
+]
+
+---
+## Estimación de la varianza
+
+- $X$ es una variable aleatoria con $\mathbb{E}(X) =\mu$ y $\mathbb{Var}(X) =\sigma^2$
+- $\{ x_1, x_2, ..., x_n \}$ es una muestra aleatoria donde todas las $x^{'}_{s}$ son independientes y siguen la misma distribución (iid). 
+
+--
+
+- $\bar{X}$ es un estimador insesgado de $\mu$: $\mathbb{E}(\bar{X}) =\mu$ 
+
+--
+
+- ¿Cómo estimamos $\sigma^2$?
+
+
+---
+## Estimación de la varianza
+
+--
+
+$\sigma^2_{\text{naive}} = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2$
+
+<br>
+--
+
+.bold[Problema]: $\sigma^2_{\text{naive}}$ no es un buen estimador de la $\sigma^2$
+
+--
+
+$\mathbb{E}[\sigma^2_{\text{naive}}] = \sigma^2 - \frac{\sigma^2}{n} = \sigma^2 \big(\frac{n-1}{n} \big)$
+
+  - Subestima la varianza poblacional: $\sigma^2 > \sigma^2 \big(\frac{n-1}{n} \big)$
+
+<br>
+--
+
+.bold[Correción]: $\mathbb{E}[\big(\frac{n}{n-1} \big) \sigma^2_{\text{naive}}] = \sigma^2 \big(\frac{n-1}{n} \big)\big(\frac{n}{n-1} \big) = \sigma^2$
+
+
+Para corregir este sesgo, necesitamos multiplicar $\sigma^2_{\text{naive}}$ por el factor $\frac{n}{n-1}$, lo que conduce al estimador insesgado:
+
+
+$$s^2 = \frac{n}{n-1} \cdot \sigma^2_{\text{naive}} = \bigg(\frac{n}{n-1}\bigg) \cdot\frac{1}{n}\sum_{i=1}^{n} (x_i - \bar{x})^2 =  \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2$$
+
+<br>
+  - $s^2$ es un estimador insesgado de la  la varianza poblacional $\sigma^2$.
+
+
+---
+##Promedio de ingreso mujeres
+
+```{r, echo=F}
+library("tidyverse")
+url <- "https://raw.githubusercontent.com/mebucca/dar_soc4001/master/data/sample_casen2017.csv"
+
+casen2017_mujeres <- read.csv(url) %>% as_tibble() %>%
+  mutate(ingreso = yautcor) %>%    
+  select(region,sexo,edad,educ,ingreso) %>% filter(sexo==2) %>%
+  mutate(univ = case_when(educ==11 | educ==12 & edad > 27 ~ 1, educ < 11 & edad > 27 ~ 0))
+```
+
+.center[
+```{r, echo=F}
+  print(casen2017_mujeres, n=20)
+```
+]
+
+
+---
+##Promedio de ingreso mujeres
+
+```{r, echo=T}
+#i. Calcula media muestral 
+
+mu_muestra <- mean(casen2017_mujeres$ingreso, na.rm=T) #<<
+
+cat("Media muestral:", mu_muestra)
+
+```
+
+--
+
+.bold[Instrucción:] Calcula un intervalo al 95% de confianza.
+
+
+* No conocemos la desviación estándar de los ingresos de las mujeres en la población. Debemos estimarla.
+
+---
+##Promedio de ingreso mujeres, IC al 95%
+
+```{r, echo=T}
+
+#i. nivel de confianza: 0.95 -> alpha=0.05
+
+#ii. Calcular valores críticos
+z_inf <- qnorm(0.05/2);  z_sup <- qnorm(1 - 0.05/2)
+
+#iii. estimación varianza y desviación estandar ingresos mujeres
+n <- sum(!is.na(casen2017_mujeres$ingreso)) #cuenta observaciones (sin NAs) en ingreso
+s2 <- sum((casen2017_mujeres$ingreso - mean(casen2017_mujeres$ingreso,na.rm=T))^2,na.rm=T)/(n-1)
+s  <- sqrt(s2)
+print(c(manual=s,comandoR=sd(casen2017_mujeres$ingreso,na.rm = T)))
+
+#iv. error estándar
+ee <- s/sqrt(n)
+
+#v. Calcular limites del intervalo de confianza:
+ic= mu_muestra + c(z_inf,z_sup)*ee 
+cat("Intervalo al 95% de confianza: (",ic[1],",",ic[2],")")
+
+```
+
+---
+class: inverse, center, middle
+
+#Margen de Error
+
+---
+##Margen de Error
+
+![lt](latercera.png)
+--
+
+En encuestología es común escuchar el término .bold[margen de error].
+
+
+---
+##Margen de Error
+
+¿Qué es el margen de error?
+
+<br>
+--
+
+$$IC: \bar{X} \pm Z_{(\alpha/2)} \cdot \sigma/\sqrt{n}$$
+
+
+---
+##Margen de Error
+
+¿Qué es el margen de error?: la mitad del ancho del intervalo de confianza
+
+
+<br>
+
+$$IC: \bar{X} \pm \underbrace{ \color{#4B0082}{Z_{(\alpha/2)} \cdot \sigma/\sqrt{n}}}_{\color{#228B22}{\text{MARGEN DE ERROR}}}$$
+--
+
+Por ejemplo, si una encuestra reporta que: <br>
+
+> "58% de los encuenstados señalan que votarán "A favor" en el plebiscito de salida" ... "La metodología considera máxima varianza, con un 95% de confianza y 2,8% de margen de error" (sic)
+
+--
+
+IC: $\hat{p} \pm 0.028 =$  `r  cat("IC al 95%:",0.58 + c(-1,1)*0.028,")")`
+
+
+---
+##Margen de Error
+
+Podemos usar esta fórmula para determinar el tamaño muestral necesario para alcanzar un nivel deseado de precisión (margen de error, ME).
+
+--
+
+Si, $\text{ME} = \pm Z_{(\alpha/2)} \cdot \sigma/\sqrt{n} \quad$ despejado por $n$ obtenemos:
+
+<br>
+--
+
+$$ n  = \frac{Z^2_{(\alpha/2)} \cdot \sigma^2}{\text{ME}^2}$$
+
+donde,
+
+--
+
+- $Z_{(\alpha/2)}$ es el valor crítico asociado al nivel de confianza elegido. Típicamente se trabaja el 95% de confianza $\implies Z_{(\alpha/2)} = 1.96 \approx 2$
+
+--
+
+- $\sigma^2$ es la varianza poblacional de la variable en cuestión. Usualmente desconocida.
+  
+  - Para variables dicotómicas se asume .bold[varianza máxima]. El máximo de $\mathbb{Var}(X) = p(1-p)$ ocurre cuando $p=0.5 \implies p(1-p)=0.25$
+
+--
+
+- $\text{ME}$ es el nivel de precisión al que queremos trabajar.  
+
+
+
+
+---
+##Margen de Error
+
+Dado que es común trabajar al 95% de confianza ( $Z_{(\alpha/2)} \approx 2$ ) y asumir que la variable de interés es dicotómica con varianza máxima ( $\sigma^2=0.25$ ), la fórmula para calcular el tamaño muestral se transforma en:
+
+<br>
+--
+$$n  = \frac{Z^2_{(\alpha/2)} \cdot \sigma^2}{\text{ME}^2} \approx  \frac{2^2 \cdot 0.25}{\text{ME}^2} =  \frac{1}{\text{ME}^2}$$
+
+<br>
+--
+
+Por ejemplo, si vamos a estimar una proporciòn y que trabajar con un margen de error de 2 puntos porcentuales (ME = 0.02) al 95% de confianza, entonces necesitamos una muestra de tamaño:
+
+
+$$n  \approx \frac{1}{\text{0.02}^2} = 2500$$
+<br>
+--
+
+.bold[IMPORTANTE:] El margen de error es específico a una variable. NO existe tal cosa como el .bold[margen de error de la encuesta].
+
+---
+class: inverse, middle
+
+
+.pull-left[
+##*"El margen de error de la encuesta es de 0.0x puntos porcentuales"*
+]
+
+--
+
+.pull-right[
+![nail](nailedit.jpeg)
+]
+
+
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+
+
