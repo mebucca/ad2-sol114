@@ -1,0 +1,765 @@
+---
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#16: Test de Hipótesis"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["gentle-r.css","xaringan-themer.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  chunz_output_type: console
+---  
+class: inverse, center, middle
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(xaringanthemer)
+style_duo_accent(primary_color = "#D6523C", secondary_color = "#34B334",
+                 background_color = "#f8f7f3", 
+                 header_font_google = google_font("Archivo"),
+                 text_font_google   = google_font("Inconsolata"), 
+                 link_color= "#0070C0"
+
+)
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = T, echo = T)
+```
+
+# Test de Hipótesis
+##en modelos probabilísticos
+
+
+---
+## El problema de la Inducción
+
+--
+
+.bold[Observación:] 1 cisne blanco, 2 cisnes blancos, ... n cisnes blancos.
+
+--
+
+.bold[Hipótesis:] *"Todos los cisnes son blancos"*
+
+<br>
+--
+
+.pull-left[![falsabilidad](https://upload.wikimedia.org/wikipedia/commons/3/3f/Black_Swan-Mindaugas_Urbonas.jpg)]
+
+.pull-right[> "Ningún número de observaciones de cisnes blancos nos permite inferir que todos los cisnes son blancos, pero la observación de un único cisne negro basta para refutar dicha conclusión"
+]
+
+
+---
+## Falsabilidad
+
+
+Pseudo-teorías no son falsables. 
+
+<br>
+
+.center[
+![falsabilidad](https://aquileana.files.wordpress.com/2009/08/karl-popper-quotes-1.jpg)
+]
+
+<br>
+
+--
+
+Modelo de las ciencias físicas y naturales (modelos deterministas -- mediados del s.XX).
+
+---
+## Falsabilidad en modelos probabilísticos
+
+--
+
+.bold[Observación:] 1 cisne blanco, 2 cisnes blancos, ... $n$ cisnes blancos.
+
+<br>
+--
+
+.bold[Hipótesis:] *"La mayoría de los cisnes son blancos"*. Por ejemplo:
+
+<br>
+$$ \mathbb{P}(\text{Blanco} \mid \text{Cisne}) > \mathbb{P}(\text{Otro} \mid \text{Cisne})$$
+
+<br>
+--
+
+
+- Un cisne de otro color no refuta esta teoría. 
+
+
+--
+
+- Muchos cisnes de otro la ponen en duda. 
+
+--
+
+- Mientras más cisnes no-blancos menos plausible es la teoría.
+
+
+---
+class: inverse, center, middle
+
+# Test de Hipótesis
+##Prueba de Significancia de la Hipótesis Nula
+### Fisher & Neyman-Pearson Framework
+
+
+---
+## Los padres fundadores
+
+.center[![fnp](https://images.slideplayer.com/22/6365349/slides/slide_4.jpg)]
+
+Estadísticos como Fisher, Neyman and Pearson desarrollaron el análogo probabilístico del falsacionismo de Popper y sus derivados. 
+
+---
+## Intuición detrás del marco teórico de Fisher & Neyman-Pearson
+
+<br>
+
+1. Formulación de una .bold[hipótesis nula] y, su contrapartida, una .bold[hipótesis alternativa]: Buscamos rechazar la hipótesis nula.
+
+--
+
+2. Recolección de datos y calcular un .bold[estadístico] para medir el fenómenos de interés (e.g, una media, una proporción, una correlación, etc.)
+
+--
+
+3. Calcular la probabilidad de obtener el resultado arrojado por el estadístico si la hipótesis nula fuera verdadera -- .bold[valor p].
+
+--
+
+4. Si el resultados obtenido es **muy improbable** en un mundo donde la hipótesis nula es verdadera, entonces rechazamos la hipótesis nula.  Alternativamente, no tenemos evidencia suficiente para rechazarla.  
+
+--
+
+5. Proceso interativo: Si se rechaza la hipótesis nula, entonces la hipótesis alternativa siguen en pie (provisoriamente).
+
+---
+class: inverse, center, middle
+
+## Paso #1: Elaborar Hipótesis Nula y Alternativa
+
+
+---
+##Hipótesis Nula y Alternativa
+
+<br>
+
+Establecer una hipótesis de trabajo y dividir el espacio muestral en particiones mutuamente excluyentes:
+
+--
+
+  - Observaciones que contradicen la hipótesis de trabajo (Hipótesis Nula, $H_0$)
+
+--
+
+  - Observaciones en favor de la hipótesis de trabajo (Hipótesis Alternativa, $H_1$) 
+
+
+--
+<br>
+
+.bold[Ejemplo:] 
+
+Hipótesis de trabajo: *"El promedio de ingresos de las mujeres en Chile es mayor que $300,000"*
+
+<br>
+
+- $H_0: \mathbb{E}(X) = 300 \text{ mil}$ 
+
+
+- $H_1: \mathbb{E}(X) > 300 \text{ mil}$
+
+
+
+---
+class: inverse, center, middle
+
+ 
+## Paso #2: Calcular un Estadístico
+
+
+---
+##Estadístico
+
+
+```{r, echo=F}
+library("tidyverse")
+url <- "https://raw.githubusercontent.com/mebucca/dar_soc4001/master/data/sample_casen2017.csv"
+
+casen2017_mujeres <- read.csv(url) %>% as_tibble() %>%
+  mutate(ingreso = yautcor) %>%    
+  dplyr::select(region,sexo,edad,educ,ingreso) %>% filter(sexo==2) %>%
+  mutate(univ = case_when(educ==11 | educ==12 & edad > 27 ~ 1, educ < 11 & edad > 27 ~ 0))
+```
+
+- Generar/elegir datos adecuados para testear nuestras hipótesis. 
+
+- Elegir y calcular un estadístico que permita evaluar la hipótesis nula en función de los datos. 
+
+
+<br>
+--
+
+En nuestro ejemplo, la elección del estadístico adecuando en inambigüa: $\bar{X} = \hat{\mu}$.
+
+```{r, echo=T}
+#i. Calcula media muestral 
+mu_hat <- mean(casen2017_mujeres$ingreso/1000, na.rm=T) %>% round()
+cat("Media muestral:", mu_hat, " mil") 
+```
+
+
+---
+class: inverse, center, middle
+
+ 
+##Paso #3: Determinar la Distribución Nula
+
+
+---
+##Distribución Nula
+
+Incluso si la hipótesis nula fuera verdada, el valor del estadístico no necesariamente coincidirá con el valor establecido en $H_0$ (por el carácter finito y aleatorio de la muestra).
+
+  - El estadístico entregará valores distintos de muestra a muestra. Si $H_0$ es verdadera valores cercanos a los establecido por $H_0$ serán más probablemes y valores más alejados serán menos probables.
+
+--
+
+- Determinar la .bold[distribución nula]: distribución muestral de nuestro estadístico bajo el supuesto de que la $H_0$ es verdadera. 
+
+<br>
+--
+
+En nuestro ejemplo, el estadístico elegido fue la media muestral $\bar{X}$, y $H_0: \mathbb{E}(Y) = 300 \text{ mil}$.
+
+--
+
+- Por el TLC sabemos que:  $\bar{X} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)$
+ 
+
+--
+
+Por tanto:
+
+$$\bar{X} \mid H_0 \text{ es verdadera}  \sim \text{Normal}\bigg(\mu= 300, \frac{\sigma}{\sqrt{n}}\bigg) $$
+
+---
+##Distribución Nula
+
+$$\bar{X} \mid H_0 \text{ es verdadera}  \sim \text{Normal}\bigg(\mu= 300, \frac{\sigma}{\sqrt{n}}\bigg) $$
+--
+
+Para determinar la distribución nula necesitamos además la desviación estándard poblacional ( $\sigma$ ) y el tamaño muestal ( $n$ ).
+
+  - Si no conocemos $\sigma$ debemos estimarlo a partir de la muesta ( $s$ ).
+  
+
+--
+
+.pull-left[
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+n <- sum(!is.na(casen2017_mujeres$ingreso))
+s <- sd(casen2017_mujeres$ingreso/1000, na.rm=T) 
+cat("n=",n,"; s=", s, sep="")
+```
+]
+
+.pull-right[
+```{r, echo=FALSE, fig.height=4.5, fig.width=5,  message=FALSE, warning=FALSE}
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Set the mean and standard deviation
+mu <- 300
+sigma <- s  # Replace 's' with your actual sigma value
+
+# Create the normal distribution data with the new mean and standard deviation
+x_values <- seq(mu - 4 * (sigma / sqrt(n)), mu + 4 * (sigma / sqrt(n)), by = 1)
+y_values <- dnorm(x_values, mean = mu, sd = sigma / sqrt(n))
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Define the alpha level (e.g., 0.05 for 95% confidence)
+alpha <- 0.05
+
+# Define colors
+primary_color <- "#D6523C"
+secondary_color <- "#34B334"
+background_color <- "#f8f7f3"
+link_color <- "#0070C0"
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_line(color = primary_color, size = 1) +
+  
+  # Add a vertical line for mu_hat
+  geom_vline(xintercept = 368.070, color = link_color, size = 1) +
+
+  # Add a text label for mu_hat
+  annotate("text", x = 408.070, y = max(normal_data$y) * 0.9, label = expression(hat(mu) == 368.070), color = link_color, size = 6) +
+  
+  # Add annotations "LI" and "LS" next to the vertical segments
+  labs(
+    x = expression(bar(X)),
+    y = "Density"
+  ) +
+
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1)
+    )
+
+# Display the plot
+print(normal_distribution_plot)
+
+```
+]
+
+---
+##Distribución Nula
+
+Alternativamente, si $Z_{\bar{X}} = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}}$ entonces:
+
+--
+
+- Distrinución nula: $Z_{\bar{X}} \mid H_0 \text{ es verdadera}  \sim \text{Normal}\big(0, 1\big)$
+
+--
+
+- Test estadístico: $\hat{z} = \frac{\hat{\mu} - \mu}{\sigma/\sqrt{n}}$
+
+
+
+.pull-left[
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+n <- sum(!is.na(casen2017_mujeres$ingreso))
+mu_hat <- mean(casen2017_mujeres$ingreso/1000, na.rm=T)
+s <- sd(casen2017_mujeres$ingreso/1000, na.rm=T) 
+z_hat <- (mu_hat - 300)/(s/sqrt(n))
+cat("mu_hat=",mu_hat," z_hat=",z_hat, sep="")
+```
+]
+
+
+.pull-right[
+```{r, echo=FALSE, fig.height=4.5, fig.width=5,  message=FALSE, warning=FALSE}
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Set the mean and standard deviation
+mu <- 0
+sigma <- 1  # Replace 's' with your actual sigma value
+
+# Create the normal distribution data with the new mean and standard deviation
+x_values <- seq(-4,4, by = 0.1)
+y_values <- dnorm(x_values)
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Define the alpha level (e.g., 0.05 for 95% confidence)
+alpha <- 0.05
+
+# Define colors
+primary_color <- "#D6523C"
+secondary_color <- "#34B334"
+background_color <- "#f8f7f3"
+link_color <- "#0070C0"
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_line(color = primary_color, size = 1) +
+  
+  # Add a vertical line for mu_hat
+  geom_vline(xintercept = z_hat, color = link_color, size = 1) +
+
+  # Add a text label for mu_hat
+  annotate("text", x = z_hat + 1 , y = max(normal_data$y) * 0.9, label = expression(hat(z) == 2.37), color = link_color, size = 6) +
+  
+  # Add annotations "LI" and "LS" next to the vertical segments
+  labs(
+    x = expression(Z[bar(X)]),
+    y = "Density"
+  ) +
+
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1)
+    )
+
+# Display the plot
+print(normal_distribution_plot)
+
+```
+]
+
+
+---
+class: inverse, center, middle
+
+ 
+## Paso #4: Decidir el Nivel de Significación
+
+
+---
+## Nivel de significación estadística, $\alpha$ 
+
+
+Si la media de ingresos de las mujeres fuera $300 mil, obtener un promedio muestral de $368 aparece como un resultado improbable (demasiado alto).
+
+- pero ¿cuanto es demasiado alto (o demasiado bajo)?
+
+
+--
+
+- Selecciona un .bold[nivel de significación] $\alpha$, tal que consideraremos como "demasiado alto"/"demasiado bajo" aquellos valores que corresponden al $\alpha$% de valores más extremos en la distribución nula:
+
+<br>
+--
+
+.pull-left[
+
+<br>
+
+En nuestro ejemplo $H_1: \mathbb{E}(X) > 300 \text{ mil}$,
+
+- Tiene sentido testear si nuesto estadístico se encuestra en el  
+$\alpha$% más alto de la distribución nula.
+
+- Con $\alpha=0.05$ el punto de corte es $\Phi^{-1}(\alpha=0.05) = 1.64$
+
+
+
+
+]
+.pull-right[
+```{r, echo=FALSE, fig.height=4.5, fig.width=5,  message=FALSE, warning=FALSE}
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Set the mean and standard deviation
+mu <- 0
+sigma <- 1
+
+# Create the normal distribution data
+x_values <- seq(-4, 4, by = 0.1)
+y_values <- dnorm(x_values, mean = mu, sd = sigma)
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Calculate the cutoff point for the top 5%
+cutoff <- qnorm(1 - alpha, mean = mu, sd = sigma)
+
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_line(size = 1) +
+  
+  # Shade the area under the curve for the top 5% with the new color
+  geom_ribbon(data = normal_data %>% filter(x >= cutoff),
+              aes(x = x, ymin = 0, ymax = y),
+              fill = link_color, alpha = 0.5) +
+  
+  # Add a vertical line for the cutoff with the new color
+  geom_vline(xintercept = cutoff, color = link_color, size = 1) +
+  
+  # Add a text label for the cutoff
+  annotate("text", x = cutoff + 0.5, y = max(normal_data$y) * 0.8, 
+           label = round(cutoff, 2), 
+           color = link_color, size = 5) +
+
+  # Add an alpha annotation on the shaded area
+  annotate("text", x = cutoff + 0.4, y = max(normal_data$y) * 0.05, 
+           label = expression(alpha), 
+           color = "black", size = 5) +
+  
+  # Add labels and theme
+  labs(x = "Z", y = "Density") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(normal_distribution_plot)
+
+```
+]
+
+
+---
+class: inverse, center, middle
+
+ 
+## Paso #5: Calcular el Valor-p
+
+---
+## Valor-p
+
+--
+
+Si la hipótesis nula fuera verdadera, es nuestro estadístico un valor esperable o un valor extremo?
+
+--
+
+El .bold[valor-p] formaliza esta pregunta: $\text{valor-p} = \mathbb{P}(\quad T(x_1 \dots  x_n) > \hat{t} \mid H_{0} \text{ es verdadera})$
+
+donde $T(x_1 \dots  x_n)$ es un test estadístico y $\hat{t}$ el valor obtenido al calcular el test $T$ en muestra.
+
+--
+
+.pull-left[
+En nuestro ejemplo:
+
+$\text{valor-p} = \mathbb{P}( \bar{X} > \hat{\mu} \mid H_{0} \text{ es verdadera})$
+
+equivalentemente:
+
+$\text{valor-p} = \mathbb{P}( Z > \frac{\hat{\mu} - \mu}{\sigma/\sqrt{n}})$
+
+
+```{r, echo=TRUE, message=FALSE, warning=FALSE}
+z_hat <- (mu_hat - 300)/(s/sqrt(n))
+
+pvalue = 1 - pnorm(z_hat)
+cat("z_hat=",round(z_hat,2), " valor-p=",pvalue, sep="")
+```
+]
+
+
+.pull-right[
+```{r, echo=FALSE, fig.height=4.5, fig.width=5,  message=FALSE, warning=FALSE}
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Set the mean and standard deviation
+mu <- 0
+sigma <- 1
+
+# Create the normal distribution data
+x_values <- seq(-4, 4, by = 0.1)
+y_values <- dnorm(x_values, mean = mu, sd = sigma)
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Calculate the cutoff point for p-value
+cutoff <- qnorm(1 - pvalue, mean = mu, sd = sigma)
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_line(size = 1) +
+  
+  # Shade the area under the curve for the top 5% with the new color
+  geom_ribbon(data = normal_data %>% filter(x >= cutoff),
+              aes(x = x, ymin = 0, ymax = y),
+              fill = primary_color, alpha = 0.5) +
+  
+  # Add a vertical line for the cutoff with the new color
+  geom_vline(xintercept = z_hat, color = primary_color, size = 1) +
+  
+  # Add a text label for the cutoff
+  annotate("text", x = cutoff + 0.5, y = max(normal_data$y) * 0.8, 
+           label = round(cutoff, 2), 
+           color = primary_color, size = 5) +
+
+  # Add an alpha annotation on the shaded area
+  annotate("text", x = cutoff + 0.4, y = max(normal_data$y) * 0.09, 
+           label = "p", 
+           color = "black", size = 5) +
+  
+  # Add labels and theme
+  labs(x = "Z", y = "Density") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(normal_distribution_plot)
+
+```
+]
+
+
+---
+class: inverse, center, middle
+
+ 
+## Paso #6: Mantener o Rechazar la Hipótesis Nula
+
+---
+## Decisión
+
+Finalmente, debemos decidir si rechazar o no la hipótesis nula
+
+--
+
+- Comparamos -- bajo el supuesto de que $H_0$ es verdaadera --  la probabilidad de obtener el resultados que obtuvimos ( valor-p ) vs. el criterio seleccionado para clasificar resultados como "extremos" ( $\alpha$ ).
+
+
+<br>
+--
+
+.pull-left[
+.bold[Decisión:]
+
+ - Si $\text{valor-p} < \alpha$ entonces rechazamos $H_{0}$
+
+ - Si $\text{valor-p} > \alpha$ no podemos rechazar $H_{0}$
+
+<br>
+
+.bold[Importante:] mientras menor es $\alpha$ más dificl es rechazar la hipótesis nula.
+
+]
+
+--
+
+.pull-right[
+
+En nuestro ejemplo, rechazamos la hipótesis nula.
+
+```{r, echo=FALSE, fig.height=4.5, fig.width=5,  message=FALSE, warning=FALSE}
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Set the mean and standard deviation
+mu <- 0
+sigma <- 1
+
+# Create the normal distribution data
+x_values <- seq(-4, 4, by = 0.1)
+y_values <- dnorm(x_values, mean = mu, sd = sigma)
+normal_data <- data.frame(x = x_values, y = y_values)
+
+# Calculate the cutoff point for the p-value
+
+cutoff1 <- qnorm(1 - alpha, mean = mu, sd = sigma)
+
+cutoff2 <- qnorm(1 - pvalue, mean = mu, sd = sigma)
+
+# Create the ggplot
+normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
+  geom_line(size = 1) +
+
+    # Shade the area under the curve for the top 5% with the new color
+  geom_ribbon(data = normal_data %>% filter(x >= cutoff1),
+              aes(x = x, ymin = 0, ymax = y),
+              fill = link_color, alpha = 0.5) +
+  
+  # Shade the area under the curve for the p-values
+  geom_ribbon(data = normal_data %>% filter(x >= cutoff2),
+              aes(x = x, ymin = 0, ymax = y),
+              fill = primary_color, alpha = 0.5) +
+  
+  # Add a vertical line for the cutoff with the new color
+  geom_vline(xintercept = z_hat, color = primary_color, size = 1) +
+  
+  # Add a text label for the cutoff
+  annotate("text", x = cutoff + 0.5, y = max(normal_data$y) * 0.8, 
+           label = round(cutoff, 2), 
+           color = primary_color, size = 5) +
+
+  # Add an alpha annotation on the shaded area
+  annotate("text", x = cutoff + 0.4, y = max(normal_data$y) * 0.09, 
+           label = "p", 
+           color = "black", size = 5) +
+  
+  # Add labels and theme
+  labs(x = "Z", y = "Density") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1)
+  )
+
+# Display the plot
+print(normal_distribution_plot)
+
+```
+]
+
+---
+## Decisión: "no such thing as a free lunch"
+
+Nuestra decisión se basa descartar resultados improbables bajo el supuesto de que $H_0$ es verdadera. 
+
+- Dado que .bold[improbable no es lo mismo que imposible], debemos aceptar probabilidad de tomar la decisión equivocada. Específicamente:
+
+<br>
+--
+
+
+|          | **Rechazar H0**  | **Mantener H0** |
+|----------|------------------|-----------------|
+| **H0 es verdadera** | Error de Tipo I | Correcto        |
+| **H0 es falsa**     | Correcto        | Error de Tipo II |
+
+<br>
+--
+
+Notar que:
+
+- Tenemos control sobre probilidad de .bold["Error tipo I"]
+--
+: $\alpha = \mathbb{P}(\text{Rechazar } H_{0} \mid H_{0} \text{ es verdadera})$
+
+--
+
+- No podemos espeficar a-priori la probilidad de .bold["Error tipo II"]
+
+--
+
+- Trade-off entre .bold["Error tipo I"] y .bold["Error tipo II"]: extremada cautela ( $\alpha$ muy chico) conlleva el riesgo de nunca mantener la hipótesis alternativa (incluso si la nula es falsa).
+
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+
