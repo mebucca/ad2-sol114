@@ -423,7 +423,7 @@ Finalmente, debemos decidir si rechazar o no la hipótesis nula
 
 --
 
-- Comparamos -- bajo el supuesto de que `\(H_0\)` es verdaadera --  la probabilidad de obtener el resultados que obtuvimos ( valor-p ) vs. el criterio seleccionado para clasificar resultados como "extremos" ( `\(\alpha\)` ).
+- Comparamos -- bajo el supuesto de que `\(H_0\)` es verdadera --  la probabilidad de obtener el resultados que obtuvimos ( valor-p ) vs. el criterio seleccionado para clasificar resultados como "extremos" ( `\(\alpha\)` ).
 
 
 &lt;br&gt;
@@ -452,22 +452,52 @@ En nuestro ejemplo, rechazamos la hipótesis nula.
 ]
 
 ---
+## Decisión
+
+
+.pull-left[
+
+- Si `\(\text{valor-p} &lt; \alpha\)` entonces rechazamos `\(H_{0}\)`
+ 
+- Si `\(\text{valor-p} &gt; \alpha\)` no podemos rechazar `\(H_{0}\)`
+
+]
+
+--
+
+.pull-right[
+![h0](h0.png)
+]
+
+
+---
 ## Decisión: "no such thing as a free lunch"
 
-Nuestra decisión se basa descartar resultados improbables bajo el supuesto de que `\(H_0\)` es verdadera. 
+Nuestra decisión se basa en descartar resultados improbables bajo el supuesto de que `\(H_0\)` es verdadera. 
 
-- Dado que .bold[improbable no es lo mismo que imposible], debemos aceptar probabilidad de tomar la decisión equivocada. Específicamente:
+- Dado que .bold[improbable no es lo mismo que imposible], debemos aceptar la posibilidad de tomar la decisión equivocada. Específicamente:
 
-&lt;br&gt;
+
 --
 
 
+.pull-left[
+&lt;br&gt;
+
 |          | **Rechazar H0**  | **Mantener H0** |
 |----------|------------------|-----------------|
-| **H0 es verdadera** | Error de Tipo I | Correcto        |
-| **H0 es falsa**     | Correcto        | Error de Tipo II |
+| **H0 es verdadera** | *Error de Tipo I* | Correcto        |
+| **H0 es falsa**     | Correcto        | *Error de Tipo II* |
 
-&lt;br&gt;
+]
+
+--
+
+
+.pull-right[
+![error](error.png)
+]
+
 --
 
 Notar que:
