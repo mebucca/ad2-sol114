@@ -1,0 +1,49 @@
+---
+title: "SOL114 Análisis de Datos II"
+author: "Tarea corta 5"
+format: html
+editor: visual
+---
+
+## Problema I
+
+En un estudio reciente, se seleccionó una muestra aleatoria de 1089 chilenos y chilenas mayores de 25 años para consultarles sobre su nivel de escolaridad.
+
+Los resultados muestrales arrojan las siguientes estimaciones:
+
+-   $\bar{X}: \frac{1}{n=1089} \sum x_{i} =$ 12.5 años de escolaridad.
+
+-   $\frac{1}{n=1089} \sum (x_{i} - \bar{X})^2 =$ 10.24 años$^2$
+
+Construye intervalos de confianza al 90% y al 95% para el promedio de años de escolaridad de la población. Interpreta los resultados.
+
+## Problema II
+
+En esta pregunta usarás los datos de auto-reporte de altura y peso del estudio de C. Davis (1990). La base de datos tiene 200 filas y 5 columnas. Los sujetos del estudio son hombres y mujeres que realizaban ejercicio regularmente. Las variables son las siguientes:
+
+-   `sex`: Un factor con niveles: F, femenino; M, masculino.
+
+-   `weight`: Peso medido en kg.
+
+-   `height`: Altura medida en cm.
+
+-   `repwt`: Peso reportado en kg.
+
+-   `repht`: Altura reportada en cm.
+
+1.  Calcula el promedio de altura de las mujeres.
+
+2.  Calcula un intervalo al 97% de confianza para el promedio de altura de las mujeres.
+
+```{r, message=FALSE, warning=FALSE}
+library(carData)
+library(tidyverse)
+
+data_davis <- carData::Davis
+head(data_davis)
+```
+
+## Problema III
+
+Calcula el ratio entre el peso promedio de hombres y mujeres. Usando el metodo de Boostrap estima un intervalo de confianza al 95% para este ratio usando 1,000 iteraciones (1,000 muestras de la muestra).
+
