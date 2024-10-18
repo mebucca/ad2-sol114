@@ -1,0 +1,89 @@
+---
+title: "Notebook clase #15: Método de Bootstrap"
+output:
+  html_document:
+    df_print: paged
+---
+
+
+## Problema
+
+Usando la base dedatos `Arrests`, en este ejercicio, nuestro objetivo es calcular un intervalo de confianza para la proporción de personas blancas (`p_hat`) liberadas tras una detención por porte de pequeñas cantidades de marihuana. Primero usaremos la fórmula teórica clásica y luego aplicaremos el método Bootstrap para realizar el mismo cálculo.
+
+### Paso 1: Cálculo del intervalo de confianza teórico
+
+Comenzamos calculando un intervalo de confianza basado en la teoría estadística estándar.
+
+```{r, echo=TRUE, message=F, warning=F}
+library("tidyverse")
+
+data_arrest <- carData::Arrests
+p_hat <- mean(data_arrest$colour == "White")  # Proporción estimada de arrestados que son blancos
+
+# Desviación estándar de una proporción
+sigma = sqrt(p_hat * (1 - p_hat))
+n = nrow(data_arrest)  # Tamaño de la muestra
+se = sigma / sqrt(n)  # Error estándar
+
+# Intervalo de confianza usando el valor crítico de 1.96 para el 95% de confianza
+ic = p_hat + c(-1, 1) * 1.96 * se
+ic
+```
+
+donde, 
+
+- `p_hat`: La proporción de personas blancas en el conjunto de datos.
+- `sigma`: La desviación estándar de una proporción binaria.
+- `se`: El error estándar, que nos indica la incertidumbre de `p_hat`.
+- `ic`: El intervalo de confianza clásico, calculado a partir de `p_hat` y `se`.
+
+
+## Paso 2: Cálculo del intervalo de confianza utilizando Bootstrap
+
+El método Bootstrap es una técnica de remuestreo que nos permite estimar la distribución muestral de un estadístico (en este caso, `p_hat`). A continuación, aplicamos Bootstrap para calcular el intervalo de confianza.
+
+### Implementación del método Bootstrap
+
+```{r, echo=TRUE, message=F, warning=F}
+results <- numeric(1000)  # Vector para almacenar los resultados de cada iteración Bootstrap
+
+for (i in 1:1000) {
+  # Realizamos un remuestreo con reemplazo del conjunto de datos original
+  sample_data_arrest <- dplyr::sample_n(data_arrest, size = n, replace = TRUE)
+  
+  # Calculamos p_hat para cada muestra Bootstrap
+  p_hat_b <- mean(sample_data_arrest$colour == "White")
+  
+  # Almacenamos el resultado
+  results[i] <- p_hat_b
+  
+  # Opción para mostrar el progreso de las iteraciones
+  cat("=============== Iteración ", i, " ===============\n")
+}
+
+# Cálculo del error estándar Bootstrap (desviación estándar de los resultados)
+se_bs <- sd(results)
+
+# Mostrar un resumen de los resultados obtenidos
+tibble::as_tibble(results) %>% summary()
+
+# Histograma de la distribución Bootstrap de p_hat
+hist(results, main = "Distribución Bootstrap de p_hat", xlab = "p_hat Bootstrap")
+
+# Calculo del intervalo de confianza Bootstrap
+quantile(results, probs = c(0.025, 0.975))
+```
+
+donde, 
+
+- `results`: Este vector almacena los 1000 valores de `p_hat` obtenidos a partir del remuestreo.
+- `sample_n`: Función de `dplyr` que realiza el remuestreo con reemplazo del conjunto de datos original.
+- `p_hat_b`: La proporción de personas blancas calculada para cada muestra remuestreada.
+- `se_bs`: El error estándar calculado a partir de la desviación estándar de los resultados Bootstrap.
+- `hist(results)`: El histograma muestra cómo se distribuyen las proporciones estimadas (`p_hat`) a lo largo de las 1000 iteraciones del Bootstrap.
+- `quantile(results, probs = c(0.025, 0.975))`: Calculamos los percentiles 2.5% y 97.5% de los resultados, lo que nos da un intervalo de confianza Bootstrap al 95%.
+
+
+## Conclusión
+
+El intervalo de confianza calculado con el método Bootstrap es una estimación empírica basada en el remuestreo de los datos. Comparado con el intervalo de confianza teórico, el método Bootstrap no depende de los supuestos teóricos de sobre la distribución muestral del estimador.
