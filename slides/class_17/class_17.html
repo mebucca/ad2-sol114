@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Probabilidad e Inferencia Estadística</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Probabilidad e Inferencia Estadística
+]
+.subtitle[
+## #14: Test de Hipótesis en una muestra
+]
+.author[
+### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
+]
+.date[
+### 20 October, 2024
+]
+
+---
+
+class: inverse, center, middle
+
+
+
+
+
+# Test de Hipótesis en una muestra
+
+
+
+---
+## ¿Puede un pulpo predecir los resultados del futbol?
+
+
+.center[![paul](paul.png)]
+
+
+---
+## ¿Puede un pulpo predecir los resultados del futbol?
+
+| Torneo                  | Partido                 | Predicción | Resultado |
+|-------------------------|-------------------------|------------|---------------------|
+| Euro 2008               | Alemania vs Polonia     | Alemania   | Correcto            |
+| Euro 2008               | Alemania vs Croacia     | Alemania   | Incorrecto          |
+| Euro 2008               | Alemania vs Austria     | Alemania   | Correcto            |
+| Euro 2008               | Alemania vs Portugal    | Alemania   | Correcto            |
+| Euro 2008               | Alemania vs Turquía     | Alemania   | Correcto            |
+| Euro 2008               | Alemania vs España      | Alemania   | Incorrecto          |
+| Mundial 2010            | Alemania vs Australia   | Alemania   | Correcto            |
+| Mundial 2010            | Alemania vs Serbia      | Serbia     | Correcto            |
+| Mundial 2010            | Ghana vs Alemania       | Alemania   | Correcto            |
+| Mundial 2010            | Alemania vs Inglaterra  | Alemania   | Correcto            |
+| Mundial 2010            | Argentina vs Alemania   | Alemania   | Correcto            |
+| Mundial 2010            | Alemania vs España      | España     | Correcto            |
+| Mundial 2010            | Uruguay vs Alemania     | Alemania   | Correcto            |
+| Mundial 2010            | Países Bajos vs España  | España     | Correcto            |
+
+
+---
+## ¿Puede un pulpo predecir los resultados del futbol?
+
+¿Paul tiene habilidades especiales o tuvo suerte?
+
+--
+
+Esta es una pregunta empírica y la podemos testear.
+
+--
+
+.pull-left[
+![](https://static.onecms.io/wp-content/uploads/sites/21/2010/10/pulpo_paul_071410_300.jpg)
+]
+
+&lt;br&gt;
+
+.bold[Paso #1: Expresar pregunta en términos de Hipótesis Nula e Hipótesis Alternativa]
+
+&lt;br&gt;
+--
+
+.bold[Hipótesis Nula]: "Paul no tiene ningún talento especial, sus predicciones son como tirar una moneda al aire".
+
+- `\(H_0: \mathbb{P}(\text{Acierto}) = \mathbb{P}(\text{Fallo}) = 0.5\)`
+
+&lt;br&gt;
+--
+
+.bold[Hipótesis Alternativa]: "Paul tiene un talento, acierta más de lo que falla", o quizás 
+"Paul es un mal adivino, falla más de lo que acierta".
+
+- `\(H_a: \mathbb{P}(\text{Acierto}) \neq \mathbb{P}(\text{Fallo})\)`
+
+---
+## ¿Puede un pulpo predecir los resultados del futbol?
+
+--
+
+.bold[Paso #2: Elegir y calcular un estadístico] 
+
+&lt;br&gt;
+--
+
+- Los datos nos muestran que Paul acertó en 12 de 14 partidos.
+
+--
+
+- Estadístico relevante: proporción de aciertos, `\(\hat{p}\)`.
+
+&lt;br&gt;
+
+`$$\text{Proporción de Aciertos}: \hat{p} = \frac{12}{14} = 0.857$$`
+
+---
+## ¿Puede un pulpo predecir los resultados del futbol?
+
+.bold[Paso #3: Determinar la Distribución Nula]
+
+--
+
+- Es decir, la distribución muestral de nuestro estadístico bajo el supuesto de que la `\(H_0\)` es verdadera -- Paul no tiene habilidad especial y por tanto `\(\mathbb{P}(\text{Acierto}) = \mathbb{P}(\text{Fallo}) = 0.5\)`.
+
+--
+
+  - Por el TLC sabemos que:  `\(\hat{p} \sim \text{Normal}\bigg(p, \frac{\sqrt{p(1-p)} }{\sqrt{n}}\bigg)\)`
+ 
+--
+
+  - Por tanto,  `\(\hat{p} \mid H_{0} \sim \text{Normal}\bigg(0.5, \frac{\sqrt{0.5(1-0.5)} }{\sqrt{n}}\bigg)\)`
+
+&lt;br&gt;
+--
+
+- Estandarizando podemos  derivar un .bold[test-z]:
+
+  - Si `\(Z_{\hat{p}} = \frac{\hat{p} - p}{\frac{\sqrt{p(1-p)} }{\sqrt{n}}}\)` entonces: `\(Z_{\hat{p}} \mid H_0   \sim \text{Normal}\big(0, 1\big)\)`
+
+--
+
+  - Nuestro estadístico `\(\hat{p}\)` se transforma el .bold[test-z], el valor estandarizado de del estadístico bajo `\(H_0\)`:
+
+`$$\hat{z} = \frac{\hat{p} - p}{\frac{\sqrt{p(1-p)} }{\sqrt{n}}} = \frac{0.857 - 0.5}{\frac{\sqrt{0.5(1-0.5)} }{\sqrt{14}}} = 2.6726$$`
+
+---
+## ¿Puede un pulpo predecir los resultados del futbol?
+
+
+.bold[Paso #4: Elegir un nivel de significación] `\(\alpha\)` 
+
+&lt;br&gt;
+
+Selecciona un .bold[nivel de significación] `\(\alpha\)`, tal que consideraremos como "demasiado alto"/"demasiado bajo" aquellos valores que corresponden al `\(\alpha\)`% de valores más extremos en la distribución nula.
+
+
+&lt;br&gt;
+
+`$$\alpha = \mathbb{P}(\text{Rechazar } H_{0} \mid H_{0} \text{ es verdadera})$$`
+
+&lt;br&gt;
+--
+
+
+- Mientras menor es `\(\alpha\)` más dificl es rechazar la hipótesis nula.
+
+
+- Dado que no confiamos en pulpos adivinos, vamos trabajar a un nivel alto de significación, `\(\alpha=0.01\)`.
+
+
+---
+## ¿Puede un pulpo predecir los resultados del futbol?
+
+
+.bold[Paso #5: Calcular el valor-p] 
+
+Si la hipótesis nula fuera verdadera, ¿es nuestro estadístico un valor esperable o un valor extremo?
+
+--
+
+En nuestro caso estamos testeando
+
+.pull-left[
+
+`\(\text{valor-p} = \mathbb{P}( \bar{X} &gt; |\hat{p}| \mid H_{0} \text{ es verdadera})\)`
+
+equivalentemente:
+
+`\(\text{valor-p} = \mathbb{P}( Z &gt; \big| \frac{\hat{\mu} - \mu}{\sigma/\sqrt{n}} \big| )\)`
+
+
+
+``` r
+n &lt;- 14
+p_hat &lt;- 12/14
+
+z_hat &lt;- (p_hat - 0.5)/(sqrt(0.5*0.5) /sqrt(n))
+
+pvalue =  2*(1 - pnorm(z_hat))
+
+cat("z_hat=",round(z_hat,2), " valor-p=", pvalue, sep="")
+```
+
+```
+## z_hat=2.67 valor-p=0.007526315
+```
+]
+
+
+.pull-right[
+![](class_17_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+]
+
+---
+## ¿Puede un pulpo predecir los resultados del futbol?
+
+--
+
+.bold[Paso #6: Mantener o Rechazar la Hipótesis Nula]
+
+--
+
+- Comparamos -- bajo el supuesto de que `\(H_0\)` es verdaadera --  la probabilidad de obtener el resultados que obtuvimos ( valor-p ) vs. el criterio seleccionado para clasificar resultados como "extremos" ( `\(\alpha\)` ).
+
+--
+
+.bold[Decisión:]
+
+ - Si `\(\text{valor-p} &lt; \alpha\)` entonces rechazamos `\(H_{0}\)`
+
+ - Si `\(\text{valor-p} &gt; \alpha\)` no podemos rechazar `\(H_{0}\)`
+
+
+&lt;br&gt;
+--
+
+En este caso:
+
+
+```
+## 𝛼=0.01; valor-p=0.007526315
+```
+
+.bold[Conclusión:]
+
+Una tasa de acierto de 85.7% se encuentra por encima de la proporción esperada bajo el supuesto de que la hipótesis nula -- que Paul acierta con una probabilidad de 0.5. Por tanto con un nivel de significación del 1% (o 99% de confianza) podemos rechazar la hipótesis nula.
+
+--
+
+Sigue en pie la posibilidad de que Paul tenga habilidades especiales!
+
+---
+class: inverse, center, middle
+
+.center[ 
+![paul](https://www.toonpool.com/user/10161/files/paul_rules__915595.jpg)
+]
+
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
