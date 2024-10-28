@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Probabilidad e Inferencia Estadística</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Probabilidad e Inferencia Estadística
+]
+.subtitle[
+## #18: Distribución t-student
+]
+.author[
+### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
+]
+.date[
+### 28 October, 2024
+]
+
+---
+
+class: inverse, center, middle
+
+
+
+
+
+# Distribución t-student
+
+
+---
+
+### William Sealy Gosset (1876-1937)
+
+.pull-left[  
+![Gosset](gosset.jpg)  
+]  
+.pull-right[ 
+
+&lt;br&gt;
+
+- William Gosset trabajaba como estadístico en la cervecería **Guinness** en Dublín. .
+
+- Testear calidad de las diferentes partidas de cerveza. Misma receta pero variación en calidad de los ingredientes (contenido de proteínas en la cebada).
+
+- Dos problemas: 
+  
+  - Muestras pequeñas: la empeza no quería desperdiciar cerveza en experimentos.
+  
+  - No conocía la varianza poblacional `\(\sigma^2\)` de los ingredientes.
+  
+
+- Ambas limitaciones dificultaban el uso de herramientas estadísticas como el *TLC*.  
+
+]
+
+---
+
+## Problemas: tamaño Muestral y varianza desconocida
+
+&lt;br&gt; &lt;br&gt;
+
+- .bold[Tamaño Muestral]: Cuando se trabaja con muestras pequeñas ( `\(\approx n &lt; 30\)` ), los resultados estadísticos tienden a ser menos precisos.
+
+&lt;br&gt;
+
+- .bold[Varianza Desconocida]: Cuando no conocemos la **varianza poblacional** ( `\(\sigma^2\)` ). debemos estimarla a partir de los dotos: `\(s^2\)`. Esto introduce una fuente adicional de incertidumbre, ya que `\(s^2\)` es una estimación basada en datos limitados.
+
+&lt;br&gt;
+- Relación entre .bold[tamaño muestral] y .bold[varianza desconocida]: cuando usamos la **varianza muestral** en lugar de la varianza poblacional, perdemos un **grado de libertad**. 
+
+  - Para estimar la varianza muestral debemos primero estimar la media, lo que limita la capacidad de los datos de variar libremente. 
+
+---
+## Grados de Libertad (df)
+
+- Los **grados de libertad** (df) son el número de valores que pueden variar de forma independiente en un cálculo estadístico.
+
+
+--
+&lt;br&gt;
+
+.bold[Ejemplo:]
+
+Tenemos 3 valores y conocemos la media:
+
+$$ X_1, X_2, X_3 \quad \text{con} \quad \bar{X} = 10 $$
+
+- Si ya conocemos `\(X_1\)` y `\(X_2\)`, `\(X_3\)` no puede variar libremente, porque está restringido por el valor de la media. Por tanto, solo hay **2 grados de libertad**.
+
+
+
+--
+&lt;br&gt;
+
+- En el contexto de la **varianza muestral**, uno de los valores (la media muestral) ya ha sido utilizado para el cálculo, por lo que se pierde un grado de libertad. 
+
+
+- Luego, cuando calculamos la varianza en una muestra de tamaño `\(n\)`, solo quedan `\(n-1\)` grados de libertad.
+
+---
+## La Solución: distribución `\(t\)`-Student
+
+.center[
+![Student](student.jpg)
+]
+---
+### ¿Por qué usar la Distribución t?
+
+
+&lt;br&gt;
+
+Cuando la varianza poblacional es desconocida y trabajamos con muestras pequeñas esto introduce una mayor incertidumbre, que debe reflejarse en la forma de la distribución de probabilidad.
+
+&lt;br&gt;
+
+--
+
+- La **distribución `\(t\)` de Student** ajusta esta incertidumbre asignando mayor probabilidad de observar valores extremos.
+
+- Probabilidad asignada a valores extremos es mayor mienstras más pequeña es la muestra.
+
+- La distribución `\(t\)` es, por tanto, más conservadora
+
+
+---
+### Distribución `\(t\)` Stándard
+
+.pull-left[  
+
+Bajo las circunstancias mencionadas (varianza desconocida y muestra chica), al realizar el proceso de estandarización obtenemos:
+
+&lt;br&gt;
+
+`$$t = \frac{\bar{X} - \mu}{\frac{s}{\sqrt{n}}} \sim t_{v}$$`
+
+![Distribución t](https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Student_t_pdf.svg/400px-Student_t_pdf.svg.png)
+]
+
+.pull-right[ 
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+donde:
+
+- `\(\bar{X}\)` es la media muestral,
+
+- `\(\mu\)` es la media poblacional bajo `\(H_0\)`,
+
+- `\(s\)` es la desviación estándar muestral,
+
+- `\(n\)` es el tamaño de la muestra,
+
+- `\(k\)` es el número de parámetros estimados
+
+- `\(v = n - k\)` son los **grados de libertad**
+
+]
+
+
+---
+### Distribución `\(t\)` Stándard
+
+.pull-left[  
+
+Bajo las circunstancias mencionadas (varianza desconocida y muestra chica), al realizar el proceso de estandarización obtenemos:
+
+&lt;br&gt;
+
+`$$t = \frac{\bar{X} - \mu}{\frac{s}{\sqrt{n}}} \sim t_{v}$$`
+
+![Distribución t](https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Student_t_pdf.svg/400px-Student_t_pdf.svg.png)
+]
+
+
+
+.pull-right[  
+
+&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
+
+.bold[Características]:
+
+- La distribución `\(t\)` tiene **colas más gruesas** que la normal estándar ( `\(\text{Normal}(0,1)\)` ), reflejando mayor probabilidad de obtener valores extremos en muestras pequeñas.
+
+- **Parámetro clave**: La forma de la distribución `\(t\)` depende de los **grados de libertad** `\(v\)`. 
+
+- **Simetría**: La distribución `\(t\)`-standard es simétrica alrededor de 0.
+  
+- **Varianza**: La varianza de la distribución `\(t\)`-standard es ligeramente mayor que 1 para muestras pequeñas, y se aproxima a 1 a medida que `\(n\)` aumenta.
+
+]
+
+
+---
+## Convergencia entre la Distribución `\(t\)` y la Normal
+
+&lt;br&gt;
+
+La **distribución t de Student** se aproxima a la `\(\text{Normal}(0,1)\)` cuando el tamaño muestral tiende a infinito: `\(n \to \infty\)`.
+
+&lt;br&gt;
+
+--
+
+  - A medida que el número de grados de libertad aumenta, las colas  de la distribución `\(t\)` se vuelven menos pronunciadas.
+
+  - En el límite (cuando `\(df \to \infty\)` ), la distribución `\(t\)` se convierte en la distribución normal estándar.
+
+&lt;br&gt;
+--
+
+
+Formalmente, si `\(T_n\)` es un estadístico `\(t\)` con `\(n-1\)` grados de libertad, entonces:
+
+&lt;br&gt;
+
+$$T_n \xrightarrow{d} \mathcal{N}(0,1) \quad \text{cuando} \quad n \to \infty $$
+
+
+
+---
+## Aplicación al Test de Hipótesis
+
+&lt;br&gt;
+
+.bold[Paso a Paso deñ test de hipótesis]
+
+Cuando usamos la **distribución t** en un test de hipótesis, el proceso sigue estos pasos:
+
+--
+
+1). Definir `\(H_1\)` y `\(H_0\)`.
+
+
+--
+
+2). Calcular el estadístico de interés (ej., media muestral)
+
+--
+
+3). Transformar el estadístico a valor `\(t\)` (análogo a `\(z\)` pero usando varianza muestral):
+
+`$$t = \frac{\bar{X} - \mu_0}{\frac{s}{\sqrt{n}}}$$`
+--
+
+4). Calcular valor- `\(p\)` en base a la distribución `\(t\)`-standard con grados de libertad `\(n-k\)`.
+
+--
+
+5). Comparar con nivel de significación y tomar una decisión.
+
+
+
+---
+## En resumen:
+
+
+La **distribución t de Student** se utiliza principalmente bajo las siguientes condiciones:
+
+1. Varianza poblacional es desconocida
+  
+2. El tamaño de la muestra es pequeño (generalmente `\(n &lt; 30\)`).
+
+&lt;br&gt;
+--
+
+
+Entonces, ¿cuándo se usa la distribución `\(t\)`?
+
+&lt;br&gt;
+--
+
+- Varianza desconocida + muestra pequeña: Usamos distribución `\(t\)`.
+
+- Varianza desconocida + muestra grande: *Podemos* usar distribución normal
+
+- Varianza conocida (sin importar el tamaño muestral): Usamos distribución normal (este siempre es el caso cuando estimamos proporciones!).
+
+---
+class: inverse, center, middle
+
+
+##Ejemplo: Calorías en bebidas de Starbucks 
+
+---
+## Ejemplo: calorías en bebidas de Starbucks 
+
+.center[
+
+![starbuck](starbucks.jpg)
+]
+
+
+
+
+---
+## Ejemplo: Calorías en bebidas de Starbucks 
+
+-  Un estudiante quiere saber cual es el promedio de calorías de los bebestibles de Starbucks.
+
+- Decide comprar 12 bebestibles aleatoriamente y medir su contenido calórico. Los datos se ven así:
+
+&lt;br&gt;
+
+.center[
+
+
+
+```
+## # A tibble: 12 × 2
+##    Drink                                       Calories
+##    &lt;chr&gt;                                          &lt;dbl&gt;
+##  1 Tazo® Bottled Plum Pomegranate                   140
+##  2 Teavana® Shaken Iced Black Tea Lemonade           70
+##  3 Mocha Frappuccino® Blended Coffee                280
+##  4 Starbucks Refreshers™ Raspberry Pomegranate       90
+##  5 Cinnamon Dolce Frappuccino® Blended Coffee       350
+##  6 Tazo® Bottled Brambleberry                       140
+##  7 Nariño 70 Cold Brew with Milk                      0
+##  8 Vanilla Sweet Cream Cold Brew                    110
+##  9 Tazo® Bottled Black with Lemon                   140
+## 10 Tazo® Bottled Organic Iced Green Tea             120
+## 11 Mocha Light Frappuccino® Blended Coffee          140
+## 12 Tazo® Bottled Black Mango                        150
+```
+]
+
+---
+## Ejemplo: Calorías en bebidas de Starbucks 
+
+
+### Paso #1: Elaborar Hipótesis Nula y Alternativa
+
+Hipótesis de trabajo: *"En promedio, un bebestible de Starbuck tiene más de 100 calorías"*
+
+&lt;br&gt;
+
+- `\(H_0: \mathbb{E}(X) = 100 \text{ kcal}\)` 
+
+
+- `\(H_1: \mathbb{E}(X) &gt; 100 \text{ kcal}\)`
+
+---
+## Ejemplo: Calorías en bebidas de Starbucks 
+
+### Paso #2: Calcular un Estadístico
+
+
+
+``` r
+mu_hat &lt;- starbucks_muestra %&gt;% summarise(mu_hat = mean(Calories)) %&gt;% pull()
+cat("media muestral: ",mu_hat)
+```
+
+```
+## media muestral:  144.1667
+```
+
+--
+Estandarizando nuestro estadístico obtenemos:
+
+  `$$\hat{t} = \frac{\hat{\mu} - \mu}{\frac{\sigma}{\sqrt{n}}} = \frac{144.17 - 100}{\frac{\sigma}{\sqrt{12}}}$$`
+
+--
+
+- Como no conocemos `\(\sigma\)` debemos estimarlo a partir de la muesta ($s$).
+
+
+``` r
+s &lt;- starbucks_muestra %&gt;% summarise(s = sd(Calories)) %&gt;% pull()
+cat("desviación estándard muestral: ", s)
+```
+
+```
+## desviación estándard muestral:  91.39906
+```
+
+Luego:
+
+`\(\hat{t} = \frac{\hat{\mu} - \mu}{\frac{s}{\sqrt{n}}} = \frac{144.17 - 100}{\frac{91.4}{\sqrt{12}}} =\)` 1.673954
+
+
+---
+## Ejemplo: Calorías en bebidas de Starbucks 
+
+
+###Paso #3: Determinar la Distribución Nula
+
+&lt;br&gt;
+
+En nuestro caso: `\(\hat{t} \mid H_0 \text{ es verdadera} \sim t_{v=11}\)`
+
+
+&lt;br&gt;
+--
+
+
+.center[
+![](class_18_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+]
+
+###Paso #4: Decidir el Nivel de Significación
+
+- Trabajaremos a un nivel de significación estadística `\(\alpha=0.05\)` 
+
+- Dado que `\(H_1: \mathbb{E}(X) &gt; 100 \text{ kcal}\)`, tiene sentido testear si nuesto estadístico se encuestra en el$\alpha$% más alto de la distribución nula.
+
+---
+## Ejemplo: Calorías en bebidas de Starbucks 
+
+###Paso #5: Calcular el Valor-p
+
+.pull-left[
+En nuesto caso: 
+
+`\(\text{valor-p}: \mathbb{P}( \bar{X} &gt; \hat{\mu} \mid H_{0} \text{ es verdadera})\)`
+
+equivalente a:
+
+`\(\text{valor-p} = \mathbb{P}( t_{v=11} &gt; \hat{t})\)`
+
+
+``` r
+t_hat = (mu_hat - 100)/(s/sqrt(12))
+pvalue = 1 - pt(t_hat, df=11)
+cat(" t_hat=",round(t_hat,2), 
+    "\n valor crítico=", qt(0.95,df=11), 
+    "\n valor-p=", pvalue, 
+    sep="")
+```
+
+```
+##  t_hat=1.67
+##  valor crítico=1.795885
+##  valor-p=0.06115235
+```
+]
+
+
+.pull-right[
+![](class_18_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+
+---
+## Ejemplo: Calorías en bebidas de Starbucks 
+
+###Paso #6: Mantener o Rechazar la Hipótesis Nula
+
+
+Finalmente, debemos decidir si rechazar o no la hipótesis nula
+
+
+.pull-left[
+.bold[Decisión:]
+
+ - Si `\(\text{valor-p} &lt; \alpha\)` entonces rechazamos `\(H_{0}\)`
+
+ - Si `\(\text{valor-p} &gt; \alpha\)` no podemos rechazar `\(H_{0}\)`
+
+]
+
+--
+
+.pull-right[
+
+- En este caso, al 5% de significación estadística, no podemos rechazar la hipótesis nula
+
+- No tenemos evidencia para rechazar la hipótesis de que los bebestibles de Starbucks tienen, en promedio, 100 calorías (ni menos).
+
+]
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
