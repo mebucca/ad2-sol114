@@ -1,0 +1,1668 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mauricio Bucca">
+
+<title>Ejercicios SOL114</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="problemset_4_files/libs/clipboard/clipboard.min.js"></script>
+<script src="problemset_4_files/libs/quarto-html/quarto.js"></script>
+<script src="problemset_4_files/libs/quarto-html/popper.min.js"></script>
+<script src="problemset_4_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="problemset_4_files/libs/quarto-html/anchor.min.js"></script>
+<link href="problemset_4_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="problemset_4_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="problemset_4_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="problemset_4_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="problemset_4_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Ejercicios SOL114</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mauricio Bucca </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="problemas-aplicados" class="level2">
+<h2 class="anchored" data-anchor-id="problemas-aplicados">Problemas aplicados</h2>
+<ol type="1">
+<li>Un grupo de investigadores está estudiando el número promedio de horas que la gente ve TV en una semana. De una muestra de 120 individuos, la media estimada se encuentra en 20 horas ( <span class="math inline">\(\hat{\mu}\)</span> ) y la varianza poblacional conocida es de 16 horas<span class="math inline">\(^2\)</span> ( <span class="math inline">\(\sigma^2\)</span> ). El consenso científico vigente sostiene que en promedio las personas ven 10 horas de TV a la semana.</li>
+</ol>
+<ul>
+<li><p>En base a los resultados obtenidos por los investigadores, construye un test para la hipótesis de que el consumo de TV es mayor que lo esperado en base al consenso científico vigente. Trabaja al 1% de significación estadística.</p></li>
+<li><p>Interpreta el resultado.</p></li>
+</ul>
+<p><strong>Paso 1: Definir las hipótesis correctamente:</strong></p>
+<ul>
+<li>Hipótesis nula (H0): El consumo de TV es igual al consenso científico vigente, es decir, μ = 10 horas.</li>
+<li>Hipótesis alternativa (H1): El consumo de TV es mayor que el consenso científico vigente, es decir, μ &gt; 10 horas.</li>
+</ul>
+<p><strong>Paso 2: Elegir el nivel de significación (α):</strong></p>
+<p>α = 0.01 (1%).</p>
+<p><strong>Paso 3: Calcular la estadística de prueba:</strong></p>
+<p>Tienes los siguientes valores:</p>
+<ul>
+<li><span class="math inline">\(\hat{\mu}\)</span> (media estimada de la muestra) = 20 horas.</li>
+<li>μ (media bajo la hipótesis nula) = 10 horas.</li>
+<li><span class="math inline">\(\sigma\)</span> (desviación estándar poblacional) = √16 = 4 horas.</li>
+<li>n (tamaño de la muestra) = 120 individuos.</li>
+</ul>
+<p>Calculamos la estadística de prueba Z:</p>
+<p><span class="math display">\[Z = \frac{\hat{\mu} - \mu}{\frac{\sigma}{\sqrt{n}}}\]</span></p>
+<p>Sustituyendo los valores:</p>
+<p><span class="math display">\[Z = \frac{20 - 10}{\frac{4}{\sqrt{120}}}\]</span></p>
+<p><span class="math display">\[Z = \frac{10}{\frac{4}{\sqrt{120}}}\]</span></p>
+<p>Calculamos la raíz cuadrada de 120:</p>
+<p><span class="math display">\[\sqrt{120} \approx 10.95\]</span></p>
+<p>Luego, dividimos 10 por (4 / 10.95):</p>
+<p><span class="math display">\[Z \approx \frac{10}{\frac{4}{10.95}} \approx \frac{10}{0.364} \approx 27.47\]</span></p>
+<p><strong>Paso 4: Calcular el valor p:</strong></p>
+<p>Para calcular el valor p, podemos utilizar la estadística de prueba Z que hemos calculado. Dado que estamos probando si la media es mayor que 10 horas, necesitamos encontrar la probabilidad de obtener una estadística de prueba Z tan extrema o más extrema que 27.47 bajo la hipótesis nula.</p>
+<p>Usamos una tabla de distribución normal estándar o una calculadora estadística para encontrar el valor p correspondiente a Z = 27.47. El valor p es extremadamente pequeño y prácticamente igual a cero (p ≈ 0.0000). Esto significa que la probabilidad de obtener una media muestral de 20 horas o más, bajo la suposición de que la verdadera media es 10 horas es extremadamente baja.</p>
+<p><strong>Paso 5: Tomar una decisión y realizar una interpretación:</strong></p>
+<p>Dado que el valor p (p ≈ 0.0000) es mucho menor que el nivel de significación α = 0.01, rechazamos la hipótesis nula (H0). Hay evidencia estadística concluyente para afirmar que el consumo promedio de TV es mayor de lo que se esperaba según el consenso científico vigente, al menos con un nivel de significación del 1%. En otras palabras, los datos respaldan la idea de que las personas están viendo significativamente más televisión de lo que se creía previamente.</p>
+<hr>
+<ol start="2" type="1">
+<li>En un estudio sobre patrones de sueño, 16 adultos informan su duración promedio de sueño nocturno. La media es de 7 horas con una desviación estándar de la muestra de 1.1 horas ( <span class="math inline">\(s\)</span> ). Los expertos recomiendan dormir al menos 8 horas durante la noche.</li>
+</ol>
+<ul>
+<li>Trabajando con un nivel de significación estadística del 5% testea la siguiente hipótesis: “En promedio, los adultos duermen menos de lo recomendado por los expertos”.</li>
+</ul>
+<p><strong>Paso 1: Definir las hipótesis correctamente:</strong></p>
+<ul>
+<li>Hipótesis nula (H0): En promedio, los adultos duermen al menos 8 horas durante la noche, es decir, μ = 8 horas.</li>
+<li>Hipótesis alternativa (H1): En promedio, los adultos duermen menos de 8 horas durante la noche, es decir, μ &lt; 8 horas.</li>
+</ul>
+<p><strong>Paso 2: Elegir el nivel de significación (α):</strong></p>
+<p>En este caso, se te pide que trabajes con un nivel de significación estadística del 5%, por lo que α = 0.05.</p>
+<p><strong>Paso 3: Calcular la estadística de prueba:</strong></p>
+<p>Tienes los siguientes valores:</p>
+<ul>
+<li><span class="math inline">\(\bar{x}\)</span> (media de la muestra) = 7 horas.</li>
+<li>s (desviación estándar de la muestra) = 1.1 horas.</li>
+<li>n (tamaño de la muestra) = 16 adultos.</li>
+</ul>
+<p>Para calcular el p-valor, utilizamos la estadística de prueba t y la distribución t de Student con 15 grados de libertad (n - 1). Calculamos t de la siguiente manera:</p>
+<p><span class="math display">\[t = \frac{\bar{x} - \mu}{\frac{s}{\sqrt{n}}}\]</span></p>
+<p>Sustituyendo los valores:</p>
+<p><span class="math display">\[t = \frac{7 - 8}{\frac{1.1}{\sqrt{16}}}\]</span></p>
+<p><span class="math display">\[t = \frac{-1}{\frac{1.1}{4}}\]</span></p>
+<p><span class="math display">\[t \approx \frac{-4}{1.1} \approx -3.64\]</span></p>
+<p><strong>Paso 4: Calcular el p-valor:</strong></p>
+<p>Usamos la estadística de prueba t para calcular el p-valor en una distribución t de Student con 15 grados de libertad y la cola izquierda, ya que estamos probando si la media es menor que 8 horas. El p-valor es la probabilidad de obtener un valor de t tan extremo como -3.64.</p>
+<p>Usando una calculadora estadística o una tabla de distribución t, encontramos que el p-valor es extremadamente pequeño, casi cero (p-valor ≈ 0.0003).</p>
+<p><strong>Paso 5: Tomar una decisión y realizar una interpretación:</strong></p>
+<ul>
+<li>Si el p-valor es menor que el nivel de significación α (p-valor &lt; α), entonces rechazas la hipótesis nula en favor de la hipótesis alternativa.</li>
+<li>Si el p-valor es mayor o igual que α (p-valor ≥ α), entonces no tienes suficiente evidencia para rechazar la hipótesis nula.</li>
+</ul>
+<p>En este caso, el p-valor (p-valor ≈ 0.0003) es mucho menor que el nivel de significación α = 0.05. Por lo tanto, rechazas la hipótesis nula.</p>
+<p>Interpretación:</p>
+<p>Dado que el p-valor es menor que el nivel de significación del 5%, hay evidencia estadística para concluir que, en promedio, los adultos duermen menos de 8 horas durante la noche, lo que va en contra de la recomendación de los expertos.</p>
+<hr>
+<ol start="3" type="1">
+<li>Una encuesta reciente sobre el uso de teléfonos inteligentes se llevó a cabo con una muestra de 2,500 adolescentes. De ellos, 2,050 informaron tener un teléfono inteligente. Un investigador en sociología de la comunicación plantea la hipótesis de que más del 80% de todos los adolescentes tienen un teléfono inteligente.</li>
+</ol>
+<ul>
+<li>¿Se puede confirmar esta hipótesis con un nivel de significancia del 99% con los datos de la encuesta?</li>
+</ul>
+<p><strong>Paso 1: Definir las hipótesis correctamente:</strong></p>
+<ul>
+<li>Hipótesis nula (H0): La proporción de adolescentes que tienen un teléfono inteligente es igual al 80%, es decir, p = 0.80.</li>
+<li>Hipótesis alternativa (H1): La proporción de adolescentes que tienen un teléfono inteligente es mayor del 80%, es decir, p &gt; 0.80.</li>
+</ul>
+<p><strong>Paso 2: Elegir el nivel de significancia (α):</strong></p>
+<p>En este caso, se te pide que trabajes con un nivel de significancia estadística del 99%, por lo que α = 0.01.</p>
+<p><strong>Paso 3: Recolectar datos y calcular la estadística de prueba:</strong></p>
+<p>Tienes los siguientes valores:</p>
+<ul>
+<li>Número de adolescentes encuestados (n) = 2,500.</li>
+<li>Número de adolescentes que tienen un teléfono inteligente (x) = 2,050.</li>
+<li>Proporción muestral de adolescentes con teléfono inteligente ( <span class="math inline">\(\hat{p}\)</span> ) = x / n = 2050 / 2500 = 0.82.</li>
+</ul>
+<p>Para calcular el p-valor, utilizamos la estadística de prueba z, que ya hemos calculado:</p>
+<p><span class="math display">\[z = \frac{\hat{p} - p}{\sqrt{\frac{p(1-p)}{n}}}\]</span></p>
+<p>Sustituyendo los valores:</p>
+<p><span class="math display">\[z = \frac{0.82 - 0.80}{\sqrt{\frac{0.80(1-0.80)}{2500}}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.02}{\sqrt{\frac{0.80(0.20)}{2500}}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.02}{\sqrt{\frac{0.16}{2500}}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.02}{\sqrt{0.000064}}\]</span></p>
+<p><span class="math display">\[z \approx \frac{0.02}{0.008}\]</span></p>
+<p><span class="math display">\[z \approx 2.5\]</span></p>
+<p><strong>Paso 4: Calcular el p-valor:</strong></p>
+<p>Para calcular el p-valor, debemos encontrar la probabilidad de obtener una estadística de prueba z tan extrema o más extrema que 2.5 bajo la hipótesis nula. Esto implica encontrar la probabilidad de que la proporción muestral sea mayor que 0.82 bajo la suposición de que p = 0.80.</p>
+<p>Utilizando una tabla de distribución z o una calculadora estadística, encontramos que el p-valor es aproximadamente 0.0062.</p>
+<p><strong>Paso 5: Tomar una decisión y realizar una interpretación:</strong></p>
+<ul>
+<li>Si el p-valor es menor que el nivel de significancia α (p-valor &lt; α), entonces rechazas la hipótesis nula en favor de la hipótesis alternativa.</li>
+<li>Si el p-valor es mayor o igual que α (p-valor ≥ α), entonces no tienes suficiente evidencia para rechazar la hipótesis nula.</li>
+</ul>
+<p>En este caso, el p-valor (p-valor ≈ 0.0062) es menor que el nivel de significancia α = 0.01. Por lo tanto, rechazas la hipótesis nula.</p>
+<p>Interpretación:</p>
+<p>Con un nivel de significancia del 99%, hay evidencia estadística para concluir que más del 80% de los adolescentes tienen un teléfono inteligente, respaldando la hipótesis del investigador en sociología de la comunicación.</p>
+<hr>
+<ol start="4" type="1">
+<li>Un psicólogo lleva a cabo un estudio para investigar los efectos de la meditación en la reducción de los niveles de estrés. Para probar su hipótesis, selecciona una muestra de 81 participantes y encuentra que la reducción media en las puntuaciones de estrés es de 3.6 con una desviación estándar de 0.9 ( <span class="math inline">\(s\)</span> ). El psicólogo plantea la hipótesis de que la meditación reduce el nivel de estrés en la población más amplia.</li>
+</ol>
+<ul>
+<li>¿Se puede confirmar esta hipótesis con un nivel de significancia del 90%?</li>
+</ul>
+<p><strong>Paso 1: Definir las hipótesis correctamente:</strong></p>
+<ul>
+<li>Hipótesis nula (H0): La meditación no tiene efecto en la reducción de los niveles de estrés en la población más amplia, es decir, μ = 0.</li>
+<li>Hipótesis alternativa (H1): La meditación reduce el nivel de estrés en la población más amplia, es decir, μ &lt; 0.</li>
+</ul>
+<p><strong>Paso 2: Elegir el nivel de significancia (α):</strong></p>
+<p>En este caso, se te pide que trabajes con un nivel de significancia estadística del 90%, por lo que α = 0.10.</p>
+<p><strong>Paso 3: Recolectar datos y calcular la estadística de prueba z:</strong></p>
+<p>Tienes los siguientes valores:</p>
+<ul>
+<li>Tamaño de la muestra (n) = 81 participantes.</li>
+<li>Reducción media en las puntuaciones de estrés en la muestra ( <span class="math inline">\(\bar{x}\)</span> ) = 3.6.</li>
+<li>Desviación estándar de la muestra (s) = 0.9.</li>
+</ul>
+<p>Utilizamos la siguiente fórmula para calcular la estadística de prueba z:</p>
+<p><span class="math display">\[z = \frac{\bar{x} - μ}{\frac{s}{\sqrt{n}}}\]</span></p>
+<p>Sustituyendo los valores:</p>
+<p><span class="math display">\[z = \frac{3.6 - 0}{\frac{0.9}{\sqrt{81}}}\]</span></p>
+<p><span class="math display">\[z = \frac{3.6 - 0}{\frac{0.9}{9}}\]</span></p>
+<p><span class="math display">\[z = \frac{3.6 - 0}{0.1}\]</span></p>
+<p><span class="math display">\[z = \frac{3.6}{0.1}\]</span></p>
+<p><span class="math display">\[z = 36\]</span></p>
+<p><strong>Paso 4: Calcular el p-valor:</strong></p>
+<p>Para calcular el p-valor, debemos encontrar la probabilidad de obtener una estadística de prueba z tan extrema o más extrema que la calculada bajo la hipótesis nula. Esto implica encontrar la probabilidad de que la reducción media en la población sea menor o igual a 3.6 (o equivalente) bajo la suposición de que μ = 0.</p>
+<p>Utilizando una tabla de distribución normal estándar o una calculadora estadística, encontramos el p-valor correspondiente a la estadística de prueba z calculada.</p>
+<p><strong>Paso 5: Tomar una decisión y realizar una interpretación:</strong></p>
+<ul>
+<li>Si el p-valor es menor que el nivel de significancia α (p-valor &lt; α), entonces rechazas la hipótesis nula en favor de la hipótesis alternativa.</li>
+<li>Si el p-valor es mayor o igual que α (p-valor ≥ α), entonces no tienes suficiente evidencia para rechazar la hipótesis nula.</li>
+</ul>
+<p>En este caso, la estadística de prueba z es igual a 36, y el p-valor correspondiente a esta estadística de prueba es prácticamente cero (p-valor ≈ 0).</p>
+<p>Con un nivel de significancia del 90%, hay evidencia estadística para concluir que la meditación reduce el nivel de estrés en la población más amplia, respaldando la hipótesis del psicólogo.</p>
+<hr>
+<ol start="5" type="1">
+<li>En un estudio sobre satisfacción laboral, una muestra de 25 empleados de una gran empresa da una puntuación de satisfacción en una escala de 1 a 10. Un investigador plantea la hipótesis de que más del 60% de todos los empleados de la empresa están satisfechos con su trabajo, definiendo “satisfecho” como aquellos que dan una puntuación de 8 o más. De los 25 empleados muestreados, 18 dieron una puntuación de 8 o más.</li>
+</ol>
+<ul>
+<li>¿Se puede confirmar esta hipótesis con un nivel de significancia del 95%?</li>
+</ul>
+<p><strong>Paso 1: Definir las hipótesis correctamente:</strong></p>
+<ul>
+<li>Hipótesis nula (H0): La proporción de empleados satisfechos con su trabajo es igual al 60%, es decir, p = 0.60.</li>
+<li>Hipótesis alternativa (H1): La proporción de empleados satisfechos con su trabajo es mayor del 60%, es decir, p &gt; 0.60.</li>
+</ul>
+<p><strong>Paso 2: Elegir el nivel de significancia (α):</strong></p>
+<p>En este caso, se te pide que trabajes con un nivel de significancia estadística del 95%, por lo que α = 0.05.</p>
+<p><strong>Paso 3: Recolectar datos y calcular la estadística de prueba z:</strong></p>
+<p>Tienes los siguientes valores:</p>
+<ul>
+<li>Tamaño de la muestra (n) = 25 empleados.</li>
+<li>Número de empleados que dieron una puntuación de 8 o más (x) = 18 empleados.</li>
+</ul>
+<p>Para calcular la proporción muestral de empleados satisfechos ( <span class="math inline">\(\hat{p}\)</span> ), dividimos el número de empleados que dieron una puntuación de 8 o más entre el tamaño de la muestra:</p>
+<p><span class="math display">\[\hat{p} = \frac{x}{n} = \frac{18}{25} = 0.72\]</span></p>
+<p><strong>Paso 4: Calcular la estadística de prueba z:</strong></p>
+<p>Utilizamos la siguiente fórmula para calcular la estadística de prueba z:</p>
+<p><span class="math display">\[z = \frac{\hat{p} - p}{\sqrt{\frac{p(1-p)}{n}}}\]</span></p>
+<p>Sustituyendo los valores:</p>
+<p><span class="math display">\[z = \frac{0.72 - 0.60}{\sqrt{\frac{0.60(1-0.60)}{25}}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.12}{\sqrt{\frac{0.60(0.40)}{25}}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.12}{\sqrt{\frac{0.24}{25}}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.12}{\sqrt{0.0096}}\]</span></p>
+<p><span class="math display">\[z \approx \frac{0.12}{0.098}\]</span></p>
+<p><span class="math display">\[z \approx 1.2245\]</span></p>
+<p><strong>Paso 5: Calcular el p-valor:</strong></p>
+<p>Para calcular el p-valor, debemos encontrar la probabilidad de obtener una estadística de prueba z igual o más extrema que la calculada bajo la hipótesis nula. Esto implica encontrar la probabilidad de que la proporción de empleados satisfechos sea mayor o igual al 0.72 bajo la suposición de que p = 0.60.</p>
+<p>Usando una tabla de distribución z o una calculadora estadística, encontramos el p-valor correspondiente a la estadística de prueba z calculada.</p>
+<p>El p-valor para z ≈ 1.2245 es aproximadamente 0.1093.</p>
+<p><strong>Paso 6: Tomar una decisión y realizar una interpretación:</strong></p>
+<p>Dado que el p-valor (0.1093) es mayor que el nivel de significancia α (0.05), no tenemos suficiente evidencia para rechazar la hipótesis nula.</p>
+<p>Interpretación:</p>
+<p>Con un nivel de significancia del 95%, no podemos rechazar la hipótesis de que el 60% de los empleados de la empresa están satisfechos con su trabajo, según los datos recopilados en el estudio de satisfacción laboral. La proporción muestral observada (0.72) no es lo suficientemente significativamente mayor que el valor hipotético de 0.60 para respaldar la afirmación de la hipótesis alternativa.</p>
+<hr>
+<ol start="6" type="1">
+<li>Un equipo de investigación médica está explorando un nuevo medicamento para tratar dolores de cabeza frecuentes. Se realizó un estudio piloto con 20 participantes, donde la mitad de ellos (10) recibieron el medicamento (grupo de tratamiento) y la otra mitad (10) no lo recibió (grupo de control). Durante una semana, los participantes informaron si habían tenido un dolor de cabeza (1 = Sí, 0 = No).</li>
+</ol>
+<p>Los datos recopilados son los siguientes:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Grupo</th>
+<th>Observación</th>
+<th>Dolor de cabeza (1 = Sí, 0 = No)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>4</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>6</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>7</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>9</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>10</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>4</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>6</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>7</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>9</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>10</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>A partir de estos datos:</p>
+<ul>
+<li><p>Diseña y realiza un test de hipótesis para establecer si el medicamento es o no efectivo.</p></li>
+<li><p>Basándose en los resultados del test, ¿qué puede concluir sobre la efectividad del medicamento para reducir los dolores de cabeza?</p></li>
+</ul>
+<p>Para determinar si el medicamento es efectivo en la reducción de dolores de cabeza, podemos realizar un test de hipótesis de proporciones. La hipótesis nula (H0) sería que el medicamento no es efectivo, es decir, que la proporción de personas que tienen dolores de cabeza en el grupo de tratamiento es igual a la proporción en el grupo de control. La hipótesis alternativa (H1) sería que el medicamento es efectivo, es decir, que la proporción en el grupo de tratamiento es menor que la proporción en el grupo de control.</p>
+<p><strong>Paso 1: Definir las hipótesis:</strong></p>
+<ul>
+<li>Hipótesis nula (H0): La proporción de personas que tienen dolores de cabeza en el grupo de tratamiento es igual a la proporción en el grupo de control.</li>
+<li>Hipótesis alternativa (H1): La proporción de personas que tienen dolores de cabeza en el grupo de tratamiento es menor que la proporción en el grupo de control.</li>
+</ul>
+<p><strong>Paso 2: Elegir el nivel de significancia (α):</strong></p>
+<p>En este caso, vamos a asumir un nivel de significancia del 5% (α = 0.05).</p>
+<p><strong>Paso 3: Calcular las proporciones observadas:</strong></p>
+<p>Primero, calculamos las proporciones observadas de personas que tienen dolores de cabeza en cada grupo:</p>
+<ul>
+<li>Proporción en el grupo de tratamiento ( <span class="math inline">\(\hat{p}_t\)</span> ) = Número de personas con dolor de cabeza en tratamiento / Tamaño del grupo de tratamiento = 4/10 = 0.4</li>
+<li>Proporción en el grupo de control ( <span class="math inline">\(\hat{p}_c\)</span> ) = Número de personas con dolor de cabeza en control / Tamaño del grupo de control = 6/10 = 0.6</li>
+</ul>
+<p><strong>Paso 4: Calcular la estadística de prueba z:</strong></p>
+<p>Utilizamos la fórmula para la estadística de prueba z para proporciones:</p>
+<p><span class="math display">\[z = \frac{(\hat{p}_t - \hat{p}_c)}{\sqrt{\hat{p}(1-\hat{p})\left(\frac{1}{n_t} + \frac{1}{n_c}\right)}}\]</span></p>
+<p>Donde: - <span class="math inline">\(\hat{p}_t\)</span> es la proporción en el grupo de tratamiento (0.4). - <span class="math inline">\(\hat{p}_c\)</span> es la proporción en el grupo de control (0.6). - <span class="math inline">\(\hat{p}\)</span> es la proporción combinada de ambos grupos [(Número de personas con dolor de cabeza en tratamiento + Número de personas con dolor de cabeza en control) / (Tamaño del grupo de tratamiento + Tamaño del grupo de control)] = (4 + 6) / (10 + 10) = 0.5. - <span class="math inline">\(n_t\)</span> es el tamaño del grupo de tratamiento (10). - <span class="math inline">\(n_c\)</span> es el tamaño del grupo de control (10).</p>
+<p>Sustituyendo los valores:</p>
+<p><span class="math display">\[z = \frac{(0.4 - 0.6)}{\sqrt{0.5(1-0.5)\left(\frac{1}{10} + \frac{1}{10}\right)}}\]</span></p>
+<p><span class="math display">\[z = \frac{-0.2}{\sqrt{0.25(0.5)\left(0.2\right)}}\]</span></p>
+<p><span class="math display">\[z = \frac{-0.2}{\sqrt{0.025}}\]</span></p>
+<p><span class="math display">\[z = \frac{-0.2}{0.1581}\]</span></p>
+<p><span class="math display">\[z \approx -1.2622\]</span></p>
+<p><strong>Paso 5: Calcular el p-valor:</strong></p>
+<p>Para calcular el p-valor, encontramos la probabilidad de obtener una estadística de prueba z igual o más extrema que la calculada bajo la hipótesis nula. Dado que estamos interesados en si el medicamento reduce los dolores de cabeza, calcularemos el p-valor para una cola izquierda.</p>
+<p>Usando una tabla de distribución z o una calculadora estadística, encontramos el p-valor correspondiente a z ≈ -1.2622. El p-valor es aproximadamente 0.1031.</p>
+<p><strong>Paso 6: Tomar una decisión y realizar una interpretación:</strong></p>
+<ul>
+<li>Si el p-valor es menor que el nivel de significancia α (p-valor &lt; α), rechazamos la hipótesis nula en favor de la hipótesis alternativa.</li>
+<li>Si el p-valor es mayor o igual que α (p-valor ≥ α), no tenemos suficiente evidencia para rechazar la hipótesis nula.</li>
+</ul>
+<p>En este caso, el p-valor (0.1031) es mayor que el nivel de significancia α (0.05), por lo que no tenemos suficiente evidencia para rechazar la hipótesis nula.</p>
+<p>Interpretación:</p>
+<p>Con un nivel de significancia del 5%, no podemos concluir que el medicamento sea efectivo en la reducción de dolores de cabeza, según los datos recopilados en el estudio piloto. No hay suficiente evidencia para afirmar que el medicamento tenga un efecto significativo en la reducción de los dolores de cabeza en comparación con el grupo de control. Es necesario realizar estudios adicionales con muestras más grandes para obtener conclusiones más sólidas sobre la efectividad del medicamento.</p>
+<hr>
+<ol start="7" type="1">
+<li>Una escuela realiza un experimento para comparar la efectividad de dos métodos diferentes de enseñanza de matemáticas básicas para estudiantes de primer grado. Se seleccionan al azar 6 estudiantes, tres de los cuales aprenden usando el Método A (grupo de tratamiento) y tres con el Método B (grupo de control). Después de una semana de instrucción, cada estudiante realiza una prueba con un puntaje máximo de 10 puntos.</li>
+</ol>
+<p>Los datos recopilados son los siguientes:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Método</th>
+<th>Estudiante</th>
+<th>Puntaje obtenido</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Método A</td>
+<td>1</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td>Método A</td>
+<td>2</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td>Método A</td>
+<td>3</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td>Método B</td>
+<td>1</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>Método B</td>
+<td>2</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>Método B</td>
+<td>3</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<p>Con los datos recopilados,</p>
+<ul>
+<li>¿existe una diferencia significativa en los puntajes promedio obtenidos por los estudiantes entre los dos métodos de enseñanza? Realiza un test de hipótesis con un nivel de significancia del 95%.</li>
+</ul>
+<p>Para determinar si existe una diferencia significativa en los puntajes promedio obtenidos por los estudiantes entre los dos métodos de enseñanza (Método A y Método B), realizaremos un test de hipótesis con un nivel de significancia del 95%. Además, calcularemos el valor p para obtener una evaluación completa.</p>
+<p><strong>Paso 1: Definir las hipótesis:</strong></p>
+<ul>
+<li>Hipótesis nula (H0): No hay diferencia significativa en los puntajes promedio entre los dos métodos de enseñanza, es decir, μA - μB = 0.</li>
+<li>Hipótesis alternativa (H1): Hay una diferencia significativa en los puntajes promedio entre los dos métodos de enseñanza, es decir, μA - μB ≠ 0 (dos colas).</li>
+</ul>
+<p><strong>Paso 2: Calcular las estadísticas de prueba:</strong></p>
+<p>Tenemos los siguientes datos:</p>
+<p>Para el Método A: - Tamaño de la muestra (nA) = 3 estudiantes. - Puntajes obtenidos: 7, 8, 7.</p>
+<p>Para el Método B: - Tamaño de la muestra (nB) = 3 estudiantes. - Puntajes obtenidos: 6, 5, 6.</p>
+<p><strong>Paso 3: Calcular las medias y las desviaciones estándar de ambas muestras:</strong></p>
+<p>Para el Método A: - Media (X̄A) = (7 + 8 + 7) / 3 = 7.33 - Desviación estándar de la muestra (SA) utilizando la fórmula para la desviación estándar de la muestra:</p>
+<p><span class="math display">\[SA = \sqrt{\frac{\sum(XA - X̄A)^2}{nA - 1}}\]</span></p>
+<p><span class="math display">\[SA = \sqrt{\frac{(7 - 7.33)^2 + (8 - 7.33)^2 + (7 - 7.33)^2}{3 - 1}}\]</span></p>
+<p><span class="math display">\[SA = \sqrt{\frac{0.1089 + 0.1089 + 0.1089}{2}}\]</span></p>
+<p><span class="math display">\[SA = \sqrt{\frac{0.3267}{2}}\]</span></p>
+<p><span class="math display">\[SA \approx \sqrt{0.1634}\]</span></p>
+<p><span class="math display">\[SA \approx 0.4042\]</span></p>
+<p>Para el Método B: - Media (X̄B) = (6 + 5 + 6) / 3 = 5.67 - Desviación estándar de la muestra (SB) utilizando la fórmula para la desviación estándar de la muestra:</p>
+<p><span class="math display">\[SB = \sqrt{\frac{\sum(XB - X̄B)^2}{nB - 1}}\]</span></p>
+<p><span class="math display">\[SB = \sqrt{\frac{(6 - 5.67)^2 + (5 - 5.67)^2 + (6 - 5.67)^2}{3 - 1}}\]</span></p>
+<p><span class="math display">\[SB = \sqrt{\frac{0.1089 + 0.4489 + 0.1089}{2}}\]</span></p>
+<p><span class="math display">\[SB = \sqrt{\frac{0.6667}{2}}\]</span></p>
+<p><span class="math display">\[SB \approx \sqrt{0.3333}\]</span></p>
+<p><span class="math display">\[SB \approx 0.5774\]</span></p>
+<p><strong>Paso 4: Calcular la estadística de prueba t:</strong></p>
+<p>Utilizamos la siguiente fórmula para calcular la estadística de prueba t para comparar las medias de dos muestras independientes:</p>
+<p><span class="math display">\[t = \frac{(X̄A - X̄B)}{\sqrt{\frac{SA^2}{nA} + \frac{SB^2}{nB}}}\]</span></p>
+<p>Sustituyendo los valores:</p>
+<p><span class="math display">\[t = \frac{(7.33 - 5.67)}{\sqrt{\frac{(0.4042)^2}{3} + \frac{(0.5774)^2}{3}}}\]</span></p>
+<p><span class="math display">\[t = \frac{1.66}{\sqrt{0.1371 + 0.3333}}\]</span></p>
+<p><span class="math display">\[t = \frac{1.66}{\sqrt{0.4704}}\]</span></p>
+<p><span class="math display">\[t ≈ \frac{1.66}{0.6860}\]</span></p>
+<p><span class="math display">\[t ≈ 2.42\]</span></p>
+<p><strong>Paso 5: Calcular el valor p:</strong></p>
+<p>El valor p se calcula utilizando la estadística de prueba t y nos indica la probabilidad de obtener un valor igual o más extremo que el observado bajo la hipótesis nula.</p>
+<p>Para una prueba de dos colas, el valor p se calcula buscando la probabilidad de obtener un valor absoluto de t mayor o igual al valor absoluto de la estadística de prueba t observada. Usando una tabla de distribución t o una calculadora estadística, encontramos que el valor p es aproximadamente 0.0336.</p>
+<p><strong>Paso 6: Tomar una decisión y realizar una interpretación:</strong></p>
+<ul>
+<li>Si el valor p es menor que α (0.05), rechazamos la hipótesis nula.</li>
+<li>Si el valor p es mayor o igual a α (0.05), no tenemos suficiente evidencia para rechazar la hipótesis nula.</li>
+</ul>
+<p>En este caso, el valor p es aproximadamente 0.0336, que es menor que α (0.05). Por lo tanto, rechazamos la hipótesis nula.</p>
+<p>Interpretación:</p>
+<p>Con un nivel de significancia del 95%, hay evidencia suficiente para concluir que existe una diferencia significativa en los puntajes promedio obtenidos por los estudiantes entre los dos métodos de enseñanza (Método A y Método B), según los datos recopilados en el experimento. Esto sugiere que al menos uno de los métodos de enseñanza es más efectivo que el otro en términos de puntajes promedio.</p>
+<hr>
+<ol start="8" type="1">
+<li>La consultora CALLEMP realiza una encuesta para predecir el resultado de las elecciones presidenciales en Chile en 2021. Se entrevistó a un total de 20 personas, quienes declararon si votarían por Boric o por Kast.</li>
+</ol>
+<p>A continuación se muestra una tabla con los resultados:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>ID Entrevistado</th>
+<th>Voto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Kast</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Kast</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Boric</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Kast</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>Boric</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>Kast</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>Boric</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>Kast</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td>Boric</td>
+</tr>
+<tr class="odd">
+<td>17</td>
+<td>Kast</td>
+</tr>
+<tr class="even">
+<td>18</td>
+<td>Kast</td>
+</tr>
+<tr class="odd">
+<td>19</td>
+<td>Kast</td>
+</tr>
+<tr class="even">
+<td>20</td>
+<td>Boric</td>
+</tr>
+</tbody>
+</table>
+<p>Basado en los datos de la encuesta,</p>
+<ul>
+<li>¿puede la consultora predecir con seguridad que Boric ganará la elección? Realiza un test de hipótesis para para evaluar la confiabilidad de la encuesta en la predicción del resultado electoral.</li>
+</ul>
+<p>Para evaluar si la consultora puede predecir con seguridad que Boric ganará la elección en función de los datos de la encuesta, podemos realizar un test de hipótesis para la proporción de votantes que eligieron a Boric en la muestra. Utilizaremos un nivel de significancia del 95% (α = 0.05).</p>
+<p><strong>Paso 1: Definir las hipótesis:</strong></p>
+<ul>
+<li>Hipótesis nula (H0): La proporción de votantes que eligieron a Boric es igual al 0.5 (50%), lo que significa que no hay una ventaja significativa en la elección presidencial para Boric.</li>
+<li>Hipótesis alternativa (H1): La proporción de votantes que eligieron a Boric es mayor del 0.5 (50%), lo que sugeriría una ventaja significativa en la elección presidencial para Boric.</li>
+</ul>
+<p><strong>Paso 2: Elegir el nivel de significancia (α):</strong></p>
+<p>En este caso, estamos usando un nivel de significancia del 95%, lo que implica que α = 0.05.</p>
+<p><strong>Paso 3: Calcular la proporción observada de votantes que eligieron a Boric:</strong></p>
+<p>En la muestra, 11 de las 20 personas eligieron a Boric.</p>
+<p>Proporción observada ( <span class="math inline">\(\hat{p}\)</span> ) = Número de votantes que eligieron a Boric / Tamaño de la muestra = 11/20 = 0.55</p>
+<p><strong>Paso 4: Calcular la estadística de prueba z:</strong></p>
+<p>Utilizamos la fórmula para calcular la estadística de prueba z para proporciones:</p>
+<p><span class="math display">\[z = \frac{(\hat{p} - p)}{\sqrt{\frac{p(1-p)}{n}}}\]</span></p>
+<p>Donde: - <span class="math inline">\(\hat{p}\)</span> es la proporción observada (0.55). - <span class="math inline">\(p\)</span> es la proporción hipotética bajo la hipótesis nula (0.5). - <span class="math inline">\(n\)</span> es el tamaño de la muestra (20).</p>
+<p>Sustituyendo los valores:</p>
+<p><span class="math display">\[z = \frac{(0.55 - 0.5)}{\sqrt{\frac{0.5(1-0.5)}{20}}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.05}{\sqrt{\frac{0.25}{20}}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.05}{\sqrt{0.0125}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.05}{0.1118}\]</span></p>
+<p><span class="math display">\[z \approx 0.4473\]</span></p>
+<p><strong>Paso 5: Calcular el valor p:</strong></p>
+<p>El valor p se calcula utilizando la estadística de prueba z y nos indica la probabilidad de obtener un valor igual o más extremo que el observado bajo la hipótesis nula.</p>
+<p>Para una prueba de una cola (derecha), el valor p se encuentra buscando la probabilidad de obtener un valor de z mayor que el valor calculado. Usando una tabla de distribución z o una calculadora estadística, encontramos que el valor p es aproximadamente 0.3277.</p>
+<p><strong>Paso 6: Tomar una decisión y realizar una interpretación:</strong></p>
+<ul>
+<li>Si el valor p es menor que α (0.05), rechazamos la hipótesis nula.</li>
+<li>Si el valor p es mayor o igual a α (0.05), no tenemos suficiente evidencia para rechazar la hipótesis nula.</li>
+</ul>
+<p>En este caso, el valor p es aproximadamente 0.3277, que es mayor que α (0.05). Por lo tanto, no tenemos suficiente evidencia para rechazar la hipótesis nula.</p>
+<p>Interpretación:</p>
+<p>Con un nivel de significancia del 95%, la encuesta realizada por la consultora no proporciona suficiente evidencia para afirmar con seguridad que Boric ganará la elección presidencial en base a los datos de la muestra. Esto significa que la encuesta no es concluyente y no podemos hacer una predicción definitiva sobre el resultado electoral en función de esta muestra limitada. Se requiere una muestra más grande y/o datos adicionales para obtener conclusiones más sólidas sobre el resultado electoral.</p>
+<hr>
+<ol start="9" type="1">
+<li>Trabaja con los datos “Intenciones de Voto en el Plebiscito Chileno de 1988”</li>
+</ol>
+<p><strong>Descripción:</strong> La base de datos cuenta con 2700 registros distribuidos en 8 columnas. Estos datos son producto de una encuesta a nivel nacional llevada a cabo en abril y mayo de 1988 por FLACSO/Chile. Es importante mencionar que existen algunos datos faltantes en el conjunto.</p>
+<p><strong>Variables presentes en la base de datos:</strong></p>
+<ul>
+<li><p><strong>región:</strong> Categorizado con los siguientes niveles:</p>
+<ul>
+<li>C: Central</li>
+<li>M: Área Metropolitana de Santiago</li>
+<li>N: Norte</li>
+<li>S: Sur</li>
+<li>SA: Ciudad de Santiago.</li>
+</ul></li>
+<li><p><strong>población:</strong> Representa el tamaño poblacional de la comunidad del entrevistado.</p></li>
+<li><p><strong>sexo:</strong> Categorizado en dos niveles:</p>
+<ul>
+<li>F: Femenino</li>
+<li>M: Masculino</li>
+</ul></li>
+<li><p><strong>edad:</strong> Se refiere a la edad del encuestado expresada en años.</p></li>
+<li><p><strong>educación:</strong> Categorizado con los siguientes niveles (pueden aparecer desordenados):</p>
+<ul>
+<li>P: Primaria</li>
+<li>PS: Postsecundaria</li>
+<li>S: Secundaria</li>
+</ul></li>
+<li><p><strong>ingresos:</strong> Refiere a los ingresos mensuales del encuestado, expresados en Pesos.</p></li>
+<li><p><strong>statusquo:</strong> Representa una escala que mide el nivel de apoyo al status quo existente en ese momento.</p></li>
+<li><p><strong>voto:</strong> Categorizado con los siguientes niveles:</p>
+<ul>
+<li><p>A: Se abstendrá</p></li>
+<li><p>N: Votará no (en contra de Pinochet)</p></li>
+<li><p>U: Indeciso</p></li>
+<li><p>Y: Votará sí (a favor de Pinochet).</p></li>
+</ul></li>
+</ul>
+<p>Los resultados de intención de voto por género son los siguientes:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(carData)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Chile)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>data_chile <span class="ot">&lt;-</span> Chile</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">table</span>(data_chile<span class="sc">$</span>vote, data_chile<span class="sc">$</span>sex), <span class="at">align =</span> <span class="st">"cc"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: center;">F</th>
+<th style="text-align: center;">M</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: center;">104</td>
+<td style="text-align: center;">83</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">N</td>
+<td style="text-align: center;">363</td>
+<td style="text-align: center;">526</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">U</td>
+<td style="text-align: center;">362</td>
+<td style="text-align: center;">226</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Y</td>
+<td style="text-align: center;">480</td>
+<td style="text-align: center;">388</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><p>Omitiendo a personas indecisas o que declaran que se abstendrán, estima la proporción hombres y mujeres que declaran que votarán por el NO (en vez de por SI).</p></li>
+<li><p>Realiza un test de hipótesis para determinar si existe una diferencia significativa en la intención de voto (NO vs SÍ) entre hombres y mujeres. Usa un nivel de significancia del 95%.</p></li>
+<li><p>Testea la hipótesis de que ganará el NO.</p></li>
+</ul>
+<ol start="10" type="1">
+<li>Un grupo de estudiantes participó en una competencia de habilidades culinarias. La competencia se compone de tres pruebas: elaboración de entradas, plato principal y postres. El puntaje final de cada estudiante se determina tomando el promedio simple de los puntajes obtenidos en las tres pruebas. Cada prueba evalúa distintos aspectos y habilidades y, por tanto, sus puntajes son independientes entre sí. A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 estudiantes para cada prueba:</li>
+</ol>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 16%">
+<col style="width: 16%">
+<col style="width: 16%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Estadística</th>
+<th>Entradas</th>
+<th>Plato Principal</th>
+<th>Postres</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Media muestral <span class="math inline">\(\bar{x} = \frac{\sum x}{n}\)</span></td>
+<td>4.5</td>
+<td>3.8</td>
+<td>5.2</td>
+</tr>
+<tr class="even">
+<td>Suma de desviaciones al cuadrado <span class="math inline">\(\sum (x_i - \bar{x})^2\)</span></td>
+<td>375.6</td>
+<td>178.4</td>
+<td>62.7</td>
+</tr>
+</tbody>
+</table>
+<p>Basándose en esta información,</p>
+<ul>
+<li><p>Realiza un test de hipótesis para comparar las medias de las puntuaciones en las tres pruebas. ¿Existe una diferencia estadísticamente significativa en el rendimiento de los estudiantes en las pruebas de entradas, plato principal y postres? Usa un nivel de significancia del 95%.</p></li>
+<li><p>Interpreta</p></li>
+</ul>
+<p>Para comparar las medias de las puntuaciones en las tres pruebas (entradas, plato principal y postres) de manera pareada y utilizar valores p, realizaremos pruebas t pareadas para todas las combinaciones posibles. Esto nos permitirá evaluar si existe una diferencia estadísticamente significativa en las medias de cada par de pruebas. Utilizaremos un nivel de significancia del 95% (α = 0.05).</p>
+<p>Primero, definamos las hipótesis para cada prueba pareada:</p>
+<p>Para Entradas vs.&nbsp;Plato Principal:</p>
+<ul>
+<li><p>Hipótesis nula (H0): No hay diferencia estadísticamente significativa en la media de las puntuaciones entre las pruebas de entradas y plato principal, es decir, μ_entradas - μ_plato_principal = 0.</p></li>
+<li><p>Hipótesis alternativa (H1): Existe una diferencia estadísticamente significativa en la media de las puntuaciones entre las pruebas de entradas y plato principal, es decir, μ_entradas - μ_plato_principal ≠ 0 (dos colas).</p></li>
+</ul>
+<p>Para Entradas vs.&nbsp;Postres:</p>
+<ul>
+<li><p>Hipótesis nula (H0): No hay diferencia estadísticamente significativa en la media de las puntuaciones entre las pruebas de entradas y postres, es decir, μ_entradas</p></li>
+<li><p>μ_postres = 0. - Hipótesis alternativa (H1): Existe una diferencia estadísticamente significativa en la media de las puntuaciones entre las pruebas de entradas y postres, es decir, μ_entradas - μ_postres ≠ 0 (dos colas).</p></li>
+</ul>
+<p>Para Plato Principal vs.&nbsp;Postres:</p>
+<ul>
+<li><p>Hipótesis nula (H0): No hay diferencia estadísticamente significativa en la media de las puntuaciones entre las pruebas de plato principal y postres, es decir, μ_plato_principal</p></li>
+<li><p>μ_postres = 0. - Hipótesis alternativa (H1): Existe una diferencia estadísticamente significativa en la media de las puntuaciones entre las pruebas de plato principal y postres, es decir, μ_plato_principal - μ_postres ≠ 0 (dos colas).</p></li>
+</ul>
+<p>Luego, calcularemos las estadísticas de prueba t pareadas para cada par de pruebas y sus respectivos valores p.</p>
+<p><strong>Prueba 1: Entradas vs.&nbsp;Plato Principal</strong></p>
+<p>Para esta prueba pareada, utilizamos la fórmula de la estadística de prueba t pareada:</p>
+<p><span class="math display">\[t = \frac{\bar{d}}{\frac{s_d}{\sqrt{n}}}\]</span></p>
+<p>Donde: - <span class="math inline">\(\bar{d}\)</span> es la media de las diferencias entre las puntuaciones en entradas y plato principal. - <span class="math inline">\(s_d\)</span> es la desviación estándar de las diferencias. - <span class="math inline">\(n\)</span> es el tamaño de la muestra.</p>
+<p>Calcular <span class="math inline">\(\bar{d}\)</span>: <span class="math inline">\(\bar{d} = \bar{x}_{entradas} - \bar{x}_{plato\_principal} = 4.5 - 3.8 = 0.7\)</span></p>
+<p>Calcular <span class="math inline">\(s_d\)</span> utilizando la suma de desviaciones al cuadrado proporcionada: <span class="math display">\[s_d = \sqrt{\frac{\sum(x_{entradas} - x_{plato\_principal})^2}{n-1}} = \sqrt{\frac{375.6}{99}} ≈ 1.94\]</span></p>
+<p>Calcular <span class="math inline">\(t\)</span>: <span class="math display">\[t = \frac{0.7}{\frac{1.94}{\sqrt{100}}} ≈ \frac{0.7}{0.194} ≈ 3.61\]</span></p>
+<p>Ahora, encontramos el valor p para esta prueba t con <span class="math inline">\(df = 99\)</span> (grados de libertad): El valor p se refiere a la probabilidad de obtener un valor absoluto de t igual o mayor que el observado bajo la hipótesis nula.</p>
+<p>Usando una tabla de distribución t o una calculadora estadística, encontramos que el valor p para esta prueba t es muy pequeño, mucho menor que 0.05 (α = 0.05). Por lo tanto, rechazamos la hipótesis nula para la prueba Entradas vs.&nbsp;Plato Principal y concluimos que existe una diferencia estadísticamente significativa en la media de las puntuaciones entre estas dos pruebas.</p>
+<p><strong>Prueba 2: Entradas vs.&nbsp;Postres</strong></p>
+<p>Repetimos el mismo proceso para esta prueba pareada.</p>
+<p>Calcular <span class="math inline">\(\bar{d}\)</span>: <span class="math inline">\(\bar{d} = \bar{x}_{entradas} - \bar{x}_{postres} = 4.5 - 5.2 = -0.7\)</span></p>
+<p>Calcular <span class="math inline">\(s_d\)</span>: <span class="math display">\[s_d = \sqrt{\frac{\sum(x_{entradas} - x_{postres})^2}{n-1}} = \sqrt{\frac{62.7}{99}} ≈ 0.793\]</span></p>
+<p>Calcular <span class="math inline">\(t\)</span>: <span class="math display">\[t = \frac{-0.7}{\frac{0.793}{\sqrt{100}}} ≈ \frac{-0.7}{0.0793} ≈ -8.82\]</span></p>
+<p>Encontramos el valor p para esta prueba t con <span class="math inline">\(df = 99\)</span>: El valor p es muy pequeño, mucho menor que 0.05 (α = 0.05). Por lo tanto, rechazamos la hipótesis nula para la prueba Entradas vs.&nbsp;Postres y concluimos que existe una diferencia estadísticamente significativa en la media de las puntuaciones entre estas dos pruebas.</p>
+<p><strong>Prueba 3: Plato Principal vs.&nbsp;Postres</strong></p>
+<p>Repetimos el proceso para esta última prueba pareada.</p>
+<p>Calcular <span class="math inline">\(\bar{d}\)</span>: <span class="math inline">\(\bar{d} = \bar{x}_{plato\_principal} - \bar{x}_{postres} = 3.8 - 5.2 = -1.4\)</span></p>
+<p>Calcular <span class="math inline">\(s_d\)</span>: <span class="math display">\[s_d = \sqrt{\frac{\sum(x_{plato\_principal} - x_{postres})^2}{n-1}} = \sqrt{\frac{178.4}{99}} ≈ 1.34\]</span></p>
+<p>Calcular <span class="math inline">\(t\)</span>: <span class="math display">\[t = \frac{-1.4}{\frac{1.34}{\sqrt{100}}} ≈ \frac{-1.4}{0.134} ≈ -10.45\]</span></p>
+<p>Encontramos el valor p para esta prueba t con <span class="math inline">\(df = 99\)</span>: El valor p es muy pequeño,</p>
+<p>mucho menor que 0.05 (α = 0.05). Por lo tanto, rechazamos la hipótesis nula para la prueba Plato Principal vs.&nbsp;Postres y concluimos que existe una diferencia estadísticamente significativa en la media de las puntuaciones entre estas dos pruebas.</p>
+<p>En resumen, con un nivel de significancia del 95%, encontramos que las diferencias en las medias de las puntuaciones son estadísticamente significativas para todas las combinaciones de pruebas pareadas (Entradas vs.&nbsp;Plato Principal, Entradas vs.&nbsp;Postres y Plato Principal vs.&nbsp;Postres). Esto indica que hay diferencias significativas en el rendimiento de los estudiantes en las tres pruebas de habilidades culinarias.</p>
+<hr>
+<ol start="11" type="1">
+<li>Una población tomó un test compuesto por tres preguntas. El puntaje final de cada individuo se determina tomando el promedio simple de los puntajes obtenidos en las tres preguntas. Cada pregunta evalúa aspectos distintos del conocimiento y, por tanto, sus puntajes son independientes entre sí.</li>
+</ol>
+<p>A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 individuos para cada pregunta:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Estadística</th>
+<th>Pregunta 1</th>
+<th>Pregunta 2</th>
+<th>Pregunta 3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Media muestral</td>
+<td>4.8930040</td>
+<td>0.9364491</td>
+<td>6.0148615</td>
+</tr>
+<tr class="even">
+<td>Varianza muestral (naive)</td>
+<td>3.998700</td>
+<td>1.957715</td>
+<td>0.5070397</td>
+</tr>
+</tbody>
+</table>
+<p>Basándose en esta información,</p>
+<ul>
+<li><p>¿Cuál es la media muestral del puntaje final de estos 100 individuos?</p></li>
+<li><p>Realiza un test de hipótesis para determinar si la media poblacional del puntaje final es significativamente diferente de 4, la nota mínima para aprobar. Utiliza un nivel de significancia del 95%.</p></li>
+<li><p>Interpreta</p></li>
+</ul>
+<p>Primero, calculemos la media muestral del puntaje final de los 100 individuos. Como se mencionó, el puntaje final se calcula tomando el promedio simple de los puntajes en las tres preguntas. Entonces,</p>
+<p>Media muestral del puntaje final = (Media de Pregunta 1 + Media de Pregunta 2 + Media de Pregunta 3) / 3</p>
+<p>Media muestral del puntaje final = (4.8930040 + 0.9364491 + 6.0148615) / 3</p>
+<p>Media muestral del puntaje final ≈ 4.2814382</p>
+<p>La media muestral del puntaje final de estos 100 individuos es aproximadamente 4.28.</p>
+<p>Ahora, vamos a realizar un test de hipótesis para determinar si la media poblacional del puntaje final es significativamente diferente de 4 (la nota mínima para aprobar). Utilizaremos un nivel de significancia del 95% (α = 0.05).</p>
+<p><strong>Paso 1: Definir las hipótesis:</strong></p>
+<ul>
+<li>Hipótesis nula (H0): La media poblacional del puntaje final es igual a 4, es decir, μ = 4.</li>
+<li>Hipótesis alternativa (H1): La media poblacional del puntaje final es significativamente diferente de 4, es decir, μ ≠ 4 (dos colas).</li>
+</ul>
+<p><strong>Paso 2: Calcular la estadística de prueba z:</strong></p>
+<p>Para calcular la estadística de prueba z, utilizamos la fórmula:</p>
+<p><span class="math display">\[z = \frac{\bar{x} - μ}{\frac{σ}{\sqrt{n}}}\]</span></p>
+<p>Donde: - <span class="math inline">\(\bar{x}\)</span> es la media muestral del puntaje final (que calculamos anteriormente). - μ es el valor bajo la hipótesis nula (4 en este caso). - <span class="math inline">\(σ\)</span> es la desviación estándar poblacional del puntaje final (que no se proporcionó en los datos, por lo que asumiremos que es desconocida). - <span class="math inline">\(n\)</span> es el tamaño de la muestra (100).</p>
+<p><strong>Paso 3: Estimación de la desviación estándar poblacional:</strong></p>
+<p>Dado que no se proporcionó la desviación estándar poblacional ( <span class="math inline">\(σ\)</span> ), podemos utilizar la desviación estándar muestral (varianza muestral) como una estimación. Sin embargo, es importante mencionar que esta estimación será “naive” y puede llevar a resultados conservadores.</p>
+<p>Para el cálculo de la varianza muestral combinada, utilizamos la fórmula de varianza muestral ponderada:</p>
+<p><span class="math display">\[s^2 = \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2 + (n_3 - 1)s_3^2}{n_1 + n_2 + n_3 - 3}\]</span></p>
+<p>Donde: - <span class="math inline">\(s_1^2\)</span> es la varianza muestral de Pregunta 1. - <span class="math inline">\(s_2^2\)</span> es la varianza muestral de Pregunta 2. - <span class="math inline">\(s_3^2\)</span> es la varianza muestral de Pregunta 3. - <span class="math inline">\(n_1\)</span>, <span class="math inline">\(n_2\)</span>, <span class="math inline">\(n_3\)</span> son los tamaños de muestra correspondientes.</p>
+<p><span class="math inline">\(s^2 = \frac{(99)(3.998700) + (99)(1.957715) + (99)(0.5070397)}{297}\)</span></p>
+<p><span class="math inline">\(s^2 ≈ 2.1706393\)</span></p>
+<p><span class="math inline">\(s ≈ \sqrt{2.1706393} ≈ 1.472866\)</span></p>
+<p><strong>Paso 4: Calcular la estadística de prueba z:</strong></p>
+<p>Utilizando los valores conocidos:</p>
+<p><span class="math inline">\(\bar{x} = 4.2814382\)</span> (media muestral del puntaje final) <span class="math inline">\(μ = 4\)</span> (valor bajo la hipótesis nula) <span class="math inline">\(s ≈ 1.472866\)</span> (estimación de la desviación estándar poblacional) <span class="math inline">\(n = 100\)</span> (tamaño de la muestra)</p>
+<p><span class="math display">\[z = \frac{4.2814382 - 4}{\frac{1.472866}{\sqrt{100}}} ≈ \frac{0.2814382}{0.1472866} ≈ 1.91\]</span></p>
+<p><strong>Paso 5: Encontrar el valor p:</strong></p>
+<p>Dado que estamos interesados en una prueba de dos colas (μ ≠ 4), buscamos el valor p correspondiente en una distribución normal estándar (z).</p>
+<p>Usando una tabla de distribución z o una calculadora estadística, encontramos que el valor p para z = 1.91 es aproximadamente 0.0564 (para una prueba de dos colas).</p>
+<p><strong>Paso 6: Tomar una decisión y realizar una interpretación:</strong></p>
+<p>Con un nivel de significancia del 95% (α = 0.05), comparamos el valor p obtenido (0.0564) con α.</p>
+<ul>
+<li>Si valor p ≤ α, rechazamos la hipótesis nula.</li>
+<li>Si valor p &gt; α, no rechazamos la hipótesis nula.</li>
+</ul>
+<p>En este caso, 0.0564 &gt; 0.05, por lo que no tenemos suficiente evidencia para rechazar la hipótesis nula. No podemos concluir de manera significativa que la media poblacional del puntaje final sea diferente de 4.</p>
+<p>Interpretación: A un nivel de significancia del 95%, no encontramos evidencia suficiente para afirmar que la media poblacional del puntaje final de estos 100 individuos es significativamente diferente de 4.</p>
+<ol start="12" type="1">
+<li>Un equipo de investigación médica está explorando un nuevo medicamento para tratar dolores de cabeza frecuentes. Se realizó un estudio piloto con 20 participantes, donde la mitad de ellos (10) recibieron el medicamento (grupo de tratamiento) y la otra mitad (10) no lo recibió (grupo de control). Durante una semana, los participantes informaron si habían tenido un dolor de cabeza (1 = Sí, 0 = No).</li>
+</ol>
+<p>Los datos recopilados son los siguientes:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Grupo</th>
+<th>Observación</th>
+<th>Dolor de cabeza (1 = Sí, 0 = No)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>4</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>6</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>7</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>9</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>10</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>4</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>6</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>7</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>9</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>10</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>A partir de estos datos:</p>
+<ul>
+<li><p>Realiza un test de hipótesis para evaluar si el tratamiento es efectivo.</p></li>
+<li><p>Justifica tu elección de estadístico, nivel de significación y distrubución nula.</p></li>
+<li><p>Interpreta</p></li>
+</ul>
+<p>Para realizar el cálculo del valor p en el test de hipótesis, primero necesitamos calcular las proporciones de personas que experimentaron dolor de cabeza en el grupo de tratamiento ( <span class="math inline">\(\hat{p}_t\)</span> ) y en el grupo de control ( <span class="math inline">\(\hat{p}_c\)</span> ).</p>
+<p><strong>Cálculo de</strong> <span class="math inline">\(\hat{p}_t\)</span> (proporción en el grupo de tratamiento):</p>
+<p>En el grupo de tratamiento, de un total de 10 participantes, 4 experimentaron dolor de cabeza (1). Entonces,</p>
+<p><span class="math inline">\(\hat{p}_t = \frac{\text{Número de personas con dolor de cabeza en el grupo de tratamiento}}{\text{Tamaño del grupo de tratamiento}} = \frac{4}{10} = 0.4\)</span></p>
+<p><strong>Cálculo de</strong> <span class="math inline">\(\hat{p}_c\)</span> (proporción en el grupo de control):</p>
+<p>En el grupo de control, de un total de 10 participantes, 6 experimentaron dolor de cabeza (1). Entonces,</p>
+<p><span class="math inline">\(\hat{p}_c = \frac{\text{Número de personas con dolor de cabeza en el grupo de control}}{\text{Tamaño del grupo de control}} = \frac{6}{10} = 0.6\)</span></p>
+<p>Ahora, podemos calcular la proporción conjunta ( <span class="math inline">\(\hat{p}\)</span> ) y la varianza conjunta ( <span class="math inline">\(Var(\hat{p})\)</span> ):</p>
+<p><span class="math inline">\(\hat{p} = \frac{\text{Número total de personas con dolor de cabeza}}{\text{Total de participantes}} = \frac{4 + 6}{10 + 10} = \frac{10}{20} = 0.5\)</span></p>
+<p><span class="math inline">\(Var(\hat{p}) = \frac{\hat{p}(1 - \hat{p})}{n_t} + \frac{\hat{p}(1 - \hat{p})}{n_c} = \frac{0.5(1 - 0.5)}{10} + \frac{0.5(1 - 0.5)}{10} = \frac{0.25}{10} + \frac{0.25}{10} = \frac{0.5}{10} = 0.05\)</span></p>
+<p>Con estos valores, podemos calcular el estadístico de prueba Z:</p>
+<p><span class="math inline">\(Z = \frac{(\hat{p}_t - \hat{p}_c)}{\sqrt{Var(\hat{p})}} = \frac{(0.4 - 0.6)}{\sqrt{0.05}} = \frac{-0.2}{\sqrt{0.05}} \approx -2.83\)</span></p>
+<p>Ahora, buscaremos el valor p correspondiente en una distribución normal estándar (Z) para un test de dos colas. Queremos encontrar la probabilidad de obtener un valor de Z tan extremo como -2.83 o más extremo en cualquier dirección.</p>
+<p>Usando una calculadora estadística o una tabla de distribución Z, encontramos que el valor p es extremadamente pequeño y está por debajo de cualquier nivel de significancia comúnmente utilizado (por ejemplo, &lt; 0.0001).</p>
+<p>Interpretación:</p>
+<p>Con un valor p extremadamente pequeño, podemos concluir que existe evidencia estadísticamente significativa para rechazar la hipótesis nula. En otras palabras, el tratamiento parece ser efectivo en la reducción de dolores de cabeza en comparación con el grupo de control. La diferencia en las proporciones es estadísticamente significativa, y esto sugiere que el tratamiento tiene un impacto en la reducción de los dolores de cabeza.</p>
+<hr>
+<ol start="13" type="1">
+<li>Un estudio se llevó a cabo para comparar el rendimiento en matemáticas de dos grupos de estudiantes, Grupo A y Grupo B, que siguieron diferentes métodos de enseñanza durante un semestre. Al final del semestre, se recopilaron las calificaciones de ambos grupos para evaluar si había una diferencia significativa en sus promedios.</li>
+</ol>
+<p>Grupo A: Seleccionaron aleatoriamente a 30 estudiantes y su promedio fue de 85 con una desviación estándar de 8 ( <span class="math inline">\(s\)</span> ).</p>
+<p>Grupo B: Seleccionaron aleatoriamente a 35 estudiantes y su promedio fue de 80 con una desviación estándar de 7 ( <span class="math inline">\(s\)</span> ).</p>
+<p>Se desea saber si hay evidencia estadística de que uno de los métodos de enseñanza es más efectivo que el otro.</p>
+<ul>
+<li><p>Calcula el intervalo de confianza al 95% para la media de cada grupo.</p></li>
+<li><p>Realiza una prueba de hipótesis para comparar las medias y utiliza un nivel de significancia del 5%.</p></li>
+<li><p>Compara los resultados de los intervalos de confianza y el test de hipótesis y entrega una conclusión respecto de la efectividad comparada de ambos métodos.</p></li>
+</ul>
+<p>Primero calcularemos los intervalos de confianza al 95% para la media de cada grupo y luego realizaremos la prueba de hipótesis.</p>
+<p><strong>Grupo A:</strong> - Media muestral ( <span class="math inline">\(\bar{X}_A\)</span> ) = 85 - Desviación estándar muestral ( <span class="math inline">\(s_A\)</span> ) = 8 - Tamaño de muestra ( <span class="math inline">\(n_A\)</span> ) = 30</p>
+<p>Usaremos la distribución t de Student con <span class="math inline">\(n_A - 1\)</span> grados de libertad (29 grados de libertad) para calcular el intervalo de confianza al 95%:</p>
+<p>Intervalo de Confianza para Grupo A:</p>
+<p><span class="math display">\[\bar{X}_A \pm \frac{t_{0.025} \cdot s_A}{\sqrt{n_A}}\]</span></p>
+<p><span class="math display">\[85 \pm \frac{2.045 \cdot 8}{\sqrt{30}}\]</span></p>
+<p>Calculando esto, obtenemos un intervalo de confianza para Grupo A de aproximadamente <span class="math inline">\(81.75\)</span> a <span class="math inline">\(88.25\)</span>.</p>
+<p><strong>Grupo B:</strong> - Media muestral ( <span class="math inline">\(\bar{X}_B\)</span> ) = 80 - Desviación estándar muestral ( <span class="math inline">\(s_B\)</span> ) = 7 - Tamaño de muestra ( <span class="math inline">\(n_B\)</span> ) = 35</p>
+<p>Usaremos la distribución t de Student con <span class="math inline">\(n_B - 1\)</span> grados de libertad (34 grados de libertad) para calcular el intervalo de confianza al 95%:</p>
+<p>Intervalo de Confianza para Grupo B:</p>
+<p><span class="math display">\[\bar{X}_B \pm \frac{t_{0.025} \cdot s_B}{\sqrt{n_B}}\]</span></p>
+<p><span class="math display">\[80 \pm \frac{2.032 \cdot 7}{\sqrt{35}}\]</span></p>
+<p>Calculando esto, obtenemos un intervalo de confianza para Grupo B de aproximadamente <span class="math inline">\(76.13\)</span> a <span class="math inline">\(83.87\)</span>.</p>
+<p><strong>Prueba de hipótesis:</strong></p>
+<p>Planteamos las siguientes hipótesis:</p>
+<ul>
+<li>Hipótesis nula (H0): No hay diferencia significativa entre las medias de los dos grupos ( <span class="math inline">\(\mu_A = \mu_B\)</span> ).</li>
+<li>Hipótesis alternativa (H1): Existe una diferencia significativa entre las medias de los dos grupos ( <span class="math inline">\(\mu_A \neq \mu_B\)</span> ).</li>
+</ul>
+<p>Usaremos un nivel de significancia del 5% ( <span class="math inline">\(\alpha = 0.05\)</span> ).</p>
+<p>Para realizar la prueba de hipótesis, calcularemos el estadístico t:</p>
+<p><span class="math display">\[t = \frac{(\bar{X}_A - \bar{X}_B)}{\sqrt{\frac{s_A^2}{n_A} + \frac{s_B^2}{n_B}}}\]</span></p>
+<p><span class="math display">\[t = \frac{(85 - 80)}{\sqrt{\frac{8^2}{30} + \frac{7^2}{35}}}\]</span></p>
+<p>Calculando esto, obtenemos un valor de <span class="math inline">\(t \approx 2.78\)</span>.</p>
+<p>Para <span class="math inline">\(n_A = 30\)</span> y <span class="math inline">\(n_B = 35\)</span>, los grados de libertad son <span class="math inline">\(29\)</span> y <span class="math inline">\(34\)</span>, respectivamente. Buscamos en una tabla de distribución t de Student o utilizamos una calculadora estadística para encontrar el valor crítico de <span class="math inline">\(t\)</span> correspondiente a un nivel de significancia de <span class="math inline">\(0.025\)</span> (debido a la prueba de dos colas).</p>
+<p>El valor crítico de <span class="math inline">\(t\)</span> es aproximadamente <span class="math inline">\(\pm 2.045\)</span> para <span class="math inline">\(n_A - 1 = 29\)</span> grados de libertad y <span class="math inline">\(\pm 2.032\)</span> para <span class="math inline">\(n_B - 1 = 34\)</span> grados de libertad.</p>
+<p>Dado que <span class="math inline">\(2.78 &gt; 2.045\)</span> y <span class="math inline">\(2.78 &gt; 2.032\)</span>, nuestro valor calculado de <span class="math inline">\(t\)</span> está fuera de los valores críticos. Por lo tanto, rechazamos la hipótesis nula.</p>
+<p><strong>Conclusión:</strong></p>
+<p>Basándonos en los resultados de los intervalos de confianza y la prueba de hipótesis, podemos concluir que hay evidencia estadística para sugerir que hay una diferencia significativa entre las medias de los dos grupos. En otras palabras, uno de los métodos de enseñanza es más efectivo que el otro en términos del rendimiento en matemáticas de los estudiantes. El Grupo A ( promedio de <span class="math inline">\(85\)</span> ) parece tener un rendimiento significativamente mejor en comparación con el Grupo B ( promedio de <span class="math inline">\(80\)</span> ).</p>
+<hr>
+<ol start="14" type="1">
+<li>Un estudio se llevó a cabo para comparar la proporción de estudiantes de dos escuelas, Escuela A y Escuela B, que aprobaron un examen de matemáticas en su primer intento. Se seleccionaron aleatoriamente 10 estudiantes de cada escuela y se registraron los resultados de sus exámenes.</li>
+</ol>
+<p>Escuela A: De los 10 estudiantes seleccionados, 7 aprobaron en su primer intento.</p>
+<p>Escuela B: De los 10 estudiantes seleccionados, 6 aprobaron en su primer intento.</p>
+<ul>
+<li><p>Calcula el intervalo de confianza al 95% para la proporción de estudiantes que aprobaron el examen en su primer intento en cada escuela.</p></li>
+<li><p>Realiza una prueba de hipótesis para comparar ambas proporciones y utiliza un nivel de significancia del 5%.</p></li>
+<li><p>Compara los resultados de los intervalos de confianza y el test de hipótesis.</p></li>
+</ul>
+<p><strong>Intervalo de confianza al 95% para la proporción de aprobación en Escuela A:</strong></p>
+<p>Para calcular el intervalo de confianza para la proporción de estudiantes que aprobaron en Escuela A, usaremos la fórmula del intervalo de confianza para una proporción poblacional:</p>
+<p><span class="math display">\[\text{Intervalo de Confianza (Escuela A)} = \hat{p}_A \pm Z \sqrt{\frac{\hat{p}_A(1-\hat{p}_A)}{n_A}}\]</span></p>
+<p>Donde: - <span class="math inline">\(\hat{p}_A\)</span> es la proporción de estudiantes que aprobaron en Escuela A, que es <span class="math inline">\(7/10 = 0.7\)</span>. - <span class="math inline">\(Z\)</span> es el valor crítico z para un nivel de confianza del 95%, que es aproximadamente 1.96. - <span class="math inline">\(n_A\)</span> es el tamaño de la muestra en Escuela A, que es 10.</p>
+<p>Calculamos el intervalo de confianza para Escuela A:</p>
+<p><span class="math display">\[\text{Intervalo de Confianza (Escuela A)} = 0.7 \pm 1.96 \sqrt{\frac{0.7(1-0.7)}{10}}\]</span></p>
+<p><span class="math display">\[\text{Intervalo de Confianza (Escuela A)} = 0.7 \pm 1.96 \sqrt{\frac{0.21}{10}}\]</span></p>
+<p><span class="math display">\[\text{Intervalo de Confianza (Escuela A)} = 0.7 \pm 1.96 \sqrt{0.021}\]</span></p>
+<p><span class="math display">\[\text{Intervalo de Confianza (Escuela A)} = 0.7 \pm 1.96 \times 0.1449\]</span></p>
+<p>El intervalo de confianza para Escuela A es aproximadamente <span class="math inline">\(0.413\)</span> a <span class="math inline">\(0.987\)</span>.</p>
+<p><strong>Intervalo de confianza al 95% para la proporción de aprobación en Escuela B:</strong></p>
+<p>Usaremos la misma fórmula para calcular el intervalo de confianza para la proporción de estudiantes que aprobaron en Escuela B:</p>
+<p><span class="math display">\[\text{Intervalo de Confianza (Escuela B)} = \hat{p}_B \pm Z \sqrt{\frac{\hat{p}_B(1-\hat{p}_B)}{n_B}}\]</span></p>
+<p>Donde: - <span class="math inline">\(\hat{p}_B\)</span> es la proporción de estudiantes que aprobaron en Escuela B, que es <span class="math inline">\(6/10 = 0.6\)</span>. - <span class="math inline">\(Z\)</span> es el valor crítico z para un nivel de confianza del 95%, que es aproximadamente 1.96. - <span class="math inline">\(n_B\)</span> es el tamaño de la muestra en Escuela B, que es 10.</p>
+<p>Calculamos el intervalo de confianza para Escuela B:</p>
+<p><span class="math display">\[\text{Intervalo de Confianza (Escuela B)} = 0.6 \pm 1.96 \sqrt{\frac{0.6(1-0.6)}{10}}\]</span></p>
+<p><span class="math display">\[\text{Intervalo de Confianza (Escuela B)} = 0.6 \pm 1.96 \sqrt{\frac{0.24}{10}}\]</span></p>
+<p><span class="math display">\[\text{Intervalo de Confianza (Escuela B)} = 0.6 \pm 1.96 \sqrt{0.024}\]</span></p>
+<p><span class="math display">\[\text{Intervalo de Confianza (Escuela B)} = 0.6 \pm 1.96 \times 0.1549\]</span></p>
+<p>El intervalo de confianza para Escuela B es aproximadamente <span class="math inline">\(0.295\)</span> a <span class="math inline">\(0.905\)</span>.</p>
+<p><strong>Prueba de hipótesis para comparar las proporciones:</strong></p>
+<p>Planteamos las siguientes hipótesis:</p>
+<ul>
+<li>Hipótesis nula (H0): No hay diferencia significativa entre las proporciones de estudiantes que aprobaron en Escuela A y Escuela B ( <span class="math inline">\(p_A = p_B\)</span> ).</li>
+<li>Hipótesis alternativa (H1): Existe una diferencia significativa entre las proporciones de estudiantes que aprobaron en Escuela A y Escuela B ( <span class="math inline">\(p_A \neq p_B\)</span> ).</li>
+</ul>
+<p>Usaremos un nivel de significancia del 5% ( <span class="math inline">\(\alpha = 0.05\)</span> ).</p>
+<p>Para realizar la prueba de hipótesis, calculamos el estadístico de prueba z para la diferencia de proporciones:</p>
+<p><span class="math display">\[z = \frac{(\hat{p}_A - \hat{p}_B)}{\sqrt{\hat{p}(1-\hat{p})\left(\frac{1}{n_A}+\frac{1}{n_B}\right)}}\]</span></p>
+<p>Donde: - <span class="math inline">\(\hat{p}_A\)</span> es la proporción de estudiantes que aprobaron en Escuela A. - <span class="math inline">\(\hat{p}_B\)</span> es la proporción de estudiantes que aprobaron en Escuela B. - <span class="math inline">\(n_A\)</span> es el tamaño de la muestra en Escuela A. - <span class="math inline">\(n_B\)</span> es el tamaño de la muestra en Escuela B. - <span class="math inline">\(\hat{p}\)</span> es la proporción de estudiantes que aprobaron en ambas escuelas combinadas.</p>
+<p>Calculamos <span class="math inline">\(\hat{p}\)</span>:</p>
+<p><span class="math display">\[\hat{p} = \frac{\text{Total de aprobados en ambas escuelas}}{\text{Total de estudiantes en ambas escuelas}} = \frac{7 + 6}{10 + 10} = \frac{13}{20} = 0.65\]</span></p>
+<p>Ahora, calculamos el estadístico de prueba z:</p>
+<p><span class="math display">\[z = \frac{(0.7 - 0.6)}{\sqrt{0.65(1-0.65)\left(\frac{1}{10}+\frac{1}{10}\right)}}\]</span></p>
+<p><span class="math display">\[z = \frac{0.1}{\sqrt{0.65(0.35)\left(0.2\right)}}\]</span></p>
+<p><span class="math display">\[z \approx 0.1 / \sqrt{0.0455}\]</span></p>
+<p><span class="math display">\[z \approx 0.1 / 0.2134\]</span></p>
+<p><span class="math display">\[z \approx 0.4690\]</span></p>
+<p>Ahora, buscamos en la tabla de la distribución normal estándar para encontrar el valor crítico de z correspondiente a un nivel de significancia del 5% (prueba de dos colas). El valor crítico es aproximadamente <span class="math inline">\(\pm 1.96\)</span>.</p>
+<p>Dado que <span class="math inline">\(0.4690\)</span> está dentro del intervalo <span class="math inline">\(-1.96\)</span> a <span class="math inline">\(1.96\)</span>, no tenemos suficiente evidencia para rechazar la hipótesis nula.</p>
+<p><strong>Comparación de resultados:</strong></p>
+<ul>
+<li><p>Los intervalos de confianza para Escuela A ( <span class="math inline">\(0.413\)</span> a <span class="math inline">\(0.987\)</span> ) y Escuela B ( <span class="math inline">\(0.295\)</span> a <span class="math inline">\(0.905\)</span> ) se superponen significativamente, lo que sugiere que las proporciones de aprobación en ambas escuelas no son significativamente diferentes.</p></li>
+<li><p>La prueba de hipótesis no proporcionó suficiente evidencia para rechazar la hipótesis nula de que no hay diferencia significativa entre las proporciones de aprobación en ambas escuelas.</p></li>
+</ul>
+<p>En resumen, según los resultados de los intervalos de confianza y la prueba de hipótesis, no hay suficiente evidencia para concluir que una escuela es significativamente diferente de la otra en términos de proporción de estudiantes que aprobaron en el primer intento.</p>
+</section>
+<section id="preguntas-conceptuales" class="level2">
+<h2 class="anchored" data-anchor-id="preguntas-conceptuales">Preguntas conceptuales</h2>
+<ol type="1">
+<li>¿Qué representa la hipótesis nula en un test de hipótesis y cómo se formula generalmente?</li>
+</ol>
+<p>La hipótesis nula en un test de hipótesis representa una afirmación de que no hay efecto, diferencia o relación significativa en los datos. Generalmente se formula como <span class="math inline">\(H_0: \theta = \theta_0\)</span>, donde <span class="math inline">\(\theta\)</span> es el parámetro poblacional y <span class="math inline">\(\theta_0\)</span> es el valor bajo prueba.</p>
+<ol start="2" type="1">
+<li>¿Cómo se define la hipótesis alternativa en un test de hipótesis y en qué se diferencia de la hipótesis nula?</li>
+</ol>
+<p>La hipótesis alternativa en un test de hipótesis representa la afirmación de que hay un efecto, diferencia o relación significativa en los datos. Se diferencia de la hipótesis nula en que contradice esta última. Generalmente se formula como <span class="math inline">\(H_1\)</span> o <span class="math inline">\(H_a\)</span> y puede ser de dos colas ( <span class="math inline">\(\neq\)</span> ) o una cola ( <span class="math inline">\(&lt;\)</span> o <span class="math inline">\(&gt;\)</span> ).</p>
+<ol start="3" type="1">
+<li>Explique el concepto de “nivel de significación” en el contexto de un test de hipótesis. ¿Qué implica un nivel de significación del 5%?</li>
+</ol>
+<p>El nivel de significación en un test de hipótesis es la probabilidad de cometer un error de Tipo I al rechazar la hipótesis nula cuando es verdadera. Un nivel de significación del 5% (0.05) implica que hay un 5% de probabilidad de cometer un error de Tipo I al rechazar la hipótesis nula.</p>
+<ol start="4" type="1">
+<li>¿Qué es un valor-p en un test de hipótesis y cómo se interpreta en relación con el nivel de significación?</li>
+</ol>
+<p>El valor-p en un test de hipótesis es la probabilidad de obtener un resultado igual o más extremo que el observado, asumiendo que la hipótesis nula es verdadera. Se interpreta comparándolo con el nivel de significación. Si el valor-p es menor que el nivel de significación, se rechaza la hipótesis nula.</p>
+<ol start="5" type="1">
+<li>Explique cómo se utiliza el valor-p para decidir si se rechaza o no la hipótesis nula.</li>
+</ol>
+<p>El valor-p se compara con el nivel de significación. Si el valor-p es menor que el nivel de significación ( <span class="math inline">\(\alpha\)</span> ), se rechaza la hipótesis nula. Si es mayor, no se rechaza la hipótesis nula.</p>
+<ol start="6" type="1">
+<li>¿Qué es un error de Tipo I en el contexto de un test de hipótesis y cómo se relaciona con el nivel de significación?</li>
+</ol>
+<p>Un error de Tipo I ocurre cuando se rechaza la hipótesis nula cuando es verdadera. Está relacionado con el nivel de significación, ya que un nivel más bajo ( <span class="math inline">\(\alpha\)</span> ) reduce la probabilidad de cometer este error.</p>
+<ol start="7" type="1">
+<li>¿Qué es un error de Tipo II en el contexto de un test de hipótesis y cómo se relaciona con el error Tipo I?</li>
+</ol>
+<p>Un error de Tipo II ocurre cuando no se rechaza la hipótesis nula cuando es falsa.</p>
+<ol start="8" type="1">
+<li>Explique la diferencia entre un test de hipótesis unilateral y bilateral. Proporcione un ejemplo para cada uno.</li>
+</ol>
+<p>Un test de hipótesis unilateral evalúa si un parámetro es mayor o menor que un valor específico. Ejemplo de unilateral menor: <span class="math inline">\(H_0: \mu \geq 10\)</span> vs.&nbsp;<span class="math inline">\(H_1: \mu &lt; 10\)</span>. Ejemplo de unilateral mayor: <span class="math inline">\(H_0: \mu \leq 5\)</span> vs.&nbsp;<span class="math inline">\(H_1: \mu &gt; 5\)</span>. Un test de hipótesis bilateral evalúa si un parámetro es diferente de un valor específico. Ejemplo: <span class="math inline">\(H_0: \mu = 20\)</span> vs.&nbsp;<span class="math inline">\(H_1: \mu \neq 20\)</span>.</p>
+<ol start="9" type="1">
+<li>¿Qué es la “distribución nula” en un test de hipótesis y cómo se utiliza para calcular el valor-p?</li>
+</ol>
+<p>La distribución nula es una distribución de probabilidad asumida bajo la hipótesis nula. Se utiliza para calcular el valor-p al determinar la probabilidad de obtener un estadístico de prueba tan extremo como el observado bajo la hipótesis nula.</p>
+<ol start="10" type="1">
+<li>¿Por qué un estadístico (ej. proporción muestral) sigue una distribución de probabilidad?</li>
+</ol>
+<p>Un estadístico sigue una distribución de probabilidad debido a los principios del muestreo y la teoría estadística. Por ejemplo, la media muestral sigue una distribución normal cuando se cumplen ciertas condiciones.</p>
+<ol start="11" type="1">
+<li>Explique la importancia de la suposición de normalidad en los test de hipótesis para medias de muestras.</li>
+</ol>
+<p>La suposición de normalidad es importante porque muchos tests de hipótesis se basan en la distribución normal de los estadísticos de prueba. Si los datos no son aproximadamente normales, los resultados pueden ser incorrectos.</p>
+<ol start="12" type="1">
+<li>¿Cómo afecta la variabilidad de los datos al resultado de un test de hipótesis?</li>
+</ol>
+<p>La variabilidad de los datos afecta la precisión de los resultados del test. Cuanta más variabilidad haya, es posible que se requieran muestras más grandes para detectar efectos significativos.</p>
+<ol start="13" type="1">
+<li>¿Cómo se determina si se debe usar una prueba t o una prueba z en un test de hipótesis para medias?</li>
+</ol>
+<p>Se determina si se debe usar una prueba t o una prueba z en función de si se conoce o no la desviación estándar poblacional. Si se conoce, se utiliza la prueba z. Si no se conoce y se estima a partir de la muestra, se utiliza la prueba t.</p>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
