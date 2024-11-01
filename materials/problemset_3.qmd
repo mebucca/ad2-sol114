@@ -1,0 +1,1035 @@
+---
+title: "Ejercicios SOL114"
+author: "Mauricio Bucca"
+format: html
+editor: visual
+---
+
+1.  Un grupo de investigadores está estudiando el número promedio de horas que la gente ve TV en una semana. De una muestra de 120 individuos, la media se encuentra en 20 horas. Dada una varianza poblacional conocida de 16 (horas$^2$), calcule el intervalo de confianza del 95% para el tiempo verdadero medio de visualización de TV semanal.
+
+**Dato dado**:
+
+-   Nivel de significancia, $\alpha = 0.05$
+-   Por lo tanto, el nivel de confianza es $1 - \alpha = 0.95$ o 95%
+-   $n = 120$
+-   $\bar{x} = 20$ horas (media de la muestra)
+-   $\sigma^2 = 16$ (varianza poblacional), así que $\sigma = 4$ horas (desviación estándar poblacional)
+
+Para un intervalo de confianza bilateral, el valor crítico de z es $Z_{\alpha/2}$. Dado que $\alpha = 0.05$, $\alpha/2 = 0.025$. Por lo tanto, buscamos el valor z que deja un área de 0.025 en la cola superior de una distribución normal estándar. Usando tablas de la distribución normal o calculadoras estadísticas, encontramos que:
+
+$$Z_{0.025} = 1.96$$
+
+Entonces, $Z_{\alpha/2} = 1.96$.
+
+La fórmula para el intervalo de confianza cuando la varianza poblacional es conocida es:
+
+$$IC = \bar{x} \pm Z_{\alpha/2} \left( \frac{\sigma}{\sqrt{n}} \right)$$
+
+Sustituimos los valores dados y conocidos en la fórmula:
+
+$$IC = 20 \pm 1.96 \left( \frac{4}{\sqrt{120}} \right)$$
+
+Calculando el margen de error:
+
+$$\text{ME} = 1.96 \left( \frac{4}{\sqrt{120}} \right)$$ $$\text{ME} = 1.96 (0.365)$$ $$\text{ME} \approx 0.716$$
+
+Entonces, el intervalo de confianza es:
+
+Límite inferior: $$\bar{x} - \text{ME} = 20 - 0.716 = 19.284$$
+
+Límite superior: $$\bar{x} + \text{ME} = 20 + 0.716 = 20.716$$
+
+Con un 95% de confianza, podemos afirmar que el tiempo medio que la población general pasa viendo TV en una semana está entre 19.284 horas y 20.716 horas. Esto significa que, si tomáramos muchas muestras y calculáramos intervalos de confianza del 95% para cada una, esperaríamos que aproximadamente el 95% de esos intervalos contuvieran el verdadero tiempo medio de visualización de TV semanal de toda la población.
+
+---
+
+2.  Un investigador está estudiando el tiempo promedio que los adultos pasan leyendo periódicos semanalmente. De una muestra aleatoria de 60 adultos, el tiempo medio pasado es de 4 horas. Si la varianza poblacional conocida es de 1.44 (horas$^2$), calcule el intervalo de confianza del 90% para el tiempo promedio verdadero que se pasa leyendo periódicos semanalmente.
+
+Para calcular el intervalo de confianza del 90% para el tiempo promedio verdadero que se pasa leyendo periódicos semanalmente, usaremos la misma fórmula que la anterior, pero tendremos que determinar el valor z adecuado para un nivel de confianza del 90%.
+
+**Datos dados**:
+
+-   Nivel de significancia, $\alpha = 0.10$
+-   Por lo tanto, el nivel de confianza es $1 - \alpha = 0.90$ o 90%
+-   $n = 60$
+-   $\bar{x} = 4$ horas (media de la muestra)
+-   $\sigma^2 = 1.44$ (varianza poblacional), de donde $\sigma = 1.2$ horas (desviación estándar poblacional)
+
+Para un intervalo de confianza bilateral del 90%, el valor crítico de z es $Z_{\alpha/2}$. Dado que $\alpha = 0.10$, $\alpha/2 = 0.05$. Buscamos el valor z que deja un área de 0.05 en la cola superior de una distribución normal estándar. Usando tablas de la distribución normal o calculadoras estadísticas, encontramos que:
+
+$$Z_{0.05} \approx 1.645$$
+
+Entonces, $Z_{\alpha/2} = 1.645$.
+
+La fórmula para el intervalo de confianza cuando la varianza poblacional es conocida es:
+
+$$IC = \bar{x} \pm Z_{\alpha/2} \left( \frac{\sigma}{\sqrt{n}} \right)$$
+
+Sustituimos los valores dados y conocidos en la fórmula:
+
+$$IC = 4 \pm 1.645 \left( \frac{1.2}{\sqrt{60}} \right)$$
+
+Calculando el margen de error:
+
+$$\text{ME} = 1.645 \left( \frac{1.2}{\sqrt{60}} \right)$$ $$\text{ME} = 1.645 (0.1549)$$ $$\text{ME} \approx 0.2545$$
+
+Entonces, el intervalo de confianza es:
+
+Límite inferior: $$\bar{x} - \text{ME} = 4 - 0.2545 = 3.7455$$
+
+Límite superior: $$\bar{x} + \text{ME} = 4 + 0.2545 = 4.2545$$
+
+Interpretación: Con un 90% de confianza, podemos afirmar que el tiempo medio que la población adulta general pasa leyendo periódicos en una semana está entre 3.7455 horas y 4.2545 horas.
+
+
+---
+
+3.  En un estudio sobre hábitos alimenticios, se encuestó a 100 individuos sobre su consumo semanal de frutas. La media se encontró en 10 porciones con una varianza poblacional conocida de 4 (porciones\^2). Calcule el intervalo de confianza del 95% para el consumo semanal medio de frutas.
+
+**Datos dados**:
+
+-   Nivel de significancia, $\alpha = 0.05$
+-   Por lo tanto, el nivel de confianza es $1 - \alpha = 0.95$ o 95%
+-   $n = 100$
+-   $\bar{x} = 10$ porciones (media de la muestra)
+-   $\sigma^2 = 4$ (varianza poblacional), de donde $\sigma = 2$ porciones (desviación estándar poblacional)
+
+Para un intervalo de confianza bilateral del 95%, el valor crítico de z es $Z_{\alpha/2}$. Dado que $\alpha = 0.05$, $\alpha/2 = 0.025$. Buscamos el valor z que deja un área de 0.025 en la cola superior de una distribución normal estándar. Usando tablas de la distribución normal o calculadoras estadísticas, encontramos que:
+
+$$Z_{0.025} = 1.96$$
+
+Entonces, $Z_{\alpha/2} = 1.96$.
+
+La fórmula para el intervalo de confianza cuando la varianza poblacional es conocida es:
+
+$$IC = \bar{x} \pm Z_{\alpha/2} \left( \frac{\sigma}{\sqrt{n}} \right)$$
+
+Sustituimos los valores dados y conocidos en la fórmula:
+
+$$IC = 10 \pm 1.96 \left( \frac{2}{\sqrt{100}} \right)$$
+
+Calculando el margen de error:
+
+$$\text{ME} = 1.96 \left( \frac{2}{10} \right)$$ $$\text{ME} = 1.96 (0.2)$$ $$\text{ME} = 0.392$$
+
+Entonces, el intervalo de confianza es:
+
+Límite inferior: $$\bar{x} - \text{ME} = 10 - 0.392 = 9.608$$
+
+Límite superior: $$\bar{x} + \text{ME} = 10 + 0.392 = 10.392$$
+
+Interpretación: Con un 95% de confianza, podemos afirmar que el número medio de porciones de frutas que la población consume semanalmente está entre 9.608 porciones y 10.392 porciones.
+
+---
+
+4.  En un estudio sobre patrones de sueño, 16 adultos informan su duración promedio de sueño nocturno. La media es de 7 horas con una desviación estándar de la muestra de 1.1 horas. Determine el intervalo de confianza del 95% para la duración media del sueño nocturno para todos los adultos.
+
+Dado que se nos proporciona la desviación estándar de la muestra y no la varianza poblacional, utilizaremos la distribución t (t-student) para determinar el intervalo de confianza.
+
+**Datos dados**:
+
+-   Nivel de significancia, $\alpha = 0.05$
+-   Por lo tanto, el nivel de confianza es $1 - \alpha = 0.95$ o 95%
+-   $n = 16$
+-   Grados de libertad (df) = $n - 1 = 16 - 1 = 15$
+-   $\bar{x} = 7$ horas (media de la muestra)
+-   $s = 1.1$ horas (desviación estándar de la muestra)
+
+Para un intervalo de confianza bilateral del 95% con 15 grados de libertad, necesitamos encontrar el valor crítico t ($t_{\alpha/2}$). Usando tablas de la distribución t o calculadoras estadísticas:
+
+$$t_{0.025,\: 15}$$ (con 15 grados de libertad y $\alpha/2 = 0.025$) es aproximadamente 2.131.
+
+La fórmula para el intervalo de confianza cuando se desconoce la varianza poblacional y se usa la desviación estándar de la muestra es:
+
+$$IC = \bar{x} \pm t_{\alpha/2} \left( \frac{s}{\sqrt{n}} \right)$$
+
+Sustituimos los valores dados y conocidos en la fórmula:
+
+$$IC = 7 \pm 2.131 \left( \frac{1.1}{\sqrt{16}} \right)$$
+
+Calculando el margen de error:
+
+$$\text{ME} = 2.131 \left( \frac{1.1}{4} \right)$$ $$\text{ME} = 2.131 (0.275)$$ $$\text{ME} \approx 0.586$$
+
+Entonces, el intervalo de confianza es:
+
+Límite inferior: $$\bar{x} - \text{ME} = 7 - 0.586 = 6.414$$
+
+Límite superior: $$\bar{x} + \text{ME} = 7 + 0.586 = 7.586$$
+
+Interpretación: Con un 95% de confianza, podemos afirmar que la duración media de sueño nocturno para todos los adultos está entre 6.414 horas y 7.586 horas.
+
+---
+
+5.  Un psicólogo prueba una nueva técnica de terapia y registra el número de sesiones requeridas para ver mejoras. De 36 pacientes, el número medio de sesiones fue de 12 con una desviación estándar de la muestra de 3.2. Calcule un intervalo de confianza del 90% para el número medio de sesiones para toda la población de pacientes.
+
+Para calcular un intervalo de confianza del 90% para el número medio de sesiones para toda la población de pacientes usaremos la distribución t de Student debido a que el tamaño de la muestra es menor a 30. Sin embargo, como el tamaño de muestra es exactamente 36, la distribución t de Student se aproximará mucho a la distribución normal.
+
+Aquí está la información que tenemos:
+
+-   Tamaño de muestra ($n$): 36
+-   Media de la muestra ($\bar{x}$): 12
+-   Desviación estándar de la muestra ($s$): 3.2
+
+La fórmula para el intervalo de confianza es:
+
+$$\bar{x} \pm t_{\alpha/2} \left( \frac{s}{\sqrt{n}} \right)$$
+
+Donde $t_{\alpha/2}$ es el valor crítico de t para $\alpha/2$ en una distribución t de Student con $n - 1$ grados de libertad.
+
+Para un intervalo de confianza del 90%, $\alpha$ es 0.10, y por lo tanto $\alpha/2$ es 0.05. Necesitamos encontrar el valor crítico $t_{0.05}$ para 35 grados de libertad.
+
+El valor crítico para $t_{0.05, 35}$ (de acuerdo con la tabla de la distribución t) es aproximadamente 1.690.
+
+Ahora calculamos el error estándar de la media (SE):
+
+$$SE = \frac{s}{\sqrt{n}} = \frac{3.2}{\sqrt{36}} = \frac{3.2}{6} = 0.5333...$$
+
+Ahora calculamos el margen de error:
+
+$$ME = t_{\alpha/2} \times SE = 1.690 \times 0.5333... = 0.9007...$$
+
+Ahora calculamos el intervalo de confianza:
+
+$$\bar{x} \pm ME = 12 \pm 0.9007...$$
+
+Así, el intervalo de confianza del 90% es:
+
+Límite inferior: $12 - 0.9007... \approx 11.1$ Límite superior: $12 + 0.9007... \approx 12.9$
+
+Por lo tanto, el intervalo de confianza del 90% para el número medio de sesiones para toda la población de pacientes es aproximadamente de 11.1 a 12.9 sesiones. Esto significa que podemos estar 90% seguros de que el número medio de sesiones requeridas para ver mejoras con la nueva técnica de terapia se encuentra entre 11.1 y 12.9 sesiones.
+
+Dado que se nos proporciona la desviación estándar de la muestra y no la varianza poblacional, utilizaremos la distribución t (t-student) para determinar el intervalo de confianza. La distribución t es apropiada cuando el tamaño de la muestra es relativamente pequeño y se desconoce la varianza poblacional.
+
+**Datos dados**:
+
+-   Nivel de significancia, $\alpha = 0.05$
+-   Por lo tanto, el nivel de confianza es $1 - \alpha = 0.95$ o 95%
+-   $n = 16$
+-   Grados de libertad (df) = $n - 1 = 16 - 1 = 15$
+-   $\bar{x} = 7$ horas (media de la muestra)
+-   $s = 1.1$ horas (desviación estándar de la muestra)
+
+Para un intervalo de confianza bilateral del 95% con 15 grados de libertad, necesitamos encontrar el valor crítico t ($t_{\alpha/2}$). Usando tablas de la distribución t o calculadoras estadísticas:
+
+$$t_{0.025,\: 15}$$ (con 15 grados de libertad y $\alpha/2 = 0.025$) es aproximadamente 2.131.
+
+La fórmula para el intervalo de confianza cuando se desconoce la varianza poblacional y se usa la desviación estándar de la muestra es:
+
+$$IC = \bar{x} \pm t_{\alpha/2} \left( \frac{s}{\sqrt{n}} \right)$$
+
+Sustituimos los valores dados y conocidos en la fórmula:
+
+$$IC = 7 \pm 2.131 \left( \frac{1.1}{\sqrt{16}} \right)$$
+
+Calculando el margen de error:
+
+$$\text{ME} = 2.131 \left( \frac{1.1}{4} \right)$$ $$\text{ME} = 2.131 (0.275)$$ $$\text{ME} \approx 0.586$$
+
+Entonces, el intervalo de confianza es:
+
+Límite inferior: $$\bar{x} - \text{ME} = 7 - 0.586 = 6.414$$
+
+Límite superior: $$\bar{x} + \text{ME} = 7 + 0.586 = 7.586$$
+
+Interpretación: "Con un 95% de confianza, podemos afirmar que la duración media de sueño nocturno para todos los adultos está entre 6.414 horas y 7.586 horas."
+
+---
+
+6.  Una encuesta sobre el uso de teléfonos inteligentes tomó una muestra de 2,500 adolescentes. 2,050 de ellos informaron tener un teléfono inteligente. Calcule el intervalo de confianza del 99% para la proporción de todos los adolescentes que tienen un teléfono inteligente.
+
+Para calcular un intervalo de confianza para la proporción, podemos usar la fórmula del intervalo de confianza para una proporción de la población cuando el tamaño de la muestra es grande, lo cual es el caso aquí. Usaremos la distribución normal z porque el tamaño de la muestra es bastante grande (n = 2,500).
+
+Adicionalmente, al estimar la "desviación estándar" de una proporción no se sufre la pérdida de un grado de libertad porque no se requiere estimadar un parámetro adicional además de la media/proporción. La "desviación estándar" se calcula directamente de la proporción muestral -- p(1-p). Así, no hay necesidad de ajustar por la pérdida de un grado de libertad.
+
+**Datos dados**:
+
+-   El número de éxitos (adolescentes con teléfono inteligente), $x$: 2,050
+-   El tamaño de la muestra, $n$: 2,500
+-   La proporción de la muestra, $\hat{p}$: $\frac{x}{n} = \frac{2050}{2500} = 0.82$
+-   El nivel de confianza deseado: 99%
+
+El intervalo de confianza para la proporción se calcula como:
+
+$$\hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}$$
+
+Donde $z_{\alpha/2}$ es el valor crítico de z correspondiente a la cola de dos extremos del nivel de confianza deseado. Para un intervalo de confianza del 99%, $\alpha$ es 0.01, y $\alpha/2$ es 0.005. El valor de $z$ asociado con $\alpha/2$ es aproximadamente 2.576 (esto puede variar ligeramente dependiendo de la tabla que se utilice, pero 2.576 es un valor comúnmente aceptado para $z_{0.005}$).
+
+Ahora, calculamos el error estándar para la proporción de la muestra:
+
+$$SE = \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}} = \sqrt{\frac{0.82 \times (1 - 0.82)}{2500}}$$ $$SE = \sqrt{\frac{0.82 \times 0.18}{2500}}$$ $$SE = \sqrt{\frac{0.1476}{2500}}$$ $$SE = \sqrt{0.00005904}$$ $$SE = 0.00768$$
+
+Con el error estándar, ahora podemos calcular el margen de error (ME):
+
+$$ME = z_{\alpha/2} \times SE$$ $$ME = 2.576 \times 0.00768$$ $$ME \approx 0.01978$$
+
+Por lo tanto, el intervalo de confianza del 99% para la proporción es:
+
+$$\hat{p} \pm ME = 0.82 \pm 0.01978$$
+
+Límite inferior: $0.82 - 0.01978 \approx 0.80022$ Límite superior: $0.82 + 0.01978 \approx 0.83978$
+
+Entonces, con un 99% de confianza, la proporción de todos los adolescentes que tienen un teléfono inteligente está entre aproximadamente 80.02% y 83.98%.
+
+---
+
+7.  Un psicólogo estudia los efectos de la meditación en los niveles de estrés. De una muestra de 81 participantes, la reducción media de las puntuaciones de estrés es de 3.6 con una desviación estándar de 0.9. Calcule un intervalo de confianza del 90% para la reducción media de las puntuaciones de estrés para la población más amplia.
+
+Para calcular un intervalo de confianza del 90% para la reducción media de las puntuaciones de estrés debido a la meditación, utilizaremos la distribución t. Aunque 81 es un tamaño de muestra relativamente grande y se acerca al límite donde podríamos considerar utilizar la distribución z, el uso de la distribución t es más adecuado para muestras de tamaño pequeño a moderado, especialmente cuando la varianza poblacional no es conocida y se estima a partir de la muestra.
+
+**Datos proporcionados:** - Tamaño de la muestra, $n$: 81 - Media de la muestra, $\bar{x}$: 3.6 - Desviación estándar de la muestra, $s$: 0.9 - Nivel de confianza deseado: 90%
+
+**Grados de libertad:** $$df = n - 1 = 81 - 1 = 80$$
+
+**Error estándar de la media (SE):** $$SE = \frac{s}{\sqrt{n}} = \frac{0.9}{\sqrt{81}} = \frac{0.9}{9} = 0.1$$
+
+Para un nivel de confianza del 90%, buscamos el valor crítico $t$ correspondiente a los 80 grados de libertad. Este valor se puede encontrar en la tabla de distribución t o utilizando software estadístico. El valor aproximado de $t$ para 80 grados de libertad y un nivel de confianza del 90% es alrededor de 1.664 (este valor puede variar ligeramente en diferentes tablas).
+
+**Margen de error (ME):** $$ME = t_{\alpha/2} \times SE = 1.664 \times 0.1 = 0.1664$$
+
+**Intervalo de confianza del 90% para la media:** $$\bar{x} \pm ME = 3.6 \pm 0.1664$$
+
+Límite inferior del intervalo de confianza: $3.6 - 0.1664 = 3.4336$ Límite superior del intervalo de confianza: $3.6 + 0.1664 = 3.7664$
+
+**Conclusión:** Con un 90% de confianza, podemos decir que la reducción media de las puntuaciones de estrés debido a la meditación está entre aproximadamente 3.4336 y 3.7664 puntos.Los resultados sugieren que es probable que la práctica de la meditación tenga un efecto positivo moderado en la disminución del estrés.
+
+---
+
+8.  En una encuesta sobre la confianza en los medios de comunicación, se preguntó a 800 individuos si confían en los medios para informar noticias con precisión. 320 dijeron "sí". Calcule el intervalo de confianza del 95% para la proporción de individuos que confían en los medios.
+
+Para calcular un intervalo de confianza para la proporción poblacional basándonos en una muestra, podemos utilizar la fórmula del intervalo de confianza para proporciones. Dado que la muestra es grande (n = 800), podemos aplicar el Teorema del Límite Central y utilizar la distribución z para nuestra estimación.
+
+Los datos que tenemos son los siguientes:
+
+-   El número de éxitos (individuos que confían en los medios), $x$: 320
+-   El tamaño de la muestra, $n$: 800
+-   La proporción de la muestra, $\hat{p}$: $\frac{x}{n} = \frac{320}{800} = 0.4$
+-   El nivel de confianza deseado: 95%
+
+Primero, calculamos el error estándar (SE) para la proporción de la muestra:
+
+$$SE = \sqrt{\frac{\hat{p} (1 - \hat{p})}{n}} = \sqrt{\frac{0.4 \times (1 - 0.4)}{800}} = \sqrt{\frac{0.4 \times 0.6}{800}} = \sqrt{\frac{0.24}{800}} = \sqrt{0.0003}$$
+
+$$SE = 0.0173$$
+
+Para un intervalo de confianza del 95%, el valor crítico de z ( $z_{\alpha/2}$ ) es aproximadamente 1.96, ya que $\alpha$ es 0.05 y $\alpha/2$ es 0.025.
+
+Calculamos el margen de error (ME):
+
+$$ME = z_{\alpha/2} \times SE = 1.96 \times 0.0173$$
+
+$$ME = 0.0339$$
+
+Ahora, aplicamos el margen de error para obtener el intervalo de confianza:
+
+$$\hat{p} \pm ME = 0.4 \pm 0.0339$$
+
+El límite inferior del intervalo de confianza:
+
+$$0.4 - 0.0339 = 0.3661$$
+
+El límite superior del intervalo de confianza:
+
+$$0.4 + 0.0339 = 0.4339$$
+
+Entonces, con un 95% de confianza, podemos decir que la proporción de individuos que confían en los medios para informar noticias con precisión está entre aproximadamente 36.61% y 43.39%. Esto significa que si se realizara la encuesta muchas veces, y se calcularan intervalos de confianza de esta manera en cada ocasión, esperaríamos que aproximadamente el 95% de esos intervalos contenga la verdadera proporción poblacional.
+
+---
+
+9.  En un estudio sobre satisfacción laboral, una muestra de 25 empleados de una gran empresa da una puntuación de satisfacción (de 10). La puntuación media es de 7.6 con una desviación estándar de 1.4. Calcule el intervalo de confianza del 95% para la verdadera puntuación media de satisfacción para toda la empresa.
+
+Para calcular un intervalo de confianza para la media poblacional a partir de una muestra, y cuando la población es grande en comparación con el tamaño de la muestra y la distribución de la muestra no se conoce, se utiliza la distribución t de Student. Dado que la muestra es relativamente pequeña (n = 25), debemos usar esta distribución en lugar de la normal.
+
+Los datos que tenemos son:
+
+-   La media muestral, $\bar{x}$: 7.6
+-   La desviación estándar de la muestra, $s$: 1.4
+-   El tamaño de la muestra, $n$: 25
+-   El nivel de confianza deseado: 95%
+
+El intervalo de confianza para la media se calcula con la siguiente fórmula:
+
+$$\bar{x} \pm t_{\alpha/2, n-1} \times \left( \frac{s}{\sqrt{n}} \right)$$
+
+Donde:
+
+-   $t_{\alpha/2, n-1}$ es el valor crítico de t para $\alpha/2$ con $n-1$ grados de libertad. Para un 95% de intervalo de confianza y 24 grados de libertad, este valor se puede encontrar en tablas de distribución t o usando una calculadora estadística.
+
+Primero, calculamos el error estándar de la media (SE):
+
+$$SE = \frac{s}{\sqrt{n}} = \frac{1.4}{\sqrt{25}} = \frac{1.4}{5} = 0.28$$
+
+Usando una tabla de distribución t o una calculadora estadística, encontramos el valor de $t$ para 24 grados de libertad y un área de cola de 0.025 (dos colas suman a 0.05 para un intervalo de confianza del 95%). Supongamos que este valor es aproximadamente 2.064.
+
+Calculamos el margen de error (ME):
+
+$$ME = t_{\alpha/2, n-1} \times SE = 2.064 \times 0.28$$
+
+$$ME = 0.578$$
+
+Con el margen de error, obtenemos el intervalo de confianza:
+
+$$\bar{x} \pm ME = 7.6 \pm 0.578$$
+
+El límite inferior del intervalo de confianza:
+
+$$7.6 - 0.578 = 7.022$$
+
+El límite superior del intervalo de confianza:
+
+$$7.6 + 0.578 = 8.178$$
+
+Por lo tanto, con un 95% de confianza, la verdadera puntuación media de satisfacción para todos los empleados de la empresa está entre aproximadamente 7.022 y 8.178. Esto significa que si se realizaran muchos estudios de este tipo y se calcularan intervalos de confianza de esta manera en cada ocasión, esperaríamos que aproximadamente el 95% de esos intervalos contengan la verdadera media poblacional de la puntuación de satisfacción laboral.
+
+---
+
+10. Un equipo de investigación médica está explorando un nuevo medicamento para tratar dolores de cabeza frecuentes. Se realizó un estudio piloto con 20 participantes, donde la mitad de ellos (10) recibieron el medicamento (grupo de tratamiento) y la otra mitad (10) no lo recibió (grupo de control). Durante una semana, los participantes informaron si habían tenido un dolor de cabeza (1 = Sí, 0 = No).
+
+Los datos recopilados son los siguientes:
+
+| Grupo       | Observación | Dolor de cabeza (1 = Sí, 0 = No) |
+|-------------|-------------|----------------------------------|
+| Tratamiento | 1           | 1                                |
+| Tratamiento | 2           | 1                                |
+| Tratamiento | 3           | 0                                |
+| Tratamiento | 4           | 0                                |
+| Tratamiento | 5           | 0                                |
+| Tratamiento | 6           | 1                                |
+| Tratamiento | 7           | 0                                |
+| Tratamiento | 8           | 0                                |
+| Tratamiento | 9           | 0                                |
+| Tratamiento | 10          | 1                                |
+| Control     | 1           | 1                                |
+| Control     | 2           | 1                                |
+| Control     | 3           | 0                                |
+| Control     | 4           | 1                                |
+| Control     | 5           | 0                                |
+| Control     | 6           | 0                                |
+| Control     | 7           | 1                                |
+| Control     | 8           | 0                                |
+| Control     | 9           | 1                                |
+| Control     | 10          | 1                                |
+
+A partir de estos datos:
+
+-   Estima la proporción de personas que experimentan dolores de cabeza encada grupo.
+
+-   Calcula el intervalo de confianza del 99% para la proporción de personas que experimentan dolores de cabeza en el grupo de tratamiento y en el grupo de control.
+
+-   Basándose en los intervalos de confianza, ¿qué puede concluir sobre la efectividad del medicamento para reducir los dolores de cabeza?
+
+Para analizar los datos del estudio sobre la efectividad de un nuevo medicamento para tratar dolores de cabeza frecuentes, realizamos una estimación de las proporciones de individuos que experimentaron dolores de cabeza en cada grupo y luego calculamos los intervalos de confianza del 99% para estas proporciones.
+
+**Estimación de la proporción:**
+
+-   **Grupo de tratamiento**: 4 de los 10 participantes experimentaron dolores de cabeza, lo que da una proporción de $\hat{p}_{tratamiento} = \frac{4}{10} = 0.4$.
+-   **Grupo de control**: 6 de los 10 participantes experimentaron dolores de cabeza, lo que da una proporción de $\hat{p}_{control} = \frac{6}{10} = 0.6$.
+
+**Cálculo de los intervalos de confianza:**
+
+Es común usar la aproximación normal para calcular intervalos de confianza para proporciones, especialmente cuando $np$ y $n(1-p)$ son mayores que 5, lo que indica suficiente variabilidad para que la aproximación normal sea razonable. Dado que en este estudio cada grupo tiene un tamaño de muestra de 10, y se podría argumentar que esto es suficientemente grande para usar la distribución normal con cautela (especialmente si no esperamos que la proporción real sea cercana a 0 o 1), podríamos proceder con la distribución Z para nuestros cálculos.
+
+Utilizamos el valor Z de aproximadamente 2.576 para el nivel de confianza del 99% (correspondiente al 0.5% en cada cola de la distribución normal estándar).
+
+**Grupo de tratamiento:**
+
+El error estándar (SE) se calcula como:
+
+$$SE_{tratamiento} = \sqrt{\frac{0.4(1 - 0.4)}{10}} = \sqrt{0.024} \approx 0.1549$$
+
+El margen de error (ME) es:
+
+$$ME_{tratamiento} = 2.576 \times SE_{tratamiento} \approx 0.399$$
+
+Entonces, el intervalo de confianza del 99% para el grupo de tratamiento es:
+
+$$0.4 \pm 0.399$$ $$Límite inferior: 0.4 - 0.399 = 0.001$$ $$Límite superior: 0.4 + 0.399 = 0.799$$
+
+**Grupo de control:**
+
+El SE y ME se calculan de manera similar, y el intervalo de confianza del 99% para el grupo de control es:
+
+$$0.6 \pm 0.399$$ $$Límite inferior: 0.6 - 0.399 = 0.201$$ $$Límite superior: 0.6 + 0.399 = 0.999$$
+
+**Conclusión:**
+
+Al comparar los intervalos de confianza del grupo de tratamiento (0.001 a 0.799) y del grupo de control (0.201 a 0.999), notamos una superposición considerable. Esto _sugiere_ que con un 99% de confianza no podemos afirmar que haya una diferencia significativa en la proporción de dolores de cabeza entre los grupos debido a la amplitud de los intervalos. 
+
+---
+
+11. Una escuela está probando dos métodos diferentes para enseñar matemáticas básicas a los estudiantes de primer grado. Seleccionan a 6 estudiantes al azar, tres de los cuales usan el Método A (grupo de tratamiento) y tres usan el Método B (grupo de control). Al final de una semana de instrucción, cada estudiante realiza una prueba que tiene un puntaje máximo de 10 puntos.
+
+Los datos recopilados son los siguientes:
+
+| Método   | Estudiante | Puntaje obtenido |
+|----------|------------|------------------|
+| Método A | 1          | 7                |
+| Método A | 2          | 8                |
+| Método A | 3          | 7                |
+| Método B | 1          | 6                |
+| Método B | 2          | 5                |
+| Método B | 3          | 6                |
+
+-   Estima la media y la varianza de los puntajes para el grupo del Método A y para el grupo del Método B.
+
+-   Calcula el intervalo de confianza del 95% para la media de los puntajes en el grupo del Método A y en el grupo del Método B.
+
+-   Basándose en los intervalos de confianza, ¿qué puede concluir sobre la efectividad de cada método de enseñanza?
+
+Primero, estimemos la media y la varianza de los puntajes para cada grupo.
+
+**Grupo Método A:**
+
+Puntajes: 7, 8, 7
+
+Media ($\bar{x}_A$) = $\frac{7 + 8 + 7}{3} = \frac{22}{3} \approx 7.33$
+
+Varianza ($s^2_A$) se calcula como $s^2 = \frac{\sum (x_i - \bar{x})^2}{n-1}$, donde $x_i$ son los valores individuales y $n$ es el número de observaciones.
+
+Varianza ($s^2_A$) = $\frac{(7-7.33)^2 + (8-7.33)^2 + (7-7.33)^2}{3-1}$ = $\frac{(-0.33)^2 + (0.67)^2 + (-0.33)^2}{2}$ = $\frac{0.1089 + 0.4489 + 0.1089}{2}$ = $\frac{0.6667}{2}$ = 0.3333
+
+**Grupo Método B:**
+
+Puntajes: 6, 5, 6
+
+Media ($\bar{x}_B$) = $\frac{6 + 5 + 6}{3} = \frac{17}{3} \approx 5.67$
+
+Varianza ($s^2_B$) = $\frac{(6-5.67)^2 + (5-5.67)^2 + (6-5.67)^2}{3-1}$ = $\frac{0.1089 + (-0.67)^2 + 0.1089}{2}$ = $\frac{0.1089 + 0.4489 + 0.1089}{2}$ = $\frac{0.6667}{2}$ = 0.3333
+
+Notablemente, las varianzas son iguales. Esto es una coincidencia y no generalmente el caso.
+
+Ahora, calculemos el intervalo de confianza del 95% para la media de los puntajes en ambos grupos. Dado que las muestras son muy pequeñas (n = 3), usaremos la distribución t de Student para calcular los intervalos de confianza.
+
+**Grupo Método A:**
+
+Error estándar ($SE_A$) = $\sqrt{\frac{s^2_A}{n}} = \sqrt{\frac{0.3333}{3}} \approx 0.3333$
+
+Para n = 3, los grados de libertad (df) son 3 - 1 = 2. Buscamos el valor crítico de t para df = 2 y un intervalo de confianza del 95%. Aproximadamente, este valor es t ≈ 4.303.
+
+El margen de error ($ME_A$) es:
+
+$ME_A = t \times SE_A \approx 4.303 \times 0.3333 \approx 1.4344$
+
+El intervalo de confianza para Método A es:
+
+$\bar{x}_A \pm ME_A = 7.33 \pm 1.4344$ Límite inferior = 7.33 - 1.4344 ≈ 5.8956 Límite superior = 7.33 + 1.4344 ≈ 8.7644
+
+**Grupo Método B:**
+
+Error estándar ($SE_B$) = $\sqrt{\frac{s^2_B}{n}} = \sqrt{\frac{0.3333}{3}} \approx 0.3333$
+
+Usamos el mismo valor crítico de t ya que el tamaño de la muestra y los grados de libertad son los mismos.
+
+El margen de error ($ME_B$) es el mismo que para el grupo A, así que el intervalo de confianza para Método B es:
+
+$\bar{x}_B \pm ME_B = 5.67 \pm 1.4344$ Límite inferior = 5.67 - 1.4344 ≈ 4.2356 Límite superior = 5.67 + 1.4344 ≈ 7.1044
+
+**Conclusión:**
+
+Basándonos en los intervalos de confianza no podemos hacer una afirmación definitiva sobre la efectividad de cada método de enseñanza. Aunque la media del Método A es más alta que la del Método B, hay una superposición considerable en los intervalos de confianza.
+
+
+---
+
+12. Un grupo de estudiantes de sociología realiza una pequeña encuestra retrospectivas sobre comportamiento electorial en elecciones presidenciales en Chile en 2021. La encuesta se realizó de forma anónima y los entrevistados se identificaron solo por un "ID Entrevistado". De un total de 20 encuestados, algunos votaron por Boric y otros por Kast.
+
+A continuación se muestra una tabla con los resultados:
+
+| ID Entrevistado | Voto  |
+|-----------------|-------|
+| 1               | Boric |
+| 2               | Kast  |
+| 3               | Boric |
+| 4               | Kast  |
+| 5               | Boric |
+| 6               | Boric |
+| 7               | Boric |
+| 8               | Kast  |
+| 9               | Boric |
+| 10              | Boric |
+| 11              | Kast  |
+| 12              | Boric |
+| 13              | Boric |
+| 14              | Kast  |
+| 15              | Boric |
+| 16              | Boric |
+| 17              | Kast  |
+| 18              | Kast  |
+| 19              | Boric |
+| 20              | Boric |
+
+Con base en los datos proporcionados:
+
+-   Calcula la proporción de personas que votaron por Boric y por Kast, respectivamente.
+
+-   Estima un intervalo de confianza del 95% para la proporción de votos de Boric.
+
+-   Suponiendo que este grupo de 20 encuestados es una muestra representativa de la población general, ¿qué conclusiones se pueden extraer sobre las preferencias de voto de la población?
+
+-   Sabiendo que en las elecciones de 2021 Boric obtuvo un 55,87% de los votos validamente emitidos y Kast un 44,13%, usa esta información para construir un intervalo de confianza al 95% para las estimaciones realizadas. Compara el resultados con el resultado obtenido previamente.
+
+Para abordar las preguntas planteadas, seguiremos los siguientes pasos:
+
+**Proporción de votos por Boric y por Kast:**
+
+Contamos los votos para cada candidato y calculamos la proporción respectiva.
+
+-   **Votos por Boric**: Según la tabla, 13 personas votaron por Boric.
+-   **Votos por Kast**: 7 personas votaron por Kast.
+
+Entonces, las proporciones son:
+
+-   Proporción de votos por Boric: $p_{Boric} = \frac{13}{20} = 0.65$
+-   Proporción de votos por Kast: $p_{Kast} = \frac{7}{20} = 0.35$
+
+**Intervalo de confianza del 95% para la proporción de votos de Boric:**
+
+Para calcular el intervalo de confianza al 95% para la proporción de votos de Boric, usaremos la fórmula para el intervalo de confianza de una proporción:
+
+$$\hat{p} \pm z_{\alpha/2} \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}$$
+
+Donde $\hat{p}$ es la proporción muestral, $n$ es el tamaño de la muestra y $z_{\alpha/2}$ es el valor crítico de z para un 95% de nivel de confianza, que es aproximadamente 1.96.
+
+$$SE = \sqrt{\frac{0.65(1 - 0.65)}{20}} = \sqrt{\frac{0.65 \cdot 0.35}{20}} = \sqrt{\frac{0.2275}{20}} \approx 0.1066$$
+
+El margen de error (ME) es:
+
+$$ME = 1.96 \cdot SE \approx 1.96 \cdot 0.1066 \approx 0.209$$
+
+El intervalo de confianza es:
+
+$$0.65 \pm 0.209$$ $$Límite inferior: 0.65 - 0.209 = 0.441$$ $$Límite superior: 0.65 + 0.209 = 0.859$$
+
+**Conclusiones sobre las preferencias de voto de la población:**
+
+Suponiendo que la muestra es representativa, parece que una mayor proporción de la población preferiría a Boric sobre Kast, ya que el intervalo de confianza para la proporción de votos por Boric no incluye el 0.5 (que representaría una preferencia igualitaria entre los candidatos).
+
+**Intervalo de confianza al 95% con datos de las elecciones reales:**
+
+Para los votos reales, dado que la población es grande, podemos asumir que la varianza de la proporción es la varianza poblacional y utilizarla para calcular el intervalo de confianza de nuestra muestra.
+
+Para Boric, con $p_{Boric} = 0.5587$, el SE es:
+
+$$SE = \sqrt{\frac{0.5587(1 - 0.5587)}{20}} \approx \sqrt{\frac{0.5587 \cdot 0.4413}{20}} \approx 0.1131$$
+
+El margen de error (ME) para los votos reales es:
+
+$$ME = 1.96 \cdot SE \approx 1.96 \cdot 0.1131 \approx 0.222$$
+
+El intervalo de confianza para la proporción basada en los resultados de las elecciones es:
+
+$$0.5587 \pm 0.222$$ $$Límite inferior: 0.5587 - 0.222 = 0.3367$$ $$Límite superior: 0.5587 + 0.222 = 0.7807$$
+
+Comparando este intervalo con el obtenido a partir de la muestra de la encuesta, observamos que hay una superposición, lo que sugiere que los resultados de la encuesta podrían ser consistentes con los resultados reales de las elecciones. Sin embargo, debemos ser cautelosos al interpretar estos resultados debido al tamaño muy pequeño de la muestra.
+
+---
+
+13. Trabaja con los datos "Intenciones de Voto en el Plebiscito Chileno de 1988"
+
+**Descripción:** La base de datos cuenta con 2700 registros distribuidos en 8 columnas. Estos datos son producto de una encuesta a nivel nacional llevada a cabo en abril y mayo de 1988 por FLACSO/Chile. Es importante mencionar que existen algunos datos faltantes en el conjunto.
+
+**Variables presentes en la base de datos:**
+
+-   **región:** Categorizado con los siguientes niveles:
+
+    -   C: Central
+    -   M: Área Metropolitana de Santiago
+    -   N: Norte
+    -   S: Sur
+    -   SA: Ciudad de Santiago.
+
+-   **población:** Representa el tamaño poblacional de la comunidad del entrevistado.
+
+-   **sexo:** Categorizado en dos niveles:
+
+    -   F: Femenino
+    -   M: Masculino
+
+-   **edad:** Se refiere a la edad del encuestado expresada en años.
+
+-   **educación:** Categorizado con los siguientes niveles (pueden aparecer desordenados):
+
+    -   P: Primaria
+    -   PS: Postsecundaria
+    -   S: Secundaria
+
+-   **ingresos:** Refiere a los ingresos mensuales del encuestado, expresados en Pesos.
+
+-   **statusquo:** Representa una escala que mide el nivel de apoyo al status quo existente en ese momento.
+
+-   **voto:** Categorizado con los siguientes niveles:
+
+    -   A: Se abstendrá
+
+    -   N: Votará no (en contra de Pinochet)
+
+    -   U: Indeciso
+
+    -   Y: Votará sí (a favor de Pinochet).
+
+        Los resultados de intención de voto en la muesta son los siguientes:
+
+```{r}
+library(carData)
+data(Chile)
+
+data_chile <- Chile
+knitr::kable(table(data_chile$vote), align = "lc", col.names = c("Intención de voto","Recuentos"))
+```
+
+-   Omitiendo del análisis a personas indecisas o que declaran que se abstendrán, estima la proporción de personas que declaran que votarán por el NO (en vez de por SI).
+
+-   Construye un intervalo de confianza al 95% de confianza.
+
+-   Discute las implicancias sustantivas de los resultados.
+
+Para estimar la proporción de personas que declaran que votarán por el NO (en contra de Pinochet) y no por el SÍ, primero omitiremos a las personas indecisas o que se abstendrán de votar.
+
+En la muestra proporcionada:
+
+-   Votarán NO: 889
+-   Votarán SÍ: 868
+
+**Estimación de la proporción:**
+
+Para calcular la proporción de votos por el NO respecto al total de votos decisivos (NO y SÍ), usaremos la siguiente fórmula:
+
+$$p_{NO} = \frac{\text{Número de votos por NO}}{\text{Número total de votos decisivos}}$$
+
+$$p_{NO} = \frac{889}{889 + 868} = \frac{889}{1757} \approx 0.506$$
+
+Por lo tanto, la proporción estimada de personas que votarían por el NO es aproximadamente 0.506 o 50.6%.
+
+**Construcción del intervalo de confianza al 95%:**
+
+El intervalo de confianza para la proporción se calcula con la fórmula:
+
+$$\hat{p} \pm z_{\alpha/2} \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}$$
+
+Donde: - $\hat{p}$ es la proporción estimada de votos por NO. - $z_{\alpha/2}$ es el valor crítico de z para un 95% de nivel de confianza, que es aproximadamente 1.96. - $n$ es el número total de votos decisivos.
+
+$$SE = \sqrt{\frac{0.506 \cdot (1 - 0.506)}{1757}}$$ $$SE \approx \sqrt{\frac{0.506 \cdot 0.494}{1757}}$$ $$SE \approx \sqrt{\frac{0.249764}{1757}}$$ $$SE \approx \sqrt{0.0001421}$$ $$SE \approx 0.0119$$
+
+El margen de error (ME) es:
+
+$$ME = 1.96 \cdot SE$$ $$ME \approx 1.96 \cdot 0.0119$$ $$ME \approx 0.0233$$
+
+El intervalo de confianza es entonces:
+
+$$0.506 \pm 0.0233$$ $$Límite inferior: 0.506 - 0.0233 = 0.4827$$ $$Límite superior: 0.506 + 0.0233 = 0.5293$$
+
+Por lo tanto, el intervalo de confianza al 95% para la proporción de personas que votarían por el NO es aproximadamente de 48.27% a 52.93%.
+
+**Implicancias sustantivas de los resultados:**
+
+El análisis de los datos de la encuesta muestra que, entre los encuestados decididos, existe una ligera mayoría que indica la intención de votar por el NO (en contra de Pinochet), con una proporción estimada del 50.6%. El intervalo de confianza al 95% para esta proporción es de aproximadamente 48.27% a 52.93%. Aunque la proporción puntual está ligeramente por encima del 50%, el intervalo de confianza incluye proporciones por debajo del 50%. Esto significa que estadísticamente, con un 95% de confianza, no podemos afirmar que el NO ganaría el plebiscito. El límite inferior del intervalo cae por debajo del punto de equilibrio del 50%, indicando que existe la posibilidad, dentro de la incertidumbre estimada, de que la votación no sea suficiente para asegurar la victoria del NO.
+
+---
+
+14. Dada esta encuesta preliminar sobre intenciones de voto, se desea planificar una nueva encuesta con un margen de error más reducido. Estima el tamaño de muestra necesario para una proporción considerando un margen de error de 0.01 con un 95% de confianza. Haz explícitos los supuestos de tu cálculo y justifícalos.
+
+Para calcular el tamaño de la muestra necesario para estimar una proporción con un margen de error específico y un nivel de confianza dado, podemos usar la fórmula para el tamaño de la muestra en una proporción:
+
+$$n = \left(\frac{Z^2 \cdot p \cdot (1 - p)}{ME^2}\right)$$
+
+donde: - $n$ es el tamaño de la muestra. - $Z$ es el valor z correspondiente al nivel de confianza deseado (para un 95% de confianza, $Z = 1.96$). - $p$ es la proporción estimada (o asumida) de votos por el "No". - $ME$ es el margen de error deseado.
+
+**Supuestos y justificación:**
+
+Suponemos que la proporción estimada $p$ es la mejor estimación que tenemos . Suponemos que la variabilidad máxima ocurre con $p = 0.5$ ya que este es el valor que maximiza el producto $p \cdot (1 - p)$ y proporciona el tamaño de muestra más conservador. Esto es apropiado para el cálculo del tamaño de la muestra cuando no tenemos una estimación previa o queremos ser conservadores en nuestra estimación.
+
+Dado que deseamos ser conservadores y asegurar la precisión independientemente de la proporción real, utilizamos $p = 0.5$ para el cálculo.
+
+$$n = \left(\frac{1.96^2 \cdot 0.5 \cdot (1 - 0.5)}{0.01^2}\right)$$ $$n = \left(\frac{1.96^2 \cdot 0.25}{0.0001}\right)$$ $$n = \left(\frac{0.9604}{0.0001}\right)$$ $$n = 9604$$
+
+Por lo tanto, necesitaríamos una muestra de aproximadamente 9604 encuestados para estimar la proporción con un margen de error de 0.01 con un 95% de confianza.
+
+---
+
+15. Un grupo de estudiantes participó en una competencia de habilidades culinarias. La competencia se compone de tres pruebas: elaboración de entradas, plato principal y postres. El puntaje final de cada estudiante se determina tomando el promedio simple de los puntajes obtenidos en las tres pruebas. Cada pregunta controla aspectos distintas habilidades y por tanto sus puntajes son independientes entre si. A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 estudiantes para cada prueba:
+
+| Estadística | Entradas | Plato Principal | Postres |
+|------------------|------------------|------------------|------------------|
+| Media muestral $\bar{x} = \frac{\sum x}{n}$ | 4.5 | 3.8 | 5.2 |
+| Suma de desviaciones al cuadrado $\sum (x_i - \bar{x})^2$ | 375.6 | 178.4 | 62.7 |
+
+Con base en esta información,
+
+-   ¿Cuál es la media muestral del puntaje final de estos 100 estudiantes?
+
+-   Construye un intervalo de confianza del 95% para la media del puntaje final.
+
+-   Interpreta el resultado del intervalo de confianza en términos de la competencia de habilidades culinarias.
+
+Para responder a las preguntas, primero calculamos la media muestral del puntaje final y luego el intervalo de confianza del 95% para esta media.
+
+**Media Muestral del Puntaje Final**
+
+La media muestral del puntaje final se calcula tomando el promedio de las medias muestrales de las tres pruebas:
+
+$$\bar{X}_{\text{final}} = \frac{\bar{X}_{\text{entradas}} + \bar{X}_{\text{plato principal}} + \bar{X}_{\text{postres}}}{3}$$
+
+$$\bar{X}_{\text{final}} = \frac{4.5 + 3.8 + 5.2}{3}$$
+
+$$\bar{X}_{\text{final}} = \frac{13.5}{3}$$
+
+$$\bar{X}_{\text{final}} = 4.5$$
+
+La media muestral del puntaje final para estos 100 estudiantes es 4.5.
+
+**Intervalo de Confianza del 95% para la Media del Puntaje Final**
+
+Para construir un intervalo de confianza para la media, necesitamos calcular la desviación estándar de la media del puntaje final. Dado que las pruebas son independientes entre sí, podemos sumar las varianzas y luego tomar la raíz cuadrada para obtener la desviación estándar del puntaje final.
+
+Las varianzas muestrales ($s^2$) para cada prueba son:
+
+$$s^2 = \frac{\sum (x_i - \bar{x})^2}{n - 1}$$
+
+Para cada prueba:
+
+$$s^2_{\text{entradas}} = \frac{375.6}{99}$$ $$s^2_{\text{plato principal}} = \frac{178.4}{99}$$ $$s^2_{\text{postres}} = \frac{62.7}{99}$$
+
+Calculando las varianzas:
+
+$$s^2_{\text{entradas}} \approx 3.79$$ $$s^2_{\text{plato principal}} \approx 1.80$$ $$s^2_{\text{postres}} \approx 0.63$$
+
+Ahora sumamos las varianzas para obtener la varianza del puntaje final:
+
+$$s^2_{\text{final}} = s^2_{\text{entradas}} + s^2_{\text{plato principal}} + s^2_{\text{postres}}$$ $$s^2_{\text{final}} \approx 3.79 + 1.80 + 0.63$$ $$s^2_{\text{final}} \approx 6.22$$
+
+La desviación estándar del puntaje final es la raíz cuadrada de la varianza final:
+
+$$s_{\text{final}} = \sqrt{s^2_{\text{final}}}$$ $$s_{\text{final}} \approx \sqrt{6.22}$$ $$s_{\text{final}} \approx 2.49$$
+
+La desviación estándar de la media del puntaje final es la desviación estándar del puntaje final dividida por la raíz cuadrada del tamaño de la muestra (n = 100):
+
+$$s_{\bar{X}_{\text{final}}} = \frac{s_{\text{final}}}{\sqrt{n}}$$ $$s_{\bar{X}_{\text{final}}} = \frac{2.49}{\sqrt{100}}$$ $$s_{\bar{X}_{\text{final}}} = \frac{2.49}{10}$$ $$s_{\bar{X}_{\text{final}}} = 0.249$$
+
+Usando la distribución Z para un intervalo de confianza del 95%, el valor Z es aproximadamente 1.96. Ahora podemos construir el intervalo de confianza:
+
+$$\text{IC} = \bar{X}_{\text{final}} \pm (Z \cdot s_{\bar{X}_{\text{final}}})$$ $$\text{IC} = 4.5 \pm (1.96 \cdot 0.249)$$ $$\text{IC} = 4.5 \pm 0.488$$
+
+El intervalo de confianza del 95% para la media del puntaje final es:
+
+$$\text{IC} = [4.012, 4.988]$$
+
+**Interpretación del Intervalo de Confianza**
+
+La interpretación del intervalo de confianza en términos de la competencia de habilidades culinarias es que estamos 95% seguros de que la media verdadera del puntaje final para todos los estudiantes que podrían participar en esta competencia está entre 4.012 y 4.988.
+
+---
+
+16. Una población tomó un test compuesto por tres preguntas. El puntaje final de cada individuo se determina tomando el promedio simple de los puntajes obtenidos en las tres preguntas. Cada pregunta controla aspectos distintos del conocimiento y por tanto sus puntajes son independientes entre si.
+
+A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 individuos para cada pregunta:
+
+| Estadística               | Pregunta 1 | Pregunta 2 | Pregunta 3 |
+|---------------------------|------------|------------|------------|
+| Media muestral            | 4.8930040  | 0.9364491  | 6.0148615  |
+| Varianza muestral (naive) | 3.998700   | 1.957715   | 0.5070397  |
+
+Con base en esta información,
+
+-   ¿Cuál es la media muestral del puntaje final de estos 100 individuos?
+
+-   Construye un intervalo de confianza del 95% para la media del puntaje final e interpreta el resultado
+
+**Media muestral del puntaje final:**
+
+$$\text{Media final} = \frac{\text{Media Pregunta 1} + \text{Media Pregunta 2} + \text{Media Pregunta 3}}{3}$$
+
+$$\text{Media final} = \frac{4.8930040 + 0.9364491 + 6.0148615}{3}$$
+
+$$\text{Media final} ≈ 3.9481$$
+
+**Varianza muestral ajustada para cada pregunta:**
+
+$$s^2_{\text{ajustada}} = s^2_{\text{naive}} \times \frac{n}{n-1}$$
+
+$$s^2_{\text{Pregunta 1, ajustada}} = 3.9987 \times \frac{100}{99}$$ $$s^2_{\text{Pregunta 2, ajustada}} = 1.957715 \times \frac{100}{99}$$ $$s^2_{\text{Pregunta 3, ajustada}} = 0.5070397 \times \frac{100}{99}$$
+
+Realizando las operaciones:
+
+$$s^2_{\text{Pregunta 1, ajustada}} ≈ 4.0389$$ $$s^2_{\text{Pregunta 2, ajustada}} ≈ 1.9779$$ $$s^2_{\text{Pregunta 3, ajustada}} ≈ 0.5122$$
+
+**Varianza del puntaje promedio:**
+
+$$s^2_{\text{final}} = \frac{s^2_{\text{Pregunta 1, ajustada}} + s^2_{\text{Pregunta 2, ajustada}} + s^2_{\text{Pregunta 3, ajustada}}}{3^2}$$
+
+$$s^2_{\text{final}} = \frac{4.0389 + 1.9779 + 0.5122}{9}$$
+
+$$s^2_{\text{final}} ≈ 0.7253$$
+
+**Desviación estándar del puntaje promedio:**
+
+$$s_{\text{final}} = \sqrt{s^2_{\text{final}}}$$
+
+$$s_{\text{final}} ≈ \sqrt{0.7253}$$
+
+$$s_{\text{final}} ≈ 0.8516$$
+
+**Error estándar del puntaje promedio:**
+
+$$SE_{\text{final}} = \frac{s_{\text{final}}}{\sqrt{n}}$$
+
+$$SE_{\text{final}} = \frac{0.8516}{\sqrt{100}}$$
+
+$$SE_{\text{final}} ≈ 0.0852$$
+
+**Intervalo de confianza del 95%:**
+
+Usamos el valor $Z$ aproximadamente igual a 1.96 para un 95% de nivel de confianza.
+
+$$\text{IC} = \text{Media final} \pm (Z \cdot SE_{\text{final}})$$
+
+$$\text{IC} ≈ 3.9481 \pm (1.96 \cdot 0.0852)$$
+
+$$\text{IC} ≈ 3.9481 \pm 0.1670$$
+
+$$\text{IC} ≈ (3.7811, 4.1151)$$
+
+**Interpretación en el contexto de la competencia:**
+
+El intervalo de confianza del 95% indica que, si se repitiera la competencia muchas veces, el puntaje promedio de todos los estudiantes estaría entre 3.7811 y 4.1151 el 95% de las veces.
+
+
+---
+
+17. Un equipo de investigación médica está explorando un nuevo medicamento para tratar dolores de cabeza frecuentes. Se realizó un estudio piloto con 20 participantes, donde la mitad de ellos (10) recibieron el medicamento (grupo de tratamiento) y la otra mitad (10) no lo recibió (grupo de control). Durante una semana, los participantes informaron si habían tenido un dolor de cabeza (1 = Sí, 0 = No).
+
+Los datos recopilados son los siguientes:
+
+| Grupo       | Observación | Dolor de cabeza (1 = Sí, 0 = No) |
+|-------------|-------------|----------------------------------|
+| Tratamiento | 1           | 1                                |
+| Tratamiento | 2           | 1                                |
+| Tratamiento | 3           | 0                                |
+| Tratamiento | 4           | 0                                |
+| Tratamiento | 5           | 0                                |
+| Tratamiento | 6           | 1                                |
+| Tratamiento | 7           | 0                                |
+| Tratamiento | 8           | 0                                |
+| Tratamiento | 9           | 0                                |
+| Tratamiento | 10          | 1                                |
+| Control     | 1           | 1                                |
+| Control     | 2           | 1                                |
+| Control     | 3           | 0                                |
+| Control     | 4           | 1                                |
+| Control     | 5           | 0                                |
+| Control     | 6           | 0                                |
+| Control     | 7           | 1                                |
+| Control     | 8           | 0                                |
+| Control     | 9           | 1                                |
+| Control     | 10          | 1                                |
+
+A partir de estos datos:
+
+-   Estima la proporción de personas que experimentan dolores de cabeza encada grupo, y calcula la diferencia entre ambas proporciones
+
+-   Calcula el intervalo de confianza del 95% para la diferencia entre ambas proporciones
+
+-   Basándose en los intervalos de confianza, ¿qué puede concluir sobre la efectividad del medicamento para reducir los dolores de cabeza?
+
+**Estimación de proporciones individuales:**
+
+Para el grupo de tratamiento y control, calculamos:
+
+-   Proporción del tratamiento ($p_{trat}$) = 0.4
+-   Proporción del control ($p_{ctrl}$) = 0.6
+
+**Diferencia de proporciones:**
+
+La diferencia observada entre las proporciones es $0.6 - 0.4 = 0.2$.
+
+**Cálculo del error estándar de la diferencia de proporciones:**
+
+Primero, calculamos el error estándar para cada proporción:
+
+-   $SE_{trat} = \sqrt{\frac{0.4(1 - 0.4)}{10}} = \sqrt{\frac{0.4 \cdot 0.6}{10}} = \sqrt{0.024} = 0.1549$
+-   $SE_{ctrl} = \sqrt{\frac{0.6(1 - 0.6)}{10}} = \sqrt{\frac{0.6 \cdot 0.4}{10}} = \sqrt{0.024} = 0.1549$
+
+Ahora, calculamos la varianza de la diferencia de proporciones sumando las varianzas de las dos proporciones (porque las varianzas, a diferencia de las desviaciones estándar, son aditivas):
+
+-   $Var_{diferencia} = Var_{trat} + Var_{ctrl} = SE_{trat}^2 + SE_{ctrl}^2 = 0.024 + 0.024 = 0.048$
+
+Luego, para obtener el error estándar de la diferencia de proporciones, tomamos la raíz cuadrada de la varianza combinada:
+
+-   $SE_{diferencia} = \sqrt{Var_{diferencia}} = \sqrt{0.048} = 0.219$
+
+**Intervalo de confianza del 95%:**
+
+Usando el valor z estándar de 1.96 para un intervalo de confianza del 95%:
+
+-   Margen de error = $1.96 \cdot SE_{diferencia} = 1.96 \cdot 0.219 = 0.42924$
+
+Aplicamos este margen de error a la diferencia observada de proporciones:
+
+-   $\text{IC}_{95\%} = 0.2 \pm 0.42924$
+-   $\text{IC}_{95\%} = (-0.22924, 0.62924)$
+
+**Interpretación detallada:**
+
+El intervalo de confianza que va desde aproximadamente -0.229 hasta 0.629 incluye el cero, lo que indica que la diferencia en las proporciones de dolores de cabeza entre los dos grupos no es estadísticamente significativa al nivel del 95%. Esto significa que, basándonos en los datos de este estudio piloto, no tenemos evidencia suficiente para afirmar que el medicamento es efectivo en la reducción de la frecuencia de dolores de cabeza.
+
+---
+
+18. ¿Cuál es la relación entre el error estándar de la media y la desviación estándar de la población? ¿Cuándo usarías la desviación estándar de la población en lugar de la desviación estándar de la muestra para calcular el error estándar?
+
+La relación entre el error estándar de la media (SE) y la desviación estándar de la población (SD) se expresa de la siguiente manera en LaTeX:
+
+$$
+SE = \frac{SD}{\sqrt{n}}
+$$
+
+Donde:
+
+-   $SE$ representa el error estándar de la media.
+-   $SD$ representa la desviación estándar de la población.
+-   $n$ representa el tamaño de la muestra.
+
+La desviación estándar de la población cuando se tiene acceso a todos los datos de la población o en situaciones (inusuales) donde tenemos acceso a dicha información.
+
+---
+
+19. ¿Por qué no se puede obtener prácticamente un intervalo de confianza del 100%?
+
+En el contexto de la distribución normal (o gaussiana), los valores posibles se extienden desde menos infinito ($-\infty$) hasta más infinito ($+\infty$), lo que significa que la probabilidad de que un valor esté dentro de un intervalo específico en la distribución normal es siempre positiva y, por lo tanto, nunca alcanza el 100%.
+
+Por tanto, es imposible obtener un intervalo de confianza del 100% en la práctica, ya que esto implicaría tener un rango que abarque todos los valores posibles en la línea real, lo cual no es práctico ni útil en la mayoría de las aplicaciones estadísticas. Por lo tanto, la probabilidad de que un valor esté dentro de un intervalo en una distribución normal nunca alcanza el 100%, sino que se acerca cada vez más a medida que se amplía el intervalo.
+
+
+---
+
+20. Explica la diferencia entre una estimación puntual y una estimación por intervalo.
+
+Una estimación puntual y una estimación por intervalo son dos enfoques diferentes para estimar un parámetro desconocido de una población a partir de una muestra de datos. Aquí se explica la diferencia entre ambas:
+
+a.  Estimación Puntual:
+
+    -   Una estimación puntual consiste en proporcionar un solo valor numérico como la mejor suposición o estimación del valor del parámetro poblacional desconocido.
+
+    -   En este enfoque, se elige un solo número como la "mejor estimación" del parámetro, generalmente basado en estadísticas muestrales, como la media muestral o la proporción muestral.
+
+    -   Una estimación puntual no proporciona información sobre la incertidumbre asociada con la estimación. Es simplemente un número que representa la mejor suposición sobre el valor del parámetro.
+
+b.  Estimación por Intervalo (Intervalo de Confianza):
+
+    -   Una estimación por intervalo, también conocida como intervalo de confianza, proporciona un rango de valores en lugar de un solo valor. Este rango refleja la incertidumbre en la estimación y se construye de manera que se pueda especificar un nivel de confianza asociado.
+
+    -   En lugar de decir "el parámetro es igual a este valor", se dice "estamos confiados en que el parámetro se encuentra dentro de este rango específico con un cierto nivel de confianza".
+
+    -   El intervalo de confianza se basa en estadísticas muestrales y tiene en cuenta la variabilidad natural en los datos muestrales. Cuanto más estrecho es el intervalo, mayor es la precisión de la estimación.
+
+La principal diferencia entre ambas es que la estimación puntual proporciona un único número como estimación del parámetro, mientras que la estimación por intervalo proporciona un rango de valores dentro del cual es probable que se encuentre el parámetro con un cierto nivel de confianza.
+
+21. ¿Cómo se relaciona el margen de error con el nivel de confianza y el error estándar de la estadística? Deriva su fórmula.
+
+El margen de error está relacionado con el nivel de confianza y el error estándar de una estadística a través de la fórmula del intervalo de confianza. El margen de error representa la amplitud del intervalo de confianza alrededor de una estimación puntual de una población. Aquí está la fórmula general para el margen de error:
+
+Margen de Error = Valor crítico * Error estándar
+
+Donde:
+
+-   Valor crítico: Es el valor z (para una distribución normal estándar) o t (para una distribución t de Student) correspondiente al nivel de confianza deseado.
+
+-   Error estándar: Representa la estimación de la desviación estándar poblacional basada en la muestra y se calcula como la desviación estándar muestral dividida por la raíz cuadrada del tamaño de la muestra.

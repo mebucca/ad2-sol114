@@ -1,0 +1,1611 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Mauricio Bucca">
+
+<title>Ejercicios SOL114</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="problemset_3_files/libs/clipboard/clipboard.min.js"></script>
+<script src="problemset_3_files/libs/quarto-html/quarto.js"></script>
+<script src="problemset_3_files/libs/quarto-html/popper.min.js"></script>
+<script src="problemset_3_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="problemset_3_files/libs/quarto-html/anchor.min.js"></script>
+<link href="problemset_3_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="problemset_3_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="problemset_3_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="problemset_3_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="problemset_3_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Ejercicios SOL114</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Mauricio Bucca </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<ol type="1">
+<li>Un grupo de investigadores está estudiando el número promedio de horas que la gente ve TV en una semana. De una muestra de 120 individuos, la media se encuentra en 20 horas. Dada una varianza poblacional conocida de 16 (horas<span class="math inline">\(^2\)</span>), calcule el intervalo de confianza del 95% para el tiempo verdadero medio de visualización de TV semanal.</li>
+</ol>
+<p><strong>Dato dado</strong>:</p>
+<ul>
+<li>Nivel de significancia, <span class="math inline">\(\alpha = 0.05\)</span></li>
+<li>Por lo tanto, el nivel de confianza es <span class="math inline">\(1 - \alpha = 0.95\)</span> o 95%</li>
+<li><span class="math inline">\(n = 120\)</span></li>
+<li><span class="math inline">\(\bar{x} = 20\)</span> horas (media de la muestra)</li>
+<li><span class="math inline">\(\sigma^2 = 16\)</span> (varianza poblacional), así que <span class="math inline">\(\sigma = 4\)</span> horas (desviación estándar poblacional)</li>
+</ul>
+<p>Para un intervalo de confianza bilateral, el valor crítico de z es <span class="math inline">\(Z_{\alpha/2}\)</span>. Dado que <span class="math inline">\(\alpha = 0.05\)</span>, <span class="math inline">\(\alpha/2 = 0.025\)</span>. Por lo tanto, buscamos el valor z que deja un área de 0.025 en la cola superior de una distribución normal estándar. Usando tablas de la distribución normal o calculadoras estadísticas, encontramos que:</p>
+<p><span class="math display">\[Z_{0.025} = 1.96\]</span></p>
+<p>Entonces, <span class="math inline">\(Z_{\alpha/2} = 1.96\)</span>.</p>
+<p>La fórmula para el intervalo de confianza cuando la varianza poblacional es conocida es:</p>
+<p><span class="math display">\[IC = \bar{x} \pm Z_{\alpha/2} \left( \frac{\sigma}{\sqrt{n}} \right)\]</span></p>
+<p>Sustituimos los valores dados y conocidos en la fórmula:</p>
+<p><span class="math display">\[IC = 20 \pm 1.96 \left( \frac{4}{\sqrt{120}} \right)\]</span></p>
+<p>Calculando el margen de error:</p>
+<p><span class="math display">\[\text{ME} = 1.96 \left( \frac{4}{\sqrt{120}} \right)\]</span> <span class="math display">\[\text{ME} = 1.96 (0.365)\]</span> <span class="math display">\[\text{ME} \approx 0.716\]</span></p>
+<p>Entonces, el intervalo de confianza es:</p>
+<p>Límite inferior: <span class="math display">\[\bar{x} - \text{ME} = 20 - 0.716 = 19.284\]</span></p>
+<p>Límite superior: <span class="math display">\[\bar{x} + \text{ME} = 20 + 0.716 = 20.716\]</span></p>
+<p>Con un 95% de confianza, podemos afirmar que el tiempo medio que la población general pasa viendo TV en una semana está entre 19.284 horas y 20.716 horas. Esto significa que, si tomáramos muchas muestras y calculáramos intervalos de confianza del 95% para cada una, esperaríamos que aproximadamente el 95% de esos intervalos contuvieran el verdadero tiempo medio de visualización de TV semanal de toda la población.</p>
+<hr>
+<ol start="2" type="1">
+<li>Un investigador está estudiando el tiempo promedio que los adultos pasan leyendo periódicos semanalmente. De una muestra aleatoria de 60 adultos, el tiempo medio pasado es de 4 horas. Si la varianza poblacional conocida es de 1.44 (horas<span class="math inline">\(^2\)</span>), calcule el intervalo de confianza del 90% para el tiempo promedio verdadero que se pasa leyendo periódicos semanalmente.</li>
+</ol>
+<p>Para calcular el intervalo de confianza del 90% para el tiempo promedio verdadero que se pasa leyendo periódicos semanalmente, usaremos la misma fórmula que la anterior, pero tendremos que determinar el valor z adecuado para un nivel de confianza del 90%.</p>
+<p><strong>Datos dados</strong>:</p>
+<ul>
+<li>Nivel de significancia, <span class="math inline">\(\alpha = 0.10\)</span></li>
+<li>Por lo tanto, el nivel de confianza es <span class="math inline">\(1 - \alpha = 0.90\)</span> o 90%</li>
+<li><span class="math inline">\(n = 60\)</span></li>
+<li><span class="math inline">\(\bar{x} = 4\)</span> horas (media de la muestra)</li>
+<li><span class="math inline">\(\sigma^2 = 1.44\)</span> (varianza poblacional), de donde <span class="math inline">\(\sigma = 1.2\)</span> horas (desviación estándar poblacional)</li>
+</ul>
+<p>Para un intervalo de confianza bilateral del 90%, el valor crítico de z es <span class="math inline">\(Z_{\alpha/2}\)</span>. Dado que <span class="math inline">\(\alpha = 0.10\)</span>, <span class="math inline">\(\alpha/2 = 0.05\)</span>. Buscamos el valor z que deja un área de 0.05 en la cola superior de una distribución normal estándar. Usando tablas de la distribución normal o calculadoras estadísticas, encontramos que:</p>
+<p><span class="math display">\[Z_{0.05} \approx 1.645\]</span></p>
+<p>Entonces, <span class="math inline">\(Z_{\alpha/2} = 1.645\)</span>.</p>
+<p>La fórmula para el intervalo de confianza cuando la varianza poblacional es conocida es:</p>
+<p><span class="math display">\[IC = \bar{x} \pm Z_{\alpha/2} \left( \frac{\sigma}{\sqrt{n}} \right)\]</span></p>
+<p>Sustituimos los valores dados y conocidos en la fórmula:</p>
+<p><span class="math display">\[IC = 4 \pm 1.645 \left( \frac{1.2}{\sqrt{60}} \right)\]</span></p>
+<p>Calculando el margen de error:</p>
+<p><span class="math display">\[\text{ME} = 1.645 \left( \frac{1.2}{\sqrt{60}} \right)\]</span> <span class="math display">\[\text{ME} = 1.645 (0.1549)\]</span> <span class="math display">\[\text{ME} \approx 0.2545\]</span></p>
+<p>Entonces, el intervalo de confianza es:</p>
+<p>Límite inferior: <span class="math display">\[\bar{x} - \text{ME} = 4 - 0.2545 = 3.7455\]</span></p>
+<p>Límite superior: <span class="math display">\[\bar{x} + \text{ME} = 4 + 0.2545 = 4.2545\]</span></p>
+<p>Interpretación: Con un 90% de confianza, podemos afirmar que el tiempo medio que la población adulta general pasa leyendo periódicos en una semana está entre 3.7455 horas y 4.2545 horas.</p>
+<hr>
+<ol start="3" type="1">
+<li>En un estudio sobre hábitos alimenticios, se encuestó a 100 individuos sobre su consumo semanal de frutas. La media se encontró en 10 porciones con una varianza poblacional conocida de 4 (porciones^2). Calcule el intervalo de confianza del 95% para el consumo semanal medio de frutas.</li>
+</ol>
+<p><strong>Datos dados</strong>:</p>
+<ul>
+<li>Nivel de significancia, <span class="math inline">\(\alpha = 0.05\)</span></li>
+<li>Por lo tanto, el nivel de confianza es <span class="math inline">\(1 - \alpha = 0.95\)</span> o 95%</li>
+<li><span class="math inline">\(n = 100\)</span></li>
+<li><span class="math inline">\(\bar{x} = 10\)</span> porciones (media de la muestra)</li>
+<li><span class="math inline">\(\sigma^2 = 4\)</span> (varianza poblacional), de donde <span class="math inline">\(\sigma = 2\)</span> porciones (desviación estándar poblacional)</li>
+</ul>
+<p>Para un intervalo de confianza bilateral del 95%, el valor crítico de z es <span class="math inline">\(Z_{\alpha/2}\)</span>. Dado que <span class="math inline">\(\alpha = 0.05\)</span>, <span class="math inline">\(\alpha/2 = 0.025\)</span>. Buscamos el valor z que deja un área de 0.025 en la cola superior de una distribución normal estándar. Usando tablas de la distribución normal o calculadoras estadísticas, encontramos que:</p>
+<p><span class="math display">\[Z_{0.025} = 1.96\]</span></p>
+<p>Entonces, <span class="math inline">\(Z_{\alpha/2} = 1.96\)</span>.</p>
+<p>La fórmula para el intervalo de confianza cuando la varianza poblacional es conocida es:</p>
+<p><span class="math display">\[IC = \bar{x} \pm Z_{\alpha/2} \left( \frac{\sigma}{\sqrt{n}} \right)\]</span></p>
+<p>Sustituimos los valores dados y conocidos en la fórmula:</p>
+<p><span class="math display">\[IC = 10 \pm 1.96 \left( \frac{2}{\sqrt{100}} \right)\]</span></p>
+<p>Calculando el margen de error:</p>
+<p><span class="math display">\[\text{ME} = 1.96 \left( \frac{2}{10} \right)\]</span> <span class="math display">\[\text{ME} = 1.96 (0.2)\]</span> <span class="math display">\[\text{ME} = 0.392\]</span></p>
+<p>Entonces, el intervalo de confianza es:</p>
+<p>Límite inferior: <span class="math display">\[\bar{x} - \text{ME} = 10 - 0.392 = 9.608\]</span></p>
+<p>Límite superior: <span class="math display">\[\bar{x} + \text{ME} = 10 + 0.392 = 10.392\]</span></p>
+<p>Interpretación: Con un 95% de confianza, podemos afirmar que el número medio de porciones de frutas que la población consume semanalmente está entre 9.608 porciones y 10.392 porciones.</p>
+<hr>
+<ol start="4" type="1">
+<li>En un estudio sobre patrones de sueño, 16 adultos informan su duración promedio de sueño nocturno. La media es de 7 horas con una desviación estándar de la muestra de 1.1 horas. Determine el intervalo de confianza del 95% para la duración media del sueño nocturno para todos los adultos.</li>
+</ol>
+<p>Dado que se nos proporciona la desviación estándar de la muestra y no la varianza poblacional, utilizaremos la distribución t (t-student) para determinar el intervalo de confianza.</p>
+<p><strong>Datos dados</strong>:</p>
+<ul>
+<li>Nivel de significancia, <span class="math inline">\(\alpha = 0.05\)</span></li>
+<li>Por lo tanto, el nivel de confianza es <span class="math inline">\(1 - \alpha = 0.95\)</span> o 95%</li>
+<li><span class="math inline">\(n = 16\)</span></li>
+<li>Grados de libertad (df) = <span class="math inline">\(n - 1 = 16 - 1 = 15\)</span></li>
+<li><span class="math inline">\(\bar{x} = 7\)</span> horas (media de la muestra)</li>
+<li><span class="math inline">\(s = 1.1\)</span> horas (desviación estándar de la muestra)</li>
+</ul>
+<p>Para un intervalo de confianza bilateral del 95% con 15 grados de libertad, necesitamos encontrar el valor crítico t (<span class="math inline">\(t_{\alpha/2}\)</span>). Usando tablas de la distribución t o calculadoras estadísticas:</p>
+<p><span class="math display">\[t_{0.025,\: 15}\]</span> (con 15 grados de libertad y <span class="math inline">\(\alpha/2 = 0.025\)</span>) es aproximadamente 2.131.</p>
+<p>La fórmula para el intervalo de confianza cuando se desconoce la varianza poblacional y se usa la desviación estándar de la muestra es:</p>
+<p><span class="math display">\[IC = \bar{x} \pm t_{\alpha/2} \left( \frac{s}{\sqrt{n}} \right)\]</span></p>
+<p>Sustituimos los valores dados y conocidos en la fórmula:</p>
+<p><span class="math display">\[IC = 7 \pm 2.131 \left( \frac{1.1}{\sqrt{16}} \right)\]</span></p>
+<p>Calculando el margen de error:</p>
+<p><span class="math display">\[\text{ME} = 2.131 \left( \frac{1.1}{4} \right)\]</span> <span class="math display">\[\text{ME} = 2.131 (0.275)\]</span> <span class="math display">\[\text{ME} \approx 0.586\]</span></p>
+<p>Entonces, el intervalo de confianza es:</p>
+<p>Límite inferior: <span class="math display">\[\bar{x} - \text{ME} = 7 - 0.586 = 6.414\]</span></p>
+<p>Límite superior: <span class="math display">\[\bar{x} + \text{ME} = 7 + 0.586 = 7.586\]</span></p>
+<p>Interpretación: Con un 95% de confianza, podemos afirmar que la duración media de sueño nocturno para todos los adultos está entre 6.414 horas y 7.586 horas.</p>
+<hr>
+<ol start="5" type="1">
+<li>Un psicólogo prueba una nueva técnica de terapia y registra el número de sesiones requeridas para ver mejoras. De 36 pacientes, el número medio de sesiones fue de 12 con una desviación estándar de la muestra de 3.2. Calcule un intervalo de confianza del 90% para el número medio de sesiones para toda la población de pacientes.</li>
+</ol>
+<p>Para calcular un intervalo de confianza del 90% para el número medio de sesiones para toda la población de pacientes usaremos la distribución t de Student debido a que el tamaño de la muestra es menor a 30. Sin embargo, como el tamaño de muestra es exactamente 36, la distribución t de Student se aproximará mucho a la distribución normal.</p>
+<p>Aquí está la información que tenemos:</p>
+<ul>
+<li>Tamaño de muestra (<span class="math inline">\(n\)</span>): 36</li>
+<li>Media de la muestra (<span class="math inline">\(\bar{x}\)</span>): 12</li>
+<li>Desviación estándar de la muestra (<span class="math inline">\(s\)</span>): 3.2</li>
+</ul>
+<p>La fórmula para el intervalo de confianza es:</p>
+<p><span class="math display">\[\bar{x} \pm t_{\alpha/2} \left( \frac{s}{\sqrt{n}} \right)\]</span></p>
+<p>Donde <span class="math inline">\(t_{\alpha/2}\)</span> es el valor crítico de t para <span class="math inline">\(\alpha/2\)</span> en una distribución t de Student con <span class="math inline">\(n - 1\)</span> grados de libertad.</p>
+<p>Para un intervalo de confianza del 90%, <span class="math inline">\(\alpha\)</span> es 0.10, y por lo tanto <span class="math inline">\(\alpha/2\)</span> es 0.05. Necesitamos encontrar el valor crítico <span class="math inline">\(t_{0.05}\)</span> para 35 grados de libertad.</p>
+<p>El valor crítico para <span class="math inline">\(t_{0.05, 35}\)</span> (de acuerdo con la tabla de la distribución t) es aproximadamente 1.690.</p>
+<p>Ahora calculamos el error estándar de la media (SE):</p>
+<p><span class="math display">\[SE = \frac{s}{\sqrt{n}} = \frac{3.2}{\sqrt{36}} = \frac{3.2}{6} = 0.5333...\]</span></p>
+<p>Ahora calculamos el margen de error:</p>
+<p><span class="math display">\[ME = t_{\alpha/2} \times SE = 1.690 \times 0.5333... = 0.9007...\]</span></p>
+<p>Ahora calculamos el intervalo de confianza:</p>
+<p><span class="math display">\[\bar{x} \pm ME = 12 \pm 0.9007...\]</span></p>
+<p>Así, el intervalo de confianza del 90% es:</p>
+<p>Límite inferior: <span class="math inline">\(12 - 0.9007... \approx 11.1\)</span> Límite superior: <span class="math inline">\(12 + 0.9007... \approx 12.9\)</span></p>
+<p>Por lo tanto, el intervalo de confianza del 90% para el número medio de sesiones para toda la población de pacientes es aproximadamente de 11.1 a 12.9 sesiones. Esto significa que podemos estar 90% seguros de que el número medio de sesiones requeridas para ver mejoras con la nueva técnica de terapia se encuentra entre 11.1 y 12.9 sesiones.</p>
+<p>Dado que se nos proporciona la desviación estándar de la muestra y no la varianza poblacional, utilizaremos la distribución t (t-student) para determinar el intervalo de confianza. La distribución t es apropiada cuando el tamaño de la muestra es relativamente pequeño y se desconoce la varianza poblacional.</p>
+<p><strong>Datos dados</strong>:</p>
+<ul>
+<li>Nivel de significancia, <span class="math inline">\(\alpha = 0.05\)</span></li>
+<li>Por lo tanto, el nivel de confianza es <span class="math inline">\(1 - \alpha = 0.95\)</span> o 95%</li>
+<li><span class="math inline">\(n = 16\)</span></li>
+<li>Grados de libertad (df) = <span class="math inline">\(n - 1 = 16 - 1 = 15\)</span></li>
+<li><span class="math inline">\(\bar{x} = 7\)</span> horas (media de la muestra)</li>
+<li><span class="math inline">\(s = 1.1\)</span> horas (desviación estándar de la muestra)</li>
+</ul>
+<p>Para un intervalo de confianza bilateral del 95% con 15 grados de libertad, necesitamos encontrar el valor crítico t (<span class="math inline">\(t_{\alpha/2}\)</span>). Usando tablas de la distribución t o calculadoras estadísticas:</p>
+<p><span class="math display">\[t_{0.025,\: 15}\]</span> (con 15 grados de libertad y <span class="math inline">\(\alpha/2 = 0.025\)</span>) es aproximadamente 2.131.</p>
+<p>La fórmula para el intervalo de confianza cuando se desconoce la varianza poblacional y se usa la desviación estándar de la muestra es:</p>
+<p><span class="math display">\[IC = \bar{x} \pm t_{\alpha/2} \left( \frac{s}{\sqrt{n}} \right)\]</span></p>
+<p>Sustituimos los valores dados y conocidos en la fórmula:</p>
+<p><span class="math display">\[IC = 7 \pm 2.131 \left( \frac{1.1}{\sqrt{16}} \right)\]</span></p>
+<p>Calculando el margen de error:</p>
+<p><span class="math display">\[\text{ME} = 2.131 \left( \frac{1.1}{4} \right)\]</span> <span class="math display">\[\text{ME} = 2.131 (0.275)\]</span> <span class="math display">\[\text{ME} \approx 0.586\]</span></p>
+<p>Entonces, el intervalo de confianza es:</p>
+<p>Límite inferior: <span class="math display">\[\bar{x} - \text{ME} = 7 - 0.586 = 6.414\]</span></p>
+<p>Límite superior: <span class="math display">\[\bar{x} + \text{ME} = 7 + 0.586 = 7.586\]</span></p>
+<p>Interpretación: “Con un 95% de confianza, podemos afirmar que la duración media de sueño nocturno para todos los adultos está entre 6.414 horas y 7.586 horas.”</p>
+<hr>
+<ol start="6" type="1">
+<li>Una encuesta sobre el uso de teléfonos inteligentes tomó una muestra de 2,500 adolescentes. 2,050 de ellos informaron tener un teléfono inteligente. Calcule el intervalo de confianza del 99% para la proporción de todos los adolescentes que tienen un teléfono inteligente.</li>
+</ol>
+<p>Para calcular un intervalo de confianza para la proporción, podemos usar la fórmula del intervalo de confianza para una proporción de la población cuando el tamaño de la muestra es grande, lo cual es el caso aquí. Usaremos la distribución normal z porque el tamaño de la muestra es bastante grande (n = 2,500).</p>
+<p>Adicionalmente, al estimar la “desviación estándar” de una proporción no se sufre la pérdida de un grado de libertad porque no se requiere estimadar un parámetro adicional además de la media/proporción. La “desviación estándar” se calcula directamente de la proporción muestral – p(1-p). Así, no hay necesidad de ajustar por la pérdida de un grado de libertad.</p>
+<p><strong>Datos dados</strong>:</p>
+<ul>
+<li>El número de éxitos (adolescentes con teléfono inteligente), <span class="math inline">\(x\)</span>: 2,050</li>
+<li>El tamaño de la muestra, <span class="math inline">\(n\)</span>: 2,500</li>
+<li>La proporción de la muestra, <span class="math inline">\(\hat{p}\)</span>: <span class="math inline">\(\frac{x}{n} = \frac{2050}{2500} = 0.82\)</span></li>
+<li>El nivel de confianza deseado: 99%</li>
+</ul>
+<p>El intervalo de confianza para la proporción se calcula como:</p>
+<p><span class="math display">\[\hat{p} \pm z_{\alpha/2} \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}\]</span></p>
+<p>Donde <span class="math inline">\(z_{\alpha/2}\)</span> es el valor crítico de z correspondiente a la cola de dos extremos del nivel de confianza deseado. Para un intervalo de confianza del 99%, <span class="math inline">\(\alpha\)</span> es 0.01, y <span class="math inline">\(\alpha/2\)</span> es 0.005. El valor de <span class="math inline">\(z\)</span> asociado con <span class="math inline">\(\alpha/2\)</span> es aproximadamente 2.576 (esto puede variar ligeramente dependiendo de la tabla que se utilice, pero 2.576 es un valor comúnmente aceptado para <span class="math inline">\(z_{0.005}\)</span>).</p>
+<p>Ahora, calculamos el error estándar para la proporción de la muestra:</p>
+<p><span class="math display">\[SE = \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}} = \sqrt{\frac{0.82 \times (1 - 0.82)}{2500}}\]</span> <span class="math display">\[SE = \sqrt{\frac{0.82 \times 0.18}{2500}}\]</span> <span class="math display">\[SE = \sqrt{\frac{0.1476}{2500}}\]</span> <span class="math display">\[SE = \sqrt{0.00005904}\]</span> <span class="math display">\[SE = 0.00768\]</span></p>
+<p>Con el error estándar, ahora podemos calcular el margen de error (ME):</p>
+<p><span class="math display">\[ME = z_{\alpha/2} \times SE\]</span> <span class="math display">\[ME = 2.576 \times 0.00768\]</span> <span class="math display">\[ME \approx 0.01978\]</span></p>
+<p>Por lo tanto, el intervalo de confianza del 99% para la proporción es:</p>
+<p><span class="math display">\[\hat{p} \pm ME = 0.82 \pm 0.01978\]</span></p>
+<p>Límite inferior: <span class="math inline">\(0.82 - 0.01978 \approx 0.80022\)</span> Límite superior: <span class="math inline">\(0.82 + 0.01978 \approx 0.83978\)</span></p>
+<p>Entonces, con un 99% de confianza, la proporción de todos los adolescentes que tienen un teléfono inteligente está entre aproximadamente 80.02% y 83.98%.</p>
+<hr>
+<ol start="7" type="1">
+<li>Un psicólogo estudia los efectos de la meditación en los niveles de estrés. De una muestra de 81 participantes, la reducción media de las puntuaciones de estrés es de 3.6 con una desviación estándar de 0.9. Calcule un intervalo de confianza del 90% para la reducción media de las puntuaciones de estrés para la población más amplia.</li>
+</ol>
+<p>Para calcular un intervalo de confianza del 90% para la reducción media de las puntuaciones de estrés debido a la meditación, utilizaremos la distribución t. Aunque 81 es un tamaño de muestra relativamente grande y se acerca al límite donde podríamos considerar utilizar la distribución z, el uso de la distribución t es más adecuado para muestras de tamaño pequeño a moderado, especialmente cuando la varianza poblacional no es conocida y se estima a partir de la muestra.</p>
+<p><strong>Datos proporcionados:</strong> - Tamaño de la muestra, <span class="math inline">\(n\)</span>: 81 - Media de la muestra, <span class="math inline">\(\bar{x}\)</span>: 3.6 - Desviación estándar de la muestra, <span class="math inline">\(s\)</span>: 0.9 - Nivel de confianza deseado: 90%</p>
+<p><strong>Grados de libertad:</strong> <span class="math display">\[df = n - 1 = 81 - 1 = 80\]</span></p>
+<p><strong>Error estándar de la media (SE):</strong> <span class="math display">\[SE = \frac{s}{\sqrt{n}} = \frac{0.9}{\sqrt{81}} = \frac{0.9}{9} = 0.1\]</span></p>
+<p>Para un nivel de confianza del 90%, buscamos el valor crítico <span class="math inline">\(t\)</span> correspondiente a los 80 grados de libertad. Este valor se puede encontrar en la tabla de distribución t o utilizando software estadístico. El valor aproximado de <span class="math inline">\(t\)</span> para 80 grados de libertad y un nivel de confianza del 90% es alrededor de 1.664 (este valor puede variar ligeramente en diferentes tablas).</p>
+<p><strong>Margen de error (ME):</strong> <span class="math display">\[ME = t_{\alpha/2} \times SE = 1.664 \times 0.1 = 0.1664\]</span></p>
+<p><strong>Intervalo de confianza del 90% para la media:</strong> <span class="math display">\[\bar{x} \pm ME = 3.6 \pm 0.1664\]</span></p>
+<p>Límite inferior del intervalo de confianza: <span class="math inline">\(3.6 - 0.1664 = 3.4336\)</span> Límite superior del intervalo de confianza: <span class="math inline">\(3.6 + 0.1664 = 3.7664\)</span></p>
+<p><strong>Conclusión:</strong> Con un 90% de confianza, podemos decir que la reducción media de las puntuaciones de estrés debido a la meditación está entre aproximadamente 3.4336 y 3.7664 puntos.Los resultados sugieren que es probable que la práctica de la meditación tenga un efecto positivo moderado en la disminución del estrés.</p>
+<hr>
+<ol start="8" type="1">
+<li>En una encuesta sobre la confianza en los medios de comunicación, se preguntó a 800 individuos si confían en los medios para informar noticias con precisión. 320 dijeron “sí”. Calcule el intervalo de confianza del 95% para la proporción de individuos que confían en los medios.</li>
+</ol>
+<p>Para calcular un intervalo de confianza para la proporción poblacional basándonos en una muestra, podemos utilizar la fórmula del intervalo de confianza para proporciones. Dado que la muestra es grande (n = 800), podemos aplicar el Teorema del Límite Central y utilizar la distribución z para nuestra estimación.</p>
+<p>Los datos que tenemos son los siguientes:</p>
+<ul>
+<li>El número de éxitos (individuos que confían en los medios), <span class="math inline">\(x\)</span>: 320</li>
+<li>El tamaño de la muestra, <span class="math inline">\(n\)</span>: 800</li>
+<li>La proporción de la muestra, <span class="math inline">\(\hat{p}\)</span>: <span class="math inline">\(\frac{x}{n} = \frac{320}{800} = 0.4\)</span></li>
+<li>El nivel de confianza deseado: 95%</li>
+</ul>
+<p>Primero, calculamos el error estándar (SE) para la proporción de la muestra:</p>
+<p><span class="math display">\[SE = \sqrt{\frac{\hat{p} (1 - \hat{p})}{n}} = \sqrt{\frac{0.4 \times (1 - 0.4)}{800}} = \sqrt{\frac{0.4 \times 0.6}{800}} = \sqrt{\frac{0.24}{800}} = \sqrt{0.0003}\]</span></p>
+<p><span class="math display">\[SE = 0.0173\]</span></p>
+<p>Para un intervalo de confianza del 95%, el valor crítico de z ( <span class="math inline">\(z_{\alpha/2}\)</span> ) es aproximadamente 1.96, ya que <span class="math inline">\(\alpha\)</span> es 0.05 y <span class="math inline">\(\alpha/2\)</span> es 0.025.</p>
+<p>Calculamos el margen de error (ME):</p>
+<p><span class="math display">\[ME = z_{\alpha/2} \times SE = 1.96 \times 0.0173\]</span></p>
+<p><span class="math display">\[ME = 0.0339\]</span></p>
+<p>Ahora, aplicamos el margen de error para obtener el intervalo de confianza:</p>
+<p><span class="math display">\[\hat{p} \pm ME = 0.4 \pm 0.0339\]</span></p>
+<p>El límite inferior del intervalo de confianza:</p>
+<p><span class="math display">\[0.4 - 0.0339 = 0.3661\]</span></p>
+<p>El límite superior del intervalo de confianza:</p>
+<p><span class="math display">\[0.4 + 0.0339 = 0.4339\]</span></p>
+<p>Entonces, con un 95% de confianza, podemos decir que la proporción de individuos que confían en los medios para informar noticias con precisión está entre aproximadamente 36.61% y 43.39%. Esto significa que si se realizara la encuesta muchas veces, y se calcularan intervalos de confianza de esta manera en cada ocasión, esperaríamos que aproximadamente el 95% de esos intervalos contenga la verdadera proporción poblacional.</p>
+<hr>
+<ol start="9" type="1">
+<li>En un estudio sobre satisfacción laboral, una muestra de 25 empleados de una gran empresa da una puntuación de satisfacción (de 10). La puntuación media es de 7.6 con una desviación estándar de 1.4. Calcule el intervalo de confianza del 95% para la verdadera puntuación media de satisfacción para toda la empresa.</li>
+</ol>
+<p>Para calcular un intervalo de confianza para la media poblacional a partir de una muestra, y cuando la población es grande en comparación con el tamaño de la muestra y la distribución de la muestra no se conoce, se utiliza la distribución t de Student. Dado que la muestra es relativamente pequeña (n = 25), debemos usar esta distribución en lugar de la normal.</p>
+<p>Los datos que tenemos son:</p>
+<ul>
+<li>La media muestral, <span class="math inline">\(\bar{x}\)</span>: 7.6</li>
+<li>La desviación estándar de la muestra, <span class="math inline">\(s\)</span>: 1.4</li>
+<li>El tamaño de la muestra, <span class="math inline">\(n\)</span>: 25</li>
+<li>El nivel de confianza deseado: 95%</li>
+</ul>
+<p>El intervalo de confianza para la media se calcula con la siguiente fórmula:</p>
+<p><span class="math display">\[\bar{x} \pm t_{\alpha/2, n-1} \times \left( \frac{s}{\sqrt{n}} \right)\]</span></p>
+<p>Donde:</p>
+<ul>
+<li><span class="math inline">\(t_{\alpha/2, n-1}\)</span> es el valor crítico de t para <span class="math inline">\(\alpha/2\)</span> con <span class="math inline">\(n-1\)</span> grados de libertad. Para un 95% de intervalo de confianza y 24 grados de libertad, este valor se puede encontrar en tablas de distribución t o usando una calculadora estadística.</li>
+</ul>
+<p>Primero, calculamos el error estándar de la media (SE):</p>
+<p><span class="math display">\[SE = \frac{s}{\sqrt{n}} = \frac{1.4}{\sqrt{25}} = \frac{1.4}{5} = 0.28\]</span></p>
+<p>Usando una tabla de distribución t o una calculadora estadística, encontramos el valor de <span class="math inline">\(t\)</span> para 24 grados de libertad y un área de cola de 0.025 (dos colas suman a 0.05 para un intervalo de confianza del 95%). Supongamos que este valor es aproximadamente 2.064.</p>
+<p>Calculamos el margen de error (ME):</p>
+<p><span class="math display">\[ME = t_{\alpha/2, n-1} \times SE = 2.064 \times 0.28\]</span></p>
+<p><span class="math display">\[ME = 0.578\]</span></p>
+<p>Con el margen de error, obtenemos el intervalo de confianza:</p>
+<p><span class="math display">\[\bar{x} \pm ME = 7.6 \pm 0.578\]</span></p>
+<p>El límite inferior del intervalo de confianza:</p>
+<p><span class="math display">\[7.6 - 0.578 = 7.022\]</span></p>
+<p>El límite superior del intervalo de confianza:</p>
+<p><span class="math display">\[7.6 + 0.578 = 8.178\]</span></p>
+<p>Por lo tanto, con un 95% de confianza, la verdadera puntuación media de satisfacción para todos los empleados de la empresa está entre aproximadamente 7.022 y 8.178. Esto significa que si se realizaran muchos estudios de este tipo y se calcularan intervalos de confianza de esta manera en cada ocasión, esperaríamos que aproximadamente el 95% de esos intervalos contengan la verdadera media poblacional de la puntuación de satisfacción laboral.</p>
+<hr>
+<ol start="10" type="1">
+<li>Un equipo de investigación médica está explorando un nuevo medicamento para tratar dolores de cabeza frecuentes. Se realizó un estudio piloto con 20 participantes, donde la mitad de ellos (10) recibieron el medicamento (grupo de tratamiento) y la otra mitad (10) no lo recibió (grupo de control). Durante una semana, los participantes informaron si habían tenido un dolor de cabeza (1 = Sí, 0 = No).</li>
+</ol>
+<p>Los datos recopilados son los siguientes:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Grupo</th>
+<th>Observación</th>
+<th>Dolor de cabeza (1 = Sí, 0 = No)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>4</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>6</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>7</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>9</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>10</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>4</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>6</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>7</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>9</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>10</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>A partir de estos datos:</p>
+<ul>
+<li><p>Estima la proporción de personas que experimentan dolores de cabeza encada grupo.</p></li>
+<li><p>Calcula el intervalo de confianza del 99% para la proporción de personas que experimentan dolores de cabeza en el grupo de tratamiento y en el grupo de control.</p></li>
+<li><p>Basándose en los intervalos de confianza, ¿qué puede concluir sobre la efectividad del medicamento para reducir los dolores de cabeza?</p></li>
+</ul>
+<p>Para analizar los datos del estudio sobre la efectividad de un nuevo medicamento para tratar dolores de cabeza frecuentes, realizamos una estimación de las proporciones de individuos que experimentaron dolores de cabeza en cada grupo y luego calculamos los intervalos de confianza del 99% para estas proporciones.</p>
+<p><strong>Estimación de la proporción:</strong></p>
+<ul>
+<li><strong>Grupo de tratamiento</strong>: 4 de los 10 participantes experimentaron dolores de cabeza, lo que da una proporción de <span class="math inline">\(\hat{p}_{tratamiento} = \frac{4}{10} = 0.4\)</span>.</li>
+<li><strong>Grupo de control</strong>: 6 de los 10 participantes experimentaron dolores de cabeza, lo que da una proporción de <span class="math inline">\(\hat{p}_{control} = \frac{6}{10} = 0.6\)</span>.</li>
+</ul>
+<p><strong>Cálculo de los intervalos de confianza:</strong></p>
+<p>Es común usar la aproximación normal para calcular intervalos de confianza para proporciones, especialmente cuando <span class="math inline">\(np\)</span> y <span class="math inline">\(n(1-p)\)</span> son mayores que 5, lo que indica suficiente variabilidad para que la aproximación normal sea razonable. Dado que en este estudio cada grupo tiene un tamaño de muestra de 10, y se podría argumentar que esto es suficientemente grande para usar la distribución normal con cautela (especialmente si no esperamos que la proporción real sea cercana a 0 o 1), podríamos proceder con la distribución Z para nuestros cálculos.</p>
+<p>Utilizamos el valor Z de aproximadamente 2.576 para el nivel de confianza del 99% (correspondiente al 0.5% en cada cola de la distribución normal estándar).</p>
+<p><strong>Grupo de tratamiento:</strong></p>
+<p>El error estándar (SE) se calcula como:</p>
+<p><span class="math display">\[SE_{tratamiento} = \sqrt{\frac{0.4(1 - 0.4)}{10}} = \sqrt{0.024} \approx 0.1549\]</span></p>
+<p>El margen de error (ME) es:</p>
+<p><span class="math display">\[ME_{tratamiento} = 2.576 \times SE_{tratamiento} \approx 0.399\]</span></p>
+<p>Entonces, el intervalo de confianza del 99% para el grupo de tratamiento es:</p>
+<p><span class="math display">\[0.4 \pm 0.399\]</span> <span class="math display">\[Límite inferior: 0.4 - 0.399 = 0.001\]</span> <span class="math display">\[Límite superior: 0.4 + 0.399 = 0.799\]</span></p>
+<p><strong>Grupo de control:</strong></p>
+<p>El SE y ME se calculan de manera similar, y el intervalo de confianza del 99% para el grupo de control es:</p>
+<p><span class="math display">\[0.6 \pm 0.399\]</span> <span class="math display">\[Límite inferior: 0.6 - 0.399 = 0.201\]</span> <span class="math display">\[Límite superior: 0.6 + 0.399 = 0.999\]</span></p>
+<p><strong>Conclusión:</strong></p>
+<p>Al comparar los intervalos de confianza del grupo de tratamiento (0.001 a 0.799) y del grupo de control (0.201 a 0.999), notamos una superposición considerable. Esto <em>sugiere</em> que con un 99% de confianza no podemos afirmar que haya una diferencia significativa en la proporción de dolores de cabeza entre los grupos debido a la amplitud de los intervalos.</p>
+<hr>
+<ol start="11" type="1">
+<li>Una escuela está probando dos métodos diferentes para enseñar matemáticas básicas a los estudiantes de primer grado. Seleccionan a 6 estudiantes al azar, tres de los cuales usan el Método A (grupo de tratamiento) y tres usan el Método B (grupo de control). Al final de una semana de instrucción, cada estudiante realiza una prueba que tiene un puntaje máximo de 10 puntos.</li>
+</ol>
+<p>Los datos recopilados son los siguientes:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Método</th>
+<th>Estudiante</th>
+<th>Puntaje obtenido</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Método A</td>
+<td>1</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td>Método A</td>
+<td>2</td>
+<td>8</td>
+</tr>
+<tr class="odd">
+<td>Método A</td>
+<td>3</td>
+<td>7</td>
+</tr>
+<tr class="even">
+<td>Método B</td>
+<td>1</td>
+<td>6</td>
+</tr>
+<tr class="odd">
+<td>Método B</td>
+<td>2</td>
+<td>5</td>
+</tr>
+<tr class="even">
+<td>Método B</td>
+<td>3</td>
+<td>6</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>Estima la media y la varianza de los puntajes para el grupo del Método A y para el grupo del Método B.</p></li>
+<li><p>Calcula el intervalo de confianza del 95% para la media de los puntajes en el grupo del Método A y en el grupo del Método B.</p></li>
+<li><p>Basándose en los intervalos de confianza, ¿qué puede concluir sobre la efectividad de cada método de enseñanza?</p></li>
+</ul>
+<p>Primero, estimemos la media y la varianza de los puntajes para cada grupo.</p>
+<p><strong>Grupo Método A:</strong></p>
+<p>Puntajes: 7, 8, 7</p>
+<p>Media (<span class="math inline">\(\bar{x}_A\)</span>) = <span class="math inline">\(\frac{7 + 8 + 7}{3} = \frac{22}{3} \approx 7.33\)</span></p>
+<p>Varianza (<span class="math inline">\(s^2_A\)</span>) se calcula como <span class="math inline">\(s^2 = \frac{\sum (x_i - \bar{x})^2}{n-1}\)</span>, donde <span class="math inline">\(x_i\)</span> son los valores individuales y <span class="math inline">\(n\)</span> es el número de observaciones.</p>
+<p>Varianza (<span class="math inline">\(s^2_A\)</span>) = <span class="math inline">\(\frac{(7-7.33)^2 + (8-7.33)^2 + (7-7.33)^2}{3-1}\)</span> = <span class="math inline">\(\frac{(-0.33)^2 + (0.67)^2 + (-0.33)^2}{2}\)</span> = <span class="math inline">\(\frac{0.1089 + 0.4489 + 0.1089}{2}\)</span> = <span class="math inline">\(\frac{0.6667}{2}\)</span> = 0.3333</p>
+<p><strong>Grupo Método B:</strong></p>
+<p>Puntajes: 6, 5, 6</p>
+<p>Media (<span class="math inline">\(\bar{x}_B\)</span>) = <span class="math inline">\(\frac{6 + 5 + 6}{3} = \frac{17}{3} \approx 5.67\)</span></p>
+<p>Varianza (<span class="math inline">\(s^2_B\)</span>) = <span class="math inline">\(\frac{(6-5.67)^2 + (5-5.67)^2 + (6-5.67)^2}{3-1}\)</span> = <span class="math inline">\(\frac{0.1089 + (-0.67)^2 + 0.1089}{2}\)</span> = <span class="math inline">\(\frac{0.1089 + 0.4489 + 0.1089}{2}\)</span> = <span class="math inline">\(\frac{0.6667}{2}\)</span> = 0.3333</p>
+<p>Notablemente, las varianzas son iguales. Esto es una coincidencia y no generalmente el caso.</p>
+<p>Ahora, calculemos el intervalo de confianza del 95% para la media de los puntajes en ambos grupos. Dado que las muestras son muy pequeñas (n = 3), usaremos la distribución t de Student para calcular los intervalos de confianza.</p>
+<p><strong>Grupo Método A:</strong></p>
+<p>Error estándar (<span class="math inline">\(SE_A\)</span>) = <span class="math inline">\(\sqrt{\frac{s^2_A}{n}} = \sqrt{\frac{0.3333}{3}} \approx 0.3333\)</span></p>
+<p>Para n = 3, los grados de libertad (df) son 3 - 1 = 2. Buscamos el valor crítico de t para df = 2 y un intervalo de confianza del 95%. Aproximadamente, este valor es t ≈ 4.303.</p>
+<p>El margen de error (<span class="math inline">\(ME_A\)</span>) es:</p>
+<p><span class="math inline">\(ME_A = t \times SE_A \approx 4.303 \times 0.3333 \approx 1.4344\)</span></p>
+<p>El intervalo de confianza para Método A es:</p>
+<p><span class="math inline">\(\bar{x}_A \pm ME_A = 7.33 \pm 1.4344\)</span> Límite inferior = 7.33 - 1.4344 ≈ 5.8956 Límite superior = 7.33 + 1.4344 ≈ 8.7644</p>
+<p><strong>Grupo Método B:</strong></p>
+<p>Error estándar (<span class="math inline">\(SE_B\)</span>) = <span class="math inline">\(\sqrt{\frac{s^2_B}{n}} = \sqrt{\frac{0.3333}{3}} \approx 0.3333\)</span></p>
+<p>Usamos el mismo valor crítico de t ya que el tamaño de la muestra y los grados de libertad son los mismos.</p>
+<p>El margen de error (<span class="math inline">\(ME_B\)</span>) es el mismo que para el grupo A, así que el intervalo de confianza para Método B es:</p>
+<p><span class="math inline">\(\bar{x}_B \pm ME_B = 5.67 \pm 1.4344\)</span> Límite inferior = 5.67 - 1.4344 ≈ 4.2356 Límite superior = 5.67 + 1.4344 ≈ 7.1044</p>
+<p><strong>Conclusión:</strong></p>
+<p>Basándonos en los intervalos de confianza no podemos hacer una afirmación definitiva sobre la efectividad de cada método de enseñanza. Aunque la media del Método A es más alta que la del Método B, hay una superposición considerable en los intervalos de confianza.</p>
+<hr>
+<ol start="12" type="1">
+<li>Un grupo de estudiantes de sociología realiza una pequeña encuestra retrospectivas sobre comportamiento electorial en elecciones presidenciales en Chile en 2021. La encuesta se realizó de forma anónima y los entrevistados se identificaron solo por un “ID Entrevistado”. De un total de 20 encuestados, algunos votaron por Boric y otros por Kast.</li>
+</ol>
+<p>A continuación se muestra una tabla con los resultados:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>ID Entrevistado</th>
+<th>Voto</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>Kast</td>
+</tr>
+<tr class="odd">
+<td>3</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>4</td>
+<td>Kast</td>
+</tr>
+<tr class="odd">
+<td>5</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>6</td>
+<td>Boric</td>
+</tr>
+<tr class="odd">
+<td>7</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>8</td>
+<td>Kast</td>
+</tr>
+<tr class="odd">
+<td>9</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>10</td>
+<td>Boric</td>
+</tr>
+<tr class="odd">
+<td>11</td>
+<td>Kast</td>
+</tr>
+<tr class="even">
+<td>12</td>
+<td>Boric</td>
+</tr>
+<tr class="odd">
+<td>13</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>14</td>
+<td>Kast</td>
+</tr>
+<tr class="odd">
+<td>15</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>16</td>
+<td>Boric</td>
+</tr>
+<tr class="odd">
+<td>17</td>
+<td>Kast</td>
+</tr>
+<tr class="even">
+<td>18</td>
+<td>Kast</td>
+</tr>
+<tr class="odd">
+<td>19</td>
+<td>Boric</td>
+</tr>
+<tr class="even">
+<td>20</td>
+<td>Boric</td>
+</tr>
+</tbody>
+</table>
+<p>Con base en los datos proporcionados:</p>
+<ul>
+<li><p>Calcula la proporción de personas que votaron por Boric y por Kast, respectivamente.</p></li>
+<li><p>Estima un intervalo de confianza del 95% para la proporción de votos de Boric.</p></li>
+<li><p>Suponiendo que este grupo de 20 encuestados es una muestra representativa de la población general, ¿qué conclusiones se pueden extraer sobre las preferencias de voto de la población?</p></li>
+<li><p>Sabiendo que en las elecciones de 2021 Boric obtuvo un 55,87% de los votos validamente emitidos y Kast un 44,13%, usa esta información para construir un intervalo de confianza al 95% para las estimaciones realizadas. Compara el resultados con el resultado obtenido previamente.</p></li>
+</ul>
+<p>Para abordar las preguntas planteadas, seguiremos los siguientes pasos:</p>
+<p><strong>Proporción de votos por Boric y por Kast:</strong></p>
+<p>Contamos los votos para cada candidato y calculamos la proporción respectiva.</p>
+<ul>
+<li><strong>Votos por Boric</strong>: Según la tabla, 13 personas votaron por Boric.</li>
+<li><strong>Votos por Kast</strong>: 7 personas votaron por Kast.</li>
+</ul>
+<p>Entonces, las proporciones son:</p>
+<ul>
+<li>Proporción de votos por Boric: <span class="math inline">\(p_{Boric} = \frac{13}{20} = 0.65\)</span></li>
+<li>Proporción de votos por Kast: <span class="math inline">\(p_{Kast} = \frac{7}{20} = 0.35\)</span></li>
+</ul>
+<p><strong>Intervalo de confianza del 95% para la proporción de votos de Boric:</strong></p>
+<p>Para calcular el intervalo de confianza al 95% para la proporción de votos de Boric, usaremos la fórmula para el intervalo de confianza de una proporción:</p>
+<p><span class="math display">\[\hat{p} \pm z_{\alpha/2} \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}\]</span></p>
+<p>Donde <span class="math inline">\(\hat{p}\)</span> es la proporción muestral, <span class="math inline">\(n\)</span> es el tamaño de la muestra y <span class="math inline">\(z_{\alpha/2}\)</span> es el valor crítico de z para un 95% de nivel de confianza, que es aproximadamente 1.96.</p>
+<p><span class="math display">\[SE = \sqrt{\frac{0.65(1 - 0.65)}{20}} = \sqrt{\frac{0.65 \cdot 0.35}{20}} = \sqrt{\frac{0.2275}{20}} \approx 0.1066\]</span></p>
+<p>El margen de error (ME) es:</p>
+<p><span class="math display">\[ME = 1.96 \cdot SE \approx 1.96 \cdot 0.1066 \approx 0.209\]</span></p>
+<p>El intervalo de confianza es:</p>
+<p><span class="math display">\[0.65 \pm 0.209\]</span> <span class="math display">\[Límite inferior: 0.65 - 0.209 = 0.441\]</span> <span class="math display">\[Límite superior: 0.65 + 0.209 = 0.859\]</span></p>
+<p><strong>Conclusiones sobre las preferencias de voto de la población:</strong></p>
+<p>Suponiendo que la muestra es representativa, parece que una mayor proporción de la población preferiría a Boric sobre Kast, ya que el intervalo de confianza para la proporción de votos por Boric no incluye el 0.5 (que representaría una preferencia igualitaria entre los candidatos).</p>
+<p><strong>Intervalo de confianza al 95% con datos de las elecciones reales:</strong></p>
+<p>Para los votos reales, dado que la población es grande, podemos asumir que la varianza de la proporción es la varianza poblacional y utilizarla para calcular el intervalo de confianza de nuestra muestra.</p>
+<p>Para Boric, con <span class="math inline">\(p_{Boric} = 0.5587\)</span>, el SE es:</p>
+<p><span class="math display">\[SE = \sqrt{\frac{0.5587(1 - 0.5587)}{20}} \approx \sqrt{\frac{0.5587 \cdot 0.4413}{20}} \approx 0.1131\]</span></p>
+<p>El margen de error (ME) para los votos reales es:</p>
+<p><span class="math display">\[ME = 1.96 \cdot SE \approx 1.96 \cdot 0.1131 \approx 0.222\]</span></p>
+<p>El intervalo de confianza para la proporción basada en los resultados de las elecciones es:</p>
+<p><span class="math display">\[0.5587 \pm 0.222\]</span> <span class="math display">\[Límite inferior: 0.5587 - 0.222 = 0.3367\]</span> <span class="math display">\[Límite superior: 0.5587 + 0.222 = 0.7807\]</span></p>
+<p>Comparando este intervalo con el obtenido a partir de la muestra de la encuesta, observamos que hay una superposición, lo que sugiere que los resultados de la encuesta podrían ser consistentes con los resultados reales de las elecciones. Sin embargo, debemos ser cautelosos al interpretar estos resultados debido al tamaño muy pequeño de la muestra.</p>
+<hr>
+<ol start="13" type="1">
+<li>Trabaja con los datos “Intenciones de Voto en el Plebiscito Chileno de 1988”</li>
+</ol>
+<p><strong>Descripción:</strong> La base de datos cuenta con 2700 registros distribuidos en 8 columnas. Estos datos son producto de una encuesta a nivel nacional llevada a cabo en abril y mayo de 1988 por FLACSO/Chile. Es importante mencionar que existen algunos datos faltantes en el conjunto.</p>
+<p><strong>Variables presentes en la base de datos:</strong></p>
+<ul>
+<li><p><strong>región:</strong> Categorizado con los siguientes niveles:</p>
+<ul>
+<li>C: Central</li>
+<li>M: Área Metropolitana de Santiago</li>
+<li>N: Norte</li>
+<li>S: Sur</li>
+<li>SA: Ciudad de Santiago.</li>
+</ul></li>
+<li><p><strong>población:</strong> Representa el tamaño poblacional de la comunidad del entrevistado.</p></li>
+<li><p><strong>sexo:</strong> Categorizado en dos niveles:</p>
+<ul>
+<li>F: Femenino</li>
+<li>M: Masculino</li>
+</ul></li>
+<li><p><strong>edad:</strong> Se refiere a la edad del encuestado expresada en años.</p></li>
+<li><p><strong>educación:</strong> Categorizado con los siguientes niveles (pueden aparecer desordenados):</p>
+<ul>
+<li>P: Primaria</li>
+<li>PS: Postsecundaria</li>
+<li>S: Secundaria</li>
+</ul></li>
+<li><p><strong>ingresos:</strong> Refiere a los ingresos mensuales del encuestado, expresados en Pesos.</p></li>
+<li><p><strong>statusquo:</strong> Representa una escala que mide el nivel de apoyo al status quo existente en ese momento.</p></li>
+<li><p><strong>voto:</strong> Categorizado con los siguientes niveles:</p>
+<ul>
+<li><p>A: Se abstendrá</p></li>
+<li><p>N: Votará no (en contra de Pinochet)</p></li>
+<li><p>U: Indeciso</p></li>
+<li><p>Y: Votará sí (a favor de Pinochet).</p>
+<p>Los resultados de intención de voto en la muesta son los siguientes:</p></li>
+</ul></li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(carData)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Chile)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>data_chile <span class="ot">&lt;-</span> Chile</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">table</span>(data_chile<span class="sc">$</span>vote), <span class="at">align =</span> <span class="st">"lc"</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">"Intención de voto"</span>,<span class="st">"Recuentos"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<table class="caption-top table table-sm table-striped small">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Intención de voto</th>
+<th style="text-align: center;">Recuentos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">A</td>
+<td style="text-align: center;">187</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">N</td>
+<td style="text-align: center;">889</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">U</td>
+<td style="text-align: center;">588</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Y</td>
+<td style="text-align: center;">868</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<ul>
+<li><p>Omitiendo del análisis a personas indecisas o que declaran que se abstendrán, estima la proporción de personas que declaran que votarán por el NO (en vez de por SI).</p></li>
+<li><p>Construye un intervalo de confianza al 95% de confianza.</p></li>
+<li><p>Discute las implicancias sustantivas de los resultados.</p></li>
+</ul>
+<p>Para estimar la proporción de personas que declaran que votarán por el NO (en contra de Pinochet) y no por el SÍ, primero omitiremos a las personas indecisas o que se abstendrán de votar.</p>
+<p>En la muestra proporcionada:</p>
+<ul>
+<li>Votarán NO: 889</li>
+<li>Votarán SÍ: 868</li>
+</ul>
+<p><strong>Estimación de la proporción:</strong></p>
+<p>Para calcular la proporción de votos por el NO respecto al total de votos decisivos (NO y SÍ), usaremos la siguiente fórmula:</p>
+<p><span class="math display">\[p_{NO} = \frac{\text{Número de votos por NO}}{\text{Número total de votos decisivos}}\]</span></p>
+<p><span class="math display">\[p_{NO} = \frac{889}{889 + 868} = \frac{889}{1757} \approx 0.506\]</span></p>
+<p>Por lo tanto, la proporción estimada de personas que votarían por el NO es aproximadamente 0.506 o 50.6%.</p>
+<p><strong>Construcción del intervalo de confianza al 95%:</strong></p>
+<p>El intervalo de confianza para la proporción se calcula con la fórmula:</p>
+<p><span class="math display">\[\hat{p} \pm z_{\alpha/2} \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}\]</span></p>
+<p>Donde: - <span class="math inline">\(\hat{p}\)</span> es la proporción estimada de votos por NO. - <span class="math inline">\(z_{\alpha/2}\)</span> es el valor crítico de z para un 95% de nivel de confianza, que es aproximadamente 1.96. - <span class="math inline">\(n\)</span> es el número total de votos decisivos.</p>
+<p><span class="math display">\[SE = \sqrt{\frac{0.506 \cdot (1 - 0.506)}{1757}}\]</span> <span class="math display">\[SE \approx \sqrt{\frac{0.506 \cdot 0.494}{1757}}\]</span> <span class="math display">\[SE \approx \sqrt{\frac{0.249764}{1757}}\]</span> <span class="math display">\[SE \approx \sqrt{0.0001421}\]</span> <span class="math display">\[SE \approx 0.0119\]</span></p>
+<p>El margen de error (ME) es:</p>
+<p><span class="math display">\[ME = 1.96 \cdot SE\]</span> <span class="math display">\[ME \approx 1.96 \cdot 0.0119\]</span> <span class="math display">\[ME \approx 0.0233\]</span></p>
+<p>El intervalo de confianza es entonces:</p>
+<p><span class="math display">\[0.506 \pm 0.0233\]</span> <span class="math display">\[Límite inferior: 0.506 - 0.0233 = 0.4827\]</span> <span class="math display">\[Límite superior: 0.506 + 0.0233 = 0.5293\]</span></p>
+<p>Por lo tanto, el intervalo de confianza al 95% para la proporción de personas que votarían por el NO es aproximadamente de 48.27% a 52.93%.</p>
+<p><strong>Implicancias sustantivas de los resultados:</strong></p>
+<p>El análisis de los datos de la encuesta muestra que, entre los encuestados decididos, existe una ligera mayoría que indica la intención de votar por el NO (en contra de Pinochet), con una proporción estimada del 50.6%. El intervalo de confianza al 95% para esta proporción es de aproximadamente 48.27% a 52.93%. Aunque la proporción puntual está ligeramente por encima del 50%, el intervalo de confianza incluye proporciones por debajo del 50%. Esto significa que estadísticamente, con un 95% de confianza, no podemos afirmar que el NO ganaría el plebiscito. El límite inferior del intervalo cae por debajo del punto de equilibrio del 50%, indicando que existe la posibilidad, dentro de la incertidumbre estimada, de que la votación no sea suficiente para asegurar la victoria del NO.</p>
+<hr>
+<ol start="14" type="1">
+<li>Dada esta encuesta preliminar sobre intenciones de voto, se desea planificar una nueva encuesta con un margen de error más reducido. Estima el tamaño de muestra necesario para una proporción considerando un margen de error de 0.01 con un 95% de confianza. Haz explícitos los supuestos de tu cálculo y justifícalos.</li>
+</ol>
+<p>Para calcular el tamaño de la muestra necesario para estimar una proporción con un margen de error específico y un nivel de confianza dado, podemos usar la fórmula para el tamaño de la muestra en una proporción:</p>
+<p><span class="math display">\[n = \left(\frac{Z^2 \cdot p \cdot (1 - p)}{ME^2}\right)\]</span></p>
+<p>donde: - <span class="math inline">\(n\)</span> es el tamaño de la muestra. - <span class="math inline">\(Z\)</span> es el valor z correspondiente al nivel de confianza deseado (para un 95% de confianza, <span class="math inline">\(Z = 1.96\)</span>). - <span class="math inline">\(p\)</span> es la proporción estimada (o asumida) de votos por el “No”. - <span class="math inline">\(ME\)</span> es el margen de error deseado.</p>
+<p><strong>Supuestos y justificación:</strong></p>
+<p>Suponemos que la proporción estimada <span class="math inline">\(p\)</span> es la mejor estimación que tenemos . Suponemos que la variabilidad máxima ocurre con <span class="math inline">\(p = 0.5\)</span> ya que este es el valor que maximiza el producto <span class="math inline">\(p \cdot (1 - p)\)</span> y proporciona el tamaño de muestra más conservador. Esto es apropiado para el cálculo del tamaño de la muestra cuando no tenemos una estimación previa o queremos ser conservadores en nuestra estimación.</p>
+<p>Dado que deseamos ser conservadores y asegurar la precisión independientemente de la proporción real, utilizamos <span class="math inline">\(p = 0.5\)</span> para el cálculo.</p>
+<p><span class="math display">\[n = \left(\frac{1.96^2 \cdot 0.5 \cdot (1 - 0.5)}{0.01^2}\right)\]</span> <span class="math display">\[n = \left(\frac{1.96^2 \cdot 0.25}{0.0001}\right)\]</span> <span class="math display">\[n = \left(\frac{0.9604}{0.0001}\right)\]</span> <span class="math display">\[n = 9604\]</span></p>
+<p>Por lo tanto, necesitaríamos una muestra de aproximadamente 9604 encuestados para estimar la proporción con un margen de error de 0.01 con un 95% de confianza.</p>
+<hr>
+<ol start="15" type="1">
+<li>Un grupo de estudiantes participó en una competencia de habilidades culinarias. La competencia se compone de tres pruebas: elaboración de entradas, plato principal y postres. El puntaje final de cada estudiante se determina tomando el promedio simple de los puntajes obtenidos en las tres pruebas. Cada pregunta controla aspectos distintas habilidades y por tanto sus puntajes son independientes entre si. A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 estudiantes para cada prueba:</li>
+</ol>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+<col style="width: 25%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Estadística</th>
+<th>Entradas</th>
+<th>Plato Principal</th>
+<th>Postres</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Media muestral <span class="math inline">\(\bar{x} = \frac{\sum x}{n}\)</span></td>
+<td>4.5</td>
+<td>3.8</td>
+<td>5.2</td>
+</tr>
+<tr class="even">
+<td>Suma de desviaciones al cuadrado <span class="math inline">\(\sum (x_i - \bar{x})^2\)</span></td>
+<td>375.6</td>
+<td>178.4</td>
+<td>62.7</td>
+</tr>
+</tbody>
+</table>
+<p>Con base en esta información,</p>
+<ul>
+<li><p>¿Cuál es la media muestral del puntaje final de estos 100 estudiantes?</p></li>
+<li><p>Construye un intervalo de confianza del 95% para la media del puntaje final.</p></li>
+<li><p>Interpreta el resultado del intervalo de confianza en términos de la competencia de habilidades culinarias.</p></li>
+</ul>
+<p>Para responder a las preguntas, primero calculamos la media muestral del puntaje final y luego el intervalo de confianza del 95% para esta media.</p>
+<p><strong>Media Muestral del Puntaje Final</strong></p>
+<p>La media muestral del puntaje final se calcula tomando el promedio de las medias muestrales de las tres pruebas:</p>
+<p><span class="math display">\[\bar{X}_{\text{final}} = \frac{\bar{X}_{\text{entradas}} + \bar{X}_{\text{plato principal}} + \bar{X}_{\text{postres}}}{3}\]</span></p>
+<p><span class="math display">\[\bar{X}_{\text{final}} = \frac{4.5 + 3.8 + 5.2}{3}\]</span></p>
+<p><span class="math display">\[\bar{X}_{\text{final}} = \frac{13.5}{3}\]</span></p>
+<p><span class="math display">\[\bar{X}_{\text{final}} = 4.5\]</span></p>
+<p>La media muestral del puntaje final para estos 100 estudiantes es 4.5.</p>
+<p><strong>Intervalo de Confianza del 95% para la Media del Puntaje Final</strong></p>
+<p>Para construir un intervalo de confianza para la media, necesitamos calcular la desviación estándar de la media del puntaje final. Dado que las pruebas son independientes entre sí, podemos sumar las varianzas y luego tomar la raíz cuadrada para obtener la desviación estándar del puntaje final.</p>
+<p>Las varianzas muestrales (<span class="math inline">\(s^2\)</span>) para cada prueba son:</p>
+<p><span class="math display">\[s^2 = \frac{\sum (x_i - \bar{x})^2}{n - 1}\]</span></p>
+<p>Para cada prueba:</p>
+<p><span class="math display">\[s^2_{\text{entradas}} = \frac{375.6}{99}\]</span> <span class="math display">\[s^2_{\text{plato principal}} = \frac{178.4}{99}\]</span> <span class="math display">\[s^2_{\text{postres}} = \frac{62.7}{99}\]</span></p>
+<p>Calculando las varianzas:</p>
+<p><span class="math display">\[s^2_{\text{entradas}} \approx 3.79\]</span> <span class="math display">\[s^2_{\text{plato principal}} \approx 1.80\]</span> <span class="math display">\[s^2_{\text{postres}} \approx 0.63\]</span></p>
+<p>Ahora sumamos las varianzas para obtener la varianza del puntaje final:</p>
+<p><span class="math display">\[s^2_{\text{final}} = s^2_{\text{entradas}} + s^2_{\text{plato principal}} + s^2_{\text{postres}}\]</span> <span class="math display">\[s^2_{\text{final}} \approx 3.79 + 1.80 + 0.63\]</span> <span class="math display">\[s^2_{\text{final}} \approx 6.22\]</span></p>
+<p>La desviación estándar del puntaje final es la raíz cuadrada de la varianza final:</p>
+<p><span class="math display">\[s_{\text{final}} = \sqrt{s^2_{\text{final}}}\]</span> <span class="math display">\[s_{\text{final}} \approx \sqrt{6.22}\]</span> <span class="math display">\[s_{\text{final}} \approx 2.49\]</span></p>
+<p>La desviación estándar de la media del puntaje final es la desviación estándar del puntaje final dividida por la raíz cuadrada del tamaño de la muestra (n = 100):</p>
+<p><span class="math display">\[s_{\bar{X}_{\text{final}}} = \frac{s_{\text{final}}}{\sqrt{n}}\]</span> <span class="math display">\[s_{\bar{X}_{\text{final}}} = \frac{2.49}{\sqrt{100}}\]</span> <span class="math display">\[s_{\bar{X}_{\text{final}}} = \frac{2.49}{10}\]</span> <span class="math display">\[s_{\bar{X}_{\text{final}}} = 0.249\]</span></p>
+<p>Usando la distribución Z para un intervalo de confianza del 95%, el valor Z es aproximadamente 1.96. Ahora podemos construir el intervalo de confianza:</p>
+<p><span class="math display">\[\text{IC} = \bar{X}_{\text{final}} \pm (Z \cdot s_{\bar{X}_{\text{final}}})\]</span> <span class="math display">\[\text{IC} = 4.5 \pm (1.96 \cdot 0.249)\]</span> <span class="math display">\[\text{IC} = 4.5 \pm 0.488\]</span></p>
+<p>El intervalo de confianza del 95% para la media del puntaje final es:</p>
+<p><span class="math display">\[\text{IC} = [4.012, 4.988]\]</span></p>
+<p><strong>Interpretación del Intervalo de Confianza</strong></p>
+<p>La interpretación del intervalo de confianza en términos de la competencia de habilidades culinarias es que estamos 95% seguros de que la media verdadera del puntaje final para todos los estudiantes que podrían participar en esta competencia está entre 4.012 y 4.988.</p>
+<hr>
+<ol start="16" type="1">
+<li>Una población tomó un test compuesto por tres preguntas. El puntaje final de cada individuo se determina tomando el promedio simple de los puntajes obtenidos en las tres preguntas. Cada pregunta controla aspectos distintos del conocimiento y por tanto sus puntajes son independientes entre si.</li>
+</ol>
+<p>A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 individuos para cada pregunta:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Estadística</th>
+<th>Pregunta 1</th>
+<th>Pregunta 2</th>
+<th>Pregunta 3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Media muestral</td>
+<td>4.8930040</td>
+<td>0.9364491</td>
+<td>6.0148615</td>
+</tr>
+<tr class="even">
+<td>Varianza muestral (naive)</td>
+<td>3.998700</td>
+<td>1.957715</td>
+<td>0.5070397</td>
+</tr>
+</tbody>
+</table>
+<p>Con base en esta información,</p>
+<ul>
+<li><p>¿Cuál es la media muestral del puntaje final de estos 100 individuos?</p></li>
+<li><p>Construye un intervalo de confianza del 95% para la media del puntaje final e interpreta el resultado</p></li>
+</ul>
+<p><strong>Media muestral del puntaje final:</strong></p>
+<p><span class="math display">\[\text{Media final} = \frac{\text{Media Pregunta 1} + \text{Media Pregunta 2} + \text{Media Pregunta 3}}{3}\]</span></p>
+<p><span class="math display">\[\text{Media final} = \frac{4.8930040 + 0.9364491 + 6.0148615}{3}\]</span></p>
+<p><span class="math display">\[\text{Media final} ≈ 3.9481\]</span></p>
+<p><strong>Varianza muestral ajustada para cada pregunta:</strong></p>
+<p><span class="math display">\[s^2_{\text{ajustada}} = s^2_{\text{naive}} \times \frac{n}{n-1}\]</span></p>
+<p><span class="math display">\[s^2_{\text{Pregunta 1, ajustada}} = 3.9987 \times \frac{100}{99}\]</span> <span class="math display">\[s^2_{\text{Pregunta 2, ajustada}} = 1.957715 \times \frac{100}{99}\]</span> <span class="math display">\[s^2_{\text{Pregunta 3, ajustada}} = 0.5070397 \times \frac{100}{99}\]</span></p>
+<p>Realizando las operaciones:</p>
+<p><span class="math display">\[s^2_{\text{Pregunta 1, ajustada}} ≈ 4.0389\]</span> <span class="math display">\[s^2_{\text{Pregunta 2, ajustada}} ≈ 1.9779\]</span> <span class="math display">\[s^2_{\text{Pregunta 3, ajustada}} ≈ 0.5122\]</span></p>
+<p><strong>Varianza del puntaje promedio:</strong></p>
+<p><span class="math display">\[s^2_{\text{final}} = \frac{s^2_{\text{Pregunta 1, ajustada}} + s^2_{\text{Pregunta 2, ajustada}} + s^2_{\text{Pregunta 3, ajustada}}}{3^2}\]</span></p>
+<p><span class="math display">\[s^2_{\text{final}} = \frac{4.0389 + 1.9779 + 0.5122}{9}\]</span></p>
+<p><span class="math display">\[s^2_{\text{final}} ≈ 0.7253\]</span></p>
+<p><strong>Desviación estándar del puntaje promedio:</strong></p>
+<p><span class="math display">\[s_{\text{final}} = \sqrt{s^2_{\text{final}}}\]</span></p>
+<p><span class="math display">\[s_{\text{final}} ≈ \sqrt{0.7253}\]</span></p>
+<p><span class="math display">\[s_{\text{final}} ≈ 0.8516\]</span></p>
+<p><strong>Error estándar del puntaje promedio:</strong></p>
+<p><span class="math display">\[SE_{\text{final}} = \frac{s_{\text{final}}}{\sqrt{n}}\]</span></p>
+<p><span class="math display">\[SE_{\text{final}} = \frac{0.8516}{\sqrt{100}}\]</span></p>
+<p><span class="math display">\[SE_{\text{final}} ≈ 0.0852\]</span></p>
+<p><strong>Intervalo de confianza del 95%:</strong></p>
+<p>Usamos el valor <span class="math inline">\(Z\)</span> aproximadamente igual a 1.96 para un 95% de nivel de confianza.</p>
+<p><span class="math display">\[\text{IC} = \text{Media final} \pm (Z \cdot SE_{\text{final}})\]</span></p>
+<p><span class="math display">\[\text{IC} ≈ 3.9481 \pm (1.96 \cdot 0.0852)\]</span></p>
+<p><span class="math display">\[\text{IC} ≈ 3.9481 \pm 0.1670\]</span></p>
+<p><span class="math display">\[\text{IC} ≈ (3.7811, 4.1151)\]</span></p>
+<p><strong>Interpretación en el contexto de la competencia:</strong></p>
+<p>El intervalo de confianza del 95% indica que, si se repitiera la competencia muchas veces, el puntaje promedio de todos los estudiantes estaría entre 3.7811 y 4.1151 el 95% de las veces.</p>
+<hr>
+<ol start="17" type="1">
+<li>Un equipo de investigación médica está explorando un nuevo medicamento para tratar dolores de cabeza frecuentes. Se realizó un estudio piloto con 20 participantes, donde la mitad de ellos (10) recibieron el medicamento (grupo de tratamiento) y la otra mitad (10) no lo recibió (grupo de control). Durante una semana, los participantes informaron si habían tenido un dolor de cabeza (1 = Sí, 0 = No).</li>
+</ol>
+<p>Los datos recopilados son los siguientes:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Grupo</th>
+<th>Observación</th>
+<th>Dolor de cabeza (1 = Sí, 0 = No)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>4</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>6</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>7</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Tratamiento</td>
+<td>9</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Tratamiento</td>
+<td>10</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>1</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>3</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>4</td>
+<td>1</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>5</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>6</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>7</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>8</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>Control</td>
+<td>9</td>
+<td>1</td>
+</tr>
+<tr class="even">
+<td>Control</td>
+<td>10</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>A partir de estos datos:</p>
+<ul>
+<li><p>Estima la proporción de personas que experimentan dolores de cabeza encada grupo, y calcula la diferencia entre ambas proporciones</p></li>
+<li><p>Calcula el intervalo de confianza del 95% para la diferencia entre ambas proporciones</p></li>
+<li><p>Basándose en los intervalos de confianza, ¿qué puede concluir sobre la efectividad del medicamento para reducir los dolores de cabeza?</p></li>
+</ul>
+<p><strong>Estimación de proporciones individuales:</strong></p>
+<p>Para el grupo de tratamiento y control, calculamos:</p>
+<ul>
+<li>Proporción del tratamiento (<span class="math inline">\(p_{trat}\)</span>) = 0.4</li>
+<li>Proporción del control (<span class="math inline">\(p_{ctrl}\)</span>) = 0.6</li>
+</ul>
+<p><strong>Diferencia de proporciones:</strong></p>
+<p>La diferencia observada entre las proporciones es <span class="math inline">\(0.6 - 0.4 = 0.2\)</span>.</p>
+<p><strong>Cálculo del error estándar de la diferencia de proporciones:</strong></p>
+<p>Primero, calculamos el error estándar para cada proporción:</p>
+<ul>
+<li><span class="math inline">\(SE_{trat} = \sqrt{\frac{0.4(1 - 0.4)}{10}} = \sqrt{\frac{0.4 \cdot 0.6}{10}} = \sqrt{0.024} = 0.1549\)</span></li>
+<li><span class="math inline">\(SE_{ctrl} = \sqrt{\frac{0.6(1 - 0.6)}{10}} = \sqrt{\frac{0.6 \cdot 0.4}{10}} = \sqrt{0.024} = 0.1549\)</span></li>
+</ul>
+<p>Ahora, calculamos la varianza de la diferencia de proporciones sumando las varianzas de las dos proporciones (porque las varianzas, a diferencia de las desviaciones estándar, son aditivas):</p>
+<ul>
+<li><span class="math inline">\(Var_{diferencia} = Var_{trat} + Var_{ctrl} = SE_{trat}^2 + SE_{ctrl}^2 = 0.024 + 0.024 = 0.048\)</span></li>
+</ul>
+<p>Luego, para obtener el error estándar de la diferencia de proporciones, tomamos la raíz cuadrada de la varianza combinada:</p>
+<ul>
+<li><span class="math inline">\(SE_{diferencia} = \sqrt{Var_{diferencia}} = \sqrt{0.048} = 0.219\)</span></li>
+</ul>
+<p><strong>Intervalo de confianza del 95%:</strong></p>
+<p>Usando el valor z estándar de 1.96 para un intervalo de confianza del 95%:</p>
+<ul>
+<li>Margen de error = <span class="math inline">\(1.96 \cdot SE_{diferencia} = 1.96 \cdot 0.219 = 0.42924\)</span></li>
+</ul>
+<p>Aplicamos este margen de error a la diferencia observada de proporciones:</p>
+<ul>
+<li><span class="math inline">\(\text{IC}_{95\%} = 0.2 \pm 0.42924\)</span></li>
+<li><span class="math inline">\(\text{IC}_{95\%} = (-0.22924, 0.62924)\)</span></li>
+</ul>
+<p><strong>Interpretación detallada:</strong></p>
+<p>El intervalo de confianza que va desde aproximadamente -0.229 hasta 0.629 incluye el cero, lo que indica que la diferencia en las proporciones de dolores de cabeza entre los dos grupos no es estadísticamente significativa al nivel del 95%. Esto significa que, basándonos en los datos de este estudio piloto, no tenemos evidencia suficiente para afirmar que el medicamento es efectivo en la reducción de la frecuencia de dolores de cabeza.</p>
+<hr>
+<ol start="18" type="1">
+<li>¿Cuál es la relación entre el error estándar de la media y la desviación estándar de la población? ¿Cuándo usarías la desviación estándar de la población en lugar de la desviación estándar de la muestra para calcular el error estándar?</li>
+</ol>
+<p>La relación entre el error estándar de la media (SE) y la desviación estándar de la población (SD) se expresa de la siguiente manera en LaTeX:</p>
+<p><span class="math display">\[
+SE = \frac{SD}{\sqrt{n}}
+\]</span></p>
+<p>Donde:</p>
+<ul>
+<li><span class="math inline">\(SE\)</span> representa el error estándar de la media.</li>
+<li><span class="math inline">\(SD\)</span> representa la desviación estándar de la población.</li>
+<li><span class="math inline">\(n\)</span> representa el tamaño de la muestra.</li>
+</ul>
+<p>La desviación estándar de la población cuando se tiene acceso a todos los datos de la población o en situaciones (inusuales) donde tenemos acceso a dicha información.</p>
+<hr>
+<ol start="19" type="1">
+<li>¿Por qué no se puede obtener prácticamente un intervalo de confianza del 100%?</li>
+</ol>
+<p>En el contexto de la distribución normal (o gaussiana), los valores posibles se extienden desde menos infinito (<span class="math inline">\(-\infty\)</span>) hasta más infinito (<span class="math inline">\(+\infty\)</span>), lo que significa que la probabilidad de que un valor esté dentro de un intervalo específico en la distribución normal es siempre positiva y, por lo tanto, nunca alcanza el 100%.</p>
+<p>Por tanto, es imposible obtener un intervalo de confianza del 100% en la práctica, ya que esto implicaría tener un rango que abarque todos los valores posibles en la línea real, lo cual no es práctico ni útil en la mayoría de las aplicaciones estadísticas. Por lo tanto, la probabilidad de que un valor esté dentro de un intervalo en una distribución normal nunca alcanza el 100%, sino que se acerca cada vez más a medida que se amplía el intervalo.</p>
+<hr>
+<ol start="20" type="1">
+<li>Explica la diferencia entre una estimación puntual y una estimación por intervalo.</li>
+</ol>
+<p>Una estimación puntual y una estimación por intervalo son dos enfoques diferentes para estimar un parámetro desconocido de una población a partir de una muestra de datos. Aquí se explica la diferencia entre ambas:</p>
+<ol type="a">
+<li><p>Estimación Puntual:</p>
+<ul>
+<li><p>Una estimación puntual consiste en proporcionar un solo valor numérico como la mejor suposición o estimación del valor del parámetro poblacional desconocido.</p></li>
+<li><p>En este enfoque, se elige un solo número como la “mejor estimación” del parámetro, generalmente basado en estadísticas muestrales, como la media muestral o la proporción muestral.</p></li>
+<li><p>Una estimación puntual no proporciona información sobre la incertidumbre asociada con la estimación. Es simplemente un número que representa la mejor suposición sobre el valor del parámetro.</p></li>
+</ul></li>
+<li><p>Estimación por Intervalo (Intervalo de Confianza):</p>
+<ul>
+<li><p>Una estimación por intervalo, también conocida como intervalo de confianza, proporciona un rango de valores en lugar de un solo valor. Este rango refleja la incertidumbre en la estimación y se construye de manera que se pueda especificar un nivel de confianza asociado.</p></li>
+<li><p>En lugar de decir “el parámetro es igual a este valor”, se dice “estamos confiados en que el parámetro se encuentra dentro de este rango específico con un cierto nivel de confianza”.</p></li>
+<li><p>El intervalo de confianza se basa en estadísticas muestrales y tiene en cuenta la variabilidad natural en los datos muestrales. Cuanto más estrecho es el intervalo, mayor es la precisión de la estimación.</p></li>
+</ul></li>
+</ol>
+<p>La principal diferencia entre ambas es que la estimación puntual proporciona un único número como estimación del parámetro, mientras que la estimación por intervalo proporciona un rango de valores dentro del cual es probable que se encuentre el parámetro con un cierto nivel de confianza.</p>
+<ol start="21" type="1">
+<li>¿Cómo se relaciona el margen de error con el nivel de confianza y el error estándar de la estadística? Deriva su fórmula.</li>
+</ol>
+<p>El margen de error está relacionado con el nivel de confianza y el error estándar de una estadística a través de la fórmula del intervalo de confianza. El margen de error representa la amplitud del intervalo de confianza alrededor de una estimación puntual de una población. Aquí está la fórmula general para el margen de error:</p>
+<p>Margen de Error = Valor crítico * Error estándar</p>
+<p>Donde:</p>
+<ul>
+<li><p>Valor crítico: Es el valor z (para una distribución normal estándar) o t (para una distribución t de Student) correspondiente al nivel de confianza deseado.</p></li>
+<li><p>Error estándar: Representa la estimación de la desviación estándar poblacional basada en la muestra y se calcula como la desviación estándar muestral dividida por la raíz cuadrada del tamaño de la muestra.</p></li>
+</ul>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

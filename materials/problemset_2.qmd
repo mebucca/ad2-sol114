@@ -1,0 +1,157 @@
+---
+title: "Ejercicios SOL114"
+author: "Mauricio Bucca"
+format: html
+editor: visual
+---
+
+1.  ¿En que consiste la Distribución Normal Standard, cómo se obtiene y cuales son sus principales propiedades?
+
+> -   La **distribución normal estándar** es un caso particular de la distribución normal, caracterizada por tener una media ($\mu$) de cero y una desviación estándar ($\sigma$) de uno. Visualmente, esta distribución es una curva simétrica que se asemeja a una campana.
+>
+>     **Propiedades**:
+>
+>     -   La curva es simétrica con respecto a su media, que es 0.
+>
+> -   La suma del área debajo de la curva es 1, lo que representa una probabilidad total del 100%.
+>
+> -   La distribución indica que aproximadamente el 68% de las observaciones caen dentro de una desviación estándar de la media (entre -1 y 1 en el eje Z), el 95% cae dentro de dos desviaciones estándar y el 99.7% cae dentro de tres.
+
+2.  Describe la Ley de los Grandes Números y exprésala matemáticamente.
+
+> La **Ley de los Grandes Números** es un principio fundamental en estadística y teoría de probabilidad. Establece que a medida que aumenta el tamaño de una muestra (i.e., la cantidad de observaciones), el valor promedio calculado a partir de esa muestra tiende a acercarse al valor promedio de la población completa. - Matemáticamente, consideremos una secuencia infinita de variables aleatorias, $X_1, X_2, \dots, X_n$, todas con el mismo valor esperado $E[X_i] = \mu$ y la misma varianza $Var(X_i) = \sigma^2$. La Ley de los Grandes Números nos dice que el promedio muestral: $$\bar{X_n} = \frac{1}{n}(X_1 + X_2 + \dots + X_n)$$ se acerca al valor esperado $\mu$ a medida que $n$ tiende al infinito.
+
+3.  Describe el Teoréma del Límite Central y exprésalo matemáticamente.
+
+-   <div>
+
+    > -   El **Teorema del Límite Central (TLC)** es otro pilar fundamental en estadística. Declara que si se tiene una muestra suficientemente grande, la distribución de la suma (o promedio) de estas observaciones aleatorias será aproximadamente normal, independientemente de la distribución original de esas variables. Esto justifica el uso generalizado de técnicas estadísticas basadas en la distribución normal en muchas situaciones prácticas.
+    >
+    > -   Matemáticamente, supongamos que $X_1, X_2, \dots, X_n$ son variables aleatorias independientes e idénticamente distribuidas con media $\mu$ y varianza $\sigma^2$. El TLC establece que la distribución de la suma (o el promedio) de estas variables se acercará a una distribución normal a medida que el tamaño de la muestra $n$ aumenta. Formalmente: $$Z_n = \frac{\bar{X_n} - \mu}{\sigma/\sqrt{n}}$$ tiene una distribución que converge a una normal estándar $N(0,1)$ cuando $n$ es grande.
+
+    </div>
+
+4.  En el contexto de la Ley de los Grandes Números, explica el concepto de convergencia en probabilidad y cómo éste se relaciona con el valor esperado y la varianza de la media muestral.
+
+> La Ley de los Grandes Números (LGN) es uno de los pilares fundamentales de la teoría de la probabilidad y tiene importantes implicaciones para la estadística y la inferencia. Para entender su relación con la convergencia en probabilidad y las propiedades de la media muestral, primero debemos desglosar algunos conceptos.
+>
+> -   **Convergencia en Probabilidad**:
+>
+> La idea de convergencia en probabilidad se refiere al comportamiento de una secuencia de variables aleatorias a medida que el número de observaciones se aproxima al infinito. Decimos que una secuencia de variables aleatorias $X_1, X_2, \ldots, X_n$ converge en probabilidad a una variable aleatoria $X$ si, para cualquier valor positivo pequeño $\epsilon$:
+>
+> $$\lim_{n \to \infty} P(|X_n - X| > \epsilon) = 0$$
+>
+> En otras palabras, la probabilidad de que la diferencia entre $X_n$ y $X$ sea mayor que $\epsilon$ tiende a cero a medida que $n$ tiende al infinito.
+>
+> -   **Ley de los Grandes Números**: Hay varias versiones de la LGN, pero la más comúnmente discutida es la Ley de los Grandes Números Débil (LLGN). Esta versión establece que si $X_1, X_2, \ldots$ son variables aleatorias independientes e idénticamente distribuidas con esperanza finita $E[X_i] = \mu$ y varianza finita $Var(X_i) = \sigma^2$, entonces la media muestral:
+>
+> $$\bar{X_n} = \frac{1}{n}(X_1 + X_2 + \ldots + X_n)$$
+>
+> converge en probabilidad al valor esperado $\mu$:
+>
+> $$\lim_{n \to \infty} P(|\bar{X_n} - \mu| > \epsilon) = 0$$
+>
+> para cualquier $\epsilon > 0$.
+>
+> -   **Relación con el Valor Esperado y la Varianza de la Media Muestral**:
+>
+> La Ley de los Grandes Números nos asegura que la media muestral converge en probabilidad al valor esperado de la población. Esta es una propiedad muy poderosa ya que implica que, a medida que aumenta el tamaño de nuestra muestra, nuestra estimación de la media poblacional (a través de la media muestral) se vuelve cada vez más precisa.
+>
+> En cuanto a la varianza de la media muestral, se puede demostrar que:
+>
+> $$Var(\bar{X_n}) = \frac{\sigma^2}{n}$$
+>
+> Esto significa que a medida que aumenta el tamaño de la muestra ($n$), la varianza de la media muestral disminuye. Dicho de otra manera, la dispersión o variabilidad de nuestras medias muestrales alrededor de la media poblacional disminuye a medida que tomamos muestras más grandes. Por lo tanto, nuestras estimaciones se vuelven más consistentes y confiables.
+>
+> -   **Conclusión**: La Ley de los Grandes Números establece un vínculo crucial entre la teoría y la práctica en estadística. Nos dice que, a medida que recolectamos más datos, nuestras estimaciones muestrales se acercan cada vez más a los verdaderos parámetros poblacionales. Esta es la razón por la cual, en la práctica, se valora tener grandes conjuntos de datos, ya que proporcionan estimaciones más precisas y confiables.
+
+5.  ¿Cuál es la diferencia matemática entre un estimador y un estimado en estadísticas?
+
+> -   Un **estimador** es una fórmula o función que proporciona estimaciones de un parámetro poblacional. Es una regla o procedimiento que puede aplicarse a datos de muestra para estimar un parámetro. Dado que las muestras varían, los estimadores son variables aleatorias y, por lo tanto, tienen una distribución de probabilidad. Por ejemplo, la media muestral es un estimador de la media poblacional.
+>
+> -   Un **estimado** es el valor que se obtiene al aplicar un estimador a una muestra particular. Es un valor fijo, mientras que el estimador es una variable aleatoria porque su valor cambia de muestra a muestra.
+
+6.  ¿Cuál es la definición matemática de la Distribución Muestral y su importancia en inferencia estadística?
+
+> Se refiere a cómo se distribuyen todas las posibles valores de un estadístico (como la media muestral o la proporción muestral) cuando se toma repetidamente muestras del mismo tamaño de una población. Es esencial en inferencia estadística porque nos proporciona información sobre cómo varía un estadístico de muestra a muestra. Esta variabilidad nos permite hacer inferencias sobre parámetros poblacionales a partir de datos de muestra.
+
+8.  Explica en que consiste la estandarización de una variable, describe el proceso matemáticamente e indica cual es su importancia práctica en estadística.
+
+-   <div>
+
+    > -   La estandarización es un proceso mediante el cual se transforma una variable para que tenga una media de 0 y una desviación estándar de 1. Se realiza utilizando la fórmula: $$Z = \frac{X - \mu}{\sigma}$$
+    >
+    > -   **Importancia práctica**: La estandarización es útil en estadística y en muchos campos de la ciencia porque permite comparar y combinar datos que originalmente tenían diferentes unidades o escalas. También permite utilizar tablas de la distribución normal estándar y aprovechar las propiedades bien conocidas de esa distribución.
+
+    </div>
+
+9.  Explica en qué consiste la varianza de un estimador, cómo se relaciona con el concepto de "error standard", cómo ésta afecta la precisión de una estimación en una muestra y cómo la varianza de un estimador arbitrario cambia con el tamaño de la muestra.
+
+> -   **Varianza de un Estimador**
+>
+> La varianza de un estimador es una medida que cuantifica cuánto se espera que varíe el estimador en repetidas muestras. En otras palabras, es una medida de la dispersión o la volatilidad de un estimador. Si denotamos nuestro estimador como $\hat{\theta}$, la varianza de $\hat{\theta}$ se denota generalmente como $\text{Var}(\hat{\theta})$.
+>
+> -   **Relación con el "Error Estándar"**:
+>
+>     El error estándar (EE) es simplemente la raíz cuadrada de la varianza del estimador. Es una medida de la variabilidad o dispersión de un estimador, similar a la desviación estándar en estadísticas descriptivas. Matemáticamente:
+>
+>     $$\text{EE}(\hat{\theta}) = \sqrt{\text{Var}(\hat{\theta})}$$
+>
+> El error estándar es especialmente útil porque, en el contexto de la inferencia estadística y bajo ciertas condiciones, nos permite hacer declaraciones sobre cuán cerca está nuestro estimador del verdadero parámetro.
+>
+> -   **Precisión de la Estimación**:
+>
+>     La precisión de un estimador se refiere a cuán cerca está, en promedio, el estimador del parámetro que intenta estimar. Estimadores con varianzas menores son, en general, más precisos que aquellos con varianzas mayores. Si el error estándar es pequeño, significa que la dispersión de las estimaciones alrededor del verdadero valor del parámetro es pequeña, lo cual es deseable. Sin embargo, es importante notar que un estimador también debe ser insesgado para ser considerado "bueno".
+>
+> -   **Varianza y Tamaño de Muestra**:
+>
+>     Cuando un estimador es consistente entonces a medida que el tamaño de la muestra aumenta, la varianza del estimador tiende a disminuir. Esto tiene sentido intuitivamente: cuanto más datos tengamos, más información tendremos sobre el parámetro que estamos tratando de estimar, lo que reduce la incertidumbre y, por lo tanto, la varianza. Es importante, sin embargo, tener en cuenta que no todo estimador es consistente.
+>
+> En resumen, la varianza de un estimador arbitrario nos da una medida de su dispersión, y su raíz cuadrada, el error estándar, nos da una medida de su precisión. Estos conceptos son centrales en inferencia estadística, y una comprensión sólida de ellos es crucial para interpretar resultados y tomar decisiones basadas en datos.
+>
+> -   La precisión de un estimador aumenta (es decir, su varianza disminuye) a medida que aumenta el tamaño de la muestra.
+
+11. En una fábrica de galletas, la longitud de las galletas sigue una distribución normal con una media de 7 cm y una desviación estándar de 0.5 cm. Calcula la probabilidad de que una galleta seleccionada al azar tenga una longitud mayor de 7.5 cm.
+
+> Dada la información, la longitud de las galletas sigue una distribución normal con una media ($\mu$) de 7 cm y una desviación estándar ($\sigma$) de 0.5 cm. Para encontrar la probabilidad de que una galleta seleccionada al azar tenga una longitud mayor de 7.5 cm, debemos calcular $P(X > 7.5)$.
+>
+> La técnica general para abordar este tipo de problema es estandarizar la variable (convertirla a una distribución normal estándar) y luego usar una tabla de valores Z o un software para encontrar la probabilidad deseada.
+>
+> -   **Estandarización:** $$Z = \frac{X - \mu}{\sigma}$$ Dónde $X = 7.5$, $\mu = 7$ y $\sigma = 0.5$. Sustituimos y obtenemos: $$Z = \frac{7.5 - 7}{0.5} = 1$$
+> -   **Uso de** $\Phi$: Para calcular $P(X > 7.5)$ utilizamos: $$P(X > 7.5) = 1 - \Phi(1)$$
+>
+> **Conclusión**: Usando una tabla de valores Z o software, $\Phi(1) \approx 0.8413$. Por lo tanto, $P(X > 7.5) \approx 1 - 0.8413 = 0.1587$, o 15.87%.
+
+12. Supongamos que la altura de los estudiantes de una escuela se distribuye normalmente con una media de 160 cm y una desviación estándar de 10 cm. Si seleccionamos aleatoriamente a un estudiante, ¿cuál es la probabilidad de que su altura esté entre 150 cm y 170 cm?
+
+> -   **Estandarización:** $$Z_1 = \frac{150 - \mu}{\sigma}$$ $$Z_2 = \frac{170 - \mu}{\sigma}$$ Usando $\mu = 160$ y $\sigma = 10$: $$Z_1 = -1$$ $$Z_2 = 1$$
+> -   **Uso de** $\Phi$: $$P(150 \leq X \leq 170) = \Phi(1) - \Phi(-1)$$
+>
+> **Conclusión**: $\Phi(1) \approx 0.8413$ y $\Phi(-1) \approx 0.1587$. La probabilidad es $0.8413 - 0.1587 = 0.6826$, o 68.26%.
+
+13. En un prueba de SOC114 las notas siguen una distribución normal con una media de 4.5 y una desviación estándar de 1.2. Si se selecciona al azar a un estudiante, ¿cuál es la probabilidad de que obtenga una nota mayor a 6?
+
+> -   **Estandarización:** $$Z = \frac{X - \mu}{\sigma}$$ Dónde $X = 6$, $\mu = 4.5$ y $\sigma = 1.2$: $$Z = \frac{6 - 4.5}{1.2} \approx 1.25$$
+> -   **Uso de** $\Phi$: $$P(X > 6) = 1 - \Phi(1.25)$$
+
+14. En un prueba de SOC114 las notas siguen una distribución normal con una media de 4.5 y una desviación estándar de 1.2. Si se selecciona al azar a un estudiante, ¿cuál es la nota mínima necesario para estar en el 25% superior de los estudiantes?
+
+> -   **Uso de** $\Phi^{-1}$: Estamos buscando el valor $x$ tal que $P(X > x) = 0.25$ o $P(X \leq x) = 0.75$. Usando la función inversa: $$x = \mu + \sigma \times z = \mu + \sigma \times \Phi^{-1}(0.75)$$ Sustituyendo $\mu = 4.5$ y $\sigma = 1.2$: $$x = 4.5 + 1.2 \times \Phi^{-1}(0.75)$$
+
+15. El peso de los paquetes de harina producidos en una fábrica sigue una distribución normal con una media de 2.5 kg y una desviación estándar de 0.1 kg. Si se toma una muestra aleatoria de 25 paquetes, ¿cuál es la probabilidad de que la media del peso de la muestra sea inferior a 2.48 kg?
+
+> -   **Cálculo del error estándar:** $$\sigma_{\bar{X}} = \frac{\sigma}{\sqrt{n}}$$ Con $\sigma = 0.1$ y $n = 25$: $$\sigma_{\bar{X}} = \frac{0.1}{5} = 0.02$$
+>
+> -   **Estandarización:** $$Z = \frac{\bar{X} - \mu}{\sigma_{\bar{X}}}$$ Con $\bar{X} = 2.48$ y (
+>
+>     \mu = 2.5\$: $$Z = \frac{2.48 - 2.5}{0.02} = -1$$
+>
+> -   **Uso de** $\Phi$: $$P(\bar{X} < 2.48) = \Phi(-1)$$
+>
+> **Conclusión**: $\Phi(-1) \approx 0.1587$, o 15.87%.
+
+16. En un prueba de SOC114 las notas siguen una distribución normal con una media de 4.5 y una desviación estándar de 1.2. Si se selecciona al azar a un estudiante, ¿cuáles el rango de notas necesario para estar por encima del 5% inferior de notas y por debajo del 5% superior?
+
+> -   **Uso de** $\Phi^{-1}$: $$x_1 = \mu + \sigma \times \Phi^{-1}(0.05)$$ $$x_2 = \mu + \sigma \times \Phi^{-1}(0.95)$$ Sustituimos $\mu = 4.5$ y $\sigma = 1.2$: $$x_1 = 4.5 + 1.2 \times \Phi^{-1}(0.05)$$ $$x_2 = 4.5 + 1.2 \times \Phi^{-1}(0.95)$$
+>
+> **Conclusión**: Usando tablas o software, $\Phi^{-1}(0.05) \approx -1.645$ y $\Phi^{-1}(0.95) \approx 1.645$. Por lo tanto, $x_1 \approx 4.5 - 1.2(1.645)$ y $x_2 \approx 4.5 + 1.2(1.645)$.
