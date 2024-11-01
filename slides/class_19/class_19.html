@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Probabilidad e Inferencia Estadística</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Probabilidad e Inferencia Estadística
+]
+.subtitle[
+## #19: Test de Hipótesis en dos muestras
+]
+.author[
+### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
+]
+.date[
+### 29 October, 2024
+]
+
+---
+
+class: inverse, center, middle
+
+
+
+
+
+# Test de Hipótesis en dos muestras
+
+
+
+---
+## Brechas de ingresos entre hombres y mujeres
+
+
+.pull-left[
+![women](https://wbhm.org/wp-content/uploads/2023/10/gettyimages-2666616-930494094c2bc07b528ff36d8b481f35c097fb14-2-800x450.jpg)
+]
+.pull-right[
+![goldin](https://cdn.corrieredellosport.it/img/990/495/2023/10/09/181036087-9d1453e1-65e2-43be-a2be-c42861da4f93.jpg)
+
+]
+
+---
+## Brechas de ingresos entre hombres y mujeres
+
+--
+
+- .bold[¿Existe una brecha de ingresos entre hombres y mujeres?]
+
+
+--
+
+- En otras palabras, ¿existe asociación entre ingresos y género?
+
+--
+
+
+
+&lt;br&gt;
+--
+
+.pull-left[
+
+
+``` r
+results &lt;- casen2017 %&gt;% group_by(genero) %&gt;% 
+  summarise(promedio_ingresos = 
+              mean(ingreso, na.rm = T),
+            n = sum(!is.na(ingreso)) ); results 
+```
+
+```
+## # A tibble: 2 × 3
+##   genero promedio_ingresos     n
+##   &lt;chr&gt;              &lt;dbl&gt; &lt;int&gt;
+## 1 Hombre           588281.   326
+## 2 Mujer            368070.   248
+```
+]
+
+
+.pull-right[
+  ![gwg](https://d26oc3sg82pgk3.cloudfront.net/files/media/edit/image/31933/square_thumb%402x.jpg)
+]
+
+---
+## Brechas de ingresos entre hombres y mujeres
+
+
+.bold[Paso #1: Expresar pregunta en términos de Hipótesis Nula e Hipótesis Alternativa]
+
+&lt;br&gt;
+--
+
+.bold[Hipótesis Nula]: "La media de ingreso de las mujeres es igual a la de los hombres".
+
+- `\(H_0: \underbrace{\mathbb{E}(X \mid \text{Hombre})}_{\mu_H} = \underbrace{\mathbb{E}(X \mid \text{Mujer})}_{\mu_M} \implies  \mathbb{E}(X \mid \text{Hombre}) - \mathbb{E}(X \mid \text{Mujer}) = 0\)`
+
+&lt;br&gt;
+--
+
+.bold[Hipótesis Alternativa]: "La media de ingreso de las mujeres es distinta de la de los hombres".
+
+- `\(H_a: \underbrace{\mathbb{E}(X \mid \text{Hombre})}_{\mu_H} \neq \underbrace{\mathbb{E}(X \mid \text{Mujer})}_{\mu_M} \implies  \mathbb{E}(X \mid \text{Hombre}) - \mathbb{E}(X \mid \text{Mujer}) \neq 0\)`
+
+
+&lt;br&gt;
+--
+
+.bold[Paso #2: Elegir y calcular un estadístico] 
+
+El estadístico natural es la diferencia entre ambas medias muestrales:
+
+--
+
+.pull-left[
+- `\(\bar{X}_{H} = \hat{\mu}_{H}=\)` 588281
+
+- `\(\bar{X}_{M} = \hat{\mu}_{M}=\)` 368070
+
+]
+
+--
+
+.pull-right[
+- `\((\bar{X}_{H} - \bar{X}_{M}) = (\hat{\mu}_{H} - \hat{\mu}_{M})=\)` 220211
+]
+
+
+---
+## Brechas de ingresos entre hombres y mujeres
+
+
+.bold[Paso #3: Determinar la Distribución Nula]
+
+
+  - Por el TLC sabemos que: 
+    
+    - `\(\bar{X}_{H}  \sim \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big)\)`
+    
+    - `\(\bar{X}_{W}  \sim \text{Normal}\big(\mu_W, \frac{\sigma_W}{\sqrt{n_W}}\big)\)`
+
+&lt;br&gt;
+--
+
+Por tanto, 
+
+.pull-left[
+`\((\bar{X}_{H} - \bar{X}_{W}) \sim \dots\)` 
+]
+
+--
+
+
+.pull-right[
+&lt;img src="https://media4.giphy.com/media/cg3hGL5fbON3AIVPm7/giphy.gif" alt="sadpug" width="370" height="250"&gt;
+
+]
+
+
+---
+## Brechas de ingresos entre hombres y mujeres
+
+
+.bold[Paso #3: Determinar la Distribución Nula]
+
+
+  - Por el TLC sabemos que: 
+    
+    - `\(\bar{X}_{H}  \sim \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big)\)`
+    
+    - `\(\bar{X}_{W}  \sim \text{Normal}\big(\mu_W, \frac{\sigma_W}{\sqrt{n_W}}\big)\)`
+
+&lt;br&gt;
+
+
+Por tanto, 
+
+.pull-left[
+`\((\bar{X}_{H} - \bar{X}_{W}) \sim \dots\)` 
+]
+
+
+
+.pull-right[
+&lt;img src="https://media.tenor.com/DWQneUNAlycAAAAd/pug-pugs.gif" alt="cooldpug" width="370" height="240"&gt;
+
+]
+
+---
+## Brechas de ingresos entre hombres y mujeres
+
+.pull-left[
+`\((\bar{X}_{H} - \bar{X}_{W}) \sim \dots\)` 
+]
+
+--
+
+.pull-right[
+.content-box-secondary[
+
+Recordar, si `\(W\)` e `\(Y\)` son normales independientes:
+
+- `\(W \pm Y \sim \text{Normal}\)`
+
+- `\(\mathbb{E}(W \pm Y) = \mathbb{E}(W) \pm \mathbb{E}(Y)\)` 
+
+- `\(\mathbb{Var}(W \pm Y) = \mathbb{Var}(W) + \mathbb{Var}(Y)\)` 
+
+]
+]
+
+&lt;br&gt;
+--
+
+Por tanto, `\((\bar{X}_{H} - \bar{X}_{W}) =  \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big) -  \text{Normal}\big(\mu_W, \frac{\sigma_W}{\sqrt{n_W}}\big) \sim  \text{Normal}\Bigg(\mu_H - \mu_W, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)\)` 
+
+&lt;br&gt;
+--
+
+Luego, si `\(H_0\)` es verdadera (la media de ingreso de las mujeres es igual a la de los hombres):
+
+`$$(\bar{X}_{H} - \bar{X}_{W}) \mid H_0 \sim \text{Normal}\Bigg(0, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)$$`
+---
+## Brechas de ingresos entre hombres y mujeres
+
+`$$(\bar{X}_{H} - \bar{X}_{W}) \mid H_0 \sim \text{Normal}\Bigg(0, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)$$`
+--
+
+Estandarizando, `\(Z_{H-W} \mid H_0 \sim \text{Normal}\big(0,1)\)`
+
+--
+
+- `\(\hat{z} \mid H_0 = \frac{(\hat{\mu}_{H} - \hat{\mu}_{W}) - 0 }{\sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}}}\)`
+
+--
+
+No conocemos las varianzas poblacionales, por tanto debemos estimarlas ( `\(s^{2}_H\)` y `\(s^{2}_W\)` )
+
+
+.pull-left[
+
+``` r
+stats &lt;- casen2017 %&gt;% group_by(genero) %&gt;% 
+  summarise(mu_hat = mean(ingreso, na.rm = T),
+            s2 = var(ingreso, na.rm = T),
+            n = sum(!is.na(ingreso)) ) 
+```
+
+
+```
+## # A tibble: 2 × 4
+##   genero  mu_hat            s2     n
+##   &lt;chr&gt;    &lt;dbl&gt;         &lt;dbl&gt; &lt;int&gt;
+## 1 Hombre 588281. 499905824788.   326
+## 2 Mujer  368070. 204687826566.   248
+```
+]
+
+--
+
+.pull-right[
+
+``` r
+numerador &lt;- stats %&gt;%
+  with(mu_hat[1] - mu_hat[2])
+
+denominador &lt;- stats %&gt;% 
+  with( sqrt(s2[1]/n[1] + s2[2]/n[2]) )
+
+z_hat &lt;- numerador/denominador
+print(z_hat)
+```
+
+```
+## [1] 4.534111
+```
+]
+
+---
+## Brechas de ingresos entre hombres y mujeres
+
+&lt;br&gt;
+--
+
+.bold[Paso #4: Elegir un nivel de significación] `\(\alpha\)` 
+
+- Vamos trabajar a un nivel de significación de 5%, `\(\alpha=0.05\)`.
+
+&lt;br&gt;
+--
+
+.bold[Paso #5: Calcular el valor-p] 
+
+
+- `\(\text{valor-p} = \mathbb{P}( \bar{X}_{H} - \bar{X}_{W} &gt; | \hat{\mu}_{H} - \hat{\mu}_{W} | \mid H_{0)}\)`
+
+
+- equivalentemente: `\(\text{valor-p} = \mathbb{P}\Bigg( Z &gt;   \Bigg| \frac{(\hat{\mu}_{H} - \hat{\mu}_{W}) - 0}{\sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}}} \Bigg|  \Bigg)\)`
+
+
+--
+En nuestro caso:
+
+
+``` r
+pvalue =  2*(1 - pnorm(z_hat))
+
+cat("z_hat=",round(z_hat,2), " valor-p=", pvalue, sep="")
+```
+
+```
+## z_hat=4.53 valor-p=0.000005784671
+```
+
+---
+## Brechas de ingresos entre hombres y mujeres
+
+
+--
+
+.bold[Paso #6: Mantener o Rechazar la Hipótesis Nula]
+
+--
+
+- Comparamos -- bajo el supuesto de que `\(H_0\)` es verdadera --  la probabilidad de obtener el resultado que obtuvimos o uno más extremo (valor-p) vs. el criterio seleccionado para clasificar resultados como "extremos" ( `\(\alpha\)` ).
+
+--
+
+.bold[Decisión:]
+
+ - Si `\(\text{valor-p} &lt; \alpha\)` entonces rechazamos `\(H_{0}\)`
+
+ - Si `\(\text{valor-p} &gt; \alpha\)` no podemos rechazar `\(H_{0}\)`
+
+
+&lt;br&gt;
+--
+
+En este caso:
+
+
+```
+## 𝛼=0.05; valor-p=0.000005784671
+```
+
+.bold[Conclusión:]
+
+Con un nivel de significación del 5% (o 99% de confianza) podemos rechazar la hipótesis nula de que el salario promedio de hombres y mujeres es el mismo. Nuestro resultado sugiere que el salario promedio de los hombres es significativamente mayor que el de las mujeres.
+
+---
+class: inverse, center, middle
+
+
+## Sobreposición de intervalos de confianza
+
+---
+
+---
+### Inferencia para Diferencia de proporciones (Nota)
+
+![overlapping](overlapping.png)
+* No del todo cierto, pero tiene un punto importante
+
+---
+### Inferencia para Diferencia de proporciones (Nota)
+
+.tiny[*asumamos mismo tamaño muestral `\(n\)` por simpleza]. Queremos saber si `\(\mu_{1}\)` es significativamente .bold[mayor] que `\(\mu_{2}\)`.
+
+
+.pull-left[
+.bold[Intervalos de confianza sobrepuesto]
+
+![diff](diff.png)
+
+
+`\((\mu_{1} - c \cdot \sigma_{1}/\sqrt{n}) - (\mu_{2} + c \cdot \sigma_{2}/\sqrt{n}) &gt; 0 \quad ?\)` 
+
+es decir, 
+
+`\((\mu_{1}  - \mu_{2}) -  c \cdot (\sigma_{1}/\sqrt{n} + \sigma_{2}/\sqrt{n}) &gt; 0 \quad ?\)`
+]
+
+.pull-right[
+.bold[Intervalos de confianza de differencia]
+
+`\((\mu_{1}  - \mu_{2}) -  c \cdot \sqrt{(\sigma^{2}_{1}/n + \sigma^{2}_{2}/n)} &gt; 0 \quad ?\)`
+
+]
+
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
