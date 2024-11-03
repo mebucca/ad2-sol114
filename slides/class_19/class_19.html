@@ -22,7 +22,7 @@ class: center, middle, inverse, title-slide
 ### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
 ]
 .date[
-### 29 October, 2024
+### 02 November, 2024
 ]
 
 ---
@@ -147,7 +147,7 @@ El estadístico natural es la diferencia entre ambas medias muestrales:
     
     - `\(\bar{X}_{H}  \sim \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big)\)`
     
-    - `\(\bar{X}_{W}  \sim \text{Normal}\big(\mu_W, \frac{\sigma_W}{\sqrt{n_W}}\big)\)`
+    - `\(\bar{X}_{M}  \sim \text{Normal}\big(\mu_M, \frac{\sigma_M}{\sqrt{n_M}}\big)\)`
 
 &lt;br&gt;
 --
@@ -155,7 +155,7 @@ El estadístico natural es la diferencia entre ambas medias muestrales:
 Por tanto, 
 
 .pull-left[
-`\((\bar{X}_{H} - \bar{X}_{W}) \sim \dots\)` 
+`\((\bar{X}_{H} - \bar{X}_{M}) \sim \dots\)` 
 ]
 
 --
@@ -178,7 +178,7 @@ Por tanto,
     
     - `\(\bar{X}_{H}  \sim \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big)\)`
     
-    - `\(\bar{X}_{W}  \sim \text{Normal}\big(\mu_W, \frac{\sigma_W}{\sqrt{n_W}}\big)\)`
+    - `\(\bar{X}_{M}  \sim \text{Normal}\big(\mu_M, \frac{\sigma_M}{\sqrt{n_M}}\big)\)`
 
 &lt;br&gt;
 
@@ -186,7 +186,7 @@ Por tanto,
 Por tanto, 
 
 .pull-left[
-`\((\bar{X}_{H} - \bar{X}_{W}) \sim \dots\)` 
+`\((\bar{X}_{H} - \bar{X}_{M}) \sim \dots\)` 
 ]
 
 
@@ -200,7 +200,7 @@ Por tanto,
 ## Brechas de ingresos entre hombres y mujeres
 
 .pull-left[
-`\((\bar{X}_{H} - \bar{X}_{W}) \sim \dots\)` 
+`\((\bar{X}_{H} - \bar{X}_{M}) \sim \dots\)` 
 ]
 
 --
@@ -222,29 +222,29 @@ Recordar, si `\(W\)` e `\(Y\)` son normales independientes:
 &lt;br&gt;
 --
 
-Por tanto, `\((\bar{X}_{H} - \bar{X}_{W}) =  \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big) -  \text{Normal}\big(\mu_W, \frac{\sigma_W}{\sqrt{n_W}}\big) \sim  \text{Normal}\Bigg(\mu_H - \mu_W, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)\)` 
+Por tanto, `\((\bar{X}_{H} - \bar{X}_{M}) =  \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big) -  \text{Normal}\big(\mu_M, \frac{\sigma_M}{\sqrt{n_M}}\big) \sim  \text{Normal}\Bigg(\mu_H - \mu_M, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)\)` 
 
 &lt;br&gt;
 --
 
 Luego, si `\(H_0\)` es verdadera (la media de ingreso de las mujeres es igual a la de los hombres):
 
-`$$(\bar{X}_{H} - \bar{X}_{W}) \mid H_0 \sim \text{Normal}\Bigg(0, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)$$`
+`$$(\bar{X}_{H} - \bar{X}_{M}) \mid H_0 \sim \text{Normal}\Bigg(0, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)$$`
 ---
 ## Brechas de ingresos entre hombres y mujeres
 
-`$$(\bar{X}_{H} - \bar{X}_{W}) \mid H_0 \sim \text{Normal}\Bigg(0, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)$$`
+`$$(\bar{X}_{H} - \bar{X}_{M}) \mid H_0 \sim \text{Normal}\Bigg(0, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)$$`
 --
 
 Estandarizando, `\(Z_{H-W} \mid H_0 \sim \text{Normal}\big(0,1)\)`
 
 --
 
-- `\(\hat{z} \mid H_0 = \frac{(\hat{\mu}_{H} - \hat{\mu}_{W}) - 0 }{\sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}}}\)`
+- `\(\hat{z} \mid H_0 = \frac{(\hat{\mu}_{H} - \hat{\mu}_{M}) - 0 }{\sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}}}\)`
 
 --
 
-No conocemos las varianzas poblacionales, por tanto debemos estimarlas ( `\(s^{2}_H\)` y `\(s^{2}_W\)` )
+No conocemos las varianzas poblacionales, por tanto debemos estimarlas ( `\(s^{2}_H\)` y `\(s^{2}_M\)` )
 
 
 .pull-left[
@@ -302,10 +302,10 @@ print(z_hat)
 .bold[Paso #5: Calcular el valor-p] 
 
 
-- `\(\text{valor-p} = \mathbb{P}( \bar{X}_{H} - \bar{X}_{W} &gt; | \hat{\mu}_{H} - \hat{\mu}_{W} | \mid H_{0)}\)`
+- `\(\text{valor-p} = \mathbb{P}( \bar{X}_{H} - \bar{X}_{M} &gt; | \hat{\mu}_{H} - \hat{\mu}_{M} | \mid H_{0)}\)`
 
 
-- equivalentemente: `\(\text{valor-p} = \mathbb{P}\Bigg( Z &gt;   \Bigg| \frac{(\hat{\mu}_{H} - \hat{\mu}_{W}) - 0}{\sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}}} \Bigg|  \Bigg)\)`
+- equivalentemente: `\(\text{valor-p} = \mathbb{P}\Bigg( Z &gt;   \Bigg| \frac{(\hat{\mu}_{H} - \hat{\mu}_{M}) - 0}{\sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}}} \Bigg|  \Bigg)\)`
 
 
 --
@@ -361,41 +361,135 @@ Con un nivel de significación del 5% (o 99% de confianza) podemos rechazar la h
 class: inverse, center, middle
 
 
-## Sobreposición de intervalos de confianza
+## Superposición de intervalos de confianza
+
 
 ---
+### Superposición de intervalos de confianza
+
+&lt;br&gt;
+
+- Un método alternativo para testear si hay diferencias estadísticamente significativas entre dos medias o dos proporciones es buscar
+
+
+- Continuando con nuestro ejemplo:
+
+&lt;br&gt;
+
+
+.pull.left[
+
+``` r
+stats &lt;- stats %&gt;%
+  mutate(
+    se = sqrt(s2) / sqrt(n),               
+    ci_inf = mu_hat - 1.96 * se, 
+    ci_sup = mu_hat + 1.96 * se 
+  )
+```
+]
+
+&lt;br&gt;
+
+.pull.left[
+
+```
+## # A tibble: 2 × 7
+##   genero  mu_hat            s2     n     se  ci_inf  ci_sup
+##   &lt;chr&gt;    &lt;dbl&gt;         &lt;dbl&gt; &lt;int&gt;  &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+## 1 Hombre 588281. 499905824788.   326 39159. 511528. 665033.
+## 2 Mujer  368070. 204687826566.   248 28729. 311761. 424379.
+```
+]
 
 ---
-### Inferencia para Diferencia de proporciones (Nota)
+### Superposición de intervalos de confianza
+
+Graficamente,
+
+
+
+.center[
+![](class_19_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+]
+
+
+
+---
+### Superposición de intervalos de confianza
+
+&lt;br&gt;
+
+PERO ....
+
+--
 
 ![overlapping](overlapping.png)
+--
+
 * No del todo cierto, pero tiene un punto importante
 
+
+
+
 ---
-### Inferencia para Diferencia de proporciones (Nota)
+### Superposición de intervalos de confianza
 
-.tiny[*asumamos mismo tamaño muestral `\(n\)` por simpleza]. Queremos saber si `\(\mu_{1}\)` es significativamente .bold[mayor] que `\(\mu_{2}\)`.
-
+Queremos saber si `\(\hat{\mu}_{H}\)` es significativamente .bold[mayor] que `\(\hat{\mu}_{M}\)`.
 
 .pull-left[
 .bold[Intervalos de confianza sobrepuesto]
 
-![diff](diff.png)
+![](class_19_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
 
-
-`\((\mu_{1} - c \cdot \sigma_{1}/\sqrt{n}) - (\mu_{2} + c \cdot \sigma_{2}/\sqrt{n}) &gt; 0 \quad ?\)` 
-
-es decir, 
-
-`\((\mu_{1}  - \mu_{2}) -  c \cdot (\sigma_{1}/\sqrt{n} + \sigma_{2}/\sqrt{n}) &gt; 0 \quad ?\)`
 ]
 
 .pull-right[
-.bold[Intervalos de confianza de differencia]
 
-`\((\mu_{1}  - \mu_{2}) -  c \cdot \sqrt{(\sigma^{2}_{1}/n + \sigma^{2}_{2}/n)} &gt; 0 \quad ?\)`
+&lt;br&gt;
+
+Implicitamente esto evaluando si,
+
+
+`\((\hat{\mu}_{H} - Z_{\alpha/2} \cdot \sigma_{H}/\sqrt{n_H}) - (\hat{\mu}_{M} + Z_{\alpha/2} \cdot \sigma_{2}/\sqrt{n_M}) &gt; 0\)` 
+
+&lt;br&gt;
+es decir, si
+
+
+`\((\hat{\mu}_{H} - \hat{\mu}_{M}) -  Z_{\alpha/2} \cdot (\sigma_{H}/\sqrt{n_H} + \sigma_{M}/\sqrt{n_M}) &gt; 0\)`
+]
+
+
+&lt;br&gt;
+--
+
+En cambio, si construyeramos un .bold[intervalos de confianza/ test de hipótesis para la diferencia], estariamos evaluando si:
+
+`$$(\hat{\mu}_{H} - \hat{\mu}_{M}) \pm  Z_{\alpha/2} \cdot \sqrt{(\sigma^{2}_{H}/n_H + \sigma^{2}_{M}/n_M)} &gt; 0$$`
+
+
+---
+### Superposición de intervalos de confianza
+
+.pull-left[
+![pyth](pyth.jpg)
+]
+
+.pull-right[
+Dado que:
+
+`$$\frac{\sigma_{H}}{\sqrt{n_H}} + \frac{\sigma_{M}}{\sqrt{n_M}} &gt; \sqrt{\frac{\sigma^{2}_{H}}{n_H} + \frac{\sigma^{2}_{M}}{n_M}}$$`
+
+&lt;br&gt;
+evaluar la superposición de intervalos de confianza no siempre garantiza una decisión correcta:
+
+- **Si los intervalos no se superponen**, el intervalo para la diferencia no contiene cero, por lo que **rechazamos** `\(H_0\)` ✅.💪🏾
+
+- **Si los intervalos se superponen**, el intervalo para la diferencia no necesariamente contiene cero, lo que significa que **no podemos estar seguros** de si debemos rechazar o no `\(H_0\)`️ 🤷‍♀🤔️ .
 
 ]
+
 
 
 ---
