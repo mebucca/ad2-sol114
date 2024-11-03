@@ -153,7 +153,7 @@ El estadístico natural es la diferencia entre ambas medias muestrales:
     
     - $\bar{X}_{H}  \sim \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big)$
     
-    - $\bar{X}_{W}  \sim \text{Normal}\big(\mu_W, \frac{\sigma_W}{\sqrt{n_W}}\big)$
+    - $\bar{X}_{M}  \sim \text{Normal}\big(\mu_M, \frac{\sigma_M}{\sqrt{n_M}}\big)$
 
 <br>
 --
@@ -161,7 +161,7 @@ El estadístico natural es la diferencia entre ambas medias muestrales:
 Por tanto, 
 
 .pull-left[
-$(\bar{X}_{H} - \bar{X}_{W}) \sim \dots$ 
+$(\bar{X}_{H} - \bar{X}_{M}) \sim \dots$ 
 ]
 
 --
@@ -184,7 +184,7 @@ $(\bar{X}_{H} - \bar{X}_{W}) \sim \dots$
     
     - $\bar{X}_{H}  \sim \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big)$
     
-    - $\bar{X}_{W}  \sim \text{Normal}\big(\mu_W, \frac{\sigma_W}{\sqrt{n_W}}\big)$
+    - $\bar{X}_{M}  \sim \text{Normal}\big(\mu_M, \frac{\sigma_M}{\sqrt{n_M}}\big)$
 
 <br>
 
@@ -192,7 +192,7 @@ $(\bar{X}_{H} - \bar{X}_{W}) \sim \dots$
 Por tanto, 
 
 .pull-left[
-$(\bar{X}_{H} - \bar{X}_{W}) \sim \dots$ 
+$(\bar{X}_{H} - \bar{X}_{M}) \sim \dots$ 
 ]
 
 
@@ -206,7 +206,7 @@ $(\bar{X}_{H} - \bar{X}_{W}) \sim \dots$
 ## Brechas de ingresos entre hombres y mujeres
 
 .pull-left[
-$(\bar{X}_{H} - \bar{X}_{W}) \sim \dots$ 
+$(\bar{X}_{H} - \bar{X}_{M}) \sim \dots$ 
 ]
 
 --
@@ -228,29 +228,29 @@ Recordar, si $W$ e $Y$ son normales independientes:
 <br>
 --
 
-Por tanto, $(\bar{X}_{H} - \bar{X}_{W}) =  \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big) -  \text{Normal}\big(\mu_W, \frac{\sigma_W}{\sqrt{n_W}}\big) \sim  \text{Normal}\Bigg(\mu_H - \mu_W, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)$ 
+Por tanto, $(\bar{X}_{H} - \bar{X}_{M}) =  \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big) -  \text{Normal}\big(\mu_M, \frac{\sigma_M}{\sqrt{n_M}}\big) \sim  \text{Normal}\Bigg(\mu_H - \mu_M, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)$ 
 
 <br>
 --
 
 Luego, si $H_0$ es verdadera (la media de ingreso de las mujeres es igual a la de los hombres):
 
-$$(\bar{X}_{H} - \bar{X}_{W}) \mid H_0 \sim \text{Normal}\Bigg(0, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)$$
+$$(\bar{X}_{H} - \bar{X}_{M}) \mid H_0 \sim \text{Normal}\Bigg(0, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)$$
 ---
 ## Brechas de ingresos entre hombres y mujeres
 
-$$(\bar{X}_{H} - \bar{X}_{W}) \mid H_0 \sim \text{Normal}\Bigg(0, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)$$
+$$(\bar{X}_{H} - \bar{X}_{M}) \mid H_0 \sim \text{Normal}\Bigg(0, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)$$
 --
 
 Estandarizando, $Z_{H-W} \mid H_0 \sim \text{Normal}\big(0,1)$
 
 --
 
-- $\hat{z} \mid H_0 = \frac{(\hat{\mu}_{H} - \hat{\mu}_{W}) - 0 }{\sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}}}$
+- $\hat{z} \mid H_0 = \frac{(\hat{\mu}_{H} - \hat{\mu}_{M}) - 0 }{\sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}}}$
 
 --
 
-No conocemos las varianzas poblacionales, por tanto debemos estimarlas ( $s^{2}_H$ y $s^{2}_W$ )
+No conocemos las varianzas poblacionales, por tanto debemos estimarlas ( $s^{2}_H$ y $s^{2}_M$ )
 
 
 .pull-left[
@@ -300,10 +300,10 @@ print(z_hat)
 .bold[Paso #5: Calcular el valor-p] 
 
 
-- $\text{valor-p} = \mathbb{P}( \bar{X}_{H} - \bar{X}_{W} > | \hat{\mu}_{H} - \hat{\mu}_{W} | \mid H_{0)}$
+- $\text{valor-p} = \mathbb{P}( \bar{X}_{H} - \bar{X}_{M} > | \hat{\mu}_{H} - \hat{\mu}_{M} | \mid H_{0)}$
 
 
-- equivalentemente: $\text{valor-p} = \mathbb{P}\Bigg( Z >   \Bigg| \frac{(\hat{\mu}_{H} - \hat{\mu}_{W}) - 0}{\sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}}} \Bigg|  \Bigg)$
+- equivalentemente: $\text{valor-p} = \mathbb{P}\Bigg( Z >   \Bigg| \frac{(\hat{\mu}_{H} - \hat{\mu}_{M}) - 0}{\sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}}} \Bigg|  \Bigg)$
 
 
 --
@@ -354,43 +354,152 @@ Con un nivel de significación del 5% (o 99% de confianza) podemos rechazar la h
 class: inverse, center, middle
 
 
-## Sobreposición de intervalos de confianza
+## Superposición de intervalos de confianza
 
 
 ---
-### Inferencia para diferencia en medias/proporciones
+### Superposición de intervalos de confianza
 
+<br>
 
 - Un método alternativo para testear si hay diferencias estadísticamente significativas entre dos medias o dos proporciones es buscar
 
-![overlapping](overlapping.png)
-* No del todo cierto, pero tiene un punto importante
+
+- Continuando con nuestro ejemplo:
+
+<br>
+
+
+.pull.left[
+```{r,  message=FALSE, warning=FALSE}
+stats <- stats %>%
+  mutate(
+    se = sqrt(s2) / sqrt(n),               
+    ci_inf = mu_hat - 1.96 * se, 
+    ci_sup = mu_hat + 1.96 * se 
+  )
+```
+]
+
+<br>
+
+.pull.left[
+```{r,  echo=FALSE, message=FALSE, warning=FALSE}
+
+print(stats)
+
+```
+]
 
 ---
-### Inferencia para Diferencia de proporciones (Nota)
+### Superposición de intervalos de confianza
 
-.tiny[*asumamos mismo tamaño muestral $n$ por simpleza]. Queremos saber si $\mu_{1}$ es significativamente .bold[mayor] que $\mu_{2}$.
+Graficamente,
 
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+
+plot <- ggplot(stats, aes(x = genero, y = mu_hat, color = genero)) +
+  geom_point(size = 5) +
+  geom_errorbar(aes(ymin = ci_inf, ymax = ci_sup), width = 0.2, linewidth = 2) +
+  labs(y = "Ingreso promedio") +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1),
+    legend.position = "none" # Turn off legend
+  ) +
+  scale_color_manual(values = c("#DAA520", "#A0522D"))
+
+```
+
+.center[
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+print(plot)
+```
+]
+
+
+
+---
+### Superposición de intervalos de confianza
+
+<br>
+
+PERO ....
+
+--
+
+![overlapping](overlapping.png)
+--
+
+* No del todo cierto, pero tiene un punto importante
+
+
+
+
+---
+### Superposición de intervalos de confianza
+
+Queremos saber si $\hat{\mu}_{H}$ es significativamente .bold[mayor] que $\hat{\mu}_{M}$.
 
 .pull-left[
 .bold[Intervalos de confianza sobrepuesto]
 
-![diff](diff.png)
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=4, fig.width=5}
+print(plot)
+```
 
-
-$(\mu_{1} - c \cdot \sigma_{1}/\sqrt{n}) - (\mu_{2} + c \cdot \sigma_{2}/\sqrt{n}) > 0 \quad ?$ 
-
-es decir, 
-
-$(\mu_{1}  - \mu_{2}) -  c \cdot (\sigma_{1}/\sqrt{n} + \sigma_{2}/\sqrt{n}) > 0 \quad ?$
 ]
 
 .pull-right[
-.bold[Intervalos de confianza de differencia]
 
-$(\mu_{1}  - \mu_{2}) -  c \cdot \sqrt{(\sigma^{2}_{1}/n + \sigma^{2}_{2}/n)} > 0 \quad ?$
+<br>
+
+Implicitamente esto evaluando si,
+
+
+$(\hat{\mu}_{H} - Z_{\alpha/2} \cdot \sigma_{H}/\sqrt{n_H}) - (\hat{\mu}_{M} + Z_{\alpha/2} \cdot \sigma_{2}/\sqrt{n_M}) > 0$ 
+
+<br>
+es decir, si
+
+
+$(\hat{\mu}_{H} - \hat{\mu}_{M}) -  Z_{\alpha/2} \cdot (\sigma_{H}/\sqrt{n_H} + \sigma_{M}/\sqrt{n_M}) > 0$
+]
+
+
+<br>
+--
+
+En cambio, si construyeramos un .bold[intervalos de confianza/ test de hipótesis para la diferencia], estariamos evaluando si:
+
+$$(\hat{\mu}_{H} - \hat{\mu}_{M}) \pm  Z_{\alpha/2} \cdot \sqrt{(\sigma^{2}_{H}/n_H + \sigma^{2}_{M}/n_M)} > 0$$
+
+
+---
+### Superposición de intervalos de confianza
+
+.pull-left[
+![pyth](pyth.jpg)
+]
+
+.pull-right[
+Dado que:
+
+$$\frac{\sigma_{H}}{\sqrt{n_H}} + \frac{\sigma_{M}}{\sqrt{n_M}} > \sqrt{\frac{\sigma^{2}_{H}}{n_H} + \frac{\sigma^{2}_{M}}{n_M}}$$
+
+<br>
+evaluar la superposición de intervalos de confianza no siempre garantiza una decisión correcta:
+
+- **Si los intervalos no se superponen**, el intervalo para la diferencia no contiene cero, por lo que **rechazamos** $H_0$ ✅.💪🏾
+
+- **Si los intervalos se superponen**, el intervalo para la diferencia no necesariamente contiene cero, lo que significa que **no podemos estar seguros** de si debemos rechazar o no $H_0$️ 🤷‍♀🤔️ .
 
 ]
+
 
 
 ---
