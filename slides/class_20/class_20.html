@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Probabilidad e Inferencia Estadística</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Probabilidad e Inferencia Estadística
+]
+.subtitle[
+## #20: Test de Hipótesis en dos muestras
+]
+.author[
+### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
+]
+.date[
+### 05 November, 2024
+]
+
+---
+
+class: inverse, center, middle
+
+
+
+
+
+# Test de Hipótesis en dos muestras
+
+
+
+---
+## Brechas de ingresos entre hombres y mujeres
+
+
+.pull-left[
+![women](https://wbhm.org/wp-content/uploads/2023/10/gettyimages-2666616-930494094c2bc07b528ff36d8b481f35c097fb14-2-800x450.jpg)
+]
+.pull-right[
+![goldin](https://cdn.corrieredellosport.it/img/990/495/2023/10/09/181036087-9d1453e1-65e2-43be-a2be-c42861da4f93.jpg)
+
+]
+
+---
+## Brechas de ingresos entre hombres y mujeres
+
+--
+
+- .bold[¿Existe una brecha de ingresos entre hombres y mujeres?]
+
+
+--
+
+- En otras palabras, ¿existe asociación entre ingresos y género?
+
+--
+
+
+
+&lt;br&gt;
+--
+
+.pull-left[
+
+
+``` r
+results &lt;- casen2017 %&gt;% group_by(genero) %&gt;% 
+  summarise(promedio_ingresos = 
+              mean(ingreso, na.rm = T),
+            n = sum(!is.na(ingreso)) ); results 
+```
+
+```
+## # A tibble: 2 × 3
+##   genero promedio_ingresos     n
+##   &lt;chr&gt;              &lt;dbl&gt; &lt;int&gt;
+## 1 Hombre           588281.   326
+## 2 Mujer            368070.   248
+```
+]
+
+
+.pull-right[
+  ![gwg](https://d26oc3sg82pgk3.cloudfront.net/files/media/edit/image/31933/square_thumb%402x.jpg)
+]
+
+---
+class: inverse, center, middle
+
+# Test de Permutación
+
+---
+# Intuición
+
+&lt;br&gt;
+
+Las Pruebas de Permutación o son una herramienta útil para realizar pruebas de hipótesis.
+
+&lt;br&gt;&lt;br&gt;
+--
+
+- Para obtener un valor-p, necesitamos saber cuál sería la distribución de un estadístico si la hipótesis nula fuera cierta.
+
+--
+
+- Si no conocemos la distribución bajo la hipótesis nula, podemos generarla permutando los datos de maneras que imiten el escenario nulo.
+
+  - Esto hace sencillo testear hipótesis para estadísticos sin propiedades analíticas conocidas.
+
+--
+
+- En palabras de Fisher: estas son pruebas de una hipótesis nula "más amplia".
+
+
+
+- Podemos observar y estudiar el comportamiento de un estadístico a través de estas permutaciones.
+
+
+---
+# ¿Que es una permutación?
+
+
+.pull-left[
+![lock](https://thebestbikelock.com/wp-content/uploads/2019/10/combination-lock.jpg.webp)
+]
+
+
+.pull-right[
+¿Cuántas formas hay de organizar 4 números de un conjunto de 10 posibles valores para cada uno si el orden importa?
+
+]
+
+--
+&lt;br&gt;
+
+`\(\frac{10!}{(10-4)!} = \frac{10 \times 9 \times .... \times 1}{6 \times 5 \times .... \times 1} = 5040\)`
+
+---
+#Algoritmo de Permutaciones
+
+
+.bold[Contexto:] queremos comparar los grupos A y B en alguna dimensión.
+
+&lt;br&gt;
+--
+
+1. Establece la prueba estadística `\(d(.)\)` para la cantidad de interés.
+
+--
+
+2. Mezcla aleatoriamente (permuta) las unidades entre los dos grupos, manteniendo fijos los tamaños de los grupos. Obtenemos los datos permutados `\(X_{p}\)`.
+
+--
+
+3. Calcula `\(d(.)\)` en la muestra permutada `\(X_{p}\)`.
+
+--
+
+4. Repite los pasos 2 y 3 un gran número de veces, P.
+
+--
+
+5. La colección de resultados es la distribución de permutación de `\(d\)`.
+
+
+
+---
+#Aplicación a brechas de género
+
+.bold[Datos observados:]
+
+
+.pull-left[
+
+```
+## # A tibble: 574 × 2
+##    genero ingreso
+##    &lt;chr&gt;    &lt;int&gt;
+##  1 Mujer   180000
+##  2 Mujer   145000
+##  3 Hombre  325000
+##  4 Mujer   500000
+##  5 Hombre  650000
+##  6 Mujer   330000
+##  7 Mujer   652533
+##  8 Mujer    95000
+##  9 Hombre  500000
+## 10 Mujer    60000
+## # ℹ 564 more rows
+```
+]
+
+--
+
+.pull-right[
+
+.bold[Diferencia observada:]
+
+&lt;br&gt;
+
+- `\(\hat{\mu}_{H}=\)` 588281
+
+- `\(\hat{\mu}_{M}=\)` 368070
+
+- `\((\hat{\mu}_{H} - \hat{\mu}_{M})=\)` 220211
+]
+
+
+---
+#Aplicación a brechas de género
+
+.bold[Una permutación posible:]
+
+
+.pull-left[
+
+```
+## # A tibble: 574 × 3
+##    genero ingreso ingreso_p
+##    &lt;chr&gt;    &lt;int&gt;     &lt;int&gt;
+##  1 Mujer   180000    454167
+##  2 Mujer   145000    200000
+##  3 Hombre  325000    200000
+##  4 Mujer   500000    910000
+##  5 Hombre  650000    200000
+##  6 Mujer   330000    319708
+##  7 Mujer   652533    320000
+##  8 Mujer    95000    230000
+##  9 Hombre  500000    363667
+## 10 Mujer    60000    175000
+## # ℹ 564 more rows
+```
+]
+
+--
+
+.pull-right[
+
+.bold[Diferencia con datos permutados:]
+
+&lt;br&gt;
+
+- `\(\hat{\mu}_{Hp}=\)` 494469
+
+- `\(\hat{\mu}_{Mp}=\)` 491387
+
+- `\((\hat{\mu}_{Hp} - \hat{\mu}_{Mp})=\)` 3081
+]
+
+
+---
+#Aplicación a brechas de género
+
+.bold[Algoritmo de permutación]
+
+
+``` r
+n &lt;- casen2017  %&gt;% select(genero,ingreso) %&gt;% drop_na(ingreso) %&gt;% with(length(ingreso))
+
+permutacion &lt;- function() {
+  
+  index &lt;- sample(seq(1:n), replace=FALSE)
+
+  results_p &lt;- casen2017  %&gt;% select(genero,ingreso) %&gt;% drop_na(ingreso) %&gt;%
+  mutate(ingreso_p = ingreso[index] ) %&gt;% group_by(genero) %&gt;% 
+    summarise(promedio_ingresos = mean(ingreso_p, na.rm = T))
+
+  return(results_p$promedio_ingresos[1] - results_p$promedio_ingresos[2])
+}
+```
+
+--
+
+.bold[Ejecutamo 100,000 permutaciones y guardamos resultados:]
+
+
+``` r
+distribucion_nula &lt;- replicate(n=100000, permutacion())
+distribucion_nula %&gt;% glimpse()
+```
+
+```
+##  num [1:100000] 65844 15115 28733 42513 24965 ...
+```
+
+
+---
+#Aplicación a brechas de género
+
+.pull-left[
+![](class_20_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+
+--
+
+.pull-right[
+
+
+``` r
+p_cola_alta &lt;- sum(distribucion_nula&gt;=diff)/n
+p_cola_baja &lt;- sum(distribucion_nula&lt;=-diff)/n
+
+valor_p = p_cola_alta + p_cola_baja
+print(c("Valor-p"=valor_p))
+```
+
+```
+##     Valor-p 
+## 0.003484321
+```
+]
+
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
