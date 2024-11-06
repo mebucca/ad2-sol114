@@ -1,0 +1,333 @@
+---
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#20: Test de Hipótesis en dos muestras"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["gentle-r.css","xaringan-themer.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  chunz_output_type: console
+---  
+class: inverse, center, middle
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(xaringanthemer)
+style_duo_accent(primary_color = "#6CABDD",  # Sky blue, the primary color of Manchester City
+                 secondary_color = "#1C2C5B",  # Navy blue, used in the club's accents and details
+                 background_color = "#FFFFFF",  # White, for a clean and neutral base
+                 header_font_google = google_font("Archivo"),
+                 text_font_google   = google_font("Inconsolata"), 
+                 link_color= "#FFD700")  # Gold, representing the club's success and trophies
+
+
+options(scipen = 999)
+set.seed(1223455)
+
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = T, echo = T)
+```
+
+# Test de Hipótesis en dos muestras
+
+
+
+---
+## Brechas de ingresos entre hombres y mujeres
+
+
+.pull-left[
+![women](https://wbhm.org/wp-content/uploads/2023/10/gettyimages-2666616-930494094c2bc07b528ff36d8b481f35c097fb14-2-800x450.jpg)
+]
+.pull-right[
+![goldin](https://cdn.corrieredellosport.it/img/990/495/2023/10/09/181036087-9d1453e1-65e2-43be-a2be-c42861da4f93.jpg)
+
+]
+
+---
+## Brechas de ingresos entre hombres y mujeres
+
+--
+
+- .bold[¿Existe una brecha de ingresos entre hombres y mujeres?]
+
+
+--
+
+- En otras palabras, ¿existe asociación entre ingresos y género?
+
+--
+
+```{r, echo=F}
+library("tidyverse")
+url <- "https://raw.githubusercontent.com/mebucca/dar_soc4001/master/data/sample_casen2017.csv"
+
+casen2017 <- read.csv(url) %>% as_tibble() %>%
+  mutate(ingreso = yautcor) %>%    
+  select(region,sexo,edad,educ,ingreso) %>%
+  mutate(univ = case_when(educ==11 | educ==12 & edad > 27 ~ 1, educ < 11 & edad > 27 ~ 0),
+         genero = case_when(sexo==1 ~ "Hombre", sexo==2 ~ "Mujer"))
+```
+
+<br>
+--
+
+.pull-left[
+
+```{r, echo=T}
+results <- casen2017 %>% group_by(genero) %>% 
+  summarise(promedio_ingresos = 
+              mean(ingreso, na.rm = T),
+            n = sum(!is.na(ingreso)) ); results 
+```
+]
+
+
+.pull-right[
+  ![gwg](https://d26oc3sg82pgk3.cloudfront.net/files/media/edit/image/31933/square_thumb%402x.jpg)
+]
+
+---
+class: inverse, center, middle
+
+# Test de Permutación
+
+---
+# Intuición
+
+<br>
+
+Las Pruebas de Permutación o son una herramienta útil para realizar pruebas de hipótesis.
+
+<br><br>
+--
+
+- Para obtener un valor-p, necesitamos saber cuál sería la distribución de un estadístico si la hipótesis nula fuera cierta.
+
+--
+
+- Si no conocemos la distribución bajo la hipótesis nula, podemos generarla permutando los datos de maneras que imiten el escenario nulo.
+
+  - Esto hace sencillo testear hipótesis para estadísticos sin propiedades analíticas conocidas.
+
+--
+
+- En palabras de Fisher: estas son pruebas de una hipótesis nula "más amplia".
+
+
+
+- Podemos observar y estudiar el comportamiento de un estadístico a través de estas permutaciones.
+
+
+---
+# ¿Que es una permutación?
+
+
+.pull-left[
+![lock](https://thebestbikelock.com/wp-content/uploads/2019/10/combination-lock.jpg.webp)
+]
+
+
+.pull-right[
+¿Cuántas formas hay de organizar 4 números de un conjunto de 10 posibles valores para cada uno si el orden importa?
+
+]
+
+--
+<br>
+
+$\frac{10!}{(10-4)!} = \frac{10 \times 9 \times .... \times 1}{6 \times 5 \times .... \times 1} = 5040$
+
+---
+#Algoritmo de Permutaciones
+
+
+.bold[Contexto:] queremos comparar los grupos A y B en alguna dimensión.
+
+<br>
+--
+
+1. Establece la prueba estadística $d(.)$ para la cantidad de interés.
+
+--
+
+2. Mezcla aleatoriamente (permuta) las unidades entre los dos grupos, manteniendo fijos los tamaños de los grupos. Obtenemos los datos permutados $X_{p}$.
+
+--
+
+3. Calcula $d(.)$ en la muestra permutada $X_{p}$.
+
+--
+
+4. Repite los pasos 2 y 3 un gran número de veces, P.
+
+--
+
+5. La colección de resultados es la distribución de permutación de $d$.
+
+
+
+---
+#Aplicación a brechas de género
+
+.bold[Datos observados:]
+
+
+.pull-left[
+```{r, echo=F}
+casen2017  %>% select(genero,ingreso) %>% drop_na(ingreso) %>% print(n=10)
+```
+]
+
+--
+
+.pull-right[
+
+.bold[Diferencia observada:]
+
+<br>
+
+- $\hat{\mu}_{H}=$ `r round(results$promedio_ingresos[1])`
+
+- $\hat{\mu}_{M}=$ `r round(results$promedio_ingresos[2])`
+
+- $(\hat{\mu}_{H} - \hat{\mu}_{M})=$ `r round(results$promedio_ingresos[1] - results$promedio_ingresos[2])`
+]
+
+
+---
+#Aplicación a brechas de género
+
+.bold[Una permutación posible:]
+
+
+.pull-left[
+```{r, echo=F}
+
+n <- casen2017  %>% select(genero,ingreso) %>% drop_na(ingreso) %>% with(length(ingreso))
+
+index <- sample(seq(1:n), replace=FALSE)
+
+casen2017 <- casen2017  %>% select(genero,ingreso) %>% drop_na(ingreso) %>%
+  mutate(ingreso_p = ingreso[index] ) %>% print(n=10)
+
+results_p <- casen2017 %>% group_by(genero) %>% 
+  summarise(promedio_ingresos = 
+              mean(ingreso_p, na.rm = T))
+```
+]
+
+--
+
+.pull-right[
+
+.bold[Diferencia con datos permutados:]
+
+<br>
+
+- $\hat{\mu}_{Hp}=$ `r round(results_p$promedio_ingresos[1])`
+
+- $\hat{\mu}_{Mp}=$ `r round(results_p$promedio_ingresos[2])`
+
+- $(\hat{\mu}_{Hp} - \hat{\mu}_{Mp})=$ `r round(results_p$promedio_ingresos[1] - results_p$promedio_ingresos[2])`
+]
+
+
+---
+#Aplicación a brechas de género
+
+.bold[Algoritmo de permutación]
+
+```{r, echo=T}
+
+n <- casen2017  %>% select(genero,ingreso) %>% drop_na(ingreso) %>% with(length(ingreso))
+
+permutacion <- function() {
+  
+  index <- sample(seq(1:n), replace=FALSE)
+
+  results_p <- casen2017  %>% select(genero,ingreso) %>% drop_na(ingreso) %>%
+  mutate(ingreso_p = ingreso[index] ) %>% group_by(genero) %>% 
+    summarise(promedio_ingresos = mean(ingreso_p, na.rm = T))
+
+  return(results_p$promedio_ingresos[1] - results_p$promedio_ingresos[2])
+}
+
+```
+
+--
+
+.bold[Ejecutamo 100,000 permutaciones y guardamos resultados:]
+
+```{r, echo=T}
+distribucion_nula <- replicate(n=100000, permutacion())
+distribucion_nula %>% glimpse()
+```
+
+
+---
+#Aplicación a brechas de género
+
+.pull-left[
+```{r, echo=F, warning=F, message=F}
+
+primary_color <- "#6CABDD"
+secondary_color <- "#FFD700"
+
+diff <- results$promedio_ingresos[1] - results$promedio_ingresos[2]
+      
+distribucion_nula %>% enframe() %>% ggplot(aes(x=value)) + 
+geom_density(size=0.5, color=primary_color) + 
+  # Add a vertical line for z-hat with the new color
+  geom_vline(xintercept = c(-diff ,diff ), color = secondary_color, size = 1) +
+labs(title="Distribución bajo permutaciones", x="Diferencia salario promedio H-W") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1))
+```
+]
+
+--
+
+.pull-right[
+
+```{r, echo=T, warning=F, message=F}
+p_cola_alta <- sum(distribucion_nula>=diff)/n
+p_cola_baja <- sum(distribucion_nula<=-diff)/n
+
+valor_p = p_cola_alta + p_cola_baja
+print(c("Valor-p"=valor_p))
+```
+]
+
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+
+
