@@ -103,13 +103,6 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 https://calendar.app.google/U4mohxA18LCZmexr7)
 
 
-
----
-
-## Recursos de estudio
-
-
-
 ---
 
 ## Recursos computacionales
