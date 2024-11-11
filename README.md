@@ -66,11 +66,11 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | Tarea corta 2  | 12 agosto     | 19 agosto    | [`[TC2 sols]`](https://mebucca.github.io/ad2-sol114/homework/tc_2_answers#1) [`[TC2.qmd sols]`](homework/tc_2_answers.qmd) |
 | Tarea corta 3  | 26 agosto     | 2 septiembre | [`[TC3 sols]`](https://mebucca.github.io/ad2-sol114/homework/tc_3_answers#1) [`[TC3.qmd sols]`](homework/tc_3_answers.qmd) |
 | Prueba 1       |               | 4 septiembre | [`[P1 sols]`](exams/prueba_1_answers.pdf)  [`[P1.qmd sols]`](exams/prueba_1_answers.qmd) [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_prueba1.html)                                                                                        |
-| Tarea corta 4  | 30 septiembre | 7 octubre    | [`[TC4 sols]`](https://mebucca.github.io/ad2-sol114/homework/tc_4_answers#1) [`[TC4.qmd]`](homework/tc_4_answers.qmd)                                                                                          |
-| Tarea corta 5  | 16 octubre     | 23 octubre   |   [`[TC5]`](https://mebucca.github.io/ad2-sol114/homework/tc_5#1) [`[TC5.qmd]`](homework/tc_5.qmd)                                                                                                 |
-| Tarea corta 6  | 28 octubre    | 4 noviembre  |                                                                                           |
+| Tarea corta 4  | 30 septiembre | 7 octubre    | [`[TC4 sols]`](https://mebucca.github.io/ad2-sol114/homework/tc_4_answers#1) [`[TC4.qmd sols]`](homework/tc_4_answers.qmd)                                                                                          |
+| Tarea corta 5  | 16 octubre     | 23 octubre   |   [`[TC5 sols]`](https://mebucca.github.io/ad2-sol114/homework/tc_5_answers#1) [`[TC5.qmd sols]`](homework/tc_5_answers.qmd)                                                                                                 |
 | Prueba 2       |               | 6 noviembre  | [`[P2 2023 sols]`](materials/prueba_2_2023.pdf)                                                                                          |
-| Tarea corta 7  | 13 noviembre  | 20 noviembre |                                                                                           |
+| Tarea corta 6  | 13 noviembre  | 20 noviembre |  `[TC6]`](https://mebucca.github.io/ad2-sol114/homework/tc_6#1) [`[TC6.qmd]`](homework/tc_6.qmd)                                                                                         |
+| Tarea corta 7  |               |              |                                                                                           |
 | Prueba Bonus   |               | 2 diciembre  |                                                                                           |
 | Examen final   |               | 9 diciembre  |                                                                                           |
 
