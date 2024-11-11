@@ -1,0 +1,174 @@
+---
+title: "SOL114 Análisis de Datos II"
+author: "Tarea corta 5, respuestas"
+format: html
+editor: visual
+---
+
+## Problema I
+
+En un estudio reciente, se seleccionó una muestra aleatoria de 1089 chilenos y chilenas mayores de 25 años para consultarles sobre su nivel de escolaridad.
+
+Los resultados muestrales arrojan las siguientes estimaciones:
+
+-   $\bar{X}: \frac{1}{n=1089} \sum x_{i} =$ 12.5 años de escolaridad.
+
+-   $\frac{1}{n=1089} \sum (x_{i} - \bar{X})^2 =$ 10.24 años$^2$
+
+1.  Construye intervalos de confianza al 90% y al 95% para el promedio de años de escolaridad de la población. Interpreta los resultados.
+
+> **Solución:**
+>
+> 1.  Construcción de intervalos de confianza al 90% y al 95%
+>
+> -   Paso 1: Estimación (insesgada) de la varianza de los años de escolaridad:
+>
+> $$s^2 =  (\frac{n}{n-1})(\frac{1}{n} \sum (x_{i} - \bar{X})^2) =  1.000919 * 10.24 = 10.24941$$
+>
+> Luego, $s=3.20147$
+>
+> -   Paso 2: Calcular el error estándar (SE)
+>
+> El error estándar de la media se calcula como:
+>
+> $$SE = \frac{\sigma}{\sqrt{n}} = \frac{3.20147}{\sqrt{1,089}} = \frac{3.20147}{33} \approx 0.09701424$$
+>
+> -   Paso 3: Calcular el intervalo de confianza al 90%
+>
+> Para un nivel de confianza del 90%, el valor crítico de (Z) es 1.645. Ahora, calculamos los límites del intervalo:
+>
+> $$IC_{90} = 12.5 \pm 1.645 \times 0.09701424$$
+>
+> $$IC_{90} = 12.5 \pm 0.1595884$$
+>
+> $$IC_{90} = [12.34041, 12.65959]$$
+>
+> Con un 90% de confianza, podemos afirmar que el verdadero promedio de años de escolaridad de los chilenos mayores de 25 años se encuentra entre **12.34041** y **12.65959** años.
+>
+> -   Calcular el intervalo de confianza al 95%
+>
+> Para un nivel de confianza del 95%, el valor crítico de (Z) es 1.96. Ahora, calculamos los límites del intervalo:
+>
+> $$IC_{95} = 12.5 \pm 1.96 \times 0.09701424$$
+>
+> $$IC_{95} = 12.5 \pm 0.1901479$$
+>
+> $$IC_{95} = [12.30985, 12.69015]$$ Con un 95% de confianza, podemos afirmar que el verdadero promedio de años de escolaridad de los chilenos mayores de 25 años se encuentra entre **12.30985** y **12.69015** años.
+
+> Chequeamos los resultados en `R`:
+>
+> ```{r}
+> # Parámetros conocidos
+> n <- 1089 # Tamaño de la muestra
+> mean_sample <- 12.5 # Media muestral
+> s <- sqrt((n/(n-1))*10.24) # Desviación estándar poblacional
+>
+> # Error estándar
+> SE <- s / sqrt(n)
+> SE
+>
+> # Intervalo de confianza al 90%
+> z_90 <- qnorm(.95)
+> CI_90_lower <- mean_sample - z_90 * SE
+> CI_90_upper <- mean_sample + z_90 * SE
+>
+> CI_90 <- c(CI_90_lower, CI_90_upper)
+> CI_90
+>
+> # Intervalo de confianza al 95%
+> z_95 <- qnorm(.975)
+> CI_95_lower <- mean_sample - z_95 * SE
+> CI_95_upper <- mean_sample + z_95 * SE
+>
+> CI_95 <- c(CI_95_lower, CI_95_upper)
+> CI_95
+> ```
+
+## Problema II
+
+En esta pregunta usarás los datos de auto-reporte de altura y peso del estudio de C. Davis (1990). La base de datos tiene 200 filas y 5 columnas. Los sujetos del estudio son hombres y mujeres que realizaban ejercicio regularmente. Las variables son las siguientes:
+
+-   `sex`: Un factor con niveles: F, femenino; M, masculino.
+
+-   `weight`: Peso medido en kg.
+
+-   `height`: Altura medida en cm.
+
+-   `repwt`: Peso reportado en kg.
+
+-   `repht`: Altura reportada en cm.
+
+1.  Calcula el promedio de altura de las mujeres.
+
+2.  Calcula un intervalo al 97% de confianza para el promedio de altura de las mujeres.
+
+> ```{r, message=FALSE, warning=FALSE}
+> library(carData)
+> library(tidyverse)
+>
+> data_davis <- carData::Davis
+> head(data_davis)
+>
+> mu_hat <- data_davis %>% filter(sex == "F") %>%
+>   summarise(mean_height = mean(height, na.rm = TRUE)) %>%
+>   pull(mean_height)
+>
+> n  <- sum(!is.na(data_davis$height))
+>
+> s <- data_davis %>% filter(sex == "F") %>%
+>   summarise(s_height = sd(height, na.rm = TRUE)) %>%
+>   pull(s_height)
+>
+> se <- s/sqrt(n)
+>
+> alpha = 1 - 0.97
+> z <- 1 - alpha/2
+> z
+>
+> ci <- mu_hat + c(-1,1)*qnorm(z)*se
+>
+> cat("Proporción muestral =", round(mean(mu_hat),2));
+> cat("IC al 97% =", round(ci,2))
+> ```
+
+## Problema III
+
+Calcula el ratio entre el peso promedio de hombres y mujeres. Usando el metodo de Boostrap estima un intervalo de confianza al 95% para este ratio usando 1,000 iteraciones (1,000 muestras de la muestra).
+
+> ```{r, echo=T, message=FALSE, warning=FALSE}
+>
+>   mu_hat_mujeres <- data_davis %>% filter(sex == "F") %>%
+>   summarise(mean_height = mean(height, na.rm = TRUE)) %>%
+>   pull(mean_height)
+>   
+>   mu_hat_hombres <- data_davis %>% filter(sex == "M") %>%
+>   summarise(mean_height = mean(height, na.rm = TRUE)) %>%
+>   pull(mean_height)
+>   
+>   ratio = mu_hat_hombres/mu_hat_mujeres
+>   cat("ratio = ", ratio, "\n")
+>
+> bs <- function() {
+>   bs_sample <- sample_n(data_davis, nrow(data_davis), replace=T)
+>   
+>   mu_hat_mujeres <- bs_sample %>% filter(sex == "F") %>%
+>   summarise(mean_height = mean(height, na.rm = TRUE)) %>%
+>   pull(mean_height)
+>   
+>   mu_hat_hombres <- bs_sample %>% filter(sex == "M") %>%
+>   summarise(mean_height = mean(height, na.rm = TRUE)) %>%
+>   pull(mean_height)
+>   
+>   ratio = mu_hat_hombres/mu_hat_mujeres
+>   
+>   return(ratio)
+>   
+> }
+>
+> bs_distrib_ratio <- replicate(n=1000,bs())
+> >
+> cat("Bootstrap IC para ratio al 95% =", round(quantile(bs_distrib_ratio, p=c(0.025,0.975)),2))
+>
+> ```
+>
+> El intervalo de confianza del 95% se extiende entre 1.07 y 1.1, lo que indica que tenemos un 95% de confianza en que el verdadero ratio entre el promedio de altura de hombres y mujeres está contenido dentro de este intervalo. En otras palabras, si repitiéramos este procedimiento muchas veces, el 95% de los intervalos calculados de esta manera incluirían el verdadero valor del ratio.
