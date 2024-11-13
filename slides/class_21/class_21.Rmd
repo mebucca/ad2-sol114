@@ -1,0 +1,386 @@
+---
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#21: Asociación estadística y causalidad"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["gentle-r.css","xaringan-themer.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  chunz_output_type: console
+---  
+class: inverse, center, middle
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(xaringanthemer)
+style_duo_accent(
+    primary_color = "#A51C30",  # Rojo oscuro característico de Lucky Strike
+    secondary_color = "#000000",  # Negro, para un contraste fuerte y elegante
+    background_color = "#FFFFFF",  # Blanco para mantener un fondo limpio y neutral
+    header_font_google = google_font("Archivo"),
+    text_font_google = google_font("Inconsolata"),
+    link_color = "#BFA14A"  # Oro envejecido para un toque retro y sofisticado
+)
+
+
+options(scipen = 999)
+set.seed(1223455)
+
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = T, echo = T)
+```
+
+# Causalidad
+
+---
+## Causas y efectos
+
+<br>
+
+Las ciencias, en un sentido amplio, están motivadas por preguntas *aparentemente* sencillas, del tipo:
+
+
+<br>
+
+
+  - ¿Cuán eficaz es un determinado tratamiento  para prevenir una enfermedad?
+
+  - ¿Las ventas aumentaron debido a la nueva ley o a la campaña publicitaria?
+
+  - Al momento de contratar, ¿discriminan los empleadores en base al género de los/las postulantes?
+
+- etc.
+
+<br>
+--
+
+Factor común: relaciones .bold[causa-efecto].
+
+---
+
+## Causas y efecto: mundos paralelos
+
+.pull-left[
+![](https://www.neoteo.com/wp-content/uploads/2024/06/logo-33-758x707.jpg)
+]
+.pull-right[
+
+<br>
+<br>
+
+.bold[Hipótesis causal:]  
+
+_"Fumar causa cáncer"_
+
+<br>
+
+.bold[Pregunta contrafactual:] 
+    
+  -  "Si fumo, ¿desarrollaré cáncer?" y 
+  
+  -  "Si no fumo, ¿evitaré el cáncer?"
+
+  
+]
+
+---
+
+## Causas y efecto: mundos paralelos
+
+.pull-left[
+![](https://www.neoteo.com/wp-content/uploads/2024/06/logo-33-758x707.jpg)
+]
+.pull-right[
+
+<br>
+<br>
+<br>
+<br>
+
+|                |      **Si Fumara**               |     **Si No Fumara**              |
+|----------------|:---------------------------:|:----------------------------:|
+| Pedro        | Desarrolla cáncer           | Desarrolla cáncer       |
+
+]
+
+---
+
+## Causas y efecto: mundos paralelos
+
+.pull-left[
+![](https://www.neoteo.com/wp-content/uploads/2024/06/logo-33-758x707.jpg)
+]
+.pull-right[
+
+Problema: no tenemos acceso al "multiverso"!
+
+![](https://img4.hulu.com/user/v3/artwork/426f0007-c057-4825-b56f-d2eba1883d63?base_image_bucket_name=image_manager&base_image=4ea292b1-b1f4-469b-aa10-0b70779a85ad&size=1600x900&format=webp)
+
+
+Ejemplo: "Pedro fuma"
+
+
+|                |      **si Fumara**               |     **si No Fumara**              |
+|----------------|:---------------------------:|:----------------------------:|
+| Pedro          |  Desarrolla cáncer             |        |
+
+
+]
+
+---
+
+## Asociación estadística: el mundo observado
+
+.pull-left[
+![](https://www.neoteo.com/wp-content/uploads/2024/06/logo-33-758x707.jpg)
+]
+.pull-right[
+
+<br>
+<br>
+<br>
+<br>
+
+Concomitacia de eventos:
+
+|                | **Fumador** | **Cáncer** |
+|----------------|:-----------:|:----------:|
+| Pedro          | Sí          | Sí         |
+| Juan           | No          | No         |
+| Diego          | Sí          | Sí         |
+| Fulano         | Sí          | No         |
+| Menguano       | No          | No         |
+
+
+- 2 de 3 fumadores desarrolla cancer
+- 0 de 2 no fumadores desarrolla cancer
+]
+
+
+
+---
+
+## Asociación estadística: el mundo observado
+
+.pull-left[
+![](https://www.neoteo.com/wp-content/uploads/2024/06/logo-33-758x707.jpg)
+]
+.pull-right[
+
+<br>
+<br>
+<br>
+<br>
+
+Otra forma de verlo:
+
+|                |      **si Fumara**         |     **si No Fumara**      |
+|----------------|:--------------------------:|:--------------------------:|
+| Pedro          | Desarrolla cáncer          |                           |
+| Juan           |                            | No desarrolla cáncer       |
+| Diego          | Desarrolla cáncer          |                           |
+| Fulano         | No desarrolla cáncer       |                          |
+| Menguano       |                            | No desarrolla cáncer       |
+
+]
+
+
+---
+
+## De Asociación a causalidad
+
+
+.pull-left[
+![](https://www.neoteo.com/wp-content/uploads/2024/06/logo-33-758x707.jpg)
+]
+.pull-right[
+
+<br>
+<br>
+<br>
+<br>
+
+Para pasar de asociación a causalidad necesitariamos tener acceso a los mundos paralelos que no vemos:
+
+
+|                |      **si Fumara**         |     **si No Fumara**      |
+|----------------|:--------------------------:|:--------------------------:|
+| Pedro          | Desarrolla cáncer          |     .bold[(Desarrolla cáncer)]                      |
+| Juan           |  .bold[(No desarrolla cáncer)]                           | No desarrolla cáncer       |
+| Diego          | Desarrolla cáncer          |    .bold[(Desarrolla cáncer)]                        |
+| Fulano         | No desarrolla cáncer       |    .bold[(No desarrolla cáncer)]                      |
+| Menguano       | .bold[(No desarrolla cáncer)]                           | No desarrolla cáncer       |
+
+]
+
+
+
+
+---
+## Asociación $\neq$ Causalidad
+
+.pull-left[
+
+**Mundo observado:**
+
+|                |      **si Fumara**         |     **si No Fumara**      |
+|----------------|:--------------------------:|:--------------------------:|
+| Pedro          | Desarrolla cáncer          |                         |
+| Juan           |                             | No desarrolla cáncer       |
+| Diego          | Desarrolla cáncer          |                          |
+| Fulano         | No desarrolla cáncer       |                      |
+| Menguano       |                          | No desarrolla cáncer       |
+
+
+$$\mathbb{P}(\text{cancer} \mid \text{fumar} ) = 2/3 > \mathbb{P}(\text{cancer} \mid \text{no fumar} = 0) $$
+<br>
+
+Conclusión #1: .bold["Fumar y desarrollar cancer están asociados estadísticamente"]
+]
+
+
+--
+
+
+.pull-right[
+
+**Mundos paralelos:**
+
+|                |      **si Fumara**         |     **si No Fumara**      |
+|----------------|:--------------------------:|:--------------------------:|
+| Pedro          | Desarrolla cáncer          |     .bold[(Desarrolla cáncer)]                      |
+| Juan           |  .bold[(No desarrolla cáncer)]                           | No desarrolla cáncer       |
+| Diego          | Desarrolla cáncer          |    .bold[(Desarrolla cáncer)]                        |
+| Fulano         | No desarrolla cáncer       |    .bold[(No desarrolla cáncer)]                      |
+| Menguano       | .bold[(No desarrolla cáncer)]                           | No desarrolla cáncer       |
+
+$\mathbb{P}(\text{cancer} \mid \text{do(fumar)} ) =  \mathbb{P}(\text{cancer} \mid \text{do(no fumar)} = 2/5$
+
+<br>
+
+Conclusión #2: .bold["Fumar no causa el desarrollo de cancer"]
+
+]
+
+---
+## Asociación $\neq$ Causalidad: ¿Why?
+
+- Hay varias razones por las cuales puede pasar que asociación y causalidad no coincidas.
+
+- Un caso paradigmático es cuando existe asociación espúria
+
+
+.pull-left[
+
+![](espurio.png)
+Edad actúa como un .bold["confounder"]
+]
+
+--
+
+.pull-right[
+
+<br>
+
+Mundos paralelos:
+
+| Nombre   | Edad | **si Fumara**            | **si No Fumara**          |
+|----------|:------:|:--------------------------:|:----------------------------:|
+| Pedro    | Viejo   | Desarrolla cáncer        | .bold[Desarrolla cáncer]      |
+| Juan     | Jóven   | .bold[No desarrolla cáncer] | No desarrolla cáncer       |
+| Diego    | Viejo   | Desarrolla cáncer        | .bold[Desarrolla cáncer]      |
+| Fulano   | Jóven   | No desarrolla cáncer     | .bold[No desarrolla cáncer]   |
+| Menguano | Jóven   | .bold[No desarrolla cáncer] | No desarrolla cáncer       |
+
+
+
+]
+
+---
+## Asociación $\neq$ Causalidad: ¿Why?
+
+- Hay varias razones por las cuales puede pasar que asociación y causalidad no coincidas.
+
+- Un caso paradigmático es cuando existe asociación espúria
+
+
+.pull-left[
+
+![](espurio.png)
+Edad actúa como un .bold["confounder"]
+]
+
+
+.pull-right[
+
+<br>
+
+Mundos observados:
+
+| Nombre   | Edad | **Fumador** | **Cáncer** |
+|----------|------|:-----------:|:----------:|
+| Pedro    | Viejo   | Sí          | Sí         |
+| Juan     | Jóven   | No          | No         |
+| Diego    | Viejo   | Sí          | Sí         |
+| Fulano   | Joven   | No          | No         |
+| Menguano | Joven   | No          | No         |
+
+]
+
+---
+## Asociación $\neq$ Causalidad: ¿Why?
+
+Aquí tienes una versión mejorada del texto:
+
+---
+## Asociación $\neq$ Causalidad: ¿Por qué?
+
+La diferencia entre asociación y causalidad es fundamental y va más allá de los métodos estadísticos utilizados. Consideraciones clave:
+
+<br>
+
+- .bold[NO es un problema de estimación]: no se resuelve con técnicas estadísticas más complejas.
+
+
+- .bold[NO es un problema de incertidumbre estadística]: no se soluciona con muestras más grandes.
+
+
+- .bold[ES un desafío inherente a la forma en que la realidad se manifiesta], y solo puede abordarse adecuadamente mediante un _diseño de investigación apropiado_, como:
+
+  - Experimentos de laboratorio, experimentos naturales, estrategias de inferencia causal, entre otros.
+
+---
+## Asociación $\neq$ Causalidad: ¿Por qué?
+
+Ejemplo de diseño de investigación: experimentos naturales y "regresión discontinua"
+
+
+.center[
+![](https://ds4ps.org/pe4ps-textbook/docs/FIGURE/RegDisc/Picture5.png)
+]
+---
+class: inverse, center, middle
+
+
+
+##Hasta la próxima clase. Gracias!
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+
+

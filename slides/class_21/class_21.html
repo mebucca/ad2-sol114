@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Probabilidad e Inferencia Estadística</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Probabilidad e Inferencia Estadística
+]
+.subtitle[
+## #21: Asociación estadística y causalidad
+]
+.author[
+### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
+]
+.date[
+### 12 November, 2024
+]
+
+---
+
+class: inverse, center, middle
+
+
+
+
+
+# Causalidad
+
+---
+## Causas y efectos
+
+&lt;br&gt;
+
+Las ciencias, en un sentido amplio, están motivadas por preguntas *aparentemente* sencillas, del tipo:
+
+
+&lt;br&gt;
+
+
+  - ¿Cuán eficaz es un determinado tratamiento  para prevenir una enfermedad?
+
+  - ¿Las ventas aumentaron debido a la nueva ley o a la campaña publicitaria?
+
+  - Al momento de contratar, ¿discriminan los empleadores en base al género de los/las postulantes?
+
+- etc.
+
+&lt;br&gt;
+--
+
+Factor común: relaciones .bold[causa-efecto].
+
+---
+
+## Causas y efecto: mundos paralelos
+
+.pull-left[
+![](https://www.neoteo.com/wp-content/uploads/2024/06/logo-33-758x707.jpg)
+]
+.pull-right[
+
+&lt;br&gt;
+&lt;br&gt;
+
+.bold[Hipótesis causal:]  
+
+_"Fumar causa cáncer"_
+
+&lt;br&gt;
+
+.bold[Pregunta contrafactual:] 
+    
+  -  "Si fumo, ¿desarrollaré cáncer?" y 
+  
+  -  "Si no fumo, ¿evitaré el cáncer?"
+
+  
+]
+
+---
+
+## Causas y efecto: mundos paralelos
+
+.pull-left[
+![](https://www.neoteo.com/wp-content/uploads/2024/06/logo-33-758x707.jpg)
+]
+.pull-right[
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+|                |      **Si Fumara**               |     **Si No Fumara**              |
+|----------------|:---------------------------:|:----------------------------:|
+| Pedro        | Desarrolla cáncer           | Desarrolla cáncer       |
+
+]
+
+---
+
+## Causas y efecto: mundos paralelos
+
+.pull-left[
+![](https://www.neoteo.com/wp-content/uploads/2024/06/logo-33-758x707.jpg)
+]
+.pull-right[
+
+Problema: no tenemos acceso al "multiverso"!
+
+![](https://img4.hulu.com/user/v3/artwork/426f0007-c057-4825-b56f-d2eba1883d63?base_image_bucket_name=image_manager&amp;base_image=4ea292b1-b1f4-469b-aa10-0b70779a85ad&amp;size=1600x900&amp;format=webp)
+
+
+Ejemplo: "Pedro fuma"
+
+
+|                |      **si Fumara**               |     **si No Fumara**              |
+|----------------|:---------------------------:|:----------------------------:|
+| Pedro          |  Desarrolla cáncer             |        |
+
+
+]
+
+---
+
+## Asociación estadística: el mundo observado
+
+.pull-left[
+![](https://www.neoteo.com/wp-content/uploads/2024/06/logo-33-758x707.jpg)
+]
+.pull-right[
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+Concomitacia de eventos:
+
+|                | **Fumador** | **Cáncer** |
+|----------------|:-----------:|:----------:|
+| Pedro          | Sí          | Sí         |
+| Juan           | No          | No         |
+| Diego          | Sí          | Sí         |
+| Fulano         | Sí          | No         |
+| Menguano       | No          | No         |
+
+
+- 2 de 3 fumadores desarrolla cancer
+- 0 de 2 no fumadores desarrolla cancer
+]
+
+
+
+---
+
+## Asociación estadística: el mundo observado
+
+.pull-left[
+![](https://www.neoteo.com/wp-content/uploads/2024/06/logo-33-758x707.jpg)
+]
+.pull-right[
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+Otra forma de verlo:
+
+|                |      **si Fumara**         |     **si No Fumara**      |
+|----------------|:--------------------------:|:--------------------------:|
+| Pedro          | Desarrolla cáncer          |                           |
+| Juan           |                            | No desarrolla cáncer       |
+| Diego          | Desarrolla cáncer          |                           |
+| Fulano         | No desarrolla cáncer       |                          |
+| Menguano       |                            | No desarrolla cáncer       |
+
+]
+
+
+---
+
+## De Asociación a causalidad
+
+
+.pull-left[
+![](https://www.neoteo.com/wp-content/uploads/2024/06/logo-33-758x707.jpg)
+]
+.pull-right[
+
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+&lt;br&gt;
+
+Para pasar de asociación a causalidad necesitariamos tener acceso a los mundos paralelos que no vemos:
+
+
+|                |      **si Fumara**         |     **si No Fumara**      |
+|----------------|:--------------------------:|:--------------------------:|
+| Pedro          | Desarrolla cáncer          |     .bold[(Desarrolla cáncer)]                      |
+| Juan           |  .bold[(No desarrolla cáncer)]                           | No desarrolla cáncer       |
+| Diego          | Desarrolla cáncer          |    .bold[(Desarrolla cáncer)]                        |
+| Fulano         | No desarrolla cáncer       |    .bold[(No desarrolla cáncer)]                      |
+| Menguano       | .bold[(No desarrolla cáncer)]                           | No desarrolla cáncer       |
+
+]
+
+
+
+
+---
+## Asociación `\(\neq\)` Causalidad
+
+.pull-left[
+
+**Mundo observado:**
+
+|                |      **si Fumara**         |     **si No Fumara**      |
+|----------------|:--------------------------:|:--------------------------:|
+| Pedro          | Desarrolla cáncer          |                         |
+| Juan           |                             | No desarrolla cáncer       |
+| Diego          | Desarrolla cáncer          |                          |
+| Fulano         | No desarrolla cáncer       |                      |
+| Menguano       |                          | No desarrolla cáncer       |
+
+
+$$\mathbb{P}(\text{cancer} \mid \text{fumar} ) = 2/3 &gt; \mathbb{P}(\text{cancer} \mid \text{no fumar} = 0) $$
+&lt;br&gt;
+
+Conclusión #1: .bold["Fumar y desarrollar cancer están asociados estadísticamente"]
+]
+
+
+--
+
+
+.pull-right[
+
+**Mundos paralelos:**
+
+|                |      **si Fumara**         |     **si No Fumara**      |
+|----------------|:--------------------------:|:--------------------------:|
+| Pedro          | Desarrolla cáncer          |     .bold[(Desarrolla cáncer)]                      |
+| Juan           |  .bold[(No desarrolla cáncer)]                           | No desarrolla cáncer       |
+| Diego          | Desarrolla cáncer          |    .bold[(Desarrolla cáncer)]                        |
+| Fulano         | No desarrolla cáncer       |    .bold[(No desarrolla cáncer)]                      |
+| Menguano       | .bold[(No desarrolla cáncer)]                           | No desarrolla cáncer       |
+
+`\(\mathbb{P}(\text{cancer} \mid \text{do(fumar)} ) =  \mathbb{P}(\text{cancer} \mid \text{do(no fumar)} = 2/5\)`
+
+&lt;br&gt;
+
+Conclusión #2: .bold["Fumar no causa el desarrollo de cancer"]
+
+]
+
+---
+## Asociación `\(\neq\)` Causalidad: ¿Why?
+
+- Hay varias razones por las cuales puede pasar que asociación y causalidad no coincidas.
+
+- Un caso paradigmático es cuando existe asociación espúria
+
+
+.pull-left[
+
+![](espurio.png)
+Edad actúa como un .bold["confounder"]
+]
+
+--
+
+.pull-right[
+
+&lt;br&gt;
+
+Mundos paralelos:
+
+| Nombre   | Edad | **si Fumara**            | **si No Fumara**          |
+|----------|:------:|:--------------------------:|:----------------------------:|
+| Pedro    | Viejo   | Desarrolla cáncer        | .bold[Desarrolla cáncer]      |
+| Juan     | Jóven   | .bold[No desarrolla cáncer] | No desarrolla cáncer       |
+| Diego    | Viejo   | Desarrolla cáncer        | .bold[Desarrolla cáncer]      |
+| Fulano   | Jóven   | No desarrolla cáncer     | .bold[No desarrolla cáncer]   |
+| Menguano | Jóven   | .bold[No desarrolla cáncer] | No desarrolla cáncer       |
+
+
+
+]
+
+---
+## Asociación `\(\neq\)` Causalidad: ¿Why?
+
+- Hay varias razones por las cuales puede pasar que asociación y causalidad no coincidas.
+
+- Un caso paradigmático es cuando existe asociación espúria
+
+
+.pull-left[
+
+![](espurio.png)
+Edad actúa como un .bold["confounder"]
+]
+
+
+.pull-right[
+
+&lt;br&gt;
+
+Mundos observados:
+
+| Nombre   | Edad | **Fumador** | **Cáncer** |
+|----------|------|:-----------:|:----------:|
+| Pedro    | Viejo   | Sí          | Sí         |
+| Juan     | Jóven   | No          | No         |
+| Diego    | Viejo   | Sí          | Sí         |
+| Fulano   | Joven   | No          | No         |
+| Menguano | Joven   | No          | No         |
+
+]
+
+---
+## Asociación `\(\neq\)` Causalidad: ¿Why?
+
+Aquí tienes una versión mejorada del texto:
+
+---
+## Asociación `\(\neq\)` Causalidad: ¿Por qué?
+
+La diferencia entre asociación y causalidad es fundamental y va más allá de los métodos estadísticos utilizados. Consideraciones clave:
+
+&lt;br&gt;
+
+- .bold[NO es un problema de estimación]: no se resuelve con técnicas estadísticas más complejas.
+
+
+- .bold[NO es un problema de incertidumbre estadística]: no se soluciona con muestras más grandes.
+
+
+- .bold[ES un desafío inherente a la forma en que la realidad se manifiesta], y solo puede abordarse adecuadamente mediante un _diseño de investigación apropiado_, como:
+
+  - Experimentos de laboratorio, experimentos naturales, estrategias de inferencia causal, entre otros.
+
+---
+## Asociación `\(\neq\)` Causalidad: ¿Por qué?
+
+Ejemplo de diseño de investigación: experimentos naturales y "regresión discontinua"
+
+
+.center[
+![](https://ds4ps.org/pe4ps-textbook/docs/FIGURE/RegDisc/Picture5.png)
+]
+---
+class: inverse, center, middle
+
+
+
+##Hasta la próxima clase. Gracias!
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
