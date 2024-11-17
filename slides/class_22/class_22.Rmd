@@ -1,0 +1,868 @@
+---
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#22: Asociación entre variables categóricas"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["gentle-r.css","xaringan-themer.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  chunz_output_type: console
+---  
+class: inverse, center, middle
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(xaringanthemer)
+style_duo_accent(primary_color = "#C80815", secondary_color = "#007FFF",
+                 background_color = "#f8f7f3", 
+                 header_font_google = google_font("Archivo"),
+                 text_font_google   = google_font("Inconsolata"), 
+                 link_color= "#FDDDE6"
+
+)
+
+options(scipen = 999)
+set.seed(1223455)
+
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = T, echo = T)
+```
+
+# Tablas de contingencia
+
+---
+## Datos Plebiscito 1989
+
+.pull-left[
+
+- Encuesta realizada por FLACSO/Chile en Abril y Mayo de 1988
+
+- Mi intención de voto en el plebiscito de 1989
+
+- Incluye otras variables socio-demográficas.
+
+]
+
+.pull-right[
+![NO](no.jpg)
+
+]
+
+
+--
+```{r,  include=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+library("carData") 
+data("Chile") 
+datos_chile <- Chile
+datos_chile <- datos_chile %>% filter(vote == "Y" | vote=="N") %>% mutate(vote = factor(vote))
+```
+
+---
+## Asociación entre ingreso y voto SI/NO
+
+
+<br>
+--
+
+
+Si estuviéramos interesados en estudiar la asociación entre la intención de voto y el nivel de ingresos -- donde ambas variables son discretas --  el primer paso probablemente sería construir una tabla de este tipo:
+
+--
+
+.pull-left[
+```{r, include=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
+ctable <- datos_chile %>% with(table(income,vote))
+print(ctable)
+```
+]
+
+
+.pull-right[
+
+<br> <br>
+- Este tipo de tablas se denomina .bold[tablas de contingencia]
+
+- Clasificación cruzada de las frecuencias de dos variables
+]
+
+
+---
+
+## Tablas de contingencia
+
+Una definición formal: una tabla de contingencia es una matriz que muestra la *distribución multivariada* de frecuencias de un número arbitrario de variables categóricas. 
+
+<br>
+
+Caso simple:
+
+- $X$ y $Y$ son dos variables categóricas.
+
+  - $X$ tiene $I$ categorías $\{i, \dots, I \}$ 
+
+  - $Y$ tiene $J$ categorías $\{j, \dots, J \}$.
+
+
+<br>
+--
+
+Una tabla rectangular que clasifica todas las combinaciones posibles de $X$ y $Y$ tendrá $I$ filas para las categorías de $X$, $J$ columnas para las categorías de $Y$, y $I \times J$ celdas.
+
+
+---
+## Tablas de contingencia
+
+
+<br>
+<br>
+<br>
+
+Estructura general de una tabla 2-way, $I \times J$
+
+<br>
+
+|           	| $Y=y_{1}$ 	| $Y=y_{2}$ 	| $\dots$ 	| $Y=y_{J}$ 	|   Total  	|
+|:---------:	|:---------:	|:---------:	|:-------:	|:---------:	|:--------:	|
+| $X=x_{1}$ 	|  $n_{11}$ 	|  $n_{12}$ 	| $\dots$ 	|  $n_{1J}$ 	| $n_{1+}$ 	|
+| $X=x_{2}$ 	|  $n_{21}$ 	|  $n_{22}$ 	| $\dots$ 	|  $n_{2J}$ 	| $n_{2+}$ 	|
+|  $\dots$  	|  $\dots$  	|  $\dots$  	| $\dots$ 	|  $\dots$  	|  $\dots$ 	|
+| $X=x_{I}$ 	|  $n_{I1}$ 	|  $n_{I2}$ 	| $\dots$ 	|  $n_{IJ}$ 	| $n_{I+}$ 	|
+|   Total   	|  $n_{+1}$ 	|  $n_{+2}$ 	| $\dots$ 	|  $n_{+J}$ 	| $n_{++}$ 	|
+
+
+
+---
+class: inverse, center, middle
+
+# Estructura probabilística 
+
+
+---
+## Distribución conjunta
+
+Supongamos que elegimos al azar un individuo de nuestra población. ¿Cual es la probabilidad de que pertenezca una celda dada de la tabla de contingencia?
+
+<br>
+--
+
+Para cada frecuencia conjunta $n_{ij}$ en la tabla existe una probabilidad conjunta asociada $p_{ij}$, tal que
+
+$$p_{ij} = \mathbb{P}(X = i, Y = j)$$
+
+
+  - denota la probabilidad de que una observación muestreada al azar pertenezca a la celda $(i,j)$.
+
+  - la colección de probabilidades $p_{ij}$ forma la .bold[distribución conjunta] de $X$ y $Y$, $f(x,y)$. 
+
+
+--
+
+### Estimación
+
+Cuando trabajamos con muestras, esta probabilidad se puede estimar (MLE) a partir de las frecuencias en la tabla:
+
+$$\hat{p}_{ij} = \frac{n_{ij}}{n}$$
+
+
+---
+## Distribución conjunta
+
+En nuestro ejemplo,
+
+```{r,  include=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+# joint distibution
+joint_dis <- ctable/sum(ctable); joint_dis  
+```
+
+<br>
+--
+Como con cualquier distribución de probabilidad, sabemos que los $p_{ij}$ suman a 1. 
+
+--
+
+Veamos en el caso de nuestro estimador:
+
+Si $\hat{p}_{ij} = \frac{n_{ij}}{n}$, entonces 
+
+$$\sum_{i} \sum_{j} \frac{n_{ij}}{n} = \frac{n}{n} = 1$$
+
+---
+## Distribuciones marginales
+
+<br>
+
+Podemos obtener la distribución marginal de las variables $X$ y $Y$ a partir de su distribución conjunta. 
+
+<br>
+--
+
+- La distribución marginal de $X$ (filas) está dada por:    
+
+$$p_{i+} = \sum_{j} p_{ij}$$
+<br>
+--
+
+- La distribución marginal de $Y$ (columnas) está dada por:    
+
+$$p_{+j} = \sum_{i} p_{ij}$$
+
+
+---
+## Distribuciones marginales
+
+.pull-left[
+Podemos obtener distribuciones marginales a partir de la distribución conjunta. 
+
+```{r,  include=TRUE, echo=T, eval=F, warning=FALSE, message=FALSE}
+# joint distibution
+joint_dis <- ctable/sum(ctable)  
+```
+
+]
+.pull-right[
+
+```{r,  include=TRUE, echo=F, warning=FALSE, message=FALSE}
+# joint distibution
+joint_dis <- ctable/sum(ctable); joint_dis  
+```
+]
+
+--
+
+```{r,  include=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
+# marginal distribution rows
+rowSums(joint_dis)
+```
+
+```{r,  include=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
+# marginal distribution columns
+colSums(joint_dis)
+```
+
+---
+## Distribución conjunta y marginal de probabilidades 
+
+En resumen,
+
+<br>
+
+|           	| $Y=y_{1}$ 	| $Y=y_{2}$ 	| $\dots$ 	| $Y=y_{J}$ 	|   Total  	|
+|:---------:	|:---------:	|:---------:	|:-------:	|:---------:	|:--------:	|
+| $X=x_{1}$ 	|  $p_{11}$ 	|  $p_{12}$ 	| $\dots$ 	|  $p_{1J}$ 	| $p_{1+}$ 	|
+| $X=x_{2}$ 	|  $p_{21}$ 	|  $p_{22}$ 	| $\dots$ 	|  $p_{2J}$ 	| $p_{2+}$ 	|
+|  $\dots$  	|  $\dots$  	|  $\dots$  	| $\dots$ 	|  $\dots$  	|  $\dots$ 	|
+| $X=x_{I}$ 	|  $p_{I1}$ 	|  $p_{I2}$ 	| $\dots$ 	|  $p_{IJ}$ 	| $p_{I+}$ 	|
+|   Total   	|  $p_{+1}$ 	|  $p_{+2}$ 	| $\dots$ 	|  $p_{+J}$ 	| 1	|
+
+
+<br>
+Estructura general de probabilidades en una  tabla 2-way, $I \times J$
+
+
+---
+class: middle
+
+## Distribucion conjunta y marginales
+
+.center[
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(ggplot2)
+library(dplyr)
+library(ggExtra)
+library(gridExtra)
+
+# Create all possible combinations of two discrete variables x and y
+n_categories <- 5  # Number of categories for each variable, from 0 to 30
+n_trials <- 3  # Number of trials for the binomial distribution
+prob_x <- 0.6  # Success probability for x in the binomial distribution
+prob_y_given_x <- 0.7  # Success probability for y given x in the binomial distribution
+
+x <- 0:(n_categories - 1)
+y <- 0:(n_categories - 1)
+
+# Create a dataframe with all combinations of x and y
+data_grid <- expand.grid(x = x, y = y)
+
+# Simulate a 3D bell shape using the binomial distribution for both x and y
+data_grid$z <- dbinom(data_grid$x, size = n_trials, prob = prob_x) * 
+               dbinom(data_grid$y, size = n_trials, prob = prob_y_given_x)
+
+
+# Create the main heatmap
+p_main <- ggplot(data_grid, aes(x = x, y = y)) +
+  geom_tile(aes(fill = z), color = "black", width = 1, height = 1) +
+  scale_fill_gradient(low = "#FDDDE6", high = "#C80815") +
+  theme_minimal() +
+  labs(
+    title = "",
+    x = "",
+    y = "",
+    fill = "Density"
+  ) +
+  theme(
+    axis.text.x = element_blank(),
+    axis.text.y = element_blank(),
+    axis.ticks = element_blank(),
+    legend.position = "none"
+  )
+
+# Create the marginal density plot for X and rotate it by 90 degrees
+p_x <- ggplot(data_grid %>% group_by(x) %>% summarise(z = sum(z)), aes(x = x, y = z)) +
+  geom_col(fill = "#FDDDE6") +
+  coord_flip() +
+  theme_void()  # Remove grid and axis labels
+
+# Create the marginal density plot for Y
+p_y <- ggplot(data_grid %>% group_by(y) %>% summarise(z = sum(z)), aes(x = y, y = z)) +
+  geom_col(fill = "#FDDDE6") +
+  theme_void()  # Remove grid and axis labels
+
+# Combine all plots
+grid.arrange(p_y, NULL, p_main, p_x, ncol = 2, nrow = 2, widths = c(4, 1), heights = c(1, 4))
+
+```
+]
+
+
+# Show the plot
+plot
+
+---
+class: inverse, center, middle
+
+# Distribuciones condicionales 
+
+
+---
+## Distribuciones condicionales 
+
+<br>
+
+- Recuerden que $\mathbb{P}(Y=y \mid X=x)$ es la .bold[probabilidad condicional] de que la variable $Y$ dado $X$.
+
+
+--
+
+- La .bold[distribución condicional] $f(y \mid x)$ es una función que expresa la probabilidad que $Y$ tome cada uno de sus posibles valores $y$'s si X toma cualquiera los valores $x$'s.
+
+<br>
+--
+
+Por tanto,
+
+-  En una tabla de contingencia podemos construir las distribuciones condicionales de las variables $X$ (o $Y$) fijando la otra variable en sus diferentes niveles.
+
+--
+
+- Normalmente nos referimos como la "variable independiente" a la variable que usamos para condicionar, mientras que la otra variable actúa como "variable dependiente". 
+
+---
+## Distribuciones condicionales 
+
+<br>
+
+.pull-left[
+En nuestro ejemplo podemos construir la distribución condicional  de la variable `vote` dado `income` usando la fórmula general para probabilidades condicionales:
+]
+
+.pull-right[
+```{r, include=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+print(ctable)
+```
+]
+
+<br>
+<br>
+--
+\begin{align}
+\mathbb{P}( \text{vote}=j | \text{ income}=i  ) &= \frac{\mathbb{P}(\text{vote}=j , \text{ income}=i )}{\mathbb{P}(\text{ income}=i)} 
+\end{align}
+
+---
+## Distribuciones condicionales 
+
+<br>
+
+.pull-left[
+Sustituyendo las probabilidades  de la ecuación por sus respectivos estimadores podemos estimar las distribuciones condicionales en la tabla:
+]
+.pull-right[
+```{r, include=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+print(ctable)
+```
+]
+
+<br>
+<br>
+--
+
+\begin{align}
+ \hat{p}_{j | i} &= \frac{P(\text{vote}=j , \text{ income}=i )}{P(\text{ income}=i)} \\ \\
+  &= \frac{\frac{n_{ij}}{n}}{\frac{\sum_{j} n_{ij}}{n}} = \frac{n_{ij}}{\sum_{j}n_{ij}} 
+\end{align}
+
+---
+
+## Distribuciones condicionales 
+
+.pull-left[
+Sustituyendo las probabilidades  de la ecuación por sus respectivos estimadores podemos estimar las distribuciones condicionales en la tabla:
+]
+.pull-right[
+```{r, include=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+print(ctable)
+```
+]
+
+<br>
+
+Por ejemplo, la probabilidad condicional de haber tenido un "vote" dado que el genero es mujer se estima de la siguiente manera:
+
+\begin{align}
+ \hat{p}_{ \text{vote=Y} | \text{income=2500}} & = \frac{n_{12}}{n_{11} + n_{12}} \\ \\
+ &= \frac{55}{47 + 55} = 0.54
+\end{align}
+
+---
+## Distribuciones condicionales 
+
+Sustituyendo las probabilidades  de la ecuación por sus respectivos estimadores podemos estimar las distribuciones condicionales en la tabla:
+
+.pull-left[
+
+.bold[Tabla de contingencia]
+
+```{r, include=TRUE,  warning=FALSE, message=FALSE}
+print(ctable)
+```
+]
+
+.pull-right[
+.bold[P(voto | ingreso)]
+
+```{r}
+prop.table(ctable,margin=1) 
+```
+]
+
+
+
+
+---
+## Independencia estadística
+
+
+- Recuerden, dos variables $X$ y $Y$ son independientes si al saber algo sobre $X$ no aprendemos nada sobre $Y$, y viceversa: $\mathbb{P}(Y|X) = \mathbb{P}(Y)$.
+
+- Check:  $X \bot Y \iff \mathbb{P}(X,Y) = \mathbb{P}(X)\mathbb{P}(Y)$
+
+--
+
+- Podemos usar esta propiedad para comprobar independencia en una tabla de contingencia.
+
+<br>
+--
+
+- Si $X \bot Y$ las probabilidades conjuntas .bold[esperadas bajo el supuesto de independencia] están dadas por el producto de las distribuciones marginales:
+
+$$\tilde{p}_{ij} = p_{i+} \times  p_{+j}$$
+
+<br>
+--
+
+- Asimismo, las frecuencias esperadas bajo independencia están dadas por:
+
+$$\tilde{n}_{ij} = n \times p_{i+} \times  p_{+j}$$
+
+<br>
+--
+
+.bold[Importante]: noten que sólo necesitamos saber la distribución marginal de las variables para calcular las probabilidades y frecuencias esperadas bajo independencia. 
+
+---
+## Independencia estadística
+
+.pull-left[
+.bold[Distribución conjunta observada]
+
+```{r, echo=FALSE}
+# joint_dis <- ctable/sum(ctable); joint_dis  
+joint_income_vote <- ctable/sum(ctable); print(joint_income_vote)
+```
+
+]
+
+.pull-right[
+
+]
+
+<br>
+--
+
+.bold[Distribuciones marginales]
+```{r, echo=FALSE}
+# marginal income 
+margin_income <- apply(joint_income_vote,1,sum); print(margin_income)
+# marginal vote 
+margin_vote <- apply(joint_income_vote,2,sum); print(margin_vote)
+```
+
+
+---
+## Independencia estadística
+
+
+
+.pull-left[
+.bold[Distribución conjunta observada]
+
+```{r, echo=FALSE}
+# joint_dis <- ctable/sum(ctable); joint_dis  
+joint_income_vote <- ctable/sum(ctable); print(joint_income_vote)
+```
+
+]
+
+
+.pull-right[
+.bold[Distribución conjunta esperada bajo independencia]
+
+```{r}
+# expected joint probs under independence 
+joint_income_vote_indep <- margin_income %*% t(margin_vote)
+print(joint_income_vote_indep)
+```
+]
+
+<br><br>
+--
+
+.bold[¿Se parece la distribución observada a la distribución que observariamos si voto e ingresos no estuvieran asociados?]
+
+---
+class: inverse, center, middle
+
+## Test $\chi^{2}$ de indepencia estadística  
+
+---
+### Test $\chi^{2}$ de indepencia estadística 
+
+<br>
+
+Primer paso, testear que exista _algo_ de asociación: ¿son estas tablas _suficientemente distintas_? 
+
+<br>
+```{r, echo=FALSE}
+# joint
+joint_income_vote <- ctable/sum(ctable); 
+# marginal income 
+margin_income <- apply(joint_income_vote,1,sum)
+# marginal vote 
+margin_vote <- apply(joint_income_vote,2,sum)
+```
+
+.pull-left[
+.bold[Frecuencias observadas]
+```{r, echo=FALSE}
+# joint_dis <- ctable/sum(ctable); joint_dis  
+print(ctable)
+```
+]
+
+--
+
+.pull-right[
+.bold[Frecuencias esperadas bajo independencia]
+```{r, echo=FALSE}
+# expected joint probs under independence 
+joint_income_vote_indep <- margin_income %*% t(margin_vote)
+rownames(joint_income_vote_indep) <- rownames(ctable)
+ctable_independence <- sum(ctable)*joint_income_vote_indep 
+print(ctable_independence)
+```
+]
+
+<br>
+Donde cada frecuencia esperada bajo independencia está dada por: $\tilde{n}_{ij} = n \times \hat{p}_{i+} \times  \hat{p}_{+j}$
+
+
+---
+### Test $\chi^{2}$ de indepencia estadística 
+
+```{r, echo=FALSE}
+# joint
+joint_income_vote <- ctable/sum(ctable); 
+# marginal income 
+margin_income <- apply(joint_income_vote,1,sum)
+# marginal vote 
+margin_vote <- apply(joint_income_vote,2,sum)
+```
+
+.pull-left[
+.bold[Frecuencias observadas]
+```{r, echo=FALSE}
+# joint_dis <- ctable/sum(ctable); joint_dis  
+print(ctable)
+```
+]
+
+--
+
+.pull-right[
+.bold[Frecuencias esperadas bajo independencia]
+```{r, echo=FALSE}
+# expected joint probs under independence 
+joint_income_vote_indep <- margin_income %*% t(margin_vote)
+rownames(joint_income_vote_indep) <- rownames(ctable)
+ctable_independence <- sum(ctable)*joint_income_vote_indep 
+print(ctable_independence)
+```
+]
+
+
+--
+
+- El test Pearson $\chi^{2}$ (**t**) mide el grado asociación en la tabla de la siguiente manera:
+
+.content-box-secondary[
+$$\color{white}{t =\sum_{\text{all k: } i,j} \frac{(n_{ij} - \tilde{n}_{ij})^{2}}{\tilde{n}_{ij}}}$$
+]
+
+.bold[Un valor alto de  $t$ sugiere que las variables no son independientes.]
+--
+ Pero, ¿cuánto es "alto"?
+
+
+---
+### Test $\chi^{2}$ de indepencia estadística 
+
+.bold[Nota:]
+- Si $Z_{1}, \dots , Z_{k}$ son variables independientes y cada $Z \sim \text{Normal}(0,1)$, 
+- Entonces la variable $Y = \sum_{k} Z^{2} \sim \chi^{2}_{k}$. $Y$ distribuye $\chi^{2}$ con $k$ grados de libertad.
+
+<br>
+--
+
+.bold[Heuristica:]
+
+- $t =\sum_{\text{all k: } i,j} \frac{(n_{ij} - \tilde{n}_{ij})^{2}}{\tilde{n}_{ij}}$
+
+- Si no hay asociación entre las variables ( $H_{0}$ ) entonces:  $t =\sum_{\text{all k: } i,j} \frac{(\text{algo cercano a cero})^{2}}{\tilde{n}_{ij}}$
+
+<br>
+--
+
+Pearson demostró que si $H_{0}$ es verdadera, entonces:
+
+.content-box-secondary[
+$$\color{white}{t \sim \chi_{df}^{2}, \quad  \text{ donde } \quad  df= (I-1)(J-1)}$$
+
+]
+
+Esto le da el nombre al test $\chi^{2}$, pero no confundir con la distribución $\chi^{2}$.
+
+---
+### Test $\chi^{2}$ de indepencia estadística 
+
+<br>
+
+.bold[p-value]: 
+
+.content-box-secondary[
+$$\color{white}{\mathbb{P}(t  > \hat{t} \mid H_{0})}$$
+]
+
+equivalente a:
+
+--
+
+.content-box-secondary[
+$$\color{white}{\mathbb{P}(\chi_{df}^{2}  > \hat{t})}$$
+]
+
+
+```{css, echo=FALSE}
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+```
+
+
+---
+### Test $\chi^{2}$ de indepencia estadística 
+
+
+.bold[(Observado-Esperado)^2/Espetado:]
+
+.center[
+```{r, warning=F, message=F}
+(((ctable - ctable_independence)^(2))/ctable_independence) %>% print()
+```
+]
+
+<br>
+--
+
+.bold[Test Chi-2 : ∑ (Observado-Esperado)^2/Espetado]
+
+```{r, echo=FALSE}
+our_chi2 <- (((ctable - ctable_independence)^(2))/ctable_independence) %>% sum(); print(our_chi2)
+```
+
+---
+### Test $\chi^{2}$ de indepencia estadística 
+
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=8.5}
+library("tidyverse")
+
+df <- 6  # Degrees of freedom
+
+mydata <- tibble(x = seq(from = 0, to = 10, by = 0.01), chi2 = dchisq(x, df))
+
+plot <- ggplot(data = mydata, mapping = aes(x = x)) +
+  geom_path(aes(y = chi2), size = 1.5, alpha = 0.8, color = "#C80815") +
+  geom_area(
+    data = filter(mydata, x >= our_chi2),
+    aes(y = chi2),
+    fill = "#C80815",
+    alpha = 0.4
+  ) +
+  labs(
+    y = "f(y)",
+    x = "y",
+    title = "Probability function Chi^2 con df=6"
+  ) +
+  geom_vline(xintercept = our_chi2, color = "#007FFF", size = 1.5) +
+  annotate(
+    geom = "text",
+    x = our_chi2 + 0.9,
+    y = 0.2,
+    label = expression(paste(hat(t), " = 6.02")),
+    color = "black",
+    parse = TRUE,
+    size = 6
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+print(plot)
+
+```
+.bold[Para ser claros:] Si la hipótesis de independencia ( $H_{0}$ ) es cierta, nuestro test $t$ distribuye $\chi^{2}$ con  $df= (I-1)(J-1)=6$
+]
+
+--
+
+.pull-right[
+.bold[p-value]
+
+$$\mathbb{P}(\chi_{df=6}^{2} \geq \hat{t} )$$
+```{r, warning=F, message=F}
+1- pchisq(our_chi2,df=6)
+```
+
+]
+
+
+---
+### Test $\chi^{2}$ de indepencia estadística 
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=8.5}
+library("tidyverse")
+
+df <- 6  # Degrees of freedom
+
+mydata <- tibble(x = seq(from = 0, to = 10, by = 0.01), chi2 = dchisq(x, df))
+
+plot <- ggplot(data = mydata, mapping = aes(x = x)) +
+  geom_path(aes(y = chi2), size = 1.5, alpha = 0.8, color = "#C80815") +
+  geom_area(
+    data = filter(mydata, x >= our_chi2),
+    aes(y = chi2),
+    fill = "#C80815",
+    alpha = 0.4
+  ) +
+  labs(
+    y = "f(y)",
+    x = "y",
+    title = "Probability function Chi^2 con df=6"
+  ) +
+  geom_vline(xintercept = our_chi2, color = "#007FFF", size = 1.5) +
+  annotate(
+    geom = "text",
+    x = our_chi2 + 0.9,
+    y = 0.2,
+    label = expression(paste(hat(t), " = 6.02")),
+    color = "black",
+    parse = TRUE,
+    size = 6
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+print(plot)
+```
+.bold[Para ser claros:] Si la hipótesis de independencia ( $H_{0}$ ) es cierta, nuestro test $t$ distribuye $\chi^{2}$ con  $df= (I-1)(J-1)=6$
+]
+
+
+.pull-right[
+.bold[p-value]
+
+$$\mathbb{P}(\chi_{df=6}^{2} \geq \hat{t})$$
+```{r, warning=F, message=F}
+1- pchisq(our_chi2,df=6)
+```
+
+
+```{r, warning=F, message=F}
+# Versión automática
+chisq.test(ctable,correct = FALSE)
+```
+
+]
+
+--
+
+.bold[Conclusión]: el valor obtenido en nuestro test no es un valor demasiado improbable bajo independencia. No tenemos evidencia fuerte para sostener que ambas variables están asociadas. 
+
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+
+
