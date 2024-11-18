@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Probabilidad e Inferencia Estadística</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Probabilidad e Inferencia Estadística
+]
+.subtitle[
+## #22: Asociación entre variables categóricas
+]
+.author[
+### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
+]
+.date[
+### 18 November, 2024
+]
+
+---
+
+class: inverse, center, middle
+
+
+
+
+
+
+## Test `\(\chi^{2}\)` de indepencia estadística  
+
+---
+### Test `\(\chi^{2}\)` de indepencia estadística 
+
+
+``` r
+library("carData") 
+data("Chile") 
+datos_chile &lt;- Chile
+datos_chile &lt;- datos_chile %&gt;% filter(vote == "Y" | vote=="N") %&gt;% mutate(vote = factor(vote))
+
+ctable &lt;- datos_chile %&gt;% with(table(income,vote))
+```
+
+&lt;br&gt;
+
+Primer paso, testear que exista _algo_ de asociación: ¿son estas tablas _suficientemente distintas_? 
+
+
+
+.pull-left[
+.bold[Frecuencias observadas]
+
+```
+##         vote
+## income     N   Y
+##   2500    47  55
+##   7500   143 160
+##   15000  245 240
+##   35000  269 228
+##   75000   98  92
+##   125000  38  31
+##   200000  29  35
+```
+]
+
+--
+
+.pull-right[
+.bold[Frecuencias esperadas bajo independencia]
+
+```
+##                N         Y
+## 2500    51.83509  50.16491
+## 7500   153.98070 149.01930
+## 15000  246.47076 238.52924
+## 35000  252.56901 244.43099
+## 75000   96.55556  93.44444
+## 125000  35.06491  33.93509
+## 200000  32.52398  31.47602
+```
+]
+
+&lt;br&gt;
+Donde cada frecuencia esperada bajo independencia está dada por: `\(\tilde{n}_{ij} = n \times \hat{p}_{i+} \times  \hat{p}_{+j}\)`
+
+
+---
+### Test `\(\chi^{2}\)` de indepencia estadística 
+
+
+
+.pull-left[
+.bold[Frecuencias observadas]
+
+```
+##         vote
+## income     N   Y
+##   2500    47  55
+##   7500   143 160
+##   15000  245 240
+##   35000  269 228
+##   75000   98  92
+##   125000  38  31
+##   200000  29  35
+```
+]
+
+--
+
+.pull-right[
+.bold[Frecuencias esperadas bajo independencia]
+
+```
+##                N         Y
+## 2500    51.83509  50.16491
+## 7500   153.98070 149.01930
+## 15000  246.47076 238.52924
+## 35000  252.56901 244.43099
+## 75000   96.55556  93.44444
+## 125000  35.06491  33.93509
+## 200000  32.52398  31.47602
+```
+]
+
+
+--
+
+- El test Pearson `\(\chi^{2}\)` (**t**) mide el grado asociación en la tabla de la siguiente manera:
+
+.content-box-secondary[
+`$$\color{white}{t =\sum_{\text{all k: } i,j} \frac{(n_{ij} - \tilde{n}_{ij})^{2}}{\tilde{n}_{ij}}}$$`
+]
+
+.bold[Un valor alto de  `\(t\)` sugiere que las variables no son independientes.]
+--
+ Pero, ¿cuánto es "alto"?
+
+
+---
+### Test `\(\chi^{2}\)` de indepencia estadística 
+
+.bold[Nota:]
+- Si `\(Z_{1}, \dots , Z_{k}\)` son variables independientes y cada `\(Z \sim \text{Normal}(0,1)\)`, 
+- Entonces la variable `\(Y = \sum_{k} Z^{2} \sim \chi^{2}_{k}\)`. `\(Y\)` distribuye `\(\chi^{2}\)` con `\(k\)` grados de libertad.
+
+&lt;br&gt;
+--
+
+.bold[Heuristica:]
+
+- `\(t =\sum_{\text{all k: } i,j} \frac{(n_{ij} - \tilde{n}_{ij})^{2}}{\tilde{n}_{ij}}\)`
+
+- Si no hay asociación entre las variables ( `\(H_{0}\)` ) entonces:  `\(t =\sum_{\text{all k: } i,j} \frac{(\text{algo cercano a cero})^{2}}{\tilde{n}_{ij}}\)`
+
+&lt;br&gt;
+--
+
+Pearson demostró que si `\(H_{0}\)` es verdadera, entonces:
+
+.content-box-secondary[
+`$$\color{white}{t \sim \chi_{df}^{2}, \quad  \text{ donde } \quad  df= (I-1)(J-1)}$$`
+
+]
+
+Esto le da el nombre al test `\(\chi^{2}\)`, pero no confundir con la distribución `\(\chi^{2}\)`.
+
+---
+### Test `\(\chi^{2}\)` de indepencia estadística 
+
+&lt;br&gt;
+
+.bold[p-value]: 
+
+.content-box-secondary[
+`$$\color{white}{\mathbb{P}(t  &gt; \hat{t} \mid H_{0})}$$`
+]
+
+equivalente a:
+
+--
+
+.content-box-secondary[
+`$$\color{white}{\mathbb{P}(\chi_{df}^{2}  &gt; \hat{t})}$$`
+]
+
+
+&lt;style type="text/css"&gt;
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+&lt;/style&gt;
+
+
+---
+### Test `\(\chi^{2}\)` de indepencia estadística 
+
+
+.bold[(Observado-Esperado)^2/Espetado:]
+
+.center[
+
+``` r
+(((ctable - ctable_independence)^(2))/ctable_independence) %&gt;% print()
+```
+
+```
+##         vote
+## income             N           Y
+##   2500   0.451008656 0.466024402
+##   7500   0.783057939 0.809128834
+##   15000  0.008776439 0.009068639
+##   35000  1.068925967 1.104514465
+##   75000  0.021608490 0.022327917
+##   125000 0.245679780 0.253859368
+##   200000 0.381823271 0.394535580
+```
+]
+
+&lt;br&gt;
+--
+
+.bold[Test Chi-2 : ∑ (Observado-Esperado)^2/Espetado]
+
+
+```
+## [1] 6.02034
+```
+
+---
+### Test `\(\chi^{2}\)` de indepencia estadística 
+
+
+.pull-left[
+![](class_23_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+.bold[Para ser claros:] Si la hipótesis de independencia ( `\(H_{0}\)` ) es cierta, nuestro test `\(t\)` distribuye `\(\chi^{2}\)` con  `\(df= (I-1)(J-1)=6\)`
+]
+
+--
+
+.pull-right[
+.bold[p-value]
+
+`$$\mathbb{P}(\chi_{df=6}^{2} \geq \hat{t} )$$`
+
+``` r
+1- pchisq(our_chi2,df=6)
+```
+
+```
+## [1] 0.4209155
+```
+
+]
+
+
+---
+### Test `\(\chi^{2}\)` de indepencia estadística 
+
+.pull-left[
+![](class_23_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
+.bold[Para ser claros:] Si la hipótesis de independencia ( `\(H_{0}\)` ) es cierta, nuestro test `\(t\)` distribuye `\(\chi^{2}\)` con  `\(df= (I-1)(J-1)=6\)`
+]
+
+
+.pull-right[
+.bold[p-value]
+
+`$$\mathbb{P}(\chi_{df=6}^{2} \geq \hat{t})$$`
+
+``` r
+1- pchisq(our_chi2,df=6)
+```
+
+```
+## [1] 0.4209155
+```
+
+
+
+``` r
+# Versión automática
+chisq.test(ctable,correct = FALSE)
+```
+
+```
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  ctable
+## X-squared = 6.0203, df = 6, p-value = 0.4209
+```
+
+]
+
+--
+
+.bold[Conclusión]: el valor obtenido en nuestro test no es un valor demasiado improbable bajo independencia. No tenemos evidencia fuerte para sostener que ambas variables están asociadas. 
+
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

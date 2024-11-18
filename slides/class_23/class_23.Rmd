@@ -1,0 +1,364 @@
+---
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#22: Asociación entre variables categóricas"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["gentle-r.css","xaringan-themer.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  chunz_output_type: console
+---  
+class: inverse, center, middle
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(xaringanthemer)
+style_duo_accent(primary_color = "#1D1D1F",  # Dark gray/black for elegance
+                 secondary_color = "#50B2BE",  # Petronas green
+                 background_color = "#f8f7f3", 
+                 header_font_google = google_font("Archivo"),
+                 text_font_google   = google_font("Inconsolata"), 
+                 link_color= "#FDDDE6"
+
+)
+
+options(scipen = 999)
+set.seed(1223455)
+
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = T, echo = T)
+```
+
+
+## Test $\chi^{2}$ de indepencia estadística  
+
+---
+### Test $\chi^{2}$ de indepencia estadística 
+
+```{r, include=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
+library("carData") 
+data("Chile") 
+datos_chile <- Chile
+datos_chile <- datos_chile %>% filter(vote == "Y" | vote=="N") %>% mutate(vote = factor(vote))
+
+ctable <- datos_chile %>% with(table(income,vote))
+```
+
+<br>
+
+Primer paso, testear que exista _algo_ de asociación: ¿son estas tablas _suficientemente distintas_? 
+
+```{r, echo=FALSE}
+# joint
+joint_income_vote <- ctable/sum(ctable); 
+# marginal income 
+margin_income <- apply(joint_income_vote,1,sum)
+# marginal vote 
+margin_vote <- apply(joint_income_vote,2,sum)
+```
+
+.pull-left[
+.bold[Frecuencias observadas]
+```{r, echo=FALSE}
+# joint_dis <- ctable/sum(ctable); joint_dis  
+print(ctable)
+```
+]
+
+--
+
+.pull-right[
+.bold[Frecuencias esperadas bajo independencia]
+```{r, echo=FALSE}
+# expected joint probs under independence 
+joint_income_vote_indep <- margin_income %*% t(margin_vote)
+rownames(joint_income_vote_indep) <- rownames(ctable)
+ctable_independence <- sum(ctable)*joint_income_vote_indep 
+print(ctable_independence)
+```
+]
+
+<br>
+Donde cada frecuencia esperada bajo independencia está dada por: $\tilde{n}_{ij} = n \times \hat{p}_{i+} \times  \hat{p}_{+j}$
+
+
+---
+### Test $\chi^{2}$ de indepencia estadística 
+
+```{r, echo=FALSE}
+# joint
+joint_income_vote <- ctable/sum(ctable); 
+# marginal income 
+margin_income <- apply(joint_income_vote,1,sum)
+# marginal vote 
+margin_vote <- apply(joint_income_vote,2,sum)
+```
+
+.pull-left[
+.bold[Frecuencias observadas]
+```{r, echo=FALSE}
+# joint_dis <- ctable/sum(ctable); joint_dis  
+print(ctable)
+```
+]
+
+--
+
+.pull-right[
+.bold[Frecuencias esperadas bajo independencia]
+```{r, echo=FALSE}
+# expected joint probs under independence 
+joint_income_vote_indep <- margin_income %*% t(margin_vote)
+rownames(joint_income_vote_indep) <- rownames(ctable)
+ctable_independence <- sum(ctable)*joint_income_vote_indep 
+print(ctable_independence)
+```
+]
+
+
+--
+
+- El test Pearson $\chi^{2}$ (**t**) mide el grado asociación en la tabla de la siguiente manera:
+
+.content-box-secondary[
+$$\color{white}{t =\sum_{\text{all k: } i,j} \frac{(n_{ij} - \tilde{n}_{ij})^{2}}{\tilde{n}_{ij}}}$$
+]
+
+.bold[Un valor alto de  $t$ sugiere que las variables no son independientes.]
+--
+ Pero, ¿cuánto es "alto"?
+
+
+---
+### Test $\chi^{2}$ de indepencia estadística 
+
+.bold[Nota:]
+- Si $Z_{1}, \dots , Z_{k}$ son variables independientes y cada $Z \sim \text{Normal}(0,1)$, 
+- Entonces la variable $Y = \sum_{k} Z^{2} \sim \chi^{2}_{k}$. $Y$ distribuye $\chi^{2}$ con $k$ grados de libertad.
+
+<br>
+--
+
+.bold[Heuristica:]
+
+- $t =\sum_{\text{all k: } i,j} \frac{(n_{ij} - \tilde{n}_{ij})^{2}}{\tilde{n}_{ij}}$
+
+- Si no hay asociación entre las variables ( $H_{0}$ ) entonces:  $t =\sum_{\text{all k: } i,j} \frac{(\text{algo cercano a cero})^{2}}{\tilde{n}_{ij}}$
+
+<br>
+--
+
+Pearson demostró que si $H_{0}$ es verdadera, entonces:
+
+.content-box-secondary[
+$$\color{white}{t \sim \chi_{df}^{2}, \quad  \text{ donde } \quad  df= (I-1)(J-1)}$$
+
+]
+
+Esto le da el nombre al test $\chi^{2}$, pero no confundir con la distribución $\chi^{2}$.
+
+---
+### Test $\chi^{2}$ de indepencia estadística 
+
+<br>
+
+.bold[p-value]: 
+
+.content-box-secondary[
+$$\color{white}{\mathbb{P}(t  > \hat{t} \mid H_{0})}$$
+]
+
+equivalente a:
+
+--
+
+.content-box-secondary[
+$$\color{white}{\mathbb{P}(\chi_{df}^{2}  > \hat{t})}$$
+]
+
+
+```{css, echo=FALSE}
+.pull-right ~ * { clear: unset; }
+.pull-right + * { clear: both; }
+```
+
+
+---
+### Test $\chi^{2}$ de indepencia estadística 
+
+
+.bold[(Observado-Esperado)^2/Espetado:]
+
+.center[
+```{r, warning=F, message=F}
+(((ctable - ctable_independence)^(2))/ctable_independence) %>% print()
+```
+]
+
+<br>
+--
+
+.bold[Test Chi-2 : ∑ (Observado-Esperado)^2/Espetado]
+
+```{r, echo=FALSE}
+our_chi2 <- (((ctable - ctable_independence)^(2))/ctable_independence) %>% sum(); print(our_chi2)
+```
+
+---
+### Test $\chi^{2}$ de indepencia estadística 
+
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=8.5}
+library("tidyverse")
+
+df <- 6  # Degrees of freedom
+
+mydata <- tibble(x = seq(from = 0, to = 10, by = 0.01), chi2 = dchisq(x, df))
+
+plot <- ggplot(data = mydata, mapping = aes(x = x)) +
+  geom_path(aes(y = chi2), size = 1.5, alpha = 0.8, color = "#C80815") +
+  geom_area(
+    data = filter(mydata, x >= our_chi2),
+    aes(y = chi2),
+    fill = "#C80815",
+    alpha = 0.4
+  ) +
+  labs(
+    y = "f(y)",
+    x = "y",
+    title = "Probability function Chi^2 con df=6"
+  ) +
+  geom_vline(xintercept = our_chi2, color = "#007FFF", size = 1.5) +
+  annotate(
+    geom = "text",
+    x = our_chi2 + 0.9,
+    y = 0.2,
+    label = expression(paste(hat(t), " = 6.02")),
+    color = "black",
+    parse = TRUE,
+    size = 6
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+print(plot)
+
+```
+.bold[Para ser claros:] Si la hipótesis de independencia ( $H_{0}$ ) es cierta, nuestro test $t$ distribuye $\chi^{2}$ con  $df= (I-1)(J-1)=6$
+]
+
+--
+
+.pull-right[
+.bold[p-value]
+
+$$\mathbb{P}(\chi_{df=6}^{2} \geq \hat{t} )$$
+```{r, warning=F, message=F}
+1- pchisq(our_chi2,df=6)
+```
+
+]
+
+
+---
+### Test $\chi^{2}$ de indepencia estadística 
+
+.pull-left[
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.height=6, fig.width=8.5}
+library("tidyverse")
+
+df <- 6  # Degrees of freedom
+
+mydata <- tibble(x = seq(from = 0, to = 10, by = 0.01), chi2 = dchisq(x, df))
+
+plot <- ggplot(data = mydata, mapping = aes(x = x)) +
+  geom_path(aes(y = chi2), size = 1.5, alpha = 0.8, color = "#C80815") +
+  geom_area(
+    data = filter(mydata, x >= our_chi2),
+    aes(y = chi2),
+    fill = "#C80815",
+    alpha = 0.4
+  ) +
+  labs(
+    y = "f(y)",
+    x = "y",
+    title = "Probability function Chi^2 con df=6"
+  ) +
+  geom_vline(xintercept = our_chi2, color = "#007FFF", size = 1.5) +
+  annotate(
+    geom = "text",
+    x = our_chi2 + 0.9,
+    y = 0.2,
+    label = expression(paste(hat(t), " = 6.02")),
+    color = "black",
+    parse = TRUE,
+    size = 6
+  ) +
+  theme_minimal() +
+  theme(
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+  )
+
+print(plot)
+```
+.bold[Para ser claros:] Si la hipótesis de independencia ( $H_{0}$ ) es cierta, nuestro test $t$ distribuye $\chi^{2}$ con  $df= (I-1)(J-1)=6$
+]
+
+
+.pull-right[
+.bold[p-value]
+
+$$\mathbb{P}(\chi_{df=6}^{2} \geq \hat{t})$$
+```{r, warning=F, message=F}
+1- pchisq(our_chi2,df=6)
+```
+
+
+```{r, warning=F, message=F}
+# Versión automática
+chisq.test(ctable,correct = FALSE)
+```
+
+]
+
+--
+
+.bold[Conclusión]: el valor obtenido en nuestro test no es un valor demasiado improbable bajo independencia. No tenemos evidencia fuerte para sostener que ambas variables están asociadas. 
+
+
+---
+class: inverse, center, middle
+
+
+##Hasta la próxima clase. Gracias!
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+
+

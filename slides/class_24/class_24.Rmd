@@ -1,0 +1,789 @@
+---
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#24: Asociación entre variables continuas"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: ["gentle-r.css","xaringan-themer.css"]
+    df_print: default
+    nature:
+      ratio: 16:9
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+      slideNumberFormat: "%current%"
+editor_options: 
+  chunz_output_type: console
+---  
+class: inverse, center, middle
+
+```{r xaringan-themer, include=FALSE, warning=FALSE}
+library(tidyverse)
+library(xaringanthemer)
+library(cowplot)
+style_duo_accent(primary_color = "#4682B4", secondary_color = "#CD5C5C",
+                 background_color = "#f8f7f3", 
+                 header_font_google = google_font("Archivo"),
+                 text_font_google   = google_font("Inconsolata"), 
+                 link_color= "#DAA520"
+
+)
+
+options(scipen = 999)
+set.seed(1223455)
+
+```
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = T, echo = T)
+```
+
+# Asociación entre variables continuas
+## Covarianza y Correlación
+
+---
+## Brechas de ingresos entre hombres y mujeres
+
+
+.pull-left[
+![women](https://wbhm.org/wp-content/uploads/2023/10/gettyimages-2666616-930494094c2bc07b528ff36d8b481f35c097fb14-2-800x450.jpg)
+]
+.pull-right[
+![goldin](https://cdn.corrieredellosport.it/img/990/495/2023/10/09/181036087-9d1453e1-65e2-43be-a2be-c42861da4f93.jpg)
+
+]
+
+---
+## Retornos a la educación para hombres y mujeres
+
+
+```{r, echo=F}
+library("tidyverse")
+url <- "https://raw.githubusercontent.com/mebucca/dar_soc4001/master/data/sample_casen2017.csv"
+
+casen2017 <- read.csv(url) %>% as_tibble() %>%
+  mutate(ingreso = yautcor) %>%    
+  select(region,sexo,edad,educ,ingreso,esc) %>%
+  mutate(univ = case_when(educ==11 | educ==12 & edad > 27 ~ 1, educ < 11 & edad > 27 ~ 0),
+         genero = case_when(sexo==1 ~ "Hombre", sexo==2 ~ "Mujer"))
+```
+
+
+.center[
+
+```{r, echo=F, warning=F, message=F, fig.height=5,fig.width=9}
+
+# Custom colors
+primary_color <- "#4682B4"    
+secondary_color <- "#CD5C5C"  
+
+# Create a color palette for genders
+
+# Modified ggplot code with custom colors for gender
+scatter <- ggplot(casen2017, aes(x = jitter(esc), y = log(ingreso), group = genero)) +
+  geom_point(alpha = 0.6, size = 2) +
+  facet_grid(. ~ genero, labeller = label_both) +
+  labs(x = "Años de Escolaridad", y = "Log(Ingreso)") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1),
+    legend.position = "none",
+    strip.text = element_text(size = 22),
+    panel.background = element_rect()  # Background color
+  )
+
+plot(scatter)
+
+```
+]
+
+<br>
+--
+
+- ¿Existe una asociación entre los años de escolaridad y los ingresos?
+
+- ¿Varía esta asociación por género?
+
+
+
+
+---
+## Asociación entre variables continuas
+
+.bold[Independencia (no asociación)]
+
+.center[
+
+```{r, echo=F, warning=F, message=F, fig.height=5, fig.width=10}
+
+n = 500
+newdata <- tibble(peso = rnorm(n,60,10),  inteligencia = rnorm(n,50,10))
+# Custom colors
+primary_color <- "#4682B4"    
+secondary_color <- "#CD5C5C"  
+
+# Create a color palette for genders
+
+# Modified ggplot code with custom colors for gender
+scatter <- ggplot(newdata, aes(x = peso, y = inteligencia)) +
+  geom_point(alpha = 0.6, size = 2) +
+  labs(x = "Peso", y = "Inteligencia") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1),
+    legend.position = "none",
+    strip.text = element_text(size = 22),
+    panel.background = element_rect()  # Background color
+  )
+
+plot_grid(scatter + geom_vline(xintercept=60, colour="red", size=1),
+          scatter + geom_hline(yintercept=60, colour="red", size=1) , ncol = 2)
+
+
+```
+]
+
+--
+
+
+- Dado un valor en una variable, los valores de la otra varían ampliamente.
+
+- Es decir: sabiendo algo sobre una variable no se nada sobre la otra. 
+
+
+
+
+---
+## Asociación entre variables continuas
+
+
+.pull-left[
+.bold[Asociación positiva]
+
+.center[
+```{r, echo=F, warning=F, message=F, fig.height=5, fig.width=5}
+n = 500
+newdata <- tibble(inteligencia = rnorm(n,50,10), rendimiento = 5 + 0.7*inteligencia + rnorm(n,0,5))
+# Custom colors
+primary_color <- "#4682B4"    
+secondary_color <- "#CD5C5C"  
+
+# Create a color palette for genders
+
+# Modified ggplot code with custom colors for gender
+scatter <- ggplot(newdata, aes(x = inteligencia, y = rendimiento)) +
+  geom_point(alpha = 0.6, size = 2) +
+  labs(x = "Inteligencia", y = "Rendimiento Académico") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1),
+    legend.position = "none",
+    strip.text = element_text(size = 22),
+    panel.background = element_rect()  # Background color
+  )
+
+print(scatter + geom_vline(xintercept=60, colour="red", size=1))
+```
+]
+]
+
+
+.pull-right[
+
+.bold[Aociación perfecta (e=mc^2)]
+
+.center[
+```{r, echo=F, warning=F, message=F, fig.height=5, fig.width=5}
+n = 500
+newdata <- tibble(c= 10:1000, m=1, e=m*c*c)
+# Custom colors
+primary_color <- "#4682B4"    
+secondary_color <- "#CD5C5C"  
+
+# Create a color palette for genders
+
+# Modified ggplot code with custom colors for gender
+scatter <- ggplot(newdata, aes(x = c, y = e)) +
+  geom_point(alpha = 0.1, size = 2) +
+  labs(x = "Aceleración (c)", y = "Energía (e)") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1),
+    legend.position = "none",
+    strip.text = element_text(size = 22),
+    panel.background = element_rect()  # Background color
+  )
+print(scatter + geom_vline(xintercept=500, colour="red", size=1))
+
+```
+]
+]
+
+--
+
+
+- Dado un valor en una variable, los valores de la otra variable varías poco (o nada).
+
+- Es decir: sabiendo algo sobre una variable se algo (o todo) sobre la otra. 
+
+
+
+---
+class: inverse, center, middle
+
+
+#Covarianza
+
+
+---
+##Covarianza
+
+<br>
+--
+
+- Hasta ahora hemos trabajado principalmente con variables aleatorias independiente, $Y \perp X$.
+
+--
+
+- Dos variable aleatorias son dependiente entre si $\mathbb{P}(Y \mid X ) \neq \mathbb{P}(Y)$, y viceversa. 
+
+--
+
+- Otra forma de persona la dependencia es en términos de co-variabilidad entre dos variables aleatorias.
+
+<br>
+<br>
+--
+
+La .bold[covarianza] mide la dependencia (lineal*) entre dos variables aleatorias. Formalmente:
+
+
+
+.content-box-secondary[
+$$\color{white}{\mathbb{Cov}(X, Y) = \mathbb{E}[ \ (X - \mathbb{E}[X]) \ (Y - \mathbb{E}[Y]) \ ]}$$
+]
+
+<br>
+--
+
+En promedio, ¿cuánto y cómo se desvía $X$ respecto de su media, cuando $Y$ se desvía de la suya?
+
+
+---
+##Covarianza
+
+
+<br>
+
+.center[
+
+```{r, echo=F, warning=F, message=F, fig.height=5,fig.width=9}
+
+primary_color <- "#4682B4"    
+secondary_color <- "#CD5C5C"  
+link_color= "#DAA520"
+
+library(dplyr)
+library(ggplot2)
+
+# Assuming casen2017 is your dataframe and it contains 'genero', 'esc', and 'ingreso' columns
+
+# Calculate the means for each gender
+means_by_gender <- casen2017 %>%
+  group_by(genero) %>%
+  summarise(
+    mean_esc = mean(esc, na.rm = TRUE),
+    mean_log_ingreso = mean(log(ingreso), na.rm = TRUE)
+  )
+
+# Join the means with the original data
+casen2017 <- casen2017 %>%
+  left_join(means_by_gender, by = "genero")
+
+# Create the new variable for coloring
+casen2017 <- casen2017 %>%
+  mutate(cross_dev = (esc - mean_esc)*(log(ingreso) - mean_log_ingreso))
+
+# Modified ggplot code
+scatter <- ggplot(casen2017, aes(x = jitter(esc), y = log(ingreso), colour = cross_dev)) +
+  geom_point(size = 3) +
+  facet_grid(. ~ genero, labeller = label_both) +
+  geom_vline(data = means_by_gender, aes(xintercept = mean_esc), color = "black", size = 1) +
+  geom_hline(data = means_by_gender, aes(yintercept = mean_log_ingreso), color = "black", size = 1) +
+  scale_color_gradient2(midpoint = 0, low = "red", mid = "white", high = "blue") +
+  labs(x = "Años de Escolaridad", y = "Log(Ingreso)") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1),
+    strip.text = element_text(size = 22),
+    panel.background = element_rect()  # Background color
+  )
+
+plot(scatter)
+
+```
+
+]
+
+- .bold[Cov(esc,log-ingreso) | Hombre] = `r casen2017 %>% filter(genero=="Hombre") %>% with(cov(esc,log(ingreso), use = "complete.obs"))`
+
+- .bold[Cov(esc,log-ingreso) | Mujer] = `r casen2017 %>% filter(genero=="Mujer") %>% with(cov(esc,log(ingreso), use = "complete.obs"))`
+
+
+---
+##Interpretación de la covarianza
+
+<br>
+
+ La covarianza se puede interpretar de la siguiente manera:
+ 
+<br>
+ 
+  - .bold[Covarianza positiva]: X e Y tienden a aumentar o disminuir juntas.
+  
+  - .bold[Covarianza negativa]: X aumenta cuando Y disminuye y viceversa.
+  
+  - .bold[Covarianza cero]: No hay relación lineal.
+
+---
+##Propiedades de la covarianza
+
+<br>
+
+- .bold[Covarianza de variables independientes]- Si dos variables aleatorias $X$ e $Y$ son independientes, entonces
+
+   $$\mathbb{Cov}(X, Y) = 0$$
+
+--
+
+
+- .bold[Covarianza de variable perfectamente dependientes] (consigo misma)
+
+   $$\mathbb{Cov}(X, X) = \text{Var}(X)$$   
+   
+
+--
+
+- .bold[Covarianza con una Constante]
+
+   $$\mathbb{Cov}(X, a) = 0$$
+   
+--
+
+- .bold[Aditividad]
+
+$$\mathbb{Cov}(X + Y, Z) = \mathbb{Cov}(X, Z) + \mathbb{Cov}(Y, Z)$$
+
+--
+
+- .bold[Multiplicación por una constante]
+
+$$\mathbb{Cov}(aX, Y) = a \cdot \mathbb{Cov}(X, Y)$$
+
+---
+##Estimación de la covarianza
+
+<br>
+
+Podemos estimar la covianza a partir de datos muestrales usando la siguiente fórmula
+
+<br>
+
+   $$s_{XY} = \frac{\sum_{i=1}^{n} (X_i - \bar{X})(Y_i - \bar{Y})}{n-1}$$
+
+
+<br>
+--
+
+- $s_{XY}$ es un estimador insesgado de $\mathbb{Cov}(X, Y)$.
+
+
+---
+## Problema de interpretación de la covariana
+
+
+- Supongamos que la asociación entre escolariadad e ingresos es la misma para hombres y para mujeres
+
+- Supongamos que el ingreso de los hombres es el doble que el de las mujeres: $Y_h = 2 \times Y_m$
+
+- Supongamos que la escolaridad de los hombres es un 75% que la de las mujeres:s: $E_h = 0.75  \times E_m$
+
+--
+
+
+.pull-left[
+.bold[Hombres]
+
+.center[
+```{r, echo=F, warning=F, message=F, fig.height=4.5, fig.width=4.5}
+n = 500
+newdata <- tibble(esc_m = rnorm(n,50,10), ingreso_m = 5 + 0.7*esc_m + rnorm(n,0,5))
+newdata <- newdata %>% mutate(ingreso_h = 2*ingreso_m, esc_h = 0.75*esc_m)
+
+# Custom colors
+primary_color <- "#4682B4"    
+secondary_color <- "#CD5C5C"  
+
+# Create a color palette for genders
+
+# Modified ggplot code with custom colors for gender
+scatter <- ggplot(newdata, aes(x = esc_h, y = ingreso_h)) +
+  geom_point(alpha = 0.6, size = 2) +
+  geom_smooth(method="lm", se=FALSE) + 
+  labs(x = "Escolaridad Hombre", y = "Ingresos Hombre") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1),
+    legend.position = "none",
+    strip.text = element_text(size = 22),
+    panel.background = element_rect()  # Background color
+  )
+
+print(scatter)
+```
+]
+]
+
+
+.pull-right[
+
+.bold[Mujeres]
+
+.center[
+```{r, echo=F, warning=F, message=F, fig.height=4.5, fig.width=4.5}
+
+# Modified ggplot code with custom colors for gender
+scatter <- ggplot(newdata, aes(x = esc_m, y = ingreso_m)) +
+  geom_point(alpha = 0.6, size = 2) +
+  geom_smooth(method="lm", se=FALSE) + 
+  labs(x = "Escolaridad Mujer", y = "Ingresos Mujer") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1),
+    legend.position = "none",
+    strip.text = element_text(size = 22),
+    panel.background = element_rect()  # Background color
+  )
+
+print(scatter)
+```
+]
+]
+
+
+---
+## Problema de interpretación de la covariana
+
+<br>
+
+--
+
+- Si $Y_h = 2 \times Y_m \quad$ y  $\quad E_h = 0.75  \times E_m$
+
+<br>
+--
+
+$$\color{blue}{\mathbb{Cov}(E_h, Y_h)} = \mathbb{Cov}( 0.75 \times E_m, 2 \times Y_m) = \color{red}{0.75  \times  2} \times \color{blue}{\mathbb{Cov}(E_m, Y_m)}$$
+
+<br>
+--
+
+
+- .bold[Cov(esc,log-ingreso) | Hombre] = `r newdata %>%  with(cov(esc_h,ingreso_h, use = "complete.obs"))`
+
+- .bold[Cov(esc,log-ingreso) | Mujer] = `r newdata %>%  with(cov(esc_m,ingreso_m, use = "complete.obs"))`
+
+
+<br><br>
+
+--
+
+.bold[Problema de interpretabilidad:] La covarianza combina dos cosas:
+
+- La fuerza de la asociación entre las variables
+
+- La escala de dichas variables
+
+- Por tanto, el número obtenido no indica inequivocamente la fuerza de la asociación
+
+
+
+---
+class: inverse, center, middle
+
+
+#Correlación de Pearson
+
+
+---
+##Correlación de Pearson
+
+
+- ¿Cómo podemos medir el grado de asociación entre dos variables, libre de sus escala?
+
+
+--
+
+- .bold[Solución:] Estandarizar. En vez de calcular $\mathbb{Cov}(X, Y)$ calculamos $\mathbb{Cov}(Z_X, Z_Y)$. Formalmente,
+
+
+<br>
+--
+
+
+$$
+\begin{align}
+\mathbb{Cov}(Z_X, Z_Y) &= \mathbb{E}[ \ (Z_X - \mathbb{E}[Z_X]) \ (Z_Y  - \mathbb{E}[Z_Y]) \ ] \\ \\
+&= \mathbb{E}[ \ Z_X \ Z_Y \ ] \\ \\
+&= \mathbb{E}\Bigg[ \   \frac{(X - \mathbb{E}[X])}{\sqrt{\mathbb{Var}[X]}}  \ \frac{(Y - \mathbb{E}[Y])}{\sqrt{\mathbb{Var}[Y]}} \  \Bigg] \\ \\
+&=  \frac{\mathbb{Cov}(X, Y)}{\sqrt{\mathbb{Var}[X]}\sqrt{\mathbb{Var}[Y]}}
+\end{align}
+$$
+
+---
+##Correlación de Pearson
+
+<br>
+
+Si
+
+$$
+\begin{align}
+\mathbb{Cov}(Z_X, Z_Y) =  \frac{\mathbb{Cov}(X, Y)}{\sqrt{\mathbb{Var}[X]}\sqrt{\mathbb{Var}[Y]}}
+\end{align}
+$$
+
+<br>
+<br>
+--
+
+El .bold[Coeficiente de Correlación de Pearson] se define como:
+
+.content-box-secondary[
+$$\color{white}{\rho_{XY}:  \mathbb{Corr}(X, Y) =  \frac{\mathbb{Cov}(X, Y)}{\sigma_X \sigma_Y}}$$
+]
+
+
+
+---
+## Interpretación del Coeficiente de Correlación
+
+
+<br> <br>
+--
+
+- $\rho \in [-1,1]$: varía entre -1 y +1 y mide la fuerza y dirección de una relación lineal entre dos variables.
+
+<br>
+--
+
+- $\rho > 0$ indica una relación positiva entre las variables; a medida que una aumenta, la otra tiende a aumentar también. Un valor cercano a +1 implica una fuerte correlación positiva.
+
+<br>
+--
+
+- $\rho < 0$  señala una relación negativa; cuando una variable aumenta, la otra tiende a disminuir. Un valor cercano a -1 indica una fuerte correlación negativa.
+
+<br>
+--
+
+- $\rho = 0$ indica ugiere que no hay asociación lineal entre las variables. Los valores que se acercan a cero indican una débil o nula correlación lineal.
+
+
+---
+## Estimación del Coeficiente de Correlación
+
+Podemos estimar el coeficiente de correlación a partir de datos muestrales utilizando la siguiente fórmula:
+
+<br><br>
+$$r_{XY} = \frac{\sum_{i=1}^{n} (X_i - \bar{X})(Y_i - \bar{Y})}{\sqrt{\sum_{i=1}^{n} (X_i - \bar{X})^2 \sum_{i=1}^{n} (Y_i - \bar{Y})^2}}$$
+
+<br>
+donde 
+
+- $r_{XY}$ es el coeficiente de correlación muestral entre las variables X e Y.
+
+- $\bar{X}$ y $\bar{Y}$ son las medias de las muestras de X e Y, respectivamente.
+
+- $n$ es el número de observaciones en las muestras.
+
+
+---
+##Correlación de Pearson
+
+
+<br>
+
+.center[
+
+```{r, echo=F, warning=F, message=F, fig.height=5,fig.width=9}
+
+# Modified ggplot code
+scatter <- ggplot(casen2017, aes(x = jitter(esc), y = log(ingreso), colour = cross_dev)) +
+  geom_point(size = 3) +
+  facet_grid(. ~ genero, labeller = label_both) +
+  geom_vline(data = means_by_gender, aes(xintercept = mean_esc), color = "black", size = 1) +
+  geom_hline(data = means_by_gender, aes(yintercept = mean_log_ingreso), color = "black", size = 1) +
+  scale_color_gradient2(midpoint = 0, low = "red", mid = "white", high = "blue") +
+  labs(x = "Años de Escolaridad", y = "Log(Ingreso)") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1),
+    strip.text = element_text(size = 22),
+    panel.background = element_rect()  # Background color
+  )
+
+plot(scatter)
+
+```
+
+]
+
+- .bold[Corr(esc,log-ingreso) | Hombre] = `r casen2017 %>% filter(genero=="Hombre") %>% with(cor(esc,log(ingreso), use = "complete.obs"))`
+
+- .bold[Corr(esc,log-ingreso) | Mujer] = `r casen2017 %>% filter(genero=="Mujer") %>% with(cor(esc,log(ingreso), use = "complete.obs"))`
+
+---
+##Correlación Lineal de Pearson
+
+.bold[Importante]: La covarianza y correlación miden el grande de .bold[asociación lineal].
+
+--
+
+- Una correlación baja o nula no indica necesariamente falta de asociación.
+
+
+
+--
+
+.pull-left[
+.bold[Asociación positiva]
+
+.center[
+```{r, echo=F, warning=F, message=F, fig.height=4.5, fig.width=4.5}
+n = 500
+newdata <- tibble(inteligencia = rnorm(n,50,10), rendimiento = 5 + 0.7*inteligencia + rnorm(n,0,5))
+coef_corr <- cor(newdata$inteligencia, newdata$rendimiento)
+
+scatter <- ggplot(newdata, aes(x = inteligencia, y = rendimiento)) +
+  geom_point(alpha = 0.6, size = 2) +
+  labs(x = "Inteligencia", y = "Rendimiento Académico") +
+  annotate("text", x = Inf, y = Inf, label = sprintf("r = %.2f", coef_corr), hjust = 1.1, vjust = 1.1, size = 8) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1),
+    legend.position = "none",
+    strip.text = element_text(size = 22),
+    panel.background = element_rect()  # Background color
+  )
+
+print(scatter)
+```
+]
+]
+
+
+.pull-right[
+
+.bold[Asociación no lineal perfecta ]
+
+.center[
+```{r, echo=F, warning=F, message=F, fig.height=4.5, fig.width=4.5}
+n = 500
+newdata <- tibble(c = -1000:1000, m = 1, e = c * c)
+coef_corr <- cor(newdata$c, newdata$e)
+
+scatter <- ggplot(newdata, aes(x = c, y = e)) +
+  geom_point(alpha = 0.1, size = 2) +
+  labs(x = "c", y = "e") +
+  annotate("text", x = Inf , y = Inf , label = sprintf("r = %.2f", coef_corr), hjust = 1.1, vjust = 1.1, size = 8) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1),
+    legend.position = "none",
+    strip.text = element_text(size = 22),
+    panel.background = element_rect()  # Background color
+  )
+
+print(scatter)
+
+```
+]
+]
+
+
+
+---
+## DANGER: CORRELATIONS IS NOT CAUSATION!
+
+<br>
+.center[
+![corr](https://static.incrmntal.com/789_F1_B35_C3_F4195_D_1_43cc20d019.webp)
+]
+
+---
+class: inverse, center, middle
+
+
+##The End. Gracias!
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
+
+
+
+
