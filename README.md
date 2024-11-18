@@ -50,8 +50,8 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 11   | Noviembre  | PRUEBA II                     |   [`[Problemset #2]`](https://mebucca.github.io/ad2-sol114/materials/problemset_2#1) [`[Problemset #3]`](https://mebucca.github.io/ad2-sol114/materials/problemset_3#1)  [`[Problemset #4]`](https://mebucca.github.io/ad2-sol114/materials/problemset_4#1)                                                                      |              |
 | 13   | Noviembre  | Asociación estadística y causalidad                       |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_21/class_21#1) [`[Code]`](slides/class_21/class_21.Rmd)                                                                        |              |
 | 18   | Noviembre  | Asociación con datos categóricos                               |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_22/class_22#1) [`[Code]`](slides/class_22/class_22.Rmd)                                                                        |              |
-| 20   | Noviembre  | Asociación con datos continuos & covarianza            |                                                                         |              |
-| 25   | Noviembre  | Correlación de Pearson                                 |                                                                         |              |
+| 20   | Noviembre  | Test de independencia $\chi^2$            | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_23/class_23#1) [`[Code]`](slides/class_23/class_23.Rmd)                                                                        |              |
+| 25   | Noviembre  | Covarianza & Correlación de Pearson           |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_24/class_24#1) [`[Code]`](slides/class_24/class_24.Rmd)                                                                        |              |
 | 27   | Noviembre  | Repaso                                                 |                                                                         |              |
 
 

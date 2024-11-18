@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Probabilidad e Inferencia Estadística</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
+    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
+    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+class: center, middle, inverse, title-slide
+
+.title[
+# Probabilidad e Inferencia Estadística
+]
+.subtitle[
+## #24: Asociación entre variables continuas
+]
+.author[
+### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
+]
+.date[
+### 18 November, 2024
+]
+
+---
+
+class: inverse, center, middle
+
+
+
+
+
+# Asociación entre variables continuas
+## Covarianza y Correlación
+
+---
+## Brechas de ingresos entre hombres y mujeres
+
+
+.pull-left[
+![women](https://wbhm.org/wp-content/uploads/2023/10/gettyimages-2666616-930494094c2bc07b528ff36d8b481f35c097fb14-2-800x450.jpg)
+]
+.pull-right[
+![goldin](https://cdn.corrieredellosport.it/img/990/495/2023/10/09/181036087-9d1453e1-65e2-43be-a2be-c42861da4f93.jpg)
+
+]
+
+---
+## Retornos a la educación para hombres y mujeres
+
+
+
+
+
+.center[
+
+![](class_24_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+]
+
+&lt;br&gt;
+--
+
+- ¿Existe una asociación entre los años de escolaridad y los ingresos?
+
+- ¿Varía esta asociación por género?
+
+
+
+
+---
+## Asociación entre variables continuas
+
+.bold[Independencia (no asociación)]
+
+.center[
+
+![](class_24_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+]
+
+--
+
+
+- Dado un valor en una variable, los valores de la otra varían ampliamente.
+
+- Es decir: sabiendo algo sobre una variable no se nada sobre la otra. 
+
+
+
+
+---
+## Asociación entre variables continuas
+
+
+.pull-left[
+.bold[Asociación positiva]
+
+.center[
+![](class_24_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+]
+]
+
+
+.pull-right[
+
+.bold[Aociación perfecta (e=mc^2)]
+
+.center[
+![](class_24_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+]
+]
+
+--
+
+
+- Dado un valor en una variable, los valores de la otra variable varías poco (o nada).
+
+- Es decir: sabiendo algo sobre una variable se algo (o todo) sobre la otra. 
+
+
+
+---
+class: inverse, center, middle
+
+
+#Covarianza
+
+
+---
+##Covarianza
+
+&lt;br&gt;
+--
+
+- Hasta ahora hemos trabajado principalmente con variables aleatorias independiente, `\(Y \perp X\)`.
+
+--
+
+- Dos variable aleatorias son dependiente entre si `\(\mathbb{P}(Y \mid X ) \neq \mathbb{P}(Y)\)`, y viceversa. 
+
+--
+
+- Otra forma de persona la dependencia es en términos de co-variabilidad entre dos variables aleatorias.
+
+&lt;br&gt;
+&lt;br&gt;
+--
+
+La .bold[covarianza] mide la dependencia (lineal*) entre dos variables aleatorias. Formalmente:
+
+
+
+.content-box-secondary[
+`$$\color{white}{\mathbb{Cov}(X, Y) = \mathbb{E}[ \ (X - \mathbb{E}[X]) \ (Y - \mathbb{E}[Y]) \ ]}$$`
+]
+
+&lt;br&gt;
+--
+
+En promedio, ¿cuánto y cómo se desvía `\(X\)` respecto de su media, cuando `\(Y\)` se desvía de la suya?
+
+
+---
+##Covarianza
+
+
+&lt;br&gt;
+
+.center[
+
+![](class_24_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+
+]
+
+- .bold[Cov(esc,log-ingreso) | Hombre] = 1.8612011
+
+- .bold[Cov(esc,log-ingreso) | Mujer] = 2.1777403
+
+
+---
+##Interpretación de la covarianza
+
+&lt;br&gt;
+
+ La covarianza se puede interpretar de la siguiente manera:
+ 
+&lt;br&gt;
+ 
+  - .bold[Covarianza positiva]: X e Y tienden a aumentar o disminuir juntas.
+  
+  - .bold[Covarianza negativa]: X aumenta cuando Y disminuye y viceversa.
+  
+  - .bold[Covarianza cero]: No hay relación lineal.
+
+---
+##Propiedades de la covarianza
+
+&lt;br&gt;
+
+- .bold[Covarianza de variables independientes]- Si dos variables aleatorias `\(X\)` e `\(Y\)` son independientes, entonces
+
+   `$$\mathbb{Cov}(X, Y) = 0$$`
+
+--
+
+
+- .bold[Covarianza de variable perfectamente dependientes] (consigo misma)
+
+   `$$\mathbb{Cov}(X, X) = \text{Var}(X)$$`   
+   
+
+--
+
+- .bold[Covarianza con una Constante]
+
+   `$$\mathbb{Cov}(X, a) = 0$$`
+   
+--
+
+- .bold[Aditividad]
+
+`$$\mathbb{Cov}(X + Y, Z) = \mathbb{Cov}(X, Z) + \mathbb{Cov}(Y, Z)$$`
+
+--
+
+- .bold[Multiplicación por una constante]
+
+`$$\mathbb{Cov}(aX, Y) = a \cdot \mathbb{Cov}(X, Y)$$`
+
+---
+##Estimación de la covarianza
+
+&lt;br&gt;
+
+Podemos estimar la covianza a partir de datos muestrales usando la siguiente fórmula
+
+&lt;br&gt;
+
+   `$$s_{XY} = \frac{\sum_{i=1}^{n} (X_i - \bar{X})(Y_i - \bar{Y})}{n-1}$$`
+
+
+&lt;br&gt;
+--
+
+- `\(s_{XY}\)` es un estimador insesgado de `\(\mathbb{Cov}(X, Y)\)`.
+
+
+---
+## Problema de interpretación de la covariana
+
+
+- Supongamos que la asociación entre escolariadad e ingresos es la misma para hombres y para mujeres
+
+- Supongamos que el ingreso de los hombres es el doble que el de las mujeres: `\(Y_h = 2 \times Y_m\)`
+
+- Supongamos que la escolaridad de los hombres es un 75% que la de las mujeres:s: `\(E_h = 0.75  \times E_m\)`
+
+--
+
+
+.pull-left[
+.bold[Hombres]
+
+.center[
+![](class_24_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+]
+]
+
+
+.pull-right[
+
+.bold[Mujeres]
+
+.center[
+![](class_24_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+]
+]
+
+
+---
+## Problema de interpretación de la covariana
+
+&lt;br&gt;
+
+--
+
+- Si `\(Y_h = 2 \times Y_m \quad\)` y  `\(\quad E_h = 0.75  \times E_m\)`
+
+&lt;br&gt;
+--
+
+`$$\color{blue}{\mathbb{Cov}(E_h, Y_h)} = \mathbb{Cov}( 0.75 \times E_m, 2 \times Y_m) = \color{red}{0.75  \times  2} \times \color{blue}{\mathbb{Cov}(E_m, Y_m)}$$`
+
+&lt;br&gt;
+--
+
+
+- .bold[Cov(esc,log-ingreso) | Hombre] = 90.1150216
+
+- .bold[Cov(esc,log-ingreso) | Mujer] = 60.076681
+
+
+&lt;br&gt;&lt;br&gt;
+
+--
+
+.bold[Problema de interpretabilidad:] La covarianza combina dos cosas:
+
+- La fuerza de la asociación entre las variables
+
+- La escala de dichas variables
+
+- Por tanto, el número obtenido no indica inequivocamente la fuerza de la asociación
+
+
+
+---
+class: inverse, center, middle
+
+
+#Correlación de Pearson
+
+
+---
+##Correlación de Pearson
+
+
+- ¿Cómo podemos medir el grado de asociación entre dos variables, libre de sus escala?
+
+
+--
+
+- .bold[Solución:] Estandarizar. En vez de calcular `\(\mathbb{Cov}(X, Y)\)` calculamos `\(\mathbb{Cov}(Z_X, Z_Y)\)`. Formalmente,
+
+
+&lt;br&gt;
+--
+
+
+$$
+`\begin{align}
+\mathbb{Cov}(Z_X, Z_Y) &amp;= \mathbb{E}[ \ (Z_X - \mathbb{E}[Z_X]) \ (Z_Y  - \mathbb{E}[Z_Y]) \ ] \\ \\
+&amp;= \mathbb{E}[ \ Z_X \ Z_Y \ ] \\ \\
+&amp;= \mathbb{E}\Bigg[ \   \frac{(X - \mathbb{E}[X])}{\sqrt{\mathbb{Var}[X]}}  \ \frac{(Y - \mathbb{E}[Y])}{\sqrt{\mathbb{Var}[Y]}} \  \Bigg] \\ \\
+&amp;=  \frac{\mathbb{Cov}(X, Y)}{\sqrt{\mathbb{Var}[X]}\sqrt{\mathbb{Var}[Y]}}
+\end{align}`
+$$
+
+---
+##Correlación de Pearson
+
+&lt;br&gt;
+
+Si
+
+$$
+`\begin{align}
+\mathbb{Cov}(Z_X, Z_Y) =  \frac{\mathbb{Cov}(X, Y)}{\sqrt{\mathbb{Var}[X]}\sqrt{\mathbb{Var}[Y]}}
+\end{align}`
+$$
+
+&lt;br&gt;
+&lt;br&gt;
+--
+
+El .bold[Coeficiente de Correlación de Pearson] se define como:
+
+.content-box-secondary[
+`$$\color{white}{\rho_{XY}:  \mathbb{Corr}(X, Y) =  \frac{\mathbb{Cov}(X, Y)}{\sigma_X \sigma_Y}}$$`
+]
+
+
+
+---
+## Interpretación del Coeficiente de Correlación
+
+
+&lt;br&gt; &lt;br&gt;
+--
+
+- `\(\rho \in [-1,1]\)`: varía entre -1 y +1 y mide la fuerza y dirección de una relación lineal entre dos variables.
+
+&lt;br&gt;
+--
+
+- `\(\rho &gt; 0\)` indica una relación positiva entre las variables; a medida que una aumenta, la otra tiende a aumentar también. Un valor cercano a +1 implica una fuerte correlación positiva.
+
+&lt;br&gt;
+--
+
+- `\(\rho &lt; 0\)`  señala una relación negativa; cuando una variable aumenta, la otra tiende a disminuir. Un valor cercano a -1 indica una fuerte correlación negativa.
+
+&lt;br&gt;
+--
+
+- `\(\rho = 0\)` indica ugiere que no hay asociación lineal entre las variables. Los valores que se acercan a cero indican una débil o nula correlación lineal.
+
+
+---
+## Estimación del Coeficiente de Correlación
+
+Podemos estimar el coeficiente de correlación a partir de datos muestrales utilizando la siguiente fórmula:
+
+&lt;br&gt;&lt;br&gt;
+`$$r_{XY} = \frac{\sum_{i=1}^{n} (X_i - \bar{X})(Y_i - \bar{Y})}{\sqrt{\sum_{i=1}^{n} (X_i - \bar{X})^2 \sum_{i=1}^{n} (Y_i - \bar{Y})^2}}$$`
+
+&lt;br&gt;
+donde 
+
+- `\(r_{XY}\)` es el coeficiente de correlación muestral entre las variables X e Y.
+
+- `\(\bar{X}\)` y `\(\bar{Y}\)` son las medias de las muestras de X e Y, respectivamente.
+
+- `\(n\)` es el número de observaciones en las muestras.
+
+
+---
+##Correlación de Pearson
+
+
+&lt;br&gt;
+
+.center[
+
+![](class_24_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+]
+
+- .bold[Corr(esc,log-ingreso) | Hombre] = 0.4682563
+
+- .bold[Corr(esc,log-ingreso) | Mujer] = 0.4653663
+
+---
+##Correlación Lineal de Pearson
+
+.bold[Importante]: La covarianza y correlación miden el grande de .bold[asociación lineal].
+
+--
+
+- Una correlación baja o nula no indica necesariamente falta de asociación.
+
+
+
+--
+
+.pull-left[
+.bold[Asociación positiva]
+
+.center[
+![](class_24_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+]
+]
+
+
+.pull-right[
+
+.bold[Asociación no lineal perfecta ]
+
+.center[
+![](class_24_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+]
+]
+
+
+
+---
+## DANGER: CORRELATIONS IS NOT CAUSATION!
+
+&lt;br&gt;
+.center[
+![corr](https://static.incrmntal.com/789_F1_B35_C3_F4195_D_1_43cc20d019.webp)
+]
+
+---
+class: inverse, center, middle
+
+
+##The End. Gracias!
+
+&lt;br&gt;
+Mauricio Bucca &lt;br&gt;
+https://mebucca.github.io/ &lt;br&gt;
+github.com/mebucca
+
+
+
+
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
+<script>var slideshow = remark.create({
+"ratio": "16:9",
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": true,
+"slideNumberFormat": "%current%"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
