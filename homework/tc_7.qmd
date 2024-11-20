@@ -1,0 +1,57 @@
+---
+title: "SOL114 Análisis de Datos II"
+author: "Tarea corta 7"
+format: html
+editor: visual
+---
+
+## Problema:
+
+---
+title: "SOL3070 Análisis de Datos Categóricos"
+author: "Tarea corta 4, respuestas"
+format: pdf
+editor: visual
+---
+
+Ponderación: 6% de la nota final del curso.
+
+## Introducción:
+
+En esta tarea usarán un subconjunto de los datos provistos por [Kazuo Yamaguchi](https://sociology.uchicago.edu/directory/kazuo-yamaguchi) en su artículo "Models for comparing mobility tables: toward parsimony and substance" (ASR 1987) para estudiar movilidad social intergeneracional. Este subconjunto de datos corresponde una tabla de contingencia que clasifican a padres e hijos según su clase social en USA(`ctable`).
+
+En estos datos, las ocupaciones tanto de los padres como de los hijos se clasifican en cinco categorías: no manuales superiores e inferiores (UpNM, LoNM), manuales superiores e inferiores (UpM, LoM) y agrícolas (Farm).
+
+-   **No manuales superiores (UpNM):** Profesionales, gerentes y funcionarios.\
+-   **No manuales inferiores (LoNM):** Propietarios, trabajadores de ventas y empleados administrativos.\
+-   **Manuales superiores (UpM):** Trabajadores cualificados.\
+-   **Manuales inferiores (LoM):** Trabajadores no agrícolas semicualificados y no cualificados.\
+-   **Agrícolas (Farm):** Agricultores y trabajadores del campo.
+
+Esta clasificación permite analizar la movilidad social intergeneracional en términos de categorías ocupacionales.
+
+```{r, echo=FALSE, message=FALSE}
+# Escribir install.packages("tinytex") en la consola para instalar "tinytex"
+# Carga "tinytex" para compilar PDF
+library("tinytex")
+library("tidyverse")
+library("vcd")
+library("vcdExtra")
+
+data("Yamaguchi87")
+data <- Yamaguchi87
+ctable <- xtabs(Freq ~ Son + Father+Country, data=Yamaguchi87) 
+ctable <- ctable[,,1] 
+
+```
+
+```{r}
+print(ctable)
+```
+
+1.1. Calcula paso a paso un test de $\chi^2$ para esta tabla de contingencia.
+
+
+1.2. Elabora una interpretación breve de los resultados.
+
+
