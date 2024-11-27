@@ -72,7 +72,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | Tarea corta 6  | 13 noviembre  | 20 noviembre |  [`[TC6]`](https://mebucca.github.io/ad2-sol114/homework/tc_6#1) [`[TC6.qmd]`](homework/tc_6.qmd)                                                                                         |
 | Tarea corta 7  | 20 noviembre  | 27 noviembre | [`[TC7]`](https://mebucca.github.io/ad2-sol114/homework/tc_7#1) [`[TC7.qmd]`](homework/tc_7.qmd)                                                                                          |
 | Prueba Bonus   |               | 2 diciembre  |  [`[Prueba Bonus 2023]`](materials/prueba_bonus_2023.pdf)                                                                                         |
-| Examen final   |               | 9 diciembre  |  [`[Examen final 2023]`](materials/final_exam_2023.pdf)                                                                                         |
+| Examen final   |               | 9 diciembre  |  [`[Examen Final 2023]`](materials/final_exam_2023.pdf)                                                                                         |
 
 
 
