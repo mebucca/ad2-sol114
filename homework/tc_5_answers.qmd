@@ -62,24 +62,24 @@ Los resultados muestrales arrojan las siguientes estimaciones:
 > n <- 1089 # Tamaño de la muestra
 > mean_sample <- 12.5 # Media muestral
 > s <- sqrt((n/(n-1))*10.24) # Desviación estándar poblacional
->
+> >
 > # Error estándar
 > SE <- s / sqrt(n)
 > SE
->
+> >
 > # Intervalo de confianza al 90%
 > z_90 <- qnorm(.95)
 > CI_90_lower <- mean_sample - z_90 * SE
 > CI_90_upper <- mean_sample + z_90 * SE
->
+> >
 > CI_90 <- c(CI_90_lower, CI_90_upper)
 > CI_90
->
+> >
 > # Intervalo de confianza al 95%
 > z_95 <- qnorm(.975)
 > CI_95_lower <- mean_sample - z_95 * SE
 > CI_95_upper <- mean_sample + z_95 * SE
->
+> >
 > CI_95 <- c(CI_95_lower, CI_95_upper)
 > CI_95
 > ```
@@ -105,28 +105,29 @@ En esta pregunta usarás los datos de auto-reporte de altura y peso del estudio 
 > ```{r, message=FALSE, warning=FALSE}
 > library(carData)
 > library(tidyverse)
->
+> >
 > data_davis <- carData::Davis
 > head(data_davis)
->
+> >
 > mu_hat <- data_davis %>% filter(sex == "F") %>%
 >   summarise(mean_height = mean(height, na.rm = TRUE)) %>%
 >   pull(mean_height)
->
-> n  <- sum(!is.na(data_davis$height))
->
+> >
+> n  <- data_davis %>% filter(sex == "F") %>% drop_na(height) %>% summarise(n = n()) %>% pull(n)
+> print(n)
+> >
 > s <- data_davis %>% filter(sex == "F") %>%
 >   summarise(s_height = sd(height, na.rm = TRUE)) %>%
 >   pull(s_height)
->
+> >
 > se <- s/sqrt(n)
->
+> >
 > alpha = 1 - 0.97
 > z <- 1 - alpha/2
 > z
->
+> >
 > ci <- mu_hat + c(-1,1)*qnorm(z)*se
->
+> >
 > cat("Proporción muestral =", round(mean(mu_hat),2));
 > cat("IC al 97% =", round(ci,2))
 > ```
@@ -136,7 +137,7 @@ En esta pregunta usarás los datos de auto-reporte de altura y peso del estudio 
 Calcula el ratio entre el peso promedio de hombres y mujeres. Usando el metodo de Boostrap estima un intervalo de confianza al 95% para este ratio usando 1,000 iteraciones (1,000 muestras de la muestra).
 
 > ```{r, echo=T, message=FALSE, warning=FALSE}
->
+> >
 >   mu_hat_mujeres <- data_davis %>% filter(sex == "F") %>%
 >   summarise(mean_height = mean(height, na.rm = TRUE)) %>%
 >   pull(mean_height)
@@ -147,7 +148,7 @@ Calcula el ratio entre el peso promedio de hombres y mujeres. Usando el metodo d
 >   
 >   ratio = mu_hat_hombres/mu_hat_mujeres
 >   cat("ratio = ", ratio, "\n")
->
+> >
 > bs <- function() {
 >   bs_sample <- sample_n(data_davis, nrow(data_davis), replace=T)
 >   
@@ -164,11 +165,11 @@ Calcula el ratio entre el peso promedio de hombres y mujeres. Usando el metodo d
 >   return(ratio)
 >   
 > }
->
+> >
 > bs_distrib_ratio <- replicate(n=1000,bs())
 > >
 > cat("Bootstrap IC para ratio al 95% =", round(quantile(bs_distrib_ratio, p=c(0.025,0.975)),2))
->
+> >
 > ```
 >
 > El intervalo de confianza del 95% se extiende entre 1.07 y 1.1, lo que indica que tenemos un 95% de confianza en que el verdadero ratio entre el promedio de altura de hombres y mujeres está contenido dentro de este intervalo. En otras palabras, si repitiéramos este procedimiento muchas veces, el 95% de los intervalos calculados de esta manera incluirían el verdadero valor del ratio.
