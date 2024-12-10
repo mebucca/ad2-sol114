@@ -217,7 +217,7 @@ window.Quarto = {
 <ul>
 <li><p><code>sex</code>: Un factor con niveles: F, femenino; M, masculino.</p></li>
 <li><p><code>weight</code>: Peso medido en kg.</p></li>
-<li><p><code>height</code>: Altura medida en cm.</p></li>
+<li><p><code>weight</code>: Altura medida en cm.</p></li>
 <li><p><code>repwt</code>: Peso reportado en kg.</p></li>
 <li><p><code>repht</code>: Altura reportada en cm.</p></li>
 </ul>
@@ -242,17 +242,17 @@ window.Quarto = {
 6   M     76    170    76   165</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>mu_hat <span class="ot">&lt;-</span> data_davis <span class="sc">%&gt;%</span> <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(mean_height)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_weight =</span> <span class="fu">mean</span>(weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(mean_weight)</span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>n  <span class="ot">&lt;-</span> data_davis <span class="sc">%&gt;%</span> <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(height) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(n)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>n  <span class="ot">&lt;-</span> data_davis <span class="sc">%&gt;%</span> <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(weight) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>()) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(n)</span>
 <span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(n)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 112</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> data_davis <span class="sc">%&gt;%</span> <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">s_height =</span> <span class="fu">sd</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(s_height)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">s_weight =</span> <span class="fu">sd</span>(weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(s_weight)</span>
 <span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> s<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
@@ -266,11 +266,11 @@ window.Quarto = {
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Proporción muestral ="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(mu_hat),<span class="dv">2</span>));</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Proporción muestral = 163.74</code></pre>
+<pre><code>Proporción muestral = 57.87</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"IC al 97% ="</span>, <span class="fu">round</span>(ci,<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>IC al 97% = 161.35 166.13</code></pre>
+<pre><code>IC al 97% = 55.33 60.41</code></pre>
 </div>
 </div>
 </blockquote>
@@ -281,28 +281,28 @@ window.Quarto = {
 <blockquote class="blockquote">
 <div class="cell">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>  mu_hat_mujeres <span class="ot">&lt;-</span> data_davis <span class="sc">%&gt;%</span> <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(mean_height)</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_weight =</span> <span class="fu">mean</span>(weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(mean_weight)</span>
 <span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  mu_hat_hombres <span class="ot">&lt;-</span> data_davis <span class="sc">%&gt;%</span> <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"M"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(mean_height)</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_weight =</span> <span class="fu">mean</span>(weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(mean_weight)</span>
 <span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>  ratio <span class="ot">=</span> mu_hat_hombres<span class="sc">/</span>mu_hat_mujeres</span>
 <span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">"ratio = "</span>, ratio, <span class="st">"</span><span class="sc">\n</span><span class="st">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>ratio =  1.087152 </code></pre>
+<pre><code>ratio =  1.31161 </code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>bs <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  bs_sample <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(data_davis, <span class="fu">nrow</span>(data_davis), <span class="at">replace=</span>T)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  mu_hat_mujeres <span class="ot">&lt;-</span> bs_sample <span class="sc">%&gt;%</span> <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"F"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(mean_height)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_weight =</span> <span class="fu">mean</span>(weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(mean_weight)</span>
 <span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  mu_hat_hombres <span class="ot">&lt;-</span> bs_sample <span class="sc">%&gt;%</span> <span class="fu">filter</span>(sex <span class="sc">==</span> <span class="st">"M"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_height =</span> <span class="fu">mean</span>(height, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(mean_height)</span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_weight =</span> <span class="fu">mean</span>(weight, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pull</span>(mean_weight)</span>
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  </span>
 <span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>  ratio <span class="ot">=</span> mu_hat_hombres<span class="sc">/</span>mu_hat_mujeres</span>
 <span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  </span>
@@ -314,7 +314,7 @@ window.Quarto = {
 <span id="cb19-19"><a href="#cb19-19" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb19-20"><a href="#cb19-20" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Bootstrap IC para ratio al 95% ="</span>, <span class="fu">round</span>(<span class="fu">quantile</span>(bs_distrib_ratio, <span class="at">p=</span><span class="fu">c</span>(<span class="fl">0.025</span>,<span class="fl">0.975</span>)),<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Bootstrap IC para ratio al 95% = 1.07 1.11</code></pre>
+<pre><code>Bootstrap IC para ratio al 95% = 1.24 1.37</code></pre>
 </div>
 </div>
 <p>El intervalo de confianza del 95% se extiende entre 1.07 y 1.1, lo que indica que tenemos un 95% de confianza en que el verdadero ratio entre el promedio de altura de hombres y mujeres está contenido dentro de este intervalo. En otras palabras, si repitiéramos este procedimiento muchas veces, el 95% de los intervalos calculados de esta manera incluirían el verdadero valor del ratio.</p>

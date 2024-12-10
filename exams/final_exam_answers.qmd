@@ -1,0 +1,133 @@
+---
+title: "_________________________________________"
+author: "Exámen Final SOL114"
+format: pdf
+editor: visual
+geometry:
+  - left=.5in
+  - textwidth=5.5in
+  - marginparsep=.25in
+  - marginparwidth=2.25in
+output:
+  quarto::pdf_document:
+    latex_engine: xelatex, tikz
+---
+
+**Instrucciones: Responde a las preguntas proporcionadas, asegurándote de justificar tus respuestas con cálculos y razonamientos claros.**
+
+**I.** En el Antiguo Testamento, el libro del Génesis comienza así: *"Y creó Dios al hombre a su imagen, a imagen de Dios lo creó; varón y hembra los creó"* (Génesis 1:27).
+
+![La creación](sistine.jpg){fig-align="center" width="8cm"}
+
+En esta pregunta, reemplazaremos la idea de creación divina por una versión probabilística: **variables aleatorias**.
+
+**Preguntas:**
+
+**I.i.** Sea $X$ una variable aleatoria que describe el sexo de una persona, donde la probabilidad de ser “varón” ($X = 1$) es $p$, y la probabilidad de ser “hembra” ($X = 0$) es $1-p$. Identifica qué distribución sigue la variable aleatoria $X$ y escribe su función de masa de probabilidad (PMF).
+
+**Respuesta:** La variable aleatoria $X$ sigue una distribución de Bernoulli, cuya función de masa de probabilidad (PMF) es:
+
+$$
+P(X = x) =
+\begin{cases}
+p & \text{si } x = 1, \\
+1-p & \text{si } x = 0.
+\end{cases}
+$$
+
+Esta distribución es adecuada para modelar eventos dicotómicos con probabilidades constantes.
+
+**I.ii.** Si la probabilidad de ser “varón” y “hembra” es la misma, ¿cuál es el valor de $p$?
+
+**Respuesta:** Si $P(X = 1) = P(X = 0)$, entonces:
+
+$$
+p = 1 - p \implies 2p = 1 \implies p = 0.5.
+$$
+
+Por lo tanto, la probabilidad de ser "varón" es $0.5$.
+
+**I.iii.** Si Adán ($X_1$) y Eva ($X_2$) son dos realizaciones independientes de $X$, expresa y calcula la probabilidad de generar dos personas secuencialmente y obtener un “varón” y una “hembra” (en ese orden).
+
+**Respuesta:** Dado que las realizaciones son independientes, la probabilidad es:
+
+$$
+P(X_1 = 1, X_2 = 0) = P(X_1 = 1) \cdot P(X_2 = 0) = p \cdot (1 - p).
+$$
+
+Sustituyendo $p = 0.5$:
+
+$$
+P(X_1 = 1, X_2 = 0) = 0.5 \cdot 0.5 = 0.25.
+$$
+
+La probabilidad de obtener un “varón” seguido de una “hembra” es $0.25$.
+
+ewpage
+
+**II.** Asimismo, el creador probabilístico estableció que la variable aleatoria $Y$ describe la altura (en cms) de un "varón" y de una "hembra" de la siguiente manera:
+
+-   $Y \mid X = 1 \sim \text{Normal}(\mu_v = 170, \sigma_v = 20)$
+-   $Y \mid X = 0 \sim \text{Normal}(\mu_h = 160, \sigma_h = 10)$
+
+**Preguntas:**
+
+**II.i.** ¿Son sexo y altura dos variables independientes? Fundamenta tu respuesta.
+
+**Respuesta:** No, sexo y altura no son variables independientes porque la distribución de $Y$ (altura) depende condicionalmente del valor de $X$ (sexo). Esto se evidencia en que las medias y desviaciones estándar son distintas para varones y hembras.
+
+**II.ii.** Calcula la probabilidad de que un hombre tenga una altura superior a 180 cms.
+
+**Respuesta:** Para $Y \mid X = 1$, estandarizamos:
+
+$$
+Z = \frac{Y - \mu_v}{\sigma_v} = \frac{180 - 170}{20} = 0.5.
+$$
+
+Usando una tabla de la normal estándar:
+
+$$
+P(Z > 0.5) = 1 - P(Z \leq 0.5) = 1 - 0.6915 = 0.3085.
+$$
+
+La probabilidad de que un hombre mida más de 180 cm es $0.3085$.
+
+**II.iii.** ¿Qué altura debe tener una mujer para ubicarse en el percentil 90 (10% más alto)?
+
+**Respuesta:** Para $Y \mid X = 0$, buscamos el valor $z$ tal que $P(Z \leq z) = 0.9$. Según la tabla de la normal estándar:
+
+$$
+z \approx 1.28.
+$$
+
+La altura requerida es:
+
+$$
+Y = \mu_h + z \cdot \sigma_h = 160 + 1.28 \cdot 10 = 172.8 \text{ cm}.
+$$
+
+Por lo tanto, una mujer debe medir $172.8$ cm para estar en el percentil 90.
+
+ewpage
+
+**III.** Teorémas Asintóticos
+
+**Preguntas:**
+
+**III.i.** Identifica los siguientes teoremas y explica en palabras haciendo referencia a los términos usados en las ecuaciones respectivas.
+
+**Respuesta:**
+
+a)  El Teorema del Límite Central establece que la distribución de la media muestral $\bar{X}$ se aproxima a una normal a medida que aumenta el tamaño de la muestra ($n$), con media $\mu$ y desviación estándar $\frac{\sigma}{\sqrt{n}}$.
+
+b)  La Ley de los Grandes Números asegura que la probabilidad de que la media muestral $\bar{X}$ difiera significativamente de la media poblacional $\mu$ tiende a cero cuando $n \to \infty$.
+
+**III.ii.** Explica los conceptos de "distribución muestral" y "error estándar".
+
+**Respuesta:** La distribución muestral de un estimador describe cómo varía el estimador a través de diferentes muestras de una población. El error estándar mide la variabilidad del estimador y se calcula como:
+
+$$
+\text{SE}(\bar{X}) = \frac{\sigma}{\sqrt{n}}.
+$$
+
+(Continuar con las respuestas detalladas para las secciones IV, V y VI con el mismo nivel de detalle y formato.)
