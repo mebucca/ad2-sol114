@@ -110,15 +110,15 @@ En esta pregunta usarás los datos de auto-reporte de altura y peso del estudio 
 > head(data_davis)
 > >
 > mu_hat <- data_davis %>% filter(sex == "F") %>%
->   summarise(mean_weight = mean(weight, na.rm = TRUE)) %>%
->   pull(mean_weight)
+>   summarise(mean_height = mean(height, na.rm = TRUE)) %>%
+>   pull(mean_height)
 > >
-> n  <- data_davis %>% filter(sex == "F") %>% drop_na(weight) %>% summarise(n = n()) %>% pull(n)
+> n  <- data_davis %>% filter(sex == "F") %>% drop_na(height) %>% summarise(n = n()) %>% pull(n)
 > print(n)
 > >
 > s <- data_davis %>% filter(sex == "F") %>%
->   summarise(s_weight = sd(weight, na.rm = TRUE)) %>%
->   pull(s_weight)
+>   summarise(s_height = sd(height, na.rm = TRUE)) %>%
+>   pull(s_height)
 > >
 > se <- s/sqrt(n)
 > >
@@ -137,7 +137,7 @@ En esta pregunta usarás los datos de auto-reporte de altura y peso del estudio 
 Calcula el ratio entre el peso promedio de hombres y mujeres. Usando el metodo de Boostrap estima un intervalo de confianza al 95% para este ratio usando 1,000 iteraciones (1,000 muestras de la muestra).
 
 > ```{r, echo=T, message=FALSE, warning=FALSE}
-> >
+>
 >   mu_hat_mujeres <- data_davis %>% filter(sex == "F") %>%
 >   summarise(mean_weight = mean(weight, na.rm = TRUE)) %>%
 >   pull(mean_weight)
