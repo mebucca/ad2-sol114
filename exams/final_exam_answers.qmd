@@ -269,40 +269,38 @@ La siguiente tabla de contingencia resume los resultados obtenidos:
 
 -   **Hipótesis alternativa (**$H_a$): Existe asociación entre el tipo de comunidad y la preferencia por el código moral.
 
- - **Datos observados:**  
-  $$
-    \begin{array}{|c|c|c|}
-    \hline
-    & \text{Rural} & \text{Urbano} \\
-    \hline
-    \text{"Tradición"} & 50 & 60 \\
-    \text{"Cambio"} & 50 & 140 \\
-    \hline
-    \end{array}
+-   **Datos observados:**\
     $$
+     \begin{array}{|c|c|c|}
+     \hline
+     & \text{Rural} & \text{Urbano} \\
+     \hline
+     \text{"Tradición"} & 50 & 60 \\
+     \text{"Cambio"} & 50 & 140 \\
+     \hline
+     \end{array}
+     $$
 
-- **Frecuencias esperadas:**  
-  Utilizando la fórmula $E_{ij} = \frac{R_i \cdot C_j}{N}$, donde $R_i$ y $C_j$ son los totales de las filas y columnas, respectivamente:
-  $$
-    \begin{array}{|c|c|c|}
-    \hline
-    & \text{Rural} & \text{Urbano} \\
-    \hline
-    \text{"Tradición"} & 36.67 & 73.33 \\
-    \text{"Cambio"} & 63.33 & 126.67 \\
-    \hline
-    \end{array}
-    $$
+-   **Frecuencias esperadas:**\
+    Utilizando la fórmula $E_{ij} = \frac{R_i \cdot C_j}{N}$, donde $R_i$ y $C_j$ son los totales de las filas y columnas, respectivamente: $$
+      \begin{array}{|c|c|c|}
+      \hline
+      & \text{Rural} & \text{Urbano} \\
+      \hline
+      \text{"Tradición"} & 36.67 & 73.33 \\
+      \text{"Cambio"} & 63.33 & 126.67 \\
+      \hline
+      \end{array}
+      $$
 
-- **Estadístico Chi-cuadrado y valor $p$:**
-  $$
-    \chi^2 = 10.64, \quad p = 0.0011
-    $$
+-   **Estadístico Chi-cuadrado y valor** $p$: $$
+      \chi^2 = 10.64, \quad p = 0.0011
+      $$
 
-- **Grados de libertad:** $df = (2-1)(2-1) = 1$
+-   **Grados de libertad:** $df = (2-1)(2-1) = 1$
 
-**Interpretación:**  
-  El valor $p$ (0.0011) es mucho menor que un nivel de significancia típico ($\alpha = 0.05$), por lo que rechazamos la hipótesis nula de independencia. Esto indica que existe evidencia de una asociación entre el tipo de comunidad (rural o urbana) y la preferencia por el nuevo código moral.
+**Interpretación:**\
+El valor $p$ (0.0011) es mucho menor que un nivel de significancia típico ($\alpha = 0.05$), por lo que rechazamos la hipótesis nula de independencia. Esto indica que existe evidencia de una asociación entre el tipo de comunidad (rural o urbana) y la preferencia por el nuevo código moral.
 
 **VI.ii.** Calcula las proporciones muestrales que estiman las siguientes probabilidades:
 
@@ -312,34 +310,68 @@ La siguiente tabla de contingencia resume los resultados obtenidos:
 
 **VI.iii.** Realiza un test de diferencia en proporciones para evaluar la hipótesis:
 
-  
-  - **Hipótesis nula ($H_0$):** $P(\text{"Cambio"} \mid \text{Rural}) = P(\text{"Cambio"} \mid \text{Urbano})$  
-- **Hipótesis alternativa ($H_a$):** $P(\text{"Cambio"} \mid \text{Rural}) < P(\text{"Cambio"} \mid \text{Urbano})$
+-   **Hipótesis nula (**$H_0$): $P(\text{"Cambio"} \mid \text{Rural}) = P(\text{"Cambio"} \mid \text{Urbano})$\
 
-- **Estadístico de prueba:**  
-  Usando la fórmula:
-  $$
-    z = \frac{\hat{p}_\text{R} - \hat{p}_\text{U}}{\sqrt{\hat{p} (1 - \hat{p}) \left( \frac{1}{n_\text{R}} + \frac{1}{n_\text{U}} \right)}}
-    $$
-donde $\hat{p}$ es la proporción combinada:
-  $$
-    \hat{p} = \frac{50 + 140}{100 + 200} = 0.6333
-    $$
-Sustituyendo valores:
-  $$
-    z = \frac{0.5 - 0.7}{\sqrt{0.6333 \cdot (1 - 0.6333) \left( \frac{1}{100} + \frac{1}{200} \right)}} = -3.39
-    $$
+-   **Hipótesis alternativa (**$H_a$): $P(\text{"Cambio"} \mid \text{Rural}) < P(\text{"Cambio"} \mid \text{Urbano})$
 
-- **Valor $p$:**  
-  Para una prueba unilateral:
-  $$
-    p = \text{P}(Z < -3.39) \approx 0.00035
-    $$
+El estadístico de prueba se calcula como:
+$$
+z = \frac{\hat{p}_\text{R} - \hat{p}_\text{U}}{\sqrt{\frac{\hat{p}_\text{R}(1 - \hat{p}_\text{R})}{n_\text{R}} + \frac{\hat{p}_\text{U}(1 - \hat{p}_\text{U})}{n_\text{U}}}}
+$$
+donde:
 
-**Interpretación:**  
-  El valor $p$ es muy pequeño ($p < 0.05$), por lo que rechazamos $H_0$. Esto proporciona evidencia sólida de que la proporción de preferencia por "Cambio" es significativamente mayor en comunidades urbanas que en comunidades rurales.
-  
-  
+- $\hat{p}_\text{R} = \frac{\text{Éxitos en Rural}}{\text{Total Rural}} = \frac{50}{100} = 0.5$,
+
+- $\hat{p}_\text{U} = \frac{\text{Éxitos en Urbano}}{\text{Total Urbano}} = \frac{140}{200} = 0.7$,
+
+- $n_\text{R} = 100$,
+
+- $n_\text{U} = 200$.
+
+
+
+- Calculamos la varianza para el grupo Rural:
+$$
+\frac{\hat{p}_\text{R}(1 - \hat{p}_\text{R})}{n_\text{R}} = \frac{0.5 \cdot (1 - 0.5)}{100} = \frac{0.25}{100} = 0.0025
+$$
+
+- Calculamos la varianza para el grupo Urbano:
+$$
+\frac{\hat{p}_\text{U}(1 - \hat{p}_\text{U})}{n_\text{U}} = \frac{0.7 \cdot (1 - 0.7)}{200} = \frac{0.21}{200} = 0.00105
+$$
+
+- Suma de varianzas:
+$$
+\text{Varianza total} = 0.0025 + 0.00105 = 0.00355
+$$
+
+- Desviación estándar total:
+$$
+\sqrt{\text{Varianza total}} = \sqrt{0.00355} \approx 0.0596
+$$
+
+- Estadístico $z$:
+$$
+z = \frac{\hat{p}_\text{R} - \hat{p}_\text{U}}{\sqrt{\frac{\hat{p}_\text{R}(1 - \hat{p}_\text{R})}{n_\text{R}} + \frac{\hat{p}_\text{U}(1 - \hat{p}_\text{U})}{n_\text{U}}}}
+= \frac{0.5 - 0.7}{0.0596} = \frac{-0.2}{0.0596} \approx -3.36
+$$
+
+
+- Valor $p$:
+Para una prueba unilateral:
+$$
+p = P(Z < -3.36)
+$$
+
+De la tabla de la distribución normal estándar (o software), encontramos:
+$$
+p \approx 0.00039
+$$
+
+
+**Interpretación:**\
+El valor $p$ es muy pequeño ($p < 0.05$), por lo que rechazamos $H_0$. Esto proporciona evidencia sólida de que la proporción de preferencia por "Cambio" es significativamente mayor en comunidades urbanas que en comunidades rurales.
+
 **VI.** Galileo Galilei y la Ley de la Caída Libre
 
 Galileo Galilei descubrió que la distancia recorrida por un objeto en caída libre desde el reposo está dada por la ecuación:
