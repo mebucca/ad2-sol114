@@ -84,9 +84,9 @@ notas_finales <- notas_finales %>%
 notas_finales %>% drop_na(Rut) %>% 
   filter(nota_examen > 0) %>%
   mutate(nota_final = if_else(nota_final>=3.85 & nota_final<4,4,nota_final)) %>%
-  select(Rut,nota_final) %>%
+  select(Rut, nota_tareas,promedio_pruebas,nota_examen,nota_final) %>%
   rename(`Nota Final` = nota_final) %>%
-  mutate(`P(Nota < tunota)` =rank(`Nota Final`)/n()) %>%
+  mutate(`P(Nota Final < tunota)` =rank(`Nota Final`)/n()) %>%
   knitr::kable(digits=c(0,1,2)) %>% kable_styling(font_size = 9)
 ```
 
