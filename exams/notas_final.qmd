@@ -42,7 +42,7 @@ notas_bonus   <- notas_bonus   %>% rename(nota_bonus = Nota)
 notas_tareas  <- notas_tareas   %>% rename(nota_tareas = tarea_promedio)
 
 notas_examen  <- notas_examen   %>% rename(nota_examen = Nota) %>% 
-  mutate(nota_examen = if_else(nota_examen>7,7,nota_examen))
+  mutate(nota_examen = if_else(nota_examen>7,7,nota_examen), nota_examen = round(nota_examen,1))
 
 notas_finales <- notas_prueba1 %>% select(1:5,nota_prueba1) %>% 
   left_join(notas_prueba2 %>% select(Rut,nota_prueba2), by="Rut") %>%
@@ -87,7 +87,7 @@ notas_finales %>% drop_na(Rut) %>%
   select(Rut, nota_tareas,promedio_pruebas,nota_examen,nota_final) %>%
   rename(`Nota Final` = nota_final) %>%
   mutate(`P(Nota Final < tunota)` =rank(`Nota Final`)/n()) %>%
-  knitr::kable(digits=c(0,1,2)) %>% kable_styling(font_size = 9)
+  knitr::kable(digits=c(0,1,1,1,1,2)) %>% kable_styling(font_size = 9)
 ```
 
 ## Resumen estadístico
