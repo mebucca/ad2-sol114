@@ -75,7 +75,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 
 | Evaluación    | Asignación | Entrega | Material |
 | ------------- | ---------- | ------- | -------- |
-| Tarea corta 1 |  5 agosto          |  12 agosto       |  [`[TC1]`](https://mebucca.github.io/ad2-sol114/homework/tc_1#1) [`[TC1.qmd sols]`](homework/tc_1.qmd)         |
+| Tarea corta 1 |  5 agosto          |  12 agosto       |  [`[TC1]`](https://mebucca.github.io/ad2-sol114/homework/tc_1#1) [`[TC1.qmd]`](homework/tc_1.qmd)         |
 | Tarea corta 2 |            |         |          |
 | Tarea corta 3 |            |         |          |
 | Prueba 1      |            |         |          |
