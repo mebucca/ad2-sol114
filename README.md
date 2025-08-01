@@ -73,23 +73,19 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | Examen final   |               | 9 diciembre  |  [`[Examen Final sols]`](exams/final_exam_answers.pdf)  [`[Examen Final.qmd sols]`](exams/final_exam_answers.qmd)                                                                                         |
 
 
-
----
-
-## Ayudantías
-
-| Fecha          | Contenido                                            | Ayudante   | Materiales | Capítulo QSS |
-|----------------|------------------------------------------------------|------------|------------|--------------|
-| 13 agosto      | R base & quarto                                       | Benjamín   | [`[A1]`](ta/ayudantia_1.pdf) [`[A1.Rmd]`](ta/ayudantia_1.Rmd)          | 1.3          |
-| 27 agosto      | dplyr  & distribuciones en R                          | Elisa      |            |              |
-| 3 septiembre   | Repaso contenidos clase (antes de la prueba)          | Benjamín   |            |              |
-| 24 septiembre  | Distribución muestral (simulación) & cálculo de EE en R | Elisa      |            |              |
-| 8 octubre      | Cálculo de IC en R                                    | Elisa      |            |              |
-| 15 octubre     | IC de distinto tipo en R                              | Benjamín   |            |              |
-| 29 octubre     | Test de hipótesis en R                                | Benjamín   |            |              |
-| 5 noviembre    | Repaso contenidos clase (antes de la prueba)          | Elisa      |            |              |
-| 19 noviembre   | Tablas de contingencia & Chi2 en R                    | Elisa      |            |              |
-| 26 noviembre   | Scatterplots & correlaciones en R                     | Benjamín   |            |              |
+| Evaluación    | Asignación | Entrega | Material |
+| ------------- | ---------- | ------- | -------- |
+| Tarea corta 1 |  5 agosto          |  12 agosto       |  [`[TC1]`](https://mebucca.github.io/ad2-sol114/homework/tc_1#1) [`[TC1.qmd sols]`](homework/tc_1.qmd)         |
+| Tarea corta 2 |            |         |          |
+| Tarea corta 3 |            |         |          |
+| Prueba 1      |            |         |          |
+| Tarea corta 4 |            |         |          |
+| Tarea corta 5 |            |         |          |
+| Prueba 2      |            |         |          |
+| Tarea corta 6 |            |         |          |
+| Tarea corta 7 |            |         |          |
+| Prueba Bonus  |            |         |          |
+| Examen final  |            |         |          |
 
 
 ---
