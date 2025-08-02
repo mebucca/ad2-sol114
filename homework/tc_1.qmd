@@ -1,5 +1,5 @@
 ---
-title: "Tarea corta #1"
+title: "Tarea corta #1 (versión alternativa)"
 author: "SOL114"
 format: html
 editor: visual
@@ -17,53 +17,59 @@ library("tinytex")
 
 **1) Exponenciales y Logaritmos**
 
-a)  Simplifica: $(4^3) \times (4^2)$
+a)  Simplifica: $(3^2) \cdot (3^4)$\
 
-<!-- -->
 
-b.  Resuelve por x: $2^{x} = 32$
+b)  Resuelve por $x$: $\ln(x) = 2$\
 
-<!-- -->
+c)  Simplifica: $\frac{e^{5x}}{e^{x}}$\
 
-c)  Simplifica: $\frac{e^{6x}}{e^{2x}}$
 
-d)  Simplifica: $\ln(x) + \ln(y)$
+d)  Simplifica: $\ln(a) - \ln(b)$\
 
-e)  Simplifica: $\ln(b^3)$
+
+e)  Simplifica: $\ln(\sqrt{z})$\
+
 
 <br>
 
 **2) Sumatoria**
 
-Calcula la sumatoria de $(c \cdot i + d)$ desde $i = 1$ hasta $5$.
+Calcula la sumatoria de $(a \cdot i - b)$ desde $i = 1$ hasta $4$.
+
 
 <br>
 
 **3) Derivadas**
 
-a)  Calcula la derivada de la siguiente función: $f(x) = 7x^4 - 5x^3 + 2x - 8$
+a)  Calcula la derivada de la siguiente función: $f(x) = 5x^3 + 2x^2 - 7x + 4$\
 
 <br>
 
-b)  Dada la función: $y = 4 + 3x^2$
+b)  Dada la función: $y = 2x^2 - 6$
 
-```{=html}
 <!-- -->
-```
+
 1.  Grafica la función.
 
-2.  Identifica por inspección visual el valor de $x$ en que la función alcanza su mínimo.
 
-3.  Determina el valor de la pendiente en ese punto.
+
+2.  Identifica por inspección visual el valor de $x$ en que la función alcanza su mínimo.\
+
+
+3.  Determina el valor de la pendiente en ese punto.\
 
 <br>
 
 **4) Aproximación discreta de integrales**
 
-Aproxima la integral de $f(x) = x^3$ desde 1 hasta 3 usando 4 rectángulos. Específicamente: divide el intervalo desde 1 hasta 3 en 4 subintervalos de igual tamaño y luego evalúa la función en el punto más a la izquierda de cada subintervalo. Ejemplo, para el intervalo entre 1.5 y 2 usa el valor $x = 1.5$, y por tanto $f(x) = f(1.5)$.
+Aproxima la integral de $f(x) = x^2$ desde 0 hasta 2 usando 4 rectángulos. Divide el intervalo desde 0 hasta 2 en 4 subintervalos iguales y evalúa $f(x)$ en el borde izquierdo de cada subintervalo.
+
+
 
 <br>
 
 **5) Integral definida**
 
-Evalúa la integral: $\int_{1}^{3} x^3 \, dx$
+Evalúa la integral: $\int_{0}^{2} x^2 \, dx$
+
