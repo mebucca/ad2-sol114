@@ -263,32 +263,36 @@ Ejemplo: Consideremos la función $f(x) = x^2$.
 a)  Encontrar la derivada de $f(x)$: $$\frac{d}{dx} (x^2) = 2x^{2-1} = 2x$$
 
 ```{r derivada_ejemplo, echo=TRUE, warning=FALSE, fig.cap="Gráfico de la función f(x) = x^2 y su derivada"}
-# Create a vector of x values from -5 to 5
-x_values <- seq(-5, 5, 0.1)
+# Vector de x
+x_values <- seq(-1, 5, 0.1)
 
-# Define the function f(x) = x^2
-f_x <- function(x) {x^2}
+# Función y derivada
+f_x <- function(x) x^2
+x0 <- 2
+slope <- 2 * x0      # f'(x) = 2x, entonces f'(2) = 4
+y0 <- f_x(x0)
 
-# Calculate the corresponding y values for the function f(x) = x^2
-y_values <- f_x(x_values)
+# Recta tangente en x0
+tangent <- function(x) slope * (x - x0) + y0
 
-# Calculate the corresponding values for the derivative of f(x) = x^2
-derivada_values <- 2 * x_values
+# Datos
+data <- data.frame(x = x_values,
+                   f_x = f_x(x_values),
+                   t_x = tangent(x_values))
 
-# Create the plot for the function f(x) = x^2 and its derivative
-grafico_derivada <- ggplot() +
-  geom_line(data = data.frame(x = x_values, y = y_values), aes(x, y), color = "#FF7F50", size = 1.5) +
-  geom_line(data = data.frame(x = x_values, y = derivada_values), aes(x, y), color = "#6495ED", size = 1.5) +
-  labs(title = "Gráfico de la función f(x) = x^2 y su derivada",
+# Gráfico
+library(ggplot2)
+ggplot(data, aes(x)) +
+  geom_line(aes(y = f_x), color = "#FF7F50", size = 1.5) +
+  geom_line(aes(y = t_x), color = "#6495ED", size = 1.2, linetype = "dashed") +
+  geom_point(aes(x = x0, y = y0), size = 3, color = "black") +
+  labs(title = "Tangente a f(x) = x^2 en x = 2",
        x = "x",
-       y = "f(x) y Derivada") +
-  scale_color_manual(values = c("#FF7F50", "#6495ED")) +
+       y = "f(x) y t(x)") +
   theme_bw() +
   theme(plot.title = element_text(size = 18, hjust = 0.5),
         axis.title = element_text(size = 14),
         axis.text = element_text(size = 12))
-
-print(grafico_derivada)
 
 ```
 
@@ -305,26 +309,40 @@ a)  Encontrar la derivada de $f(x)$: Primero, calculamos las derivadas de $g(x)$
 Entonces, $$f'(x) = g'(x) + h'(x) = 4x + 9x^2$$
 
 ```{r derivada_suma_ejemplo, echo=TRUE, warning=FALSE, fig.cap="Gráfico de la función f(x) = 2x^2 + 3x^3 y su derivada"}
-# Calculate the corresponding y values for the function f(x) = 2x^2 + 3x^3
-y_suma_values <- 2 * x_values^2 + 3 * x_values^3
+# Definir funciones
+f <- function(x) 2 * x^2 + 3 * x^3
+f_prime <- function(x) 4 * x + 9 * x^2
 
-# Calculate the corresponding values for the derivative of f(x) = 2x^2 + 3x^3
-derivada_suma_values <- 4 * x_values + 9 * x_values^2
+# Dominio
+x_values <- seq(-5, 5, 0.1)
 
-# Create the plot for the function f(x) = 2x^2 + 3x^3 and its derivative
-grafico_derivada_suma <- ggplot(data.frame(x = x_values, y = y_suma_values, derivada = derivada_suma_values), aes(x)) +
-  geom_line(aes(y = y_suma_values, color = "Función f(x) = 2x^2 + 3x^3"), size = 1.5) +
-  geom_line(aes(y = derivada_suma_values, color = "Derivada de f(x) = 4x + 9x^2"), size = 1.5) +
-  labs(title = "Gráfico de la función f(x) = 2x^2 + 3x^3 y su derivada",
-       x = "x",
-       y = "f(x) y Derivada") +
-  scale_color_manual(values = c("#FF7F50", "#6495ED")) +
+# Evaluación
+df <- data.frame(
+  x = x_values,
+  fx = f(x_values),
+  dfx = f_prime(x_values)
+)
+
+# Graficar
+library(ggplot2)
+ggplot(df, aes(x)) +
+  geom_line(aes(y = fx, color = "f(x) = 2x² + 3x³"), size = 1.5) +
+  geom_line(aes(y = dfx, color = "f'(x) = 4x + 9x²"), size = 1.5, linetype = "dashed") +
+  scale_color_manual(values = c("f(x) = 2x² + 3x³" = "#FF7F50", "f'(x) = 4x + 9x²" = "#6495ED")) +
+  labs(
+    title = "Función y derivada: f(x) = 2x² + 3x³",
+    x = "x",
+    y = "Valor",
+    color = "Curvas"
+  ) +
   theme_bw() +
-  theme(plot.title = element_text(size = 18, hjust = 0.5),
-        axis.title = element_text(size = 14),
-        axis.text = element_text(size = 12))
-
-print(grafico_derivada_suma)
+  theme(
+    plot.title = element_text(size = 18, hjust = 0.5),
+    axis.title = element_text(size = 14),
+    axis.text = element_text(size = 12),
+    legend.title = element_text(size = 12),
+    legend.text = element_text(size = 11)
+  )
 
 ```
 

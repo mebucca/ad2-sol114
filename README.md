@@ -71,6 +71,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | Prueba Bonus  |            |         |          |
 | Examen final  |            |         |          |
 
+**IMPORTANTE:** Este curso permite el uso ético y transparente de herramientas de inteligencia artificial generativa, únicamente como herramienta de estudio o apoyo en la escritura de código. El estudiantado deberá declarar explícitamente en los anexos de cada trabajo qué herramientas fueron utilizadas, con qué propósito y, si se solicita, compartir los comandos o prompts empleados. El uso de IA no exime a los y las estudiantes de dominar plenamente el contenido de sus trabajos. Para verificar esto, en la clase posterior a la entrega de cualquier tarea o trabajo, dos estudiantes serán seleccionados al azar para explicar oralmente frente a la clase el procedimiento seguido en alguna de sus respuestas. En base a esta exposición, su nota podrá ser reconsiderada. El uso no autorizado o no declarado será considerado una falta a la integridad académica.
 
 ---
 
