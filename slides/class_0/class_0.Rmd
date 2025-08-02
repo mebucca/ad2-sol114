@@ -88,9 +88,7 @@ class: inverse, center, middle
 .pull-left[
 .bold[Elisa Tagle]
 
-- Estudiante de 4to año de Sociólogía UC
-
-- Intereses: Análisis de datos sociológicos y económicos, estadística, y teoría sociológica.
+- Estudiante de magister en Sociólogía UC
 
 ]
 
@@ -104,16 +102,14 @@ class: inverse, center, middle
 <br>
 
 .pull-left[
-.bold[Benjamín Puran]
+.bold[Vicente Muhlenbrock]
 
-- Estudiante de 4to año de Sociólogía UC
-
-- Intereses: Salud pública, socio-biología, bioestadística y sociología de la salud.
+- Estudiante de magister en Sociólogía UC
 
 ]
 
 .pull-right[
-![benjamin](benjamin.png)
+![benjamin](vicente.jpeg)
 ]
 
 ---
