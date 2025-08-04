@@ -79,7 +79,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 ## Horario de Consulta
 
 - Reuniones individuales de aproximadamente 15 minutos cada día Miércoles entre 14:30 y 15:30pm. [`[Agendar]`](
-https://calendar.app.google/U4mohxA18LCZmexr7)
+https://calendar.app.google/8rfTeNoxGiDJPbzEA)
 
 
 ---
