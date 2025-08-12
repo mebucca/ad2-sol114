@@ -21,9 +21,6 @@ class: center, middle, inverse, title-slide
 .author[
 ### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
 ]
-.date[
-### 17 August, 2024
-]
 
 ---
 
@@ -136,6 +133,14 @@ Tiremos una moneda con probabilidad de obtener "Cara" ( `\(1\)` ) de 70% ( `\(p=
 ``` r
 #set.seed(12347)
 moneda &lt;- rbinom(n=1, size=1, p=0.7)
+```
+
+```
+## Warning in rbinom(n = 1, size = 1, p = 0.7): partial argument match of 'p' to
+## 'prob'
+```
+
+``` r
 print(moneda)
 ```
 
@@ -154,13 +159,23 @@ Repitamos el proceso 1000 veces ...
 monedas &lt;- rbinom(n=1000, size=1, p=0.7)
 ```
 
+```
+## Warning in rbinom(n = 1000, size = 1, p = 0.7): partial argument match of 'p'
+## to 'prob'
+```
+
 
 ```
-##  [1] 0 1 0 1 1 0 0 1 0 1 1 0 0 0 0 0 0 1 1 1
+## Warning in rbinom(n = 1000, size = 1, p = 0.7): partial argument match of 'p'
+## to 'prob'
 ```
 
 ```
-## [1] "P(Cara) =  0.71"
+##  [1] 1 1 1 1 1 1 0 1 1 1 1 1 0 1 0 0 0 1 1 1
+```
+
+```
+## [1] "P(Cara) =  0.702"
 ```
 
 
