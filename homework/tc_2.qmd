@@ -21,8 +21,6 @@ Imagina una enfermedad *muy* rara y una prueba para detectarla. Estos son los da
 
 **Pregunta.** ¿Cuál es $P(E\mid T)$? Usa el teorema de Bayes.
 
-
 ## 2. Exactamente 2 de 3 personas con la enfermedad
 
 **Pregunta.** Si elegimos 3 personas al azar, ¿cuál es la probabilidad de que **exactamente 2** tengan la enfermedad?
-
