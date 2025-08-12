@@ -8,7 +8,7 @@
 
 <meta name="author" content="SOL114">
 
-<title>Tarea corta #1</title>
+<title>Tarea corta #1 (versión alternativa)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -21,19 +21,53 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="tc_1_files/libs/clipboard/clipboard.min.js"></script>
-<script src="tc_1_files/libs/quarto-html/quarto.js"></script>
-<script src="tc_1_files/libs/quarto-html/popper.min.js"></script>
-<script src="tc_1_files/libs/quarto-html/tippy.umd.min.js"></script>
-<script src="tc_1_files/libs/quarto-html/anchor.min.js"></script>
-<link href="tc_1_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="tc_1_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="tc_1_files/libs/bootstrap/bootstrap.min.js"></script>
-<link href="tc_1_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="tc_1_files/libs/bootstrap/bootstrap-c0367b04c37547644fece4185067e4a7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script src="tc_1_answers_files/libs/clipboard/clipboard.min.js"></script>
+<script src="tc_1_answers_files/libs/quarto-html/quarto.js"></script>
+<script src="tc_1_answers_files/libs/quarto-html/popper.min.js"></script>
+<script src="tc_1_answers_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="tc_1_answers_files/libs/quarto-html/anchor.min.js"></script>
+<link href="tc_1_answers_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="tc_1_answers_files/libs/quarto-html/quarto-syntax-highlighting-2f5df379a58b258e96c21c0638c20c03.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="tc_1_answers_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="tc_1_answers_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="tc_1_answers_files/libs/bootstrap/bootstrap-c0367b04c37547644fece4185067e4a7.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -75,7 +109,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Tarea corta #1</h1>
+<h1 class="title">Tarea corta #1 (versión alternativa)</h1>
 </div>
 
 
@@ -103,43 +137,90 @@ window.Quarto = {
 <p><strong>1) Exponenciales y Logaritmos</strong></p>
 <ol type="a">
 <li><p>Simplifica: <span class="math inline">\((3^2) \cdot (3^4)\)</span><br>
-</p></li>
+&gt; Paso 1: Usa la propiedad de potencias con misma base: <span class="math inline">\(a^m \cdot a^n = a^{m+n}\)</span><br>
+&gt; Paso 2: <span class="math inline">\(3^2 \cdot 3^4 = 3^{2+4} = 3^6\)</span><br>
+&gt; Paso 3: <span class="math inline">\(3^6 = 729\)</span><br>
+&gt; <strong>Respuesta:</strong> <span class="math inline">\(3^6 = 729\)</span></p></li>
 <li><p>Resuelve por <span class="math inline">\(x\)</span>: <span class="math inline">\(\ln(x) = 2\)</span><br>
-</p></li>
+&gt; Paso 1: Aplica la definición de logaritmo natural: si <span class="math inline">\(\ln(x) = 2\)</span>, entonces <span class="math inline">\(x = e^2\)</span><br>
+&gt; Paso 2: <span class="math inline">\(e^2 \approx 7.389\)</span><br>
+&gt; <strong>Respuesta:</strong> <span class="math inline">\(x = e^2 \approx 7.389\)</span></p></li>
 <li><p>Simplifica: <span class="math inline">\(\frac{e^{5x}}{e^{x}}\)</span><br>
-</p></li>
+&gt; Paso 1: Usa la propiedad <span class="math inline">\(\frac{e^a}{e^b} = e^{a-b}\)</span><br>
+&gt; Paso 2: <span class="math inline">\(\frac{e^{5x}}{e^{x}} = e^{5x - x} = e^{4x}\)</span><br>
+&gt; <strong>Respuesta:</strong> <span class="math inline">\(e^{4x}\)</span></p></li>
 <li><p>Simplifica: <span class="math inline">\(\ln(a) - \ln(b)\)</span><br>
-</p></li>
+&gt; Paso 1: Usa la propiedad <span class="math inline">\(\ln(a) - \ln(b) = \ln\left(\frac{a}{b}\right)\)</span><br>
+&gt; <strong>Respuesta:</strong> <span class="math inline">\(\ln\left(\frac{a}{b}\right)\)</span></p></li>
 <li><p>Simplifica: <span class="math inline">\(\ln(\sqrt{z})\)</span><br>
-</p></li>
+&gt; Paso 1: Expresa la raíz cuadrada como potencia: <span class="math inline">\(\sqrt{z} = z^{1/2}\)</span><br>
+&gt; Paso 2: <span class="math inline">\(\ln(z^{1/2}) = \frac{1}{2} \ln(z)\)</span><br>
+&gt; <strong>Respuesta:</strong> <span class="math inline">\(\frac{1}{2} \cdot \ln(z)\)</span></p></li>
 </ol>
 <p><br></p>
 <p><strong>2) Sumatoria</strong></p>
 <p>Calcula la sumatoria de <span class="math inline">\((a \cdot i - b)\)</span> desde <span class="math inline">\(i = 1\)</span> hasta <span class="math inline">\(4\)</span>.</p>
+<blockquote class="blockquote">
+<p>Paso 1: Escribe la sumatoria explícitamente:<br>
+<span class="math inline">\((a \cdot 1 - b) + (a \cdot 2 - b) + (a \cdot 3 - b) + (a \cdot 4 - b)\)</span><br>
+Paso 2: Agrupa los términos con <span class="math inline">\(a\)</span> y los términos con <span class="math inline">\(b\)</span>:<br>
+<span class="math inline">\(a(1 + 2 + 3 + 4) - 4b = a \cdot 10 - 4b\)</span><br>
+<strong>Respuesta:</strong> <span class="math inline">\(10a - 4b\)</span></p>
+</blockquote>
 <p><br></p>
 <p><strong>3) Derivadas</strong></p>
 <ol type="a">
 <li>Calcula la derivada de la siguiente función: <span class="math inline">\(f(x) = 5x^3 + 2x^2 - 7x + 4\)</span><br>
-</li>
+&gt; Paso 1: Usa la regla de potencias: <span class="math inline">\(\frac{d}{dx}(x^n) = nx^{n-1}\)</span><br>
+&gt; Paso 2: <span class="math inline">\(f'(x) = 15x^2 + 4x - 7\)</span><br>
+&gt; <strong>Respuesta:</strong> <span class="math inline">\(f'(x) = 15x^2 + 4x - 7\)</span></li>
 </ol>
 <p><br></p>
 <ol start="2" type="a">
 <li>Dada la función: <span class="math inline">\(y = 2x^2 - 6\)</span></li>
 </ol>
-<!-- -->
 <ol type="1">
-<li><p>Grafica la función.</p></li>
+<li>Grafica la función.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="dv">2</span><span class="sc">*</span>x<span class="sc">^</span><span class="dv">2</span> <span class="sc">-</span> <span class="dv">6</span>, <span class="at">from =</span> <span class="sc">-</span><span class="dv">5</span>, <span class="at">to =</span> <span class="dv">5</span>, <span class="at">col =</span> <span class="st">"darkgreen"</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">ylab =</span> <span class="st">"y"</span>, <span class="at">xlab =</span> <span class="st">"x"</span>, <span class="at">main =</span> <span class="st">"Gráfico de y = 2x² - 6"</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">v =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">"black"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="tc_1_answers_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<ol start="2" type="1">
 <li><p>Identifica por inspección visual el valor de <span class="math inline">\(x\)</span> en que la función alcanza su mínimo.<br>
-</p></li>
+&gt; La función cuadrática <span class="math inline">\(y = ax^2 + bx + c\)</span> con <span class="math inline">\(a &gt; 0\)</span> alcanza su mínimo en <span class="math inline">\(x = -\frac{b}{2a}\)</span><br>
+&gt; En este caso, <span class="math inline">\(b = 0\)</span>, por tanto <span class="math inline">\(x = 0\)</span><br>
+&gt; <strong>Respuesta:</strong> <span class="math inline">\(x = 0\)</span></p></li>
 <li><p>Determina el valor de la pendiente en ese punto.<br>
-</p></li>
+&gt; Derivada: <span class="math inline">\(y' = \frac{d}{dx}(2x^2 - 6) = 4x\)</span><br>
+&gt; Evaluando en <span class="math inline">\(x = 0\)</span>: <span class="math inline">\(y'(0) = 0\)</span><br>
+&gt; <strong>Respuesta:</strong> <span class="math inline">\(y' = 0\)</span></p></li>
 </ol>
 <p><br></p>
 <p><strong>4) Aproximación discreta de integrales</strong></p>
 <p>Aproxima la integral de <span class="math inline">\(f(x) = x^2\)</span> desde 0 hasta 2 usando 4 rectángulos. Divide el intervalo desde 0 hasta 2 en 4 subintervalos iguales y evalúa <span class="math inline">\(f(x)\)</span> en el borde izquierdo de cada subintervalo.</p>
+<blockquote class="blockquote">
+<p>Paso 1: Subintervalos: [0, 0.5], [0.5, 1], [1, 1.5], [1.5, 2]<br>
+Paso 2: Evaluaciones: <span class="math inline">\(f(0) = 0\)</span>, <span class="math inline">\(f(0.5) = 0.25\)</span>, <span class="math inline">\(f(1) = 1\)</span>, <span class="math inline">\(f(1.5) = 2.25\)</span><br>
+Paso 3: Área total: <span class="math inline">\(0.5(0 + 0.25 + 1 + 2.25) = 0.5(3.5) = 1.75\)</span><br>
+<strong>Respuesta:</strong> 1.75</p>
+</blockquote>
 <p><br></p>
 <p><strong>5) Integral definida</strong></p>
 <p>Evalúa la integral: <span class="math inline">\(\int_{0}^{2} x^2 \, dx\)</span></p>
+<blockquote class="blockquote">
+<p>Paso 1: Usa la regla de potencias: <span class="math inline">\(\int x^n dx = \frac{x^{n+1}}{n+1} + C\)</span><br>
+Paso 2: <span class="math inline">\(\int x^2 dx = \frac{x^3}{3}\)</span><br>
+Paso 3: Evalúa: <span class="math inline">\(\left[\frac{x^3}{3}\right]_{0}^{2} = \frac{8}{3} - 0 = \frac{8}{3}\)</span><br>
+<strong>Respuesta:</strong> <span class="math inline">\(\frac{8}{3} \approx 2.67\)</span></p>
+</blockquote>
 
 </main>
 <!-- /main column -->

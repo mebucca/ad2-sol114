@@ -2,7 +2,6 @@
 title: "Probabilidad e Inferencia Estadística"
 subtitle: "#10: Teoremas Asintóticos (continuación)"
 author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -99,7 +98,7 @@ Específicamente,
 library(ggplot2)
 library(gridExtra)
 
-set.seed(1919)
+set.seed(34322)
 
 # Function to generate data for the plot
 generate_data <- function(n, n_sims=1000) {
