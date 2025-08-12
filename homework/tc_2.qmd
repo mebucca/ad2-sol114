@@ -1,0 +1,26 @@
+---
+title: "Tarea corta #2"
+author: "SOL114"
+format: html
+editor: visual
+---
+
+**Ponderación:** 6% de la nota final del curso.
+
+# Enunciado
+
+Imagina una enfermedad *muy* rara y una prueba para detectarla. Estos son los datos:
+
+-   Prevalencia de la enfermedad $E$: $P(E)=0.001$ (0.1%).
+-   Sensibilidad: $P(T\mid E)=0.99$.
+-   Falso positivo: $P(T\mid \neg E)=0.05$.
+
+------------------------------------------------------------------------
+
+## 1. Probabilidad de estar enfermo dado test positivo
+
+**Pregunta.** ¿Cuál es $P(E\mid T)$? Usa el teorema de Bayes.
+
+## 2. Exactamente 2 de 3 personas con la enfermedad
+
+**Pregunta.** Si elegimos 3 personas al azar, ¿cuál es la probabilidad de que **exactamente 2** tengan la enfermedad?
