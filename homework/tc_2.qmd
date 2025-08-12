@@ -1,78 +1,28 @@
 ---
 title: "Tarea corta #2"
-
 author: "SOL114"
 format: html
 editor: visual
 ---
 
-# Enunciado
-
-Imagina que existe una enfermedad muy rara y que tenemos una prueba para detectarla. Los datos son los siguientes:
-- La probabilidad de que una persona tenga la enfermedad ($E$) es 0.1% ($P(E) = 0.001$).
-- Si la persona tiene la enfermedad, la probabilidad de que la prueba salga positiva (sensibilidad) es 99% ($P(T|E) = 0.99$).
-- Si la persona no tiene la enfermedad, la probabilidad de que la prueba salga positiva (falso positivo) es 5% ($P(T|\sim E) = 0.05$).
-
 **Ponderación:** 6% de la nota final del curso.
 
----
+# Enunciado
 
-## 1. ¿Cuál es la probabilidad de que una persona realmente tenga la enfermedad si su prueba sale positiva? Usa el teorema de Bayes para calcularlo.
+Imagina una enfermedad *muy* rara y una prueba para detectarla. Estos son los datos:
 
-**Respuesta:**
+-   Prevalencia de la enfermedad $E$: $P(E)=0.001$ (0.1%).
+-   Sensibilidad: $P(T\mid E)=0.99$.
+-   Falso positivo: $P(T\mid \neg E)=0.05$.
 
-Aplicando el teorema de Bayes:
+------------------------------------------------------------------------
 
-$$
-P(E|T) = \frac{P(T|E) \cdot P(E)}{P(T|E) \cdot P(E) + P(T|\sim E) \cdot P(\sim E)}
-$$
+## 1. Probabilidad de estar enfermo dado test positivo
 
-Sustituyendo los valores dados:
+**Pregunta.** ¿Cuál es $P(E\mid T)$? Usa el teorema de Bayes.
 
-$$
-P(E|T) = \frac{0.99 \times 0.001}{0.99 \times 0.001 + 0.05 \times 0.999}
-$$
 
-$$
-P(E|T) = \frac{0.00099}{0.00099 + 0.04995}
-$$
+## 2. Exactamente 2 de 3 personas con la enfermedad
 
-$$
-P(E|T) = \frac{0.00099}{0.05094} \approx 0.0194
-$$
-
-Por lo tanto, la probabilidad de que una persona tenga la enfermedad si su prueba sale positiva es aproximadamente **1.94%**.
-
----
-
-## 2. ¿Cómo se calcula la probabilidad de que, al seleccionar 3 personas al azar, exactamente 2 tengan la enfermedad?
-
-**Respuesta:**
-
-Formalizamos la probabilidad usando la distribución binomial, ya que cada persona tiene una probabilidad independiente de tener la enfermedad:
-
-$$
-P(\text{exactamente 2 de 3 tienen la enfermedad}) = \binom{3}{2} \cdot (P(E))^2 \cdot (P(\sim E))^1
-$$
-
-Sustituyendo los valores:
-
-$$
-P = 3 \cdot (0.001)^2 \cdot (0.999)
-$$
-
-$$
-P = 3 \cdot 0.000001 \cdot 0.999
-$$
-
-$$
-P = 3 \cdot 0.000000999
-$$
-
-$$
-P = 0.000002997
-$$
-
-Por lo tanto, la probabilidad de que al seleccionar 3 personas al azar exactamente 2 tengan la enfermedad es aproximadamente **0.0003%**.
-
+**Pregunta.** Si elegimos 3 personas al azar, ¿cuál es la probabilidad de que **exactamente 2** tengan la enfermedad?
 
