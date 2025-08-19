@@ -67,13 +67,15 @@ $$P(\text{Te}) = \frac{65}{100} = 0.65$$ $$P(\text{Café}) = \frac{40}{100} = 0.
 
 Luego, usamos la fórmula de inclusión-exclusión para encontrar la probabilidad conjunta:
 
-$$P(\text{Te y Café}) = P(\text{Te}) + P(\text{Café}) - P(\text{Te} \cap \text{Café})$$
+$$P(\text{Te o Café}) = P(\text{Te}) + P(\text{Café}) - P(\text{Te y Café})$$
 
-Dado que 10 personas no beben ninguno de los dos, $P(\text{Te} \cap \text{Café}) = \frac{10}{100} = 0.10$, podemos calcular:
+$$P(\text{Te y Café}) = P(\text{Te}) + P(\text{Café}) - P(\text{Te o Café})$$
 
-$$P(\text{Te y Café}) = 0.65 + 0.40 - 0.10 = 0.95$$
+Dado que 10 personas no beben ninguno de los dos, $P(\text{Te o Café}) = \frac{90}{100} = 0.90$, podemos calcular:
 
-Por lo tanto, la probabilidad de que una persona seleccionada al azar beba té y café es 0.95 o 95%.
+$$P(\text{Te y Café}) = 0.65 + 0.40 - 0.90 = 0.15$$
+
+Por lo tanto, la probabilidad de que una persona seleccionada al azar beba té y café es 15%.
 
 8.  Un comerciante sabe que el 30% de sus clientes entran a la tienda después de ver un anuncio. De estos, el 10% realiza una compra. De los clientes que no vieron el anuncio, el 5% realiza una compra. Si un cliente realiza una compra, ¿cuál es la probabilidad de que haya visto el anuncio?
 
@@ -621,11 +623,11 @@ Luego, utilizamos Φ(Z) para encontrar la proporción de años en los que la mig
 
 $$P(Z > -1.0592) = 1 - \Phi(-1.0592)$$
 
-Consultando una tabla de valores Z o usando una calculadora, encontramos que Φ(-1.0592) es aproximadamente 0.8551.
+Consultando una tabla de valores Z o usando una calculadora, encontramos que Φ(-1.0592) es aproximadamente 0.1449.
 
-$$P(Z > -1.0592) ≈ 1 - 0.8551 ≈ 0.1449$$
+$$P(Z > -1.0592) ≈ 1 - 0.1449  ≈ 0.8551$$
 
-Por lo tanto, en aproximadamente el 14.49% de los años, la migración neta es positiva en más de 1000.
+Por lo tanto, en aproximadamente el 86% de los años, la migración neta es positiva en más de 1000.
 
 44. Sophie tomó un examen estandarizado y obtuvo 86 de 100. Los resultados del examen para dos prestigiosas instituciones académicas, Harvard y la PUC, donde Sophie está considerando postular, son los siguientes: En Harvard, los resultados del examen se distribuyen normalmente con una media de 85 y una desviación estándar de 1. En PUC, los resultados del examen se distribuyen normalmente con una media de 83 y una desviación estándar de 15. Determina la puntuación Z de Sophie para ambas instituciones. Basándose en estas puntuaciones Z, ¿en cuál institución está Sophie relativamente mejor posicionada con respecto a otros solicitantes?
 
@@ -710,13 +712,12 @@ Dado que tenemos una muestra aleatoria de 200 hogares de la población, la distr
 
 La desviación estándar de la media muestral es $\sigma\bar{x} = \frac{\sigma}{\sqrt{n}}$, entonces:
 
-```{=tex}
 \begin{align*}
 \sigma\bar{x} &= \frac{\$8,000}{\sqrt{200}} \\ \\
 &= \frac{\$8,000}{14.14} \\ \\
 &\approx \$565.69
 \end{align*}
-```
+
 Por lo tanto, la distribución de la media muestral tendrá una media de \$45,000 y una desviación estándar de aproximadamente \$565.69.
 
 Para calcular los valores que están a una desviación estándar por debajo y por encima de la media muestral, simplemente tenemos que restar o sumar la desviación estándar de la media muestral a la media muestral:
@@ -731,7 +732,6 @@ Por lo tanto, aproximadamente el 68% de nuestras medias muestrales estarán dent
 
 Para encontrar los percentiles utilizando la función inversa de la distribución normal estándar (también conocida como la tabla Z o la inversa de la función de distribución acumulativa, Φ⁻¹), puedes utilizar la fórmula:
 
-```{=tex}
 \begin{align*}
 \text{Percentil} &= \mu + Z \cdot \sigma_{\bar{x}} \\ \\
 \text{Donde:} \\ \\
@@ -740,7 +740,7 @@ Para encontrar los percentiles utilizando la función inversa de la distribució
 \text{- } Z & \text{ es la puntuación Z correspondiente al percentil deseado.} \\
 \text{- } \sigma_{\bar{x}} & \text{ es la desviación estándar de la distribución de la media muestral (\$80).}
 \end{align*}
-```
+
 ara el percentil 10 (P10), necesitas encontrar la puntuación Z asociada al percentil 10, que es -1.28 (puedes buscar esto en la tabla de la distribución normal estándar o utilizar una calculadora que proporcione la función inversa de la distribución normal estándar Φ⁻¹).
 
 Percentil 10 (P10): P10 = \$45,000 + (-1.28) \* \$80 P10 = \$45,000 - \$102.40 P10 ≈ \$44,897.60
