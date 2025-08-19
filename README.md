@@ -30,9 +30,11 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 13  | Agosto     | Variables aleatorias y distribuciones de probabilidad     |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_3/class_3#1) [`[Code]`](slides/class_3/class_3.Rmd)                                                                                                                | 6.3.1            |
 | 18  | Agosto     | Distribuciones discretas: Bernoulli y Binomial            |   [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_4/class_4#1) [`[Code]`](slides/class_4/class_4.Rmd)                                                                                                               | 6.3.2 & 6.3.3    |
 | 20  | Agosto     | Distribuciones continuas: Uniforme y Normal               | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_5/class_5#1) [`[Code]`](slides/class_5/class_5.Rmd)                                                                                                                 | 6.3.4            |
-| 1   | Septiembre | Momentos: valor esperado & varianza                       |                                                                                                                  | 6.3.5            |
-| 3   | Septiembre | Estandarización: puntaje Z                                |                                                                                                                  | 6.3.4 (refuerzo) |
-| 8   | Septiembre | Distribución Normal Standard                              |                                                                                                                  | 6.3.4 (refuerzo) |
+| 25   | Agosto | Momentos: valor esperado & varianza                       |   [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_6/class_6#1) [`[Code]`](slides/class_6/class_6.Rmd)                                                                                                               | 6.3.5            |
+| 27   | Agosto | Estandarización: puntaje Z                                |   [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_7/class_7#1) [`[Code]`](slides/class_7/class_7.Rmd)                                                                                                               | 6.3.4  | 
+| 1   | Septiembre | NO HAY CLASES                                |                                                                                                                  |  |
+| 3   | Septiembre | NO HAY CLASES                                |                                                                                                                  |  |
+| 8   | Septiembre | Distribución Normal Standard                              |                                                                                                                  | 6.3.4  |
 | 10  | Septiembre | **PRUEBA I**                                              |                                                                                                                  | —                |
 | 24  | Septiembre | Ley de los grandes números                                |                                                                                                                  | 6.4.1            |
 | 29  | Septiembre | Teorema del límite central                                |                                                                                                                  | 6.4.2            |
@@ -60,7 +62,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | Evaluación    | Asignación | Entrega | Material |
 | ------------- | ---------- | ------- | -------- |
 | Tarea corta 1 |  4 agosto          |  11 agosto       |  [`[TC1]`](https://mebucca.github.io/ad2-sol114/homework/tc_1#1) [`[TC1.qmd]`](homework/tc_1.qmd)         |
-| Tarea corta 2 |  13 agosto          |  18 agosto       |  [`[TC2]`](https://mebucca.github.io/ad2-sol114/homework/tc_2#1) [`[TC2.qmd]`](homework/tc_2.qmd)         |
+| Tarea corta 2 |  13 agosto          |  20 agosto       |  [`[TC2]`](https://mebucca.github.io/ad2-sol114/homework/tc_2#1) [`[TC2.qmd]`](homework/tc_2.qmd)         |
 | Tarea corta 3 |            |         |          |
 | Prueba 1      |            |         |          |
 | Tarea corta 4 |            |         |          |

@@ -1,0 +1,38 @@
+---
+title: "Tarea corta #3"
+author: "SOL114"
+format: html
+editor: visual
+---
+
+**Ponderación:** 6% de la nota final del curso.
+
+```{r, echo=FALSE}
+# Escribir install.packages("tinytex") en la consola para instalar "tinytex"
+# Carga "tinytex" para compilar PDF
+library("tinytex")
+```
+
+## Problema
+
+María Rojas, analista de datos, actualmente gana **\$1,80 millones** de pesos chilenos al mes en la Empresa A. La Empresa B le ofrece un paquete salarial con dos componentes:
+
+-   **Una cantidad fija** de **\$1,10 millones** al mes, independiente de su rendimiento.
+-   **Un gran bono** de **\$3,00 millones** adicionales si se ubica en el **top de productividad** de su área, definido como tener una productividad relativa $X > 2$.
+
+La productividad $X$ se distribuye normalmente con media 0 y desviación estándar 1, es decir, $X \sim \mathcal{N}(0,1)$. Bajo estas condiciones, el salario mensual ofrecido por la Empresa B se expresa como:
+
+$$
+S_B = 1{,}10 + 3{,}00\, I(X>2) \quad \text{(millones de pesos chilenos al mes)}
+$$
+
+donde $I(X>2)$ es una variable indicadora que vale 1 si $X>2$ y 0 en caso contrario.
+
+
+## Preguntas
+
+**1)** María confía en que su productividad estará al menos **2 desviaciones estándar por sobre la media** en la Empresa B. Con ese supuesto, evalúa si el salario que podría ganar en la Empresa B superaría su sueldo actual de $1,80$ millones. Si el salario proyectado en B resulta mayor, María está dispuesta a cambiarse.
+
+**2)** María decide tomar la oferta de B **solo si su salario esperado en B supera** su salario actual en A. Calcula el **salario esperado** en B e indica qué decisión tomaría María bajo este criterio.
+
+**3)** A María también le preocupa la **incertidumbre** en torno a su salario en B. Calcula la **desviación estándar** de $S_B$ e interpreta el resultado sustantivamente.
