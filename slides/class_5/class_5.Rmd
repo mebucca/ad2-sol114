@@ -191,7 +191,7 @@ ggplot(data = PDF_df, aes(x = x, y = PDF)) +
 \begin{align}
 f(x) = 
   \begin{cases} 
-   \frac{1}{b-a} & \text{si } \quad b \leq x \leq a  \\
+   \frac{1}{b-a} & \text{si } \quad a \leq x \leq b  \\
    0       &  x < a \quad \text{  o } \quad x > b 
   \end{cases}
 \end{align}
@@ -210,7 +210,7 @@ f(x) \neq \mathbb{P}(X=x)
 
 por ejemplo,
 
-$f(27.354)$ = 27.354/(30-25) = `r round(27.354/5,2)` 
+$f(27.354)$ = 1/(30-25) = `r round(1/5,2)` 
 
 y
 
