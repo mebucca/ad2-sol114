@@ -21,6 +21,38 @@ Imagina una enfermedad *muy* rara y una prueba para detectarla. Estos son los da
 
 **Pregunta.** ¿Cuál es $P(E\mid T)$? Usa el teorema de Bayes.
 
+**Solución.** Por Bayes:
+
+$$
+P(E\mid T)=\frac{P(T\mid E)\,P(E)}{P(T\mid E)\,P(E)+P(T\mid \neg E)\,P(\neg E)}.
+$$
+
+Reemplazando:
+
+$$
+P(E\mid T)=\frac{0.99\times 0.001}{0.99\times 0.001+0.05\times 0.999}
+=\frac{0.00099}{0.00099+0.04995}
+=\frac{0.00099}{0.05094}\approx 0.0194.
+$$
+
+**Respuesta.** La probabilidad de estar enfermo *dado* que el test salió positivo es aproximadamente **1.94%**.
+
+------------------------------------------------------------------------
+
 ## 2. Exactamente 2 de 3 personas con la enfermedad
 
 **Pregunta.** Si elegimos 3 personas al azar, ¿cuál es la probabilidad de que **exactamente 2** tengan la enfermedad?
+
+**Modelo.** Supongamos independencia e igual probabilidad $p=P(E)=0.001$ por persona. Entonces el número de casos en $n=3$ ensayos sigue una **binomial**: $X\sim \mathrm{Bin}(n=3, p=0.001)$.
+
+Buscamos $P(X=2)$:
+
+$$
+P(X=2)=\binom{3}{2}p^2(1-p)^{1}.
+$$
+
+Reemplazando:
+
+$$
+P(X=2)=3\,(0.001)^2\,(0.999)=3\times 10^{-6}\times 0.999=2.997\times 10^{-6}.
+$$

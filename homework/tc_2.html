@@ -112,10 +112,31 @@ window.Quarto = {
 <section id="probabilidad-de-estar-enfermo-dado-test-positivo" class="level2">
 <h2 class="anchored" data-anchor-id="probabilidad-de-estar-enfermo-dado-test-positivo">1. Probabilidad de estar enfermo dado test positivo</h2>
 <p><strong>Pregunta.</strong> ¿Cuál es <span class="math inline">\(P(E\mid T)\)</span>? Usa el teorema de Bayes.</p>
+<p><strong>Solución.</strong> Por Bayes:</p>
+<p><span class="math display">\[
+P(E\mid T)=\frac{P(T\mid E)\,P(E)}{P(T\mid E)\,P(E)+P(T\mid \neg E)\,P(\neg E)}.
+\]</span></p>
+<p>Reemplazando:</p>
+<p><span class="math display">\[
+P(E\mid T)=\frac{0.99\times 0.001}{0.99\times 0.001+0.05\times 0.999}
+=\frac{0.00099}{0.00099+0.04995}
+=\frac{0.00099}{0.05094}\approx 0.0194.
+\]</span></p>
+<p><strong>Respuesta.</strong> La probabilidad de estar enfermo <em>dado</em> que el test salió positivo es aproximadamente <strong>1.94%</strong>.</p>
+<hr>
 </section>
 <section id="exactamente-2-de-3-personas-con-la-enfermedad" class="level2">
 <h2 class="anchored" data-anchor-id="exactamente-2-de-3-personas-con-la-enfermedad">2. Exactamente 2 de 3 personas con la enfermedad</h2>
 <p><strong>Pregunta.</strong> Si elegimos 3 personas al azar, ¿cuál es la probabilidad de que <strong>exactamente 2</strong> tengan la enfermedad?</p>
+<p><strong>Modelo.</strong> Supongamos independencia e igual probabilidad <span class="math inline">\(p=P(E)=0.001\)</span> por persona. Entonces el número de casos en <span class="math inline">\(n=3\)</span> ensayos sigue una <strong>binomial</strong>: <span class="math inline">\(X\sim \mathrm{Bin}(n=3, p=0.001)\)</span>.</p>
+<p>Buscamos <span class="math inline">\(P(X=2)\)</span>:</p>
+<p><span class="math display">\[
+P(X=2)=\binom{3}{2}p^2(1-p)^{1}.
+\]</span></p>
+<p>Reemplazando:</p>
+<p><span class="math display">\[
+P(X=2)=3\,(0.001)^2\,(0.999)=3\times 10^{-6}\times 0.999=2.997\times 10^{-6}.
+\]</span></p>
 </section>
 </section>
 
