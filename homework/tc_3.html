@@ -105,18 +105,19 @@ window.Quarto = {
 <p>María Rojas, analista de datos, actualmente gana <strong>$1,80 millones</strong> de pesos chilenos al mes en la Empresa A. La Empresa B le ofrece un paquete salarial con dos componentes:</p>
 <ul>
 <li><strong>Una cantidad fija</strong> de <strong>$1,10 millones</strong> al mes, independiente de su rendimiento.</li>
-<li><strong>Un gran bono</strong> de <strong>$3,00 millones</strong> adicionales si se ubica en el <strong>top de productividad</strong> de su área, definido como tener una productividad relativa <span class="math inline">\(X &gt; 2\)</span>.</li>
+<li><strong>Un gran bono</strong> de <strong>$3,00 millones</strong> adicionales si logra un <strong>éxito excepcional</strong> en su área.</li>
 </ul>
-<p>La productividad <span class="math inline">\(X\)</span> se distribuye normalmente con media 0 y desviación estándar 1, es decir, <span class="math inline">\(X \sim \mathcal{N}(0,1)\)</span>. Bajo estas condiciones, el salario mensual ofrecido por la Empresa B se expresa como:</p>
+<p>La probabilidad de éxito se modela con una <strong>distribución Binomial</strong> simple: María enfrenta <strong>10 proyectos al mes</strong>, cada uno con probabilidad <span class="math inline">\(p=0,05\)</span> de resultar excepcional. Si <strong>al menos 1 proyecto</strong> es excepcional, recibe el bono completo.</p>
+<p>Sea <span class="math inline">\(Y \sim \text{Binomial}(n=10, p=0.05)\)</span> el número de proyectos excepcionales en el mes. El salario mensual ofrecido por la Empresa B se expresa como:</p>
 <p><span class="math display">\[
-S_B = 1{,}10 + 3{,}00\, I(X&gt;2) \quad \text{(millones de pesos chilenos al mes)}
+S_B = 1{,}10 + 3{,}00\, I(Y \geq 1) \quad \text{(millones de pesos chilenos al mes)}
 \]</span></p>
-<p>donde <span class="math inline">\(I(X&gt;2)\)</span> es una variable indicadora que vale 1 si <span class="math inline">\(X&gt;2\)</span> y 0 en caso contrario.</p>
+<p>donde <span class="math inline">\(I(Y \geq 1)\)</span> es una variable indicadora que vale 1 si ocurre al menos un éxito y 0 en caso contrario.</p>
 </section>
 <section id="preguntas" class="level2">
 <h2 class="anchored" data-anchor-id="preguntas">Preguntas</h2>
-<p><strong>1)</strong> María confía en que su productividad estará al menos <strong>2 desviaciones estándar por sobre la media</strong> en la Empresa B. Con ese supuesto, evalúa si el salario que podría ganar en la Empresa B superaría su sueldo actual de <span class="math inline">\(1,80\)</span> millones. Si el salario proyectado en B resulta mayor, María está dispuesta a cambiarse.</p>
-<p><strong>2)</strong> María decide tomar la oferta de B <strong>solo si su salario esperado en B supera</strong> su salario actual en A. Calcula el <strong>salario esperado</strong> en B e indica qué decisión tomaría María bajo este criterio.</p>
+<p><strong>1)</strong> María confía en que tendrá <strong>al menos un éxito</strong> en el mes. Con ese supuesto, evalúa si el salario que podría ganar en la Empresa B superaría su sueldo actual de <span class="math inline">\(1,80\)</span> millones.</p>
+<p><strong>2)</strong> María decide tomar la oferta de B <strong>solo si su salario esperado en B supera</strong> su salario actual en A. Calcula el <strong>salario esperado</strong> en B e indica qué decisión tomaría María bajo este criterio. <em>(Pista: <span class="math inline">\(P(Y \geq 1) = 1 - P(Y=0)\)</span>)</em></p>
 <p><strong>3)</strong> A María también le preocupa la <strong>incertidumbre</strong> en torno a su salario en B. Calcula la <strong>desviación estándar</strong> de <span class="math inline">\(S_B\)</span> e interpreta el resultado sustantivamente.</p>
 </section>
 
