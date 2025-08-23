@@ -28,7 +28,6 @@ $$
 
 donde $I(X>2)$ es una variable indicadora que vale 1 si $X>2$ y 0 en caso contrario.
 
-
 ## Preguntas
 
 **1)** María confía en que su productividad estará al menos **2 desviaciones estándar por sobre la media** en la Empresa B. Con ese supuesto, evalúa si el salario que podría ganar en la Empresa B superaría su sueldo actual de $1,80$ millones. Si el salario proyectado en B resulta mayor, María está dispuesta a cambiarse.
