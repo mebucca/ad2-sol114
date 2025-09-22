@@ -1,6 +1,6 @@
 ---
 title: "Probabilidad e Inferencia Estadística"
-subtitle: "#10: Teoremas Asintóticos (continuación)"
+subtitle: "Teoremas Asintóticos (continuación)"
 author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
 output:
   xaringan::moon_reader:

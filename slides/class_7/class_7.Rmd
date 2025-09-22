@@ -1,6 +1,6 @@
 ---
 title: "Probabilidad e Inferencia Estadística"
-subtitle: "#7: Estandarización (puntaje Z)"
+subtitle: "Estandarización (puntaje Z)"
 author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
 output:
   xaringan::moon_reader:
