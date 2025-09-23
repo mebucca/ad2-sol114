@@ -1,6 +1,6 @@
 ---
 title: "Probabilidad e Inferencia Estadística"
-subtitle: "#9: Teoremas Asintóticos"
+subtitle: "Teoremas Asintóticos"
 author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:

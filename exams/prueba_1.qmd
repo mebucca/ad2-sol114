@@ -1,0 +1,107 @@
+---
+title: "_________________________________________"
+author: "Prueba 1 SOL114"
+format: pdf
+editor: visual
+geometry:
+  - left=.5in
+  - textwidth=5.5in
+  - marginparsep=.25in
+  - marginparwidth=2.25in
+---
+
+## 1) Pregunta 1
+
+En una ciudad se estudian los hábitos de fumar y hacer deporte. La probabilidad de que una persona **fume** es 0.30, la probabilidad de que haga **deporte** es 0.40 y la probabilidad de que **fume y haga deporte** al mismo tiempo es 0.12. Con esta información, responde lo siguiente:
+
+**a) ¿Son fumar y hacer deporte eventos independientes? Explica usando la definición de independencia.** (10%)
+
+**Respuesta:**\
+
+\newpage
+
+**b) ¿Cuál es la probabilidad de que una persona no fume ni haga deporte?** (10%)
+
+**Respuesta:**\
+
+\newpage
+
+## 2) Pregunta 2 (20%)
+
+Imagina un concurso en el que los participantes deben responder 10 preguntas de opción múltiple. Cada pregunta se contesta correctamente con probabilidad $p=0.6$, de forma independiente. El puntaje total se calcula como:
+
+$$
+T = 2S + 5,
+$$
+
+donde $S$ es el número de respuestas correctas.
+
+**Calcula el valor esperado y la varianza de** $T$ y explica su significado sustantivo.
+
+**Respuesta:**\
+
+\newpage
+
+## 3) Pregunta 3: Salarios de hombres y mujeres
+
+Un estudio analiza las diferencias salariales entre hombres y mujeres. Se observa que los salarios (en miles de pesos) siguen distribuciones normales distintas para cada grupo:
+
+-   Hombres: $Y_h \sim N(\mu=100,\ \sigma=10)$\
+-   Mujeres: $Y_w \sim N(\mu=70,\ \sigma=5)$
+
+Con esta información, responde lo siguiente:
+
+**a) Un hombre gana 120 y una mujer 100. ¿Quién está mejor posicionado respecto de su grupo?** Explica tu respuesta en términos de desviaciones estándar (valores-z). (15%)
+
+**Respuesta:**\
+
+
+\newpage
+
+**b) Probabilidad de que una mujer gane** $\leq$ que el promedio masculino. (15%)
+
+¿Cuál es la probabilidad de que el ingreso de una mujer esté por debajo del promedio de los hombres? Para responder esta pregunta sigue los siguientes pasos:
+
+1.  Lleva el valor 100 a la escala de la distribución femenina, estandarizándolo:\
+    $$
+    z_0 = \frac{100 - 70}{5} = 6.
+    $$
+
+2.  Expresa la probabilidad en términos de la normal estándar:\
+    $$
+    P(Y_w \leq 100) = P(Z \leq z_0).
+    $$
+
+3.  Usa la distribución normal estándar para encontrar la probabilidad solicitada.
+
+**Respuesta:**\
+
+
+\newpage
+
+**c) Ingreso mínimo para estar en el 10% más rico de cada grupo.** (15%)
+
+¿Cuál es el umbral de ingreso que permite a una persona estar en el 10% más rico de su grupo? Para responder esta pregunta usa el concepto de percentil en una distribución normal:
+
+El percentil 90 de una distribución normal $X \sim N(\mu, \sigma)$ se obtiene con la fórmula:\
+$$
+x_{0.90} = \mu + z_{0.90}\sigma.
+$$
+
+El valor $z_{0.90}$ corresponde al punto de la distribución normal estándar donde la probabilidad acumulada alcanza 0.90. Dicho de otro modo, es el valor de $z$ tal que un 90% de las observaciones se ubican por debajo de él y solo un 10% por encima.
+
+Calcula $z_{0.90}$ y usa dicho valor para encontrar las cantidades solicitadas:
+
+-   Percentil 90 para hombres: $100 + z_{0.90} \times 10$.\
+-   Percentil 90 para mujeres: $70 + z_{0.90} \times 5$.
+
+**Respuesta:**
+
+
+\newpage
+
+**d) Percentil 10 y razón entre percentil 90 y percentil 10.** (15%)
+
+Calcula el percentil 10 de hombres y mujeres. Si el cociente entre el percentil 90 y el percentil 10 se interpreta como una medida de desigualdad (razón entre ingresos del 10% más rico y el 10% más pobre), determina qué grupo presenta mayor desigualdad.
+
+**Respuesta:**\

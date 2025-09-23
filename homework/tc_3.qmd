@@ -20,7 +20,7 @@ María Rojas, analista de datos, actualmente gana **$1,80 millones** de pesos ch
 -   **Una cantidad fija** de **$1,10 millones** al mes, independiente de su rendimiento.
 -   **Un gran bono** de **$3,00 millones** adicionales si logra un **éxito excepcional** en su área.
 
-La probabilidad de éxito se modela con una **distribución Binomial** simple: María enfrenta **10 proyectos al mes**, cada uno con probabilidad $p=0,05$ de resultar excepcional y con resultados independientes entre si. Si **al menos 1 proyecto** es excepcional, recibe el bono completo. 
+La probabilidad de éxito se modela con una **distribución Binomial** simple: María enfrenta **10 proyectos al mes**, cada uno con probabilidad $p=0,05$ de resultar excepcional. Si **al menos 1 proyecto** es excepcional, recibe el bono completo. 
 
 Sea $Y \sim \text{Binomial}(n=10, p=0.05)$ el número de proyectos excepcionales en el mes. El salario mensual ofrecido por la Empresa B se expresa como:
 
@@ -30,12 +30,43 @@ $$
 
 donde $I(Y \geq 1)$ es una variable indicadora que vale 1 si ocurre al menos un éxito y 0 en caso contrario.
 
-## Preguntas
+## Preguntas y Soluciones
 
 **1)** María confía en que tendrá **al menos un éxito** en el mes. Con ese supuesto, evalúa si el salario que podría ganar en la Empresa B superaría su sueldo actual de $1,80$ millones.  
+**Solución:** Si ocurre al menos un éxito, María recibe el bono completo:  
+$$
+S_B = 1.10 + 3.00 = 4.10 \; \text{millones}
+$$
+Comparación: $4.10 > 1.80$. Le conviene cambiarse si está segura del éxito.
 
+---
 
-**2)** María decide tomar la oferta de B **solo si su salario esperado en B supera** su salario actual en A. Calcula el **salario esperado** en B e indica qué decisión tomaría María bajo este criterio. *(Pista: $P(Y \geq 1) = 1 - P(Y=0)$. En palabras: 1 - la probabilidad de que ningún proyecto resulte excepcional*).  
+**2)** María decide tomar la oferta de B **solo si su salario esperado en B supera** su salario actual en A. Calcula el **salario esperado** en B e indica qué decisión tomaría María bajo este criterio. *(Pista: $P(Y \geq 1) = 1 - P(Y=0)$)*  
+**Solución:** La probabilidad de al menos un éxito es:  
+$$
+P(Y \geq 1) = 1 - 0.95^{10} \approx 0.4013
+$$
+Entonces:  
+$$
+E[S_B] = 1.10 + 3.00 \times 0.4013 = 2.304 \; \text{millones}
+$$
+Comparación: $2.304 > 1.80$. Según el criterio del valor esperado, conviene aceptar la oferta.
 
+---
 
 **3)** A María también le preocupa la **incertidumbre** en torno a su salario en B. Calcula la **desviación estándar** de $S_B$ e interpreta el resultado sustantivamente.  
+**Solución:** $S_B$ toma dos valores:  
+- Con probabilidad 0.4013: $S_B = 4.10$  
+- Con probabilidad 0.5987: $S_B = 1.10$
+
+$$
+E[S_B^2] = (1.10^2)(0.5987) + (4.10^2)(0.4013) = 7.468
+$$
+$$
+\text{Var}(S_B) = 7.468 - (2.304)^2 = 2.155
+$$
+$$
+SD(S_B) = \sqrt{2.155} \approx 1.47 \; \text{millones}
+$$
+
+👉 Aunque el salario esperado es mayor en B, la variabilidad es alta: María puede ganar tan bajo como 1.10 millones o tan alto como 4.10 millones.

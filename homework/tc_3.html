@@ -107,18 +107,42 @@ window.Quarto = {
 <li><strong>Una cantidad fija</strong> de <strong>$1,10 millones</strong> al mes, independiente de su rendimiento.</li>
 <li><strong>Un gran bono</strong> de <strong>$3,00 millones</strong> adicionales si logra un <strong>éxito excepcional</strong> en su área.</li>
 </ul>
-<p>La probabilidad de éxito se modela con una <strong>distribución Binomial</strong> simple: María enfrenta <strong>10 proyectos al mes</strong>, cada uno con probabilidad <span class="math inline">\(p=0,05\)</span> de resultar excepcional y con resultados independientes entre si. Si <strong>al menos 1 proyecto</strong> es excepcional, recibe el bono completo.</p>
+<p>La probabilidad de éxito se modela con una <strong>distribución Binomial</strong> simple: María enfrenta <strong>10 proyectos al mes</strong>, cada uno con probabilidad <span class="math inline">\(p=0,05\)</span> de resultar excepcional. Si <strong>al menos 1 proyecto</strong> es excepcional, recibe el bono completo.</p>
 <p>Sea <span class="math inline">\(Y \sim \text{Binomial}(n=10, p=0.05)\)</span> el número de proyectos excepcionales en el mes. El salario mensual ofrecido por la Empresa B se expresa como:</p>
 <p><span class="math display">\[
 S_B = 1{,}10 + 3{,}00\, I(Y \geq 1) \quad \text{(millones de pesos chilenos al mes)}
 \]</span></p>
 <p>donde <span class="math inline">\(I(Y \geq 1)\)</span> es una variable indicadora que vale 1 si ocurre al menos un éxito y 0 en caso contrario.</p>
 </section>
-<section id="preguntas" class="level2">
-<h2 class="anchored" data-anchor-id="preguntas">Preguntas</h2>
-<p><strong>1)</strong> María confía en que tendrá <strong>al menos un éxito</strong> en el mes. Con ese supuesto, evalúa si el salario que podría ganar en la Empresa B superaría su sueldo actual de <span class="math inline">\(1,80\)</span> millones.</p>
-<p><strong>2)</strong> María decide tomar la oferta de B <strong>solo si su salario esperado en B supera</strong> su salario actual en A. Calcula el <strong>salario esperado</strong> en B e indica qué decisión tomaría María bajo este criterio. <em>(Pista: <span class="math inline">\(P(Y \geq 1) = 1 - P(Y=0)\)</span>. En palabras: 1 - la probabilidad de que ningún proyecto resulte excepcional</em>).</p>
-<p><strong>3)</strong> A María también le preocupa la <strong>incertidumbre</strong> en torno a su salario en B. Calcula la <strong>desviación estándar</strong> de <span class="math inline">\(S_B\)</span> e interpreta el resultado sustantivamente.</p>
+<section id="preguntas-y-soluciones" class="level2">
+<h2 class="anchored" data-anchor-id="preguntas-y-soluciones">Preguntas y Soluciones</h2>
+<p><strong>1)</strong> María confía en que tendrá <strong>al menos un éxito</strong> en el mes. Con ese supuesto, evalúa si el salario que podría ganar en la Empresa B superaría su sueldo actual de <span class="math inline">\(1,80\)</span> millones.<br>
+<strong>Solución:</strong> Si ocurre al menos un éxito, María recibe el bono completo:<br>
+<span class="math display">\[
+S_B = 1.10 + 3.00 = 4.10 \; \text{millones}
+\]</span> Comparación: <span class="math inline">\(4.10 &gt; 1.80\)</span>. Le conviene cambiarse si está segura del éxito.</p>
+<hr>
+<p><strong>2)</strong> María decide tomar la oferta de B <strong>solo si su salario esperado en B supera</strong> su salario actual en A. Calcula el <strong>salario esperado</strong> en B e indica qué decisión tomaría María bajo este criterio. <em>(Pista: <span class="math inline">\(P(Y \geq 1) = 1 - P(Y=0)\)</span>)</em><br>
+<strong>Solución:</strong> La probabilidad de al menos un éxito es:<br>
+<span class="math display">\[
+P(Y \geq 1) = 1 - 0.95^{10} \approx 0.4013
+\]</span> Entonces:<br>
+<span class="math display">\[
+E[S_B] = 1.10 + 3.00 \times 0.4013 = 2.304 \; \text{millones}
+\]</span> Comparación: <span class="math inline">\(2.304 &gt; 1.80\)</span>. Según el criterio del valor esperado, conviene aceptar la oferta.</p>
+<hr>
+<p><strong>3)</strong> A María también le preocupa la <strong>incertidumbre</strong> en torno a su salario en B. Calcula la <strong>desviación estándar</strong> de <span class="math inline">\(S_B\)</span> e interpreta el resultado sustantivamente.<br>
+<strong>Solución:</strong> <span class="math inline">\(S_B\)</span> toma dos valores:<br>
+- Con probabilidad 0.4013: <span class="math inline">\(S_B = 4.10\)</span><br>
+- Con probabilidad 0.5987: <span class="math inline">\(S_B = 1.10\)</span></p>
+<p><span class="math display">\[
+E[S_B^2] = (1.10^2)(0.5987) + (4.10^2)(0.4013) = 7.468
+\]</span> <span class="math display">\[
+\text{Var}(S_B) = 7.468 - (2.304)^2 = 2.155
+\]</span> <span class="math display">\[
+SD(S_B) = \sqrt{2.155} \approx 1.47 \; \text{millones}
+\]</span></p>
+<p>👉 Aunque el salario esperado es mayor en B, la variabilidad es alta: María puede ganar tan bajo como 1.10 millones o tan alto como 4.10 millones.</p>
 </section>
 
 </main>
