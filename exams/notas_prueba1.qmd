@@ -19,20 +19,13 @@ notas_prueba1 <- gs4_get(sheet_url)
 
 notas <- read_sheet(notas_prueba1, sheet= "Prueba 1")
 
-data_grades <- notas %>% drop_na(Nota) %>%
+data_grades <- notas %>% drop_na(Nota, Rut) %>%
   filter(Nota>0) %>%
-  select(Rut,`I`:Revisor) %>%  
+  select(Rut,`1.a`:Nota) %>%  
   mutate(`P(Nota < tunota)` =rank(Nota)/n()) 
 
-model <- lm(Nota ~ Revisor, data = data_grades)
 
-data_grades <- data_grades %>% 
-  mutate(Nota = case_when(Revisor == "MB" ~ Nota,
-                          Revisor == "ET" ~ Nota + (model$coefficients[3] -       model$coefficients[2]),
-                          Revisor == "BP" ~ Nota + model$coefficients[3])
-)
-
-data_grades %>% select(Rut,`I`:Nota) %>%  
+data_grades %>% select(Rut,`1.a`:Nota) %>%   
   mutate(`P(Nota < tunota)` =rank(Nota)/n()) %>%
   knitr::kable(digits=2) %>% kable_styling(font_size = 9)
 
@@ -131,8 +124,8 @@ Desagregando por pregunta:
 library(ggridges)
 
 # Data preparation
-data_long <- data_grades %>%  select(Rut,`I`:`VI.v`) %>%
-  pivot_longer(cols = `I`:`VI.v`, names_to = "Variable", values_to = "Value")
+data_long <- data_grades %>%  select(Rut,`1.a`:`3.d`) %>%
+  pivot_longer(cols = `1.a`:`3.d`, names_to = "Variable", values_to = "Value")
 
 # Calculate means for annotations
 data_long %>%
