@@ -17,12 +17,57 @@ En una ciudad se estudian los hábitos de fumar y hacer deporte. La probabilidad
 **a) ¿Son fumar y hacer deporte eventos independientes? Explica usando la definición de independencia.** (10%)
 
 **Respuesta:**\
+La definición formal de independencia establece que dos eventos $A$ y $B$ son independientes si:  
+$$
+P(A \cap B) = P(A) \times P(B).
+$$
+
+- Aquí $A =$ “fumar” y $B =$ “hacer deporte”.  
+- Sabemos:  
+  - $P(A) = 0.30$.  
+  - $P(B) = 0.40$.  
+  - $P(A \cap B) = 0.12$.  
+
+1. Calculemos el producto:  
+   $$
+   P(A) \times P(B) = 0.30 \times 0.40 = 0.12.
+   $$
+
+2. Compare con la probabilidad conjunta entregada:  
+   $$
+   P(A \cap B) = 0.12.
+   $$
+
+3. Como ambos valores coinciden, se cumple la condición de independencia.  
+
+**Conclusión:** fumar y hacer deporte son eventos **independientes** en este contexto.
 
 \newpage
 
 **b) ¿Cuál es la probabilidad de que una persona no fume ni haga deporte?** (10%)
 
 **Respuesta:**\
+Queremos calcular:  
+$$
+P(\text{no fuma y no hace deporte}) = 1 - P(\text{fuma o hace deporte}).
+$$
+
+1. Primero calculamos la unión:  
+   $$
+   P(A \cup B) = P(A) + P(B) - P(A \cap B).
+   $$
+
+2. Sustituyendo los valores:  
+   $$
+   P(A \cup B) = 0.30 + 0.40 - 0.12 = 0.58.
+   $$
+
+3. El complemento:  
+   $$
+   P(\text{no fuma ni hace deporte}) = 1 - 0.58 = 0.42.
+   $$
+
+**Interpretación:** un **42% de la población** no fuma ni practica deporte.
 
 \newpage
 
@@ -39,6 +84,25 @@ donde $S$ es el número de respuestas correctas.
 **Calcula el valor esperado y la varianza de** $T$ y explica su significado sustantivo.
 
 **Respuesta:**\
+1. Definimos la variable aleatoria:  
+   $$
+   S \sim Binomial(n=10, p=0.6).
+   $$
+
+2. Propiedades de una binomial:  
+   - Esperanza: $E[S] = n \times p = 10 \times 0.6 = 6$.  
+   - Varianza: $Var(S) = n \times p \times (1-p) = 10 \times 0.6 \times 0.4 = 2.4$.
+
+3. Como $T = 2S + 5$, aplicamos propiedades de esperanza y varianza:  
+   - $E[T] = 2E[S] + 5 = 2 \times 6 + 5 = 17.$  
+   - $Var(T) = (2^2) Var(S) = 4 \times 2.4 = 9.6.$
+
+4. Desviación estándar:  
+   $$
+   \sqrt{9.6} \approx 3.1.
+   $$
+
+**Interpretación:** en promedio un concursante obtendrá **17 puntos**, pero los resultados típicamente fluctuarán entre 14 y 20 puntos aproximadamente.
 
 \newpage
 
@@ -54,54 +118,92 @@ Con esta información, responde lo siguiente:
 **a) Un hombre gana 120 y una mujer 100. ¿Quién está mejor posicionado respecto de su grupo?** Explica tu respuesta en términos de desviaciones estándar (valores-z). (15%)
 
 **Respuesta:**\
+1. Para el hombre:  
+   $$
+   z_h = \frac{120 - 100}{10} = 2.
+   $$  
+   El salario está **2 desviaciones estándar sobre la media masculina**.
 
+2. Para la mujer:  
+   $$
+   z_w = \frac{100 - 70}{5} = 6.
+   $$  
+   El salario está **6 desviaciones estándar sobre la media femenina**.
+
+**Conclusión:** la mujer está mejor posicionada en su grupo, porque su ingreso es mucho más excepcional en relación con la distribución femenina que el del hombre en la distribución masculina.
 
 \newpage
 
 **b) Probabilidad de que una mujer gane** $\leq$ que el promedio masculino. (15%)
 
-¿Cuál es la probabilidad de que el ingreso de una mujer esté por debajo del promedio de los hombres? Para responder esta pregunta sigue los siguientes pasos:
-
-1.  Lleva el valor 100 a la escala de la distribución femenina, estandarizándolo:\
-    $$
-    z_0 = \frac{100 - 70}{5} = 6.
-    $$
-
-2.  Expresa la probabilidad en términos de la normal estándar:\
-    $$
-    P(Y_w \leq 100) = P(Z \leq z_0).
-    $$
-
-3.  Usa la distribución normal estándar para encontrar la probabilidad solicitada.
-
 **Respuesta:**\
+1. Estandarizamos 100 en la distribución femenina:  
+   $$
+   z_0 = \frac{100 - 70}{5} = 6.
+   $$
 
+2. Calculamos probabilidad:  
+   $$
+   P(Y_w \leq 100) = P(Z \leq 6).
+   $$
+
+3. De la tabla de la normal estándar:  
+   $$
+   P(Z \leq 6) \approx 0.999999998 \approx 1.00.
+   $$
+
+**Conclusión:** existe **certeza práctica** de que una mujer gana menos que el promedio de los hombres.
 
 \newpage
 
 **c) Ingreso mínimo para estar en el 10% más rico de cada grupo.** (15%)
 
-¿Cuál es el umbral de ingreso que permite a una persona estar en el 10% más rico de su grupo? Para responder esta pregunta usa el concepto de percentil en una distribución normal:
+**Respuesta:**\
+1. Fórmula general:  
+   $$
+   x_{0.90} = \mu + z_{0.90}\sigma.
+   $$
 
-El percentil 90 de una distribución normal $X \sim N(\mu, \sigma)$ se obtiene con la fórmula:\
-$$
-x_{0.90} = \mu + z_{0.90}\sigma.
-$$
+2. De la tabla normal estándar: $z_{0.90} \approx 1.28.$
 
-El valor $z_{0.90}$ corresponde al punto de la distribución normal estándar donde la probabilidad acumulada alcanza 0.90. Dicho de otro modo, es el valor de $z$ tal que un 90% de las observaciones se ubican por debajo de él y solo un 10% por encima.
+3. Para hombres:  
+   $$
+   x_{0.90,h} = 100 + 1.28 \times 10 = 112.8.
+   $$
 
-Calcula $z_{0.90}$ y usa dicho valor para encontrar las cantidades solicitadas:
+4. Para mujeres:  
+   $$
+   x_{0.90,w} = 70 + 1.28 \times 5 = 76.4.
+   $$
 
--   Percentil 90 para hombres: $100 + z_{0.90} \times 10$.\
--   Percentil 90 para mujeres: $70 + z_{0.90} \times 5$.
-
-**Respuesta:**
-
+**Interpretación:** un hombre necesita ganar al menos **112.8 mil pesos** y una mujer **76.4 mil pesos** para pertenecer al 10% superior de su grupo.
 
 \newpage
 
 **d) Percentil 10 y razón entre percentil 90 y percentil 10.** (15%)
 
-Calcula el percentil 10 de hombres y mujeres. Si el cociente entre el percentil 90 y el percentil 10 se interpreta como una medida de desigualdad (razón entre ingresos del 10% más rico y el 10% más pobre), determina qué grupo presenta mayor desigualdad.
-
 **Respuesta:**\
+1. Fórmula general:  
+   $$
+   x_{0.10} = \mu + z_{0.10}\sigma, \quad z_{0.10} \approx -1.28.
+   $$
+
+2. Para hombres:  
+   $$
+   x_{0.10,h} = 100 - 1.28 \times 10 = 87.2.
+   $$  
+   Razón:  
+   $$
+   \frac{112.8}{87.2} \approx 1.29.
+   $$
+
+3. Para mujeres:  
+   $$
+   x_{0.10,w} = 70 - 1.28 \times 5 = 63.6.
+   $$  
+   Razón:  
+   $$
+   \frac{76.4}{63.6} \approx 1.20.
+   $$
+
+**Conclusión:** los **hombres presentan mayor desigualdad interna** según esta medida (1.29 frente a 1.20).
