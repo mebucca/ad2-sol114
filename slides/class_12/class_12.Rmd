@@ -1,6 +1,6 @@
 ---
 title: "Probabilidad e Inferencia Estadística"
-subtitle: "#12: Estimación de Intervalos"
+subtitle: "Estimación de Intervalos"
 author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
@@ -22,7 +22,7 @@ class: inverse, center, middle
 ```{r xaringan-themer, include=FALSE, warning=FALSE}
 library(tidyverse)
 library(xaringanthemer)
-style_duo_accent(primary_color = "#556B2F", secondary_color = "#DAA996",
+style_duo_accent(primary_color = "#1F3C88", secondary_color = "#DAA996",
                  background_color = "#f8f7f3",
                  header_font_google = google_font("Archivo"),
                  text_font_google   = google_font("Inconsolata"), 
@@ -57,7 +57,7 @@ $\bar{X}_{200}$ =  `r mean(mi_muestra$x)`
 <br>
 
 
-- Sabemos que la media muestral es un estimador insesgado de la media poblacional (es promedio coinciden)
+- Sabemos que la media muestral es un estimador insesgado de la media poblacional (en promedio coinciden)
 
 - Sin embargo, .bold[la estimación puntal no necesariamente corresponde al parámetro poblacional].
 
@@ -87,7 +87,7 @@ normal_data <- data.frame(x = x_values, y = y_values)
 normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
   geom_line(color = primary_color, size = 1) +
   geom_vline(xintercept = 4, linetype = "dashed", size=1.5) +
-  annotate("text", x = 4.2, y = 0.25, label = expression(mu), size = 12) +
+  #annotate("text", x = 4.2, y = 0.25, label = expression(mu), size = 12) +
   geom_point(aes(x=mean(mi_muestra$x),y=dnorm(mean(mi_muestra$x), mean = 4, sd = 3/sqrt(200))), size=5, colour="red") +
   labs(
        x = expression(bar(X)),
@@ -386,7 +386,7 @@ normal_distribution_plot <- ggplot(normal_data, aes(x = x, y = y)) +
     y = "Densidad") +
   
   # Annotate in the middle as 1 - alpha (in math)
-  annotate("text", x = 0, y = 0.1, label = expression(1 - alpha), size = 9) +
+  #annotate("text", x = 0, y = 0.1, label = expression(1 - alpha), size = 9) +
   
   theme_minimal() +
   theme(
@@ -503,7 +503,7 @@ $\color{white}{\text{La probabilidad de que un intervalo entre } \bar{X} -  Z_{(
 ]
 
 
-> Si tomamos infinitas muestras de tamaño $n$ a partir de la misma población y en cada uno construimos un intervalo en torno al promedio muestral $\bar{X}$, el $100 \cdot (1 - \alpha)\%$ de dichos intervalor contendrá $\mu$.
+> Si tomamos infinitas muestras de tamaño $n$ a partir de la misma población y en cada uno construimos un intervalo en torno al promedio muestral $\bar{X}$, el $100 \cdot (1 - \alpha)\%$ de dichos intervalos contendrá $\mu$.
 
 
 ---

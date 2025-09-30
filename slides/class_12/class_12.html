@@ -4,7 +4,7 @@
     <title>Probabilidad e Inferencia Estadística</title>
     <meta charset="utf-8" />
     <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
-    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
     <link rel="stylesheet" href="gentle-r.css" type="text/css" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -16,13 +16,13 @@ class: center, middle, inverse, title-slide
 # Probabilidad e Inferencia Estadística
 ]
 .subtitle[
-## #12: Estimación de Intervalos
+## Estimación de Intervalos
 ]
 .author[
 ### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
 ]
 .date[
-### 29 September, 2024
+### 30 September, 2025
 ]
 
 ---
@@ -53,7 +53,7 @@ Por ejemplo:
 &lt;br&gt;
 
 
-- Sabemos que la media muestral es un estimador insesgado de la media poblacional (es promedio coinciden)
+- Sabemos que la media muestral es un estimador insesgado de la media poblacional (en promedio coinciden)
 
 - Sin embargo, .bold[la estimación puntal no necesariamente corresponde al parámetro poblacional].
 
@@ -307,7 +307,7 @@ Un intervalo al `\(100 \cdot (1 - \alpha)\%\)` de confianza `\(CI: (\bar{X} - Z_
 ]
 
 
-&gt; Si tomamos infinitas muestras de tamaño `\(n\)` a partir de la misma población y en cada uno construimos un intervalo en torno al promedio muestral `\(\bar{X}\)`, el `\(100 \cdot (1 - \alpha)\%\)` de dichos intervalor contendrá `\(\mu\)`.
+&gt; Si tomamos infinitas muestras de tamaño `\(n\)` a partir de la misma población y en cada uno construimos un intervalo en torno al promedio muestral `\(\bar{X}\)`, el `\(100 \cdot (1 - \alpha)\%\)` de dichos intervalos contendrá `\(\mu\)`.
 
 
 ---
@@ -338,11 +338,11 @@ github.com/mebucca
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"ratio": "16:9",
-"highlightStyle": "github",
-"highlightLines": true,
-"countIncrementalSlides": true,
-"slideNumberFormat": "%current%"
+  "ratio": "16:9",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": true,
+  "slideNumberFormat": "%current%"
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));

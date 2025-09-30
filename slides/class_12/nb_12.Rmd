@@ -1,0 +1,216 @@
+---
+title: "Intervalos de Confianza"
+format: html
+runtime: shiny
+---
+
+
+## Teoría
+
+Un **intervalo de confianza (IC)** para un parámetro poblacional $\theta$ es un rango aleatorio que, con cierta probabilidad, contiene al valor verdadero del parámetro.  
+
+### 1. Definición general
+
+Si construimos el intervalo a partir de una muestra de tamaño $n$, se cumple:
+
+$$
+P\!\left( L(X_1, \dots, X_n) \;\leq\; \theta \;\leq\; U(X_1, \dots, X_n) \right) = 1 - \alpha,
+$$
+
+donde:  
+- $L$ es el límite inferior del intervalo,  
+- $U$ es el límite superior del intervalo,  
+- $1 - \alpha$ es el **nivel de confianza** (típicamente 0.90, 0.95 o 0.99).  
+
+---
+
+### 2. Caso de la media poblacional
+
+Supongamos que queremos construir un IC para la **media poblacional** $\mu$, cuando la varianza poblacional $\sigma^2$ es conocida.  
+
+Recordemos que, por el Teorema Central del Límite, el estadístico estandarizado:
+
+$$
+Z = \frac{\overline{X} - \mu}{\sigma/\sqrt{n}}
+$$
+
+sigue aproximadamente una **distribución normal estándar** $N(0,1)$.
+
+- En la normal estándar sabemos que:
+
+$$
+P\!\left( -z_{1-\alpha/2} < Z < z_{1-\alpha/2} \right) = 1 - \alpha,
+$$
+
+donde $z_{1-\alpha/2}$ es el cuantil correspondiente (por ejemplo, 1.96 para $\alpha = 0.05$).  
+
+
+- Sustituyendo la definición de $Z$, tenemos:
+
+$$
+P\!\left( -z_{1-\alpha/2} < \frac{\overline{X} - \mu}{\sigma/\sqrt{n}} < z_{1-\alpha/2} \right) = 1 - \alpha.
+$$
+
+- Multiplicamos todo por $\sigma/\sqrt{n}$:
+
+$$
+P\!\left( -z_{1-\alpha/2}\cdot \frac{\sigma}{\sqrt{n}} < \overline{X} - \mu < z_{1-\alpha/2}\cdot \frac{\sigma}{\sqrt{n}} \right) = 1 - \alpha.
+$$
+
+- Aislando a $\mu$, reordenamos la desigualdad para dejar a $\mu$ en el centro:
+
+$$
+P\!\left( \overline{X} - z_{1-\alpha/2}\cdot \frac{\sigma}{\sqrt{n}} < \mu < \overline{X} + z_{1-\alpha/2}\cdot \frac{\sigma}{\sqrt{n}} \right) = 1 - \alpha.
+$$
+
+
+Esto nos da el **intervalo de confianza al nivel $1-\alpha$**:
+
+$$
+IC = \left[ \; \overline{X} - z_{1-\alpha/2}\cdot \frac{\sigma}{\sqrt{n}}, \quad
+             \overline{X} + z_{1-\alpha/2}\cdot \frac{\sigma}{\sqrt{n}} \; \right].
+$$
+
+
+- El valor verdadero de $\mu$ es fijo y **no tiene probabilidad** de “estar dentro o fuera” del intervalo.  
+- Lo que varía es el intervalo: cada vez que tomamos una muestra distinta, obtenemos un intervalo distinto.  
+- Decir que un IC al 95% “tiene confianza del 95%” significa que, si repitiéramos el procedimiento muchas veces, **aproximadamente el 95% de los intervalos construidos cubrirán el verdadero valor de $\mu$**.  
+
+## Simulación
+
+Para demostrar cómo funciona la cobertura de los intervalos de confianza, crearemos una simulación controlada:  
+
+- Crearemos un poblacion en la cual la **media verdadera** es $\mu = 25$ años (edad promedio de graduación en Chile).  
+- A partir de esta población, **tomaremos repetidamente muestras aleatorias** de tamaño $n$.  
+- Con cada muestra construiremos un **intervalo de confianza** al nivel elegido $1-\alpha$.  
+- Finalmente, observaremos qué proporción de intervalos construidos efectivamente contiene a la media verdadera.  
+
+De este modo, la aplicación ilustra de manera empírica lo que garantiza la teoría: en el largo plazo, aproximadamente una fracción $1-\alpha$ de los intervalos cubrirá a $\mu$.
+
+
+```{r, echo=FALSE}
+library(shiny)
+library(tidyverse)
+
+ui <- fluidPage(
+  titlePanel("Estimación de la Edad Promedio de Graduación en Chile (μ = 25 años)"),
+  sidebarLayout(
+    sidebarPanel(
+      numericInput("num_samples",
+                   "n:",
+                   value = 100,
+                   min = 10,
+                   max = 500,
+                   step = 10),
+      numericInput("confidence_level",
+                   "Nivel de Confianza:",
+                   value = 0.95,
+                   min = 0.50,
+                   max = 0.99,
+                   step = 0.01),
+      actionButton("add_interval", "Generar Nueva Muestra"),
+      actionButton("refresh_simulations", "Refrescar Simulaciones")  
+    ),
+    mainPanel(
+      plotOutput("plot_intervals"),
+      br(),
+      tableOutput("interval_stats"),
+      br(),
+      tableOutput("interval_details")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  
+  rv <- reactiveValues(data = data.frame(start = numeric(0), end = numeric(0), 
+                                         mean_estimate = numeric(0), color = character(0)),
+                       contains_mean = 0,
+                       does_not_contain_mean = 0)
+  
+  observeEvent(input$add_interval, {
+    # Media verdadera de 25 (edad promedio de graduación en Chile)
+    true_mean <- 25
+    set.seed(NULL)
+    samples <- rnorm(input$num_samples, mean = true_mean, sd = 5)  
+    mean_samples <- mean(samples)
+    se <- sd(samples) / sqrt(length(samples))
+    z_value <- qnorm(1 - (1 - input$confidence_level) / 2)  
+    CI_start <- mean_samples - z_value * se
+    CI_end <- mean_samples + z_value * se
+    
+    interval_color <- ifelse(CI_start <= true_mean && CI_end >= true_mean, "#336699", "#B26666")
+    
+    rv$data <- rbind(rv$data, data.frame(start = CI_start, 
+                                         end = CI_end, 
+                                         mean_estimate = mean_samples, 
+                                         color = interval_color))
+    
+    if(CI_start <= true_mean && CI_end >= true_mean) {
+      rv$contains_mean <- rv$contains_mean + 1
+    } else {
+      rv$does_not_contain_mean <- rv$does_not_contain_mean + 1
+    }
+  })
+  
+  observeEvent(input$refresh_simulations, {
+    rv$data <- data.frame(start = numeric(0), end = numeric(0), 
+                          mean_estimate = numeric(0), color = character(0))
+    rv$contains_mean <- 0
+    rv$does_not_contain_mean <- 0
+  })
+  
+  output$plot_intervals <- renderPlot({
+    true_mean <- 25  
+    ggplot(rv$data, aes(xmin = start, xmax = end, y = seq_along(start), fill = color)) +
+      geom_rect(aes(ymin = seq_along(start) - 0.2, ymax = seq_along(start) + 0.2), alpha = 0.4) + 
+      scale_fill_identity() +
+      geom_vline(xintercept = true_mean, linetype = "dashed", color = "#225522", size = 1.2) +  
+      geom_point(aes(x = mean_estimate, y = seq_along(mean_estimate)), color = "black", size = 3) +  
+      geom_errorbarh(aes(xmin = start, xmax = end, y = seq_along(start)), height = 0.2, color = "blue") +  
+      xlim(min(rv$data$start, na.rm = TRUE), max(rv$data$end, na.rm = TRUE)) +
+      ylim(0, nrow(rv$data) + 1) +
+      labs(title = "Intervalos de Confianza",
+           subtitle = paste(input$confidence_level * 100, "% Nivel de Confianza"),
+           x = "Valor",
+           y = "Número de Intervalo") +
+      theme_minimal() +
+      theme(
+        plot.title = element_text(face = "bold", size = 20),
+        axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),  
+        panel.border = element_rect(color = "black", fill = NA, linewidth = 1)
+      )
+  })
+  
+  output$interval_stats <- renderTable({
+    total_intervals <- rv$contains_mean + rv$does_not_contain_mean
+    percentage_contains <- (rv$contains_mean / total_intervals) * 100
+    data.frame(Categoría = c("Intervalos que contienen μ", 
+                             "Intervalos que no contienen μ", 
+                             "% que contienen μ"),
+               Cantidad = c(rv$contains_mean, 
+                            rv$does_not_contain_mean, 
+                            percentage_contains))
+  }, row.names = FALSE)
+  
+  output$interval_details <- renderTable({
+    rv$data %>%
+      dplyr::mutate(`Media Estimada` = round(mean_estimate, 3),
+                    `Límite Inferior` = round(start, 3),
+                    `Límite Superior` = round(end, 3)) %>%
+      dplyr::select(`Media Estimada`, `Límite Inferior`, `Límite Superior`)
+  }, row.names = FALSE)
+}
+
+shinyApp(ui, server)
+```
+
+---
+
+## Conclusión
+
+- Cada intervalo es una **estimación con incertidumbre** de la media poblacional.  
+- Algunos intervalos no incluyen a $\mu = 25$ (se destacan en **rojo**).  
+- La proporción de intervalos que cubren a $\mu$ converge al nivel de confianza elegido.  
+
