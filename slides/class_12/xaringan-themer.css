@@ -15,7 +15,7 @@
  *    - xaringan wiki: https://github.com/yihui/xaringan/wiki
  *    - remarkjs wiki: https://github.com/gnab/remark/wiki
  *
- *  Version: 0.4.2
+ *  Version: 0.4.3
  *
  * ------------------------------------------------------- */
 @import url(https://fonts.googleapis.com/css?family=Inconsolata&display=swap);
@@ -44,20 +44,20 @@
 
   /* Colors */
   --text-color: #000000;
-  --header-color: #556B2F;
+  --header-color: #1F3C88;
   --background-color: #f8f7f3;
   --link-color: #FFD700;
-  --text-bold-color: #556B2F;
+  --text-bold-color: #1F3C88;
   --code-highlight-color: rgba(255,255,0,0.5);
   --inverse-text-color: #000000;
   --inverse-background-color: #DAA996;
   --inverse-header-color: #000000;
   --inverse-link-color: #FFD700;
-  --title-slide-background-color: #556B2F;
+  --title-slide-background-color: #1F3C88;
   --title-slide-text-color: #FFFFFF;
-  --header-background-color: #556B2F;
+  --header-background-color: #1F3C88;
   --header-background-text-color: #f8f7f3;
-  --primary: #556B2F;
+  --primary: #1F3C88;
   --secondary: #DAA996;
   --white: #FFFFFF;
   --black: #000000;
@@ -101,10 +101,10 @@ h1, h2, h3 {
 }
 .remark-inline-code {
   font-size: var(--code-inline-font-size);
-  color: #556B2F;
+  color: #1F3C88;
 }
 .remark-slide-number {
-  color: #556B2F;
+  color: #1F3C88;
   opacity: 1;
   font-size: 0.9rem;
 }
@@ -152,10 +152,10 @@ a, a > code {
   float: left;
 }
 .left-column h2, .left-column h3 {
-  color: #556B2F99;
+  color: #1F3C8899;
 }
 .left-column h2:last-of-type, .left-column h3:last-child {
-  color: #556B2F;
+  color: #1F3C88;
 }
 .right-column {
   width: 75%;
