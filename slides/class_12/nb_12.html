@@ -95,49 +95,81 @@ window.Quarto = {
 <section id="teoría" class="level2">
 <h2 class="anchored" data-anchor-id="teoría">Teoría</h2>
 <p>Un <strong>intervalo de confianza (IC)</strong> para un parámetro poblacional <span class="math inline">\(\theta\)</span> es un rango aleatorio que, con cierta probabilidad, contiene al valor verdadero del parámetro.</p>
-<p>Formalmente, si construimos el intervalo a partir de una muestra de tamaño <span class="math inline">\(n\)</span>, se cumple:</p>
+<section id="definición-general" class="level3">
+<h3 class="anchored" data-anchor-id="definición-general">1. Definición general</h3>
+<p>Si construimos el intervalo a partir de una muestra de tamaño <span class="math inline">\(n\)</span>, se cumple:</p>
 <p><span class="math display">\[
-P\bigl(\, L(X_1, \dots, X_n) \leq \theta \leq U(X_1, \dots, X_n) \,\bigr) = 1 - \alpha,
+P\!\left( L(X_1, \dots, X_n) \;\leq\; \theta \;\leq\; U(X_1, \dots, X_n) \right) = 1 - \alpha,
 \]</span></p>
 <p>donde:<br>
-- <span class="math inline">\(L\)</span> es el límite inferior,<br>
-- <span class="math inline">\(U\)</span> es el límite superior,<br>
+- <span class="math inline">\(L\)</span> es el límite inferior del intervalo,<br>
+- <span class="math inline">\(U\)</span> es el límite superior del intervalo,<br>
 - <span class="math inline">\(1 - \alpha\)</span> es el <strong>nivel de confianza</strong> (típicamente 0.90, 0.95 o 0.99).</p>
-<p>En el caso de la <strong>media poblacional</strong> <span class="math inline">\(\mu\)</span> con varianza conocida <span class="math inline">\(\sigma^2\)</span>, el intervalo de confianza al nivel <span class="math inline">\(1-\alpha\)</span> es:</p>
-<p><span class="math display">\[
-\left[ \; \overline{X} \; - \; z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}}, \quad
-        \overline{X} \; + \; z_{1-\alpha/2} \cdot \frac{\sigma}{\sqrt{n}} \; \right],
-\]</span></p>
-<p>donde <span class="math inline">\(\overline{X}\)</span> es la media muestral y <span class="math inline">\(z_{1-\alpha/2}\)</span> es el cuantil de la distribución normal estándar.</p>
-<p>En la práctica, como la varianza poblacional suele ser desconocida, usamos la <strong>desviación estándar muestral</strong> <span class="math inline">\(s\)</span>:</p>
-<p><span class="math display">\[
-IC = \left[ \; \overline{X} \; - \; z_{1-\alpha/2} \cdot \frac{s}{\sqrt{n}}, \quad
-              \overline{X} \; + \; z_{1-\alpha/2} \cdot \frac{s}{\sqrt{n}} \; \right].
-\]</span></p>
-<p>Interpretación:<br>
-- No significa que la probabilidad de que el intervalo particular contenga a <span class="math inline">\(\mu\)</span> sea 0.95.<br>
-- Significa que el <strong>procedimiento</strong> de construcción de intervalos genera, en el largo plazo, un 95% de intervalos que sí contienen a <span class="math inline">\(\mu\)</span>.</p>
 <hr>
+</section>
+<section id="caso-de-la-media-poblacional" class="level3">
+<h3 class="anchored" data-anchor-id="caso-de-la-media-poblacional">2. Caso de la media poblacional</h3>
+<p>Supongamos que queremos construir un IC para la <strong>media poblacional</strong> <span class="math inline">\(\mu\)</span>, cuando la varianza poblacional <span class="math inline">\(\sigma^2\)</span> es conocida.</p>
+<p>Recordemos que, por el Teorema Central del Límite, el estadístico estandarizado:</p>
+<p><span class="math display">\[
+Z = \frac{\overline{X} - \mu}{\sigma/\sqrt{n}}
+\]</span></p>
+<p>sigue aproximadamente una <strong>distribución normal estándar</strong> <span class="math inline">\(N(0,1)\)</span>.</p>
+<ul>
+<li>En la normal estándar sabemos que:</li>
+</ul>
+<p><span class="math display">\[
+P\!\left( -z_{1-\alpha/2} &lt; Z &lt; z_{1-\alpha/2} \right) = 1 - \alpha,
+\]</span></p>
+<p>donde <span class="math inline">\(z_{1-\alpha/2}\)</span> es el cuantil correspondiente (por ejemplo, 1.96 para <span class="math inline">\(\alpha = 0.05\)</span>).</p>
+<ul>
+<li>Sustituyendo la definición de <span class="math inline">\(Z\)</span>, tenemos:</li>
+</ul>
+<p><span class="math display">\[
+P\!\left( -z_{1-\alpha/2} &lt; \frac{\overline{X} - \mu}{\sigma/\sqrt{n}} &lt; z_{1-\alpha/2} \right) = 1 - \alpha.
+\]</span></p>
+<ul>
+<li>Multiplicamos todo por <span class="math inline">\(\sigma/\sqrt{n}\)</span>:</li>
+</ul>
+<p><span class="math display">\[
+P\!\left( -z_{1-\alpha/2}\cdot \frac{\sigma}{\sqrt{n}} &lt; \overline{X} - \mu &lt; z_{1-\alpha/2}\cdot \frac{\sigma}{\sqrt{n}} \right) = 1 - \alpha.
+\]</span></p>
+<ul>
+<li>Aislando a <span class="math inline">\(\mu\)</span>, reordenamos la desigualdad para dejar a <span class="math inline">\(\mu\)</span> en el centro:</li>
+</ul>
+<p><span class="math display">\[
+P\!\left( \overline{X} - z_{1-\alpha/2}\cdot \frac{\sigma}{\sqrt{n}} &lt; \mu &lt; \overline{X} + z_{1-\alpha/2}\cdot \frac{\sigma}{\sqrt{n}} \right) = 1 - \alpha.
+\]</span></p>
+<p>Esto nos da el <strong>intervalo de confianza al nivel <span class="math inline">\(1-\alpha\)</span></strong>:</p>
+<p><span class="math display">\[
+IC = \left[ \; \overline{X} - z_{1-\alpha/2}\cdot \frac{\sigma}{\sqrt{n}}, \quad
+             \overline{X} + z_{1-\alpha/2}\cdot \frac{\sigma}{\sqrt{n}} \; \right].
+\]</span></p>
+<ul>
+<li>El valor verdadero de <span class="math inline">\(\mu\)</span> es fijo y <strong>no tiene probabilidad</strong> de “estar dentro o fuera” del intervalo.<br>
+</li>
+<li>Lo que varía es el intervalo: cada vez que tomamos una muestra distinta, obtenemos un intervalo distinto.<br>
+</li>
+<li>Decir que un IC al 95% “tiene confianza del 95%” significa que, si repitiéramos el procedimiento muchas veces, <strong>aproximadamente el 95% de los intervalos construidos cubrirán el verdadero valor de <span class="math inline">\(\mu\)</span></strong>.</li>
+</ul>
+</section>
 </section>
 <section id="simulación" class="level2">
 <h2 class="anchored" data-anchor-id="simulación">Simulación</h2>
-<p>En esta app se fijará la media verdadera en <strong>25 años</strong> (edad promedio de graduación en Chile). Al tomar muestras repetidas, veremos qué proporción de intervalos de confianza efectivamente incluye a <span class="math inline">\(\mu\)</span>.</p>
-<hr>
+<p>Para demostrar cómo funciona la cobertura de los intervalos de confianza, crearemos una simulación controlada:</p>
+<ul>
+<li>Crearemos un poblacion en la cual la <strong>media verdadera</strong> es <span class="math inline">\(\mu = 25\)</span> años (edad promedio de graduación en Chile).<br>
+</li>
+<li>A partir de esta población, <strong>tomaremos repetidamente muestras aleatorias</strong> de tamaño <span class="math inline">\(n\)</span>.<br>
+</li>
+<li>Con cada muestra construiremos un <strong>intervalo de confianza</strong> al nivel elegido <span class="math inline">\(1-\alpha\)</span>.<br>
+</li>
+<li>Finalmente, observaremos qué proporción de intervalos construidos efectivamente contiene a la media verdadera.</li>
+</ul>
+<p>De este modo, la aplicación ilustra de manera empírica lo que garantiza la teoría: en el largo plazo, aproximadamente una fracción <span class="math inline">\(1-\alpha\)</span> de los intervalos cubrirá a <span class="math inline">\(\mu\)</span>.</p>
 <div class="cell">
-<div class="cell-output cell-output-stderr">
-<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.4     ✔ readr     2.1.5
-✔ forcats   1.0.0     ✔ stringr   1.5.2
-✔ ggplot2   4.0.0     ✔ tibble    3.3.0
-✔ lubridate 1.9.4     ✔ tidyr     1.3.1
-✔ purrr     1.1.0     
-── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
-✖ dplyr::filter() masks stats::filter()
-✖ dplyr::lag()    masks stats::lag()
-ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
-</div>
 <div class="cell-output-display">
-<p><iframe data-deferred-src="app97e522abcc7066b8e806550a4b82b58c/?w=&amp;__subapp__=1" width="100%" height="400" class="shiny-frame shiny-frame-deferred"></iframe></p>
+<p><iframe data-deferred-src="app275677270f4914beef8086c2db6ba72d/?w=&amp;__subapp__=1" width="100%" height="400" class="shiny-frame shiny-frame-deferred"></iframe></p>
 </div>
 </div>
 <hr>
