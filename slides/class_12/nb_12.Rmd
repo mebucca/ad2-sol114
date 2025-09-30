@@ -88,7 +88,7 @@ Para demostrar cómo funciona la cobertura de los intervalos de confianza, crear
 De este modo, la aplicación ilustra de manera empírica lo que garantiza la teoría: en el largo plazo, aproximadamente una fracción $1-\alpha$ de los intervalos cubrirá a $\mu$.
 
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 library(shiny)
 library(tidyverse)
 
