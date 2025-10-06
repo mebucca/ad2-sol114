@@ -41,7 +41,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 1   | Octubre    | Estimador y su distribución muestral                      | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_11/class_11#1) [`[Code]`](slides/class_11/class_11.Rmd) | 7.1.1 & 7.1.2    |
 | 6   | Octubre    | Estimación de intervalos & intervalos de confianza        | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_12/class_12#1) [`[Code]`](slides/class_12/class_12.Rmd) [`[Notebook]`](https://mebucca.github.io/ad2-sol114/slides/class_12/nb_12#1)                        | 7.1.3 & 7.1.4    |
 | 8   | Octubre    | IC para media y proporción muestral                       | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_13/class_13#1) [`[Code]`](slides/class_13/class_13.Rmd) | 7.1.3 & 7.1.4    |
-| 13  | Octubre    | IC con varianza desconocida & margen de error             |                                                                                                                  | 7.1.3 & 7.1.4    |
+| 13  | Octubre    | IC con varianza desconocida & margen de error             | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_14/class_14#1) [`[Code]`](slides/class_14/class_14.Rmd) | 7.1.3 & 7.1.4    |
 | 15  | Octubre    | IC via Bootstrap                                          |                                                                                                                  | 7.1.3 & 7.1.4    |
 | 20  | Octubre    | Test de hipótesis: paradigma Fisher & Neyman-Pearson      |                                                                                                                  | 7.2.2            |
 | 27  | Octubre    | Test de media/proporción en una muestra                   |                                                                                                                  | 7.2.2            |
@@ -65,7 +65,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | Tarea corta 2 |  13 agosto           |  20 agosto       |  [`[TC2]`](https://mebucca.github.io/ad2-sol114/homework/tc_2#1) [`[TC2.qmd]`](homework/tc_2.qmd)         |
 | Tarea corta 3 |  25 agosto           |  1 septiembre    |  [`[TC3]`](https://mebucca.github.io/ad2-sol114/homework/tc_3#1) [`[TC3.qmd]`](homework/tc_3.qmd)         |
 | Prueba 1      |            |         | [`[Prueba 1]`](https://mebucca.github.io/ad2-sol114/exams/prueba_1.pdf) [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_prueba1.html)  |
-| Tarea corta 4 |            |         |          |
+| Tarea corta 4 | 6 octubre  | 13 octubre | [`[TC4]`](https://mebucca.github.io/ad2-sol114/homework/tc_4#1) [`[TC4.qmd]`](homework/tc_4.qmd)                          |
 | Tarea corta 5 |            |         |          |
 | Prueba 2      |            |         |          |
 | Tarea corta 6 |            |         |          |
