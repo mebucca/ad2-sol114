@@ -1,8 +1,7 @@
 ---
 title: "Probabilidad e Inferencia Estadística"
-subtitle: "#14: IC con varianza desconocida & Margen de Error"
+subtitle: "IC con varianza desconocida & Margen de Error"
 author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   xaringan::moon_reader:
     lib_dir: libs

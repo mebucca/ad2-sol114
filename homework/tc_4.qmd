@@ -1,0 +1,38 @@
+---
+title: "Tarea corta #4"
+author: "SOL114"
+format: html
+editor: visual
+---
+
+
+**Ponderación:** 6% de la nota final del curso.
+
+```{r, echo=FALSE}
+# Escribir install.packages("tinytex") en la consola para instalar "tinytex"
+# Carga "tinytex" para compilar PDF
+library("tinytex")
+```
+
+## Problema I — Estimación de la media poblacional
+
+Un investigador busca estimar el promedio de años de escolaridad de la población adulta en Chile. Se selecciona una muestra aleatoria de 45 personas mayores de 25 años, con un promedio muestral de 11.8 años de escolaridad y una desviación estándar muestral de 2.9 años.
+
+1. Construye intervalos de confianza al 90% y al 95% para el promedio poblacional de años de escolaridad, asumiendo que la variable sigue una distribución aproximadamente normal. Explica brevemente qué significa el nivel de confianza en este contexto.
+
+2. Calcula la probabilidad de que una muestra de tamaño 45 produzca un promedio muestral superior a 12.5 años, si el verdadero promedio poblacional es $\mu = 11.8$ y la desviación poblacional es $\sigma = 2.9$. Interpreta el resultado de forma intuitiva.
+
+
+## Problema II — Diseño de un estudio electoral (segunda vuelta: Kast vs Jara)
+
+Una empresa de investigación ha sido contratada para diseñar una encuesta nacional que estime la proporción de intención de voto por José Antonio Kast (K) y Jeanette Jara (J) en una segunda vuelta presidencial. El cliente solicita resultados con un **margen de error máximo de 1 punto porcentual (±0.01)** al 95% de confianza.
+
+Sea $p_K$ la proporción de apoyo a Kast (y por tanto $p_J = 1 - p_K$).
+
+1. Supón que se cuenta con una **muestra piloto** de tamaño $n_0$ que entrega una estimación inicial $\hat{p}_K$. Escribe la fórmula del intervalo de confianza al 95% para $p_K$ usando la aproximación normal. Explica cómo debe interpretarse dicho intervalo desde la perspectiva del procedimiento de estimación.
+
+2. El cliente requiere garantizar el margen de error de 1 punto porcentual con 95% de confianza. 
+
+a) Determina el tamaño de muestra necesario bajo un **escenario conservador** (varianza máxima).  
+
+b) Repite el cálculo utilizando el resultado de la muestra piloto. Compara ambos resultados y explica por qué el tamaño requerido cambia al incorporar información previa.
