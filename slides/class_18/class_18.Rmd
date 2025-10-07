@@ -1,8 +1,7 @@
 ---
 title: "Probabilidad e Inferencia Estadística"
-subtitle: "#18: Distribución t-student"
+subtitle: "Distribución t-student"
 author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -520,7 +519,15 @@ t_distribution_plot <- ggplot(t_data, aes(x = x, y = y)) +
               fill = link_color, alpha = 0.5) +
   
   # Add a text label for t_hat
-  annotate("text", x = t_hat + 1.4, y = max(t_data$y) * 0.9, label = expression(hat(t) == 1.67), color = link_color, size = 6) +
+  annotate(
+    "text",
+    x = t_hat + 0.8,
+    y = max(t_data$y) * 0.9,
+    label = "hat(t)==1.67",
+    parse = TRUE,        # ✅ this enables math notation
+    color = link_color,
+    size = 6
+  ) +
   
   # Add annotations "LI" and "LS" next to the vertical segments
   labs(

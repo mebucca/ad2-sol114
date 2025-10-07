@@ -4,7 +4,7 @@
     <title>Probabilidad e Inferencia Estadística</title>
     <meta charset="utf-8" />
     <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
-    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
+    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
     <link rel="stylesheet" href="gentle-r.css" type="text/css" />
     <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
   </head>
@@ -16,13 +16,10 @@ class: center, middle, inverse, title-slide
 # Probabilidad e Inferencia Estadística
 ]
 .subtitle[
-## #15: Intervalos de Confianza via Método de Bootstrap
+## Intervalos de Confianza via Método de Bootstrap
 ]
 .author[
 ### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
-]
-.date[
-### 15 October, 2024
 ]
 
 ---
@@ -269,6 +266,14 @@ ee_bs
 ci99_bs &lt;- 
   quantile(distmuestral_boot$value, 
            p=c(0.005,0.995))
+```
+
+```
+## Warning in quantile.default(distmuestral_boot$value, p = c(0.005, 0.995)):
+## partial argument match of 'p' to 'probs'
+```
+
+``` r
 ci99_bs 
 ```
 
@@ -359,6 +364,14 @@ ee_bs
 ci99_bs &lt;- 
   quantile(distmuestral_boot$value, 
            p=c(0.005,0.995))
+```
+
+```
+## Warning in quantile.default(distmuestral_boot$value, p = c(0.005, 0.995)):
+## partial argument match of 'p' to 'probs'
+```
+
+``` r
 ci99_bs 
 ```
 
@@ -393,11 +406,11 @@ github.com/mebucca
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
 <script>var slideshow = remark.create({
-"ratio": "16:9",
-"highlightStyle": "github",
-"highlightLines": true,
-"countIncrementalSlides": true,
-"slideNumberFormat": "%current%"
+  "ratio": "16:9",
+  "highlightStyle": "github",
+  "highlightLines": true,
+  "countIncrementalSlides": true,
+  "slideNumberFormat": "%current%"
 });
 if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
   window.dispatchEvent(new Event('resize'));
