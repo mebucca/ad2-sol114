@@ -1,0 +1,61 @@
+---
+title: "Tarea corta #5"
+author: "SOL114"
+format: html
+editor: visual
+---
+
+**Ponderación:** 6% de la nota final del curso.
+
+```{r, echo=FALSE}
+# Escribir install.packages("tinytex") en la consola para instalar "tinytex"
+# Carga "tinytex" para compilar PDF
+library("tinytex")
+```
+
+En esta tarea trabajarás con datos de una encuesta realizada por FLACSO/Chile en Abril y Mayo de 1988 sobre intención de voto en el plebiscito de 1989. En particular, usarás con la variable `voto_no`, que mide si una persona pretende votar NO (`voto_no==1`) o SI (`voto_si==1`).
+
+Datos:
+
+```{r, message=FALSE, warning=FALSE}
+library(carData)
+library(tidyverse)
+data(Chile)
+
+data_plebiscito89 <- Chile %>% mutate(voto_no = 
+  case_when(vote=="N" ~ 1, vote=="Y" ~ 0)) 
+
+head(data_plebiscito89)
+```
+
+1.  Calcula la proporción de individuos que pretenden votar NO en el plebiscito.
+
+
+2.  Calcula un intervalo al 96% de confianza para la proporción estimada usando dos métodos: a) cálculo analítica basado en aproxinacion normal y b) método de bootstrap.
+
+
+3.  ¿Que conclusión sustantiva podemos sacar en vista de los resultados obtenidos?
+
+
+4.  Verdadero o Falso
+
+**1.** Si un intervalo de confianza del 95% para la media poblacional incluye el número 50, esto significa que hay una probabilidad del 95% de que la verdadera media poblacional sea 50.
+
+-   [ ] Verdadero
+-   [ ] Falso
+
+
+**2.** Si tomaramos repetidamente 100,000 muestras generadas de la misma manera y calculáramos un intervalo de confianza al 90% para cada muestra, esperaríamos que alrededor de 90,000 de esos intervalos contengan el verdadero parámetro poblacional.
+
+-   [ ] Verdadero
+-   [ ] Falso
+
+**3.** Un intervalo de confianza del 99% para una proporción poblacional siempre será más amplio que un intervalo de confianza del 95% para la misma proporción poblacional, suponiendo que se calculen a partir de la misma muestra.
+
+-   [ ] Verdadero
+-   [ ] Falso
+
+**4.** Si el error estándar de una media muestral es cero, significa que todas las muestras tomadas de la población tendrán la misma media.
+
+-   [ ] Verdadero
+-   [ ] Falso
