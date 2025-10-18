@@ -21,6 +21,41 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
@@ -102,24 +137,130 @@ window.Quarto = {
 <p><strong>Ponderación:</strong> 6% de la nota final del curso.</p>
 <section id="problema-i-estimación-de-la-media-poblacional" class="level2">
 <h2 class="anchored" data-anchor-id="problema-i-estimación-de-la-media-poblacional">Problema I — Estimación de la media poblacional</h2>
-<p>Un investigador busca estimar el promedio de años de escolaridad de la población adulta en Chile. Se selecciona una muestra aleatoria de 45 personas mayores de 25 años, con un promedio muestral de 11.8 años de escolaridad y una desviación estándar muestral de 2.9 años.</p>
-<ol type="1">
-<li><p>Construye intervalos de confianza al 90% y al 95% para el promedio poblacional de años de escolaridad, asumiendo que la variable sigue una distribución aproximadamente normal. Explica brevemente qué significa el nivel de confianza en este contexto.</p></li>
-<li><p>Calcula la probabilidad de que una muestra de tamaño 45 produzca un promedio muestral superior a 12.5 años, si el verdadero promedio poblacional es <span class="math inline">\(\mu = 11.8\)</span> y la desviación poblacional es <span class="math inline">\(\sigma = 2.9\)</span>. Interpreta el resultado de forma intuitiva.</p></li>
-</ol>
+<p>Un investigador desea estimar el promedio de años de escolaridad de las personas adultas en Chile.<br>
+Se selecciona una muestra aleatoria de 45 personas mayores de 25 años, obteniéndose un promedio muestral de 11.8 años de escolaridad, con una desviación estándar muestral de 2.9 años.</p>
+<section id="intervalos-de-confianza" class="level3">
+<h3 class="anchored" data-anchor-id="intervalos-de-confianza">1. Intervalos de confianza</h3>
+<p>Se pide construir intervalos de confianza al 90% y 95% para el promedio poblacional de años de escolaridad, asumiendo que la variable sigue una distribución aproximadamente normal.</p>
+<p><strong>Paso 1. Calcular el error estándar:</strong></p>
+<p><span class="math display">\[ SE = \frac{s}{\sqrt{n}} = \frac{2.9}{\sqrt{45}} \approx 0.432 \]</span></p>
+<p><strong>Paso 2. Determinar los valores críticos de t:</strong></p>
+<p>Para 90% de confianza: <span class="math inline">\(t_{0.95,44} \approx 1.68\)</span><br>
+Para 95% de confianza: <span class="math inline">\(t_{0.975,44} \approx 2.015\)</span></p>
+<p><strong>Paso 3. Construir los intervalos:</strong></p>
+<p><span class="math display">\[
+IC_{90} = 11.8 \pm 1.68(0.432) = [11.07, 12.53]
+\]</span></p>
+<p><span class="math display">\[
+IC_{95} = 11.8 \pm 2.015(0.432) = [10.93, 12.67]
+\]</span></p>
+<p><strong>Interpretación:</strong> Si repitiéramos muchas veces el muestreo, el 90% (95%) de los intervalos construidos de esta forma contendrían el verdadero promedio poblacional de escolaridad.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">45</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>mean_sample <span class="ot">&lt;-</span> <span class="fl">11.8</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>sd_sample <span class="ot">&lt;-</span> <span class="fl">2.9</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>SE <span class="ot">&lt;-</span> sd_sample <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>t_90 <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.95</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>t_95 <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df =</span> n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>CI_90 <span class="ot">&lt;-</span> mean_sample <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">*</span>t_90<span class="sc">*</span>SE</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>CI_95 <span class="ot">&lt;-</span> mean_sample <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">*</span>t_95<span class="sc">*</span>SE</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>CI_90; CI_95</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 11.07363 12.52637</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 10.92874 12.67126</code></pre>
+</div>
+</div>
+</section>
+<section id="probabilidad-de-obtener-una-media-muestral-superior-a-12.5-años" class="level3">
+<h3 class="anchored" data-anchor-id="probabilidad-de-obtener-una-media-muestral-superior-a-12.5-años">2. Probabilidad de obtener una media muestral superior a 12.5 años</h3>
+<p>Supongamos que la media poblacional real es <span class="math inline">\(\mu = 11.8\)</span>, con <span class="math inline">\(\sigma = 2.9\)</span> y <span class="math inline">\(n = 45\)</span>.</p>
+<p><strong>Paso 1. Calcular el valor Z:</strong></p>
+<p><span class="math display">\[
+Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} = \frac{12.5 - 11.8}{2.9 / \sqrt{45}} = 1.62
+\]</span></p>
+<p><strong>Paso 2. Calcular la probabilidad:</strong></p>
+<p><span class="math display">\[
+P(\bar{X} &gt; 12.5) = P(Z &gt; 1.62) = 1 - \Phi(1.62) = 0.0526
+\]</span></p>
+<p><strong>Conclusión:</strong> La probabilidad de que una muestra de 45 personas arroje un promedio mayor a 12.5 años es de aproximadamente 5.3%.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fl">11.8</span>; sigma <span class="ot">&lt;-</span> <span class="fl">2.9</span>; n <span class="ot">&lt;-</span> <span class="dv">45</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>z <span class="ot">&lt;-</span> (<span class="fl">12.5</span> <span class="sc">-</span> mu) <span class="sc">/</span> (sigma<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>prob</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.05269979</code></pre>
+</div>
+</div>
+<hr>
+</section>
 </section>
 <section id="problema-ii-diseño-de-un-estudio-electoral-segunda-vuelta-kast-vs-jara" class="level2">
 <h2 class="anchored" data-anchor-id="problema-ii-diseño-de-un-estudio-electoral-segunda-vuelta-kast-vs-jara">Problema II — Diseño de un estudio electoral (segunda vuelta: Kast vs Jara)</h2>
-<p>Una empresa de investigación ha sido contratada para diseñar una encuesta nacional que estime la proporción de intención de voto por José Antonio Kast (K) y Jeanette Jara (J) en una segunda vuelta presidencial. El cliente solicita resultados con un <strong>margen de error máximo de 1 punto porcentual (±0.01)</strong> al 95% de confianza.</p>
+<p>Una empresa de investigación ha sido contratada para diseñar una encuesta nacional que estime la proporción de intención de voto por José Antonio Kast (K) y Jeanette Jara (J) en una segunda vuelta presidencial.<br>
+El cliente requiere estimaciones con un <strong>margen de error (ME)</strong> máximo de 1 punto porcentual (±0.01) al 95% de confianza, bajo un esquema de <strong>muestreo aleatorio simple (SRS)</strong>.</p>
 <p>Sea <span class="math inline">\(p_K\)</span> la proporción de apoyo a Kast (y por tanto <span class="math inline">\(p_J = 1 - p_K\)</span>).</p>
-<ol type="1">
-<li><p>Supón que se cuenta con una <strong>muestra piloto</strong> de tamaño <span class="math inline">\(n_0\)</span> que entrega una estimación inicial <span class="math inline">\(\hat{p}_K\)</span>. Escribe la fórmula del intervalo de confianza al 95% para <span class="math inline">\(p_K\)</span> usando la aproximación normal. Explica cómo debe interpretarse dicho intervalo desde la perspectiva del procedimiento de estimación.</p></li>
-<li><p>El cliente requiere garantizar el margen de error de 1 punto porcentual con 95% de confianza.</p></li>
-</ol>
-<ol type="a">
-<li><p>Determina el tamaño de muestra necesario bajo un <strong>escenario conservador</strong> (varianza máxima).</p></li>
-<li><p>Repite el cálculo utilizando el resultado de la muestra piloto. Compara ambos resultados y explica por qué el tamaño requerido cambia al incorporar información previa.</p></li>
-</ol>
+<section id="intervalo-de-confianza-a-partir-de-una-muestra-piloto" class="level3">
+<h3 class="anchored" data-anchor-id="intervalo-de-confianza-a-partir-de-una-muestra-piloto">1. Intervalo de confianza a partir de una muestra piloto</h3>
+<p>Si una muestra piloto de tamaño <span class="math inline">\(n_0\)</span> arroja <span class="math inline">\(\hat{p}_K\)</span>, el intervalo de confianza al 95% para <span class="math inline">\(p_K\)</span> bajo la aproximación normal es:</p>
+<p><span class="math display">\[
+\hat{p}_K \pm z_{0.975}\sqrt{\frac{\hat{p}_K(1-\hat{p}_K)}{n_0}}
+\]</span></p>
+<p><strong>Interpretación:</strong> Si se repitiera el muestreo muchas veces, el 95% de los intervalos construidos con este método contendrían el verdadero valor de <span class="math inline">\(p_K\)</span>. No implica una probabilidad sobre el parámetro fijo, sino sobre el procedimiento de estimación.</p>
+</section>
+<section id="cálculo-del-tamaño-muestral-requerido" class="level3">
+<h3 class="anchored" data-anchor-id="cálculo-del-tamaño-muestral-requerido">2. Cálculo del tamaño muestral requerido</h3>
+<p>El margen de error (ME) se define como:</p>
+<p><span class="math display">\[
+\text{ME} = z_{0.975}\sqrt{\frac{p(1-p)}{n}} \le 0.01
+\]</span></p>
+<section id="a-escenario-conservador" class="level4">
+<h4 class="anchored" data-anchor-id="a-escenario-conservador">a) Escenario conservador</h4>
+<p>Usando <span class="math inline">\(p = 0.5\)</span>, que maximiza <span class="math inline">\(p(1-p)\)</span>:</p>
+<p><span class="math display">\[
+n = \frac{z^2 p(1-p)}{ME^2} = \frac{(1.96)^2 (0.25)}{(0.01)^2} \approx 9604
+\]</span></p>
+<p>Por lo tanto, se requieren aproximadamente 9,604 encuestados para garantizar el margen de error deseado en el peor caso.</p>
+</section>
+<section id="b-escenario-con-información-piloto" class="level4">
+<h4 class="anchored" data-anchor-id="b-escenario-con-información-piloto">b) Escenario con información piloto</h4>
+<p>Si el piloto sugiere <span class="math inline">\(\hat{p}_K = 0.54\)</span>:</p>
+<p><span class="math display">\[
+n = \frac{(1.96)^2 (0.54)(0.46)}{(0.01)^2} \approx 9546
+\]</span></p>
+<p>Al usar información más realista, el tamaño muestral requerido disminuye ligeramente, porque la varianza muestral <span class="math inline">\(p(1-p)\)</span> es menor cuando la proporción se aleja de 0.5.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parámetros generales</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ME <span class="ot">&lt;-</span> <span class="fl">0.01</span>              <span class="co"># margen de error 1%</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>z  <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)      <span class="co"># nivel de confianza 95%</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># (a) Escenario conservador: p = 0.5</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>p_worst <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>n_2a <span class="ot">&lt;-</span> (z<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> p_worst<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p_worst)) <span class="sc">/</span> (ME<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ceiling</span>(n_2a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9604</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (b) Con información de piloto: p̂_K = 0.54</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>p_hat <span class="ot">&lt;-</span> <span class="fl">0.54</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>n_2b <span class="ot">&lt;-</span> (z<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> p_hat<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p_hat)) <span class="sc">/</span> (ME<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ceiling</span>(n_2b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 9543</code></pre>
+</div>
+</div>
+<ul>
+<li>Con 9,600 casos (peor caso), el estudio garantiza ±1 punto porcentual al 95% de confianza.<br>
+</li>
+<li>Si el apoyo a Kast ronda 54%, bastan cerca de 9,500 casos.</li>
+</ul>
+</section>
+</section>
 </section>
 
 </main>
