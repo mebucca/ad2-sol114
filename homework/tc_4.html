@@ -229,38 +229,30 @@ n = \frac{z^2 p(1-p)}{ME^2} = \frac{(1.96)^2 (0.25)}{(0.01)^2} \approx 9604
 </section>
 <section id="b-escenario-con-información-piloto" class="level4">
 <h4 class="anchored" data-anchor-id="b-escenario-con-información-piloto">b) Escenario con información piloto</h4>
-<p>Si el piloto sugiere <span class="math inline">\(\hat{p}_K = 0.54\)</span>:</p>
-<p><span class="math display">\[
-n = \frac{(1.96)^2 (0.54)(0.46)}{(0.01)^2} \approx 9546
-\]</span></p>
-<p>Al usar información más realista, el tamaño muestral requerido disminuye ligeramente, porque la varianza muestral <span class="math inline">\(p(1-p)\)</span> es menor cuando la proporción se aleja de 0.5.</p>
+</section>
+</section>
+</section>
+<section id="b-escenario-con-información-piloto-p_k-0.5" class="level1">
+<h1>(b) Escenario con información piloto: p̂_K ≠ 0.5</h1>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Parámetros generales</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ME <span class="ot">&lt;-</span> <span class="fl">0.01</span>              <span class="co"># margen de error 1%</span></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>z  <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>)      <span class="co"># nivel de confianza 95%</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># (a) Escenario conservador: p = 0.5</span></span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>p_worst <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>n_2a <span class="ot">&lt;-</span> (z<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> p_worst<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p_worst)) <span class="sc">/</span> (ME<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a><span class="fu">ceiling</span>(n_2a)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 9604</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># (b) Con información de piloto: p̂_K = 0.54</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>p_hat <span class="ot">&lt;-</span> <span class="fl">0.54</span></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>n_2b <span class="ot">&lt;-</span> (z<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> p_hat<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p_hat)) <span class="sc">/</span> (ME<span class="sc">^</span><span class="dv">2</span>)</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="fu">ceiling</span>(n_2b)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>P_k <span class="ot">&lt;-</span> <span class="fl">0.54</span> <span class="co"># Por ejemplo, con p_k=0.4</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>ME <span class="ot">=</span> <span class="fl">0.01</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>z <span class="ot">=</span> <span class="fl">1.96</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>n_piloto <span class="ot">&lt;-</span> (z<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> P_k <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> P_k)) <span class="sc">/</span> (ME<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">ceiling</span>(n_piloto)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 9543</code></pre>
 </div>
 </div>
+<p>Si el estudio piloto sugiere una proporción distinta de 0.5, por ejemplo <span class="math inline">\(\hat{p}_K = P_k\)</span>, entonces:</p>
+<p><span class="math display">\[
+n = \frac{(1.96)^2 P_k (1 - P_k)}{(0.01)^2}
+\]</span></p>
+<p>Cuando la proporción estimada se aleja de 0.5, la varianza muestral <span class="math inline">\(p(1-p)\)</span> disminuye, reduciendo ligeramente el tamaño de muestra necesario para mantener el mismo nivel de precisión.</p>
 <ul>
-<li>Con 9,600 casos (peor caso), el estudio garantiza ±1 punto porcentual al 95% de confianza.<br>
-</li>
-<li>Si el apoyo a Kast ronda 54%, bastan cerca de 9,500 casos.</li>
+<li><p>En el escenario conservador (<span class="math inline">\(p=0.5\)</span>), se requieren cerca de 9,600 casos para un margen de error de ±1 punto porcentual al 95% de confianza.</p></li>
+<li><p>Si el valor piloto <span class="math inline">\(P_k\)</span> difiere de 0.5, el tamaño muestral requerido será necesariamente menor a 9,600 casos.</p></li>
 </ul>
-</section>
-</section>
 </section>
 
 </main>
