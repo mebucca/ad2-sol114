@@ -11,15 +11,15 @@ editor: visual
 
 Imagina una enfermedad *muy* rara y una prueba para detectarla. Estos son los datos:
 
--   Prevalencia de la enfermedad $E$: $P(E)=0.001$ (0.1%).
--   Sensibilidad: $P(T\mid E)=0.99$.
--   Falso positivo: $P(T\mid \neg E)=0.05$.
+* Prevalencia de la enfermedad \$E\$: \$P(E)=0.001\$ (0.1%).
+* Sensibilidad: \$P(T\mid E)=0.99\$.
+* Falso positivo: \$P(T\mid \neg E)=0.05\$.
 
-------------------------------------------------------------------------
+---
 
 ## 1. Probabilidad de estar enfermo dado test positivo
 
-**Pregunta.** ¿Cuál es $P(E\mid T)$? Usa el teorema de Bayes.
+**Pregunta.** ¿Cuál es \$P(E\mid T)\$? Usa el teorema de Bayes.
 
 **Solución.** Por Bayes:
 
@@ -37,15 +37,16 @@ $$
 
 **Respuesta.** La probabilidad de estar enfermo *dado* que el test salió positivo es aproximadamente **1.94%**.
 
-------------------------------------------------------------------------
+
+---
 
 ## 2. Exactamente 2 de 3 personas con la enfermedad
 
 **Pregunta.** Si elegimos 3 personas al azar, ¿cuál es la probabilidad de que **exactamente 2** tengan la enfermedad?
 
-**Modelo.** Supongamos independencia e igual probabilidad $p=P(E)=0.001$ por persona. Entonces el número de casos en $n=3$ ensayos sigue una **binomial**: $X\sim \mathrm{Bin}(n=3, p=0.001)$.
+**Modelo.** Supongamos independencia e igual probabilidad \$p=P(E)=0.001\$ por persona. Entonces el número de casos en \$n=3\$ ensayos sigue una **binomial**: \$X\sim \mathrm{Bin}(n=3, p=0.001)\$.
 
-Buscamos $P(X=2)$:
+Buscamos \$P(X=2)\$:
 
 $$
 P(X=2)=\binom{3}{2}p^2(1-p)^{1}.
@@ -56,3 +57,5 @@ Reemplazando:
 $$
 P(X=2)=3\,(0.001)^2\,(0.999)=3\times 10^{-6}\times 0.999=2.997\times 10^{-6}.
 $$
+
+

@@ -5,7 +5,6 @@ format: html
 editor: visual
 ---
 
-
 **Ponderación:** 6% de la nota final del curso.
 
 ```{r, echo=FALSE}
@@ -16,23 +15,133 @@ library("tinytex")
 
 ## Problema I — Estimación de la media poblacional
 
-Un investigador busca estimar el promedio de años de escolaridad de la población adulta en Chile. Se selecciona una muestra aleatoria de 45 personas mayores de 25 años, con un promedio muestral de 11.8 años de escolaridad y una desviación estándar muestral de 2.9 años.
+Un investigador desea estimar el promedio de años de escolaridad de las personas adultas en Chile.  
+Se selecciona una muestra aleatoria de 45 personas mayores de 25 años, obteniéndose un promedio muestral de 11.8 años de escolaridad, con una desviación estándar muestral de 2.9 años.
 
-1. Construye intervalos de confianza al 90% y al 95% para el promedio poblacional de años de escolaridad, asumiendo que la variable sigue una distribución aproximadamente normal. Explica brevemente qué significa el nivel de confianza en este contexto.
+### 1. Intervalos de confianza
+Se pide construir intervalos de confianza al 90% y 95% para el promedio poblacional de años de escolaridad, asumiendo que la variable sigue una distribución aproximadamente normal.
 
-2. Calcula la probabilidad de que una muestra de tamaño 45 produzca un promedio muestral superior a 12.5 años, si el verdadero promedio poblacional es $\mu = 11.8$ y la desviación poblacional es $\sigma = 2.9$. Interpreta el resultado de forma intuitiva.
+**Paso 1. Calcular el error estándar:**
 
+$$ SE = \frac{s}{\sqrt{n}} = \frac{2.9}{\sqrt{45}} \approx 0.432 $$
+
+**Paso 2. Determinar los valores críticos de t:**
+
+Para 90% de confianza:  $t_{0.95,44} \approx 1.68$  
+Para 95% de confianza:  $t_{0.975,44} \approx 2.015$
+
+**Paso 3. Construir los intervalos:**
+
+$$
+IC_{90} = 11.8 \pm 1.68(0.432) = [11.07, 12.53]
+$$
+
+$$
+IC_{95} = 11.8 \pm 2.015(0.432) = [10.93, 12.67]
+$$
+
+**Interpretación:** Si repitiéramos muchas veces el muestreo, el 90% (95%) de los intervalos construidos de esta forma contendrían el verdadero promedio poblacional de escolaridad.
+
+```{r}
+n <- 45
+mean_sample <- 11.8
+sd_sample <- 2.9
+SE <- sd_sample / sqrt(n)
+
+t_90 <- qt(0.95, df = n - 1)
+t_95 <- qt(0.975, df = n - 1)
+
+CI_90 <- mean_sample + c(-1,1)*t_90*SE
+CI_95 <- mean_sample + c(-1,1)*t_95*SE
+
+CI_90; CI_95
+```
+
+### 2. Probabilidad de obtener una media muestral superior a 12.5 años
+
+Supongamos que la media poblacional real es $\mu = 11.8$, con $\sigma = 2.9$ y $n = 45$.
+
+**Paso 1. Calcular el valor Z:**
+
+$$
+Z = \frac{\bar{X} - \mu}{\sigma / \sqrt{n}} = \frac{12.5 - 11.8}{2.9 / \sqrt{45}} = 1.62
+$$
+
+**Paso 2. Calcular la probabilidad:**
+
+$$
+P(\bar{X} > 12.5) = P(Z > 1.62) = 1 - \Phi(1.62) = 0.0526
+$$
+
+**Conclusión:** La probabilidad de que una muestra de 45 personas arroje un promedio mayor a 12.5 años es de aproximadamente 5.3%.
+
+```{r}
+mu <- 11.8; sigma <- 2.9; n <- 45
+z <- (12.5 - mu) / (sigma/sqrt(n))
+prob <- 1 - pnorm(z)
+prob
+```
+
+---
 
 ## Problema II — Diseño de un estudio electoral (segunda vuelta: Kast vs Jara)
 
-Una empresa de investigación ha sido contratada para diseñar una encuesta nacional que estime la proporción de intención de voto por José Antonio Kast (K) y Jeanette Jara (J) en una segunda vuelta presidencial. El cliente solicita resultados con un **margen de error máximo de 1 punto porcentual (±0.01)** al 95% de confianza.
+Una empresa de investigación ha sido contratada para diseñar una encuesta nacional que estime la proporción de intención de voto por José Antonio Kast (K) y Jeanette Jara (J) en una segunda vuelta presidencial.  
+El cliente requiere estimaciones con un **margen de error (ME)** máximo de 1 punto porcentual (±0.01) al 95% de confianza, bajo un esquema de **muestreo aleatorio simple (SRS)**.
 
 Sea $p_K$ la proporción de apoyo a Kast (y por tanto $p_J = 1 - p_K$).
 
-1. Supón que se cuenta con una **muestra piloto** de tamaño $n_0$ que entrega una estimación inicial $\hat{p}_K$. Escribe la fórmula del intervalo de confianza al 95% para $p_K$ usando la aproximación normal. Explica cómo debe interpretarse dicho intervalo desde la perspectiva del procedimiento de estimación.
+### 1. Intervalo de confianza a partir de una muestra piloto
+Si una muestra piloto de tamaño $n_0$ arroja $\hat{p}_K$, el intervalo de confianza al 95% para $p_K$ bajo la aproximación normal es:
 
-2. El cliente requiere garantizar el margen de error de 1 punto porcentual con 95% de confianza. 
+$$
+\hat{p}_K \pm z_{0.975}\sqrt{\frac{\hat{p}_K(1-\hat{p}_K)}{n_0}}
+$$
 
-a) Determina el tamaño de muestra necesario bajo un **escenario conservador** (varianza máxima).  
+**Interpretación:** Si se repitiera el muestreo muchas veces, el 95% de los intervalos construidos con este método contendrían el verdadero valor de $p_K$. No implica una probabilidad sobre el parámetro fijo, sino sobre el procedimiento de estimación.
 
-b) Repite el cálculo utilizando el resultado de la muestra piloto. Compara ambos resultados y explica por qué el tamaño requerido cambia al incorporar información previa.
+### 2. Cálculo del tamaño muestral requerido
+
+El margen de error (ME) se define como:
+
+$$
+\text{ME} = z_{0.975}\sqrt{\frac{p(1-p)}{n}} \le 0.01
+$$
+
+#### a) Escenario conservador
+Usando $p = 0.5$, que maximiza $p(1-p)$:
+
+$$
+n = \frac{z^2 p(1-p)}{ME^2} = \frac{(1.96)^2 (0.25)}{(0.01)^2} \approx 9604
+$$
+
+Por lo tanto, se requieren aproximadamente 9,604 encuestados para garantizar el margen de error deseado en el peor caso.
+
+#### b) Escenario con información piloto
+Si el piloto sugiere $\hat{p}_K = 0.54$:
+
+$$
+n = \frac{(1.96)^2 (0.54)(0.46)}{(0.01)^2} \approx 9546
+$$
+
+Al usar información más realista, el tamaño muestral requerido disminuye ligeramente, porque la varianza muestral $p(1-p)$ es menor cuando la proporción se aleja de 0.5.
+
+```{r}
+# Parámetros generales
+ME <- 0.01              # margen de error 1%
+z  <- qnorm(0.975)      # nivel de confianza 95%
+
+# (a) Escenario conservador: p = 0.5
+p_worst <- 0.5
+n_2a <- (z^2 * p_worst*(1-p_worst)) / (ME^2)
+ceiling(n_2a)
+
+# (b) Con información de piloto: p̂_K = 0.54
+p_hat <- 0.54
+n_2b <- (z^2 * p_hat*(1-p_hat)) / (ME^2)
+ceiling(n_2b)
+```
+
+- Con 9,600 casos (peor caso), el estudio garantiza ±1 punto porcentual al 95% de confianza.  
+- Si el apoyo a Kast ronda 54%, bastan cerca de 9,500 casos.  
+
