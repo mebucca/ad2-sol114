@@ -1,0 +1,51 @@
+---
+title: "Tarea corta #6"
+author: "SOL114"
+format: html
+editor: visual
+---
+
+Ponderación: 6% de la nota final del curso.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Escribir install.packages("tinytex") en la consola para instalar "tinytex"
+# Carga de librerías necesarias
+library("tinytex")
+library("stats")
+```
+
+**Regla general:** salvo que se indique lo contrario, usa siempre 99% de confianza (i.e., $\alpha = 0.01$ dos colas; para pruebas unilaterales, $\alpha = 0.01$ en la cola correspondiente).
+
+## Problema I
+
+Una investigadora desea evaluar si el tiempo promedio (minutos) para completar una tarea supera los 70 minutos. Se toma una muestra aleatoria simple de tamaño $n=36$, con promedio muestral $\bar{x}=72.4$. Además, se entrega la estimación sesgada de la varianza poblacional:
+
+$$
+\hat{\sigma}_n^2 = \frac{1}{n}\sum_{i=1}^n (x_i-\bar{x})^2 = 100.
+$$
+
+Se pide testear, al 1% de significación (prueba unilateral derecha):
+
+
+## Problema II 
+
+Con los mismos datos del Problema I, construye el intervalo de confianza del 99% para $\mu$ e interpreta el resultado. ¿Qué nos dice sobre la hipótesis que queríamos testear en la pregunta anterior?
+
+
+## Problema III 
+
+Usaremos la base `mtcars` (incluida en R). La variable `am` indica el tipo de transmisión: `0 = automática`, `1 = manual`. Define "éxito" = transmisión manual.
+
+```{r}
+# Cargar datos 
+data(mtcars)
+mtcars <- mtcars
+head(mtcars)
+```
+
+**Plantea y responde:**
+
+1.  **Estimación desde datos.** Calcula $n$, el número de "éxitos" $x$ y $\hat{p}=x/n$.
+2.  **Test de hipótesis al 1% (dos colas):** $$ H_0: p=0.5 \quad \text{vs} \quad H_1: p\neq 0.5. $$
+3.  **IC del 99% para** $p$.
+4.  **Interpreta** ambos resultados en lenguaje simple.
