@@ -128,29 +128,77 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <ol type="1">
-<li><p>Calcula la proporción de individuos que pretenden votar NO en el plebiscito.</p></li>
-<li><p>Calcula un intervalo al 96% de confianza para la proporción estimada usando dos métodos: a) cálculo analítica basado en aproxinacion normal y b) método de bootstrap.</p></li>
-<li><p>¿Que conclusión sustantiva podemos sacar en vista de los resultados obtenidos?</p></li>
-<li><p>Verdadero o Falso</p></li>
+<li>Calcula la proporción de individuos que pretenden votar NO en el plebiscito.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>p_hat <span class="ot">&lt;-</span> <span class="fu">mean</span>(data_plebiscito89<span class="sc">$</span>voto_no, <span class="at">na.rm=</span>T)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Proporción muestral ="</span>, <span class="fu">round</span>(<span class="fu">mean</span>(p_hat),<span class="dv">2</span>));</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Proporción muestral = 0.51</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>Calcula un intervalo al 96% de confianza para la proporción estimada usando dos métodos: a) cálculo analítica basado en aproxinacion normal y b) método de bootstrap.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"----- Calculo analítico -----"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>----- Calculo analítico -----</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>n  <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(data_plebiscito89<span class="sc">$</span>voto_no))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(p_hat<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>p_hat)<span class="sc">/</span>n) </span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>ci <span class="ot">&lt;-</span> p_hat <span class="sc">+</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>)<span class="sc">*</span><span class="fu">qnorm</span>(.<span class="dv">98</span>)<span class="sc">*</span>se</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"IC al 96% ="</span>, <span class="fu">round</span>(ci,<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>IC al 96% = 0.48 0.53</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"----- Bootstrap -----"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>----- Bootstrap -----</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>bs_p <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>bs <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>  bs_sample <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(data_plebiscito89, <span class="fu">nrow</span>(data_plebiscito89), <span class="at">replace=</span>T)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>  bs_p <span class="ot">&lt;-</span> <span class="fu">mean</span>(bs_sample<span class="sc">$</span>voto_no, <span class="at">na.rm=</span>T)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>bs_sampdist <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">n=</span><span class="dv">1000</span>,<span class="fu">bs</span>())</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">"Bootstrap IC al 96% ="</span>, <span class="fu">round</span>(<span class="fu">quantile</span>(bs_sampdist, <span class="at">p=</span><span class="fu">c</span>(<span class="fl">0.02</span>,<span class="fl">0.98</span>)),<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Bootstrap IC al 96% = 0.48 0.53</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>¿Que conclusión sustantiva podemos sacar en vista de los resultados obtenidos?</li>
+</ol>
+<p>El intervalo de confianza del 96% se extiende desde el 48% hasta el 53%, lo que incluye la posibilidad de que la proporción real de votos “SÍ” sea mayor que la de votos “NO”. Por lo tanto, no podemos estar seguros de que el “NO” ganaría, ya que el intervalo de confianza incluye el umbral del 50% que se requiere para ganar el plebiscito.</p>
+<ol start="4" type="1">
+<li>Verdadero o Falso</li>
 </ol>
 <p><strong>1.</strong> Si un intervalo de confianza del 95% para la media poblacional incluye el número 50, esto significa que hay una probabilidad del 95% de que la verdadera media poblacional sea 50.</p>
 <ul class="task-list">
 <li><label><input type="checkbox">Verdadero</label></li>
-<li><label><input type="checkbox">Falso</label></li>
+<li><label><input type="checkbox" checked="">Falso</label></li>
 </ul>
+<p>Esta es una interpretación común pero incorrecta de los intervalos de confianza.</p>
+<p>Un intervalo de confianza del 95% para la media poblacional que incluye el número 50 no significa que haya una probabilidad del 95% de que la verdadera media poblacional sea 50. Lo que significa es que, si tomáramos muchas muestras y calculáramos un intervalo de confianza del 95% a partir de cada una de ellas, esperaríamos que aproximadamente el 95% de esos intervalos contengan la verdadera media poblacional.</p>
 <p><strong>2.</strong> Si tomaramos repetidamente 100,000 muestras generadas de la misma manera y calculáramos un intervalo de confianza al 90% para cada muestra, esperaríamos que alrededor de 90,000 de esos intervalos contengan el verdadero parámetro poblacional.</p>
 <ul class="task-list">
-<li><label><input type="checkbox">Verdadero</label></li>
+<li><label><input type="checkbox" checked="">Verdadero</label></li>
 <li><label><input type="checkbox">Falso</label></li>
 </ul>
 <p><strong>3.</strong> Un intervalo de confianza del 99% para una proporción poblacional siempre será más amplio que un intervalo de confianza del 95% para la misma proporción poblacional, suponiendo que se calculen a partir de la misma muestra.</p>
 <ul class="task-list">
-<li><label><input type="checkbox">Verdadero</label></li>
+<li><label><input type="checkbox" checked="">Verdadero</label></li>
 <li><label><input type="checkbox">Falso</label></li>
 </ul>
 <p><strong>4.</strong> Si el error estándar de una media muestral es cero, significa que todas las muestras tomadas de la población tendrán la misma media.</p>
 <ul class="task-list">
-<li><label><input type="checkbox">Verdadero</label></li>
+<li><label><input type="checkbox" checked="">Verdadero</label></li>
 <li><label><input type="checkbox">Falso</label></li>
 </ul>
 
