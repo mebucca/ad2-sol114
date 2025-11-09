@@ -1,8 +1,7 @@
 ---
 title: "Probabilidad e Inferencia Estadística"
-subtitle: "#21: Asociación estadística y causalidad"
+subtitle: "Asociación estadística y causalidad"
 author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -119,7 +118,7 @@ _"Fumar causa cáncer"_
 ## Causas y efecto: mundos paralelos
 
 .pull-left[
-![](https://www.neoteo.com/wp-content/uploads/2024/06/logo-33-758x707.jpg)
+![](https://static01.nyt.com/images/2008/10/07/business/07adco_450.jpg?quality=75&auto=webp&disable=upscale)
 ]
 .pull-right[
 
@@ -143,7 +142,7 @@ Ejemplo: "Pedro fuma"
 ## Asociación estadística: el mundo observado
 
 .pull-left[
-![](https://www.neoteo.com/wp-content/uploads/2024/06/logo-33-758x707.jpg)
+![](https://static01.nyt.com/images/2008/10/07/business/07adco_450.jpg?quality=75&auto=webp&disable=upscale)
 ]
 .pull-right[
 
@@ -174,7 +173,7 @@ Concomitacia de eventos:
 ## Asociación estadística: el mundo observado
 
 .pull-left[
-![](https://www.neoteo.com/wp-content/uploads/2024/06/logo-33-758x707.jpg)
+![](https://static01.nyt.com/images/2008/10/07/business/07adco_450.jpg?quality=75&auto=webp&disable=upscale)
 ]
 .pull-right[
 
