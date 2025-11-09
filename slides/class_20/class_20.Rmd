@@ -1,8 +1,7 @@
 ---
 title: "Probabilidad e Inferencia Estadística"
-subtitle: "#20: Test de Hipótesis en dos muestras"
+subtitle: "Test de Hipótesis en dos muestras"
 author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
