@@ -6,7 +6,6 @@ editor: visual
 ---
 
 Ponderación: 6% de la nota final del curso.
-
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 # Escribir install.packages("tinytex") en la consola para instalar "tinytex"
 # Carga de librerías necesarias
@@ -16,7 +15,7 @@ library("stats")
 
 **Regla general:** salvo que se indique lo contrario, usa siempre 99% de confianza (i.e., $\alpha = 0.01$ dos colas; para pruebas unilaterales, $\alpha = 0.01$ en la cola correspondiente).
 
-## Problema I
+## Problema I 
 
 Una investigadora desea evaluar si el tiempo promedio (minutos) para completar una tarea supera los 70 minutos. Se toma una muestra aleatoria simple de tamaño $n=36$, con promedio muestral $\bar{x}=72.4$. Además, se entrega la estimación sesgada de la varianza poblacional:
 
@@ -26,13 +25,75 @@ $$
 
 Se pide testear, al 1% de significación (prueba unilateral derecha):
 
+$$
+H_0: \mu=70 \quad\text{vs}\quad H_1: \mu>70.
+$$
 
-## Problema II 
+**Pasos:**
+
+1. Corrige $\hat{\sigma}_n^2$ a $s^2$ e informa $s=\sqrt{s^2}$.
+2. Calcula el estadístico de prueba $t=\dfrac{\bar{x}-\mu_0}{s/\sqrt{n}}$ con $df=n-1$.
+3. Obtén el valor crítico $t_{0.99, df}$ (cola derecha) y/o el p-valor.
+4. Concluye en términos del problema.
+```{r}
+# Datos del problema
+n  <- 36
+xbar <- 72.4
+s2_biased <- 100              # s_n^2 (sesgada, denom. n)
+mu0 <- 70
+
+# 1. Corrección a varianza insesgada
+s2_unbiased <- (n/(n-1)) * s2_biased
+s <- sqrt(s2_unbiased)
+df <- n - 1
+
+# 2. Estadístico de prueba t
+t_stat <- (xbar - mu0) / (s/sqrt(n))
+
+# 3. Valor crítico y p-valor (test unilateral derecha al 1%)
+t_crit_right_1pct <- qt(0.99, df = df)  # valor crítico cola derecha
+p_value <- 1 - pt(t_stat, df = df)      # p-valor unilateral derecha
+
+# Resultados
+list(s2_unbiased = s2_unbiased,
+     s = s,
+     df = df,
+     t_stat = t_stat,
+     t_crit_right_1pct = t_crit_right_1pct,
+     p_value = p_value)
+```
+
+**Conclusión:** Como $t_{obs} =$ `r round(t_stat, 3)` `r if(t_stat > t_crit_right_1pct) ">" else "<"` $t_{crítico} =$ `r round(t_crit_right_1pct, 3)` y el p-valor = `r round(p_value, 4)` `r if(p_value < 0.01) "<" else ">"` 0.01, `r if(p_value < 0.01) "rechazamos" else "no rechazamos"` $H_0$. `r if(p_value < 0.01) "Existe evidencia significativa de que el tiempo promedio supera los 70 minutos." else "No hay evidencia suficiente para afirmar que el tiempo promedio supera los 70 minutos."`
+
+---
+
+## Problema II — Intervalo de confianza del 99% para la media
 
 Con los mismos datos del Problema I, construye el intervalo de confianza del 99% para $\mu$ e interpreta el resultado. ¿Qué nos dice sobre la hipótesis que queríamos testear en la pregunta anterior?
+```{r}
+# IC del 99% para la media con sigma^2 desconocida
+n  <- 36
+xbar <- 72.4
+s2_biased <- 100
+s2_unbiased <- (n/(n-1)) * s2_biased
+s <- sqrt(s2_unbiased)
+df <- n - 1
 
+# Nivel 99% -> cuantiles 0.995 (dos colas)
+t_99 <- qt(0.995, df = df)
+ME_99 <- t_99 * (s/sqrt(n))
+CI99 <- c(xbar - ME_99, xbar + ME_99)
 
-## Problema III 
+list(t_99 = t_99,
+     margen_error = ME_99,
+     IC_99 = CI99)
+```
+
+**Interpretación:** Con 99% de confianza, el tiempo promedio poblacional se encuentra entre `r round(CI99[1], 2)` y `r round(CI99[2], 2)` minutos. Como el valor 70 minutos `r if(70 < CI99[1]) "está por debajo del" else if(70 > CI99[2]) "está por encima del" else "está contenido en el"` intervalo, esto `r if(70 < CI99[1]) "confirma" else if(70 > CI99[2]) "contradice" else "es consistente con no rechazar"` el resultado del test del Problema I.
+
+---
+
+## Problema III — Proporción con datos reales de R: test e IC (99%)
 
 Usaremos la base `mtcars` (incluida en R). La variable `am` indica el tipo de transmisión: `0 = automática`, `1 = manual`. Define "éxito" = transmisión manual.
 
@@ -45,7 +106,44 @@ head(mtcars)
 
 **Plantea y responde:**
 
-1.  **Estimación desde datos.** Calcula $n$, el número de "éxitos" $x$ y $\hat{p}=x/n$.
-2.  **Test de hipótesis al 1% (dos colas):** $$ H_0: p=0.5 \quad \text{vs} \quad H_1: p\neq 0.5. $$
-3.  **IC del 99% para** $p$.
-4.  **Interpreta** ambos resultados en lenguaje simple.
+1. **Estimación desde datos.** Calcula $n$, el número de "éxitos" $x$ y $\hat{p}=x/n$.
+2. **Test de hipótesis al 1% (dos colas):**
+   $$ H_0: p=0.5 \quad \text{vs} \quad H_1: p\neq 0.5. $$
+   * Calcula el estadístico Z con la varianza bajo $H_0$ y su p-valor (aprox. normal).
+3. **IC del 99% para $p$.** 
+4. **Interpreta** ambos resultados en lenguaje simple.
+
+```{r}
+#Construir estimadores
+y <- mtcars$am                 # 0 = automática, 1 = manual
+n <- length(y)
+x <- sum(y == 1)
+phat <- x / n
+
+# Test H0: p = 0.5 vs H1: p != 0.5 al 1% (dos colas)
+p0 <- 0.50
+SE0 <- sqrt(p0 * (1 - p0) / n)
+z_stat <- (phat - p0) / SE0
+p_val_norm <- 2 * (1 - pnorm(abs(z_stat)))
+
+# IC Wald 99%
+SE_hat <- sqrt(phat * (1 - phat) / n)
+z_99 <- qnorm(0.995)  # 99% -> 0.5% en cada cola
+CI_wald_99 <- c(phat - z_99 * SE_hat, phat + z_99 * SE_hat)
+
+# Resultados
+list(n = n, 
+     x = x, 
+     phat = round(phat, 4),
+     z_stat = round(z_stat, 4), 
+     p_val_norm = round(p_val_norm, 4),
+     CI_wald_99 = round(CI_wald_99, 4))
+```
+
+**Interpretación:**
+
+- **Datos:** De $n =$ `r n` vehículos, `r x` tienen transmisión manual, lo que resulta en $\hat{p} =$ `r round(phat, 3)`.
+
+- **Test de hipótesis:** El estadístico $Z =$ `r round(z_stat, 3)` con p-valor = `r round(p_val_norm, 4)` (aproximación normal). Al 1% de significación, no rechazamo $H_0$. No hay evidencia suficiente para afirmar que la proporción difiere de 0.5.
+
+- **Intervalo de confianza:** El IC del 99%  es [`r round(CI_wald_99[1], 3)`, `r round(CI_wald_99[2], 3)`]. Con 99% de confianza, la verdadera proporción de transmisiones manuales se encuentra en este rango.

@@ -143,19 +143,107 @@ window.Quarto = {
 \hat{\sigma}_n^2 = \frac{1}{n}\sum_{i=1}^n (x_i-\bar{x})^2 = 100.
 \]</span></p>
 <p>Se pide testear, al 1% de significación (prueba unilateral derecha):</p>
+<p><span class="math display">\[
+H_0: \mu=70 \quad\text{vs}\quad H_1: \mu&gt;70.
+\]</span></p>
+<p><strong>Pasos:</strong></p>
+<ol type="1">
+<li>Corrige <span class="math inline">\(\hat{\sigma}_n^2\)</span> a <span class="math inline">\(s^2\)</span> e informa <span class="math inline">\(s=\sqrt{s^2}\)</span>.</li>
+<li>Calcula el estadístico de prueba <span class="math inline">\(t=\dfrac{\bar{x}-\mu_0}{s/\sqrt{n}}\)</span> con <span class="math inline">\(df=n-1\)</span>.</li>
+<li>Obtén el valor crítico <span class="math inline">\(t_{0.99, df}\)</span> (cola derecha) y/o el p-valor.</li>
+<li>Concluye en términos del problema.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Datos del problema</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>n  <span class="ot">&lt;-</span> <span class="dv">36</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>xbar <span class="ot">&lt;-</span> <span class="fl">72.4</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>s2_biased <span class="ot">&lt;-</span> <span class="dv">100</span>              <span class="co"># s_n^2 (sesgada, denom. n)</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>mu0 <span class="ot">&lt;-</span> <span class="dv">70</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Corrección a varianza insesgada</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>s2_unbiased <span class="ot">&lt;-</span> (n<span class="sc">/</span>(n<span class="dv">-1</span>)) <span class="sc">*</span> s2_biased</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(s2_unbiased)</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> n <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. Estadístico de prueba t</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>t_stat <span class="ot">&lt;-</span> (xbar <span class="sc">-</span> mu0) <span class="sc">/</span> (s<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. Valor crítico y p-valor (test unilateral derecha al 1%)</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>t_crit_right_1pct <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.99</span>, <span class="at">df =</span> df)  <span class="co"># valor crítico cola derecha</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(t_stat, <span class="at">df =</span> df)      <span class="co"># p-valor unilateral derecha</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a><span class="co"># Resultados</span></span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">s2_unbiased =</span> s2_unbiased,</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>     <span class="at">s =</span> s,</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">df =</span> df,</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">t_stat =</span> t_stat,</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>     <span class="at">t_crit_right_1pct =</span> t_crit_right_1pct,</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a>     <span class="at">p_value =</span> p_value)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$s2_unbiased
+[1] 102.8571
+
+$s
+[1] 10.14185
+
+$df
+[1] 35
+
+$t_stat
+[1] 1.419859
+
+$t_crit_right_1pct
+[1] 2.437723
+
+$p_value
+[1] 0.08224757</code></pre>
+</div>
+</div>
+<p><strong>Conclusión:</strong> Como <span class="math inline">\(t_{obs} =\)</span> 1.42 &lt; <span class="math inline">\(t_{crítico} =\)</span> 2.438 y el p-valor = 0.0822 &gt; 0.01, no rechazamos <span class="math inline">\(H_0\)</span>. No hay evidencia suficiente para afirmar que el tiempo promedio supera los 70 minutos.</p>
+<hr>
 </section>
-<section id="problema-ii" class="level2">
-<h2 class="anchored" data-anchor-id="problema-ii">Problema II</h2>
+<section id="problema-ii-intervalo-de-confianza-del-99-para-la-media" class="level2">
+<h2 class="anchored" data-anchor-id="problema-ii-intervalo-de-confianza-del-99-para-la-media">Problema II — Intervalo de confianza del 99% para la media</h2>
 <p>Con los mismos datos del Problema I, construye el intervalo de confianza del 99% para <span class="math inline">\(\mu\)</span> e interpreta el resultado. ¿Qué nos dice sobre la hipótesis que queríamos testear en la pregunta anterior?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># IC del 99% para la media con sigma^2 desconocida</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>n  <span class="ot">&lt;-</span> <span class="dv">36</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>xbar <span class="ot">&lt;-</span> <span class="fl">72.4</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>s2_biased <span class="ot">&lt;-</span> <span class="dv">100</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>s2_unbiased <span class="ot">&lt;-</span> (n<span class="sc">/</span>(n<span class="dv">-1</span>)) <span class="sc">*</span> s2_biased</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>s <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(s2_unbiased)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> n <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Nivel 99% -&gt; cuantiles 0.995 (dos colas)</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>t_99 <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.995</span>, <span class="at">df =</span> df)</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>ME_99 <span class="ot">&lt;-</span> t_99 <span class="sc">*</span> (s<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>CI99 <span class="ot">&lt;-</span> <span class="fu">c</span>(xbar <span class="sc">-</span> ME_99, xbar <span class="sc">+</span> ME_99)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">t_99 =</span> t_99,</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>     <span class="at">margen_error =</span> ME_99,</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>     <span class="at">IC_99 =</span> CI99)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$t_99
+[1] 2.723806
+
+$margen_error
+[1] 4.604072
+
+$IC_99
+[1] 67.79593 77.00407</code></pre>
+</div>
+</div>
+<p><strong>Interpretación:</strong> Con 99% de confianza, el tiempo promedio poblacional se encuentra entre 67.8 y 77 minutos. Como el valor 70 minutos está contenido en el intervalo, esto es consistente con no rechazar el resultado del test del Problema I.</p>
+<hr>
 </section>
-<section id="problema-iii" class="level2">
-<h2 class="anchored" data-anchor-id="problema-iii">Problema III</h2>
+<section id="problema-iii-proporción-con-datos-reales-de-r-test-e-ic-99" class="level2">
+<h2 class="anchored" data-anchor-id="problema-iii-proporción-con-datos-reales-de-r-test-e-ic-99">Problema III — Proporción con datos reales de R: test e IC (99%)</h2>
 <p>Usaremos la base <code>mtcars</code> (incluida en R). La variable <code>am</code> indica el tipo de transmisión: <code>0 = automática</code>, <code>1 = manual</code>. Define “éxito” = transmisión manual.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar datos </span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>mtcars <span class="ot">&lt;-</span> mtcars</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Cargar datos </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(mtcars)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>mtcars <span class="ot">&lt;-</span> mtcars</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(mtcars)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
 Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
@@ -169,10 +257,64 @@ Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre
 <p><strong>Plantea y responde:</strong></p>
 <ol type="1">
 <li><strong>Estimación desde datos.</strong> Calcula <span class="math inline">\(n\)</span>, el número de “éxitos” <span class="math inline">\(x\)</span> y <span class="math inline">\(\hat{p}=x/n\)</span>.</li>
-<li><strong>Test de hipótesis al 1% (dos colas):</strong> <span class="math display">\[ H_0: p=0.5 \quad \text{vs} \quad H_1: p\neq 0.5. \]</span></li>
-<li><strong>IC del 99% para</strong> <span class="math inline">\(p\)</span>.</li>
+<li><strong>Test de hipótesis al 1% (dos colas):</strong> <span class="math display">\[ H_0: p=0.5 \quad \text{vs} \quad H_1: p\neq 0.5. \]</span>
+<ul>
+<li>Calcula el estadístico Z con la varianza bajo <span class="math inline">\(H_0\)</span> y su p-valor (aprox. normal).</li>
+</ul></li>
+<li><strong>IC del 99% para <span class="math inline">\(p\)</span>.</strong></li>
 <li><strong>Interpreta</strong> ambos resultados en lenguaje simple.</li>
 </ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Construir estimadores</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>am                 <span class="co"># 0 = automática, 1 = manual</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(y)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">sum</span>(y <span class="sc">==</span> <span class="dv">1</span>)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>phat <span class="ot">&lt;-</span> x <span class="sc">/</span> n</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Test H0: p = 0.5 vs H1: p != 0.5 al 1% (dos colas)</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>p0 <span class="ot">&lt;-</span> <span class="fl">0.50</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>SE0 <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(p0 <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> p0) <span class="sc">/</span> n)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>z_stat <span class="ot">&lt;-</span> (phat <span class="sc">-</span> p0) <span class="sc">/</span> SE0</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>p_val_norm <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(<span class="fu">abs</span>(z_stat)))</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co"># IC Wald 99%</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>SE_hat <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(phat <span class="sc">*</span> (<span class="dv">1</span> <span class="sc">-</span> phat) <span class="sc">/</span> n)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>z_99 <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.995</span>)  <span class="co"># 99% -&gt; 0.5% en cada cola</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>CI_wald_99 <span class="ot">&lt;-</span> <span class="fu">c</span>(phat <span class="sc">-</span> z_99 <span class="sc">*</span> SE_hat, phat <span class="sc">+</span> z_99 <span class="sc">*</span> SE_hat)</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Resultados</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="fu">list</span>(<span class="at">n =</span> n, </span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>     <span class="at">x =</span> x, </span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>     <span class="at">phat =</span> <span class="fu">round</span>(phat, <span class="dv">4</span>),</span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>     <span class="at">z_stat =</span> <span class="fu">round</span>(z_stat, <span class="dv">4</span>), </span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>     <span class="at">p_val_norm =</span> <span class="fu">round</span>(p_val_norm, <span class="dv">4</span>),</span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>     <span class="at">CI_wald_99 =</span> <span class="fu">round</span>(CI_wald_99, <span class="dv">4</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>$n
+[1] 32
+
+$x
+[1] 13
+
+$phat
+[1] 0.4062
+
+$z_stat
+[1] -1.0607
+
+$p_val_norm
+[1] 0.2888
+
+$CI_wald_99
+[1] 0.1826 0.6299</code></pre>
+</div>
+</div>
+<p><strong>Interpretación:</strong></p>
+<ul>
+<li><p><strong>Datos:</strong> De <span class="math inline">\(n =\)</span> 32 vehículos, 13 tienen transmisión manual, lo que resulta en <span class="math inline">\(\hat{p} =\)</span> 0.406.</p></li>
+<li><p><strong>Test de hipótesis:</strong> El estadístico <span class="math inline">\(Z =\)</span> -1.061 con p-valor = 0.2888 (aproximación normal). Al 1% de significación, no rechazamo <span class="math inline">\(H_0\)</span>. No hay evidencia suficiente para afirmar que la proporción difiere de 0.5.</p></li>
+<li><p><strong>Intervalo de confianza:</strong> El IC del 99% es [0.183, 0.63]. Con 99% de confianza, la verdadera proporción de transmisiones manuales se encuentra en este rango.</p></li>
+</ul>
 </section>
 
 </main>
