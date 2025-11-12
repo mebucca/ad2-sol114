@@ -1,8 +1,7 @@
 ---
 title: "Probabilidad e Inferencia Estadística"
-subtitle: "#22: Asociación entre variables categóricas"
+subtitle: "Asociación entre variables categóricas"
 author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -281,56 +280,57 @@ library(ggplot2)
 library(dplyr)
 library(ggExtra)
 library(gridExtra)
+library(grid)
 
-# Create all possible combinations of two discrete variables x and y
-n_categories <- 5  # Number of categories for each variable, from 0 to 30
-n_trials <- 3  # Number of trials for the binomial distribution
-prob_x <- 0.6  # Success probability for x in the binomial distribution
-prob_y_given_x <- 0.7  # Success probability for y given x in the binomial distribution
+# Parameters
+n_categories <- 5  
+n_trials <- 3  
+prob_x <- 0.6  
+prob_y_given_x <- 0.7  
 
 x <- 0:(n_categories - 1)
 y <- 0:(n_categories - 1)
 
-# Create a dataframe with all combinations of x and y
+# Grid and simulated values
 data_grid <- expand.grid(x = x, y = y)
-
-# Simulate a 3D bell shape using the binomial distribution for both x and y
 data_grid$z <- dbinom(data_grid$x, size = n_trials, prob = prob_x) * 
                dbinom(data_grid$y, size = n_trials, prob = prob_y_given_x)
 
-
-# Create the main heatmap
+# Main heatmap
 p_main <- ggplot(data_grid, aes(x = x, y = y)) +
   geom_tile(aes(fill = z), color = "black", width = 1, height = 1) +
   scale_fill_gradient(low = "#FDDDE6", high = "#C80815") +
   theme_minimal() +
-  labs(
-    title = "",
-    x = "",
-    y = "",
-    fill = "Density"
-  ) +
+  labs(x = "", y = "", fill = "Density") +
   theme(
-    axis.text.x = element_blank(),
-    axis.text.y = element_blank(),
+    axis.text = element_blank(),
     axis.ticks = element_blank(),
     legend.position = "none"
   )
 
-# Create the marginal density plot for X and rotate it by 90 degrees
-p_x <- ggplot(data_grid %>% group_by(x) %>% summarise(z = sum(z)), aes(x = x, y = z)) +
+# Marginals
+p_x <- data_grid %>%
+  group_by(x) %>%
+  summarise(z = sum(z)) %>%
+  ggplot(aes(x = x, y = z)) +
   geom_col(fill = "#FDDDE6") +
   coord_flip() +
-  theme_void()  # Remove grid and axis labels
+  theme_void()
 
-# Create the marginal density plot for Y
-p_y <- ggplot(data_grid %>% group_by(y) %>% summarise(z = sum(z)), aes(x = y, y = z)) +
+p_y <- data_grid %>%
+  group_by(y) %>%
+  summarise(z = sum(z)) %>%
+  ggplot(aes(x = y, y = z)) +
   geom_col(fill = "#FDDDE6") +
-  theme_void()  # Remove grid and axis labels
+  theme_void()
 
-# Combine all plots
-grid.arrange(p_y, NULL, p_main, p_x, ncol = 2, nrow = 2, widths = c(4, 1), heights = c(1, 4))
-
+# Combine plots
+grid.arrange(
+  p_y, grid::nullGrob(),
+  p_main, p_x,
+  ncol = 2, nrow = 2,
+  widths = c(4, 1), heights = c(1, 4)
+)
 ```
 ]
 
