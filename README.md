@@ -69,7 +69,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | Tarea corta 5 | 13 octubre | 20 octubre | [`[TC5]`](https://mebucca.github.io/ad2-sol114/homework/tc_5#1) [`[TC5.qmd]`](homework/tc_5.qmd) |
 | Tarea corta 6 | 20 octubre | 27 octubre | [`[TC6]`](https://mebucca.github.io/ad2-sol114/homework/tc_6#1) [`[TC6.qmd]`](homework/tc_6.qmd) |
 | Prueba 2      |            |         |          |
-| Tarea corta 7 |            |         |          |
+| Tarea corta 7 | 17 noviembre | 24 noviembre | [`[TC7]`](https://mebucca.github.io/ad2-sol114/homework/tc_7#1) [`[TC7.qmd]`](homework/tc_7.qmd) |
 | Prueba Bonus  |            |         |          |
 | Examen final  |            |         |          |
 
