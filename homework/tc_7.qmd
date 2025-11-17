@@ -1,0 +1,56 @@
+---
+title: "Tarea corta #7"
+author: "SOL114"
+format: html
+editor: visual
+---
+
+Ponderación: 6% de la nota final del curso.
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE}
+# Escribir install.packages("tinytex") en la consola para instalar "tinytex"
+# Carga de librerías necesarias
+library("tinytex")
+library("stats")
+```
+
+Los resultados de la primaria presidencial del pasado 16 de noviembre en Chile arrojaron los siguentes recuentos de voto (Jeannette Jara, José Antonio Kast, Otros candidatos) segun lugar de residencia (Región Metropolitana vs. resto del país):
+
+-   Región Metropolitana (RM)
+
+    -   Jara: 1.552.049 votos
+    -   Kast: 1.087.598 votos
+    -   Otros: 2.345.187 votos
+
+-   Resto del país (No RM)
+
+    -   Jara: 1.924.566 votos
+    -   Kast: 2.010.119 votos
+    -   Otros: 4.030.196 votos
+
+El siguiente **código en R** construye la tabla de contingencia correspondiente a estos datos:
+
+```{r}
+tab <- matrix(
+  c(1552049, 1087598, 2345187,   # RM
+    1924566, 2010119, 4030196),  # No RM
+  nrow = 2, byrow = TRUE,
+  dimnames = list(
+    region = c("RM", "No_RM"),
+    voto   = c("Jara", "Kast", "Otros")
+  )
+)
+print(tab)
+```
+
+Con esta tabla:
+
+1.  Evalúe si existe independencia estadística entre lugar de residencia (RM / No RM) y la opción de voto (Jara / Kast / Otros) usando un test chi-cuadrado.
+
+    -   Calcule manualmente en R cada paso: totales de fila y columna, frecuencias esperadas, componentes del chi-cuadrado, estadístico de prueba, grados de libertad y valor-*p*. No utilice `chisq.test()` en esta parte.
+    -   Luego, compare su resultado con el obtenido usando `chisq.test()`.
+    -   Muestre y comente brevemente cada resultado parcial.
+
+
+2.  ¿Es posible interpretar los resultados como evidencia de un efecto causal (o ausencia de efecto) del lugar de residencia sobre el voto? Justifique su respuesta.
+
