@@ -1,8 +1,7 @@
 ---
 title: "Probabilidad e Inferencia Estadística"
-subtitle: "#22: Asociación entre variables categóricas"
+subtitle: "Asociación entre variables categóricas"
 author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
-date: "`r format(Sys.time(), '%d %B, %Y')`"
 output:
   xaringan::moon_reader:
     lib_dir: libs
@@ -241,15 +240,15 @@ plot <- ggplot(data = mydata, mapping = aes(x = x)) +
     title = "Probability function Chi^2 con df=6"
   ) +
   geom_vline(xintercept = our_chi2, color = "#007FFF", size = 1.5) +
-  annotate(
-    geom = "text",
-    x = our_chi2 + 0.9,
-    y = 0.2,
-    label = expression(paste(hat(t), " = 6.02")),
-    color = "black",
-    parse = TRUE,
-    size = 6
-  ) +
+  #annotate(
+  #  geom = "text",
+  #  x = our_chi2 + 0.9,
+  #  y = 0.2,
+  #  label = expression(paste(hat(t), " = 6.02")),
+  #  color = "black",
+  #  parse = TRUE,
+  #  size = 6
+  #) +
   theme_minimal() +
   theme(
     axis.text.y = element_text(size = 22),
@@ -303,15 +302,15 @@ plot <- ggplot(data = mydata, mapping = aes(x = x)) +
     title = "Probability function Chi^2 con df=6"
   ) +
   geom_vline(xintercept = our_chi2, color = "#007FFF", size = 1.5) +
-  annotate(
-    geom = "text",
-    x = our_chi2 + 0.9,
-    y = 0.2,
-    label = expression(paste(hat(t), " = 6.02")),
-    color = "black",
-    parse = TRUE,
-    size = 6
-  ) +
+#  annotate(
+#    geom = "text",
+#    x = our_chi2 + 0.9,
+#    y = 0.2,
+#    label = expression(paste(hat(t), " = 6.02")),
+#    color = "black",
+#    parse = TRUE,
+#    size = 6
+#  ) +
   theme_minimal() +
   theme(
     axis.text.y = element_text(size = 22),

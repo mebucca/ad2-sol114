@@ -31,7 +31,7 @@ class: inverse, center, middle
 
 
 # Asociación entre variables continuas
-## Covarianza
+## Covarianza y Correlación
 
 ---
 ## Brechas de ingresos entre hombres y mujeres
@@ -54,7 +54,7 @@ class: inverse, center, middle
 
 .center[
 
-![](class_24_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
+![](class_25_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
 ]
 
 &lt;br&gt;
@@ -74,7 +74,7 @@ class: inverse, center, middle
 
 .center[
 
-![](class_24_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
+![](class_25_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
 ]
 
 --
@@ -95,7 +95,7 @@ class: inverse, center, middle
 .bold[Asociación positiva]
 
 .center[
-![](class_24_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
+![](class_25_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
 ]
 ]
 
@@ -105,7 +105,7 @@ class: inverse, center, middle
 .bold[Aociación perfecta (e=mc^2)]
 
 .center[
-![](class_24_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
+![](class_25_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
 ]
 ]
 
@@ -167,7 +167,7 @@ En promedio, ¿cuánto y cómo se desvía `\(X\)` respecto de su media, cuando `
 
 .center[
 
-![](class_24_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
+![](class_25_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
 
 ]
 
@@ -261,7 +261,7 @@ Podemos estimar la covianza a partir de datos muestrales usando la siguiente fó
 .bold[Hombres]
 
 .center[
-![](class_24_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
+![](class_25_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
 ]
 ]
 
@@ -271,7 +271,7 @@ Podemos estimar la covianza a partir de datos muestrales usando la siguiente fó
 .bold[Mujeres]
 
 .center[
-![](class_24_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+![](class_25_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
 ]
 ]
 
@@ -312,11 +312,169 @@ Podemos estimar la covianza a partir de datos muestrales usando la siguiente fó
 - Por tanto, el número obtenido no indica inequivocamente la fuerza de la asociación
 
 
+
 ---
 class: inverse, center, middle
 
 
-##Hasta la próxima clase. Gracias!
+#Correlación de Pearson
+
+
+---
+##Correlación de Pearson
+
+
+- ¿Cómo podemos medir el grado de asociación entre dos variables, libre de sus escala?
+
+
+--
+
+- .bold[Solución:] Estandarizar. En vez de calcular `\(\mathbb{Cov}(X, Y)\)` calculamos `\(\mathbb{Cov}(Z_X, Z_Y)\)`. Formalmente,
+
+
+&lt;br&gt;
+--
+
+
+$$
+`\begin{align}
+\mathbb{Cov}(Z_X, Z_Y) &amp;= \mathbb{E}[ \ (Z_X - \mathbb{E}[Z_X]) \ (Z_Y  - \mathbb{E}[Z_Y]) \ ] \\ \\
+&amp;= \mathbb{E}[ \ Z_X \ Z_Y \ ] \\ \\
+&amp;= \mathbb{E}\Bigg[ \   \frac{(X - \mathbb{E}[X])}{\sqrt{\mathbb{Var}[X]}}  \ \frac{(Y - \mathbb{E}[Y])}{\sqrt{\mathbb{Var}[Y]}} \  \Bigg] \\ \\
+&amp;=  \frac{\mathbb{Cov}(X, Y)}{\sqrt{\mathbb{Var}[X]}\sqrt{\mathbb{Var}[Y]}}
+\end{align}`
+$$
+
+---
+##Correlación de Pearson
+
+&lt;br&gt;
+
+Si
+
+$$
+`\begin{align}
+\mathbb{Cov}(Z_X, Z_Y) =  \frac{\mathbb{Cov}(X, Y)}{\sqrt{\mathbb{Var}[X]}\sqrt{\mathbb{Var}[Y]}}
+\end{align}`
+$$
+
+&lt;br&gt;
+&lt;br&gt;
+--
+
+El .bold[Coeficiente de Correlación de Pearson] se define como:
+
+.content-box-secondary[
+`$$\color{white}{\rho_{XY}:  \mathbb{Corr}(X, Y) =  \frac{\mathbb{Cov}(X, Y)}{\sigma_X \sigma_Y}}$$`
+]
+
+
+
+---
+## Interpretación del Coeficiente de Correlación
+
+
+&lt;br&gt; &lt;br&gt;
+--
+
+- `\(\rho \in [-1,1]\)`: varía entre -1 y +1 y mide la fuerza y dirección de una relación lineal entre dos variables.
+
+&lt;br&gt;
+--
+
+- `\(\rho &gt; 0\)` indica una relación positiva entre las variables; a medida que una aumenta, la otra tiende a aumentar también. Un valor cercano a +1 implica una fuerte correlación positiva.
+
+&lt;br&gt;
+--
+
+- `\(\rho &lt; 0\)`  señala una relación negativa; cuando una variable aumenta, la otra tiende a disminuir. Un valor cercano a -1 indica una fuerte correlación negativa.
+
+&lt;br&gt;
+--
+
+- `\(\rho = 0\)` indica ugiere que no hay asociación lineal entre las variables. Los valores que se acercan a cero indican una débil o nula correlación lineal.
+
+
+---
+## Estimación del Coeficiente de Correlación
+
+Podemos estimar el coeficiente de correlación a partir de datos muestrales utilizando la siguiente fórmula:
+
+&lt;br&gt;&lt;br&gt;
+`$$r_{XY} = \frac{\sum_{i=1}^{n} (X_i - \bar{X})(Y_i - \bar{Y})}{\sqrt{\sum_{i=1}^{n} (X_i - \bar{X})^2 \sum_{i=1}^{n} (Y_i - \bar{Y})^2}}$$`
+
+&lt;br&gt;
+donde 
+
+- `\(r_{XY}\)` es el coeficiente de correlación muestral entre las variables X e Y.
+
+- `\(\bar{X}\)` y `\(\bar{Y}\)` son las medias de las muestras de X e Y, respectivamente.
+
+- `\(n\)` es el número de observaciones en las muestras.
+
+
+---
+##Correlación de Pearson
+
+
+&lt;br&gt;
+
+.center[
+
+![](class_25_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+
+]
+
+- .bold[Corr(esc,log-ingreso) | Hombre] = 0.4682563
+
+- .bold[Corr(esc,log-ingreso) | Mujer] = 0.4653663
+
+---
+##Correlación Lineal de Pearson
+
+.bold[Importante]: La covarianza y correlación miden el grande de .bold[asociación lineal].
+
+--
+
+- Una correlación baja o nula no indica necesariamente falta de asociación.
+
+
+
+--
+
+.pull-left[
+.bold[Asociación positiva]
+
+.center[
+![](class_25_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
+]
+]
+
+
+.pull-right[
+
+.bold[Asociación no lineal perfecta ]
+
+.center[
+![](class_25_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+]
+]
+
+
+
+---
+## DANGER: CORRELATIONS IS NOT CAUSATION!
+
+&lt;br&gt;
+.center[
+![corr](https://static.incrmntal.com/789_F1_B35_C3_F4195_D_1_43cc20d019.webp)
+]
+
+---
+class: inverse, center, middle
+
+
+##The End. Gracias!
 
 &lt;br&gt;
 Mauricio Bucca &lt;br&gt;

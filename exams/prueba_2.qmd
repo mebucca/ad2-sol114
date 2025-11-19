@@ -1,6 +1,6 @@
 ---
-title: "_________________________________________"
-author: "Prueba 2 SOL114"
+title: "Prueba de Estadística Corregida"
+author: "Prueba 2 SOL114 (2025)"
 format: pdf
 editor: visual
 geometry:
@@ -10,166 +10,414 @@ geometry:
   - marginparwidth=2.25in
 ---
 
-**Problema I. (10%)**
+### 1)
 
-La prueba **PISA** (Programa para la Evaluación Internacional de Estudiantes) es una evaluación global organizada por la **OCDE** que mide las competencias de los estudiantes de 15 años en tres áreas clave: **lectura**, **matemáticas** y **ciencias**. Esta evaluación se realiza cada tres años y busca proporcionar una visión comparativa del rendimiento educativo entre los países.
+Inspirado en el clásico experimento del *marshmallow* (Mischel), un laboratorio diseña una variante poco ortodoxa de este estudio de psicología conductual: medir cuántos segundos puede una persona mantener la vista fija en un malvavisco sin parpadear. Para ello, se recluta aleatoriamente a 11 estudiantes universitarios ($n = 11$) y se registra el tiempo de cada participante.
 
-La siguiente tabla muestra los resultados en la prueba de **matemáticas** del último PISA 2022 para una submuestra de estudiantes de **Chile** y **Dinamarca**, segmentados por el nivel socioeconómico de los estudiantes. Los datos presentados incluyen los **puntajes promedio** y las **desviaciones estándar** para cada cuartil socioeconómico en ambos países.
+| Participante | Tiempo (segundos) |
+|:------------:|:-----------------:|
+| 1 | 7.1 |
+| 2 | 6.5 |
+| 3 | 5.9 |
+| 4 | 8.0 |
+| 5 | 7.4 |
+| 6 | 6.8 |
+| 7 | 7.7 |
+| 8 | 5.6 |
+| 9 | 6.2 |
+| 10 | 7.3 |
+| 11 | 6.9 |
 
-Estos resultados se **estimaron** a partir de submuestras de $N_c = 1000$ estudiantes en Chile y $N_d = 1000$ estudiantes en Dinamarca. La tabla muestra que, por ejemplo, segùn los estadìsticos muestras los estudiantes más favorecidos en Chile obtuvieron un puntaje promedio en matemáticas de 470 puntos, con una desviación estándar de 70 puntos.
+a) Construya un intervalo de confianza al 99% para la media poblacional ($\mu$).
 
-| Cuartil Socioeconómico | Chile:$\hat{\mu}$ ($s$) | Dinamarca:$\hat{\mu}$ ($s$) |
-|--------------------|-------------------------|----------------------------|
-| 25% Inferior (Desfavorecidos) | **369** (85) | **450** (80) |
-| Segundo Cuartil | **400** (80) | **470** (75) |
-| Tercer Cuartil | **430** (75) | **490** (70) |
-| 25% Superior (Favorecidos) | **470** (70) | **510** (65) |
 
-> **Nota #1:** Recuerda que cada cuartil representa $1/4$ de la muestra de cada país.
+Datos:
+$$
+n = 11,\quad x_i = \{7.1, 6.5, 5.9, 8.0, 7.4, 6.8, 7.7, 5.6, 6.2, 7.3, 6.9\}
+$$
 
-> **Nota #2:** Estudios cienfíticos indican que el puntaje de un estudiante en la prueba PISA puede ser tratado como una manifestación una variable aleatoria que sigue una distribución *Lomax* (también conocida como Pareto tipo-II).
+1. Media muestral:
+    $$
+    \bar X = \frac{1}{11}\sum_{i=1}^{11} x_i \approx 6.85\; \text{segundos}.
+    $$
 
-I.1. Siguiendo el Teorema del Límite Central, caracteriza la distribución muestral del promedio de puntaje para el segundo cuartil socioeconómico en Chile. Dado que no conocemos los parámetros poblacionales usa su estimado muestral.
+2. Desviación estándar muestral:
+    $$
+    s = \sqrt{\frac{1}{n-1}\sum (x_i - \bar X)^2} \approx 0.75\; \text{segundos}.
+    $$
 
-**Respuesta:**
+3. Como $n$ es pequeño y no conocemos $\sigma$, usamos distribución $t$ con $n-1=10$ grados de libertad.
+    Para un IC del 99%, el valor crítico es aproximadamente:
+    $$
+    t_{0.995,10} \approx 3.169.
+    $$
 
-\newpage
-\newpage
+4. Error estándar de la media:
+    $$
+    SE(\bar X) = \frac{s}{\sqrt{n}} \approx \frac{0.75}{\sqrt{11}} \approx 0.226.
+    $$
 
-------------------------------------------------------------------------
+5. Intervalo de confianza al 99%:
+    $$
+    \bar X \pm t_{0.995,10}\cdot SE(\bar X)
+    = 6.85 \pm 3.169 \times 0.226.
+    $$
 
-I.2. Calcula un intervalo al 95% de confianza para el promedio puntaje promedio del cuartil socioeconómico más rico en Chile y otro para el puntaje promedio del cuartil socioeconómico más pobre en Dinamarca. Explica que significa cada intervalo de confianza.
+Cálculo numérico:
 
-**Respuesta:**
+* Límite inferior: $\approx 6.85 - 0.72 \approx 6.13$
+* Límite superior: $\approx 6.85 + 0.72 \approx 7.57$
 
-\newpage
-\newpage
-------------------------------------------------------------------------
+$$
+\boxed{\text{IC}_{99\%}(\mu) \approx (6.13,\; 7.57)\; \text{segundos}.}
+$$
 
-I.3. Calcula la probabilidad de que el promedio muestral del puntaje el cuartil socioeconómico más rico en Chile sobrestime el verdadero promedio en 20 puntos o más.
 
-**Respuesta:**
 
-\newpage
-------------------------------------------------------------------------
+b) Evalúe si la evidencia sugiere que, en promedio, las personas pueden mantener la mirada por más de 6.5 segundos.
 
-I.4. Un político chileno del partido UTI afirma: "Nuestros estudiantes màs aventajados (socioeconómicamente) tienen un desempeño en matemáticas superior al de los estudiantes menos aventajados de paises socialistas como Dinamarca". Desarrolla un test de hipótesis para testear esta afirmación con un nivel de significación del 5%.
 
-**Respuesta:**
+Queremos evaluar si, en promedio, las personas pueden mantener la mirada **por más de 6.5 segundos**.
 
-\newpage
-\newpage
-------------------------------------------------------------------------
+* Observamos que $6.5$ **está dentro** del IC al 99% para $\mu$:
+  $$
+  6.13 < 6.5 < 7.57.
+  $$
+* Eso significa que, con un nivel de confianza del 99%, **no podemos descartar** que la media verdadera sea 6.5 segundos.
 
-I.5. Teniendo en mente la afirmación del político chileno, compara los resultados obtenidos en I.2 e I.4. Explica las potenciales diferencias y similitudes entre ambos.
+Conclusión:
+Con este intervalo al 99%, **no hay evidencia suficientemente fuerte** para afirmar que $\mu > 6.5$; los datos son compatibles tanto con medias mayores como ligeramente menores a 6.5 segundos.
 
-**Respuesta:**
-
-\newpage
-\newpage
-
-------------------------------------------------------------------------
-
-**Problema II.**
-
-Un estudio epidemiológico fue llevado a cabo para evaluar la efectividad de una vacuna contra una enfermedad infecciosa en una comunidad de la Región Metropolitana. Los investigadores hicieron seguimiento durante un año a un grupo de personas, de las cuales algunas recibieron la vacuna como medida preventiva (grupo vacunado), mientras que otras no la recibieron (grupo de control). Los resultados muestran que en el grupo de control, **7 de 10 personas** contrajeron la enfermedad, mientras que **3 no la contrajeron**. Por otro lado, en el grupo vacunado, solo **4 de 10 personas** contrajeron la enfermedad, mientras que **6 no la contrajeron**.
-
-La siguiente tabla resume los resultados
-
-|                | Contrajo la enfermedad | No contrajo la enfermedad |
-|----------------|------------------------|---------------------------|
-| Grupo Control  | 7                      | 3                         |
-| Grupo Vacunado | 4                      | 6                         |
-
-Aunque los resultados son preliminares y basados en una muestra pequeña, sugieren un posible beneficio de la vacunación en la reducción de la incidencia de la enfermedad en esta comunidad.
-
-II.1 Testea la hipótesis de existe un beneficio de la vacunación en la reducción de la incidencia de la enfermedad. Trabaja al 95% de confianza.
-
-**Respuesta:**
-
-\newpage
-\newpage
-------------------------------------------------------------------------
-
-II.2 En este estudio se midió además la gravedad de los síntomas en una escala continua (de 0 a 100, donde 0 indica ausencia total de síntomas y 100 los síntomas más graves observados). Los resultados mostraron que el grupo vacunado presentó una media de severidad de síntomas de 30, mientras que el grupo de control presentó una media de 70, sugiriendo una posible reducción en la gravedad de la enfermedad en los vacunados.
-
-En base a estos datos, testea la hipótesis de que existe un beneficio de la vacunación en la reducción de la severidad de los síntomas. Trabaja al 95% de confianza.
-
-*Importante*: Considera 16 grados de libertad para la diferencia de medias ($df=16$).
-
-La siguiente tabla resume los resultados:
-
-|                | Media de severidad de síntomas | $\sum (x_i - \bar{x})^2$ | $n$ |
-|-------------|----------------|------------------------------|-------------|
-| Grupo Control  | 70                             | 1800                     | 10  |
-| Grupo Vacunado | 30                             | 900                      | 10  |
-
-**Respuesta:**
-
-\newpage
-\newpage
-
-------------------------------------------------------------------------
-
-II.3. Un laboratorio desea repetir este experimento, garantizando que, con un nivel de confianza del 95%, el intervalo de confianza para la proporción de personas en cada uno de los grupos tenga un margen de error de, como máximo, $\pm 0.01$ (1 punto porcentual). Suponiendo que tanto el grupo de tratamiento como el de control tendrán el mismo tamaño, calcula el tamaño de muestra necesario para cada grupo para lograr este margen de error.
-
-**Respuesta:**
-
-\newpage
-\newpage
-
-------------------------------------------------------------------------
-
-## Probabilidad acumulada en distribución Normal Standard (mitad positiva)
-
-```{r echo=FALSE}
-library(pacman)
-p_load(knitr,xtable)
-# Create a vector of values from -3 to 3 with intervals of 0.1
-x <- seq(0, 3, by = 0.01)
-
-# Calculate the CDF values for the standard normal distribution
-cdf_values <- pnorm(x)
-
-# Create a data frame to store the values
-cdf_table <- data.frame(z = x, phi= cdf_values)
-
-# Create an xtable object
-knitr::kable(cdf_table, digits = 5,
-                             col.names=c("Z=z","$\\Phi(z)$"), align="ccc")
-```
 
 \newpage
 
-## Probabilidad acumulada en distribución t Standard (mitad positiva)
+### 2)
 
-```{r echo=FALSE}
-library(pacman)
-p_load(knitr, xtable)
+Otro analista intenta replicar el hallazgo de la pregunta 1 pero ahora con un test unilateral que evalúe si, en promedio, las personas aguantan más de 6.5 s mirando el malvavisco sin parpadear. Use los mismos datos de la pregunta 1 ($n=11$).
 
-# Create a vector of values from -3 to 3 with intervals of 0.1
-x <- seq(0, 3, by = 0.1)
+Objetivo: contrastar si $\mu > 6.5$ con $\alpha = 0.01$.
 
-# Create a list to store data frames for each degree of freedom
-cdf_tables <- list()
 
-# Loop over degrees of freedom from 1 to 20
-for (df in 1:20) {
-  # Calculate the CDF values for the t-distribution with the current df
-  cdf_values <- pt(x, df = df)
-  
-  # Store in a data frame and add to the list
-  cdf_tables[[df]] <- data.frame(t_value = x, cdf = cdf_values)
-}
+Planteamos el test de hipótesis unilateral:
 
-# Display tables for df = 1, 5, 10, 15, 16
-selected_dfs <- c(1, 5, 10, 15, 16)
+* $H_0: \mu = 6.5$
+* $H_1: \mu > 6.5$
 
-for (df in selected_dfs) {
-    print(
-    knitr::kable(cdf_tables[[df]], digits = 5,
-               col.names = c("t_value", paste("CDF for df =", df)), align = "cc")
-    )
-  cat("\n\n")  # Add spacing between tables
-}
-```
+Usamos la misma media y $s$ de la pregunta 1:
+
+* $\bar X \approx 6.85$
+* $s \approx 0.75$
+* $n = 11 \Rightarrow df = 10$
+* $SE = s/\sqrt{n} \approx 0.226$
+
+**Estadístico de prueba:**
+$$
+t_{\text{obs}} = \frac{\bar X - \mu_0}{SE}
+= \frac{6.85 - 6.5}{0.226} \approx \frac{0.35}{0.226} \approx 1.57.
+$$
+
+**Regla de decisión (test unilateral, $\alpha = 0.01$):**
+
+* Valor crítico: $t_{0.99,10} \approx 2.76$.
+* Rechazamos $H_0$ si $t_{\text{obs}} > 2.76$.
+
+Como:
+$$
+1.57 < 2.76,
+$$
+**no** rechazamos $H_0$ al nivel $\alpha = 0.01$.
+
+Equivalente en términos de valor-$p$:
+el valor-$p$ unilateral asociado a $t_{\text{obs}} \approx 1.57$ (df = 10) es aproximadamente $p \approx 0.07$, mucho mayor que 0.01.
+
+Conclusión: A un nivel de significancia del 1%, **no hay evidencia suficiente** para afirmar que $\mu > 6.5$. Los datos no permiten concluir, con tanta exigencia, que en promedio las personas mantienen la mirada por más de 6.5 segundos.
+
+
+\newpage
+
+### 3)
+
+Coquimbo Unido acaba de coronarse campeón del fútbol chileno 2025 y su equipo de análisis ya trabaja para la próxima temporada. Para evaluar posibles cambios en la efectividad ofensiva, se comparan las proporciones de tiros al arco que terminan en gol en dos segmentos de la temporada:
+
+- Tramo A: Fechas 1–15
+- Tramo B: Fechas 16–30
+
+Se utilizan observaciones a nivel de tiro (gran $n$).
+
+| Tramo | $n$ (tiros) | $x$ (goles) | $\hat{p}$ |
+|:-----:|:-----------:|:-----------:|:---------:|
+| A | 1500 | 900 | 0.600 |
+| B | 1500 | 855 | 0.570 |
+
+a) Construya intervalos de confianza individuales al 99% para las proporciones de gol en cada tramo usando la aproximación normal. Comente si la superposición o no-superposición de los intervalos sugiere diferencias en la efectividad entre ambos tramos.
+
+Para cada tramo usamos el IC normal al 99%:
+
+$$
+\hat p \pm z_{0.995}\sqrt{\frac{\hat p (1-\hat p)}{n}},
+\quad z_{0.995} \approx 2.576.
+$$
+
+* **Tramo A**:
+  $$
+  \hat p_A = \frac{900}{1500} = 0.60,\quad
+  SE_A = \sqrt{\frac{0.60\cdot 0.40}{1500}} \approx 0.01265.
+  $$
+  IC:
+  $$
+  0.60 \pm 2.576 \times 0.01265
+  \approx 0.60 \pm 0.0326
+  \Rightarrow \text{IC}_{99\%} \approx (0.567,\; 0.633).
+  $$
+
+* **Tramo B**:
+  $$
+  \hat p_B = \frac{855}{1500} = 0.57,\quad
+  SE_B = \sqrt{\frac{0.57\cdot 0.43}{1500}} \approx 0.01278.
+  $$
+  IC:
+  $$
+  0.57 \pm 2.576 \times 0.01278
+  \approx 0.57 \pm 0.033
+  \Rightarrow \text{IC}_{99\%} \approx (0.537,\; 0.603).
+  $$
+
+Observamos que los intervalos **se superponen** (aprox. entre 0.567 y 0.603).
+Usando solo la regla “si los IC se superponen, no hay evidencia clara de diferencia”, la superposición sugiere que la diferencia en efectividad entre ambos tramos **no es concluyente** al 99%.
+
+
+b) Luego, construya un intervalo de confianza al 99% para la diferencia de proporciones (Tramo A menos Tramo B). Interprete si la evidencia respalda una diferencia real en la efectividad y si esta conclusión es más clara que la basada solo en IC individuales.
+
+Ahora construimos un IC al 99% para la **diferencia** de proporciones:
+$$
+\hat p_A - \hat p_B = 0.60 - 0.57 = 0.03.
+$$
+
+El error estándar de la diferencia es:
+$$
+SE_{\text{dif}} = \sqrt{\frac{\hat p_A(1-\hat p_A)}{n_A} + \frac{\hat p_B(1-\hat p_B)}{n_B}}.
+$$
+
+Con $n_A = n_B = 1500$:
+$$
+SE_{\text{dif}} \approx \sqrt{\frac{0.60\cdot 0.40}{1500} + \frac{0.57\cdot 0.43}{1500}}
+\approx 0.018.
+$$
+
+Intervalo al 99%:
+$$
+(\hat p_A - \hat p_B) \pm z_{0.995} SE_{\text{dif}}
+= 0.03 \pm 2.576 \times 0.018.
+$$
+
+Numéricamente:
+$$
+0.03 \pm 0.046 \Rightarrow \text{IC}_{99\%} \approx (-0.016,\; 0.076).
+$$
+
+Este intervalo **incluye 0**, por lo que no podemos descartar que la diferencia verdadera sea nula.
+
+Conclusión:
+
+* La evidencia **no respalda de forma clara** una diferencia real en efectividad al 99%.
+* El análisis con el IC de la diferencia es más directo y transparente: muestra explícitamente que, al 99%, la diferencia de 3 puntos porcentuales podría deberse al azar.
+
+
+\newpage
+
+### 4)
+
+Una ONG dedicada a la conservación animal quiere estimar la proporción de pandas gigantes en centros de conservación que exhiben conductas de juego cooperativo (por ejemplo, compartir bambú, empujarse amistosamente, o turnarse para deslizarse por un tronco).
+
+Se desea construir un estimador puntual y un intervalo de confianza con:
+
+- Precisión deseada: margen de error máximo $E = \pm 0.05$
+- Nivel de confianza: $99\%$
+- Un estudio piloto previo sugiere que aproximadamente $p \approx 0.40$ de los pandas muestran este comportamiento.
+
+Pregunta: ¿Cuál es el tamaño mínimo de muestra requerido para lograr este nivel de precisión y confianza? Muestre su procedimiento.
+
+
+Para un IC de proporción con margen de error máximo $E$ y confianza $1-\alpha$ usamos:
+
+$$
+E = z_{\alpha/2} \sqrt{\frac{p(1-p)}{n}}
+\quad \Rightarrow \quad
+n = \frac{z_{\alpha/2}^2 p(1-p)}{E^2}.
+$$
+
+Datos:
+
+* Nivel de confianza 99% $\Rightarrow z_{0.995} \approx 2.576$.
+* $p \approx 0.40 \Rightarrow p(1-p) = 0.4 \cdot 0.6 = 0.24$.
+* Margen de error deseado: $E = 0.05$.
+
+Entonces:
+$$
+n = \frac{(2.576)^2 \cdot 0.24}{0.05^2}
+= \frac{(6.64)\cdot 0.24}{0.0025}
+\approx \frac{1.5936}{0.0025}
+\approx 637.44.
+$$
+
+Como el tamaño de muestra debe ser entero y **redondeamos hacia arriba**:
+
+$$
+\boxed{n_{\min} = 638\; \text{pandas (aprox.)}.}
+$$
+
+
+\newpage
+
+### 5)
+
+En un casino, cada apuesta tiene ganancia aleatoria $X$ (en dólares) con:
+
+$$
+\mu = \mathbb{E}[X] = -0.05, \qquad \sigma = \mathrm{SD}(X)=1
+$$
+
+El jugador hace $n = 64$ apuestas independientes.
+
+Preguntas:
+
+1. ¿Cuál es la distribución aproximada de la media muestral $\bar X$? Indique media y desviación estándar.
+
+Por el Teorema del Límite Central, para $n$ grande:
+
+$$
+\bar X \approx N\left( \mu,\; \frac{\sigma^2}{n} \right).
+$$
+
+Con los números del problema:
+
+* Media de $\bar X$:
+  $$
+  \mathbb{E}[\bar X] = \mu = -0.05.
+  $$
+* Varianza de $\bar X$:
+  $$
+  \mathrm{Var}(\bar X) = \frac{\sigma^2}{n} = \frac{1^2}{64} = \frac{1}{64}.
+  $$
+* Desviación estándar de $\bar X$:
+  $$
+  SD(\bar X) = \frac{\sigma}{\sqrt{n}} = \frac{1}{8} = 0.125.
+  $$
+
+Entonces:
+$$
+\boxed{\bar X \approx N\left(-0.05,\; 0.125^2\right).}
+$$
+
+
+
+2. Calcule $\mathbb{P}(\bar X > 0)$, es decir, la probabilidad de que el jugador termine ganando dinero en promedio después de las 64 apuestas.
+
+Queremos:
+$$
+\mathbb{P}(\bar X > 0).
+$$
+
+Estandarizamos:
+$$
+Z = \frac{\bar X - \mu_{\bar X}}{SD(\bar X)} =
+\frac{\bar X - (-0.05)}{0.125},
+$$
+de modo que
+$$
+\mathbb{P}(\bar X > 0) = \mathbb{P}\left(
+Z > \frac{0 - (-0.05)}{0.125}
+\right)
+= \mathbb{P}\left( Z > \frac{0.05}{0.125} \right)
+= \mathbb{P}(Z > 0.4).
+$$
+
+Usando la tabla de la normal estándar:
+
+$$
+\Phi(0.4) \approx 0.655,\quad
+\Rightarrow\; \mathbb{P}(Z > 0.4) = 1 - \Phi(0.4) \approx 1 - 0.655 = 0.345.
+$$
+
+$$
+\boxed{\mathbb{P}(\bar X > 0) \approx 0.34\text{--}0.35.}
+$$
+
+Interpretación: Aunque la apuesta tiene **valor esperado negativo**, todavía hay alrededor de un **35% de probabilidad** de que, tras 64 apuestas, la media observada resulte positiva (es decir, que el jugador termine ganando en promedio).
+
+
+\newpage
+
+### 6)
+
+Responde V/F. Si es Falso, justifica en 2–3 líneas interpretando la fórmula y su significado teórico.
+
+1. *Para que se cumpla el Teorema del Límite Central, se requiere que la población sea normal; si no, no vale que* $$
+    \frac{\bar X - \mu}{\sigma/\sqrt{n}} \xrightarrow{d} N(0,1).
+    $$
+
+**Falso.**
+El **Teorema del Límite Central** no requiere que la población sea normal. Bajo supuestos bastante generales (i.i.d., varianza finita), la distribución de $\bar X$ se aproxima a una normal a medida que $n$ crece, incluso si la población original es no normal.
+
+
+
+2. *En* $\hat{\mu} = \bar X = \frac{1}{n}\sum X_i$, $\hat{\mu}$ es el número calculado en la muestra y “estimado” se refiere a la fórmula en abstracto.
+
+**Falso.**
+En notación estándar, $\hat\mu$ (o $\bar X$) es el **estimador**: una función aleatoria de la muestra. El “estimado” es el valor numérico que toma ese estimador una vez observados los datos. El enunciado invierte las definiciones.
+
+
+
+3. *Si* $\mathrm{Var}(X)=\sigma^2$, entonces la media muestral cumple $$
+    \mathrm{Var}(\bar X)=\sigma^2,
+    $$ *porque promediar no cambia la variabilidad.*
+
+
+**Falso.**
+Si $\mathrm{Var}(X)=\sigma^2$, entonces:
+$$
+\mathrm{Var}(\bar X)=\frac{\sigma^2}{n}.
+$$
+Promediar **reduce** la variabilidad; mientras más grande es $n$, más concentrada alrededor de $\mu$ se vuelve la media muestral.
+
+
+
+4. *El error estándar de la media* $$
+    SE(\bar X) = \frac{\sigma}{\sqrt{n}}
+    $$ *corresponde a la desviación estándar del estimador* $\bar X$; es decir, mide la variabilidad de la media muestral entre posibles muestras y cuán preciso es el estimador.
+
+**Verdadero.**
+El error estándar $SE(\bar X)=\sigma/\sqrt{n}$ es la **desviación estándar del estimador** $\bar X$. Mide cuánta variación tendría la media si repitiéramos el muestreo muchas veces y, por tanto, cuán precisa es la estimación de $\mu$.
+
+
+5. *Si un IC del 99% para* $\mu$ contiene $\mu_0$, eso significa que la probabilidad de que $\mu$ sea exactamente $\mu_0$ es 99%.
+
+**Falso.**
+El IC del 99% significa que el **procedimiento** genera intervalos que contienen a $\mu$ el 99% de las veces; no que la probabilidad puntual de que $\mu$ sea exactamente $\mu_0$ sea 99%. El parámetro $\mu$ no es una variable aleatoria en este enfoque.
+
+
+
+6. *El valor-*$p$ se define como $$
+    p = \mathbb{P}(T \ge T_{\text{obs}} \mid H_0)
+    $$ *y representa la probabilidad de que* $H_0$ sea verdadera.
+
+
+**Falso.**
+La fórmula captura la probabilidad de obtener un estadístico $T$ tan extremo o más que el observado **dado que $H_0$ es verdadera**. No es la probabilidad de que $H_0$ sea verdadera; esa sería una interpretación bayesiana que requiere un modelo distinto.
+
+
+
+7. *La varianza poblacional se estima sin sesgo usando*
+
+    $$
+    s^2 = \frac{1}{n}\sum_{i=1}^n (X_i - \bar X)^2,
+    $$ *mientras que la versión con* $n-1$ introduce sesgo.
+
+
+**Falso.**
+El estimador **insesgado** de la varianza poblacional es:
+
+$$
+s^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i - \bar X)^2.
+$$
+La versión con $1/n$ subestima sistemáticamente la varianza verdadera (es un estimador sesgado hacia abajo).
