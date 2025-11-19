@@ -51,7 +51,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 10  | Noviembre  | Asociación estadística y causalidad                       | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_21/class_21#1) [`[Code]`](slides/class_21/class_21.Rmd) | —                |
 | 12  | Noviembre  | Asociación con datos categóricos                          | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_22/class_22#1) [`[Code]`](slides/class_22/class_22.Rmd)   | —                |
 | 17  | Noviembre  | Test de independencia χ²                                  |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_23/class_23#1) [`[Code]`](slides/class_23/class_23.Rmd)                                                                                                                 | —                |
-| 19  | Noviembre  | Asociación con datos continuos & covarianza               |                                                                                                                  | —                |
+| 19  | Noviembre  | Asociación con datos continuos & covarianza               | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_24/class_24#1) [`[Code]`](slides/class_24/class_24.Rmd) | —                |
 | 24  | Noviembre  | Correlación de Pearson                                    |                                                                                                                  | —                |
 | 26  | Noviembre  | Repaso                                                    |                                                                                                                  | —                |
 
@@ -68,7 +68,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | Tarea corta 4 | 6 octubre  | 13 octubre | [`[TC4]`](https://mebucca.github.io/ad2-sol114/homework/tc_4#1) [`[TC4.qmd]`](homework/tc_4.qmd)                          |
 | Tarea corta 5 | 13 octubre | 20 octubre | [`[TC5]`](https://mebucca.github.io/ad2-sol114/homework/tc_5#1) [`[TC5.qmd]`](homework/tc_5.qmd) |
 | Tarea corta 6 | 20 octubre | 27 octubre | [`[TC6]`](https://mebucca.github.io/ad2-sol114/homework/tc_6#1) [`[TC6.qmd]`](homework/tc_6.qmd) |
-| Prueba 2      |            |         |          |
+| Prueba 2      |            |         | [`[Prueba 2]`](https://mebucca.github.io/ad2-sol114/exams/prueba_2.pdf)  |
 | Tarea corta 7 | 17 noviembre | 24 noviembre | [`[TC7]`](https://mebucca.github.io/ad2-sol114/homework/tc_7#1) [`[TC7.qmd]`](homework/tc_7.qmd) |
 | Prueba Bonus  |            |         |          |
 | Examen final  |            |         |          |

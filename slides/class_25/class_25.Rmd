@@ -22,12 +22,13 @@ class: inverse, center, middle
 library(tidyverse)
 library(xaringanthemer)
 library(cowplot)
-style_duo_accent(primary_color = "#4682B4", secondary_color = "#CD5C5C",
-                 background_color = "#f8f7f3", 
-                 header_font_google = google_font("Archivo"),
-                 text_font_google   = google_font("Inconsolata"), 
-                 link_color= "#DAA520"
-
+style_duo_accent(
+  primary_color   = "#00634E",   # Werder Bremen green (main jersey/emblem)
+  secondary_color = "#003E30",   # Dark forest green (shadow/depth)
+  background_color = "#F5F5F5",  # Soft white (clean, avoids slide glare)
+  header_font_google = google_font("Archivo"),
+  text_font_google   = google_font("Inconsolata"),
+  link_color = "#E37222"         # Accent orange (historic kit/crest detail)
 )
 
 options(scipen = 999)
@@ -40,7 +41,7 @@ knitr::opts_chunk$set(eval = T, echo = T)
 ```
 
 # Asociación entre variables continuas
-## Covarianza
+## Correlación de Pearson
 
 ---
 ## Brechas de ingresos entre hombres y mujeres
@@ -543,11 +544,240 @@ $$\color{blue}{\mathbb{Cov}(E_h, Y_h)} = \mathbb{Cov}( 0.75 \times E_m, 2 \times
 - Por tanto, el número obtenido no indica inequivocamente la fuerza de la asociación
 
 
+
 ---
 class: inverse, center, middle
 
 
-##Hasta la próxima clase. Gracias!
+#Correlación de Pearson
+
+
+---
+##Correlación de Pearson
+
+
+- ¿Cómo podemos medir el grado de asociación entre dos variables, libre de sus escala?
+
+
+--
+
+- .bold[Solución:] Estandarizar. En vez de calcular $\mathbb{Cov}(X, Y)$ calculamos $\mathbb{Cov}(Z_X, Z_Y)$. Formalmente,
+
+
+<br>
+--
+
+
+$$
+\begin{align}
+\mathbb{Cov}(Z_X, Z_Y) &= \mathbb{E}[ \ (Z_X - \mathbb{E}[Z_X]) \ (Z_Y  - \mathbb{E}[Z_Y]) \ ] \\ \\
+&= \mathbb{E}[ \ Z_X \ Z_Y \ ] \\ \\
+&= \mathbb{E}\Bigg[ \   \frac{(X - \mathbb{E}[X])}{\sqrt{\mathbb{Var}[X]}}  \ \frac{(Y - \mathbb{E}[Y])}{\sqrt{\mathbb{Var}[Y]}} \  \Bigg] \\ \\
+&=  \frac{\mathbb{Cov}(X, Y)}{\sqrt{\mathbb{Var}[X]}\sqrt{\mathbb{Var}[Y]}}
+\end{align}
+$$
+
+---
+##Correlación de Pearson
+
+<br>
+
+Si
+
+$$
+\begin{align}
+\mathbb{Cov}(Z_X, Z_Y) =  \frac{\mathbb{Cov}(X, Y)}{\sqrt{\mathbb{Var}[X]}\sqrt{\mathbb{Var}[Y]}}
+\end{align}
+$$
+
+<br>
+<br>
+--
+
+El .bold[Coeficiente de Correlación de Pearson] se define como:
+
+.content-box-secondary[
+$$\color{white}{\rho_{XY}:  \mathbb{Corr}(X, Y) =  \frac{\mathbb{Cov}(X, Y)}{\sigma_X \sigma_Y}}$$
+]
+
+
+
+---
+## Interpretación del Coeficiente de Correlación
+
+
+<br> <br>
+--
+
+- $\rho \in [-1,1]$: varía entre -1 y +1 y mide la fuerza y dirección de una relación lineal entre dos variables.
+
+<br>
+--
+
+- $\rho > 0$ indica una relación positiva entre las variables; a medida que una aumenta, la otra tiende a aumentar también. Un valor cercano a +1 implica una fuerte correlación positiva.
+
+<br>
+--
+
+- $\rho < 0$  señala una relación negativa; cuando una variable aumenta, la otra tiende a disminuir. Un valor cercano a -1 indica una fuerte correlación negativa.
+
+<br>
+--
+
+- $\rho = 0$ indica ugiere que no hay asociación lineal entre las variables. Los valores que se acercan a cero indican una débil o nula correlación lineal.
+
+
+---
+## Estimación del Coeficiente de Correlación
+
+Podemos estimar el coeficiente de correlación a partir de datos muestrales utilizando la siguiente fórmula:
+
+<br><br>
+$$r_{XY} = \frac{\sum_{i=1}^{n} (X_i - \bar{X})(Y_i - \bar{Y})}{\sqrt{\sum_{i=1}^{n} (X_i - \bar{X})^2 \sum_{i=1}^{n} (Y_i - \bar{Y})^2}}$$
+
+<br>
+donde 
+
+- $r_{XY}$ es el coeficiente de correlación muestral entre las variables X e Y.
+
+- $\bar{X}$ y $\bar{Y}$ son las medias de las muestras de X e Y, respectivamente.
+
+- $n$ es el número de observaciones en las muestras.
+
+
+---
+##Correlación de Pearson
+
+
+<br>
+
+.center[
+
+```{r, echo=F, warning=F, message=F, fig.height=5,fig.width=9}
+
+# Modified ggplot code
+scatter <- ggplot(casen2017, aes(x = jitter(esc), y = log(ingreso), colour = cross_dev)) +
+  geom_point(size = 3) +
+  facet_grid(. ~ genero, labeller = label_both) +
+  geom_vline(data = means_by_gender, aes(xintercept = mean_esc), color = "black", size = 1) +
+  geom_hline(data = means_by_gender, aes(yintercept = mean_log_ingreso), color = "black", size = 1) +
+  scale_color_gradient2(midpoint = 0, low = "red", mid = "white", high = "blue") +
+  labs(x = "Años de Escolaridad", y = "Log(Ingreso)") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1),
+    strip.text = element_text(size = 22),
+    panel.background = element_rect()  # Background color
+  )
+
+plot(scatter)
+
+```
+
+]
+
+- .bold[Corr(esc,log-ingreso) | Hombre] = `r casen2017 %>% filter(genero=="Hombre") %>% with(cor(esc,log(ingreso), use = "complete.obs"))`
+
+- .bold[Corr(esc,log-ingreso) | Mujer] = `r casen2017 %>% filter(genero=="Mujer") %>% with(cor(esc,log(ingreso), use = "complete.obs"))`
+
+---
+##Correlación Lineal de Pearson
+
+.bold[Importante]: La covarianza y correlación miden el grande de .bold[asociación lineal].
+
+--
+
+- Una correlación baja o nula no indica necesariamente falta de asociación.
+
+
+
+--
+
+.pull-left[
+.bold[Asociación positiva]
+
+.center[
+```{r, echo=F, warning=F, message=F, fig.height=4.5, fig.width=4.5}
+n = 500
+newdata <- tibble(inteligencia = rnorm(n,50,10), rendimiento = 5 + 0.7*inteligencia + rnorm(n,0,5))
+coef_corr <- cor(newdata$inteligencia, newdata$rendimiento)
+
+scatter <- ggplot(newdata, aes(x = inteligencia, y = rendimiento)) +
+  geom_point(alpha = 0.6, size = 2) +
+  labs(x = "Inteligencia", y = "Rendimiento Académico") +
+  annotate("text", x = Inf, y = Inf, label = sprintf("r = %.2f", coef_corr), hjust = 1.1, vjust = 1.1, size = 8) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1),
+    legend.position = "none",
+    strip.text = element_text(size = 22),
+    panel.background = element_rect()  # Background color
+  )
+
+print(scatter)
+```
+]
+]
+
+
+.pull-right[
+
+.bold[Asociación no lineal perfecta ]
+
+.center[
+```{r, echo=F, warning=F, message=F, fig.height=4.5, fig.width=4.5}
+n = 500
+newdata <- tibble(c = -1000:1000, m = 1, e = c * c)
+coef_corr <- cor(newdata$c, newdata$e)
+
+scatter <- ggplot(newdata, aes(x = c, y = e)) +
+  geom_point(alpha = 0.1, size = 2) +
+  labs(x = "c", y = "e") +
+  annotate("text", x = Inf , y = Inf , label = sprintf("r = %.2f", coef_corr), hjust = 1.1, vjust = 1.1, size = 8) +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(face = "bold", size = 20),
+    axis.text.y = element_text(size = 22),
+    axis.text.x = element_text(size = 22),
+    axis.title.y = element_text(size = 24),
+    axis.title.x = element_text(size = 24),
+    panel.border = element_rect(fill = NA, linewidth = 1),
+    legend.position = "none",
+    strip.text = element_text(size = 22),
+    panel.background = element_rect()  # Background color
+  )
+
+print(scatter)
+
+```
+]
+]
+
+
+
+---
+## DANGER: CORRELATIONS IS NOT CAUSATION!
+
+<br>
+.center[
+![corr](https://static.incrmntal.com/789_F1_B35_C3_F4195_D_1_43cc20d019.webp)
+]
+
+---
+class: inverse, center, middle
+
+
+##The End. Gracias!
 
 <br>
 Mauricio Bucca <br>
