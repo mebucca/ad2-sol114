@@ -16,78 +16,64 @@ Inspirado en el clásico experimento del *marshmallow* (Mischel), un laboratorio
 
 | Participante | Tiempo (segundos) |
 |:------------:|:-----------------:|
-| 1 | 7.1 |
-| 2 | 6.5 |
-| 3 | 5.9 |
-| 4 | 8.0 |
-| 5 | 7.4 |
-| 6 | 6.8 |
-| 7 | 7.7 |
-| 8 | 5.6 |
-| 9 | 6.2 |
-| 10 | 7.3 |
-| 11 | 6.9 |
+|      1       |        7.1        |
+|      2       |        6.5        |
+|      3       |        5.9        |
+|      4       |        8.0        |
+|      5       |        7.4        |
+|      6       |        6.8        |
+|      7       |        7.7        |
+|      8       |        5.6        |
+|      9       |        6.2        |
+|      10      |        7.3        |
+|      11      |        6.9        |
 
-a) Construya un intervalo de confianza al 99% para la media poblacional ($\mu$).
+a)  Construya un intervalo de confianza al 99% para la media poblacional ($\mu$).
 
-
-Datos:
-$$
+Datos: $$
 n = 11,\quad x_i = \{7.1, 6.5, 5.9, 8.0, 7.4, 6.8, 7.7, 5.6, 6.2, 7.3, 6.9\}
 $$
 
-1. Media muestral:
-    $$
-    \bar X = \frac{1}{11}\sum_{i=1}^{11} x_i \approx 6.85\; \text{segundos}.
-    $$
+1.  Media muestral: $$
+     \bar X = \frac{1}{11}\sum_{i=1}^{11} x_i \approx 6.85\; \text{segundos}.
+     $$
 
-2. Desviación estándar muestral:
-    $$
-    s = \sqrt{\frac{1}{n-1}\sum (x_i - \bar X)^2} \approx 0.75\; \text{segundos}.
-    $$
+2.  Desviación estándar muestral: $$
+     s = \sqrt{\frac{1}{n-1}\sum (x_i - \bar X)^2} \approx 0.75\; \text{segundos}.
+     $$
 
-3. Como $n$ es pequeño y no conocemos $\sigma$, usamos distribución $t$ con $n-1=10$ grados de libertad.
-    Para un IC del 99%, el valor crítico es aproximadamente:
-    $$
-    t_{0.995,10} \approx 3.169.
-    $$
+3.  Como $n$ es pequeño y no conocemos $\sigma$, usamos distribución $t$ con $n-1=10$ grados de libertad. Para un IC del 99%, el valor crítico es aproximadamente: $$
+     t_{0.995,10} \approx 3.169.
+     $$
 
-4. Error estándar de la media:
-    $$
-    SE(\bar X) = \frac{s}{\sqrt{n}} \approx \frac{0.75}{\sqrt{11}} \approx 0.226.
-    $$
+4.  Error estándar de la media: $$
+     SE(\bar X) = \frac{s}{\sqrt{n}} \approx \frac{0.75}{\sqrt{11}} \approx 0.226.
+     $$
 
-5. Intervalo de confianza al 99%:
-    $$
-    \bar X \pm t_{0.995,10}\cdot SE(\bar X)
-    = 6.85 \pm 3.169 \times 0.226.
-    $$
+5.  Intervalo de confianza al 99%: $$
+     \bar X \pm t_{0.995,10}\cdot SE(\bar X)
+     = 6.85 \pm 3.169 \times 0.226.
+     $$
 
 Cálculo numérico:
 
-* Límite inferior: $\approx 6.85 - 0.72 \approx 6.13$
-* Límite superior: $\approx 6.85 + 0.72 \approx 7.57$
+-   Límite inferior: $\approx 6.85 - 0.72 \approx 6.13$
+-   Límite superior: $\approx 6.85 + 0.72 \approx 7.57$
 
 $$
 \boxed{\text{IC}_{99\%}(\mu) \approx (6.13,\; 7.57)\; \text{segundos}.}
 $$
 
-
-
-b) Evalúe si la evidencia sugiere que, en promedio, las personas pueden mantener la mirada por más de 6.5 segundos.
-
+b)  Evalúe si la evidencia sugiere que, en promedio, las personas pueden mantener la mirada por más de 6.5 segundos.
 
 Queremos evaluar si, en promedio, las personas pueden mantener la mirada **por más de 6.5 segundos**.
 
-* Observamos que $6.5$ **está dentro** del IC al 99% para $\mu$:
-  $$
-  6.13 < 6.5 < 7.57.
-  $$
-* Eso significa que, con un nivel de confianza del 99%, **no podemos descartar** que la media verdadera sea 6.5 segundos.
+-   Observamos que $6.5$ **está dentro** del IC al 99% para $\mu$: $$
+    6.13 < 6.5 < 7.57.
+    $$
+-   Eso significa que, con un nivel de confianza del 99%, **no podemos descartar** que la media verdadera sea 6.5 segundos.
 
-Conclusión:
-Con este intervalo al 99%, **no hay evidencia suficientemente fuerte** para afirmar que $\mu > 6.5$; los datos son compatibles tanto con medias mayores como ligeramente menores a 6.5 segundos.
-
+Conclusión: Con este intervalo al 99%, **no hay evidencia suficientemente fuerte** para afirmar que $\mu > 6.5$; los datos son compatibles tanto con medias mayores como ligeramente menores a 6.5 segundos.
 
 \newpage
 
@@ -97,41 +83,35 @@ Otro analista intenta replicar el hallazgo de la pregunta 1 pero ahora con un te
 
 Objetivo: contrastar si $\mu > 6.5$ con $\alpha = 0.01$.
 
-
 Planteamos el test de hipótesis unilateral:
 
-* $H_0: \mu = 6.5$
-* $H_1: \mu > 6.5$
+-   $H_0: \mu = 6.5$
+-   $H_1: \mu > 6.5$
 
 Usamos la misma media y $s$ de la pregunta 1:
 
-* $\bar X \approx 6.85$
-* $s \approx 0.75$
-* $n = 11 \Rightarrow df = 10$
-* $SE = s/\sqrt{n} \approx 0.226$
+-   $\bar X \approx 6.85$
+-   $s \approx 0.75$
+-   $n = 11 \Rightarrow df = 10$
+-   $SE = s/\sqrt{n} \approx 0.226$
 
-**Estadístico de prueba:**
-$$
+**Estadístico de prueba:** $$
 t_{\text{obs}} = \frac{\bar X - \mu_0}{SE}
 = \frac{6.85 - 6.5}{0.226} \approx \frac{0.35}{0.226} \approx 1.57.
 $$
 
-**Regla de decisión (test unilateral, $\alpha = 0.01$):**
+**Regla de decisión (test unilateral,** $\alpha = 0.01$):
 
-* Valor crítico: $t_{0.99,10} \approx 2.76$.
-* Rechazamos $H_0$ si $t_{\text{obs}} > 2.76$.
+-   Valor crítico: $t_{0.99,10} \approx 2.76$.
+-   Rechazamos $H_0$ si $t_{\text{obs}} > 2.76$.
 
-Como:
-$$
+Como: $$
 1.57 < 2.76,
-$$
-**no** rechazamos $H_0$ al nivel $\alpha = 0.01$.
+$$ **no** rechazamos $H_0$ al nivel $\alpha = 0.01$.
 
-Equivalente en términos de valor-$p$:
-el valor-$p$ unilateral asociado a $t_{\text{obs}} \approx 1.57$ (df = 10) es aproximadamente $p \approx 0.07$, mucho mayor que 0.01.
+Equivalente en términos de valor-$p$: el valor-$p$ unilateral asociado a $t_{\text{obs}} \approx 1.57$ (df = 10) es aproximadamente $p \approx 0.07$, mucho mayor que 0.01.
 
 Conclusión: A un nivel de significancia del 1%, **no hay evidencia suficiente** para afirmar que $\mu > 6.5$. Los datos no permiten concluir, con tanta exigencia, que en promedio las personas mantienen la mirada por más de 6.5 segundos.
-
 
 \newpage
 
@@ -139,17 +119,17 @@ Conclusión: A un nivel de significancia del 1%, **no hay evidencia suficiente**
 
 Coquimbo Unido acaba de coronarse campeón del fútbol chileno 2025 y su equipo de análisis ya trabaja para la próxima temporada. Para evaluar posibles cambios en la efectividad ofensiva, se comparan las proporciones de tiros al arco que terminan en gol en dos segmentos de la temporada:
 
-- Tramo A: Fechas 1–15
-- Tramo B: Fechas 16–30
+-   Tramo A: Fechas 1–15
+-   Tramo B: Fechas 16–30
 
 Se utilizan observaciones a nivel de tiro (gran $n$).
 
 | Tramo | $n$ (tiros) | $x$ (goles) | $\hat{p}$ |
 |:-----:|:-----------:|:-----------:|:---------:|
-| A | 1500 | 900 | 0.600 |
-| B | 1500 | 855 | 0.570 |
+|   A   |    1500     |     900     |   0.600   |
+|   B   |    1500     |     855     |   0.570   |
 
-a) Construya intervalos de confianza individuales al 99% para las proporciones de gol en cada tramo usando la aproximación normal. Comente si la superposición o no-superposición de los intervalos sugiere diferencias en la efectividad entre ambos tramos.
+a)  Construya intervalos de confianza individuales al 99% para las proporciones de gol en cada tramo usando la aproximación normal. Comente si la superposición o no-superposición de los intervalos sugiere diferencias en la efectividad entre ambos tramos.
 
 Para cada tramo usamos el IC normal al 99%:
 
@@ -158,60 +138,47 @@ $$
 \quad z_{0.995} \approx 2.576.
 $$
 
-* **Tramo A**:
-  $$
-  \hat p_A = \frac{900}{1500} = 0.60,\quad
-  SE_A = \sqrt{\frac{0.60\cdot 0.40}{1500}} \approx 0.01265.
-  $$
-  IC:
-  $$
-  0.60 \pm 2.576 \times 0.01265
-  \approx 0.60 \pm 0.0326
-  \Rightarrow \text{IC}_{99\%} \approx (0.567,\; 0.633).
-  $$
+-   **Tramo A**: $$
+    \hat p_A = \frac{900}{1500} = 0.60,\quad
+    SE_A = \sqrt{\frac{0.60\cdot 0.40}{1500}} \approx 0.01265.
+    $$ IC: $$
+    0.60 \pm 2.576 \times 0.01265
+    \approx 0.60 \pm 0.0326
+    \Rightarrow \text{IC}_{99\%} \approx (0.567,\; 0.633).
+    $$
 
-* **Tramo B**:
-  $$
-  \hat p_B = \frac{855}{1500} = 0.57,\quad
-  SE_B = \sqrt{\frac{0.57\cdot 0.43}{1500}} \approx 0.01278.
-  $$
-  IC:
-  $$
-  0.57 \pm 2.576 \times 0.01278
-  \approx 0.57 \pm 0.033
-  \Rightarrow \text{IC}_{99\%} \approx (0.537,\; 0.603).
-  $$
+-   **Tramo B**: $$
+    \hat p_B = \frac{855}{1500} = 0.57,\quad
+    SE_B = \sqrt{\frac{0.57\cdot 0.43}{1500}} \approx 0.01278.
+    $$ IC: $$
+    0.57 \pm 2.576 \times 0.01278
+    \approx 0.57 \pm 0.033
+    \Rightarrow \text{IC}_{99\%} \approx (0.537,\; 0.603).
+    $$
 
-Observamos que los intervalos **se superponen** (aprox. entre 0.567 y 0.603).
-Usando solo la regla “si los IC se superponen, no hay evidencia clara de diferencia”, la superposición sugiere que la diferencia en efectividad entre ambos tramos **no es concluyente** al 99%.
+Observamos que los intervalos **se superponen** (aprox. entre 0.567 y 0.603). Usando solo la regla “si los IC se superponen, no hay evidencia clara de diferencia”, la superposición sugiere que la diferencia en efectividad entre ambos tramos **no es concluyente** al 99%.
 
+b)  Luego, construya un intervalo de confianza al 99% para la diferencia de proporciones (Tramo A menos Tramo B). Interprete si la evidencia respalda una diferencia real en la efectividad y si esta conclusión es más clara que la basada solo en IC individuales.
 
-b) Luego, construya un intervalo de confianza al 99% para la diferencia de proporciones (Tramo A menos Tramo B). Interprete si la evidencia respalda una diferencia real en la efectividad y si esta conclusión es más clara que la basada solo en IC individuales.
-
-Ahora construimos un IC al 99% para la **diferencia** de proporciones:
-$$
+Ahora construimos un IC al 99% para la **diferencia** de proporciones: $$
 \hat p_A - \hat p_B = 0.60 - 0.57 = 0.03.
 $$
 
-El error estándar de la diferencia es:
-$$
+El error estándar de la diferencia es: $$
 SE_{\text{dif}} = \sqrt{\frac{\hat p_A(1-\hat p_A)}{n_A} + \frac{\hat p_B(1-\hat p_B)}{n_B}}.
 $$
 
-Con $n_A = n_B = 1500$:
-$$
+Con $n_A = n_B = 1500$: $$
 SE_{\text{dif}} \approx \sqrt{\frac{0.60\cdot 0.40}{1500} + \frac{0.57\cdot 0.43}{1500}}
 \approx 0.018.
 $$
 
-Intervalo al 99%:
-$$
+Intervalo al 99%: $$
 (\hat p_A - \hat p_B) \pm z_{0.995} SE_{\text{dif}}
 = 0.03 \pm 2.576 \times 0.018.
 $$
 
-Numéricamente:
-$$
+Numéricamente: $$
 0.03 \pm 0.046 \Rightarrow \text{IC}_{99\%} \approx (-0.016,\; 0.076).
 $$
 
@@ -219,9 +186,8 @@ Este intervalo **incluye 0**, por lo que no podemos descartar que la diferencia 
 
 Conclusión:
 
-* La evidencia **no respalda de forma clara** una diferencia real en efectividad al 99%.
-* El análisis con el IC de la diferencia es más directo y transparente: muestra explícitamente que, al 99%, la diferencia de 3 puntos porcentuales podría deberse al azar.
-
+-   La evidencia **no respalda de forma clara** una diferencia real en efectividad al 99%.
+-   El análisis con el IC de la diferencia es más directo y transparente: muestra explícitamente que, al 99%, la diferencia de 3 puntos porcentuales podría deberse al azar.
 
 \newpage
 
@@ -231,12 +197,11 @@ Una ONG dedicada a la conservación animal quiere estimar la proporción de pand
 
 Se desea construir un estimador puntual y un intervalo de confianza con:
 
-- Precisión deseada: margen de error máximo $E = \pm 0.05$
-- Nivel de confianza: $99\%$
-- Un estudio piloto previo sugiere que aproximadamente $p \approx 0.40$ de los pandas muestran este comportamiento.
+-   Precisión deseada: margen de error máximo $E = \pm 0.05$
+-   Nivel de confianza: $99\%$
+-   Un estudio piloto previo sugiere que aproximadamente $p \approx 0.40$ de los pandas muestran este comportamiento.
 
 Pregunta: ¿Cuál es el tamaño mínimo de muestra requerido para lograr este nivel de precisión y confianza? Muestre su procedimiento.
-
 
 Para un IC de proporción con margen de error máximo $E$ y confianza $1-\alpha$ usamos:
 
@@ -248,12 +213,11 @@ $$
 
 Datos:
 
-* Nivel de confianza 99% $\Rightarrow z_{0.995} \approx 2.576$.
-* $p \approx 0.40 \Rightarrow p(1-p) = 0.4 \cdot 0.6 = 0.24$.
-* Margen de error deseado: $E = 0.05$.
+-   Nivel de confianza 99% $\Rightarrow z_{0.995} \approx 2.576$.
+-   $p \approx 0.40 \Rightarrow p(1-p) = 0.4 \cdot 0.6 = 0.24$.
+-   Margen de error deseado: $E = 0.05$.
 
-Entonces:
-$$
+Entonces: $$
 n = \frac{(2.576)^2 \cdot 0.24}{0.05^2}
 = \frac{(6.64)\cdot 0.24}{0.0025}
 \approx \frac{1.5936}{0.0025}
@@ -265,7 +229,6 @@ Como el tamaño de muestra debe ser entero y **redondeamos hacia arriba**:
 $$
 \boxed{n_{\min} = 638\; \text{pandas (aprox.)}.}
 $$
-
 
 \newpage
 
@@ -281,7 +244,7 @@ El jugador hace $n = 64$ apuestas independientes.
 
 Preguntas:
 
-1. ¿Cuál es la distribución aproximada de la media muestral $\bar X$? Indique media y desviación estándar.
+1.  ¿Cuál es la distribución aproximada de la media muestral $\bar X$? Indique media y desviación estándar.
 
 Por el Teorema del Límite Central, para $n$ grande:
 
@@ -291,40 +254,30 @@ $$
 
 Con los números del problema:
 
-* Media de $\bar X$:
-  $$
-  \mathbb{E}[\bar X] = \mu = -0.05.
-  $$
-* Varianza de $\bar X$:
-  $$
-  \mathrm{Var}(\bar X) = \frac{\sigma^2}{n} = \frac{1^2}{64} = \frac{1}{64}.
-  $$
-* Desviación estándar de $\bar X$:
-  $$
-  SD(\bar X) = \frac{\sigma}{\sqrt{n}} = \frac{1}{8} = 0.125.
-  $$
+-   Media de $\bar X$: $$
+    \mathbb{E}[\bar X] = \mu = -0.05.
+    $$
+-   Varianza de $\bar X$: $$
+    \mathrm{Var}(\bar X) = \frac{\sigma^2}{n} = \frac{1^2}{64} = \frac{1}{64}.
+    $$
+-   Desviación estándar de $\bar X$: $$
+    SD(\bar X) = \frac{\sigma}{\sqrt{n}} = \frac{1}{8} = 0.125.
+    $$
 
-Entonces:
-$$
+Entonces: $$
 \boxed{\bar X \approx N\left(-0.05,\; 0.125^2\right).}
 $$
 
+2.  Calcule $\mathbb{P}(\bar X > 0)$, es decir, la probabilidad de que el jugador termine ganando dinero en promedio después de las 64 apuestas.
 
-
-2. Calcule $\mathbb{P}(\bar X > 0)$, es decir, la probabilidad de que el jugador termine ganando dinero en promedio después de las 64 apuestas.
-
-Queremos:
-$$
+Queremos: $$
 \mathbb{P}(\bar X > 0).
 $$
 
-Estandarizamos:
-$$
+Estandarizamos: $$
 Z = \frac{\bar X - \mu_{\bar X}}{SD(\bar X)} =
 \frac{\bar X - (-0.05)}{0.125},
-$$
-de modo que
-$$
+$$ de modo que $$
 \mathbb{P}(\bar X > 0) = \mathbb{P}\left(
 Z > \frac{0 - (-0.05)}{0.125}
 \right)
@@ -345,79 +298,54 @@ $$
 
 Interpretación: Aunque la apuesta tiene **valor esperado negativo**, todavía hay alrededor de un **35% de probabilidad** de que, tras 64 apuestas, la media observada resulte positiva (es decir, que el jugador termine ganando en promedio).
 
-
 \newpage
 
 ### 6)
 
 Responde V/F. Si es Falso, justifica en 2–3 líneas interpretando la fórmula y su significado teórico.
 
-1. *Para que se cumpla el Teorema del Límite Central, se requiere que la población sea normal; si no, no vale que* $$
-    \frac{\bar X - \mu}{\sigma/\sqrt{n}} \xrightarrow{d} N(0,1).
-    $$
+1.  *Para que se cumpla el Teorema del Límite Central, se requiere que la población sea normal; si no, no vale que* $$
+     \frac{\bar X - \mu}{\sigma/\sqrt{n}} \xrightarrow{d} N(0,1).
+     $$
 
-**Falso.**
-El **Teorema del Límite Central** no requiere que la población sea normal. Bajo supuestos bastante generales (i.i.d., varianza finita), la distribución de $\bar X$ se aproxima a una normal a medida que $n$ crece, incluso si la población original es no normal.
+**Falso.** El **Teorema del Límite Central** no requiere que la población sea normal. Bajo supuestos bastante generales (i.i.d., varianza finita), la distribución de $\bar X$ se aproxima a una normal a medida que $n$ crece, incluso si la población original es no normal.
 
-
-
-2. *En* $\hat{\mu} = \bar X = \frac{1}{n}\sum X_i$, $\hat{\mu}$ es el número calculado en la muestra y “estimado” se refiere a la fórmula en abstracto.
-
-**Falso.**
-En notación estándar, $\hat\mu$ (o $\bar X$) es el **estimador**: una función aleatoria de la muestra. El “estimado” es el valor numérico que toma ese estimador una vez observados los datos. El enunciado invierte las definiciones.
-
-
-
-3. *Si* $\mathrm{Var}(X)=\sigma^2$, entonces la media muestral cumple $$
-    \mathrm{Var}(\bar X)=\sigma^2,
-    $$ *porque promediar no cambia la variabilidad.*
-
-
-**Falso.**
-Si $\mathrm{Var}(X)=\sigma^2$, entonces:
-$$
-\mathrm{Var}(\bar X)=\frac{\sigma^2}{n}.
-$$
-Promediar **reduce** la variabilidad; mientras más grande es $n$, más concentrada alrededor de $\mu$ se vuelve la media muestral.
-
-
-
-4. *El error estándar de la media* $$
-    SE(\bar X) = \frac{\sigma}{\sqrt{n}}
-    $$ *corresponde a la desviación estándar del estimador* $\bar X$; es decir, mide la variabilidad de la media muestral entre posibles muestras y cuán preciso es el estimador.
+2.  *En* $\hat{\mu} = \bar X = \frac{1}{n}\sum X_i$, $\hat{\mu}$ es el número calculado en la muestra y “estimado” se refiere a la fórmula en abstracto.
 
 **Verdadero.**
-El error estándar $SE(\bar X)=\sigma/\sqrt{n}$ es la **desviación estándar del estimador** $\bar X$. Mide cuánta variación tendría la media si repitiéramos el muestreo muchas veces y, por tanto, cuán precisa es la estimación de $\mu$.
 
+3.  *Si* $\mathrm{Var}(X)=\sigma^2$, entonces la media muestral cumple $$
+     \mathrm{Var}(\bar X)=\sigma^2,
+     $$ *porque promediar no cambia la variabilidad.*
 
-5. *Si un IC del 99% para* $\mu$ contiene $\mu_0$, eso significa que la probabilidad de que $\mu$ sea exactamente $\mu_0$ es 99%.
+**Falso.** Si $\mathrm{Var}(X)=\sigma^2$, entonces: $$
+\mathrm{Var}(\bar X)=\frac{\sigma^2}{n}.
+$$ Promediar **reduce** la variabilidad; mientras más grande es $n$, más concentrada alrededor de $\mu$ se vuelve la media muestral.
 
-**Falso.**
-El IC del 99% significa que el **procedimiento** genera intervalos que contienen a $\mu$ el 99% de las veces; no que la probabilidad puntual de que $\mu$ sea exactamente $\mu_0$ sea 99%. El parámetro $\mu$ no es una variable aleatoria en este enfoque.
+4.  *El error estándar de la media* $$
+     SE(\bar X) = \frac{\sigma}{\sqrt{n}}
+     $$ *corresponde a la desviación estándar del estimador* $\bar X$; es decir, mide la variabilidad de la media muestral entre posibles muestras y cuán preciso es el estimador.
 
+**Verdadero.** El error estándar $SE(\bar X)=\sigma/\sqrt{n}$ es la **desviación estándar del estimador** $\bar X$. Mide cuánta variación tendría la media si repitiéramos el muestreo muchas veces y, por tanto, cuán precisa es la estimación de $\mu$.
 
+5.  *Si un IC del 99% para* $\mu$ contiene $\mu_0$, eso significa que la probabilidad de que $\mu$ sea exactamente $\mu_0$ es 99%.
 
-6. *El valor-*$p$ se define como $$
-    p = \mathbb{P}(T \ge T_{\text{obs}} \mid H_0)
-    $$ *y representa la probabilidad de que* $H_0$ sea verdadera.
+**Falso.** El IC del 99% significa que el **procedimiento** genera intervalos que contienen a $\mu$ el 99% de las veces; no que la probabilidad puntual de que $\mu$ sea exactamente $\mu_0$ sea 99%. El parámetro $\mu$ no es una variable aleatoria en este enfoque.
 
+6.  *El valor-*$p$ se define como $$
+     p = \mathbb{P}(T \ge T_{\text{obs}} \mid H_0)
+     $$ *y representa la probabilidad de que* $H_0$ sea verdadera.
 
-**Falso.**
-La fórmula captura la probabilidad de obtener un estadístico $T$ tan extremo o más que el observado **dado que $H_0$ es verdadera**. No es la probabilidad de que $H_0$ sea verdadera; esa sería una interpretación bayesiana que requiere un modelo distinto.
+**Falso.** La fórmula captura la probabilidad de obtener un estadístico $T$ tan extremo o más que el observado **dado que** $H_0$ es verdadera. No es la probabilidad de que $H_0$ sea verdadera; esa sería una interpretación bayesiana que requiere un modelo distinto.
 
-
-
-7. *La varianza poblacional se estima sin sesgo usando*
+7.  *La varianza poblacional se estima sin sesgo usando*
 
     $$
-    s^2 = \frac{1}{n}\sum_{i=1}^n (X_i - \bar X)^2,
-    $$ *mientras que la versión con* $n-1$ introduce sesgo.
+     s^2 = \frac{1}{n}\sum_{i=1}^n (X_i - \bar X)^2,
+     $$ *mientras que la versión con* $n-1$ introduce sesgo.
 
-
-**Falso.**
-El estimador **insesgado** de la varianza poblacional es:
+**Falso.** El estimador **insesgado** de la varianza poblacional es:
 
 $$
 s^2 = \frac{1}{n-1}\sum_{i=1}^n (X_i - \bar X)^2.
-$$
-La versión con $1/n$ subestima sistemáticamente la varianza verdadera (es un estimador sesgado hacia abajo).
+$$ La versión con $1/n$ subestima sistemáticamente la varianza verdadera (es un estimador sesgado hacia abajo).
