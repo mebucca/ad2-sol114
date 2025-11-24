@@ -27,7 +27,7 @@ data_grades <- Nota_adjs %>% drop_na(Nota_adj, Rut) %>%
 
 data_grades %>% select(Rut,`1a`:Nota_adj) %>%   
   mutate(`P(Nota_adj < tuNota_adj)` =rank(Nota_adj)/n()) %>%
-  knitr::kable(digits=2) %>% kable_styling(font_size = 9)
+  knitr::kable(digits=1) %>% kable_styling(font_size = 9)
 
 ```
 
@@ -116,7 +116,7 @@ print(p)
 
 ```
 
-Desagregando por pregunta:
+Desagregando por pregunta (notas no ajustadas):
 
 ```{r, echo=F, message=FALSE, warning=FALSE}
 
@@ -135,7 +135,7 @@ data_long %>%
             Max = max(Value, na.rm = TRUE),
             SD = sd(Value, na.rm = TRUE)
             ) %>% 
-  knitr::kable(digits=2) %>% kable_styling(font_size = 9)
+  knitr::kable(digits=1) %>% kable_styling(font_size = 9)
   
 
 
