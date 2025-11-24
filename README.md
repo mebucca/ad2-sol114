@@ -52,7 +52,7 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | 12  | Noviembre  | Asociación con datos categóricos                          | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_22/class_22#1) [`[Code]`](slides/class_22/class_22.Rmd)   | —                |
 | 17  | Noviembre  | Test de independencia χ²                                  |  [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_23/class_23#1) [`[Code]`](slides/class_23/class_23.Rmd)                                                                                                                 | —                |
 | 19  | Noviembre  | Asociación con datos continuos & covarianza               | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_24/class_24#1) [`[Code]`](slides/class_24/class_24.Rmd) | —                |
-| 24  | Noviembre  | Correlación de Pearson                                    |                                                                                                                  | —                |
+| 24  | Noviembre  | Correlación de Pearson                                    | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_25/class_25#33) [`[Code]`](slides/class_24/class_25.Rmd) | —                |
 | 26  | Noviembre  | Repaso                                                    |                                                                                                                  | —                |
 
 ---
