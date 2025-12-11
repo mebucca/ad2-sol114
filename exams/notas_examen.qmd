@@ -21,12 +21,10 @@ notas <- read_sheet(notas_prueba1, sheet= "Examen")
 
 data_grades <- notas %>% drop_na(Nota) %>%
   filter(Nota>0) %>%
-  select(Rut,`I.i`:Revisor) %>%  
+  select(Rut,`1`:Nota) %>%  
   mutate(`P(Nota < tunota)` =rank(Nota)/n()) 
 
-model <- lm(Nota ~ Revisor, data = data_grades)
-
-data_grades %>% select(Rut,`I.i`:Nota) %>%  
+data_grades %>% select(Rut,`1`:Nota) %>%  
   mutate(`P(Nota < tunota)` =rank(Nota)/n()) %>%
   knitr::kable(digits=2) %>% kable_styling(font_size = 9)
 
