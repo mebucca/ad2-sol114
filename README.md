@@ -71,7 +71,8 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | Prueba 2      |            |         | [`[Prueba 2]`](https://mebucca.github.io/ad2-sol114/exams/prueba_2.pdf) [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_prueba2.html)   |
 | Tarea corta 7 | 17 noviembre | 24 noviembre | [`[TC7]`](https://mebucca.github.io/ad2-sol114/homework/tc_7#1) [`[TC7.qmd]`](homework/tc_7.qmd) |
 | Prueba Bonus  |            |         | [`[Prueba Bonus]`](exams/prueba_bonus.pdf)  |
-| Examen final  |            |         |  [`[Examen 2023]`](exams/exam.pdf) |
+| Examen final  |            |         |  [`[Examen 2023]`](exams/exam.pdf) [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_examen.html)  |
+| Notas Finales  |            |         | [`[Notas]`](https://mebucca.github.io/ad2-sol114/exams/notas_final.html)  |
 
 **IMPORTANTE:** Este curso permite el uso ético y transparente de herramientas de inteligencia artificial generativa, únicamente como herramienta de estudio o apoyo en la escritura de código. El estudiantado deberá declarar explícitamente en los anexos de cada trabajo qué herramientas fueron utilizadas, con qué propósito y, si se solicita, compartir los comandos o prompts empleados. El uso de IA no exime a los y las estudiantes de dominar plenamente el contenido de sus trabajos. Para verificar esto, en la clase posterior a la entrega de cualquier tarea o trabajo, dos estudiantes serán seleccionados al azar para explicar oralmente frente a la clase el procedimiento seguido en alguna de sus respuestas. En base a esta exposición, su nota podrá ser reconsiderada. El uso no autorizado o no declarado será considerado una falta a la integridad académica.
 
