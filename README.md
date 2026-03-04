@@ -1,6 +1,6 @@
-# Probabilidad e Inferencia Estadística (SOL114)
+# Probabilidad e Inferencia para Estadística Social (SOL512)
 
-Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Probabilidad e Inferencia Estadística), dictado el primer semestre 2026 a estudiantes de pregrado del Departamento de Sociología de la Universidad Católica de Chile. Para mayores detalles ver el [`[programa]`](files/syllabus_sol114.pdf) y [`[calendario]`](#Calendario) del curso.
+Este repositorio contiene el material del curso SOL512 Probabilidad e Inferencia para Estadística Social, dictado el primer semestre 2026 a estudiantes de pregrado del Departamento de Sociología de la Universidad Católica de Chile. Para mayores detalles ver el [`[programa]`](files/syllabus_sol512.pdf) y [`[calendario]`](#Calendario) del curso.
 
 
 ![estimado](files/beta.png)
@@ -69,9 +69,8 @@ Este repositorio contiene el material del curso SOL114 Análisis de Datos II (Pr
 | Prueba 1      | 8 abril  | —          |
 | Tarea 4       | 27 abril | —          |
 | Tarea 5       | 11 mayo  | —          |
-| Tarea 6       | 25 mayo  | —          |
 | Prueba 2      | 27 mayo  | —          |
-| Tarea 7       | 15 junio | —          |
+| Tarea 6       | 15 junio | —          |
 | Prueba Bonus  | —        | —          |
 | Examen final  | —        | —          |
 | Notas Finales | —        | —          |
