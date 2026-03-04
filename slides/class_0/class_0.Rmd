@@ -1,5 +1,5 @@
 ---
-title: "~~Análisis de Datos II (SOL114)~~ <br> Probabilidad e Inferencia Estadística"
+title: "Probabilidad e Inferencia <br> para Estadística ~~Social~~ (SOL512)"
 subtitle: "Presentación del curso"
 author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
@@ -79,22 +79,7 @@ class: inverse, center, middle
 
   - .bold[Métodos]: modelación estadística, inferencia causal, métodos experimentales y computacionales
 
----
-## Ayudantes
 
-
-<br>
-
-.pull-left[
-.bold[Elisa Tagle]
-
-- Estudiante de magister en Sociólogía UC
-
-]
-
-.figure-right[
-![elisa](elisa.png)
-]
 
 ---
 ## Ayudantes
@@ -109,7 +94,24 @@ class: inverse, center, middle
 ]
 
 .pull-right[
-![benjamin](vicente.jpeg)
+![vicente](vicente.jpeg)
+]
+
+
+---
+## Ayudantes
+
+<br>
+
+.pull-left[
+.bold[Tomás Leva]
+
+- Estudiante de pregrado en Sociólogía UC
+
+]
+
+.figure-right[
+![vicente](tomas.jpeg)
 ]
 
 ---
