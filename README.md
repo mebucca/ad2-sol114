@@ -1,6 +1,6 @@
 # Probabilidad e Inferencia para Estadística Social (SOL512)
 
-Este repositorio contiene el material del curso SOL512 Probabilidad e Inferencia para Estadística Social, dictado el primer semestre 2026 a estudiantes de pregrado del Departamento de Sociología de la Universidad Católica de Chile. Para mayores detalles ver el [`[programa]`](files/syllabus_sol114.pdf) y [`[calendario]`](#Calendario) del curso.
+Este repositorio contiene el material del curso SOL512 Probabilidad e Inferencia para Estadística Social, dictado el primer semestre 2026 a estudiantes de pregrado del Departamento de Sociología de la Universidad Católica de Chile. Para mayores detalles ver el [`[programa]`](files/syllabus_sol512.pdf) y [`[calendario]`](#Calendario) del curso.
 
 
 ![estimado](files/beta.png)
