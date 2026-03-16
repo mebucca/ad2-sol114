@@ -1,0 +1,14 @@
+---
+title: "Tirar un dado"
+format: html
+---
+
+```{r}
+
+tirar_dados <- function() {
+  dado <- sample(1:6, size = 1, replace = TRUE)
+  return(dado)
+}
+
+replicate(n=1, tirar_dados())
+```
