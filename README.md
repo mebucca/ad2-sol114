@@ -58,26 +58,6 @@ Este repositorio contiene el material del curso SOL512 Probabilidad e Inferencia
 | Lunes | 6 | Julio | **EXAMEN FINAL** | — | — | — |
 
 
----
-
-## Evaluaciones
-
-| Evaluación    | Fecha    | Soluciones |
-| ------------- | -------- | ---------- |
-| Tarea 1       | 11 marzo | —          |
-| Tarea 2       | 30 marzo | —          |
-| Tarea 3       | 6 abril  | —          |
-| Prueba 1      | 8 abril  | —          |
-| Tarea 4       | 27 abril | —          |
-| Tarea 5       | 11 mayo  | —          |
-| Prueba 2      | 27 mayo  | —          |
-| Tarea 6       | 15 junio | —          |
-| Prueba Bonus  | —        | —          |
-| Examen final  | —        | —          |
-| Notas Finales | —        | —          |
-
-
----
 
 
 ## Horario de Consulta
