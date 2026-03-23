@@ -1,0 +1,36 @@
+---
+title: "Ejercicios AY01"
+author: "SOL512"
+format: pdf
+editor: visual
+---
+
+# Tarea #2 2025-2
+
+Imagina una enfermedad *muy* rara y una prueba para detectarla. Estos son los datos:
+
+- Prevalencia de la enfermedad $E$: $P(E)=0.001$
+- Sensibilidad: $P(T\mid E)=0.99$.
+- Falso positivo: $P(T\mid \neg E)=0.05$.
+
+**Pregunta 1.** ¿Cuál es $P(E\mid T)$? Usa el teorema de Bayes.
+
+**Pregunta 2.** Si elegimos 3 personas al azar, ¿cuál es la probabilidad de que **exactamente 2** tengan la enfermedad?
+
+# Prueba I 2024-2
+
+## **Problema II:**
+
+Una empresa está considerando lanzar un nuevo producto al mercado. Antes de hacerlo, realizan una encuesta entre sus consumidores potenciales. Cada encuestado puede dar una respuesta “Positiva” o “Negativa” respecto al producto. Supongamos que la probabilidad de que un encuestado elegido al azar dé una respuesta “Positiva” es $𝑟$.
+
+**Parte i.** Si la respuesta de un encuestado es un evento aleatorio, describe el espacio muestral.
+
+**Parte ii.** Indica que distribución de probabilidad describe adecuadamente cada respuesta individual. Especifica su función de masa probabilística y explica cada uno de los componentes de la expresión.
+
+**Parte iii.** Dado que $𝑟$ es la probabilidad de que un encuestado seleccionado al azar dé una respuesta “Positiva”, expresa la probabilidad de que, al observar las respuestas de 4 encuestados seleccionados al azar (de la misma población y cuyas respuestas son independientes entre si), exactamente 2 den una respuesta “Positiva” y los otros 2 den una respuesta “Negativa”. Explica cada uno de los componentes de la expresión.
+
+**Parte iv.** Supongamos que las respuestas “Positivas” y “Negativas” no están influenciadas por el género del encuestado, y que el 60% de los encuestados son mujeres. Determina la probabilidad $P(Mujer\mid "Positiva")$.
+
+# 
+
+#
