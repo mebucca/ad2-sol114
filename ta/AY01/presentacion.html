@@ -493,6 +493,43 @@ Tomás Leva
 <div class="fragment">
 <p>La probabilidad de obtener <strong>exactamente</strong> 2 caras en 3 lanzamientos es de <span class="math inline">\(0.375\)</span>.</p>
 </div>
+</section>
+<section id="solución-binomial-en-r" class="slide level2">
+<h2>Solución Binomial en R</h2>
+<p>La solución en código sería:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href=""></a>x <span class="ot">&lt;-</span> <span class="dv">2</span></span>
+<span id="cb17-2"><a href=""></a>n <span class="ot">&lt;-</span> <span class="dv">3</span></span>
+<span id="cb17-3"><a href=""></a>p <span class="ot">&lt;-</span> <span class="fl">0.5</span></span>
+<span id="cb17-4"><a href=""></a></span>
+<span id="cb17-5"><a href=""></a>var <span class="ot">&lt;-</span> <span class="fu">dbinom</span>(x, <span class="at">size =</span> n, <span class="at">prob =</span> p) <span class="co"># P(X = x)</span></span>
+<span id="cb17-6"><a href=""></a><span class="fu">print</span>(var)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.375</code></pre>
+</div>
+</div>
+<div class="fragment">
+<p>¿Y qué pasa si queremos calcular <span class="math inline">\(P(X &gt; x)\)</span> o <span class="math inline">\(P(X \le x)\)</span>?</p>
+</div>
+<div class="fragment">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href=""></a><span class="co"># P(X &gt; x): Más de 2 éxitos (es decir, sacar 3 caras)</span></span>
+<span id="cb19-2"><a href=""></a>var_mayor <span class="ot">&lt;-</span> <span class="fu">pbinom</span>(x, <span class="at">size =</span> n, <span class="at">prob =</span> p, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>) </span>
+<span id="cb19-3"><a href=""></a><span class="fu">print</span>(var_mayor)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.125</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="co"># P(X &lt;= x): 2 o menos éxitos (0, 1 o 2 caras)</span></span>
+<span id="cb21-2"><a href=""></a>var_menor <span class="ot">&lt;-</span> <span class="fu">pbinom</span>(x, <span class="at">size =</span> n, <span class="at">prob =</span> p) </span>
+<span id="cb21-3"><a href=""></a><span class="fu">print</span>(var_menor)</span></code></pre></div><button title="Copiar al portapapeles" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.875</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><em>(Nota: con el argumento <code>lower.tail = FALSE</code> pueden calcular <span class="math inline">\(P(X &gt; x)\)</span>. Si no lo incluyen, la función calcula por defecto <span class="math inline">\(P(X \le x)\)</span>)</em></p>
+</div>
 </section></section>
 <section>
 <section id="parte-3-ejercicios" class="title-slide slide level1 center">

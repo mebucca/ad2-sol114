@@ -318,6 +318,41 @@ $$P(X = 2) = 3 \cdot 0.25 \cdot 0.5 = 0.375$$
 
 La probabilidad de obtener **exactamente** 2 caras en 3 lanzamientos es de $0.375$.
 
+## Solución Binomial en R
+
+La solución en código sería:
+
+```{r}
+#| echo: true
+x <- 2
+n <- 3
+p <- 0.5
+
+var <- dbinom(x, size = n, prob = p) # P(X = x)
+print(var)
+```
+
+. . .
+
+¿Y qué pasa si queremos calcular $P(X > x)$ o $P(X \le x)$?
+
+. . .
+
+```{r}
+#| echo: true
+# P(X > x): Más de 2 éxitos (es decir, sacar 3 caras)
+var_mayor <- pbinom(x, size = n, prob = p, lower.tail = FALSE) 
+print(var_mayor)
+
+# P(X <= x): 2 o menos éxitos (0, 1 o 2 caras)
+var_menor <- pbinom(x, size = n, prob = p) 
+print(var_menor)
+```
+
+. . .
+
+*(Nota: con el argumento `lower.tail = FALSE` pueden calcular $P(X > x)$. Si no lo incluyen, la función calcula por defecto $P(X \le x)$)*
+
 # Parte 3: Ejercicios
 
 *(Los pueden encontrar en la carpeta como `ejercicios.pdf`)*
