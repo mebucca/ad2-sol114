@@ -1,0 +1,225 @@
+---
+title: "Solución Ejercicios AY01"
+author: "SOL512"
+format: pdf
+editor: visual
+---
+
+# Tarea #2 2025-2
+
+Imagina una enfermedad *muy* rara y una prueba para detectarla. Estos son los datos:
+
+- Prevalencia de la enfermedad $E$: $P(E)=0.001$
+- Sensibilidad: $P(T\mid E)=0.99$.
+- Falso positivo: $P(T\mid \neg E)=0.05$.
+
+### **Pregunta 1.** ¿Cuál es $P(E\mid T)$? Usa el teorema de Bayes.
+
+$P(E\mid T)$ por Bayes se vería como:
+
+$$P(E\mid T)=\frac{P(T\mid E)\,P(E)}{P(T)}.$$
+
+Sin embargo, sabemos que nos falta $P(T)$ para poder resolver, pero podemos calcular esta variable utilizando la ley de probabilidad total:
+
+$$P(T) = P(T \mid E)P(E) + P(T \mid \neg E)P(\neg E)$$
+
+Reemplazando:
+
+$$P(T) = (0.99) \times (0.001) + (0.05) \times (0.999)$$
+
+$$P(T) = 0.05094$$
+
+Ahora, completando la fórmula original:
+
+$$P(E \mid T) = \frac{(0.99)\times(0.001)}{(0.05094)} =\frac{0.00099}{0.05094}\approx 0.0194.$$
+
+Solución en R:
+
+```{r}
+# Definimos las variables
+prob_t <- 0.99 * 0.001 + 0.05 * 0.999
+prob_e <- 0.001
+prob_e_en_t <- 0.99
+
+# Aplicamos Bayes
+prob_t_en_e <- prob_e_en_t * prob_e / prob_t
+prob_t_en_e
+```
+
+### **Pregunta 2.** Si elegimos 3 personas al azar, ¿cuál es la probabilidad de que **exactamente 2** tengan la enfermedad?
+
+**Modelo.** Supongamos independencia e igual probabilidad $p=P(E)=0.001$ por persona. Entonces el número de casos en $n=3$ ensayos sigue una **binomial**:
+
+$$X \sim \text{Binomial}(n = 3, p = 0.001)$$
+
+Buscamos $P(X=2)$:
+
+$$P(X=2)=\binom{3}{2}p^2(1-p)^{1}.$$
+
+Reemplazando:
+
+$$P(X=2)=3\,(0.001)^2\,(0.999)=3\times 10^{-6}\times 0.999=2.997\times 10^{-6}.$$
+
+**Soluciones en R:**
+
+Solución A:
+
+```{r}
+x <- 2
+n <- 3
+
+prob_2A <- dbinom(x, size = n, prob = prob_e)
+prob_2A
+```
+
+Solución B:
+
+```{r}
+prob_2B <- (choose(n, x)) * (prob_e^x) * ((1 - prob_e)^(n - x))
+prob_2B
+```
+
+(Nota: ${n \choose x}$ en R se puede escribir como `choose(n, x)`).
+
+\newpage
+
+# Examen 2025-2
+
+### 1. En una región del país, el 55% de los votantes prefiere a Jara y el 45% a Kast. Se sabe, además, que entre quienes tienen educación universitaria, el 60% vota por Jara. Si el 30% de los votantes tiene educación universitaria, ¿cuál es la probabilidad de seleccionar al azar una persona que tenga educación universitaria y vote por Jara?
+
+Para resolver este problema, utilizamos la regla de la multiplicación para probabilidades conjuntas. A partir del enunciado, identificamos las siguientes probabilidades:
+
+- Probabilidad de que un votante tenga educación universitaria: $P(\text{Universitaria}) = 0.30$.
+- Probabilidad de que vote por Jara dado que tiene educación universitaria: $P(\text{Jara} \mid \text{Universitaria}) = 0.60$.
+
+Queremos encontrar la probabilidad conjunta de que un votante tenga educación universitaria y vote por Jara, lo cual se expresa matemáticamente como:
+
+$$P(\text{Jara} \cap \text{Universitaria}) = P(\text{Jara} \mid \text{Universitaria}) \times P(\text{Universitaria})$$
+
+Reemplazando los valores obtenidos:
+
+$$P(\text{Jara} \cap \text{Universitaria}) = 0.60 \times 0.30 = 0.18$$
+
+Por lo tanto, la probabilidad es de 0.18 (o 18%). Solución en R:
+
+```{r}
+p_u <- 0.3
+p_jara_m_uni <- 0.6
+p_jara_y_uni <- p_u * p_jara_m_uni
+
+p_jara_y_uni
+```
+
+### **2.** Usando el contexto anterior, calcule la probabilidad de que un votante que apoya a Jara tenga educación universitaria. Interprete el resultado.
+
+Para este cálculo, aplicamos la definición de probabilidad condicional. Queremos saber la probabilidad de que alguien tenga educación universitaria sabiendo que ya vota por Jara. Los datos que tenemos son:
+
+- Probabilidad marginal de votar por Jara: $P(\text{Jara}) = 0.55$.
+- Probabilidad conjunta (calculada en la pregunta anterior): $P(\text{Jara} \cap \text{Universitaria}) = 0.18$.
+
+La fórmula de probabilidad condicional es:
+
+$$P(\text{Universitaria} \mid \text{Jara}) = \frac{P(\text{Jara} \cap \text{Universitaria})}{P(\text{Jara})}$$
+
+Sustituyendo los valores:
+
+$$P(\text{Universitaria} \mid \text{Jara}) = \frac{0.18}{0.55} \approx 0.3273$$
+
+**Interpretación:** Esto significa que, de todos los votantes que apoyan a Jara, aproximadamente el 32.73% posee educación universitaria.
+
+Solución en R:
+
+```{r}
+p_jara <- 0.55
+
+print(round(p_jara_y_uni / p_jara, 4))
+```
+
+### **3.** Suponga que 5 votantes se seleccionan al azar y que cada uno vota por Kast con probabilidad 0.45, de manera independiente. ¿Cuál es la probabilidad de que exactamente 4 voten por Kast?
+
+Este escenario se modela utilizando una distribución binomial, ya que tenemos un número fijo de ensayos independientes ($n = 5$ votantes) y dos posibles resultados para cada uno (votar por Kast o no).
+
+Definimos nuestra variable aleatoria $X$ como el número de votantes que apoyan a Kast:
+
+$$X \sim \text{Binomial}(n = 5, p = 0.45)$$
+
+Buscamos la probabilidad de que exactamente 4 votantes elijan a Kast, es decir, $P(X=4)$. Aplicamos la fórmula de la función de masa de probabilidad binomial:
+
+$$P(X=4) = \binom{5}{4} (0.45)^4 (1 - 0.45)^{5 - 4}$$
+
+Desarrollando la expresión:
+
+$$P(X=4) = 5 \times (0.45)^4 \times (0.55)^1 \approx 0.1128$$
+
+La probabilidad de que exactamente 4 de los 5 votantes elegidos al azar voten por Kast es de aproximadamente 0.1128 (o 11.28%). Solución en R:
+
+```{r}
+p_kast <- 0.45
+x <- 4
+n <- 5
+
+test_kast <- dbinom(x, size = n, p_kast)
+round(test_kast,4)
+```
+
+\newpage
+
+# Prueba I 2024-2
+
+## **Problema II:**
+
+Una empresa está considerando lanzar un nuevo producto al mercado. Antes de hacerlo, realizan una encuesta entre sus consumidores potenciales. Cada encuestado puede dar una respuesta “Positiva” o “Negativa” respecto al producto. Supongamos que la probabilidad de que un encuestado elegido al azar dé una respuesta “Positiva” es $r$.
+
+### **Parte i.** Si la respuesta de un encuestado es un evento aleatorio, describe el espacio muestral.
+
+El espacio muestral es el conjunto de todos los posibles resultados de la respuesta de un encuestado. En este caso, un encuestado puede dar una respuesta "Positiva" o "Negativa".
+
+El espacio muestral $\Omega$ se define como: $\{\text{"Positiva"}, \text{"Negativa"}\}$.
+
+### **Parte ii.** Indica que distribución de probabilidad describe adecuadamente cada respuesta individual. Especifica su función de masa probabilística y explica cada uno de los componentes de la expresión.
+
+La distribución de probabilidad que describe adecuadamente cada respuesta individual en este contexto es la **distribución de Bernoulli**. Esta distribución se utiliza cuando hay un experimento aleatorio con dos posibles resultados: éxito (en este caso, una respuesta "Positiva") y fracaso (una respuesta "Negativa").
+
+La función de masa de probabilidad (PMF) de una variable $X$ que sigue una distribución de Bernoulli es:
+
+$$P(X = x) = \begin{cases} 
+r & \text{si } x = 1 \ (\text{"Positiva"})\\
+1 - r & \text{si } x = 0 \ (\text{"Negativa"})
+\end{cases}$$
+
+donde:
+
+- $r$: es la probabilidad de que un encuestado elegido al azar dé una respuesta "Positiva". Esto corresponde a $P(X = 1)$.
+- $1 - r$: es la probabilidad de que un encuestado dé una respuesta "Negativa". Esto corresponde a $P(X = 0)$.
+- $X = 1$: indica que el encuestado ha dado una respuesta "Positiva".
+- $X = 0$: indica que el encuestado ha dado una respuesta "Negativa".
+
+### Parte iii. Dado que $𝑟$ es la probabilidad de que un encuestado seleccionado al azar dé una respuesta “Positiva”, expresa la probabilidad de que, al observar las respuestas de 4 encuestados seleccionados al azar (de la misma población y cuyas respuestas son independientes entre si), exactamente 2 den una respuesta “Positiva” y los otros 2 den una respuesta “Negativa”. Explica cada uno de los componentes de la expresión.
+
+Este problema se puede resolver utilizando la distribución binomial, ya que estamos considerando un número fijo de ensayos (4 encuestados) y cada ensayo tiene dos posibles resultados ("Positiva" o "Negativa"). La probabilidad de que exactamente 2 de los 4 encuestados den una respuesta "Positiva" es:
+
+$$P(X = 2) = \binom{4}{2} r^2 (1-r)^2$$
+
+Donde:
+
+- $\binom{4}{2}$ es el número de combinaciones posibles de 2 respuestas "Positivas" entre 4 encuestados, que es igual a $\frac{4!}{2!(4-2)!} = 6$.
+- $r^2$ es la probabilidad de que 2 encuestados den una respuesta "Positiva".
+- $(1-r)^2$ es la probabilidad de que los otros 2 encuestados den una respuesta "Negativa".
+
+Por lo tanto, la probabilidad es:
+
+$$P(X = 2) = 6 \times r^2 \times (1-r)^2$$
+
+### **Parte iv.** Supongamos que las respuestas “Positivas” y “Negativas” no están influenciadas por el género del encuestado, y que el 60% de los encuestados son mujeres. Determina la probabilidad $P(Mujer\mid "Positiva")$.
+
+En este caso, se nos dice que la probabilidad de dar una respuesta "Positiva" es independiente del género del encuestado. Esto significa que, dado que un encuestado dio una respuesta "Positiva", la probabilidad de que sea una mujer es simplemente la probabilidad de que cualquier encuestado sea una mujer, sin importar la respuesta.
+
+Podemos usar la definición de independencia para expresar esto:
+
+$$P(\text{Mujer} \mid \text{"Positiva"}) = P(\text{Mujer})$$
+
+Dado que el 60% de los encuestados son mujeres:
+
+$$P(\text{Mujer}) = 0.6$$
+
+La probabilidad de que un encuestado sea una mujer dado que dio una respuesta "Positiva" es del **60%**, que es exactamente la proporción de mujeres en la muestra. Esto se debe a que la respuesta "Positiva" no influye en la probabilidad de que un encuestado sea mujer, lo cual refleja la independencia entre la respuesta y el género.
