@@ -1,0 +1,91 @@
+---
+title: "Tarea #2"
+format: html
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Ejercicio I
+
+### Contexto
+
+En una población se estudia una enfermedad de muy baja prevalencia, y se sospecha que afecta de manera diferente a hombres y mujeres. Para analizar esta situación, se construyó una tabla de probabilidades conjuntas que resume la distribución simultánea de dos variables: **sexo** (Mujer / Hombre) y **estado de salud** (Enfermedad / No enfermedad).
+
+La siguiente tabla muestra las probabilidades conjuntas:
+$$
+P(\text{Sexo} \cap \text{Estado})
+$$
+
+### Datos
+
+```{r, echo=F}
+# Tabla de probabilidades conjuntas
+tabla <- matrix(
+  c(0.004, 0.496,
+    0.002, 0.498),
+  nrow = 2,
+  byrow = TRUE
+)
+
+colnames(tabla) <- c("Enfermedad", "No enfermedad")
+rownames(tabla) <- c("Mujer", "Hombre")
+
+tabla
+```
+
+**1. Calcular** 
+
+- $P(\text{Enfermedad} \mid \text{Mujer})$ (1 punto)
+- $P(\text{Enfermedad})$ (1 punto)
+
+---
+
+## Ejercicio II 
+
+
+Se dispone de un test diagnóstico para detectar una enfermedad $D$. El test no es perfecto.
+
+- Prevalencia: $P(D) = 0.06$
+- Sensibilidad: $P(+ \mid D) = 0.99$
+- Falsos positivos: $P(+ \mid \neg D) = 0.01$
+
+
+**2. Usando el teorema de Bayes, calcula la probabilidad de tener la enfermedad si se obtiene un resultado positivo en el test: $P(D \mid +)$** (3 puntos)
+
+Pista:
+$$
+P(+) = P(+ \mid D)P(D) + P(+ \mid \neg D)P(\neg D)
+$$
+
+---
+
+## Ejercicio III 
+
+Un estudiante responde 5 preguntas de alternativa múltiple, cada una con 4 opciones. Responde completamente al azar.
+
+- $p = P(\text{correcto}) = \frac{1}{4}$
+- $1-p = P(\text{incorrecto}) = \frac{3}{4}$
+
+
+**3. Calcula la probabilidad de la secuencia:** (2 puntos)
+
+$$
+\text{Correcto} - \text{Incorrecto} - \text{Correcto} - \text{Correcto} - \text{Incorrecto}
+$$
+
+**4. Calcula la probabilidad de obtener exactamente 3 respuestas correctas** (3 puntos)
+
+Se puede chequear to resultado con el siguiente código:
+
+```{r, eval=FALSE}
+x = ....
+n = ....
+p = ....
+
+dbinom(x, size = n, prob = p)
+```
+
+Recuerde:
+$$P(X = x) = \binom{n}{x} p^x (1-p)^{n-x}$$

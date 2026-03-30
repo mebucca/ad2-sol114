@@ -1,0 +1,178 @@
+---
+title: "Solución Tarea #2"
+format: html
+editor: visual
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+## Ejercicio I
+
+### Contexto
+
+En una población se estudia una enfermedad de muy baja prevalencia, y se sospecha que afecta de manera diferente a hombres y mujeres. Para analizar esta situación, se construyó una tabla de probabilidades conjuntas que resume la distribución simultánea de dos variables: **sexo** (Mujer / Hombre) y **estado de salud** (Enfermedad / No enfermedad).
+
+La siguiente tabla muestra las probabilidades conjuntas: $$P(\text{Sexo} \cap \text{Estado})$$
+
+### Datos
+
+```{r, echo=F}
+# Tabla de probabilidades conjuntas
+tabla <- matrix(
+  c(0.004, 0.496,
+    0.002, 0.498),
+  nrow = 2,
+  byrow = TRUE
+)
+
+colnames(tabla) <- c("Enfermedad", "No enfermedad")
+rownames(tabla) <- c("Mujer", "Hombre")
+
+tabla
+```
+
+**1. Calcular**
+
+- $P(\text{Enfermedad} \mid \text{Mujer})$ (1 punto)
+
+#### Solución:
+
+Primero, para poder resolver este ejercicio debemos utilizar la fórmula de **probabilidad condicional:**
+
+$$P(A \mid B) = \frac{P(A \cap B)}{P(B)}$$
+
+Aplicándola a nuestro contexto:
+
+$$P(\text{Enfermedad} \mid \text{Mujer}) = \frac{P(\text{Enfermedad} \cap \text{Mujer})}{P(\text{Mujer})}$$
+
+Sin embargo, sabemos que nos falta $P(\text{Mujer})$ para poder completar la ecuación. Este valor lo podemos obtener con la fórmula de **ley de probabilidad total**:
+
+$$P(A) = \sum P(A \cap B_i)$$
+
+Aplicándola:
+
+$$P(\text{Mujer}) = P(\text{Enfermedad} \cap \text{Mujer}) + P(\neg\text{Enfermedad} \cap \text{Mujer})$$
+
+Finalmente, resolvemos en R:
+
+```{r}
+p_mujer <- (0.004) + (0.496)
+p_enfermedad_en_mujer <- (0.004) / p_mujer
+
+p_enfermedad_en_mujer
+```
+
+- $P(\text{Enfermedad})$ (1 punto)
+
+  #### Solución:
+
+  Nuevamente debemos utilizar la **ley de probablidad total** para calcular la probabilidad marginal:
+
+  $$P(A) = \sum P(A \cap B_i)$$
+
+  Aplicándola a $P(\text{Enfermedad})$:
+
+  $$P(\text{Enfermedad}) = P(\text{Mujer} \cap \text{Enfermedad}) + P(\text{Hombre} \cap \text{Enfermedad})$$
+
+  Resolvemos en R:
+
+```{r}
+p_enfermo = 0.004 + 0.002
+
+p_enfermo
+```
+
+------------------------------------------------------------------------
+
+## Ejercicio II
+
+Se dispone de un test diagnóstico para detectar una enfermedad $D$. El test no es perfecto.
+
+- Prevalencia: $P(D) = 0.06$
+- Sensibilidad: $P(+ \mid D) = 0.99$
+- Falsos positivos: $P(+ \mid \neg D) = 0.01$
+
+**2. Usando el teorema de Bayes, calcula la probabilidad de tener la enfermedad si se obtiene un resultado positivo en el test:** $P(D \mid +)$ (3 puntos)
+Pista: $$P(+) = P(+ \mid D)P(D) + P(+ \mid \neg D)P(\neg D)$$
+
+#### Solución:
+
+Para resolver este ejercicio debemos utilizar la fórmula del **Teorema de Bayes:**
+
+$$P(A \mid B) = \frac{P(B \mid A)P(A)}{P(B)}$$
+
+Aplicándola a nuestro contexto para calcular la probabilidad de tener la enfermedad dado un test positivo:
+
+$$P(D \mid +) = \frac{P(+ \mid D)P(D)}{P(+)}$$
+
+Sabemos por la pista que el denominador $P(+)$ (la probabilidad marginal de dar positivo) se calcula usando la **ley de probabilidad total**:
+
+$$P(+) = P(+ \mid D)P(D) + P(+ \mid \neg D)P(\neg D)$$
+
+Dado que $P(D) = 0.06$, sabemos que $P(\neg D) = 1 - 0.06 = 0.94$.\
+Reemplazamos en R:
+
+```{r}
+# Calculamos primero P(+) usando la ley de probabilidad total
+p_positivo <- (0.99 * 0.06) + (0.01 * 0.94)
+
+# Aplicamos el Teorema de Bayes
+p_enfermo_en_positivo <- (0.99 * 0.06) / p_positivo
+
+p_enfermo_en_positivo
+```
+
+------------------------------------------------------------------------
+
+## Ejercicio III
+
+Un estudiante responde 5 preguntas de alternativa múltiple, cada una con 4 opciones. Responde completamente al azar.
+
+- $p = P(\text{correcto}) = \frac{1}{4}$
+- $1-p = P(\text{incorrecto}) = \frac{3}{4}$
+
+**3. Calcula la probabilidad de la secuencia:** (2 puntos)
+
+$$\text{Correcto} - \text{Incorrecto} - \text{Correcto} - \text{Correcto} - \text{Incorrecto}$$
+
+#### Solución:
+
+Dado que el estudiante responde al azar, la respuesta a cada pregunta es un evento **independiente**. Para calcular la probabilidad conjunta de eventos independientes, multiplicamos sus probabilidades individuales:
+
+$$P(A \cap B \cap C \dots) = P(A) \times P(B) \times P(C) \dots$$
+
+Aplicándolo a nuestra secuencia específica:
+
+$$P(C \cap I \cap C \cap C \cap I) = P(C) \times P(I) \times P(C) \times P(C) \times P(I)$$
+
+Resolvemos en R:
+
+```{r}
+result <- (1/4) * (3/4) * (1/4) * (1/4) * (3/4)
+
+result
+```
+
+**4. Calcula la probabilidad de obtener exactamente 3 respuestas correctas** (3 puntos)
+
+#### Solución:
+
+Para calcular la probabilidad de obtener exactamente un número $x$ de éxitos en $n$ ensayos independientes, utilizamos la función de probabilidad de la **distribución binomial**:
+
+$$P(X = x) = \binom{n}{x} p^x (1-p)^{n-x}$$
+
+Aplicándolo a nuestro contexto, sabemos que el número de preguntas es $n=5$, la cantidad de éxitos buscados es $x=3$, y la probabilidad de éxito en cada pregunta es $p=1/4$:
+
+$$P(X = 3) = \binom{5}{3} (0.25)^3 (0.75)^2$$
+
+Podemos resolverlo directamente en R utilizando la función `dbinom()`:
+
+```{r}
+x = 3
+n = 5 # Son 5 preguntas en total
+p = 1/4
+
+dbinom(x, size = n, prob = p)
+```
