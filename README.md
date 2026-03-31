@@ -34,7 +34,7 @@ Este repositorio contiene el material del curso SOL512 Probabilidad e Inferencia
 | Miércoles | 25 | Marzo | Distribuciones discretas: Bernoulli y Binomial | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_4/class_4#1) [`[Code]`](slides/class_4/class_4.Rmd) | — | 6.3.2 & 6.3.3 |
 | Lunes | 30 | Marzo | Distribuciones continuas: Uniforme y Normal | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_5/class_5#1) [`[Code]`](slides/class_5/class_5.Rmd) | Tarea 2: Bayes + Binomial | 6.3.4 |
 | Miércoles | 1 | Abril | Momentos: valor esperado & varianza | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_6/class_6#1) [`[Code]`](slides/class_6/class_6.Rmd) | — | 6.3.5 |
-| Lunes | 6 | Abril | Estandarización: puntaje Z | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_7/class_7#1) [`[Code]`](slides/class_7/class_7.Rmd) | Tarea 3: Momentos función de RV | 6.3.4 |
+| Lunes | 6 | Abril | Estandarización: puntaje Z | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_7/class_7#1) [`[Code]`](slides/class_7/class_7.Rmd) | Tarea 3: Momentos función de RV [`[Exe]`](https://github.com/mebucca/ad2-sol114/blob/master/ta/AY03/Preparando%20Tarea%203.html)| 6.3.4 |
 | Miércoles | 8 | Abril | Distribución Normal Standard | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_8/class_8#1) [`[Code]`](slides/class_8/class_8.Rmd) | — | 6.3.4 |
 | Lunes | 13 | Abril | **PRUEBA I** | [`[Problemset #1]`](https://mebucca.github.io/ad2-sol114/materials/problemset_1#1) | — | — |
 | Miércoles | 15 | Abril | Ley de los grandes números | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_9/class_9#1) [`[Code]`](slides/class_9/class_9.Rmd) | — | 6.4.1 |
