@@ -1,0 +1,742 @@
+---
+title: "Preparando la Tarea 3: Momentos de Variables Aleatorias"
+subtitle: "SOL512 Probabilidad e Inferencia para Estadística Social"
+author: "Vicente Mühlenbrock"
+format:
+  html:
+    theme: cosmo
+    page-layout: full
+    toc: false
+server: shiny
+---
+
+```{r}
+#| context: setup
+#| include: false
+library(shiny)
+library(ggplot2)
+library(bslib)
+
+# ── Colores del curso ──────────────────────────────────────────────
+COL_PRIMARY   <- "#4953A6"
+COL_SECONDARY <- "#FFD58D"
+COL_ACCENT    <- "#DF484C"
+COL_BG        <- "#f8f7f3"
+COL_FILL      <- "#ffec73"
+COL_SHADE     <- "#c6c1af"
+
+# ── Formateador inteligente de números ────────────────────────────
+# Reglas:
+#   · Punto como separador decimal
+#   · Sin separador de miles (ej. 1500, no 1,500)
+#   · Si los primeros 2 decimales son .00 → mostrar como entero
+#   · d_max: decimales significativos máximos cuando hay parte decimal real
+n <- function(x, d_max = 4) {
+  if (abs(x - round(x, 0)) < 0.005) {
+    formatC(round(x, 0), format = "d", big.mark = "")
+  } else {
+    raw <- formatC(x, format = "f", digits = d_max,
+                   decimal.mark = ".", big.mark = "")
+    raw <- sub("(\\.\\d*?)0+$", "\\1", raw)  # quitar ceros finales
+    raw <- sub("\\.$", "", raw)               # quitar punto solo
+    raw
+  }
+}
+```
+
+<!-- ── ESTILOS + MATHJAX ────────────────────────────────────────── -->
+```{=html}
+<script>
+window.MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']],
+    processEscapes: true
+  },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" id="MathJax-script" async></script>
+
+<script>
+$(document).on('shiny:value', function(event) {
+  if (window.MathJax && window.MathJax.typesetPromise) {
+    setTimeout(function() {
+      var el = document.getElementById(event.name);
+      if (el) { MathJax.typesetPromise([el]); }
+    }, 80);
+  }
+});
+</script>
+
+<style>
+body { background-color: #f8f7f3; font-family: 'Inconsolata', monospace; }
+h1, h2, h3 { font-family: 'Archivo', sans-serif; color: #4953A6; }
+.card { border-left: 4px solid #4953A6; border-radius: 6px; padding: 1rem 1.2rem;
+        background: white; margin-bottom: 1rem; box-shadow: 0 1px 4px rgba(0,0,0,.08); }
+.card-red  { border-left-color: #DF484C; }
+.card-gold { border-left-color: #FFD58D; background: #fffdf0; }
+.formula   { background: #eef0fa; border-radius: 6px; padding: 0.7rem 1rem;
+             font-size: 1.05rem; margin: 0.5rem 0; }
+.badge-blue { background:#4953A6; color:white; border-radius:4px;
+              padding:2px 8px; font-size:.85rem; }
+.section-title { font-size:1.4rem; font-weight:700; color:#4953A6;
+                 border-bottom: 2px solid #FFD58D; padding-bottom:4px; margin-top:1.5rem; }
+</style>
+```
+
+---
+
+```{=html}
+<h2>📚 Marco teórico</h2>
+
+<div class="card">
+  <h3>Distribuciones continuas &mdash; recordatorio rápido</h3>
+  <p>Una <strong>variable aleatoria continua</strong> toma infinitos valores en un intervalo. Su comportamiento se describe con:</p>
+  <ul>
+    <li><strong>PDF</strong> \(f(x)\): densidad de probabilidad. <em>No</em> es \(\mathbb{P}(X=x)\).</li>
+    <li><strong>CDF</strong> \(F(k) = \mathbb{P}(X \leq k) = \int_{-\infty}^{k} f(x)\,dx\)</li>
+  </ul>
+  <p>Las dos distribuciones más importantes en este curso:</p>
+  <table style="width:100%;border-collapse:collapse;margin:.5rem 0">
+    <thead><tr style="border-bottom:2px solid #4953A6">
+      <th style="text-align:left;padding:.4rem .6rem">Distribución</th>
+      <th style="text-align:left;padding:.4rem .6rem">PDF</th>
+      <th style="text-align:left;padding:.4rem .6rem">Parámetros</th>
+    </tr></thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #ddd">
+        <td style="padding:.4rem .6rem"><strong>Uniforme</strong> \(X \sim U(a,b)\)</td>
+        <td style="padding:.4rem .6rem">\(f(x) = \dfrac{1}{b-a}\)</td>
+        <td style="padding:.4rem .6rem">\(a\) (mín), \(b\) (máx)</td>
+      </tr>
+      <tr>
+        <td style="padding:.4rem .6rem"><strong>Normal</strong> \(X \sim N(\mu,\sigma^2)\)</td>
+        <td style="padding:.4rem .6rem">\(f(x) = \dfrac{1}{\sigma\sqrt{2\pi}}\,e^{-\frac{(x-\mu)^2}{2\sigma^2}}\)</td>
+        <td style="padding:.4rem .6rem">\(\mu\) (media), \(\sigma\) (desv. est.)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card card-gold">
+  <h3>Momentos &mdash; &#191;qu&#233; son?</h3>
+  <p>Los <strong>momentos</strong> resumen una distribución con un solo número:</p>
+  <div class="formula">
+    <strong>1er momento &mdash; Valor Esperado:</strong>
+    \[\mathbb{E}(X) = \int x\,f(x)\,dx\]
+    <strong>2do momento &mdash; Varianza:</strong>
+    \[\mathbb{Var}(X) = \int \bigl(x - \mathbb{E}(X)\bigr)^2 f(x)\,dx = \mathbb{E}(X^2) - \bigl[\mathbb{E}(X)\bigr]^2\]
+  </div>
+  <table style="width:100%;border-collapse:collapse;margin:.5rem 0">
+    <thead><tr style="border-bottom:2px solid #4953A6">
+      <th style="padding:.4rem .6rem"></th>
+      <th style="text-align:left;padding:.4rem .6rem">Uniforme \(U(a,b)\)</th>
+      <th style="text-align:left;padding:.4rem .6rem">Normal \(N(\mu,\sigma^2)\)</th>
+    </tr></thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #ddd">
+        <td style="padding:.4rem .6rem">\(\mathbb{E}(X)\)</td>
+        <td style="padding:.4rem .6rem">\(\dfrac{a+b}{2}\)</td>
+        <td style="padding:.4rem .6rem">\(\mu\)</td>
+      </tr>
+      <tr>
+        <td style="padding:.4rem .6rem">\(\mathbb{Var}(X)\)</td>
+        <td style="padding:.4rem .6rem">\(\dfrac{(b-a)^2}{12}\)</td>
+        <td style="padding:.4rem .6rem">\(\sigma^2\)</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="card">
+  <h3>Propiedades operacionales</h3>
+  <p>Si \(X\), \(Y\) son variables aleatorias y \(c\) constante:</p>
+  <div class="formula">
+    \[\mathbb{E}(c) = c \qquad \mathbb{E}(X+c) = \mathbb{E}(X)+c \qquad \mathbb{E}(cX) = c\,\mathbb{E}(X)\]
+    \[\mathbb{E}(X+Y) = \mathbb{E}(X)+\mathbb{E}(Y) \qquad \]
+    \[\mathbb{Var}(c) = 0 \qquad \mathbb{Var}(cX) = c^2\,\mathbb{Var}(X)\]
+    \[\mathbb{Var}(X \pm Y) = \mathbb{Var}(X)+\mathbb{Var}(Y) \qquad \text{(solo si } X \perp Y\text{)}\]
+  </div>
+</div>
+```
+
+---
+
+## 🔬 Explorador interactivo
+
+### Distribución Uniforme
+
+```{r}
+#| panel: sidebar
+sliderInput("unif_a", "Mínimo (a):", min = 0, max = 20, value = 25, step = 0.5)
+sliderInput("unif_b", "Máximo (b):", min = 5, max = 40, value = 30, step = 0.5)
+hr()
+h5("Momentos teóricos:")
+verbatimTextOutput("unif_momentos")
+```
+
+```{r}
+#| panel: fill
+plotOutput("unif_plot", height = "320px")
+```
+
+```{r}
+#| context: server
+output$unif_plot <- renderPlot({
+  a <- input$unif_a
+  b <- input$unif_b
+  if (a >= b) return(NULL)
+  mu  <- (a + b) / 2
+  sig <- (b - a) / sqrt(12)
+  x  <- seq(a - 2, b + 2, length.out = 500)
+  fx <- ifelse(x >= a & x <= b, 1/(b - a), 0)
+  df <- data.frame(x = x, fx = fx)
+  ggplot(df, aes(x, fx)) +
+    geom_area(fill = COL_FILL, alpha = 0.85) +
+    geom_line(linewidth = 1) +
+    geom_vline(xintercept = mu,       linetype = "dashed", color = COL_PRIMARY, linewidth = 1) +
+    geom_vline(xintercept = mu - sig, linetype = "dotted", color = COL_ACCENT,  linewidth = 0.9) +
+    geom_vline(xintercept = mu + sig, linetype = "dotted", color = COL_ACCENT,  linewidth = 0.9) +
+    annotate("text", x = mu + 0.15*(b-a), y = 1.1/(b-a),
+             label = paste0("μ = ", n(mu)), color = COL_PRIMARY, size = 4.5) +
+    annotate("text", x = mu + sig + 0.12*(b-a), y = 0.8/(b-a),
+             label = paste0("μ+σ = ", n(mu + sig)), color = COL_ACCENT, size = 3.8) +
+    labs(x = "x", y = "f(x) — densidad",
+         title = paste0("U(a = ", n(a), ", b = ", n(b), ")")) +
+    theme_minimal(base_size = 14) +
+    theme(panel.border = element_rect(color = "black", fill = NA),
+          plot.background = element_rect(fill = COL_BG, color = NA))
+}, bg = COL_BG)
+
+output$unif_momentos <- renderText({
+  a <- input$unif_a; b <- input$unif_b
+  if (a >= b) return("⚠ a debe ser menor que b")
+  mu  <- (a + b) / 2
+  var <- (b - a)^2 / 12
+  sig <- sqrt(var)
+  paste0(
+    "E(X)   = (a + b)/2   = ", n(mu),  "\n",
+    "Var(X) = (b-a)²/12   = ", n(var), "\n",
+    "SD(X)  = √Var(X)     = ", n(sig)
+  )
+})
+```
+
+---
+
+### Distribución Normal
+
+```{r}
+#| panel: sidebar
+sliderInput("norm_mu",  "Media (μ):", min = -10, max = 10, value = 0, step = 0.5)
+sliderInput("norm_sig", "Desv. estándar (σ):", min = 0.5, max = 5, value = 1, step = 0.25)
+hr()
+sliderInput("norm_k1", "Límite inferior k₁:", min = -15, max = 15, value = -1, step = 0.25)
+sliderInput("norm_k2", "Límite superior k₂:", min = -15, max = 15, value = 1,  step = 0.25)
+hr()
+h5("P(k₁ ≤ X ≤ k₂):")
+verbatimTextOutput("norm_prob")
+```
+
+```{r}
+#| panel: fill
+plotOutput("norm_plot", height = "320px")
+```
+
+```{r}
+#| context: server
+output$norm_plot <- renderPlot({
+  mu  <- input$norm_mu;  sig <- input$norm_sig
+  k1  <- input$norm_k1; k2  <- input$norm_k2
+  x  <- seq(mu - 4.5*sig, mu + 4.5*sig, length.out = 600)
+  fx <- dnorm(x, mu, sig)
+  df <- data.frame(x = x, fx = fx)
+  df_shade <- subset(df, x >= k1 & x <= k2)
+  p_shade  <- pnorm(k2, mu, sig) - pnorm(k1, mu, sig)
+  ggplot(df, aes(x, fx)) +
+    geom_area(fill = COL_FILL, alpha = 0.7) +
+    { if (nrow(df_shade) > 1)
+        geom_area(data = df_shade, aes(x, fx), fill = COL_PRIMARY, alpha = 0.55) } +
+    geom_line(linewidth = 1) +
+    geom_vline(xintercept = mu, linetype = "dashed", color = COL_PRIMARY, linewidth = 1) +
+    geom_vline(xintercept = k1, linetype = "dotted", color = COL_ACCENT,  linewidth = 0.9) +
+    geom_vline(xintercept = k2, linetype = "dotted", color = COL_ACCENT,  linewidth = 0.9) +
+    annotate("text", x = mu + 0.1*(4.5*sig), y = max(fx)*1.04,
+             label = paste0("μ = ", n(mu)), color = COL_PRIMARY, size = 4.5) +
+    labs(x = "x", y = "f(x) — densidad",
+         title    = paste0("N(μ = ", n(mu), ", σ = ", n(sig), ")"),
+         subtitle = paste0("Área sombreada: P(", n(k1), " ≤ X ≤ ", n(k2), ") = ", n(p_shade))) +
+    theme_minimal(base_size = 14) +
+    theme(panel.border = element_rect(color = "black", fill = NA),
+          plot.background = element_rect(fill = COL_BG, color = NA))
+}, bg = COL_BG)
+
+output$norm_prob <- renderText({
+  mu  <- input$norm_mu;  sig <- input$norm_sig
+  k1  <- input$norm_k1; k2  <- input$norm_k2
+  fk2 <- pnorm(k2, mu, sig)
+  fk1 <- pnorm(k1, mu, sig)
+  p   <- fk2 - fk1
+  paste0(
+    "F(k₂) = P(X ≤ ", n(k2), ") = ", n(fk2), "\n",
+    "F(k₁) = P(X ≤ ", n(k1), ") = ", n(fk1), "\n",
+    "───────────────────────\n",
+    "P(k₁≤X≤k₂)          = ", n(p)
+  )
+})
+```
+
+---
+
+## ✏️ Ejercicios con solución
+
+### Ejercicio 1 — Valor Esperado de una transformación lineal
+
+```{r}
+#| panel: sidebar
+h5("Parámetros del dado")
+sliderInput("e1_n",    "Número de tiradas (n):", min=1, max=20, value=10, step=1)
+sliderInput("e1_base", "Premio base ($):",        min=0, max=5000, value=1000, step=100)
+sliderInput("e1_mult", "Multiplicador por dado:", min=1, max=500,  value=100,  step=10)
+hr()
+actionButton("e1_reveal", "📖 Ver solución", class="btn btn-primary")
+```
+
+```{r}
+#| panel: fill
+uiOutput("e1_enunciado")
+br()
+conditionalPanel(
+  condition = "input.e1_reveal % 2 == 1",
+  uiOutput("e1_solucion")
+)
+plotOutput("e1_sim_plot", height = "280px")
+```
+
+```{r}
+#| context: server
+output$e1_enunciado <- renderUI({
+  nn   <- input$e1_n
+  base <- input$e1_base
+  mult <- input$e1_mult
+  HTML(paste0('
+<div class="card">
+<span class="section-title">🎲 El concurso del dado</span>
+<p>Tiramos un dado justo <strong>', nn, ' veces</strong>. El premio es:</p>
+<div class="formula">
+\\[G = ', n(base), ' + \\sum_{i=1}^{', nn, '} X_i \\times ', n(mult), '\\]
+</div>
+<p>donde $X_i \\sim \\text{Uniforme Discreta}\\{1,...,6\\}$ con
+$\\mathbb{E}(X_i)=3.5$ y $\\mathbb{Var}(X_i)=2.917$.</p>
+<p><strong>Preguntas:</strong><br>
+(a) ¿Cuánto es el premio esperado $\\mathbb{E}(G)$?<br>
+(b) ¿Cuánto es la desviación estándar del premio $\\sigma_G$?</p>
+</div>'))
+})
+
+output$e1_solucion <- renderUI({
+  nn   <- input$e1_n
+  base <- input$e1_base
+  mult <- input$e1_mult
+  EG   <- base + mult * nn * 3.5
+  VarG <- mult^2 * nn * 35/12
+  SdG  <- sqrt(VarG)
+  HTML(paste0('
+<div class="card card-red">
+<span class="badge-blue">SOLUCIÓN</span>
+<p><strong>(a) Valor Esperado</strong></p>
+<div class="formula">
+\\[\\mathbb{E}(G) = ', n(base), ' + ', n(mult), ' \\times \\sum_{i=1}^{', nn,
+  '}\\mathbb{E}(X_i) = ', n(base), ' + ', n(mult), ' \\times ', nn,
+  ' \\times 3.5 = \\$', n(EG), '\\]
+</div>
+<p><strong>(b) Varianza y Desviación Estándar</strong></p>
+<div class="formula">
+\\[\\mathbb{Var}(G) = 0 + ', n(mult), '^2 \\times ', nn,
+  ' \\times 2.917 = ', n(VarG), '\\]
+\\[\\sigma_G = \\sqrt{', n(VarG), '} = \\$', n(SdG), '\\]
+</div>
+<p>&#128161; La constante (', n(base), ') <em>desplaza</em> la distribución
+pero <strong>no afecta</strong> la varianza.</p>
+</div>'))
+})
+
+output$e1_sim_plot <- renderPlot({
+  nn   <- input$e1_n
+  base <- input$e1_base
+  mult <- input$e1_mult
+  set.seed(42)
+  sims   <- replicate(15000, sum(sample(1:6, nn, replace=TRUE)))
+  prizes <- base + mult * sims
+  mu_t   <- base + mult * nn * 3.5
+  sd_t   <- sqrt(mult^2 * nn * 35/12)
+  df     <- data.frame(prize = prizes)
+  ggplot(df, aes(prize)) +
+    geom_histogram(aes(y = after_stat(density)), bins = 40,
+                   fill = COL_SECONDARY, color = "black", alpha = 0.85) +
+    geom_vline(xintercept = mu_t, linetype="dashed",  color = COL_PRIMARY, linewidth = 1.2) +
+    geom_vline(xintercept = c(mu_t - sd_t, mu_t + sd_t),
+               linetype = "dotted", color = COL_ACCENT, linewidth = 1) +
+    annotate("text", x = mu_t, y = Inf, vjust = 1.5,
+             label = paste0("E(G) = $", n(mu_t)), color = COL_PRIMARY, size = 4) +
+    labs(x = "Premio ($)", y = "Densidad",
+         title   = paste0("Simulación (n=", nn, " tiradas, base=$", n(base), ", mult=", n(mult), ")"),
+         caption = "Línea discontinua = E(G)   ·   Líneas punteadas = ±σ_G") +
+    theme_minimal(base_size = 13) +
+    theme(panel.border = element_rect(color = "black", fill = NA),
+          plot.background = element_rect(fill = COL_BG, color = NA))
+}, bg = COL_BG)
+```
+
+---
+
+### Ejercicio 2 — Probabilidades con la distribución Normal
+
+```{r}
+#| panel: sidebar
+numericInput("e2_mu",  "μ (media):",       value = 27.5, step = 0.5)
+numericInput("e2_sig", "σ (desv. est.):",  value = 1.5,  step = 0.25, min = 0.1)
+numericInput("e2_k1",  "Límite inferior:", value = 26,   step = 0.5)
+numericInput("e2_k2",  "Límite superior:", value = 28,   step = 0.5)
+hr()
+actionButton("e2_reveal", "📖 Ver solución", class="btn btn-primary")
+```
+
+```{r}
+#| panel: fill
+uiOutput("e2_enunciado")
+br()
+conditionalPanel(
+  condition = "input.e2_reveal % 2 == 1",
+  uiOutput("e2_solucion")
+)
+plotOutput("e2_plot", height = "280px")
+```
+
+```{r}
+#| context: server
+output$e2_enunciado <- renderUI({
+  mu <- input$e2_mu;  sig <- input$e2_sig
+  k1 <- input$e2_k1; k2  <- input$e2_k2
+  HTML(paste0('
+<div class="card">
+<span class="section-title">🌡️ Temperatura del día</span>
+<p>La temperatura sigue $X \\sim N(\\mu=', n(mu), ',\\, \\sigma=', n(sig), ')$.</p>
+<p><strong>Preguntas:</strong><br>
+(a) ¿Cuál es $\\mathbb{E}(X)$ y $\\mathbb{Var}(X)$?<br>
+(b) ¿Cuál es $\\mathbb{P}(X \\leq ', n(k2), ')$?<br>
+(c) ¿Cuál es $\\mathbb{P}(', n(k1), ' \\leq X \\leq ', n(k2), ')$?<br>
+(d) Si $Y = 2X - 5$, ¿cuánto valen $\\mathbb{E}(Y)$ y $\\mathbb{Var}(Y)$?
+</p>
+</div>'))
+})
+
+output$e2_solucion <- renderUI({
+  mu <- input$e2_mu;  sig <- input$e2_sig
+  k1 <- input$e2_k1; k2  <- input$e2_k2
+  fk2       <- pnorm(k2, mu, sig)
+  fk1       <- pnorm(k1, mu, sig)
+  pInterval <- fk2 - fk1
+  EY   <- 2*mu - 5
+  VarY <- 4*sig^2
+  HTML(paste0('
+<div class="card card-red">
+<span class="badge-blue">SOLUCIÓN</span>
+<p><strong>(a) Momentos directos</strong><br>
+Para $N(\\mu, \\sigma^2)$: $\\mathbb{E}(X) = \\mu = ', n(mu),
+'$ y $\\mathbb{Var}(X) = \\sigma^2 = ', n(sig^2), '$</p>
+<p><strong>(b) CDF en k&#8322; = ', n(k2), '</strong></p>
+<div class="formula">
+$\\mathbb{P}(X \\leq ', n(k2), ') = F(', n(k2), ') = $
+<code>pnorm(', n(k2), ', ', n(mu), ', ', n(sig), ')</code>
+$= ', n(fk2), '$
+</div>
+<p><strong>(c) Probabilidad del intervalo [', n(k1), ', ', n(k2), ']</strong></p>
+<div class="formula">
+$\\mathbb{P}(', n(k1), ' \\leq X \\leq ', n(k2), ') =
+F(', n(k2), ') - F(', n(k1), ') = ', n(fk2), ' - ', n(fk1), ' = ', n(pInterval), '$
+</div>
+<p><strong>(d) Transformación lineal $Y = 2X - 5$</strong></p>
+<div class="formula">
+$\\mathbb{E}(Y) = 2\\,\\mathbb{E}(X) - 5 = 2 \\times ', n(mu), ' - 5 = ', n(EY), '$<br>
+$\\mathbb{Var}(Y) = 2^2\\,\\mathbb{Var}(X) = 4 \\times ', n(sig^2), ' = ', n(VarY), '$
+</div>
+<p>&#128161; Sumar/restar constantes <strong>no cambia</strong> la varianza.
+Multiplicar por $c$ cambia la varianza por $c^2$.</p>
+</div>'))
+})
+
+output$e2_plot <- renderPlot({
+  mu <- input$e2_mu;  sig <- input$e2_sig
+  k1 <- input$e2_k1; k2  <- input$e2_k2
+  x  <- seq(mu - 4.5*sig, mu + 4.5*sig, length.out=600)
+  fx <- dnorm(x, mu, sig)
+  df <- data.frame(x=x, fx=fx)
+  df_shade <- subset(df, x >= k1 & x <= k2)
+  p_shade  <- pnorm(k2, mu, sig) - pnorm(k1, mu, sig)
+  ggplot(df, aes(x, fx)) +
+    geom_area(fill=COL_FILL, alpha=0.75) +
+    { if(nrow(df_shade)>1)
+        geom_area(data=df_shade, aes(x,fx), fill=COL_PRIMARY, alpha=0.55) } +
+    geom_line(linewidth=1) +
+    geom_vline(xintercept=mu,       linetype="dashed", color=COL_PRIMARY, linewidth=1.1) +
+    geom_vline(xintercept=c(k1,k2), linetype="dotted", color=COL_ACCENT,  linewidth=0.9) +
+    annotate("label", x=mu, y=max(fx)*0.5,
+             label=paste0("P(", n(k1), "≤X≤", n(k2), ")\n= ", n(p_shade)),
+             color=COL_PRIMARY, size=4, fill="white", alpha=0.9) +
+    labs(x="x", y="f(x)",
+         title=paste0("N(μ=", n(mu), ", σ=", n(sig), ") — área en [", n(k1), ", ", n(k2), "]")) +
+    theme_minimal(base_size=13) +
+    theme(panel.border=element_rect(color="black", fill=NA),
+          plot.background=element_rect(fill=COL_BG, color=NA))
+}, bg=COL_BG)
+```
+
+---
+
+### Ejercicio 3 — Suma de variables independientes
+
+```{r}
+#| panel: sidebar
+h5("Variable X ~ N(μ_X, σ_X²)")
+numericInput("e3_mux",  "μ_X:", value=10, step=0.5)
+numericInput("e3_sigx", "σ_X:", value=2,  step=0.25, min=0.1)
+hr()
+h5("Variable Y ~ N(μ_Y, σ_Y²)")
+numericInput("e3_muy",  "μ_Y:", value=5,  step=0.5)
+numericInput("e3_sigy", "σ_Y:", value=3,  step=0.25, min=0.1)
+hr()
+numericInput("e3_c1", "Constante c₁ (multiplica X):", value=2, step=0.5)
+numericInput("e3_c2", "Constante c₂ (multiplica Y):", value=3, step=0.5)
+actionButton("e3_reveal", "📖 Ver solución", class="btn btn-primary")
+```
+
+```{r}
+#| panel: fill
+uiOutput("e3_enunciado")
+br()
+conditionalPanel(
+  condition = "input.e3_reveal % 2 == 1",
+  uiOutput("e3_solucion")
+)
+plotOutput("e3_plot", height = "280px")
+```
+
+```{r}
+#| context: server
+output$e3_enunciado <- renderUI({
+  c1 <- input$e3_c1;  c2   <- input$e3_c2
+  mux <- input$e3_mux; muy  <- input$e3_muy
+  sigx <- input$e3_sigx; sigy <- input$e3_sigy
+  HTML(paste0('
+<div class="card">
+<span class="section-title">➕ Combinación lineal de v.a. independientes</span>
+<p>Sea $X \\sim N(', n(mux), ',\\,', n(sigx), '^2)$ e
+$Y \\sim N(', n(muy), ',\\,', n(sigy), '^2)$, con $X \\perp Y$.</p>
+<p>Defina $Z = ', n(c1), ' X + ', n(c2), ' Y$.</p>
+<p><strong>Preguntas:</strong><br>
+(a) Calcule $\\mathbb{E}(Z)$.<br>
+(b) Calcule $\\mathbb{Var}(Z)$ y $\\sigma_Z$.<br>
+(c) ¿Cuál es la distribución de $Z$?
+</p>
+</div>'))
+})
+
+output$e3_solucion <- renderUI({
+  c1 <- input$e3_c1;  c2   <- input$e3_c2
+  mux <- input$e3_mux; muy  <- input$e3_muy
+  sigx <- input$e3_sigx; sigy <- input$e3_sigy
+  EZ   <- c1*mux + c2*muy
+  VarZ <- c1^2*sigx^2 + c2^2*sigy^2
+  SdZ  <- sqrt(VarZ)
+  HTML(paste0('
+<div class="card card-red">
+<span class="badge-blue">SOLUCIÓN</span>
+<p><strong>(a) Valor Esperado</strong></p>
+<div class="formula">
+$\\mathbb{E}(Z) = ', n(c1), '\\,\\mathbb{E}(X) + ', n(c2), '\\,\\mathbb{E}(Y)
+= ', n(c1), ' \\times ', n(mux), ' + ', n(c2), ' \\times ', n(muy), ' = ', n(EZ), '$
+</div>
+<p><strong>(b) Varianza</strong> (usando independencia)</p>
+<div class="formula">
+$\\mathbb{Var}(Z) = ', n(c1), '^2\\,\\mathbb{Var}(X) + ', n(c2), '^2\\,\\mathbb{Var}(Y)
+= ', n(c1^2), ' \\times ', n(sigx^2), ' + ', n(c2^2), ' \\times ', n(sigy^2),
+' = ', n(VarZ), '$<br>
+$\\sigma_Z = \\sqrt{', n(VarZ), '} = ', n(SdZ), '$
+</div>
+<p><strong>(c) Distribución</strong></p>
+<div class="formula">
+$Z \\sim N(', n(EZ), ',\\; ', n(VarZ), ')$ — combinación lineal de normales independientes es normal.
+</div>
+<p>&#9888;&#65039; La propiedad $\\mathbb{Var}(X+Y)=\\mathbb{Var}(X)+\\mathbb{Var}(Y)$
+<strong>requiere independencia</strong>.</p>
+</div>'))
+})
+
+output$e3_plot <- renderPlot({
+  c1 <- input$e3_c1;  c2   <- input$e3_c2
+  mux <- input$e3_mux; muy  <- input$e3_muy
+  sigx <- input$e3_sigx; sigy <- input$e3_sigy
+  EZ  <- c1*mux + c2*muy
+  SdZ <- sqrt(c1^2*sigx^2 + c2^2*sigy^2)
+  set.seed(7)
+  z_s  <- c1*rnorm(20000, mux, sigx) + c2*rnorm(20000, muy, sigy)
+  xlim <- c(EZ - 4.5*SdZ, EZ + 4.5*SdZ)
+  x_th <- seq(xlim[1], xlim[2], length.out=400)
+  df_th  <- data.frame(x=x_th, y=dnorm(x_th, EZ, SdZ))
+  df_sim <- data.frame(z=z_s)
+  ggplot(df_sim, aes(z)) +
+    geom_histogram(aes(y=after_stat(density)), bins=60,
+                   fill=COL_SECONDARY, color="black", alpha=0.7) +
+    geom_line(data=df_th, aes(x,y), color=COL_PRIMARY, linewidth=1.4) +
+    geom_vline(xintercept=EZ, linetype="dashed", color=COL_ACCENT, linewidth=1.1) +
+    labs(x="Z", y="Densidad",
+         title    = paste0("Z = ", n(c1), "X + ", n(c2), "Y   ~   N(", n(EZ), ", ", n(SdZ^2), ")"),
+         subtitle = "Histograma simulado vs. densidad teórica (línea azul)") +
+    xlim(xlim) +
+    theme_minimal(base_size=13) +
+    theme(panel.border=element_rect(color="black", fill=NA),
+          plot.background=element_rect(fill=COL_BG, color=NA))
+}, bg=COL_BG)
+```
+
+---
+
+### Ejercicio 4 — Estandarización (puntuación Z)
+
+```{r}
+#| panel: sidebar
+numericInput("e4_mu",  "μ de la distribución:", value=500, step=10)
+numericInput("e4_sig", "σ de la distribución:", value=100, step=5, min=1)
+numericInput("e4_obs", "Valor observado x:",    value=650, step=10)
+hr()
+actionButton("e4_reveal", "📖 Ver solución", class="btn btn-primary")
+```
+
+```{r}
+#| panel: fill
+uiOutput("e4_enunciado")
+br()
+conditionalPanel(
+  condition = "input.e4_reveal % 2 == 1",
+  uiOutput("e4_solucion")
+)
+plotOutput("e4_plot", height = "260px")
+```
+
+```{r}
+#| context: server
+output$e4_enunciado <- renderUI({
+  mu  <- input$e4_mu
+  sig <- input$e4_sig
+  obs <- input$e4_obs
+  HTML(paste0('
+<div class="card">
+<span class="section-title">📐 Estandarización y Regla 68–95–99.7</span>
+<p>Un puntaje de admisión sigue $X \\sim N(\\mu=', n(mu), ',\\, \\sigma=', n(sig), ')$.</p>
+<p>Un estudiante obtiene $x = ', n(obs), '$.</p>
+<p><strong>Preguntas:</strong><br>
+(a) Calcule el puntaje estandarizado $Z = (X-\\mu)/\\sigma$.<br>
+(b) ¿Qué porcentaje de estudiantes obtuvo un puntaje <em>menor</em>?<br>
+(c) Si $Z^* \\sim N(0,1)$, ¿cuánto valen $\\mathbb{E}(Z^*)$ y $\\mathbb{Var}(Z^*)$?
+</p>
+</div>'))
+})
+
+output$e4_solucion <- renderUI({
+  mu  <- input$e4_mu
+  sig <- input$e4_sig
+  obs <- input$e4_obs
+  z   <- (obs - mu) / sig
+  p   <- pnorm(z)
+  dir <- ifelse(z >= 0, "por encima", "por debajo")
+  HTML(paste0('
+<div class="card card-red">
+<span class="badge-blue">SOLUCIÓN</span>
+<p><strong>(a) Puntaje Z</strong></p>
+<div class="formula">
+$Z = \\dfrac{x - \\mu}{\\sigma} = \\dfrac{', n(obs), ' - ', n(mu), '}{', n(sig), '} = ', n(z), '$
+</div>
+<p>Interpretación: el puntaje está ', n(abs(z)),
+' desviaciones estándar <strong>', dir, '</strong> de la media.</p>
+<p><strong>(b) Percentil</strong></p>
+<div class="formula">
+$\\mathbb{P}(X \\leq ', n(obs), ') = \\mathbb{P}\\left(Z^* \\leq ', n(z), '\\right) = $
+<code>pnorm(', n(z), ')</code>
+$= ', n(p), '$ &#8594; percentil ', n(p*100), '
+</div>
+<p><strong>(c) Momentos de la Normal Estándar</strong></p>
+<div class="formula">
+$Z^* = \\dfrac{X - \\mu}{\\sigma} \\Rightarrow
+\\mathbb{E}(Z^*) = \\dfrac{\\mathbb{E}(X)-\\mu}{\\sigma} = 0$<br><br>
+$\\mathbb{Var}(Z^*) = \\dfrac{\\mathbb{Var}(X)}{\\sigma^2} = \\dfrac{\\sigma^2}{\\sigma^2} = 1$
+</div>
+<p>&#128161; La estandarización es una <strong>transformación lineal</strong>:
+resta la media (traslada a 0) y divide por &sigma; (escala a 1).</p>
+</div>'))
+})
+
+output$e4_plot <- renderPlot({
+  mu  <- input$e4_mu
+  sig <- input$e4_sig
+  obs <- input$e4_obs
+  z   <- (obs - mu) / sig
+  x   <- seq(mu - 4.5*sig, mu + 4.5*sig, length.out=500)
+  fx  <- dnorm(x, mu, sig)
+  df  <- data.frame(x=x, fx=fx)
+  df_shade <- subset(df, x <= obs)
+  ggplot(df, aes(x, fx)) +
+    geom_area(fill=COL_FILL, alpha=0.7) +
+    { if(nrow(df_shade)>1)
+        geom_area(data=df_shade, aes(x,fx), fill=COL_PRIMARY, alpha=0.5) } +
+    geom_line(linewidth=1) +
+    geom_vline(xintercept=obs, linetype="dashed", color=COL_ACCENT, linewidth=1.2) +
+    annotate("text", x=obs, y=max(fx)*0.6,
+             label=paste0("x=", n(obs), "\nz=", n(z), "\nP=", n(pnorm(z))),
+             hjust=-0.1, color=COL_ACCENT, size=4) +
+    labs(x="x", y="f(x)",
+         title=paste0("N(μ=", n(mu), ", σ=", n(sig),
+                      ")  —  P(X ≤ ", n(obs), ") = ", n(pnorm(obs, mu, sig)))) +
+    theme_minimal(base_size=13) +
+    theme(panel.border=element_rect(color="black", fill=NA),
+          plot.background=element_rect(fill=COL_BG, color=NA))
+}, bg=COL_BG)
+```
+
+---
+
+```{=html}
+<div class="card card-gold">
+  <h3>📋 Tabla resumen &mdash; Momentos de distribuciones continuas</h3>
+  <table style="width:100%;border-collapse:collapse;margin:.5rem 0">
+    <thead><tr style="border-bottom:2px solid #4953A6">
+      <th style="padding:.4rem .6rem"></th>
+      <th style="text-align:left;padding:.4rem .6rem">Uniforme \(U(a,b)\)</th>
+      <th style="text-align:left;padding:.4rem .6rem">Normal \(N(\mu,\sigma^2)\)</th>
+      <th style="text-align:left;padding:.4rem .6rem">Combinación \(Z=c_1X+c_2Y\)</th>
+    </tr></thead>
+    <tbody>
+      <tr style="border-bottom:1px solid #ddd">
+        <td style="padding:.4rem .6rem"><strong>E(&middot;)</strong></td>
+        <td style="padding:.4rem .6rem">\(\dfrac{a+b}{2}\)</td>
+        <td style="padding:.4rem .6rem">\(\mu\)</td>
+        <td style="padding:.4rem .6rem">\(c_1\mathbb{E}(X)+c_2\mathbb{E}(Y)\)</td>
+      </tr>
+      <tr style="border-bottom:1px solid #ddd">
+        <td style="padding:.4rem .6rem"><strong>Var(&middot;)</strong></td>
+        <td style="padding:.4rem .6rem">\(\dfrac{(b-a)^2}{12}\)</td>
+        <td style="padding:.4rem .6rem">\(\sigma^2\)</td>
+        <td style="padding:.4rem .6rem">\(c_1^2\mathbb{Var}(X)+c_2^2\mathbb{Var}(Y)^*\)</td>
+      </tr>
+      <tr>
+        <td style="padding:.4rem .6rem"><strong>SD(&middot;)</strong></td>
+        <td style="padding:.4rem .6rem">\(\dfrac{b-a}{\sqrt{12}}\)</td>
+        <td style="padding:.4rem .6rem">\(\sigma\)</td>
+        <td style="padding:.4rem .6rem">\(\sqrt{\mathbb{Var}(Z)}\)</td>
+      </tr>
+    </tbody>
+  </table>
+  <p>\(^*\) Requiere independencia \(X \perp Y\).</p>
+</div>
+```
