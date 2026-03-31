@@ -1,0 +1,45 @@
+---
+title: "Preparación Tarea 3"
+author: "SOL512"
+format: pdf
+editor: visual
+---
+
+# Tarea 3 2025-2
+
+## Problema
+
+María Rojas, analista de datos, actualmente gana **\$1,80 millones** de pesos chilenos al mes en la Empresa A. La Empresa B le ofrece un paquete salarial con dos componentes:
+
+- **Una cantidad fija** de **\$1,10 millones** al mes, independiente de su rendimiento.
+- **Un gran bono** de **\$3,00 millones** adicionales si logra un **éxito excepcional** en su área.
+
+La probabilidad de éxito se modela con una **distribución Binomial** simple: María enfrenta **10 proyectos al mes**, cada uno con probabilidad $p=0,05$ de resultar excepcional. Si **al menos 1 proyecto** es excepcional, recibe el bono completo.
+
+Sea $Y \sim \text{Binomial}(n=10, p=0.05)$ el número de proyectos excepcionales en el mes. El salario mensual ofrecido por la Empresa B se expresa como:
+
+$$S_B = 1{,}10 + 3{,}00\, I(Y \geq 1) \quad \text{(millones de pesos chilenos al mes)}$$
+
+donde $I(Y \geq 1)$ es una variable indicadora que vale 1 si ocurre al menos un éxito y 0 en caso contrario.
+
+## Preguntas
+
+**1)** María confía en que tendrá **al menos un éxito** en el mes. Con ese supuesto, evalúa si el salario que podría ganar en la Empresa B superaría su sueldo actual de $1,80$ millones.
+
+**2)** María decide tomar la oferta de B **solo si su salario esperado en B supera** su salario actual en A. Calcula el **salario esperado** en B e indica qué decisión tomaría María bajo este criterio. *(Pista:* $P(Y \geq 1) = 1 - P(Y=0)$)
+
+**3)** A María también le preocupa la **incertidumbre** en torno a su salario en B. Calcula la **desviación estándar** de $S_B$ e interpreta el resultado sustantivamente.
+
+# Prueba I 2025-2
+
+## Pregunta 2
+
+Imagina un concurso en el que los participantes deben responder 10 preguntas de opción múltiple. Cada pregunta se contesta correctamente con probabilidad $p=0.6$, de forma independiente. El puntaje total se calcula como:
+
+$$T = 2S + 5,$$
+
+donde $S$ es el número de respuestas correctas.
+
+**Calcula el valor esperado y la varianza de** $T$ y explica su significado sustantivo.
+
+### Si necesitan más ejercicios, revisen el problemset!

@@ -94,8 +94,7 @@ Se dispone de un test diagnóstico para detectar una enfermedad $D$. El test no 
 - Sensibilidad: $P(+ \mid D) = 0.99$
 - Falsos positivos: $P(+ \mid \neg D) = 0.01$
 
-**2. Usando el teorema de Bayes, calcula la probabilidad de tener la enfermedad si se obtiene un resultado positivo en el test:** $P(D \mid +)$ (3 puntos)
-Pista: $$P(+) = P(+ \mid D)P(D) + P(+ \mid \neg D)P(\neg D)$$
+**2. Usando el teorema de Bayes, calcula la probabilidad de tener la enfermedad si se obtiene un resultado positivo en el test:** $P(D \mid +)$ (3 puntos) Pista: $$P(+) = P(+ \mid D)P(D) + P(+ \mid \neg D)P(\neg D)$$
 
 #### Solución:
 
