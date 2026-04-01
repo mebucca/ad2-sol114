@@ -4,7 +4,7 @@
 |------------|------------|------------|------------|------------|------------|
 | 23 | Marzo | Tomás | Teorema de Bayes y Distribución Binomial | [`[Pres]`](https://mebucca.github.io/ad2-sol114/ta/AY01/presentacion#title-slide) |  |
 | 30 | Marzo | Tomás | Solución Tarea 2 | [`[Enunciado Tarea]`](AY01/enunciado.pdf) [`[Solución]`](https://mebucca.github.io/ad2-sol114/ta/AY02/solucion_tc2) | [`[Ejercicios]`](Prep/TC2/ejercicios.pdf) [`[Soluionario]`](Prep/TC2/solucion.pdf) |
-| 6 | Abril | Vicente | Solución Tarea 3 |  | [`[Ejercicios]`](Prep/TC3/ejercicios.pdf) |
+| 6 | Abril | Vicente | Solución Tarea 3 |  | [`[Ejercicios]`](Prep/TC3/ejercicios.pdf) [`[Shiny]`](https://vicentemuehlenbrock.shinyapps.io/preparando_tarea_3/)|
 | 27 | Abril | Tomás | Solución Tarea 4 |  |  |
 | 4 | Mayo | Vicente | ICs & Boostrap |  |  |
 | 11 | Mayo | Vicente | Solución Tarea 5 |  |  |
