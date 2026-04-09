@@ -567,17 +567,17 @@ Por lo tanto, alrededor del 2.28% de los estudiantes reprueba el examen.
 
 Para calcular el porcentaje de estudiantes que estudió entre 4.25 horas y 5.75 horas, primero estandarizamos ambos valores Z:
 
-Para 4.25 horas: $$Z_1 = \frac{4.25 - 5}{0.75} = -0.8333$$
+Para 4.25 horas: $$Z_1 = \frac{4.25 - 5}{0.75} = -1$$
 
-Para 5.75 horas: $$Z_2 = \frac{5.75 - 5}{0.75} = 1.3333$$
+Para 5.75 horas: $$Z_2 = \frac{5.75 - 5}{0.75} = 1$$
 
 Luego, utilizamos las funciones Φ(Z) para encontrar las proporciones correspondientes:
 
-$$P(-0.8333 < Z < 1.3333) = \Phi(1.3333) - \Phi(-0.8333)$$
+$$P(-1 < Z < 1) = \Phi(1) - \Phi(-1)$$
 
-Consultando una tabla de valores Z o usando una calculadora, encontramos que Φ(1.3333) es aproximadamente 0.9082 y Φ(-0.8333) es aproximadamente 0.2023.
+Consultando una tabla de valores Z o usando una calculadora, encontramos que 
 
-$$P(-0.8333 < Z < 1.3333) ≈ 0.9082 - 0.2023 ≈ 0.7059$$
+$$P(-1 < Z < 1) ≈ 0.8413447 - 0.1586553 ≈ 0.6826894$$
 
 Por lo tanto, aproximadamente el 70.59% de los estudiantes estudió entre 4.25 y 5.75 horas para el examen.
 
