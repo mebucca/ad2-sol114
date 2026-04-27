@@ -1,0 +1,124 @@
+---
+title: "Tarea 4"
+subtitle: "SOL512"
+format: pdf
+lang: es
+---
+
+## Contexto
+
+Imagina que eres el arquero de un equipo de fútbol y debes atajar penales. Cada penal es un ensayo de Bernoulli: el lanzador anota con probabilidad $p = 0.3$, o falla con probabilidad $1 - p = 0.7$. Los penales son independientes entre sí.
+
+------------------------------------------------------------------------
+
+## Parámetros teóricos
+
+```{r, echo = FALSE}
+set.seed(42)
+
+p     <- 0.3
+mu    <- p
+sigma <- sqrt(p * (1 - p))
+
+cat("Parámetros teóricos de cada penal (distribución Bernoulli):\n")
+cat("  Media:                 μ = p =", mu, "\n")
+cat("  Desviación estándar:   σ =", round(sigma, 4), "\n\n")
+```
+
+------------------------------------------------------------------------
+
+## Parte 1: Definir la función `tira_penales()`
+
+Define la función `tira_penales(n)` que simula $n$ lanzamientos de penales. La función retorna un vector con 1 si el lanzador **anota** y 0 si **falla**.
+
+```{r}
+tira_penales <- function(n) {
+  resultados <- rbinom(n, size = 1, prob = p)
+  cat("Se tiraron", n, "penal(es):", resultados, "\n")
+  return(resultados)
+}
+```
+
+------------------------------------------------------------------------
+
+## Parte 2: Lanzar un penal
+
+Ejecuta la función `tira_penales(1)` para simular un único penal:
+
+```{r}
+tira_penales(1) 
+```
+
+------------------------------------------------------------------------
+
+## Parte 3
+
+Ejecuta la función `tira_penales(5)` siete veces y guarda los resultados de cada tanda en objetos separados. Ejemplo: `tanda_1 <- tira_penales(5)`, `tanda_2`, etc.
+
+```{r}
+# Usamos un vector para guardar la tanda completa
+penales <- c()
+
+tanda_1 <- tira_penales(5)
+tanda_2 <- tira_penales(5)
+tanda_3 <- tira_penales(5)
+tanda_4 <- tira_penales(5)
+tanda_5 <- tira_penales(5)
+tanda_6 <- tira_penales(5)
+tanda_7 <- tira_penales(5)
+```
+
+------------------------------------------------------------------------
+
+## Parte 4: Visualizar resultados y calcular promedios
+
+Para cada tanda, visualiza los resultados usando `print()` y calcula el promedio de goles anotados usando `mean()`. Guarda el promedio de cada tanda en un objeto separado.
+Ejemplo: `promedio_tanda_1 <- mean(tanda_1)`
+
+```{r, eval = FALSE}
+print(tanda_1)
+promedio_tanda_1 <- mean(tanda_1)
+
+print(tanda_2)
+promedio_tanda_2 <- mean(tanda_2)
+
+print(tanda_3)
+promedio_tanda_3 <- mean(tanda_3)
+
+print(tanda_4)
+promedio_tanda_4 <- mean(tanda_4)
+
+print(tanda_5)
+promedio_tanda_5 <- mean(tanda_5)
+
+print(tanda_6)
+promedio_tanda_6 <- mean(tanda_6)
+
+print(tanda_7)
+promedio_tanda_7 <- mean(tanda_7)
+```
+
+------------------------------------------------------------------------
+
+## Parte 5: Aplicar el Teorema del Límite Central
+
+Calcula el promedio y la desviación estándar de los promedios de las 7 tandas. Relaciona tus resultados con el Teorema del Límite Central.
+
+> Opcional: para hacer el calculo mas rapido puedes previamente agrupar todos los pomedios en un vector y luego calcular el promedio y la desviación estándar de ese vector usando el siguiente código:
+
+```{r, eval = FALSE}
+# Agrupamos los promedios en un vector
+promedios <- c(promedio_tanda_1, promedio_tanda_2, promedio_tanda_3, 
+               promedio_tanda_4, promedio_tanda_5, promedio_tanda_6, 
+               promedio_tanda_7)
+
+# Calculamos el gran promedio y la desviación estándar empírica
+mean(promedios)
+sd(promedios)
+```
+
+**Respuesta Teórica Esperada (Relación con el TLC):**
+
+El Teorema del Límite Central (TLC) establece que, a medida que el tamaño de la muestra ($n$) crece, la distribución de las medias muestrales tiende a concentrarse en torno a la media poblacional ($\mu = 0.3$) y a adoptar una forma normal. 
+
+Sin embargo, **en este ejercicio ocurre lo contrario, lo cual es totalmente esperable:** al tomar un tamaño de muestra sumamente pequeño ($n = 5$ penales) y repetir el proceso muy pocas veces (solo 7 tandas), **es muy común observar que la media de los promedios empíricos y su varianza se desvíen considerablemente de los valores teóricos**. El TLC requiere muestras más grandes para que la aproximación sea confiable. La fluctuación que se observa entre las distintas ejecuciones refleja justamente la alta variabilidad e incertidumbre propias de trabajar con muestras tan pequeñas.
