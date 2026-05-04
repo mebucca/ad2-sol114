@@ -41,7 +41,7 @@ Límite superior: $$\bar{x} + \text{ME} = 20 + 0.716 = 20.716$$
 
 Con un 95% de confianza, podemos afirmar que el tiempo medio que la población general pasa viendo TV en una semana está entre 19.284 horas y 20.716 horas. Esto significa que, si tomáramos muchas muestras y calculáramos intervalos de confianza del 95% para cada una, esperaríamos que aproximadamente el 95% de esos intervalos contuvieran el verdadero tiempo medio de visualización de TV semanal de toda la población.
 
----
+------------------------------------------------------------------------
 
 2.  Un investigador está estudiando el tiempo promedio que los adultos pasan leyendo periódicos semanalmente. De una muestra aleatoria de 60 adultos, el tiempo medio pasado es de 4 horas. Si la varianza poblacional conocida es de 1.44 (horas$^2$), calcule el intervalo de confianza del 90% para el tiempo promedio verdadero que se pasa leyendo periódicos semanalmente.
 
@@ -81,8 +81,7 @@ Límite superior: $$\bar{x} + \text{ME} = 4 + 0.2545 = 4.2545$$
 
 Interpretación: Con un 90% de confianza, podemos afirmar que el tiempo medio que la población adulta general pasa leyendo periódicos en una semana está entre 3.7455 horas y 4.2545 horas.
 
-
----
+------------------------------------------------------------------------
 
 3.  En un estudio sobre hábitos alimenticios, se encuestó a 100 individuos sobre su consumo semanal de frutas. La media se encontró en 10 porciones con una varianza poblacional conocida de 4 (porciones\^2). Calcule el intervalo de confianza del 95% para el consumo semanal medio de frutas.
 
@@ -120,7 +119,7 @@ Límite superior: $$\bar{x} + \text{ME} = 10 + 0.392 = 10.392$$
 
 Interpretación: Con un 95% de confianza, podemos afirmar que el número medio de porciones de frutas que la población consume semanalmente está entre 9.608 porciones y 10.392 porciones.
 
----
+------------------------------------------------------------------------
 
 4.  En un estudio sobre patrones de sueño, 16 adultos informan su duración promedio de sueño nocturno. La media es de 7 horas con una desviación estándar de la muestra de 1.1 horas. Determine el intervalo de confianza del 95% para la duración media del sueño nocturno para todos los adultos.
 
@@ -159,7 +158,7 @@ Límite superior: $$\bar{x} + \text{ME} = 7 + 0.586 = 7.586$$
 
 Interpretación: Con un 95% de confianza, podemos afirmar que la duración media de sueño nocturno para todos los adultos está entre 6.414 horas y 7.586 horas.
 
----
+------------------------------------------------------------------------
 
 5.  Un psicólogo prueba una nueva técnica de terapia y registra el número de sesiones requeridas para ver mejoras. De 36 pacientes, el número medio de sesiones fue de 12 con una desviación estándar de la muestra de 3.2. Calcule un intervalo de confianza del 90% para el número medio de sesiones para toda la población de pacientes.
 
@@ -234,7 +233,7 @@ Límite superior: $$\bar{x} + \text{ME} = 7 + 0.586 = 7.586$$
 
 Interpretación: "Con un 95% de confianza, podemos afirmar que la duración media de sueño nocturno para todos los adultos está entre 6.414 horas y 7.586 horas."
 
----
+------------------------------------------------------------------------
 
 6.  Una encuesta sobre el uso de teléfonos inteligentes tomó una muestra de 2,500 adolescentes. 2,050 de ellos informaron tener un teléfono inteligente. Calcule el intervalo de confianza del 99% para la proporción de todos los adolescentes que tienen un teléfono inteligente.
 
@@ -271,7 +270,7 @@ Límite inferior: $0.82 - 0.01978 \approx 0.80022$ Límite superior: $0.82 + 0.0
 
 Entonces, con un 99% de confianza, la proporción de todos los adolescentes que tienen un teléfono inteligente está entre aproximadamente 80.02% y 83.98%.
 
----
+------------------------------------------------------------------------
 
 7.  Un psicólogo estudia los efectos de la meditación en los niveles de estrés. De una muestra de 81 participantes, la reducción media de las puntuaciones de estrés es de 3.6 con una desviación estándar de 0.9. Calcule un intervalo de confianza del 90% para la reducción media de las puntuaciones de estrés para la población más amplia.
 
@@ -293,7 +292,7 @@ Límite inferior del intervalo de confianza: $3.6 - 0.1664 = 3.4336$ Límite sup
 
 **Conclusión:** Con un 90% de confianza, podemos decir que la reducción media de las puntuaciones de estrés debido a la meditación está entre aproximadamente 3.4336 y 3.7664 puntos.Los resultados sugieren que es probable que la práctica de la meditación tenga un efecto positivo moderado en la disminución del estrés.
 
----
+------------------------------------------------------------------------
 
 8.  En una encuesta sobre la confianza en los medios de comunicación, se preguntó a 800 individuos si confían en los medios para informar noticias con precisión. 320 dijeron "sí". Calcule el intervalo de confianza del 95% para la proporción de individuos que confían en los medios.
 
@@ -334,7 +333,7 @@ $$0.4 + 0.0339 = 0.4339$$
 
 Entonces, con un 95% de confianza, podemos decir que la proporción de individuos que confían en los medios para informar noticias con precisión está entre aproximadamente 36.61% y 43.39%. Esto significa que si se realizara la encuesta muchas veces, y se calcularan intervalos de confianza de esta manera en cada ocasión, esperaríamos que aproximadamente el 95% de esos intervalos contenga la verdadera proporción poblacional.
 
----
+------------------------------------------------------------------------
 
 9.  En un estudio sobre satisfacción laboral, una muestra de 25 empleados de una gran empresa da una puntuación de satisfacción (de 10). La puntuación media es de 7.6 con una desviación estándar de 1.4. Calcule el intervalo de confianza del 95% para la verdadera puntuación media de satisfacción para toda la empresa.
 
@@ -381,7 +380,7 @@ $$7.6 + 0.578 = 8.178$$
 
 Por lo tanto, con un 95% de confianza, la verdadera puntuación media de satisfacción para todos los empleados de la empresa está entre aproximadamente 7.022 y 8.178. Esto significa que si se realizaran muchos estudios de este tipo y se calcularan intervalos de confianza de esta manera en cada ocasión, esperaríamos que aproximadamente el 95% de esos intervalos contengan la verdadera media poblacional de la puntuación de satisfacción laboral.
 
----
+------------------------------------------------------------------------
 
 10. Un equipo de investigación médica está explorando un nuevo medicamento para tratar dolores de cabeza frecuentes. Se realizó un estudio piloto con 20 participantes, donde la mitad de ellos (10) recibieron el medicamento (grupo de tratamiento) y la otra mitad (10) no lo recibió (grupo de control). Durante una semana, los participantes informaron si habían tenido un dolor de cabeza (1 = Sí, 0 = No).
 
@@ -453,9 +452,9 @@ $$0.6 \pm 0.399$$ $$Límite inferior: 0.6 - 0.399 = 0.201$$ $$Límite superior: 
 
 **Conclusión:**
 
-Al comparar los intervalos de confianza del grupo de tratamiento (0.001 a 0.799) y del grupo de control (0.201 a 0.999), notamos una superposición considerable. Esto _sugiere_ que con un 99% de confianza no podemos afirmar que haya una diferencia significativa en la proporción de dolores de cabeza entre los grupos debido a la amplitud de los intervalos. 
+Al comparar los intervalos de confianza del grupo de tratamiento (0.001 a 0.799) y del grupo de control (0.201 a 0.999), notamos una superposición considerable. Esto *sugiere* que con un 99% de confianza no podemos afirmar que haya una diferencia significativa en la proporción de dolores de cabeza entre los grupos debido a la amplitud de los intervalos.
 
----
+------------------------------------------------------------------------
 
 11. Una escuela está probando dos métodos diferentes para enseñar matemáticas básicas a los estudiantes de primer grado. Seleccionan a 6 estudiantes al azar, tres de los cuales usan el Método A (grupo de tratamiento) y tres usan el Método B (grupo de control). Al final de una semana de instrucción, cada estudiante realiza una prueba que tiene un puntaje máximo de 10 puntos.
 
@@ -528,8 +527,7 @@ $\bar{x}_B \pm ME_B = 5.67 \pm 1.4344$ Límite inferior = 5.67 - 1.4344 ≈ 4.23
 
 Basándonos en los intervalos de confianza no podemos hacer una afirmación definitiva sobre la efectividad de cada método de enseñanza. Aunque la media del Método A es más alta que la del Método B, hay una superposición considerable en los intervalos de confianza.
 
-
----
+------------------------------------------------------------------------
 
 12. Un grupo de estudiantes de sociología realiza una pequeña encuestra retrospectivas sobre comportamiento electorial en elecciones presidenciales en Chile en 2021. La encuesta se realizó de forma anónima y los entrevistados se identificaron solo por un "ID Entrevistado". De un total de 20 encuestados, algunos votaron por Boric y otros por Kast.
 
@@ -622,7 +620,7 @@ $$0.5587 \pm 0.222$$ $$Límite inferior: 0.5587 - 0.222 = 0.3367$$ $$Límite sup
 
 Comparando este intervalo con el obtenido a partir de la muestra de la encuesta, observamos que hay una superposición, lo que sugiere que los resultados de la encuesta podrían ser consistentes con los resultados reales de las elecciones. Sin embargo, debemos ser cautelosos al interpretar estos resultados debido al tamaño muy pequeño de la muestra.
 
----
+------------------------------------------------------------------------
 
 13. Trabaja con los datos "Intenciones de Voto en el Plebiscito Chileno de 1988"
 
@@ -724,7 +722,7 @@ Por lo tanto, el intervalo de confianza al 95% para la proporción de personas q
 
 El análisis de los datos de la encuesta muestra que, entre los encuestados decididos, existe una ligera mayoría que indica la intención de votar por el NO (en contra de Pinochet), con una proporción estimada del 50.6%. El intervalo de confianza al 95% para esta proporción es de aproximadamente 48.27% a 52.93%. Aunque la proporción puntual está ligeramente por encima del 50%, el intervalo de confianza incluye proporciones por debajo del 50%. Esto significa que estadísticamente, con un 95% de confianza, no podemos afirmar que el NO ganaría el plebiscito. El límite inferior del intervalo cae por debajo del punto de equilibrio del 50%, indicando que existe la posibilidad, dentro de la incertidumbre estimada, de que la votación no sea suficiente para asegurar la victoria del NO.
 
----
+------------------------------------------------------------------------
 
 14. Dada esta encuesta preliminar sobre intenciones de voto, se desea planificar una nueva encuesta con un margen de error más reducido. Estima el tamaño de muestra necesario para una proporción considerando un margen de error de 0.01 con un 95% de confianza. Haz explícitos los supuestos de tu cálculo y justifícalos.
 
@@ -744,7 +742,7 @@ $$n = \left(\frac{1.96^2 \cdot 0.5 \cdot (1 - 0.5)}{0.01^2}\right)$$ $$n = \left
 
 Por lo tanto, necesitaríamos una muestra de aproximadamente 9604 encuestados para estimar la proporción con un margen de error de 0.01 con un 95% de confianza.
 
----
+------------------------------------------------------------------------
 
 15. Un grupo de estudiantes participó en una competencia de habilidades culinarias. La competencia se compone de tres pruebas: elaboración de entradas, plato principal y postres. El puntaje final de cada estudiante se determina tomando el promedio simple de los puntajes obtenidos en las tres pruebas. Cada pregunta controla aspectos distintas habilidades y por tanto sus puntajes son independientes entre si. A continuación, se proporcionan las estadísticas descriptivas de una muestra de 100 estudiantes para cada prueba:
 
@@ -769,55 +767,51 @@ La media muestral del puntaje final se calcula tomando el promedio de las medias
 
 $$\bar{X}_{\text{final}} = \frac{\bar{X}_{\text{entradas}} + \bar{X}_{\text{plato principal}} + \bar{X}_{\text{postres}}}{3}$$
 
-$$\bar{X}_{\text{final}} = \frac{4.5 + 3.8 + 5.2}{3}$$
-
-$$\bar{X}_{\text{final}} = \frac{13.5}{3}$$
-
-$$\bar{X}_{\text{final}} = 4.5$$
+$$\bar{X}_{\text{final}} = \frac{4.5 + 3.8 + 5.2}{3} = \frac{13.5}{3} = 4.5$$
 
 La media muestral del puntaje final para estos 100 estudiantes es 4.5.
 
-**Intervalo de Confianza del 95% para la Media del Puntaje Final**
+\textbf{Intervalo de Confianza del 95\% para la Media del Puntaje Final}
 
-Para construir un intervalo de confianza para la media, necesitamos calcular la desviación estándar de la media del puntaje final. Dado que las pruebas son independientes entre sí, podemos sumar las varianzas y luego tomar la raíz cuadrada para obtener la desviación estándar del puntaje final.
+Dado que el puntaje final es el promedio de tres pruebas independientes, su varianza se obtiene aplicando la propiedad de varianza de una combinación lineal. Si $\bar{X}_{\text{final}} = \frac{X_1 + X_2 + X_3}{3}$, entonces:
 
-Las varianzas muestrales ($s^2$) para cada prueba son:
+$$\text{Var}(\bar{X}_{\text{final}}) = \frac{1}{3^2}\left(\text{Var}(X_1) + \text{Var}(X_2) + \text{Var}(X_3)\right) = \frac{s^2_1 + s^2_2 + s^2_3}{9}$$
 
-$$s^2 = \frac{\sum (x_i - \bar{x})^2}{n - 1}$$
+Las varianzas muestrales ($s^2 = \frac{\sum (x_i - \bar{x})^2}{n-1}$) para cada prueba son:
 
-Para cada prueba:
+$$s^2_{\text{entradas}} = \frac{375.6}{99} \approx 3.794$$
 
-$$s^2_{\text{entradas}} = \frac{375.6}{99}$$ $$s^2_{\text{plato principal}} = \frac{178.4}{99}$$ $$s^2_{\text{postres}} = \frac{62.7}{99}$$
+$$s^2_{\text{plato principal}} = \frac{178.4}{99} \approx 1.802$$
 
-Calculando las varianzas:
+$$s^2_{\text{postres}} = \frac{62.7}{99} \approx 0.633$$
 
-$$s^2_{\text{entradas}} \approx 3.79$$ $$s^2_{\text{plato principal}} \approx 1.80$$ $$s^2_{\text{postres}} \approx 0.63$$
+La varianza del puntaje final es:
 
-Ahora sumamos las varianzas para obtener la varianza del puntaje final:
+$$s^2_{\text{final}} = \frac{3.794 + 1.802 + 0.633}{9} = \frac{6.229}{9} \approx 0.692$$
 
-$$s^2_{\text{final}} = s^2_{\text{entradas}} + s^2_{\text{plato principal}} + s^2_{\text{postres}}$$ $$s^2_{\text{final}} \approx 3.79 + 1.80 + 0.63$$ $$s^2_{\text{final}} \approx 6.22$$
+La desviación estándar del puntaje final:
 
-La desviación estándar del puntaje final es la raíz cuadrada de la varianza final:
+$$s_{\text{final}} = \sqrt{0.692} \approx 0.832$$
 
-$$s_{\text{final}} = \sqrt{s^2_{\text{final}}}$$ $$s_{\text{final}} \approx \sqrt{6.22}$$ $$s_{\text{final}} \approx 2.49$$
+El error estándar de la media del puntaje final:
 
-La desviación estándar de la media del puntaje final es la desviación estándar del puntaje final dividida por la raíz cuadrada del tamaño de la muestra (n = 100):
+$$s_{\bar{X}_{\text{final}}} = \frac{s_{\text{final}}}{\sqrt{n}} = \frac{0.832}{\sqrt{100}} = \frac{0.832}{10} = 0.0832$$
 
-$$s_{\bar{X}_{\text{final}}} = \frac{s_{\text{final}}}{\sqrt{n}}$$ $$s_{\bar{X}_{\text{final}}} = \frac{2.49}{\sqrt{100}}$$ $$s_{\bar{X}_{\text{final}}} = \frac{2.49}{10}$$ $$s_{\bar{X}_{\text{final}}} = 0.249$$
+Usando la distribución $Z$ para un intervalo de confianza del 95\% ($Z_{0.025} = 1.96$):
 
-Usando la distribución Z para un intervalo de confianza del 95%, el valor Z es aproximadamente 1.96. Ahora podemos construir el intervalo de confianza:
+$$\text{IC} = \bar{X}_{\text{final}} \pm \left(Z \cdot s_{\bar{X}_{\text{final}}}\right)$$
 
-$$\text{IC} = \bar{X}_{\text{final}} \pm (Z \cdot s_{\bar{X}_{\text{final}}})$$ $$\text{IC} = 4.5 \pm (1.96 \cdot 0.249)$$ $$\text{IC} = 4.5 \pm 0.488$$
+$$\text{IC} = 4.5 \pm (1.96 \times 0.0832)$$
 
-El intervalo de confianza del 95% para la media del puntaje final es:
+$$\text{IC} = 4.5 \pm 0.163$$
 
-$$\text{IC} = [4.012, 4.988]$$
+$$\boxed{\text{IC} = [4.337,\ 4.663]}$$
 
 **Interpretación del Intervalo de Confianza**
 
-La interpretación del intervalo de confianza en términos de la competencia de habilidades culinarias es que estamos 95% seguros de que la media verdadera del puntaje final para todos los estudiantes que podrían participar en esta competencia está entre 4.012 y 4.988.
+Estamos 95\% seguros de que la media verdadera del puntaje final para todos los estudiantes que podrían participar en esta competencia se encuentra entre 4.34 y 4.66. Nótese que este intervalo es más estrecho que el que se obtendría considerando la varianza de cualquier prueba individual, lo cual refleja correctamente que promediar tres pruebas independientes reduce la variabilidad del puntaje final.
 
----
+------------------------------------------------------------------------
 
 16. Una población tomó un test compuesto por tres preguntas. El puntaje final de cada individuo se determina tomando el promedio simple de los puntajes obtenidos en las tres preguntas. Cada pregunta controla aspectos distintos del conocimiento y por tanto sus puntajes son independientes entre si.
 
@@ -892,8 +886,7 @@ $$\text{IC} ≈ (3.7811, 4.1151)$$
 
 El intervalo de confianza del 95% indica que, si se repitiera la competencia muchas veces, el puntaje promedio de todos los estudiantes estaría entre 3.7811 y 4.1151 el 95% de las veces.
 
-
----
+------------------------------------------------------------------------
 
 17. Un equipo de investigación médica está explorando un nuevo medicamento para tratar dolores de cabeza frecuentes. Se realizó un estudio piloto con 20 participantes, donde la mitad de ellos (10) recibieron el medicamento (grupo de tratamiento) y la otra mitad (10) no lo recibió (grupo de control). Durante una semana, los participantes informaron si habían tenido un dolor de cabeza (1 = Sí, 0 = No).
 
@@ -971,7 +964,7 @@ Aplicamos este margen de error a la diferencia observada de proporciones:
 
 El intervalo de confianza que va desde aproximadamente -0.229 hasta 0.629 incluye el cero, lo que indica que la diferencia en las proporciones de dolores de cabeza entre los dos grupos no es estadísticamente significativa al nivel del 95%. Esto significa que, basándonos en los datos de este estudio piloto, no tenemos evidencia suficiente para afirmar que el medicamento es efectivo en la reducción de la frecuencia de dolores de cabeza.
 
----
+------------------------------------------------------------------------
 
 18. ¿Cuál es la relación entre el error estándar de la media y la desviación estándar de la población? ¿Cuándo usarías la desviación estándar de la población en lugar de la desviación estándar de la muestra para calcular el error estándar?
 
@@ -989,7 +982,7 @@ Donde:
 
 La desviación estándar de la población cuando se tiene acceso a todos los datos de la población o en situaciones (inusuales) donde tenemos acceso a dicha información.
 
----
+------------------------------------------------------------------------
 
 19. ¿Por qué no se puede obtener prácticamente un intervalo de confianza del 100%?
 
@@ -997,8 +990,7 @@ En el contexto de la distribución normal (o gaussiana), los valores posibles se
 
 Por tanto, es imposible obtener un intervalo de confianza del 100% en la práctica, ya que esto implicaría tener un rango que abarque todos los valores posibles en la línea real, lo cual no es práctico ni útil en la mayoría de las aplicaciones estadísticas. Por lo tanto, la probabilidad de que un valor esté dentro de un intervalo en una distribución normal nunca alcanza el 100%, sino que se acerca cada vez más a medida que se amplía el intervalo.
 
-
----
+------------------------------------------------------------------------
 
 20. Explica la diferencia entre una estimación puntual y una estimación por intervalo.
 
@@ -1026,7 +1018,7 @@ La principal diferencia entre ambas es que la estimación puntual proporciona un
 
 El margen de error está relacionado con el nivel de confianza y el error estándar de una estadística a través de la fórmula del intervalo de confianza. El margen de error representa la amplitud del intervalo de confianza alrededor de una estimación puntual de una población. Aquí está la fórmula general para el margen de error:
 
-Margen de Error = Valor crítico * Error estándar
+Margen de Error = Valor crítico \* Error estándar
 
 Donde:
 
