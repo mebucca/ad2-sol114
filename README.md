@@ -44,7 +44,7 @@ Este repositorio contiene el material del curso SOL512 Probabilidad e Inferencia
 | Miércoles | 29 | Abril | IC para media y proporción muestral | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_13/class_13#1) [`[Code]`](slides/class_13/class_13.Rmd) | — | 7.1.3 & 7.1.4 |
 | Lunes | 4 | Mayo | IC con varianza desconocida & margen de error | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_14/class_14#1) [`[Code]`](slides/class_14/class_14.Rmd) | — | 7.1.3 & 7.1.4 |
 | Miércoles | 6 | Mayo | IC vía Bootstrap | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_15/class_15#1) [`[Code]`](slides/class_15/class_15.Rmd) | — | 7.1.3 & 7.1.4 |
-| Lunes | 11 | Mayo | Test de hipótesis: paradigma Fisher & Neyman–Pearson | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_16/class_16#1) [`[Code]`](slides/class_16/class_16.Rmd) | Tarea 5: IC + Bootstrap (pseudocódigo) | 7.2.2 |
+| Lunes | 11 | Mayo | Test de hipótesis: paradigma Fisher & Neyman–Pearson | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_16/class_16#1) [`[Code]`](slides/class_16/class_16.Rmd) | Tarea 5: IC + Bootstrap  [`[Solución]`]() | 7.2.2 |
 | Miércoles | 13 | Mayo | Test de media/proporción en una muestra | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_17/class_17#1) [`[Code]`](slides/class_17/class_17.Rmd) | — | 7.2.2 |
 | Lunes | 18–23 | Mayo | RECESO | — | — | — |
 | Lunes | 25 | Mayo | Distribución t-Student para test de hipótesis | [`[Pres]`](https://mebucca.github.io/ad2-sol114/slides/class_18/class_18#1) [`[Code]`](slides/class_18/class_18.Rmd) | — | 7.2.2 |
