@@ -1,0 +1,494 @@
+---
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "Asociación entre variables categóricas"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: today
+format:
+  revealjs:
+    css: ["gentle-r.css","xaringan-themer.css"]
+    slide-number: true
+    theme: default
+    highlight-style: github
+    width: 1600
+    height: 900
+    title-slide-attributes:
+      data-background-color: "#C80815"
+---
+
+## {.inverse .center .middle}
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = T, echo = T)
+```
+
+# Tablas de contingencia
+
+## Datos Plebiscito 1989
+
+::: {.pull-left}
+- Encuesta realizada por FLACSO/Chile en Abril y Mayo de 1988
+
+- Mi intención de voto en el plebiscito de 1989
+
+- Incluye otras variables socio-demográficas.
+:::
+
+::: {.pull-right}
+![NO](no.jpg)
+:::
+
+. . .
+
+```{r,  include=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+library("tidyverse")
+library("carData")
+data("Chile")
+datos_chile <- Chile
+datos_chile <- datos_chile %>% filter(vote == "Y" | vote=="N") %>% mutate(vote = factor(vote))
+```
+
+## Asociación entre ingreso y voto SI/NO
+
+<br>
+
+. . .
+
+Si estuviéramos interesados en estudiar la asociación entre la intención de voto y el nivel de ingresos -- donde ambas variables son discretas --  el primer paso probablemente sería construir una tabla de este tipo:
+
+. . .
+
+::: {.pull-left}
+```{r, include=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
+ctable <- datos_chile %>% with(table(income,vote))
+print(ctable)
+```
+:::
+
+::: {.pull-right}
+<br> <br>
+- Este tipo de tablas se denomina [tablas de contingencia]{.bold}
+
+- Clasificación cruzada de las frecuencias de dos variables
+:::
+
+## Tablas de contingencia
+
+Una definición formal: una tabla de contingencia es una matriz que muestra la *distribución multivariada* de frecuencias de un número arbitrario de variables categóricas. 
+
+<br>
+
+Caso simple:
+
+- $X$ y $Y$ son dos variables categóricas.
+
+  - $X$ tiene $I$ categorías $\{i, \dots, I \}$ 
+
+  - $Y$ tiene $J$ categorías $\{j, \dots, J \}$.
+
+<br>
+
+. . .
+
+Una tabla rectangular que clasifica todas las combinaciones posibles de $X$ y $Y$ tendrá $I$ filas para las categorías de $X$, $J$ columnas para las categorías de $Y$, y $I \times J$ celdas.
+
+## Tablas de contingencia
+
+<br>
+<br>
+<br>
+
+Estructura general de una tabla 2-way, $I \times J$
+
+<br>
+
+|           	| $Y=y_{1}$ 	| $Y=y_{2}$ 	| $\dots$ 	| $Y=y_{J}$ 	|   Total  	|
+|:---------:	|:---------:	|:---------:	|:-------:	|:---------:	|:--------:	|
+| $X=x_{1}$ 	|  $n_{11}$ 	|  $n_{12}$ 	| $\dots$ 	|  $n_{1J}$ 	| $n_{1+}$ 	|
+| $X=x_{2}$ 	|  $n_{21}$ 	|  $n_{22}$ 	| $\dots$ 	|  $n_{2J}$ 	| $n_{2+}$ 	|
+|  $\dots$  	|  $\dots$  	|  $\dots$  	| $\dots$ 	|  $\dots$  	|  $\dots$ 	|
+| $X=x_{I}$ 	|  $n_{I1}$ 	|  $n_{I2}$ 	| $\dots$ 	|  $n_{IJ}$ 	| $n_{I+}$ 	|
+|   Total   	|  $n_{+1}$ 	|  $n_{+2}$ 	| $\dots$ 	|  $n_{+J}$ 	| $n_{++}$ 	|
+
+## Estructura probabilística {.inverse .center .middle .section-title}
+
+## Distribución conjunta
+
+Supongamos que elegimos al azar un individuo de nuestra población. ¿Cual es la probabilidad de que pertenezca una celda dada de la tabla de contingencia?
+
+<br>
+
+. . .
+
+Para cada frecuencia conjunta $n_{ij}$ en la tabla existe una probabilidad conjunta asociada $p_{ij}$, tal que
+
+$$p_{ij} = \mathbb{P}(X = i, Y = j)$$
+
+  - denota la probabilidad de que una observación muestreada al azar pertenezca a la celda $(i,j)$.
+
+  - la colección de probabilidades $p_{ij}$ forma la [distribución conjunta]{.bold} de $X$ y $Y$, $f(x,y)$. 
+
+. . .
+
+### Estimación
+
+Cuando trabajamos con muestras, esta probabilidad se puede estimar (MLE) a partir de las frecuencias en la tabla:
+
+$$\hat{p}_{ij} = \frac{n_{ij}}{n}$$
+
+## Distribución conjunta
+
+En nuestro ejemplo,
+
+```{r,  include=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+# joint distibution
+joint_dis <- ctable/sum(ctable); joint_dis  
+```
+
+<br>
+
+. . .
+
+Como con cualquier distribución de probabilidad, sabemos que los $p_{ij}$ suman a 1. 
+
+. . .
+
+Veamos en el caso de nuestro estimador:
+
+Si $\hat{p}_{ij} = \frac{n_{ij}}{n}$, entonces 
+
+$$\sum_{i} \sum_{j} \frac{n_{ij}}{n} = \frac{n}{n} = 1$$
+
+## Distribuciones marginales
+
+<br>
+
+Podemos obtener la distribución marginal de las variables $X$ y $Y$ a partir de su distribución conjunta. 
+
+<br>
+
+. . .
+
+- La distribución marginal de $X$ (filas) está dada por:    
+
+$$p_{i+} = \sum_{j} p_{ij}$$
+<br>
+
+. . .
+
+- La distribución marginal de $Y$ (columnas) está dada por:    
+
+$$p_{+j} = \sum_{i} p_{ij}$$
+
+## Distribuciones marginales
+
+::: {.pull-left}
+Podemos obtener distribuciones marginales a partir de la distribución conjunta. 
+
+```{r,  include=TRUE, echo=T, eval=F, warning=FALSE, message=FALSE}
+# joint distibution
+joint_dis <- ctable/sum(ctable)  
+```
+:::
+
+::: {.pull-right}
+```{r,  include=TRUE, echo=F, warning=FALSE, message=FALSE}
+# joint distibution
+joint_dis <- ctable/sum(ctable); joint_dis  
+```
+:::
+
+. . .
+
+```{r,  include=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
+# marginal distribution rows
+rowSums(joint_dis)
+```
+
+```{r,  include=TRUE, echo=TRUE, warning=FALSE, message=FALSE}
+# marginal distribution columns
+colSums(joint_dis)
+```
+
+## Distribución conjunta y marginal de probabilidades 
+
+En resumen,
+
+<br>
+
+|           	| $Y=y_{1}$ 	| $Y=y_{2}$ 	| $\dots$ 	| $Y=y_{J}$ 	|   Total  	|
+|:---------:	|:---------:	|:---------:	|:-------:	|:---------:	|:--------:	|
+| $X=x_{1}$ 	|  $p_{11}$ 	|  $p_{12}$ 	| $\dots$ 	|  $p_{1J}$ 	| $p_{1+}$ 	|
+| $X=x_{2}$ 	|  $p_{21}$ 	|  $p_{22}$ 	| $\dots$ 	|  $p_{2J}$ 	| $p_{2+}$ 	|
+|  $\dots$  	|  $\dots$  	|  $\dots$  	| $\dots$ 	|  $\dots$  	|  $\dots$ 	|
+| $X=x_{I}$ 	|  $p_{I1}$ 	|  $p_{I2}$ 	| $\dots$ 	|  $p_{IJ}$ 	| $p_{I+}$ 	|
+|   Total   	|  $p_{+1}$ 	|  $p_{+2}$ 	| $\dots$ 	|  $p_{+J}$ 	| 1	|
+
+<br>
+Estructura general de probabilidades en una  tabla 2-way, $I \times J$
+
+## Distribucion conjunta y marginales {.middle}
+
+::: {.center}
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+library(ggplot2)
+library(dplyr)
+library(ggExtra)
+library(gridExtra)
+library(grid)
+
+# Parameters
+n_categories <- 5  
+n_trials <- 3  
+prob_x <- 0.6  
+prob_y_given_x <- 0.7  
+
+x <- 0:(n_categories - 1)
+y <- 0:(n_categories - 1)
+
+# Grid and simulated values
+data_grid <- expand.grid(x = x, y = y)
+data_grid$z <- dbinom(data_grid$x, size = n_trials, prob = prob_x) * 
+               dbinom(data_grid$y, size = n_trials, prob = prob_y_given_x)
+
+# Main heatmap
+p_main <- ggplot(data_grid, aes(x = x, y = y)) +
+  geom_tile(aes(fill = z), color = "black", width = 1, height = 1) +
+  scale_fill_gradient(low = "#FDDDE6", high = "#C80815") +
+  theme_minimal() +
+  labs(x = "", y = "", fill = "Density") +
+  theme(
+    axis.text = element_blank(),
+    axis.ticks = element_blank(),
+    legend.position = "none"
+  )
+
+# Marginals
+p_x <- data_grid %>%
+  group_by(x) %>%
+  summarise(z = sum(z)) %>%
+  ggplot(aes(x = x, y = z)) +
+  geom_col(fill = "#FDDDE6") +
+  coord_flip() +
+  theme_void()
+
+p_y <- data_grid %>%
+  group_by(y) %>%
+  summarise(z = sum(z)) %>%
+  ggplot(aes(x = y, y = z)) +
+  geom_col(fill = "#FDDDE6") +
+  theme_void()
+
+# Combine plots
+grid.arrange(
+  p_y, grid::nullGrob(),
+  p_main, p_x,
+  ncol = 2, nrow = 2,
+  widths = c(4, 1), heights = c(1, 4)
+)
+```
+:::
+
+## Distribuciones condicionales {.inverse .center .middle .section-title}
+
+## Distribuciones condicionales 
+
+<br>
+
+- Recuerden que $\mathbb{P}(Y=y \mid X=x)$ es la [probabilidad condicional]{.bold} de que la variable $Y$ dado $X$.
+
+. . .
+
+- La [distribución condicional]{.bold} $f(y \mid x)$ es una función que expresa la probabilidad que $Y$ tome cada uno de sus posibles valores $y$'s si X toma cualquiera los valores $x$'s.
+
+<br>
+
+. . .
+
+Por tanto,
+
+-  En una tabla de contingencia podemos construir las distribuciones condicionales de las variables $X$ (o $Y$) fijando la otra variable en sus diferentes niveles.
+
+. . .
+
+- Normalmente nos referimos como la "variable independiente" a la variable que usamos para condicionar, mientras que la otra variable actúa como "variable dependiente".
+
+## Distribuciones condicionales 
+
+<br>
+
+::: {.pull-left}
+En nuestro ejemplo podemos construir la distribución condicional  de la variable `vote` dado `income` usando la fórmula general para probabilidades condicionales:
+:::
+
+::: {.pull-right}
+```{r, include=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+print(ctable)
+```
+:::
+
+<br>
+<br>
+
+. . .
+
+\begin{align}
+\mathbb{P}( \text{vote}=j | \text{ income}=i  ) &= \frac{\mathbb{P}(\text{vote}=j , \text{ income}=i )}{\mathbb{P}(\text{ income}=i)} 
+\end{align}
+
+## Distribuciones condicionales 
+
+<br>
+
+::: {.pull-left}
+Sustituyendo las probabilidades  de la ecuación por sus respectivos estimadores podemos estimar las distribuciones condicionales en la tabla:
+:::
+
+::: {.pull-right}
+```{r, include=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+print(ctable)
+```
+:::
+
+<br>
+<br>
+
+. . .
+
+\begin{align}
+ \hat{p}_{j | i} &= \frac{P(\text{vote}=j , \text{ income}=i )}{P(\text{ income}=i)} \\ \\
+  &= \frac{\frac{n_{ij}}{n}}{\frac{\sum_{j} n_{ij}}{n}} = \frac{n_{ij}}{\sum_{j}n_{ij}} 
+\end{align}
+
+## Distribuciones condicionales 
+
+::: {.pull-left}
+Sustituyendo las probabilidades  de la ecuación por sus respectivos estimadores podemos estimar las distribuciones condicionales en la tabla:
+:::
+
+::: {.pull-right}
+```{r, include=TRUE, echo=FALSE, warning=FALSE, message=FALSE}
+print(ctable)
+```
+:::
+
+<br>
+
+Por ejemplo, la probabilidad condicional de haber tenido un "vote" dado que el genero es mujer se estima de la siguiente manera:
+
+\begin{align}
+ \hat{p}_{ \text{vote=Y} | \text{income=2500}} & = \frac{n_{12}}{n_{11} + n_{12}} \\ \\
+ &= \frac{55}{47 + 55} = 0.54
+\end{align}
+
+## Distribuciones condicionales 
+
+Sustituyendo las probabilidades  de la ecuación por sus respectivos estimadores podemos estimar las distribuciones condicionales en la tabla:
+
+::: {.pull-left}
+[Tabla de contingencia]{.bold}
+
+```{r, include=TRUE,  warning=FALSE, message=FALSE}
+print(ctable)
+```
+:::
+
+::: {.pull-right}
+[P(voto | ingreso)]{.bold}
+
+```{r}
+prop.table(ctable,margin=1) 
+```
+:::
+
+## Independencia estadística
+
+- Recuerden, dos variables $X$ y $Y$ son independientes si al saber algo sobre $X$ no aprendemos nada sobre $Y$, y viceversa: $\mathbb{P}(Y|X) = \mathbb{P}(Y)$.
+
+- Check:  $X \bot Y \iff \mathbb{P}(X,Y) = \mathbb{P}(X)\mathbb{P}(Y)$
+
+. . .
+
+- Podemos usar esta propiedad para comprobar independencia en una tabla de contingencia.
+
+<br>
+
+. . .
+
+- Si $X \bot Y$ las probabilidades conjuntas [esperadas bajo el supuesto de independencia]{.bold} están dadas por el producto de las distribuciones marginales:
+
+$$\tilde{p}_{ij} = p_{i+} \times  p_{+j}$$
+
+<br>
+
+. . .
+
+- Asimismo, las frecuencias esperadas bajo independencia están dadas por:
+
+$$\tilde{n}_{ij} = n \times p_{i+} \times  p_{+j}$$
+
+<br>
+
+. . .
+
+[Importante]{.bold}: noten que sólo necesitamos saber la distribución marginal de las variables para calcular las probabilidades y frecuencias esperadas bajo independencia.
+
+## Independencia estadística
+
+::: {.pull-left}
+[Distribución conjunta observada]{.bold}
+
+```{r, echo=FALSE}
+# joint_dis <- ctable/sum(ctable); joint_dis  
+joint_income_vote <- ctable/sum(ctable); print(joint_income_vote)
+```
+:::
+
+::: {.pull-right}
+
+:::
+
+<br>
+
+. . .
+
+[Distribuciones marginales]{.bold}
+```{r, echo=FALSE}
+# marginal income 
+margin_income <- apply(joint_income_vote,1,sum); print(margin_income)
+# marginal vote 
+margin_vote <- apply(joint_income_vote,2,sum); print(margin_vote)
+```
+
+## Independencia estadística
+
+::: {.pull-left}
+[Distribución conjunta observada]{.bold}
+
+```{r, echo=FALSE}
+# joint_dis <- ctable/sum(ctable); joint_dis  
+joint_income_vote <- ctable/sum(ctable); print(joint_income_vote)
+```
+:::
+
+::: {.pull-right}
+[Distribución conjunta esperada bajo independencia]{.bold}
+
+```{r}
+# expected joint probs under independence 
+joint_income_vote_indep <- margin_income %*% t(margin_vote)
+print(joint_income_vote_indep)
+```
+:::
+
+<br><br>
+
+. . .
+
+[¿Se parece la distribución observada a la distribución que observariamos si voto e ingresos no estuvieran asociados?]{.bold}
+
+## Hasta la próxima clase. Gracias! {.inverse .center .middle}
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca

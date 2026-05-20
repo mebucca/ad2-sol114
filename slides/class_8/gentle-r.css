@@ -326,3 +326,22 @@ strong {
 
 .bold { font-weight: bolder;   color: var(--link-color);}
 .bolder { font-weight: bolder; color: var(--header-color);}
+
+/* ============================================================
+ * Quarto RevealJS compatibility
+ * ============================================================ */
+
+.reveal .slides section {
+  font-size: 20px;
+}
+
+.reveal pre code {
+  font-size: 0.9em;
+}
+
+.reveal .footnote {
+  position: absolute;
+  bottom: 60px;
+  padding-right: 4em;
+  font-size: 60%;
+}

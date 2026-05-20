@@ -1,0 +1,178 @@
+---
+title: "Probabilidad e Inferencia <br> para Estadística ~~Social~~ (SOL512)"
+subtitle: "Presentación del curso"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: today
+format:
+  revealjs:
+    css: ["gentle-r.css","xaringan-themer.css"]
+    slide-number: true
+    theme: default
+    highlight-style: github
+    width: 1600
+    height: 900
+    title-slide-attributes:
+      data-background-color: "#972D15"
+---
+
+## Probabilidad & Estadística {.inverse .center .middle .section-title}
+
+## Probabilidad & Estadística
+
+. . .
+
+::: {.center}
+![prob](prob.png)
+:::
+
+## Probabilidad & Estadística
+
+. . .
+
+::: {.center}
+![stats](stats.png)
+:::
+
+## Equipo de trabajo {.inverse .center .middle .section-title}
+
+## Profesor
+
+<br>
+
+  - Mauricio Bucca, Profesor Asistente - Sociología UC
+  
+  - PhD en Sociología & PhD Minor en Estadística, Cornell University
+
+. . .
+
+  - [Investigación:]{.bold} movilidad social intergeneracional,  desigualdades en el mercado laboral, creencias sobre las desigualdades, métodos cuantitativos
+  
+
+  - [Métodos]{.bold}: modelación estadística, inferencia causal, métodos experimentales y computacionales
+
+## Ayudantes
+
+<br>
+
+::: {.pull-left}
+[Vicente Muhlenbrock]{.bold}
+
+- Estudiante de magister en Sociólogía UC
+:::
+
+::: {.pull-right}
+![vicente](vicente.jpeg)
+:::
+
+## Ayudantes
+
+<br>
+
+::: {.pull-left}
+[Tomás Leva]{.bold}
+
+- Estudiante de pregrado en Sociólogía UC
+:::
+
+::: {.pull-right}
+![tomas](tomas.jpeg)
+:::
+
+## Filosofía de enseñanza {.inverse .center .middle .section-title}
+
+---
+
+### 1. Los "atajos" estadísticos dificultan el aprendizaje
+
+. . .
+
+::: {.center}
+![pvalue](pvalue.png)
+:::
+
+---
+
+### 2. La sola intuición no es suficiente
+
+. . .
+
+::: {.pull-left}
+[Muchas cosas parecen más difíciles de lo que son]{.bold}
+
+::: {.huge}
+$$\int xf(x)dx := \mu $$
+:::
+:::
+
+. . .
+
+::: {.pull-right}
+[Otras parecen más simples de lo que son]{.bold}
+
+::: {.huge}
+$$X   \text{ es una variable}$$
+:::
+:::
+
+. . .
+
+<br>
+
+- Vacíos de conocimiento, notación, poca exposición a las matemáticas.
+
+- Este curso nivela estos vacíos activamente. No hay carta bajo la manga.
+
+---
+
+### 3. Menos es más
+
+. . .
+
+::: {.pull-left}
+[Muchos métodos]{.bold}
+![methods](methods.png)
+:::
+
+. . .
+
+::: {.pull-right}
+[Fundamentos sólidos]{.bold}
+![methods](foundations.jpg)
+:::
+
+## Recursos {.inverse .center .middle .section-title}
+
+## Repositorio Github
+
+Todo el material del curso será almacenado y actualizado regularmente en repositorio `Github`:
+
+<br>
+
+::: {.center}
+![github](github.png)
+
+[https://github.com/mebucca/ad2-sol114]{.bold}
+:::
+
+## Horario de consulta y ayudantías
+
+::: {.center}
+![officehours](officehours.jpg)
+:::
+
+## Investigación
+
+::: {.pull-left}
+![workshop](workshop.png)
+:::
+
+::: {.pull-right}
+![lab](qcs2.png)
+:::
+
+## Hasta la próxima clase. Gracias! {.inverse .center .middle}
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca

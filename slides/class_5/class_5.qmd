@@ -1,0 +1,855 @@
+---
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#5: Distribuciones continuas"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: today
+format:
+  revealjs:
+    css: ["gentle-r.css","xaringan-themer.css"]
+    slide-number: true
+    theme: default
+    highlight-style: github
+    width: 1600
+    height: 900
+    title-slide-attributes:
+      data-background-color: "#ff7377"
+---
+
+## Distribuciones Continuas {.inverse .center .middle}
+### Intuición
+
+---
+
+### Tiro de penal
+
+Copa Mundial de la FIFA 1974. Carlos Caszely se prepara para un importante penal contra Alemania Occidental...
+
+. . .
+
+::: {.pull-left}
+[Variable Aleatoria Continua $X$]{.bold}:
+- Distancia horizontal  exacta (en cms) desde el centro de la portería por donde el balón cruzará la línea de fondo. 
+
+<br>
+[Número infinito de resultados posibles]{.bold}:
+
+- Cada punto a lo largo de la linea de fondo donde el balón podría cruzar.
+
+<br>
+[Evento aleatorio]{.bold}:
+
+- Cada punto específico (ej. $x=-3.14159$) tiene probabilidad de ocurrencia 0.
+
+- Podemos calcular probabilidades para rangos específicos de valores (ej. $-3.3 < x < -3.1$).
+:::
+
+. . .
+
+::: {.pull-right}
+<br>
+<br>
+<br>
+
+::: {.center}
+![penal](penal.gif)
+:::
+:::
+
+## Distribuciones Continuas {.inverse .center .middle}
+### Distribución Uniforme
+
+---
+
+### Distribución uniforme
+
+::: {.pull-left}
+Los meteorólogos predicen que la temperatura mañana se encontrará entre 25 y 30 grados, donde todas las temperaturas en ese rango son igualmente probables
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+# Load necessary libraries
+library(ggplot2)
+library(RColorBrewer)
+
+# Function to calculate the PDF of a uniform distribution
+PDF_uniform <- function(x, min, max) {
+  ifelse(x >= min & x <= max, 1 / (max - min), 0)
+}
+
+# Define the values for a and c
+a <- 25
+c <- 30
+
+# Create a data frame for plotting the PDF
+x_values <- seq(a - 2, c + 2, 0.01)
+PDF_values <- PDF_uniform(x_values, a, c)
+PDF_df <- data.frame(x = x_values, PDF = PDF_values)
+
+# Create the ggplot with "Set1" color palette and transparency
+ggplot(data = PDF_df, aes(x = x, y = PDF)) +
+  geom_area(fill = "#ffec73", alpha=0.8) + # This line adds the colored area
+  geom_line(color = "black", size = 1) +
+  labs(x = "Temperatura predicha",
+       y = "f(x): densidad probabilistica") +
+  scale_color_manual(values = "black") +
+  scale_fill_manual(values = "#ffec73") +
+  theme_minimal() + 
+  theme(legend.position="none",
+        panel.border = element_rect(color = "black", fill = NA, size = 1))
+```
+:::
+
+. . .
+
+::: {.pull-right}
+[Función de densidad probabilistica (PDF):]{.bold}
+
+\begin{align}
+f(x) = 
+  \begin{cases} 
+   \frac{1}{b-a} & \text{si } \quad a \leq x \leq b  \\
+   0       &  x < a \quad \text{  o } \quad x > b
+  \end{cases}
+\end{align}
+
+<br>
+En este caso $a=25$ y $b=30$.
+:::
+
+---
+
+### Distribución uniforme
+
+::: {.pull-left}
+Los meteorólogos predicen que la temperatura mañana se encontrará entre 25 y 30 grados, donde todas las temperaturas en ese rango son igualmente probables
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+# Load necessary libraries
+library(ggplot2)
+library(RColorBrewer)
+
+# Function to calculate the PDF of a uniform distribution
+PDF_uniform <- function(x, min, max) {
+  ifelse(x >= min & x <= max, 1 / (max - min), 0)
+}
+
+# Define the values for a and c
+a <- 25
+c <- 30
+
+# Create a data frame for plotting the PDF
+x_values <- seq(a - 2, c + 2, 0.01)
+PDF_values <- PDF_uniform(x_values, a, c)
+PDF_df <- data.frame(x = x_values, PDF = PDF_values)
+
+# Create the ggplot with "Set1" color palette and transparency
+ggplot(data = PDF_df, aes(x = x, y = PDF)) +
+  geom_area(fill = "#ffec73", alpha=0.8) + # This line adds the colored area
+  geom_line(color = "black", size = 1) +
+  labs(x = "Temperatura predicha",
+       y = "f(x): densidad probabilistica") +
+  scale_color_manual(values = "black") +
+  scale_fill_manual(values = "#ffec73") +
+  theme_minimal() + 
+  theme(legend.position="none",
+        panel.border = element_rect(color = "black", fill = NA, size = 1))
+```
+:::
+
+::: {.pull-right}
+[Función de densidad probabilistica (PDF):]{.bold}
+
+\begin{align}
+f(x) = 
+  \begin{cases} 
+   \frac{1}{b-a} & \text{si } \quad a \leq x \leq b  \\
+   0       &  x < a \quad \text{  o } \quad x > b 
+  \end{cases}
+\end{align}
+
+<br>
+En este caso $b=30$ y $a=25$.
+
+<br>
+[Importante:]{.bold}
+
+\begin{align}
+f(x) \neq \mathbb{P}(X=x) 
+\end{align}
+
+<br>
+
+por ejemplo,
+
+$f(27.354)$ = 1/(30-25) = `r round(1/5,2)` 
+
+y
+
+$\mathbb{P}(X=27.354) = 0$
+:::
+
+---
+
+### Distribución uniforme
+
+::: {.pull-left}
+¿Cual es la probabilidad de que la temperatura esté por debajo de los 28 grados?
+
+<br>
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+# Load necessary libraries
+library(ggplot2)
+library(RColorBrewer)
+
+# Function to calculate the PDF of a uniform distribution
+PDF_uniform <- function(x, min, max) {
+  ifelse(x >= min & x <= max, 1 / (max - min), 0)
+}
+
+# Define the values for a, b, and c
+a <- 25
+b <- 28
+c <- 30
+
+# Create a data frame for plotting the PDF
+x_values <- seq(a - 2, c + 2, 0.01)
+PDF_values <- PDF_uniform(x_values, a, c)
+PDF_df <- data.frame(x = x_values, PDF = PDF_values)
+
+# Create the ggplot
+ggplot(data = PDF_df, aes(x = x, y = PDF)) +
+    geom_area(fill="#ffec73", alpha=0.8) +
+  geom_rect(aes(xmin = a, xmax = b, ymin = 0, ymax = 1 / (c - a)), fill = "#c6c1af") +
+    geom_line(color = "black", size = 1) +
+  geom_vline(xintercept = b, linetype = "dashed",  size = 1) +
+  geom_text(aes(x = b + 0.3 , y = 0.15, label = "k = 28"), hjust = 0, size=5) +
+  labs(x = "Temperatura predicha",
+       y = "f(x): densidad probabilistica") +
+  theme_minimal() + 
+  theme(legend.position="none",
+        panel.border = element_rect(color = "black", fill = NA, size = 1)) # This line adds the inner box
+```
+:::
+
+. . .
+
+::: {.pull-right}
+[Función de distribución acumulada (CDF):]{.bold}
+
+\begin{align}
+F(k) &= \mathbb{P}(X \leq k) \\ \\
+     &= \int_{a}^{k} f(x) dx = \int_{a}^{k} \frac{1}{b-a} dx \\ \\
+     &= \left. \frac{x}{b-a} \right|_a^k \\ \\
+     &= \frac{k-a}{b-a}
+\end{align}
+
+<br>
+En este caso $b=30$, $a=25$ y $k=28$.
+:::
+
+---
+
+### Distribución uniforme
+
+::: {.pull-left}
+¿Cual es la probabilidad de que la temperatura esté por debajo de los 28 grados?
+
+<br>
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+# Load necessary libraries
+library(ggplot2)
+library(RColorBrewer)
+
+# Function to calculate the PDF of a uniform distribution
+PDF_uniform <- function(x, min, max) {
+  ifelse(x >= min & x <= max, 1 / (max - min), 0)
+}
+
+# Define the values for a, b, and c
+a <- 25
+b <- 28
+c <- 30
+
+# Create a data frame for plotting the PDF
+x_values <- seq(a - 2, c + 2, 0.01)
+PDF_values <- PDF_uniform(x_values, a, c)
+PDF_df <- data.frame(x = x_values, PDF = PDF_values)
+
+# Create the ggplot
+ggplot(data = PDF_df, aes(x = x, y = PDF)) +
+    geom_area(fill="#ffec73", alpha=0.8) +
+  geom_rect(aes(xmin = a, xmax = b, ymin = 0, ymax = 1 / (c - a)), fill = "#c6c1af") +
+    geom_line(color = "black", size = 1) +
+  geom_vline(xintercept = b, linetype = "dashed",  size = 1) +
+  geom_text(aes(x = b + 0.3 , y = 0.15, label = "k = 28"), hjust = 0, size=5) +
+  labs(x = "Temperatura predicha",
+       y = "f(x): densidad probabilistica") +
+  theme_minimal() + 
+  theme(legend.position="none",
+        panel.border = element_rect(color = "black", fill = NA, size = 1)) # This line adds the inner box
+```
+:::
+
+. . .
+
+::: {.pull-right}
+[Función de distribución acumulada (CDF):]{.bold}
+
+\begin{align}
+F(k) &= \mathbb{P}(X \leq k) \\ \\
+     &= \int_{a}^{k} f(x) dx \quad = \quad \int_{a}^{k} \frac{1}{b-a} dx \\ \\
+     &= \left. \frac{x}{b-a} \right|_a^k \\ \\
+     &= \frac{k-a}{b-a}
+\end{align}
+
+<br>
+En este caso $b=30$, $a=25$ y $k=28$.
+:::
+
+$\frac{28-25}{30-25} =$ `r 3/5`
+
+---
+
+### Distribución uniforme
+
+::: {.pull-left}
+¿Cual es la probabilidad de que la temperatura esté por debajo de los 28 grados?
+
+<br>
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+# Load necessary libraries
+library(ggplot2)
+library(RColorBrewer)
+
+# Function to calculate the CDF of a uniform distribution
+CDF_uniform <- function(x, min, max) {
+  ifelse(x < min, 0, ifelse(x <= max, (x-min) / (max - min), 1))
+}
+
+# Define the values for a, b, and c
+a <- 25
+b <- 28
+c <- 30
+
+# Create a data frame for plotting the CDF
+x_values <- seq(a - 2, c + 2, 0.01)
+CDF_values <- CDF_uniform(x_values, a, c)
+CDF_df <- data.frame(x = x_values, CDF = CDF_values)
+
+# Create the ggplot
+ggplot(data = CDF_df, aes(x = x, y = CDF)) +
+    geom_line(color = "blue", size = 1) +
+    geom_hline(yintercept = CDF_uniform(28, a, c), linetype = "dashed", color = "black", size = 1) +
+      annotate("text", x = a + 1, y = CDF_uniform(28, a, c) - 0.1, label = sprintf("P(X < 28) = %.2f", CDF_uniform(28, a, c)), hjust = 1, color = "black") +
+    geom_vline(xintercept = 28, linetype = "dashed", color = "black", size = 1) +
+    labs(x = "Temperatura predicha",
+         y = "F(X<k): función de distribución acumulada") +
+    theme_minimal() + 
+    theme(legend.position="none",
+          panel.border = element_rect(color = "black", fill = NA, size = 1))
+
+```
+:::
+
+::: {.pull-right}
+[Función de distribución acumulada (CDF):]{.bold}
+
+\begin{align}
+F(k) &= \mathbb{P}(X \leq k) \\ \\
+     &= \frac{k-a}{b-a}
+\end{align}
+
+<br>
+En este caso $b=30$, $a=25$ y $k=28$.
+:::
+
+---
+
+### Distribución uniforme
+
+::: {.pull-left}
+¿Cuál es la probabilidad de que la temperatura esté entre 26 y 28 grados?
+
+<br>
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+# Load necessary libraries
+library(ggplot2)
+library(RColorBrewer)
+
+# Function to calculate the PDF of a uniform distribution
+PDF_uniform <- function(x, min, max) {
+  ifelse(x >= min & x <= max, 1 / (max - min), 0)
+}
+
+# Define the values for a, b, c, and d
+a <- 25
+b <- 26
+c <- 28
+d <- 30
+
+# Create a data frame for plotting the PDF
+x_values <- seq(a - 2, d + 2, 0.01)
+PDF_values <- PDF_uniform(x_values, a, d)
+PDF_df <- data.frame(x = x_values, PDF = PDF_values)
+
+# Create the ggplot
+ggplot(data = PDF_df, aes(x = x, y = PDF)) +
+    geom_area(fill="#ffec73", alpha=0.8) +
+  geom_rect(aes(xmin = b, xmax = c, ymin = 0, ymax = 1 / (d - a)), fill = "#c6c1af") +
+    geom_line(color = "black", size = 1) +
+  geom_vline(xintercept = b, linetype = "dashed",  size = 1) +
+  geom_vline(xintercept = c, linetype = "dashed",  size = 1) +
+  geom_text(aes(x = (b+c)/2 , y = 0.15, label = "26 ≤ X ≤ 28"), hjust = 0.5, size=5) +
+  labs(x = "Temperatura predicha",
+       y = "f(x): densidad probabilistica") +
+  theme_minimal() + 
+  theme(legend.position="none",
+        panel.border = element_rect(color = "black", fill = NA, size = 1))
+
+```
+:::
+
+. . .
+
+::: {.pull-right}
+[Función de distribución acumulada (CDF):]{.bold}
+
+\begin{align}
+F(k) &= \mathbb{P}(X \leq k) = \frac{k-a}{b-a}
+\end{align}
+
+<br>
+
+[Probabilidad de un intervalo:]{.bold}
+
+$$\mathbb{P}(k_1 \leq X \leq k_2) = F(k_2) - F(k_1)$$
+<br>
+
+En este caso:
+
+\begin{align}
+  \mathbb{P}(26 \leq X \leq 28) &= \\ \\
+  &= \frac{k_2-a}{b-a} - \frac{k_1-a}{b-a} = \frac{k_2-k_1}{b-a} \\ \\
+  &= \frac{28-26}{30-25} = 0.4 
+\end{align}
+:::
+
+## Distribuciones Continuas {.inverse .center .middle}
+### Distribución Normal
+
+## {.center .middle}
+
+![meme_norm](meme_norm.jpg)
+
+## {.center .middle}
+
+![gauss](gauss.jpeg)
+
+---
+
+### Distribución Normal
+
+::: {.pull-left}
+Según los meteorólogos la temperatura más probable mañana es de 27.5 grados. Otras temperaturas también son probables, pero son menos probable mientrás más se alejan de  27.5
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+# Load necessary libraries
+library(ggplot2)
+library(RColorBrewer)
+
+# Function to calculate the PDF of a normal distribution
+PDF_normal <- function(x, mean, sd) {
+  (1 / (sd * sqrt(2 * pi))) * exp(-((x - mean)^2) / (2 * sd^2))
+}
+
+# Define the values for the mean and standard deviation
+mean <- 27.5
+sd <- 1.5
+
+# Create a data frame for plotting the PDF
+x_values <- seq(mean - 5*sd, mean + 5*sd, 0.01)
+PDF_values <- PDF_normal(x_values, mean, sd)
+PDF_df <- data.frame(x = x_values, PDF = PDF_values)
+
+# Create the ggplot with "Set1" color palette and transparency
+ggplot(data = PDF_df, aes(x = x, y = PDF)) +
+  geom_area(fill = "#ffec73", alpha=0.8) + 
+  geom_line(color = "black", size = 1) +
+  geom_vline(aes(xintercept = mean), linetype = "dashed", size = 1) + 
+  geom_text(aes(x = max(x_values) - 1, y = max(PDF) - 0.01, label = paste("μ = ", mean)), hjust = "right") + 
+  geom_text(aes(x = max(x_values) - 1, y = max(PDF) - 0.04, label = paste("σ = ", sd)), hjust = "right") + 
+  labs(x = "Temperatura predicha",
+       y = "f(x): densidad probabilistica") +
+  scale_color_manual(values = "black") +
+  scale_fill_manual(values = "#ffec73") +
+  theme_minimal() + 
+  theme(legend.position="none",
+        panel.border = element_rect(color = "black", fill = NA, size = 1))
+
+```
+:::
+
+. . .
+
+::: {.pull-right}
+[Función de densidad probabilistica (PDF) de una distribución normal:]{.bold}
+
+\begin{align}
+f(x) = \frac{1}{{\sigma \sqrt{2\pi}}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+\end{align}
+
+[Características:]{.bold}
+
+- _Simetría_: la curva de la distribución normal es simétrica alrededor de su media $(\mu)$.
+
+- _Asíntota_: todo valor tiene una probabilidad distinta de cero.
+
+- _Dispersión y forma_: la desviación estándar determina el ancho y la forma de la campana $(\sigma)$. A mayor desviación estándar, la curva es más ancha y plana. A menor desviación estándar, es más estrecha y puntiaguda.
+
+<br>
+En este caso, $\mu=27.5$ y $\sigma=1.5$.
+:::
+
+---
+
+### Distribución Normal
+
+::: {.pull-left}
+Un grupo alterativo de meteorólogos señala que la temperatura más probable es de 26 grados pero expresa mucho menos certeza en su predicción.
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+# Load necessary libraries
+library(ggplot2)
+library(RColorBrewer)
+
+# Function to calculate the PDF of a normal distribution
+PDF_normal <- function(x, mean, sd) {
+  (1 / (sd * sqrt(2 * pi))) * exp(-((x - mean)^2) / (2 * sd^2))
+}
+
+# Define the values for the first distribution
+mean1 <- 27.5
+sd1 <- 1.5
+
+# Define the values for the new distribution
+mean2 <- 26
+sd2 <- 3
+
+# Create a data frame for plotting the PDF
+x_values <- seq(mean1 - 7*sd1, mean1 + 7*sd1, 0.01)
+
+# Compute PDF values for both distributions
+PDF_values1 <- PDF_normal(x_values, mean1, sd1)
+PDF_values2 <- PDF_normal(x_values, mean2, sd2)
+
+PDF_df <- data.frame(x = x_values, PDF1 = PDF_values1, PDF2 = PDF_values2)
+
+ggplot(data = PDF_df, aes(x = x)) +
+  
+  geom_area(aes(y = PDF1), fill = "#ffec73", alpha = 0.8) +
+  geom_line(aes(y = PDF1), color = "black", size = 1, alpha = 0.8) +
+  
+  geom_area(aes(y = PDF2), fill = "#ff7377", alpha = 0.5) +
+  geom_line(aes(y = PDF2), color = "black", size = 1) +
+  
+  geom_vline(aes(xintercept = mean2), linetype = "dashed", size = 1) +
+  geom_text(aes(x = max(x_values) - 1, y = max(PDF2) - 0.01, label = paste("μ2 = ", mean2)), hjust = "right") +
+  geom_text(aes(x = max(x_values) - 1, y = max(PDF2) - 0.04, label = paste("σ2 = ", sd2)), hjust = "right") +
+  
+  labs(x = "Temperatura predicha",
+       y = "f(x): densidad probabilistica") +
+  theme_minimal() + 
+  theme(legend.position="none",
+        panel.border = element_rect(color = "black", fill = NA, size = 1))
+```
+:::
+
+. . .
+
+::: {.pull-right}
+[Función de densidad probabilistica (PDF) de una distribución normal:]{.bold}
+
+\begin{align}
+f(x) = \frac{1}{{\sigma \sqrt{2\pi}}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+\end{align}
+
+<br>
+
+En esta segunda distribución:
+
+- _Simetría_: la curva de la distribución normal es simétrica alrededor de su media $\mu=26$.
+
+- _Dispersión y forma_: con una mayor desviación estándar $(\sigma=3)$, la curva es más ancha y plana.
+:::
+
+---
+
+### Distribución normal
+
+::: {.pull-left}
+En base al modelo del primer grupo de meteorólogos, ¿cuál es la probabilidad de tener temperaturas por debajo de los 28 grados?
+
+<br>
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+# Function to calculate the PDF of a normal distribution
+PDF_normal <- function(x, mean, sd) {
+  (1 / (sd * sqrt(2 * pi))) * exp(-((x - mean)^2) / (2 * sd^2))
+}
+
+# Define the values for the mean and standard deviation
+mean_val <- 27.5
+sd_val <- 1.5
+temp_cutoff <- 28
+
+# Create a data frame for plotting the PDF
+x_values <- seq(mean_val - 5*sd_val, mean_val + 5*sd_val, 0.01)
+PDF_values <- PDF_normal(x_values, mean_val, sd_val)
+PDF_df <- data.frame(x = x_values, PDF = PDF_values)
+
+# Create the ggplot
+ggplot(data = PDF_df, aes(x = x, y = PDF)) +
+    geom_area(fill = "#ffec73", alpha = 0.8) + # This line adds the colored area
+    geom_area(data = subset(PDF_df, x <= temp_cutoff), aes(x = x, y = PDF), fill="#c6c1af", alpha=0.8) +
+    geom_line(color = "black", size = 1) +
+    geom_vline(xintercept = temp_cutoff, linetype = "dashed", color = "black", size = 1) +
+    geom_text(aes(x = temp_cutoff - 0.5, y = max(PDF)*0.05, label = "28°"), hjust = 1, color = "black", size=5) +
+    labs(x = "Temperatura predicha",
+         y = "f(x): densidad probabilistica", 
+         title = "¿Cual es la probabilidad de que la temperatura esté por debajo de los 28 grados?") +
+    theme_minimal() +
+    theme(legend.position="none",
+          panel.border = element_rect(color = "black", fill = NA, size = 1))
+```
+:::
+
+. . .
+
+::: {.pull-right}
+[Función de distribución acumulada (CDF) de una distribución normal:]{.bold}
+
+\begin{align}
+F(k) &= \mathbb{P}(X \leq k) \\ \\
+     &= \int_{-\infty}^{k} \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}} dx
+\end{align}
+
+En este caso, $k=28$
+
+-  No tenemos una fórmula analítica sencilla para $F(k)$ como en la distribución uniforme. 
+
+- Con software estadístico, podemos calcular $F(k)$ fácilmente.
+:::
+
+---
+
+### Distribución normal
+
+::: {.pull-left}
+En base al modelo del primer grupo de meteorólogos, ¿cuál es la probabilidad de tener temperaturas por debajo de los 28 grados?
+
+<br>
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+# Function to calculate the PDF of a normal distribution
+PDF_normal <- function(x, mean, sd) {
+  (1 / (sd * sqrt(2 * pi))) * exp(-((x - mean)^2) / (2 * sd^2))
+}
+
+# Define the values for the mean and standard deviation
+mean_val <- 27.5
+sd_val <- 1.5
+temp_cutoff <- 28
+
+# Create a data frame for plotting the PDF
+x_values <- seq(mean_val - 5*sd_val, mean_val + 5*sd_val, 0.01)
+PDF_values <- PDF_normal(x_values, mean_val, sd_val)
+PDF_df <- data.frame(x = x_values, PDF = PDF_values)
+
+# Create the ggplot
+ggplot(data = PDF_df, aes(x = x, y = PDF)) +
+    geom_area(fill = "#ffec73", alpha = 0.8) + # This line adds the colored area
+    geom_area(data = subset(PDF_df, x <= temp_cutoff), aes(x = x, y = PDF), fill="#c6c1af", alpha=0.8) +
+    geom_line(color = "black", size = 1) +
+    geom_vline(xintercept = temp_cutoff, linetype = "dashed", color = "black", size = 1) +
+    geom_text(aes(x = temp_cutoff - 0.5, y = max(PDF)*0.05, label = "28°"), hjust = 1, color = "black", size=5) +
+    labs(x = "Temperatura predicha",
+         y = "f(x): densidad probabilistica", 
+         title = "¿Cual es la probabilidad de que la temperatura esté por debajo de los 28 grados?") +
+    theme_minimal() +
+    theme(legend.position="none",
+          panel.border = element_rect(color = "black", fill = NA, size = 1))
+```
+:::
+
+::: {.pull-right}
+[Función de distribución acumulada (CDF) de una distribución normal:]{.bold}
+
+\begin{align}
+F(k) &= \mathbb{P}(X \leq k) \\ \\
+     &= \int_{-\infty}^{k} \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}} dx
+\end{align}
+
+En este caso, $k=28$
+
+-  No tenemos una fórmula analítica sencilla para $F(k)$ como en la distribución uniforme. 
+
+- Con software estadístico, podemos calcular $F(k)$ fácilmente. En `R`:
+
+```{r}
+pnorm(q=28, mean=27.5, sd=1.5)
+```
+:::
+
+---
+
+### Distribución normal
+
+::: {.pull-left}
+En base al modelo del primer grupo de meteorólogos, ¿cuál es la probabilidad de tener temperaturas por debajo de los 28 grados?
+
+<br>
+
+```{r, echo=FALSE,message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+# Load necessary libraries
+library(ggplot2)
+library(RColorBrewer)
+
+# Define the CDF for a normal distribution using pnorm()
+CDF_normal <- function(x, mean, sd) {
+  pnorm(x, mean, sd)
+}
+
+# Define the mean and standard deviation
+mean <- 27.5
+sd <- 1.5
+
+# Create a data frame for plotting the CDF
+x_values <- seq(mean - 5*sd, mean + 5*sd, 0.01)
+CDF_values <- CDF_normal(x_values, mean, sd)
+CDF_df <- data.frame(x = x_values, CDF = CDF_values)
+
+# Create the ggplot
+ggplot(data = CDF_df, aes(x = x, y = CDF)) +
+    geom_line(color = "blue", size = 1) +
+    geom_vline(xintercept = 28, linetype = "dashed", color = "black", size = 1) +
+    geom_hline(yintercept = CDF_normal(28, mean, sd), linetype = "dashed", color = "black", size = 1) +
+    annotate("text", x = mean + 5*sd - 1, y = CDF_normal(28, mean, sd) - 0.1, label = sprintf("P(X < 28) = %.2f", CDF_normal(28, mean, sd)), hjust = 1, color = "black") +
+    labs(x = "Temperatura predicha",
+         y = "F(X<k): función de distribución acumulada") +
+    theme_minimal() + 
+    theme(legend.position="none",
+          panel.border = element_rect(color = "black", fill = NA, size = 1))
+
+```
+:::
+
+::: {.pull-right}
+[Función de distribución acumulada (CDF) de una distribución normal:]{.bold}
+
+\begin{align}
+F(k) &= \mathbb{P}(X \leq k) \\ \\
+     &= \int_{-\infty}^{k} \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}} dx
+\end{align}
+
+En este caso, $k=28$
+
+<br>
+En `R`:  
+```{r} 
+pnorm(q=28, mean=27.5, sd=1.5)
+```
+:::
+
+---
+
+### Distribución normal
+
+::: {.pull-left}
+¿Cuál es la probabilidad de que la temperatura esté entre 26 y 28 grados?
+
+<br>
+
+```{r, echo=FALSE, message=FALSE, warning=FALSE, fig.width=6, fig.height=5}
+
+# Load necessary libraries
+library(ggplot2)
+library(RColorBrewer)
+
+# Function to calculate the PDF of a normal distribution
+PDF_normal <- function(x, mean, sd) {
+  dnorm(x, mean, sd)
+}
+
+# Define the values for the range and mean and sd
+mean_val <- 27.5
+sd_val <- 1.5
+x_range <- seq(mean_val - 4*sd_val, mean_val + 4*sd_val, 0.01)
+PDF_values <- PDF_normal(x_range, mean_val, sd_val)
+PDF_df <- data.frame(x = x_range, PDF = PDF_values)
+
+# Create the ggplot
+ggplot(data = PDF_df, aes(x = x, y = PDF)) +
+      geom_area(fill = "#ffec73", alpha = 0.8) + # This line adds the colored area
+    geom_area(data = subset(PDF_df, x >= 26 & x <= 28), aes(x=x, y=PDF), fill="#c6c1af", alpha=0.8) +
+    geom_line(color = "black", size = 1) +
+  geom_vline(xintercept = 26, linetype = "dashed",  size = 1) +
+  geom_vline(xintercept = 28, linetype = "dashed",  size = 1) +
+  geom_text(aes(x = 30 , y = max(PDF) * 0.7, label = "26 ≤ X ≤ 28"), hjust = 0.5, size=5) +
+  labs(x = "Temperatura predicha",
+       y = "f(x): densidad probabilistica") +
+  theme_minimal() + 
+  theme(legend.position="none",
+        panel.border = element_rect(color = "black", fill = NA, size = 1))
+
+```
+:::
+
+. . .
+
+::: {.pull-right}
+[Función de distribución acumulada (CDF):]{.bold}
+
+\begin{align}
+  F(k) = \mathbb{P}(X \leq k) = \int_{-\infty}^{k} f(x) dx
+\end{align}
+
+[Probabilidad en un intervalo:]{.bold}
+
+$$\mathbb{P}(k_1 \leq X \leq k_2) = F(k_2) - F(k_1)$$
+<br>
+En este caso:
+
+\begin{align}
+  \mathbb{P}(26 \leq X \leq 28) =  F(28) - F(26) 
+\end{align}
+
+En `R`:  
+```{r} 
+pnorm(q=28, mean=27.5, sd=1.5) - 
+  pnorm(q=26, mean=27.5, sd=1.5)
+```
+:::
+
+## {.inverse .center .middle}
+
+[
+**Hasta la próxima clase. Gracias!**
+]{.huge}
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca

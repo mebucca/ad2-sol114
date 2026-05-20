@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(quarto --version)",
+      "Bash(R --version)",
+      "Bash(md5 class_*/gentle-r.css)",
+      "Bash(python3 convert_slides.py class_0)",
+      "Bash(quarto render *)",
+      "Bash(open *)",
+      "Bash(python3 convert_slides.py class_1 class_2 class_3 class_4 class_5 class_6 class_7 class_8 class_9 class_10)",
+      "Bash(python3 convert_slides.py class_11 class_12 class_13 class_14 class_15 class_16 class_17 class_18 class_19 class_20 class_21 class_22 class_23 class_24 class_25)",
+      "Bash(grep -v \"^$\")",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git push *)",
+      "Bash(git_sync \"Convert all 26 xaringan slides to Quarto RevealJS format\")"
+    ]
+  }
+}
