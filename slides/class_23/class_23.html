@@ -1,455 +1,874 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
-  <head>
-    <title>Probabilidad e Inferencia Estadística</title>
-    <meta charset="utf-8" />
-    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
-    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
-    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
-    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
-  </head>
-  <body>
-    <textarea id="source">
-class: center, middle, inverse, title-slide
+<html lang="en"><head>
+<script src="class_23_files/libs/clipboard/clipboard.min.js"></script>
+<script src="class_23_files/libs/quarto-html/tabby.min.js"></script>
+<script src="class_23_files/libs/quarto-html/popper.min.js"></script>
+<script src="class_23_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="class_23_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="class_23_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="class_23_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
-.title[
-# Probabilidad e Inferencia Estadística
-]
-.subtitle[
-## Asociación entre variables categóricas
-]
-.author[
-### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
-]
+  <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
+  <title>Probabilidad e Inferencia Estadística</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="class_23_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="class_23_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="class_23_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="gentle-r.css">
+  <link rel="stylesheet" href="xaringan-themer.css">
+  <link href="class_23_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="class_23_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="class_23_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="class_23_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
 
----
+<section id="title-slide" data-background-color="#1D1D1F" class="quarto-title-block center">
+  <h1 class="title">Probabilidad e Inferencia Estadística</h1>
+  <p class="subtitle">Asociación entre variables categóricas</p>
 
-class: inverse, center, middle
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+<br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> mebucca@uc.cl 
+</div>
+</div>
+</div>
 
+</section>
+<section id="section" class="slide level2 inverse center middle">
+<h2></h2>
+</section>
+<section id="test-chi2-de-independencia-estadística" class="slide level2">
+<h2>Test <span class="math inline">\(\chi^{2}\)</span> de independencia estadística</h2>
+</section>
+<section id="test-chi2-de-independencia-estadística-i" class="slide level2">
+<h2>Test <span class="math inline">\(\chi^{2}\)</span> de independencia estadística (I)</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
+<span id="cb1-2"><a href=""></a><span class="fu">library</span>(<span class="st">"carData"</span>)</span>
+<span id="cb1-3"><a href=""></a><span class="fu">data</span>(<span class="st">"Chile"</span>)</span>
+<span id="cb1-4"><a href=""></a>datos_chile <span class="ot">&lt;-</span> Chile</span>
+<span id="cb1-5"><a href=""></a>datos_chile <span class="ot">&lt;-</span> datos_chile <span class="sc">%&gt;%</span> <span class="fu">filter</span>(vote <span class="sc">==</span> <span class="st">"Y"</span> <span class="sc">|</span> vote<span class="sc">==</span><span class="st">"N"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">vote =</span> <span class="fu">factor</span>(vote))</span>
+<span id="cb1-6"><a href=""></a></span>
+<span id="cb1-7"><a href=""></a>ctable <span class="ot">&lt;-</span> datos_chile <span class="sc">%&gt;%</span> <span class="fu">with</span>(<span class="fu">table</span>(income,vote))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<p><br></p>
+<p>Primer paso, testear que exista <em>algo</em> de asociación: ¿son estas tablas <em>suficientemente distintas</em>?</p>
+<div class="pull-left">
+<p><span class="bold">Frecuencias observadas</span></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>        vote
+income     N   Y
+  2500    47  55
+  7500   143 160
+  15000  245 240
+  35000  269 228
+  75000   98  92
+  125000  38  31
+  200000  29  35</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="pull-right">
+<p><span class="bold">Frecuencias esperadas bajo independencia</span></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>               N         Y
+2500    51.83509  50.16491
+7500   153.98070 149.01930
+15000  246.47076 238.52924
+35000  252.56901 244.43099
+75000   96.55556  93.44444
+125000  35.06491  33.93509
+200000  32.52398  31.47602</code></pre>
+</div>
+</div>
+</div>
+<p><br> Donde cada frecuencia esperada bajo independencia está dada por: <span class="math inline">\(\tilde{n}_{ij} = n \times \hat{p}_{i+} \times  \hat{p}_{+j}\)</span></p>
+</div>
+</section>
+<section id="test-chi2-de-independencia-estadística-ii" class="slide level2">
+<h2>Test <span class="math inline">\(\chi^{2}\)</span> de independencia estadística (II)</h2>
+<div class="pull-left">
+<p><span class="bold">Frecuencias observadas</span></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>        vote
+income     N   Y
+  2500    47  55
+  7500   143 160
+  15000  245 240
+  35000  269 228
+  75000   98  92
+  125000  38  31
+  200000  29  35</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="pull-right">
+<p><span class="bold">Frecuencias esperadas bajo independencia</span></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>               N         Y
+2500    51.83509  50.16491
+7500   153.98070 149.01930
+15000  246.47076 238.52924
+35000  252.56901 244.43099
+75000   96.55556  93.44444
+125000  35.06491  33.93509
+200000  32.52398  31.47602</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li>El test Pearson <span class="math inline">\(\chi^{2}\)</span> (<strong>t</strong>) mide el grado asociación en la tabla de la siguiente manera:</li>
+</ul>
+<div class="content-box-secondary">
+<p><span class="math display">\[\color{white}{t =\sum_{\text{all k: } i,j} \frac{(n_{ij} - \tilde{n}_{ij})^{2}}{\tilde{n}_{ij}}}\]</span></p>
+</div>
+<p><span class="bold">Un valor alto de <span class="math inline">\(t\)</span> sugiere que las variables no son independientes.</span></p>
+</div>
+<div class="fragment">
+<p>Pero, ¿cuánto es “alto”?</p>
+</div>
+</section>
+<section class="slide level2">
 
-
-
-
-
-## Test `\(\chi^{2}\)` de indepencia estadística  
-
----
-### Test `\(\chi^{2}\)` de indepencia estadística 
-
-
-``` r
-library("carData") 
-data("Chile") 
-datos_chile &lt;- Chile
-datos_chile &lt;- datos_chile %&gt;% filter(vote == "Y" | vote=="N") %&gt;% mutate(vote = factor(vote))
-
-ctable &lt;- datos_chile %&gt;% with(table(income,vote))
-```
-
-&lt;br&gt;
-
-Primer paso, testear que exista _algo_ de asociación: ¿son estas tablas _suficientemente distintas_? 
-
-
-
-.pull-left[
-.bold[Frecuencias observadas]
-
-```
-##         vote
-## income     N   Y
-##   2500    47  55
-##   7500   143 160
-##   15000  245 240
-##   35000  269 228
-##   75000   98  92
-##   125000  38  31
-##   200000  29  35
-```
-]
-
---
-
-.pull-right[
-.bold[Frecuencias esperadas bajo independencia]
-
-```
-##                N         Y
-## 2500    51.83509  50.16491
-## 7500   153.98070 149.01930
-## 15000  246.47076 238.52924
-## 35000  252.56901 244.43099
-## 75000   96.55556  93.44444
-## 125000  35.06491  33.93509
-## 200000  32.52398  31.47602
-```
-]
-
-&lt;br&gt;
-Donde cada frecuencia esperada bajo independencia está dada por: `\(\tilde{n}_{ij} = n \times \hat{p}_{i+} \times  \hat{p}_{+j}\)`
-
-
----
-### Test `\(\chi^{2}\)` de indepencia estadística 
-
-
-
-.pull-left[
-.bold[Frecuencias observadas]
-
-```
-##         vote
-## income     N   Y
-##   2500    47  55
-##   7500   143 160
-##   15000  245 240
-##   35000  269 228
-##   75000   98  92
-##   125000  38  31
-##   200000  29  35
-```
-]
-
---
-
-.pull-right[
-.bold[Frecuencias esperadas bajo independencia]
-
-```
-##                N         Y
-## 2500    51.83509  50.16491
-## 7500   153.98070 149.01930
-## 15000  246.47076 238.52924
-## 35000  252.56901 244.43099
-## 75000   96.55556  93.44444
-## 125000  35.06491  33.93509
-## 200000  32.52398  31.47602
-```
-]
-
-
---
-
-- El test Pearson `\(\chi^{2}\)` (**t**) mide el grado asociación en la tabla de la siguiente manera:
-
-.content-box-secondary[
-`$$\color{white}{t =\sum_{\text{all k: } i,j} \frac{(n_{ij} - \tilde{n}_{ij})^{2}}{\tilde{n}_{ij}}}$$`
-]
-
-.bold[Un valor alto de  `\(t\)` sugiere que las variables no son independientes.]
---
- Pero, ¿cuánto es "alto"?
-
-
----
-### Test `\(\chi^{2}\)` de indepencia estadística 
-
-.bold[Nota:]
-- Si `\(Z_{1}, \dots , Z_{k}\)` son variables independientes y cada `\(Z \sim \text{Normal}(0,1)\)`, 
-- Entonces la variable `\(Y = \sum_{k} Z^{2} \sim \chi^{2}_{k}\)`. `\(Y\)` distribuye `\(\chi^{2}\)` con `\(k\)` grados de libertad.
-
-&lt;br&gt;
---
-
-.bold[Heuristica:]
-
-- `\(t =\sum_{\text{all k: } i,j} \frac{(n_{ij} - \tilde{n}_{ij})^{2}}{\tilde{n}_{ij}}\)`
-
-- Si no hay asociación entre las variables ( `\(H_{0}\)` ) entonces:  `\(t =\sum_{\text{all k: } i,j} \frac{(\text{algo cercano a cero})^{2}}{\tilde{n}_{ij}}\)`
-
-&lt;br&gt;
---
-
-Pearson demostró que si `\(H_{0}\)` es verdadera, entonces:
-
-.content-box-secondary[
-`$$\color{white}{t \sim \chi_{df}^{2}, \quad  \text{ donde } \quad  df= (I-1)(J-1)}$$`
-
-]
-
-Esto le da el nombre al test `\(\chi^{2}\)`, pero no confundir con la distribución `\(\chi^{2}\)`.
-
----
-### Test `\(\chi^{2}\)` de indepencia estadística 
-
-&lt;br&gt;
-
-.bold[p-value]: 
-
-.content-box-secondary[
-`$$\color{white}{\mathbb{P}(t  &gt; \hat{t} \mid H_{0})}$$`
-]
-
-equivalente a:
-
---
-
-.content-box-secondary[
-`$$\color{white}{\mathbb{P}(\chi_{df}^{2}  &gt; \hat{t})}$$`
-]
-
-
-&lt;style type="text/css"&gt;
+<h3 id="test-chi2-de-indepencia-estadística">Test <span class="math inline">\(\chi^{2}\)</span> de indepencia estadística</h3>
+<p><span class="bold">Nota:</span> - Si <span class="math inline">\(Z_{1}, \dots , Z_{k}\)</span> son variables independientes y cada <span class="math inline">\(Z \sim \text{Normal}(0,1)\)</span>, - Entonces la variable <span class="math inline">\(Y = \sum_{k} Z^{2} \sim \chi^{2}_{k}\)</span>. <span class="math inline">\(Y\)</span> distribuye <span class="math inline">\(\chi^{2}\)</span> con <span class="math inline">\(k\)</span> grados de libertad.</p>
+<p><br></p>
+<p>. . .</p>
+<p><span class="bold">Heuristica:</span></p>
+<ul>
+<li><p><span class="math inline">\(t =\sum_{\text{all k: } i,j} \frac{(n_{ij} - \tilde{n}_{ij})^{2}}{\tilde{n}_{ij}}\)</span></p></li>
+<li><p>Si no hay asociación entre las variables ( <span class="math inline">\(H_{0}\)</span> ) entonces: <span class="math inline">\(t =\sum_{\text{all k: } i,j} \frac{(\text{algo cercano a cero})^{2}}{\tilde{n}_{ij}}\)</span></p></li>
+</ul>
+<p><br></p>
+<p>. . .</p>
+<p>Pearson demostró que si <span class="math inline">\(H_{0}\)</span> es verdadera, entonces:</p>
+<div class="content-box-secondary">
+<p><span class="math display">\[\color{white}{t \sim \chi_{df}^{2}, \quad  \text{ donde } \quad  df= (I-1)(J-1)}\]</span></p>
+</div>
+<p>Esto le da el nombre al test <span class="math inline">\(\chi^{2}\)</span>, pero no confundir con la distribución <span class="math inline">\(\chi^{2}\)</span>.</p>
+</section>
+<section id="test-chi2-de-independencia-estadística-iii" class="slide level2">
+<h2>Test <span class="math inline">\(\chi^{2}\)</span> de independencia estadística (III)</h2>
+<p><br></p>
+<p><span class="bold">p-value</span>:</p>
+<div class="content-box-secondary">
+<p><span class="math display">\[\color{white}{\mathbb{P}(t  &gt; \hat{t} \mid H_{0})}\]</span></p>
+</div>
+<p>equivalente a:</p>
+<div class="fragment">
+<div class="content-box-secondary">
+<p><span class="math display">\[\color{white}{\mathbb{P}(\chi_{df}^{2}  &gt; \hat{t})}\]</span></p>
+</div>
+<div class="cell">
+<style type="text/css">
 .pull-right ~ * { clear: unset; }
 .pull-right + * { clear: both; }
-&lt;/style&gt;
+</style>
+</div>
+</div>
+</section>
+<section id="test-chi2-de-independencia-estadística-iv" class="slide level2">
+<h2>Test <span class="math inline">\(\chi^{2}\)</span> de independencia estadística (IV)</h2>
+<p><span class="bold">(Observado-Esperado)^2/Esperado:</span></p>
+<div class="center">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>(((ctable <span class="sc">-</span> ctable_independence)<span class="sc">^</span>(<span class="dv">2</span>))<span class="sc">/</span>ctable_independence) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>        vote
+income             N           Y
+  2500   0.451008656 0.466024402
+  7500   0.783057939 0.809128834
+  15000  0.008776439 0.009068639
+  35000  1.068925967 1.104514465
+  75000  0.021608490 0.022327917
+  125000 0.245679780 0.253859368
+  200000 0.381823271 0.394535580</code></pre>
+</div>
+</div>
+</div>
+<p><br></p>
+<div class="fragment">
+<p><span class="bold">Test Chi-2 : <span class="math inline">\(\sum\)</span> (Observado-Esperado)^2/Esperado</span></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 6.02034</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="test-chi2-de-independencia-estadística-v" class="slide level2">
+<h2>Test <span class="math inline">\(\chi^{2}\)</span> de independencia estadística (V)</h2>
+<div class="pull-left">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_23_files/figure-revealjs/unnamed-chunk-11-1.png" width="816"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="bold">Para ser claros:</span> Si la hipótesis de independencia ( <span class="math inline">\(H_{0}\)</span> ) es cierta, nuestro test <span class="math inline">\(t\)</span> distribuye <span class="math inline">\(\chi^{2}\)</span> con <span class="math inline">\(df= (I-1)(J-1)=6\)</span></p>
+</div>
+<div class="fragment">
+<div class="pull-right">
+<p><span class="bold">p-value</span></p>
+<p><span class="math display">\[\mathbb{P}(\chi_{df=6}^{2} \geq \hat{t} )\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="dv">1</span><span class="sc">-</span> <span class="fu">pchisq</span>(our_chi2,<span class="at">df=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4209155</code></pre>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="test-chi2-de-independencia-estadística-vi" class="slide level2">
+<h2>Test <span class="math inline">\(\chi^{2}\)</span> de independencia estadística (VI)</h2>
+<div class="pull-left">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_23_files/figure-revealjs/unnamed-chunk-13-1.png" width="816"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><span class="bold">Para ser claros:</span> Si la hipótesis de independencia ( <span class="math inline">\(H_{0}\)</span> ) es cierta, nuestro test <span class="math inline">\(t\)</span> distribuye <span class="math inline">\(\chi^{2}\)</span> con <span class="math inline">\(df= (I-1)(J-1)=6\)</span></p>
+</div>
+<div class="pull-right">
+<p><span class="bold">p-value</span></p>
+<p><span class="math display">\[\mathbb{P}(\chi_{df=6}^{2} \geq \hat{t})\]</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="dv">1</span><span class="sc">-</span> <span class="fu">pchisq</span>(our_chi2,<span class="at">df=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.4209155</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="co"># Versión automática</span></span>
+<span id="cb13-2"><a href=""></a><span class="fu">chisq.test</span>(ctable,<span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
 
+data:  ctable
+X-squared = 6.0203, df = 6, p-value = 0.4209</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p><span class="bold">Conclusión</span>: el valor obtenido en nuestro test no es un valor demasiado improbable bajo independencia. No tenemos evidencia fuerte para sostener que ambas variables están asociadas.</p>
+</div>
+</section>
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<h2>Hasta la próxima clase. Gracias!</h2>
+<p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
 
----
-### Test `\(\chi^{2}\)` de indepencia estadística 
+</section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
 
+</div>
+</div></div>
 
-.bold[(Observado-Esperado)^2/Espetado:]
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="class_23_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="class_23_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="class_23_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="class_23_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="class_23_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="class_23_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
 
-.center[
+  <script src="class_23_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="class_23_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="class_23_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="class_23_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
-``` r
-(((ctable - ctable_independence)^(2))/ctable_independence) %&gt;% print()
-```
+  <script>
 
-```
-##         vote
-## income             N           Y
-##   2500   0.451008656 0.466024402
-##   7500   0.783057939 0.809128834
-##   15000  0.008776439 0.009068639
-##   35000  1.068925967 1.104514465
-##   75000  0.021608490 0.022327917
-##   125000 0.245679780 0.253859368
-##   200000 0.381823271 0.394535580
-```
-]
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
 
-&lt;br&gt;
---
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
 
-.bold[Test Chi-2 : ∑ (Observado-Esperado)^2/Espetado]
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
 
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
 
-```
-## [1] 6.02034
-```
+        // Display a presentation progress bar
+        progress: true,
 
----
-### Test `\(\chi^{2}\)` de indepencia estadística 
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
 
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
 
-.pull-left[
-![](class_23_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
-.bold[Para ser claros:] Si la hipótesis de independencia ( `\(H_{0}\)` ) es cierta, nuestro test `\(t\)` distribuye `\(\chi^{2}\)` con  `\(df= (I-1)(J-1)=6\)`
-]
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
 
---
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
 
-.pull-right[
-.bold[p-value]
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
 
-`$$\mathbb{P}(\chi_{df=6}^{2} \geq \hat{t} )$$`
+        // Push each slide change to the browser history
+        history: true,
 
-``` r
-1- pchisq(our_chi2,df=6)
-```
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
 
-```
-## [1] 0.4209155
-```
+        // Enable the slide overview mode
+        overview: true,
 
-]
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
 
+        // Vertical centering of slides
+        center: false,
 
----
-### Test `\(\chi^{2}\)` de indepencia estadística 
+        // Enables touch navigation on devices with touch input
+        touch: true,
 
-.pull-left[
-![](class_23_files/figure-html/unnamed-chunk-13-1.png)&lt;!-- --&gt;
-.bold[Para ser claros:] Si la hipótesis de independencia ( `\(H_{0}\)` ) es cierta, nuestro test `\(t\)` distribuye `\(\chi^{2}\)` con  `\(df= (I-1)(J-1)=6\)`
-]
+        // Loop the presentation
+        loop: false,
 
+        // Change the presentation direction to be RTL
+        rtl: false,
 
-.pull-right[
-.bold[p-value]
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
 
-`$$\mathbb{P}(\chi_{df=6}^{2} \geq \hat{t})$$`
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
 
-``` r
-1- pchisq(our_chi2,df=6)
-```
+        // Turns fragments on and off globally
+        fragments: true,
 
-```
-## [1] 0.4209155
-```
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
 
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
 
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
 
-``` r
-# Versión automática
-chisq.test(ctable,correct = FALSE)
-```
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
 
-```
-## 
-## 	Pearson's Chi-squared test
-## 
-## data:  ctable
-## X-squared = 6.0203, df = 6, p-value = 0.4209
-```
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
 
-]
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
 
---
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
 
-.bold[Conclusión]: el valor obtenido en nuestro test no es un valor demasiado improbable bajo independencia. No tenemos evidencia fuerte para sostener que ambas variables están asociadas. 
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
 
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
 
----
-class: inverse, center, middle
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
 
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
 
-##Hasta la próxima clase. Gracias!
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
 
-&lt;br&gt;
-Mauricio Bucca &lt;br&gt;
-https://mebucca.github.io/ &lt;br&gt;
-github.com/mebucca
+        // The display mode that will be used to show slides
+        display: 'block',
 
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
 
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
 
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
 
-    </textarea>
-<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
-<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script>var slideshow = remark.create({
-  "ratio": "16:9",
-  "highlightStyle": "github",
-  "highlightLines": true,
-  "countIncrementalSlides": true,
-  "slideNumberFormat": "%current%"
-});
-if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
-  window.dispatchEvent(new Event('resize'));
-});
-(function(d) {
-  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
-  if (!r) return;
-  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
-  d.head.appendChild(s);
-})(document);
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
 
-(function(d) {
-  var el = d.getElementsByClassName("remark-slides-area");
-  if (!el) return;
-  var slide, slides = slideshow.getSlides(), els = el[0].children;
-  for (var i = 1; i < slides.length; i++) {
-    slide = slides[i];
-    if (slide.properties.continued === "true" || slide.properties.count === "false") {
-      els[i - 1].className += ' has-continuation';
-    }
-  }
-  var s = d.createElement("style");
-  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
-  d.head.appendChild(s);
-})(document);
-// delete the temporary CSS (for displaying all slides initially) when the user
-// starts to view slides
-(function() {
-  var deleted = false;
-  slideshow.on('beforeShowSlide', function(slide) {
-    if (deleted) return;
-    var sheets = document.styleSheets, node;
-    for (var i = 0; i < sheets.length; i++) {
-      node = sheets[i].ownerNode;
-      if (node.dataset["target"] !== "print-only") continue;
-      node.parentNode.removeChild(node);
-    }
-    deleted = true;
-  });
-})();
-// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
-// screen reader (see PR #262)
-(function(d) {
-  let res = {};
-  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
-    const t = tr.querySelector('td:nth-child(2)').innerText;
-    tr.querySelectorAll('td:first-child .key').forEach(key => {
-      const k = key.innerText;
-      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
-    });
-  });
-  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
-})(document);
-(function() {
-  "use strict"
-  // Replace <script> tags in slides area to make them executable
-  var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container script'
-  );
-  if (!scripts.length) return;
-  for (var i = 0; i < scripts.length; i++) {
-    var s = document.createElement('script');
-    var code = document.createTextNode(scripts[i].textContent);
-    s.appendChild(code);
-    var scriptAttrs = scripts[i].attributes;
-    for (var j = 0; j < scriptAttrs.length; j++) {
-      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
-    }
-    scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-})();
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-// adds .remark-code-has-line-highlighted class to <pre> parent elements
-// of code chunks containing highlighted lines with class .remark-code-line-highlighted
-(function(d) {
-  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
-  const preParents = [];
-  const findPreParent = function(line, p = 0) {
-    if (p > 1) return null; // traverse up no further than grandparent
-    const el = line.parentElement;
-    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
-  };
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
 
-  for (let line of hlines) {
-    let pre = findPreParent(line);
-    if (pre && !preParents.includes(pre)) preParents.push(pre);
-  }
-  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
-})(document);</script>
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
 
-<script>
-slideshow._releaseMath = function(el) {
-  var i, text, code, codes = el.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
-  }
-};
-slideshow._releaseMath(document);
-</script>
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-(function () {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
-  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
-    script.src  = script.src.replace(/^https?:/, '');
-  document.getElementsByTagName('head')[0].appendChild(script);
-})();
-</script>
-  </body>
-</html>
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

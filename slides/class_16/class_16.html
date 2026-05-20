@@ -1,668 +1,1112 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
-  <head>
-    <title>Probabilidad e Inferencia Estadística</title>
-    <meta charset="utf-8" />
-    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
-    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
-    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
-    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
-  </head>
-  <body>
-    <textarea id="source">
-class: center, middle, inverse, title-slide
-
-.title[
-# Probabilidad e Inferencia Estadística
-]
-.subtitle[
-## #16: Test de Hipótesis
-]
-.author[
-### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
-]
-.date[
-### 23 October, 2024
-]
-
----
-
-class: inverse, center, middle
-
-
-
-
-
-# Test de Hipótesis
-##en modelos probabilísticos
-
-
----
-## El problema de la Inducción
-
---
-
-.bold[Observación:] 1 cisne blanco, 2 cisnes blancos, ... n cisnes blancos.
-
---
-
-.bold[Hipótesis:] *"Todos los cisnes son blancos"*
-
-&lt;br&gt;
---
-
-.pull-left[![falsabilidad](https://upload.wikimedia.org/wikipedia/commons/3/3f/Black_Swan-Mindaugas_Urbonas.jpg)]
-
-.pull-right[&gt; "Ningún número de observaciones de cisnes blancos nos permite inferir que todos los cisnes son blancos, pero la observación de un único cisne negro basta para refutar dicha conclusión"
-]
-
-
----
-## Falsabilidad
-
-
-Pseudo-teorías no son falsables. 
-
-&lt;br&gt;
-
-.center[
-![falsabilidad](https://aquileana.files.wordpress.com/2009/08/karl-popper-quotes-1.jpg)
-]
-
-&lt;br&gt;
-
---
-
-Modelo de las ciencias físicas y naturales (modelos deterministas -- mediados del s.XX).
-
----
-## Falsabilidad en modelos probabilísticos
-
---
-
-.bold[Observación:] 1 cisne blanco, 2 cisnes blancos, ... `\(n\)` cisnes blancos.
-
-&lt;br&gt;
---
-
-.bold[Hipótesis:] *"La mayoría de los cisnes son blancos"*. Por ejemplo:
-
-&lt;br&gt;
-$$ \mathbb{P}(\text{Blanco} \mid \text{Cisne}) &gt; \mathbb{P}(\text{Otro} \mid \text{Cisne})$$
-
-&lt;br&gt;
---
-
-
-- Un cisne de otro color no refuta esta teoría. 
-
-
---
-
-- Muchos cisnes de otro la ponen en duda. 
-
---
-
-- Mientras más cisnes no-blancos menos plausible es la teoría.
-
-
----
-class: inverse, center, middle
-
-# Test de Hipótesis
-##Prueba de Significancia de la Hipótesis Nula
-### Fisher &amp; Neyman-Pearson Framework
-
-
----
-## Los padres fundadores
-
-.center[![fnp](https://images.slideplayer.com/22/6365349/slides/slide_4.jpg)]
-
-Estadísticos como Fisher, Neyman and Pearson desarrollaron el análogo probabilístico del falsacionismo de Popper y sus derivados. 
-
----
-## Intuición detrás del marco teórico de Fisher &amp; Neyman-Pearson
-
-&lt;br&gt;
-
-1. Formulación de una .bold[hipótesis nula] y, su contrapartida, una .bold[hipótesis alternativa]: Buscamos rechazar la hipótesis nula.
-
---
-
-2. Recolección de datos y calcular un .bold[estadístico] para medir el fenómenos de interés (e.g, una media, una proporción, una correlación, etc.)
-
---
-
-3. Calcular la probabilidad de obtener el resultado arrojado por el estadístico si la hipótesis nula fuera verdadera -- .bold[valor p].
-
---
-
-4. Si el resultados obtenido es **muy improbable** en un mundo donde la hipótesis nula es verdadera, entonces rechazamos la hipótesis nula.  Alternativamente, no tenemos evidencia suficiente para rechazarla.  
-
---
-
-5. Proceso interativo: Si se rechaza la hipótesis nula, entonces la hipótesis alternativa siguen en pie (provisoriamente).
-
----
-class: inverse, center, middle
-
-## Paso #1: Elaborar Hipótesis Nula y Alternativa
-
-
----
-##Hipótesis Nula y Alternativa
-
-&lt;br&gt;
-
-Establecer una hipótesis de trabajo y dividir el espacio muestral en particiones mutuamente excluyentes:
-
---
-
-  - Observaciones que contradicen la hipótesis de trabajo (Hipótesis Nula, `\(H_0\)`)
-
---
-
-  - Observaciones en favor de la hipótesis de trabajo (Hipótesis Alternativa, `\(H_1\)`) 
-
-
---
-&lt;br&gt;
-
-.bold[Ejemplo:] 
-
-Hipótesis de trabajo: *"El promedio de ingresos de las mujeres en Chile es mayor que $300,000"*
-
-&lt;br&gt;
-
-- `\(H_0: \mathbb{E}(X) = 300 \text{ mil}\)` 
-
-
-- `\(H_1: \mathbb{E}(X) &gt; 300 \text{ mil}\)`
-
-
-
----
-class: inverse, center, middle
-
- 
-## Paso #2: Calcular un Estadístico
-
-
----
-##Estadístico
-
-
-
-
-- Generar/elegir datos adecuados para testear nuestras hipótesis. 
-
-- Elegir y calcular un estadístico que permita evaluar la hipótesis nula en función de los datos. 
-
-
-&lt;br&gt;
---
-
-En nuestro ejemplo, la elección del estadístico adecuando en inambigüa: `\(\bar{X} = \hat{\mu}\)`.
-
-
-``` r
-#i. Calcula media muestral 
-mu_hat &lt;- mean(casen2017_mujeres$ingreso/1000, na.rm=T) %&gt;% round()
-cat("Media muestral:", mu_hat, " mil") 
-```
-
-```
-## Media muestral: 368  mil
-```
-
-
----
-class: inverse, center, middle
-
- 
-##Paso #3: Determinar la Distribución Nula
-
-
----
-##Distribución Nula
-
-Incluso si la hipótesis nula fuera verdada, el valor del estadístico no necesariamente coincidirá con el valor establecido en `\(H_0\)` (por el carácter finito y aleatorio de la muestra).
-
-  - El estadístico entregará valores distintos de muestra a muestra. Si `\(H_0\)` es verdadera valores cercanos a los establecido por `\(H_0\)` serán más probablemes y valores más alejados serán menos probables.
-
---
-
-- Determinar la .bold[distribución nula]: distribución muestral de nuestro estadístico bajo el supuesto de que la `\(H_0\)` es verdadera. 
-
-&lt;br&gt;
---
-
-En nuestro ejemplo, el estadístico elegido fue la media muestral `\(\bar{X}\)`, y `\(H_0: \mathbb{E}(Y) = 300 \text{ mil}\)`.
-
---
-
-- Por el TLC sabemos que:  `\(\bar{X} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)\)`
- 
-
---
-
-Por tanto:
-
-$$\bar{X} \mid H_0 \text{ es verdadera}  \sim \text{Normal}\bigg(\mu= 300, \frac{\sigma}{\sqrt{n}}\bigg) $$
-
----
-##Distribución Nula
-
-$$\bar{X} \mid H_0 \text{ es verdadera}  \sim \text{Normal}\bigg(\mu= 300, \frac{\sigma}{\sqrt{n}}\bigg) $$
---
-
-Para determinar la distribución nula necesitamos además la desviación estándard poblacional ( `\(\sigma\)` ) y el tamaño muestal ( `\(n\)` ).
-
-  - Si no conocemos `\(\sigma\)` debemos estimarlo a partir de la muesta ( `\(s\)` ).
+<html lang="en"><head>
+<script src="class_16_files/libs/clipboard/clipboard.min.js"></script>
+<script src="class_16_files/libs/quarto-html/tabby.min.js"></script>
+<script src="class_16_files/libs/quarto-html/popper.min.js"></script>
+<script src="class_16_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="class_16_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="class_16_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="class_16_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
+
+  <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
+  <title>Probabilidad e Inferencia Estadística</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="class_16_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="class_16_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
+    }
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+    }
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
+      }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+    }
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="class_16_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="gentle-r.css">
+  <link rel="stylesheet" href="xaringan-themer.css">
+  <link href="class_16_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="class_16_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="class_16_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="class_16_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#D6523C" class="quarto-title-block center">
+  <h1 class="title">Probabilidad e Inferencia Estadística</h1>
+  <p class="subtitle">Test de Hipótesis</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+<br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> mebucca@uc.cl 
+</div>
+</div>
+</div>
+
+</section>
+<section id="section" class="slide level2 inverse center middle">
+<h2></h2>
+</section>
+<section>
+<section id="test-de-hipótesis" class="title-slide slide level1 center">
+<h1>Test de Hipótesis</h1>
+
+</section>
+<section id="en-modelos-probabilísticos" class="slide level2">
+<h2>en modelos probabilísticos</h2>
+</section>
+<section id="el-problema-de-la-inducción" class="slide level2">
+<h2>El problema de la Inducción</h2>
+<div class="fragment">
+<p><span class="bold">Observación:</span> 1 cisne blanco, 2 cisnes blancos, … n cisnes blancos.</p>
+</div>
+<div class="fragment">
+<p><span class="bold">Hipótesis:</span> <em>“Todos los cisnes son blancos”</em></p>
+<p><br></p>
+</div>
+<div class="fragment">
+<div class="pull-left">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/3/3f/Black_Swan-Mindaugas_Urbonas.jpg"></p>
+<figcaption>falsabilidad</figcaption>
+</figure>
+</div>
+</div>
+<div class="pull-right">
+<blockquote>
+<p>“Ningún número de observaciones de cisnes blancos nos permite inferir que todos los cisnes son blancos, pero la observación de un único cisne negro basta para refutar dicha conclusión”</p>
+</blockquote>
+</div>
+</div>
+</section>
+<section id="falsabilidad" class="slide level2">
+<h2>Falsabilidad</h2>
+<p>Pseudo-teorías no son falsables.</p>
+<p><br></p>
+<div class="center">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://aquileana.files.wordpress.com/2009/08/karl-popper-quotes-1.jpg"></p>
+<figcaption>falsabilidad</figcaption>
+</figure>
+</div>
+</div>
+<p><br></p>
+<div class="fragment">
+<p>Modelo de las ciencias físicas y naturales (modelos deterministas – mediados del s.XX).</p>
+</div>
+</section>
+<section id="falsabilidad-en-modelos-probabilísticos" class="slide level2">
+<h2>Falsabilidad en modelos probabilísticos</h2>
+<div class="fragment">
+<p><span class="bold">Observación:</span> 1 cisne blanco, 2 cisnes blancos, … <span class="math inline">\(n\)</span> cisnes blancos.</p>
+<p><br></p>
+</div>
+<div class="fragment">
+<p><span class="bold">Hipótesis:</span> <em>“La mayoría de los cisnes son blancos”</em>. Por ejemplo:</p>
+<p><br> <span class="math display">\[ \mathbb{P}(\text{Blanco} \mid \text{Cisne}) &gt; \mathbb{P}(\text{Otro} \mid \text{Cisne})\]</span></p>
+<p><br></p>
+</div>
+<div class="fragment">
+<ul>
+<li>Un cisne de otro color no refuta esta teoría.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Muchos cisnes de otro la ponen en duda.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Mientras más cisnes no-blancos menos plausible es la teoría.</li>
+</ul>
+</div>
+</section>
+<section id="test-de-hipótesis-1" class="slide level2 inverse center middle section-title">
+<h2>Test de Hipótesis</h2>
+</section>
+<section id="prueba-de-significancia-de-la-hipótesis-nula" class="slide level2">
+<h2>Prueba de Significancia de la Hipótesis Nula</h2>
+<h3 id="fisher-neyman-pearson-framework">Fisher &amp; Neyman-Pearson Framework</h3>
+</section>
+<section id="los-padres-fundadores" class="slide level2">
+<h2>Los padres fundadores</h2>
+<div class="center">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://images.slideplayer.com/22/6365349/slides/slide_4.jpg"></p>
+<figcaption>fnp</figcaption>
+</figure>
+</div>
+</div>
+<p>Estadísticos como Fisher, Neyman and Pearson desarrollaron el análogo probabilístico del falsacionismo de Popper y sus derivados.</p>
+</section>
+<section id="intuición-detrás-del-marco-teórico-de-fisher-neyman-pearson" class="slide level2">
+<h2>Intuición detrás del marco teórico de Fisher &amp; Neyman-Pearson</h2>
+<p><br></p>
+<ol type="1">
+<li>Formulación de una <span class="bold">hipótesis nula</span> y, su contrapartida, una <span class="bold">hipótesis alternativa</span>: Buscamos rechazar la hipótesis nula.</li>
+</ol>
+<div class="fragment">
+<ol start="2" type="1">
+<li>Recolección de datos y calcular un <span class="bold">estadístico</span> para medir el fenómeno de interés (e.g., una media, una proporción, una correlación, etc.)</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="3" type="1">
+<li>Calcular la probabilidad de obtener el resultado arrojado por el estadístico si la hipótesis nula fuera verdadera – <span class="bold">valor p</span>.</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="4" type="1">
+<li>Si el resultado obtenido es <strong>muy improbable</strong> en un mundo donde la hipótesis nula es verdadera, entonces rechazamos la hipótesis nula. Alternativamente, no tenemos evidencia suficiente para rechazarla.</li>
+</ol>
+</div>
+<div class="fragment">
+<ol start="5" type="1">
+<li>Proceso iterativo: Si se rechaza la hipótesis nula, entonces la hipótesis alternativa sigue en pie (provisoriamente).</li>
+</ol>
+</div>
+</section>
+<section id="paso-1-elaborar-hipótesis-nula-y-alternativa" class="slide level2 inverse center middle">
+<h2>Paso #1: Elaborar Hipótesis Nula y Alternativa</h2>
+</section>
+<section id="hipótesis-nula-y-alternativa" class="slide level2">
+<h2>Hipótesis Nula y Alternativa</h2>
+<p><br></p>
+<p>Establecer una hipótesis de trabajo y dividir el espacio muestral en particiones mutuamente excluyentes:</p>
+<div class="fragment">
+<ul>
+<li>Observaciones que contradicen la hipótesis de trabajo (Hipótesis Nula, <span class="math inline">\(H_0\)</span>)</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Observaciones en favor de la hipótesis de trabajo (Hipótesis Alternativa, <span class="math inline">\(H_1\)</span>)</li>
+</ul>
+</div>
+<div class="fragment">
+<p><br></p>
+<p><span class="bold">Ejemplo:</span></p>
+<p>Hipótesis de trabajo: <em>“El promedio de ingresos de las mujeres en Chile es mayor que $300,000”</em></p>
+<p><br></p>
+<ul>
+<li><p><span class="math inline">\(H_0: \mathbb{E}(X) = 300 \text{ mil}\)</span></p></li>
+<li><p><span class="math inline">\(H_1: \mathbb{E}(X) &gt; 300 \text{ mil}\)</span></p></li>
+</ul>
+</div>
+</section>
+<section id="paso-2-calcular-un-estadístico" class="slide level2 inverse center middle">
+<h2>Paso #2: Calcular un Estadístico</h2>
+</section>
+<section id="estadístico" class="slide level2">
+<h2>Estadístico</h2>
+<ul>
+<li><p>Generar/elegir datos adecuados para testear nuestras hipótesis.</p></li>
+<li><p>Elegir y calcular un estadístico que permita evaluar la hipótesis nula en función de los datos.</p></li>
+</ul>
+<p><br></p>
+<div class="fragment">
+<p>En nuestro ejemplo, la elección del estadístico adecuado es inequívoca: <span class="math inline">\(\bar{X} = \hat{\mu}\)</span>.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># i. Calcula media muestral </span></span>
+<span id="cb1-2"><a href=""></a>mu_hat <span class="ot">&lt;-</span> <span class="fu">mean</span>(casen2017_mujeres<span class="sc">$</span>ingreso<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm=</span>T) <span class="sc">%&gt;%</span> <span class="fu">round</span>()</span>
+<span id="cb1-3"><a href=""></a><span class="fu">cat</span>(<span class="st">"Media muestral:"</span>, mu_hat, <span class="st">" mil"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Media muestral: 368  mil</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="paso-3-determinar-la-distribución-nula" class="slide level2 inverse center middle">
+<h2>Paso #3: Determinar la Distribución Nula</h2>
+</section>
+<section id="distribución-nula" class="slide level2">
+<h2>Distribución Nula</h2>
+<p>Incluso si la hipótesis nula fuera verdadera, el valor del estadístico no necesariamente coincidirá con el valor establecido en <span class="math inline">\(H_0\)</span> (por el carácter finito y aleatorio de la muestra).</p>
+<ul>
+<li>El estadístico entregará valores distintos de muestra a muestra. Si <span class="math inline">\(H_0\)</span> es verdadera, valores cercanos a lo establecido por <span class="math inline">\(H_0\)</span> serán más probables y valores más alejados serán menos probables.</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Determinar la <span class="bold">distribución nula</span>: distribución muestral de nuestro estadístico bajo el supuesto de que la <span class="math inline">\(H_0\)</span> es verdadera.</li>
+</ul>
+<p><br></p>
+</div>
+<div class="fragment">
+<p>En nuestro ejemplo, el estadístico elegido fue la media muestral <span class="math inline">\(\bar{X}\)</span>, y <span class="math inline">\(H_0: \mathbb{E}(Y) = 300 \text{ mil}\)</span>.</p>
+</div>
+<div class="fragment">
+<ul>
+<li>Por el TLC sabemos que: <span class="math inline">\(\bar{X} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<p>Por tanto:</p>
+<p><span class="math display">\[\bar{X} \mid H_0 \text{ es verdadera}  \sim \text{Normal}\bigg(\mu= 300, \frac{\sigma}{\sqrt{n}}\bigg) \]</span></p>
+</div>
+</section>
+<section id="distribución-nula-1" class="slide level2">
+<h2>Distribución Nula</h2>
+<p><span class="math display">\[\bar{X} \mid H_0 \text{ es verdadera}  \sim \text{Normal}\bigg(\mu= 300, \frac{\sigma}{\sqrt{n}}\bigg) \]</span></p>
+<div class="fragment">
+<p>Para determinar la distribución nula necesitamos además la desviación estándard poblacional ( <span class="math inline">\(\sigma\)</span> ) y el tamaño muestal ( <span class="math inline">\(n\)</span> ).</p>
+<ul>
+<li>Si no conocemos <span class="math inline">\(\sigma\)</span> debemos estimarlo a partir de la muesta ( <span class="math inline">\(s\)</span> ).</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="pull-left">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(casen2017_mujeres<span class="sc">$</span>ingreso))</span>
+<span id="cb3-2"><a href=""></a>s <span class="ot">&lt;-</span> <span class="fu">sd</span>(casen2017_mujeres<span class="sc">$</span>ingreso<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm=</span>T) </span>
+<span id="cb3-3"><a href=""></a><span class="fu">cat</span>(<span class="st">"n="</span>,n,<span class="st">"; s="</span>, s, <span class="at">sep=</span><span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>n=248; s=452.4244</code></pre>
+</div>
+</div>
+</div>
+<div class="pull-right">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_16_files/figure-revealjs/unnamed-chunk-4-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="distribución-nula-2" class="slide level2">
+<h2>Distribución Nula</h2>
+<p>Alternativamente, si <span class="math inline">\(Z_{\bar{X}} = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}}\)</span> entonces:</p>
+<div class="fragment">
+<ul>
+<li>Distribución nula: <span class="math inline">\(Z_{\bar{X}} \mid H_0 \text{ es verdadera}  \sim \text{Normal}\big(0, 1\big)\)</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Test estadístico: <span class="math inline">\(\hat{z} = \frac{\hat{\mu} - \mu}{\sigma/\sqrt{n}}\)</span></li>
+</ul>
+<div class="pull-left">
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(casen2017_mujeres<span class="sc">$</span>ingreso))</span>
+<span id="cb5-2"><a href=""></a>mu_hat <span class="ot">&lt;-</span> <span class="fu">mean</span>(casen2017_mujeres<span class="sc">$</span>ingreso<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm=</span>T)</span>
+<span id="cb5-3"><a href=""></a>s <span class="ot">&lt;-</span> <span class="fu">sd</span>(casen2017_mujeres<span class="sc">$</span>ingreso<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm=</span>T) </span>
+<span id="cb5-4"><a href=""></a>z_hat <span class="ot">&lt;-</span> (mu_hat <span class="sc">-</span> <span class="dv">300</span>)<span class="sc">/</span>(s<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
+<span id="cb5-5"><a href=""></a><span class="fu">cat</span>(<span class="st">"mu_hat="</span>,mu_hat,<span class="st">" z_hat="</span>,z_hat, <span class="at">sep=</span><span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>mu_hat=368.0701 z_hat=2.369387</code></pre>
+</div>
+</div>
+</div>
+<div class="pull-right">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_16_files/figure-revealjs/unnamed-chunk-6-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="paso-4-decidir-el-nivel-de-significación" class="slide level2 inverse center middle">
+<h2>Paso #4: Decidir el Nivel de Significación</h2>
+</section>
+<section id="nivel-de-significación-estadística-alpha" class="slide level2">
+<h2>Nivel de significación estadística, <span class="math inline">\(\alpha\)</span></h2>
+<p>Si la media de ingresos de las mujeres fuera $300 mil, obtener un promedio muestral de $368 aparece como un resultado improbable (demasiado alto).</p>
+<ul>
+<li>pero ¿cuanto es demasiado alto (o demasiado bajo)?</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>Selecciona un <span class="bold">nivel de significación</span> <span class="math inline">\(\alpha\)</span>, tal que consideraremos como “demasiado alto”/“demasiado bajo” aquellos valores que corresponden al <span class="math inline">\(\alpha\)</span>% de valores más extremos en la distribución nula:</li>
+</ul>
+<p><br></p>
+</div>
+<div class="fragment">
+<div class="pull-left">
+<p><br></p>
+<p>En nuestro ejemplo <span class="math inline">\(H_1: \mathbb{E}(X) &gt; 300 \text{ mil}\)</span>,</p>
+<ul>
+<li><p>Tiene sentido testear si nuestro estadístico se encuentra en el <span class="math inline">\(\alpha\)</span>% más alto de la distribución nula.</p></li>
+<li><p>Con <span class="math inline">\(\alpha=0.05\)</span> el punto de corte es <span class="math inline">\(\Phi^{-1}(1-\alpha) = \Phi^{-1}(0.95) = 1.64\)</span></p></li>
+</ul>
+</div>
+<div class="pull-right">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_16_files/figure-revealjs/unnamed-chunk-7-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="paso-5-calcular-el-valor-p" class="slide level2 inverse center middle">
+<h2>Paso #5: Calcular el Valor-p</h2>
+</section>
+<section id="valor-p" class="slide level2">
+<h2>Valor-p</h2>
+<div class="fragment">
+<p>Si la hipótesis nula fuera verdadera, es nuestro estadístico un valor esperable o un valor extremo?</p>
+</div>
+<div class="fragment">
+<p>El <span class="bold">valor-p</span> formaliza esta pregunta: <span class="math inline">\(\text{valor-p} = \mathbb{P}(\quad T(x_1 \dots  x_n) &gt; \hat{t} \mid H_{0} \text{ es verdadera})\)</span></p>
+<p>donde <span class="math inline">\(T(x_1 \dots  x_n)\)</span> es un test estadístico y <span class="math inline">\(\hat{t}\)</span> el valor obtenido al calcular el test <span class="math inline">\(T\)</span> en muestra.</p>
+</div>
+<div class="fragment">
+<div class="pull-left">
+<p>En nuestro ejemplo:</p>
+<p><span class="math inline">\(\text{valor-p} = \mathbb{P}( \bar{X} &gt; \hat{\mu} \mid H_{0} \text{ es verdadera})\)</span></p>
+<p>equivalentemente:</p>
+<p><span class="math inline">\(\text{valor-p} = \mathbb{P}( Z &gt; \frac{\hat{\mu} - \mu}{\sigma/\sqrt{n}})\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>z_hat <span class="ot">&lt;-</span> (mu_hat <span class="sc">-</span> <span class="dv">300</span>)<span class="sc">/</span>(s<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
+<span id="cb7-2"><a href=""></a></span>
+<span id="cb7-3"><a href=""></a>pvalue <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z_hat)</span>
+<span id="cb7-4"><a href=""></a><span class="fu">cat</span>(<span class="st">"z_hat="</span>,<span class="fu">round</span>(z_hat,<span class="dv">2</span>), <span class="st">" valor-p="</span>,pvalue, <span class="at">sep=</span><span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>z_hat=2.37 valor-p=0.0089088</code></pre>
+</div>
+</div>
+</div>
+<div class="pull-right">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_16_files/figure-revealjs/unnamed-chunk-9-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="paso-6-mantener-o-rechazar-la-hipótesis-nula" class="slide level2 inverse center middle">
+<h2>Paso #6: Mantener o Rechazar la Hipótesis Nula</h2>
+</section>
+<section id="decisión" class="slide level2">
+<h2>Decisión</h2>
+<p>Finalmente, debemos decidir si rechazar o no la hipótesis nula</p>
+<div class="fragment">
+<ul>
+<li>Comparamos – bajo el supuesto de que <span class="math inline">\(H_0\)</span> es verdadera – la probabilidad de obtener el resultados que obtuvimos ( valor-p ) vs.&nbsp;el criterio seleccionado para clasificar resultados como “extremos” ( <span class="math inline">\(\alpha\)</span> ).</li>
+</ul>
+<p><br></p>
+</div>
+<div class="fragment">
+<div class="pull-left">
+<p><span class="bold">Decisión:</span></p>
+<ul>
+<li><p>Si <span class="math inline">\(\text{valor-p} &lt; \alpha\)</span> entonces rechazamos <span class="math inline">\(H_{0}\)</span></p></li>
+<li><p>Si <span class="math inline">\(\text{valor-p} &gt; \alpha\)</span> no podemos rechazar <span class="math inline">\(H_{0}\)</span></p></li>
+</ul>
+<p><br></p>
+<p><span class="bold">Importante:</span> mientras menor es <span class="math inline">\(\alpha\)</span> más difícil es rechazar la hipótesis nula.</p>
+</div>
+</div>
+<div class="fragment">
+<div class="pull-right">
+<p>En nuestro ejemplo, rechazamos la hipótesis nula.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_16_files/figure-revealjs/unnamed-chunk-10-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="decisión-1" class="slide level2">
+<h2>Decisión</h2>
+<div class="pull-left">
+<ul>
+<li><p>Si <span class="math inline">\(\text{valor-p} &lt; \alpha\)</span> entonces rechazamos <span class="math inline">\(H_{0}\)</span></p></li>
+<li><p>Si <span class="math inline">\(\text{valor-p} &gt; \alpha\)</span> no podemos rechazar <span class="math inline">\(H_{0}\)</span></p></li>
+</ul>
+</div>
+<div class="fragment">
+<div class="pull-right">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="h0.png"></p>
+<figcaption>h0</figcaption>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="decisión-no-such-thing-as-a-free-lunch" class="slide level2">
+<h2>Decisión: “no such thing as a free lunch”</h2>
+<p>Nuestra decisión se basa en descartar resultados improbables bajo el supuesto de que <span class="math inline">\(H_0\)</span> es verdadera.</p>
+<ul>
+<li>Dado que <span class="bold">improbable no es lo mismo que imposible</span>, debemos aceptar la posibilidad de tomar la decisión equivocada. Específicamente:</li>
+</ul>
+<div class="fragment">
+<div class="pull-left">
+<p><br></p>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Rechazar H0</strong></th>
+<th><strong>Mantener H0</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong>H0 es verdadera</strong></td>
+<td><em>Error de Tipo I</em></td>
+<td>Correcto</td>
+</tr>
+<tr class="even">
+<td><strong>H0 es falsa</strong></td>
+<td>Correcto</td>
+<td><em>Error de Tipo II</em></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="fragment">
+<div class="pull-right">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="error.png"></p>
+<figcaption>error</figcaption>
+</figure>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Notar que:</p>
+<ul>
+<li>Tenemos control sobre probabilidad de <span class="bold">“Error tipo I”</span></li>
+</ul>
+<dl>
+<dt>. . .</dt>
+<dd>
+<p><span class="math inline">\(\alpha = \mathbb{P}(\text{Rechazar } H_{0} \mid H_{0} \text{ es verdadera})\)</span></p>
+</dd>
+</dl>
+</div>
+<div class="fragment">
+<ul>
+<li>No podemos especificar a-priori la probabilidad de <span class="bold">“Error tipo II”</span></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Trade-off entre <span class="bold">“Error tipo I”</span> y <span class="bold">“Error tipo II”</span>: extremada cautela ( <span class="math inline">\(\alpha\)</span> muy chico) conlleva el riesgo de nunca mantener la hipótesis alternativa (incluso si la nula es falsa).</li>
+</ul>
+</div>
+</section>
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<h2>Hasta la próxima clase. Gracias!</h2>
+<p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="class_16_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="class_16_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="class_16_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="class_16_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="class_16_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="class_16_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
---
+  <script src="class_16_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="class_16_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="class_16_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="class_16_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
-.pull-left[
+  <script>
 
-``` r
-n &lt;- sum(!is.na(casen2017_mujeres$ingreso))
-s &lt;- sd(casen2017_mujeres$ingreso/1000, na.rm=T) 
-cat("n=",n,"; s=", s, sep="")
-```
-
-```
-## n=248; s=452.4244
-```
-]
-
-.pull-right[
-![](class_16_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
-]
-
----
-##Distribución Nula
-
-Alternativamente, si `\(Z_{\bar{X}} = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}}\)` entonces:
-
---
-
-- Distrinución nula: `\(Z_{\bar{X}} \mid H_0 \text{ es verdadera}  \sim \text{Normal}\big(0, 1\big)\)`
-
---
-
-- Test estadístico: `\(\hat{z} = \frac{\hat{\mu} - \mu}{\sigma/\sqrt{n}}\)`
-
-
-
-.pull-left[
-
-``` r
-n &lt;- sum(!is.na(casen2017_mujeres$ingreso))
-mu_hat &lt;- mean(casen2017_mujeres$ingreso/1000, na.rm=T)
-s &lt;- sd(casen2017_mujeres$ingreso/1000, na.rm=T) 
-z_hat &lt;- (mu_hat - 300)/(s/sqrt(n))
-cat("mu_hat=",mu_hat," z_hat=",z_hat, sep="")
-```
-
-```
-## mu_hat=368.0701 z_hat=2.369387
-```
-]
-
-
-.pull-right[
-![](class_16_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
-]
-
-
----
-class: inverse, center, middle
-
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
  
-## Paso #4: Decidir el Nivel de Significación
+        // Display controls in the bottom right corner
+        controls: false,
 
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
 
----
-## Nivel de significación estadística, `\(\alpha\)` 
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
 
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
 
-Si la media de ingresos de las mujeres fuera $300 mil, obtener un promedio muestral de $368 aparece como un resultado improbable (demasiado alto).
+        // Display a presentation progress bar
+        progress: true,
 
-- pero ¿cuanto es demasiado alto (o demasiado bajo)?
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
 
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
 
---
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
 
-- Selecciona un .bold[nivel de significación] `\(\alpha\)`, tal que consideraremos como "demasiado alto"/"demasiado bajo" aquellos valores que corresponden al `\(\alpha\)`% de valores más extremos en la distribución nula:
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
 
-&lt;br&gt;
---
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
 
-.pull-left[
+        // Push each slide change to the browser history
+        history: true,
 
-&lt;br&gt;
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
 
-En nuestro ejemplo `\(H_1: \mathbb{E}(X) &gt; 300 \text{ mil}\)`,
+        // Enable the slide overview mode
+        overview: true,
 
-- Tiene sentido testear si nuesto estadístico se encuestra en el  
-`\(\alpha\)`% más alto de la distribución nula.
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
 
-- Con `\(\alpha=0.05\)` el punto de corte es `\(\Phi^{-1}(\alpha=0.05) = 1.64\)`
+        // Vertical centering of slides
+        center: false,
 
+        // Enables touch navigation on devices with touch input
+        touch: true,
 
+        // Loop the presentation
+        loop: false,
 
+        // Change the presentation direction to be RTL
+        rtl: false,
 
-]
-.pull-right[
-![](class_16_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
-]
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
 
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
 
----
-class: inverse, center, middle
+        // Turns fragments on and off globally
+        fragments: true,
 
- 
-## Paso #5: Calcular el Valor-p
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
 
----
-## Valor-p
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
 
---
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
 
-Si la hipótesis nula fuera verdadera, es nuestro estadístico un valor esperable o un valor extremo?
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
 
---
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
 
-El .bold[valor-p] formaliza esta pregunta: `\(\text{valor-p} = \mathbb{P}(\quad T(x_1 \dots  x_n) &gt; \hat{t} \mid H_{0} \text{ es verdadera})\)`
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
 
-donde `\(T(x_1 \dots  x_n)\)` es un test estadístico y `\(\hat{t}\)` el valor obtenido al calcular el test `\(T\)` en muestra.
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
 
---
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
 
-.pull-left[
-En nuestro ejemplo:
-
-`\(\text{valor-p} = \mathbb{P}( \bar{X} &gt; \hat{\mu} \mid H_{0} \text{ es verdadera})\)`
-
-equivalentemente:
-
-`\(\text{valor-p} = \mathbb{P}( Z &gt; \frac{\hat{\mu} - \mu}{\sigma/\sqrt{n}})\)`
-
-
-
-``` r
-z_hat &lt;- (mu_hat - 300)/(s/sqrt(n))
-
-pvalue = 1 - pnorm(z_hat)
-cat("z_hat=",round(z_hat,2), " valor-p=",pvalue, sep="")
-```
-
-```
-## z_hat=2.37 valor-p=0.0089088
-```
-]
-
-
-.pull-right[
-![](class_16_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
-]
-
-
----
-class: inverse, center, middle
-
- 
-## Paso #6: Mantener o Rechazar la Hipótesis Nula
-
----
-## Decisión
-
-Finalmente, debemos decidir si rechazar o no la hipótesis nula
-
---
-
-- Comparamos -- bajo el supuesto de que `\(H_0\)` es verdadera --  la probabilidad de obtener el resultados que obtuvimos ( valor-p ) vs. el criterio seleccionado para clasificar resultados como "extremos" ( `\(\alpha\)` ).
-
-
-&lt;br&gt;
---
-
-.pull-left[
-.bold[Decisión:]
-
- - Si `\(\text{valor-p} &lt; \alpha\)` entonces rechazamos `\(H_{0}\)`
-
- - Si `\(\text{valor-p} &gt; \alpha\)` no podemos rechazar `\(H_{0}\)`
-
-&lt;br&gt;
-
-.bold[Importante:] mientras menor es `\(\alpha\)` más dificl es rechazar la hipótesis nula.
-
-]
-
---
-
-.pull-right[
-
-En nuestro ejemplo, rechazamos la hipótesis nula.
-
-![](class_16_files/figure-html/unnamed-chunk-10-1.png)&lt;!-- --&gt;
-]
-
----
-## Decisión
-
-
-.pull-left[
-
-- Si `\(\text{valor-p} &lt; \alpha\)` entonces rechazamos `\(H_{0}\)`
- 
-- Si `\(\text{valor-p} &gt; \alpha\)` no podemos rechazar `\(H_{0}\)`
-
-]
-
---
-
-.pull-right[
-![h0](h0.png)
-]
-
-
----
-## Decisión: "no such thing as a free lunch"
-
-Nuestra decisión se basa en descartar resultados improbables bajo el supuesto de que `\(H_0\)` es verdadera. 
-
-- Dado que .bold[improbable no es lo mismo que imposible], debemos aceptar la posibilidad de tomar la decisión equivocada. Específicamente:
-
-
---
-
-
-.pull-left[
-&lt;br&gt;
-
-|          | **Rechazar H0**  | **Mantener H0** |
-|----------|------------------|-----------------|
-| **H0 es verdadera** | *Error de Tipo I* | Correcto        |
-| **H0 es falsa**     | Correcto        | *Error de Tipo II* |
-
-]
-
---
-
-
-.pull-right[
-![error](error.png)
-]
-
---
-
-Notar que:
-
-- Tenemos control sobre probilidad de .bold["Error tipo I"]
---
-: `\(\alpha = \mathbb{P}(\text{Rechazar } H_{0} \mid H_{0} \text{ es verdadera})\)`
-
---
-
-- No podemos espeficar a-priori la probilidad de .bold["Error tipo II"]
-
---
-
-- Trade-off entre .bold["Error tipo I"] y .bold["Error tipo II"]: extremada cautela ( `\(\alpha\)` muy chico) conlleva el riesgo de nunca mantener la hipótesis alternativa (incluso si la nula es falsa).
-
-
----
-class: inverse, center, middle
-
-
-##Hasta la próxima clase. Gracias!
-
-&lt;br&gt;
-Mauricio Bucca &lt;br&gt;
-https://mebucca.github.io/ &lt;br&gt;
-github.com/mebucca
-
-
-
-    </textarea>
-<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
-<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script>var slideshow = remark.create({
-"ratio": "16:9",
-"highlightStyle": "github",
-"highlightLines": true,
-"countIncrementalSlides": true,
-"slideNumberFormat": "%current%"
-});
-if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
-  window.dispatchEvent(new Event('resize'));
-});
-(function(d) {
-  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
-  if (!r) return;
-  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
-  d.head.appendChild(s);
-})(document);
-
-(function(d) {
-  var el = d.getElementsByClassName("remark-slides-area");
-  if (!el) return;
-  var slide, slides = slideshow.getSlides(), els = el[0].children;
-  for (var i = 1; i < slides.length; i++) {
-    slide = slides[i];
-    if (slide.properties.continued === "true" || slide.properties.count === "false") {
-      els[i - 1].className += ' has-continuation';
-    }
-  }
-  var s = d.createElement("style");
-  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
-  d.head.appendChild(s);
-})(document);
-// delete the temporary CSS (for displaying all slides initially) when the user
-// starts to view slides
-(function() {
-  var deleted = false;
-  slideshow.on('beforeShowSlide', function(slide) {
-    if (deleted) return;
-    var sheets = document.styleSheets, node;
-    for (var i = 0; i < sheets.length; i++) {
-      node = sheets[i].ownerNode;
-      if (node.dataset["target"] !== "print-only") continue;
-      node.parentNode.removeChild(node);
-    }
-    deleted = true;
-  });
-})();
-// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
-// screen reader (see PR #262)
-(function(d) {
-  let res = {};
-  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
-    const t = tr.querySelector('td:nth-child(2)').innerText;
-    tr.querySelectorAll('td:first-child .key').forEach(key => {
-      const k = key.innerText;
-      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
-    });
-  });
-  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
-})(document);
-(function() {
-  "use strict"
-  // Replace <script> tags in slides area to make them executable
-  var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container script'
-  );
-  if (!scripts.length) return;
-  for (var i = 0; i < scripts.length; i++) {
-    var s = document.createElement('script');
-    var code = document.createTextNode(scripts[i].textContent);
-    s.appendChild(code);
-    var scriptAttrs = scripts[i].attributes;
-    for (var j = 0; j < scriptAttrs.length; j++) {
-      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
-    }
-    scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-})();
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-// adds .remark-code-has-line-highlighted class to <pre> parent elements
-// of code chunks containing highlighted lines with class .remark-code-line-highlighted
-(function(d) {
-  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
-  const preParents = [];
-  const findPreParent = function(line, p = 0) {
-    if (p > 1) return null; // traverse up no further than grandparent
-    const el = line.parentElement;
-    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
-  };
-
-  for (let line of hlines) {
-    let pre = findPreParent(line);
-    if (pre && !preParents.includes(pre)) preParents.push(pre);
-  }
-  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
-})(document);</script>
-
-<script>
-slideshow._releaseMath = function(el) {
-  var i, text, code, codes = el.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
-  }
-};
-slideshow._releaseMath(document);
-</script>
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-(function () {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
-  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
-    script.src  = script.src.replace(/^https?:/, '');
-  document.getElementsByTagName('head')[0].appendChild(script);
-})();
-</script>
-  </body>
-</html>
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

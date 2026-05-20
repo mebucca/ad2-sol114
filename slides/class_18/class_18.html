@@ -1,623 +1,1000 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
-  <head>
-    <title>Probabilidad e Inferencia Estadística</title>
-    <meta charset="utf-8" />
-    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
-    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
-    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
-    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
-  </head>
-  <body>
-    <textarea id="source">
-class: center, middle, inverse, title-slide
-
-.title[
-# Probabilidad e Inferencia Estadística
-]
-.subtitle[
-## Distribución t-student
-]
-.author[
-### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
-]
-
----
-
-class: inverse, center, middle
-
-
-
-
-
-# Distribución t-student
-
-
----
-
-### William Sealy Gosset (1876-1937)
-
-.pull-left[  
-![Gosset](gosset.jpg)  
-]  
-.pull-right[ 
-
-&lt;br&gt;
-
-- William Gosset trabajaba como estadístico en la cervecería **Guinness** en Dublín. .
-
-- Testear calidad de las diferentes partidas de cerveza. Misma receta pero variación en calidad de los ingredientes (contenido de proteínas en la cebada).
-
-- Dos problemas: 
-  
-  - Muestras pequeñas: la empeza no quería desperdiciar cerveza en experimentos.
-  
-  - No conocía la varianza poblacional `\(\sigma^2\)` de los ingredientes.
-  
-
-- Ambas limitaciones dificultaban el uso de herramientas estadísticas como el *TLC*.  
-
-]
-
----
-
-## Problemas: tamaño Muestral y varianza desconocida
-
-&lt;br&gt; &lt;br&gt;
-
-- .bold[Tamaño Muestral]: Cuando se trabaja con muestras pequeñas ( `\(\approx n &lt; 30\)` ), los resultados estadísticos tienden a ser menos precisos.
-
-&lt;br&gt;
-
-- .bold[Varianza Desconocida]: Cuando no conocemos la **varianza poblacional** ( `\(\sigma^2\)` ). debemos estimarla a partir de los dotos: `\(s^2\)`. Esto introduce una fuente adicional de incertidumbre, ya que `\(s^2\)` es una estimación basada en datos limitados.
-
-&lt;br&gt;
-- Relación entre .bold[tamaño muestral] y .bold[varianza desconocida]: cuando usamos la **varianza muestral** en lugar de la varianza poblacional, perdemos un **grado de libertad**. 
-
-  - Para estimar la varianza muestral debemos primero estimar la media, lo que limita la capacidad de los datos de variar libremente. 
-
----
-## Grados de Libertad (df)
-
-- Los **grados de libertad** (df) son el número de valores que pueden variar de forma independiente en un cálculo estadístico.
-
-
---
-&lt;br&gt;
-
-.bold[Ejemplo:]
-
-Tenemos 3 valores y conocemos la media:
-
-$$ X_1, X_2, X_3 \quad \text{con} \quad \bar{X} = 10 $$
-
-- Si ya conocemos `\(X_1\)` y `\(X_2\)`, `\(X_3\)` no puede variar libremente, porque está restringido por el valor de la media. Por tanto, solo hay **2 grados de libertad**.
-
-
-
---
-&lt;br&gt;
-
-- En el contexto de la **varianza muestral**, uno de los valores (la media muestral) ya ha sido utilizado para el cálculo, por lo que se pierde un grado de libertad. 
-
-
-- Luego, cuando calculamos la varianza en una muestra de tamaño `\(n\)`, solo quedan `\(n-1\)` grados de libertad.
-
----
-## La Solución: distribución `\(t\)`-Student
-
-.center[
-![Student](student.jpg)
-]
----
-### ¿Por qué usar la Distribución t?
-
-
-&lt;br&gt;
-
-Cuando la varianza poblacional es desconocida y trabajamos con muestras pequeñas esto introduce una mayor incertidumbre, que debe reflejarse en la forma de la distribución de probabilidad.
-
-&lt;br&gt;
-
---
-
-- La **distribución `\(t\)` de Student** ajusta esta incertidumbre asignando mayor probabilidad de observar valores extremos.
-
-- Probabilidad asignada a valores extremos es mayor mienstras más pequeña es la muestra.
-
-- La distribución `\(t\)` es, por tanto, más conservadora
-
-
----
-### Distribución `\(t\)` Stándard
-
-.pull-left[  
-
-Bajo las circunstancias mencionadas (varianza desconocida y muestra chica), al realizar el proceso de estandarización obtenemos:
-
-&lt;br&gt;
-
-`$$t = \frac{\bar{X} - \mu}{\frac{s}{\sqrt{n}}} \sim t_{v}$$`
-
-![Distribución t](https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Student_t_pdf.svg/400px-Student_t_pdf.svg.png)
-]
-
-.pull-right[ 
-&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
-donde:
-
-- `\(\bar{X}\)` es la media muestral,
-
-- `\(\mu\)` es la media poblacional bajo `\(H_0\)`,
-
-- `\(s\)` es la desviación estándar muestral,
-
-- `\(n\)` es el tamaño de la muestra,
-
-- `\(k\)` es el número de parámetros estimados
-
-- `\(v = n - k\)` son los **grados de libertad**
-
-]
-
-
----
-### Distribución `\(t\)` Stándard
-
-.pull-left[  
-
-Bajo las circunstancias mencionadas (varianza desconocida y muestra chica), al realizar el proceso de estandarización obtenemos:
-
-&lt;br&gt;
-
-`$$t = \frac{\bar{X} - \mu}{\frac{s}{\sqrt{n}}} \sim t_{v}$$`
-
-![Distribución t](https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Student_t_pdf.svg/400px-Student_t_pdf.svg.png)
-]
-
-
-
-.pull-right[  
-
-&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;&lt;br&gt;
-
-.bold[Características]:
-
-- La distribución `\(t\)` tiene **colas más gruesas** que la normal estándar ( `\(\text{Normal}(0,1)\)` ), reflejando mayor probabilidad de obtener valores extremos en muestras pequeñas.
-
-- **Parámetro clave**: La forma de la distribución `\(t\)` depende de los **grados de libertad** `\(v\)`. 
-
-- **Simetría**: La distribución `\(t\)`-standard es simétrica alrededor de 0.
-  
-- **Varianza**: La varianza de la distribución `\(t\)`-standard es ligeramente mayor que 1 para muestras pequeñas, y se aproxima a 1 a medida que `\(n\)` aumenta.
-
-]
-
-
----
-## Convergencia entre la Distribución `\(t\)` y la Normal
-
-&lt;br&gt;
-
-La **distribución t de Student** se aproxima a la `\(\text{Normal}(0,1)\)` cuando el tamaño muestral tiende a infinito: `\(n \to \infty\)`.
-
-&lt;br&gt;
-
---
-
-  - A medida que el número de grados de libertad aumenta, las colas  de la distribución `\(t\)` se vuelven menos pronunciadas.
-
-  - En el límite (cuando `\(df \to \infty\)` ), la distribución `\(t\)` se convierte en la distribución normal estándar.
-
-&lt;br&gt;
---
-
-
-Formalmente, si `\(T_n\)` es un estadístico `\(t\)` con `\(n-1\)` grados de libertad, entonces:
-
-&lt;br&gt;
-
-$$T_n \xrightarrow{d} \mathcal{N}(0,1) \quad \text{cuando} \quad n \to \infty $$
-
-
-
----
-## Aplicación al Test de Hipótesis
-
-&lt;br&gt;
-
-.bold[Paso a Paso deñ test de hipótesis]
-
-Cuando usamos la **distribución t** en un test de hipótesis, el proceso sigue estos pasos:
-
---
-
-1). Definir `\(H_1\)` y `\(H_0\)`.
-
-
---
-
-2). Calcular el estadístico de interés (ej., media muestral)
-
---
-
-3). Transformar el estadístico a valor `\(t\)` (análogo a `\(z\)` pero usando varianza muestral):
-
-`$$t = \frac{\bar{X} - \mu_0}{\frac{s}{\sqrt{n}}}$$`
---
-
-4). Calcular valor- `\(p\)` en base a la distribución `\(t\)`-standard con grados de libertad `\(n-k\)`.
-
---
-
-5). Comparar con nivel de significación y tomar una decisión.
-
-
-
----
-## En resumen:
-
-
-La **distribución t de Student** se utiliza principalmente bajo las siguientes condiciones:
-
-1. Varianza poblacional es desconocida
-  
-2. El tamaño de la muestra es pequeño (generalmente `\(n &lt; 30\)`).
-
-&lt;br&gt;
---
-
-
-Entonces, ¿cuándo se usa la distribución `\(t\)`?
-
-&lt;br&gt;
---
-
-- Varianza desconocida + muestra pequeña: Usamos distribución `\(t\)`.
-
-- Varianza desconocida + muestra grande: *Podemos* usar distribución normal
-
-- Varianza conocida (sin importar el tamaño muestral): Usamos distribución normal (este siempre es el caso cuando estimamos proporciones!).
-
----
-class: inverse, center, middle
-
-
-##Ejemplo: Calorías en bebidas de Starbucks 
-
----
-## Ejemplo: calorías en bebidas de Starbucks 
-
-.center[
-
-![starbuck](starbucks.jpg)
-]
-
-
-
-
----
-## Ejemplo: Calorías en bebidas de Starbucks 
-
--  Un estudiante quiere saber cual es el promedio de calorías de los bebestibles de Starbucks.
-
-- Decide comprar 12 bebestibles aleatoriamente y medir su contenido calórico. Los datos se ven así:
-
-&lt;br&gt;
-
-.center[
-
-
-
-```
-## # A tibble: 12 × 2
-##    Drink                                       Calories
-##    &lt;chr&gt;                                          &lt;dbl&gt;
-##  1 Tazo® Bottled Plum Pomegranate                   140
-##  2 Teavana® Shaken Iced Black Tea Lemonade           70
-##  3 Mocha Frappuccino® Blended Coffee                280
-##  4 Starbucks Refreshers™ Raspberry Pomegranate       90
-##  5 Cinnamon Dolce Frappuccino® Blended Coffee       350
-##  6 Tazo® Bottled Brambleberry                       140
-##  7 Nariño 70 Cold Brew with Milk                      0
-##  8 Vanilla Sweet Cream Cold Brew                    110
-##  9 Tazo® Bottled Black with Lemon                   140
-## 10 Tazo® Bottled Organic Iced Green Tea             120
-## 11 Mocha Light Frappuccino® Blended Coffee          140
-## 12 Tazo® Bottled Black Mango                        150
-```
-]
-
----
-## Ejemplo: Calorías en bebidas de Starbucks 
-
-
-### Paso #1: Elaborar Hipótesis Nula y Alternativa
-
-Hipótesis de trabajo: *"En promedio, un bebestible de Starbuck tiene más de 100 calorías"*
-
-&lt;br&gt;
-
-- `\(H_0: \mathbb{E}(X) = 100 \text{ kcal}\)` 
-
-
-- `\(H_1: \mathbb{E}(X) &gt; 100 \text{ kcal}\)`
-
----
-## Ejemplo: Calorías en bebidas de Starbucks 
-
-### Paso #2: Calcular un Estadístico
-
-
-
-``` r
-mu_hat &lt;- starbucks_muestra %&gt;% summarise(mu_hat = mean(Calories)) %&gt;% pull()
-cat("media muestral: ",mu_hat)
-```
-
-```
-## media muestral:  144.1667
-```
-
---
-Estandarizando nuestro estadístico obtenemos:
-
-  `$$\hat{t} = \frac{\hat{\mu} - \mu}{\frac{\sigma}{\sqrt{n}}} = \frac{144.17 - 100}{\frac{\sigma}{\sqrt{12}}}$$`
-
---
-
-- Como no conocemos `\(\sigma\)` debemos estimarlo a partir de la muesta (`\(s\)`).
-
-
-``` r
-s &lt;- starbucks_muestra %&gt;% summarise(s = sd(Calories)) %&gt;% pull()
-cat("desviación estándard muestral: ", s)
-```
-
-```
-## desviación estándard muestral:  91.39906
-```
-
-Luego:
-
-`\(\hat{t} = \frac{\hat{\mu} - \mu}{\frac{s}{\sqrt{n}}} = \frac{144.17 - 100}{\frac{91.4}{\sqrt{12}}} =\)` 1.673954
-
-
----
-## Ejemplo: Calorías en bebidas de Starbucks 
-
-
-###Paso #3: Determinar la Distribución Nula
-
-&lt;br&gt;
-
-En nuestro caso: `\(\hat{t} \mid H_0 \text{ es verdadera} \sim t_{v=11}\)`
-
-
-&lt;br&gt;
---
-
-
-.center[
-![](class_18_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
-]
-
-###Paso #4: Decidir el Nivel de Significación
-
-- Trabajaremos a un nivel de significación estadística `\(\alpha=0.05\)` 
-
-- Dado que `\(H_1: \mathbb{E}(X) &gt; 100 \text{ kcal}\)`, tiene sentido testear si nuesto estadístico se encuestra en el$\alpha$% más alto de la distribución nula.
-
----
-## Ejemplo: Calorías en bebidas de Starbucks 
-
-###Paso #5: Calcular el Valor-p
-
-.pull-left[
-En nuesto caso: 
-
-`\(\text{valor-p}: \mathbb{P}( \bar{X} &gt; \hat{\mu} \mid H_{0} \text{ es verdadera})\)`
-
-equivalente a:
-
-`\(\text{valor-p} = \mathbb{P}( t_{v=11} &gt; \hat{t})\)`
-
-
-``` r
-t_hat = (mu_hat - 100)/(s/sqrt(12))
-pvalue = 1 - pt(t_hat, df=11)
-cat(" t_hat=",round(t_hat,2), 
-    "\n valor crítico=", qt(0.95,df=11), 
-    "\n valor-p=", pvalue, 
-    sep="")
-```
-
-```
-##  t_hat=1.67
-##  valor crítico=1.795885
-##  valor-p=0.06115235
-```
-]
-
-
-.pull-right[
-![](class_18_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
-]
-
----
-## Ejemplo: Calorías en bebidas de Starbucks 
-
-###Paso #6: Mantener o Rechazar la Hipótesis Nula
-
-
-Finalmente, debemos decidir si rechazar o no la hipótesis nula
-
-
-.pull-left[
-.bold[Decisión:]
-
- - Si `\(\text{valor-p} &lt; \alpha\)` entonces rechazamos `\(H_{0}\)`
-
- - Si `\(\text{valor-p} &gt; \alpha\)` no podemos rechazar `\(H_{0}\)`
-
-]
-
---
-
-.pull-right[
-
-- En este caso, al 5% de significación estadística, no podemos rechazar la hipótesis nula
-
-- No tenemos evidencia para rechazar la hipótesis de que los bebestibles de Starbucks tienen, en promedio, 100 calorías (ni menos).
-
-]
----
-class: inverse, center, middle
-
-
-##Hasta la próxima clase. Gracias!
-
-&lt;br&gt;
-Mauricio Bucca &lt;br&gt;
-https://mebucca.github.io/ &lt;br&gt;
-github.com/mebucca
-
-
-    </textarea>
-<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
-<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script>var slideshow = remark.create({
-  "ratio": "16:9",
-  "highlightStyle": "github",
-  "highlightLines": true,
-  "countIncrementalSlides": true,
-  "slideNumberFormat": "%current%"
-});
-if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
-  window.dispatchEvent(new Event('resize'));
-});
-(function(d) {
-  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
-  if (!r) return;
-  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
-  d.head.appendChild(s);
-})(document);
-
-(function(d) {
-  var el = d.getElementsByClassName("remark-slides-area");
-  if (!el) return;
-  var slide, slides = slideshow.getSlides(), els = el[0].children;
-  for (var i = 1; i < slides.length; i++) {
-    slide = slides[i];
-    if (slide.properties.continued === "true" || slide.properties.count === "false") {
-      els[i - 1].className += ' has-continuation';
+<html lang="en"><head>
+<script src="class_18_files/libs/clipboard/clipboard.min.js"></script>
+<script src="class_18_files/libs/quarto-html/tabby.min.js"></script>
+<script src="class_18_files/libs/quarto-html/popper.min.js"></script>
+<script src="class_18_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="class_18_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="class_18_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="class_18_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
+
+  <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
+  <title>Probabilidad e Inferencia Estadística</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="class_18_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="class_18_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
     }
-  }
-  var s = d.createElement("style");
-  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
-  d.head.appendChild(s);
-})(document);
-// delete the temporary CSS (for displaying all slides initially) when the user
-// starts to view slides
-(function() {
-  var deleted = false;
-  slideshow.on('beforeShowSlide', function(slide) {
-    if (deleted) return;
-    var sheets = document.styleSheets, node;
-    for (var i = 0; i < sheets.length; i++) {
-      node = sheets[i].ownerNode;
-      if (node.dataset["target"] !== "print-only") continue;
-      node.parentNode.removeChild(node);
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
     }
-    deleted = true;
-  });
-})();
-// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
-// screen reader (see PR #262)
-(function(d) {
-  let res = {};
-  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
-    const t = tr.querySelector('td:nth-child(2)').innerText;
-    tr.querySelectorAll('td:first-child .key').forEach(key => {
-      const k = key.innerText;
-      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
-    });
-  });
-  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
-})(document);
-(function() {
-  "use strict"
-  // Replace <script> tags in slides area to make them executable
-  var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container script'
-  );
-  if (!scripts.length) return;
-  for (var i = 0; i < scripts.length; i++) {
-    var s = document.createElement('script');
-    var code = document.createTextNode(scripts[i].textContent);
-    s.appendChild(code);
-    var scriptAttrs = scripts[i].attributes;
-    for (var j = 0; j < scriptAttrs.length; j++) {
-      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
-    scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-})();
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-// adds .remark-code-has-line-highlighted class to <pre> parent elements
-// of code chunks containing highlighted lines with class .remark-code-line-highlighted
-(function(d) {
-  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
-  const preParents = [];
-  const findPreParent = function(line, p = 0) {
-    if (p > 1) return null; // traverse up no further than grandparent
-    const el = line.parentElement;
-    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
-  };
-
-  for (let line of hlines) {
-    let pre = findPreParent(line);
-    if (pre && !preParents.includes(pre)) preParents.push(pre);
-  }
-  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
-})(document);</script>
-
-<script>
-slideshow._releaseMath = function(el) {
-  var i, text, code, codes = el.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
       }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
     }
-    i++;
-  }
-};
-slideshow._releaseMath(document);
-</script>
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-(function () {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
-  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
-    script.src  = script.src.replace(/^https?:/, '');
-  document.getElementsByTagName('head')[0].appendChild(script);
-})();
-</script>
-  </body>
-</html>
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="class_18_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="gentle-r.css">
+  <link rel="stylesheet" href="xaringan-themer.css">
+  <link href="class_18_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="class_18_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="class_18_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="class_18_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#A0522D" class="quarto-title-block center">
+  <h1 class="title">Probabilidad e Inferencia Estadística</h1>
+  <p class="subtitle">Distribución t-student</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+<br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> mebucca@uc.cl 
+</div>
+</div>
+</div>
+
+</section>
+<section id="section" class="slide level2 inverse center middle">
+<h2></h2>
+</section>
+<section>
+<section id="distribución-t-student" class="title-slide slide level1 center">
+<h1>Distribución t-student</h1>
+
+</section>
+<section class="slide level2">
+
+<h3 id="william-sealy-gosset-1876-1937">William Sealy Gosset (1876-1937)</h3>
+<div class="pull-left">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="gosset.jpg"></p>
+<figcaption>Gosset</figcaption>
+</figure>
+</div>
+</div>
+<div class="pull-right">
+<p><br></p>
+<ul>
+<li><p>William Gosset trabajaba como estadístico en la cervecería <strong>Guinness</strong> en Dublín. .</p></li>
+<li><p>Testear calidad de las diferentes partidas de cerveza. Misma receta pero variación en calidad de los ingredientes (contenido de proteínas en la cebada).</p></li>
+<li><p>Dos problemas:</p>
+<ul>
+<li><p>Muestras pequeñas: la empresa no quería desperdiciar cerveza en experimentos.</p></li>
+<li><p>No conocía la varianza poblacional <span class="math inline">\(\sigma^2\)</span> de los ingredientes.</p></li>
+</ul></li>
+<li><p>Ambas limitaciones dificultaban el uso de herramientas estadísticas como el <em>TLC</em>.</p></li>
+</ul>
+</div>
+</section>
+<section id="problemas-tamaño-muestral-y-varianza-desconocida" class="slide level2">
+<h2>Problemas: tamaño Muestral y varianza desconocida</h2>
+<p><br> <br></p>
+<ul>
+<li><span class="bold">Tamaño Muestral</span>: Cuando se trabaja con muestras pequeñas ( <span class="math inline">\(\approx n &lt; 30\)</span> ), los resultados estadísticos tienden a ser menos precisos.</li>
+</ul>
+<p><br></p>
+<ul>
+<li><span class="bold">Varianza Desconocida</span>: Cuando no conocemos la <strong>varianza poblacional</strong> ( <span class="math inline">\(\sigma^2\)</span> ), debemos estimarla a partir de los datos: <span class="math inline">\(s^2\)</span>. Esto introduce una fuente adicional de incertidumbre, ya que <span class="math inline">\(s^2\)</span> es una estimación basada en datos limitados.</li>
+</ul>
+<p><br> - Relación entre <span class="bold">tamaño muestral</span> y <span class="bold">varianza desconocida</span>: cuando usamos la <strong>varianza muestral</strong> en lugar de la varianza poblacional, perdemos un <strong>grado de libertad</strong>.</p>
+<ul>
+<li>Para estimar la varianza muestral debemos primero estimar la media, lo que limita la capacidad de los datos de variar libremente.</li>
+</ul>
+</section>
+<section id="grados-de-libertad-df" class="slide level2">
+<h2>Grados de Libertad (df)</h2>
+<ul>
+<li>Los <strong>grados de libertad</strong> (df) son el número de valores que pueden variar de forma independiente en un cálculo estadístico.</li>
+</ul>
+<div class="fragment">
+<p><br></p>
+<p><span class="bold">Ejemplo:</span></p>
+<p>Tenemos 3 valores y conocemos la media:</p>
+<p><span class="math display">\[ X_1, X_2, X_3 \quad \text{con} \quad \bar{X} = 10 \]</span></p>
+<ul>
+<li>Si ya conocemos <span class="math inline">\(X_1\)</span> y <span class="math inline">\(X_2\)</span>, <span class="math inline">\(X_3\)</span> no puede variar libremente, porque está restringido por el valor de la media. Por tanto, solo hay <strong>2 grados de libertad</strong>.</li>
+</ul>
+</div>
+<div class="fragment">
+<p><br></p>
+<ul>
+<li><p>En el contexto de la <strong>varianza muestral</strong>, uno de los valores (la media muestral) ya ha sido utilizado para el cálculo, por lo que se pierde un grado de libertad.</p></li>
+<li><p>Luego, cuando calculamos la varianza en una muestra de tamaño <span class="math inline">\(n\)</span>, solo quedan <span class="math inline">\(n-1\)</span> grados de libertad.</p></li>
+</ul>
+</div>
+</section>
+<section id="la-solución-distribución-t-student" class="slide level2">
+<h2>La Solución: distribución <span class="math inline">\(t\)</span>-Student</h2>
+<div class="center">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="student.jpg"></p>
+<figcaption>Student</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="por-qué-usar-la-distribución-t">¿Por qué usar la Distribución t?</h3>
+<p><br></p>
+<p>Cuando la varianza poblacional es desconocida y trabajamos con muestras pequeñas esto introduce una mayor incertidumbre, que debe reflejarse en la forma de la distribución de probabilidad.</p>
+<p><br></p>
+<p>. . .</p>
+<ul>
+<li><p>La <strong>distribución <span class="math inline">\(t\)</span> de Student</strong> ajusta esta incertidumbre asignando mayor probabilidad de observar valores extremos.</p></li>
+<li><p>Probabilidad asignada a valores extremos es mayor mientras más pequeña es la muestra.</p></li>
+<li><p>La distribución <span class="math inline">\(t\)</span> es, por tanto, más conservadora</p></li>
+</ul>
+</section>
+<section class="slide level2">
+
+<h3 id="distribución-t-estándar">Distribución <span class="math inline">\(t\)</span> Estándar</h3>
+<div class="pull-left">
+<p>Bajo las circunstancias mencionadas (varianza desconocida y muestra chica), al realizar el proceso de estandarización obtenemos:</p>
+<p><br></p>
+<p><span class="math display">\[t = \frac{\bar{X} - \mu}{\frac{s}{\sqrt{n}}} \sim t_{v}\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Student_t_pdf.svg/400px-Student_t_pdf.svg.png"></p>
+<figcaption>Distribución t</figcaption>
+</figure>
+</div>
+</div>
+<div class="pull-right">
+<p><br><br><br><br><br><br><br><br><br><br> donde:</p>
+<ul>
+<li><p><span class="math inline">\(\bar{X}\)</span> es la media muestral,</p></li>
+<li><p><span class="math inline">\(\mu\)</span> es la media poblacional bajo <span class="math inline">\(H_0\)</span>,</p></li>
+<li><p><span class="math inline">\(s\)</span> es la desviación estándar muestral,</p></li>
+<li><p><span class="math inline">\(n\)</span> es el tamaño de la muestra,</p></li>
+<li><p><span class="math inline">\(k\)</span> es el número de parámetros estimados</p></li>
+<li><p><span class="math inline">\(v = n - k\)</span> son los <strong>grados de libertad</strong></p></li>
+</ul>
+</div>
+</section>
+<section class="slide level2">
+
+<h3 id="distribución-t-estándar-1">Distribución <span class="math inline">\(t\)</span> Estándar</h3>
+<div class="pull-left">
+<p>Bajo las circunstancias mencionadas (varianza desconocida y muestra chica), al realizar el proceso de estandarización obtenemos:</p>
+<p><br></p>
+<p><span class="math display">\[t = \frac{\bar{X} - \mu}{\frac{s}{\sqrt{n}}} \sim t_{v}\]</span></p>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Student_t_pdf.svg/400px-Student_t_pdf.svg.png"></p>
+<figcaption>Distribución t</figcaption>
+</figure>
+</div>
+</div>
+<div class="pull-right">
+<p><br><br><br><br><br><br></p>
+<p><span class="bold">Características</span>:</p>
+<ul>
+<li><p>La distribución <span class="math inline">\(t\)</span> tiene <strong>colas más gruesas</strong> que la normal estándar ( <span class="math inline">\(\text{Normal}(0,1)\)</span> ), reflejando mayor probabilidad de obtener valores extremos en muestras pequeñas.</p></li>
+<li><p><strong>Parámetro clave</strong>: La forma de la distribución <span class="math inline">\(t\)</span> depende de los <strong>grados de libertad</strong> <span class="math inline">\(v\)</span>.</p></li>
+<li><p><strong>Simetría</strong>: La distribución <span class="math inline">\(t\)</span>-standard es simétrica alrededor de 0.</p></li>
+<li><p><strong>Varianza</strong>: La varianza de la distribución <span class="math inline">\(t\)</span>-standard es ligeramente mayor que 1 para muestras pequeñas, y se aproxima a 1 a medida que <span class="math inline">\(n\)</span> aumenta.</p></li>
+</ul>
+</div>
+</section>
+<section id="convergencia-entre-la-distribución-t-y-la-normal" class="slide level2">
+<h2>Convergencia entre la Distribución <span class="math inline">\(t\)</span> y la Normal</h2>
+<p><br></p>
+<p>La <strong>distribución t de Student</strong> se aproxima a la <span class="math inline">\(\text{Normal}(0,1)\)</span> cuando el tamaño muestral tiende a infinito: <span class="math inline">\(n \to \infty\)</span>.</p>
+<p><br></p>
+<div class="fragment">
+<ul>
+<li><p>A medida que el número de grados de libertad aumenta, las colas de la distribución <span class="math inline">\(t\)</span> se vuelven menos pronunciadas.</p></li>
+<li><p>En el límite (cuando <span class="math inline">\(df \to \infty\)</span> ), la distribución <span class="math inline">\(t\)</span> se convierte en la distribución normal estándar.</p></li>
+</ul>
+<p><br></p>
+</div>
+<div class="fragment">
+<p>Formalmente, si <span class="math inline">\(T_n\)</span> es un estadístico <span class="math inline">\(t\)</span> con <span class="math inline">\(n-1\)</span> grados de libertad, entonces:</p>
+<p><br></p>
+<p><span class="math display">\[T_n \xrightarrow{d} \mathcal{N}(0,1) \quad \text{cuando} \quad n \to \infty \]</span></p>
+</div>
+</section>
+<section id="aplicación-al-test-de-hipótesis" class="slide level2">
+<h2>Aplicación al Test de Hipótesis</h2>
+<p><br></p>
+<p><span class="bold">Paso a Paso del test de hipótesis</span></p>
+<p>Cuando usamos la <strong>distribución t</strong> en un test de hipótesis, el proceso sigue estos pasos:</p>
+<div class="fragment">
+<p>1). Definir <span class="math inline">\(H_1\)</span> y <span class="math inline">\(H_0\)</span>.</p>
+</div>
+<div class="fragment">
+<p>2). Calcular el estadístico de interés (ej., media muestral)</p>
+</div>
+<div class="fragment">
+<p>3). Transformar el estadístico a valor <span class="math inline">\(t\)</span> (análogo a <span class="math inline">\(z\)</span> pero usando varianza muestral):</p>
+<p><span class="math display">\[t = \frac{\bar{X} - \mu_0}{\frac{s}{\sqrt{n}}}\]</span></p>
+</div>
+<div class="fragment">
+<p>4). Calcular valor- <span class="math inline">\(p\)</span> en base a la distribución <span class="math inline">\(t\)</span>-standard con grados de libertad <span class="math inline">\(n-k\)</span>.</p>
+</div>
+<div class="fragment">
+<p>5). Comparar con nivel de significación y tomar una decisión.</p>
+</div>
+</section>
+<section id="en-resumen" class="slide level2">
+<h2>En resumen:</h2>
+<p>La <strong>distribución t de Student</strong> se utiliza principalmente bajo las siguientes condiciones:</p>
+<ol type="1">
+<li><p>Varianza poblacional es desconocida</p></li>
+<li><p>El tamaño de la muestra es pequeño (generalmente <span class="math inline">\(n &lt; 30\)</span>).</p></li>
+</ol>
+<p><br></p>
+<div class="fragment">
+<p>Entonces, ¿cuándo se usa la distribución <span class="math inline">\(t\)</span>?</p>
+<p><br></p>
+</div>
+<div class="fragment">
+<ul>
+<li><p>Varianza desconocida + muestra pequeña: Usamos distribución <span class="math inline">\(t\)</span>.</p></li>
+<li><p>Varianza desconocida + muestra grande: <em>Podemos</em> usar distribución normal</p></li>
+<li><p>Varianza conocida (sin importar el tamaño muestral): Usamos distribución normal (este siempre es el caso cuando estimamos proporciones!).</p></li>
+</ul>
+</div>
+</section>
+<section id="ejemplo-calorías-en-bebidas-de-starbucks" class="slide level2 inverse center middle">
+<h2>Ejemplo: Calorías en bebidas de Starbucks</h2>
+</section>
+<section id="ejemplo-calorías-en-bebidas-de-starbucks-1" class="slide level2">
+<h2>Ejemplo: calorías en bebidas de Starbucks</h2>
+<div class="center">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="starbucks.jpg"></p>
+<figcaption>starbuck</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="ejemplo-calorías-en-bebidas-de-starbucks-2" class="slide level2">
+<h2>Ejemplo: Calorías en bebidas de Starbucks</h2>
+<ul>
+<li><p>Un estudiante quiere saber cual es el promedio de calorías de los bebestibles de Starbucks.</p></li>
+<li><p>Decide comprar 12 bebestibles aleatoriamente y medir su contenido calórico. Los datos se ven así:</p></li>
+</ul>
+<p><br></p>
+<div class="center">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 12 × 2
+   Drink                                       Calories
+   &lt;chr&gt;                                          &lt;dbl&gt;
+ 1 White Chocolate Mocha                            360
+ 2 Cool Lime Starbucks Refreshers™ Beverage          45
+ 3 Tazo® Bottled White Cranberry                    140
+ 4 Decaf Pike Place® Roast                            5
+ 5 Tazo® Bottled Organic Iced Black Tea              60
+ 6 Tazo® Bottled Black with Lemon                   140
+ 7 Blonde Roast                                       5
+ 8 Evolution Fresh™ Organic Ginger Limeade          110
+ 9 Vanilla Sweet Cream Cold Brew                    110
+10 Iced Espresso Classics - Caramel Macchiato       130
+11 Iced Caffè Mocha                                 230
+12 Starbucks Refreshers™ Raspberry Pomegranate       90</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="ejemplo-calorías-en-bebidas-de-starbucks-3" class="slide level2">
+<h2>Ejemplo: Calorías en bebidas de Starbucks</h2>
+<h3 id="paso-1-elaborar-hipótesis-nula-y-alternativa">Paso #1: Elaborar Hipótesis Nula y Alternativa</h3>
+<p>Hipótesis de trabajo: <em>“En promedio, un bebestible de Starbuck tiene más de 100 calorías”</em></p>
+<p><br></p>
+<ul>
+<li><p><span class="math inline">\(H_0: \mathbb{E}(X) = 100 \text{ kcal}\)</span></p></li>
+<li><p><span class="math inline">\(H_1: \mathbb{E}(X) &gt; 100 \text{ kcal}\)</span></p></li>
+</ul>
+</section>
+<section id="ejemplo-calorías-en-bebidas-de-starbucks-4" class="slide level2">
+<h2>Ejemplo: Calorías en bebidas de Starbucks</h2>
+<h3 id="paso-2-calcular-un-estadístico">Paso #2: Calcular un Estadístico</h3>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>mu_hat <span class="ot">&lt;-</span> starbucks_muestra <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mu_hat =</span> <span class="fu">mean</span>(Calories)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
+<span id="cb2-2"><a href=""></a><span class="fu">cat</span>(<span class="st">"media muestral: "</span>,mu_hat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>media muestral:  118.75</code></pre>
+</div>
+</div>
+<p>. . .</p>
+<p>Estandarizando nuestro estadístico obtenemos:</p>
+<p><span class="math display">\[\hat{t} = \frac{\hat{\mu} - \mu}{\frac{\sigma}{\sqrt{n}}} = \frac{144.17 - 100}{\frac{\sigma}{\sqrt{12}}}\]</span></p>
+<p>. . .</p>
+<ul>
+<li>Como no conocemos <span class="math inline">\(\sigma\)</span> debemos estimarlo a partir de la muestra (<span class="math inline">\(s\)</span>).</li>
+</ul>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>s <span class="ot">&lt;-</span> starbucks_muestra <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">s =</span> <span class="fu">sd</span>(Calories)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
+<span id="cb4-2"><a href=""></a><span class="fu">cat</span>(<span class="st">"desviación estándard muestral: "</span>, s)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>desviación estándard muestral:  98.79099</code></pre>
+</div>
+</div>
+<p>Luego:</p>
+<p><span class="math inline">\(\hat{t} = \frac{\hat{\mu} - \mu}{\frac{s}{\sqrt{n}}} = \frac{144.17 - 100}{\frac{91.4}{\sqrt{12}}} =\)</span> 0.6574679</p>
+</section>
+<section id="ejemplo-calorías-en-bebidas-de-starbucks-5" class="slide level2">
+<h2>Ejemplo: Calorías en bebidas de Starbucks</h2>
+<h3 id="paso-3-determinar-la-distribución-nula">Paso #3: Determinar la Distribución Nula</h3>
+<p><br></p>
+<p>En nuestro caso: <span class="math inline">\(\hat{t} \mid H_0 \text{ es verdadera} \sim t_{v=11}\)</span></p>
+<p><br></p>
+<p>. . .</p>
+<div class="center">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_18_files/figure-revealjs/unnamed-chunk-5-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<h3 id="paso-4-decidir-el-nivel-de-significación">Paso #4: Decidir el Nivel de Significación</h3>
+<ul>
+<li><p>Trabajaremos a un nivel de significación estadística <span class="math inline">\(\alpha=0.05\)</span></p></li>
+<li><p>Dado que <span class="math inline">\(H_1: \mathbb{E}(X) &gt; 100 \text{ kcal}\)</span>, tiene sentido testear si nuestro estadístico se encuentra en el <span class="math inline">\(\alpha\)</span>% más alto de la distribución nula.</p></li>
+</ul>
+</section>
+<section id="ejemplo-calorías-en-bebidas-de-starbucks-6" class="slide level2">
+<h2>Ejemplo: Calorías en bebidas de Starbucks</h2>
+<h3 id="paso-5-calcular-el-valor-p">Paso #5: Calcular el Valor-p</h3>
+<div class="pull-left">
+<p>En nuestro caso:</p>
+<p><span class="math inline">\(\text{valor-p}: \mathbb{P}( \bar{X} &gt; \hat{\mu} \mid H_{0} \text{ es verdadera})\)</span></p>
+<p>equivalente a:</p>
+<p><span class="math inline">\(\text{valor-p} = \mathbb{P}( t_{v=11} &gt; \hat{t})\)</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>t_hat <span class="ot">=</span> (mu_hat <span class="sc">-</span> <span class="dv">100</span>)<span class="sc">/</span>(s<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">12</span>))</span>
+<span id="cb6-2"><a href=""></a>pvalue <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(t_hat, <span class="at">df=</span><span class="dv">11</span>)</span>
+<span id="cb6-3"><a href=""></a><span class="fu">cat</span>(<span class="st">" t_hat="</span>,<span class="fu">round</span>(t_hat,<span class="dv">2</span>), </span>
+<span id="cb6-4"><a href=""></a>    <span class="st">"</span><span class="sc">\n</span><span class="st"> valor crítico="</span>, <span class="fu">qt</span>(<span class="fl">0.95</span>,<span class="at">df=</span><span class="dv">11</span>), </span>
+<span id="cb6-5"><a href=""></a>    <span class="st">"</span><span class="sc">\n</span><span class="st"> valor-p="</span>, pvalue, </span>
+<span id="cb6-6"><a href=""></a>    <span class="at">sep=</span><span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code> t_hat=0.66
+ valor crítico=1.795885
+ valor-p=0.2621995</code></pre>
+</div>
+</div>
+</div>
+<div class="pull-right">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_18_files/figure-revealjs/unnamed-chunk-7-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="ejemplo-calorías-en-bebidas-de-starbucks-7" class="slide level2">
+<h2>Ejemplo: Calorías en bebidas de Starbucks</h2>
+<h3 id="paso-6-mantener-o-rechazar-la-hipótesis-nula">Paso #6: Mantener o Rechazar la Hipótesis Nula</h3>
+<p>Finalmente, debemos decidir si rechazar o no la hipótesis nula</p>
+<div class="pull-left">
+<p><span class="bold">Decisión:</span></p>
+<ul>
+<li><p>Si <span class="math inline">\(\text{valor-p} &lt; \alpha\)</span> entonces rechazamos <span class="math inline">\(H_{0}\)</span></p></li>
+<li><p>Si <span class="math inline">\(\text{valor-p} &gt; \alpha\)</span> no podemos rechazar <span class="math inline">\(H_{0}\)</span></p></li>
+</ul>
+</div>
+<p>. . .</p>
+<div class="pull-right">
+<ul>
+<li><p>En este caso, al 5% de significación estadística, no podemos rechazar la hipótesis nula</p></li>
+<li><p>No tenemos evidencia para rechazar la hipótesis de que los bebestibles de Starbucks tienen, en promedio, 100 calorías (ni menos).</p></li>
+</ul>
+</div>
+</section>
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<h2>Hasta la próxima clase. Gracias!</h2>
+<p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="class_18_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="class_18_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="class_18_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="class_18_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="class_18_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="class_18_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="class_18_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="class_18_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="class_18_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="class_18_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

@@ -1,466 +1,856 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
-  <head>
-    <title>Probabilidad e Inferencia Estadística</title>
-    <meta charset="utf-8" />
-    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
-    <script src="libs/header-attrs-2.29/header-attrs.js"></script>
-    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
-    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
-  </head>
-  <body>
-    <textarea id="source">
-class: center, middle, inverse, title-slide
-
-.title[
-# Probabilidad e Inferencia Estadística
-]
-.subtitle[
-## Asociación entre variables continuas
-]
-.author[
-### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
-]
-
----
-
-class: inverse, center, middle
-
-
-
-
-
-# Asociación entre variables continuas
-## Covarianza
-
----
-## Brechas de ingresos entre hombres y mujeres
-
-
-.pull-left[
-![women](https://wbhm.org/wp-content/uploads/2023/10/gettyimages-2666616-930494094c2bc07b528ff36d8b481f35c097fb14-2-800x450.jpg)
-]
-.pull-right[
-![goldin](https://cdn.corrieredellosport.it/img/990/495/2023/10/09/181036087-9d1453e1-65e2-43be-a2be-c42861da4f93.jpg)
-
-]
-
----
-## Retornos a la educación para hombres y mujeres
-
-
-
-
-
-.center[
-
-![](class_24_files/figure-html/unnamed-chunk-2-1.png)&lt;!-- --&gt;
-]
-
-&lt;br&gt;
---
-
-- ¿Existe una asociación entre los años de escolaridad y los ingresos?
-
-- ¿Varía esta asociación por género?
-
-
-
-
----
-## Asociación entre variables continuas
-
-.bold[Independencia (no asociación)]
-
-.center[
-
-![](class_24_files/figure-html/unnamed-chunk-3-1.png)&lt;!-- --&gt;
-]
-
---
-
-
-- Dado un valor en una variable, los valores de la otra varían ampliamente.
-
-- Es decir: sabiendo algo sobre una variable no se nada sobre la otra. 
-
-
-
-
----
-## Asociación entre variables continuas
-
-
-.pull-left[
-.bold[Asociación positiva]
-
-.center[
-![](class_24_files/figure-html/unnamed-chunk-4-1.png)&lt;!-- --&gt;
-]
-]
-
-
-.pull-right[
-
-.bold[Aociación perfecta (e=mc^2)]
-
-.center[
-![](class_24_files/figure-html/unnamed-chunk-5-1.png)&lt;!-- --&gt;
-]
-]
-
---
-
-
-- Dado un valor en una variable, los valores de la otra variable varías poco (o nada).
-
-- Es decir: sabiendo algo sobre una variable se algo (o todo) sobre la otra. 
-
-
-
----
-class: inverse, center, middle
-
-
-#Covarianza
-
-
----
-##Covarianza
-
-&lt;br&gt;
---
-
-- Hasta ahora hemos trabajado principalmente con variables aleatorias independiente, `\(Y \perp X\)`.
-
---
-
-- Dos variable aleatorias son dependiente entre si `\(\mathbb{P}(Y \mid X ) \neq \mathbb{P}(Y)\)`, y viceversa. 
-
---
-
-- Otra forma de persona la dependencia es en términos de co-variabilidad entre dos variables aleatorias.
-
-&lt;br&gt;
-&lt;br&gt;
---
-
-La .bold[covarianza] mide la dependencia (lineal*) entre dos variables aleatorias. Formalmente:
-
-
-
-.content-box-secondary[
-`$$\color{white}{\mathbb{Cov}(X, Y) = \mathbb{E}[ \ (X - \mathbb{E}[X]) \ (Y - \mathbb{E}[Y]) \ ]}$$`
-]
-
-&lt;br&gt;
---
-
-En promedio, ¿cuánto y cómo se desvía `\(X\)` respecto de su media, cuando `\(Y\)` se desvía de la suya?
-
-
----
-##Covarianza
-
-
-&lt;br&gt;
-
-.center[
-
-![](class_24_files/figure-html/unnamed-chunk-6-1.png)&lt;!-- --&gt;
-
-]
-
-- .bold[Cov(esc,log-ingreso) | Hombre] = 1.8612011
-
-- .bold[Cov(esc,log-ingreso) | Mujer] = 2.1777403
-
-
----
-##Interpretación de la covarianza
-
-&lt;br&gt;
-
- La covarianza se puede interpretar de la siguiente manera:
- 
-&lt;br&gt;
- 
-  - .bold[Covarianza positiva]: X e Y tienden a aumentar o disminuir juntas.
+<html lang="en"><head>
+<script src="class_24_files/libs/clipboard/clipboard.min.js"></script>
+<script src="class_24_files/libs/quarto-html/tabby.min.js"></script>
+<script src="class_24_files/libs/quarto-html/popper.min.js"></script>
+<script src="class_24_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="class_24_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="class_24_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="class_24_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
+
+  <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
+  <title>Probabilidad e Inferencia Estadística</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="class_24_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="class_24_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
+    }
+  </style>
+  <link rel="stylesheet" href="class_24_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="gentle-r.css">
+  <link rel="stylesheet" href="xaringan-themer.css">
+  <link href="class_24_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="class_24_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="class_24_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="class_24_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#4682B4" class="quarto-title-block center">
+  <h1 class="title">Probabilidad e Inferencia Estadística</h1>
+  <p class="subtitle">Asociación entre variables continuas</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+<br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> mebucca@uc.cl 
+</div>
+</div>
+</div>
+
+</section>
+<section id="section" class="slide level2 inverse center middle">
+<h2></h2>
+</section>
+<section>
+<section id="asociación-entre-variables-continuas" class="title-slide slide level1 center">
+<h1>Asociación entre variables continuas</h1>
+
+</section>
+<section id="covarianza" class="slide level2">
+<h2>Covarianza</h2>
+</section>
+<section id="brechas-de-ingresos-entre-hombres-y-mujeres" class="slide level2">
+<h2>Brechas de ingresos entre hombres y mujeres</h2>
+<div class="pull-left">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://wbhm.org/wp-content/uploads/2023/10/gettyimages-2666616-930494094c2bc07b528ff36d8b481f35c097fb14-2-800x450.jpg"></p>
+<figcaption>women</figcaption>
+</figure>
+</div>
+</div>
+<div class="pull-right">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="https://cdn.corrieredellosport.it/img/990/495/2023/10/09/181036087-9d1453e1-65e2-43be-a2be-c42861da4f93.jpg"></p>
+<figcaption>goldin</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="retornos-a-la-educación-para-hombres-y-mujeres" class="slide level2">
+<h2>Retornos a la educación para hombres y mujeres</h2>
+<div class="center">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_24_files/figure-revealjs/unnamed-chunk-2-1.png" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<p><br></p>
+<div class="fragment">
+<ul>
+<li><p>¿Existe una asociación entre los años de escolaridad y los ingresos?</p></li>
+<li><p>¿Varía esta asociación por género?</p></li>
+</ul>
+</div>
+</section>
+<section id="asociación-entre-variables-continuas-1" class="slide level2">
+<h2>Asociación entre variables continuas</h2>
+<p><span class="bold">Independencia (no asociación)</span></p>
+<div class="center">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_24_files/figure-revealjs/unnamed-chunk-3-1.png" width="960"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li><p>Dado un valor en una variable, los valores de la otra varían ampliamente.</p></li>
+<li><p>Es decir: sabiendo algo sobre una variable no se nada sobre la otra.</p></li>
+</ul>
+</div>
+</section>
+<section id="asociación-entre-variables-continuas-2" class="slide level2">
+<h2>Asociación entre variables continuas</h2>
+<div class="pull-left">
+<p><span class="bold">Asociación positiva</span></p>
+<div class="center">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_24_files/figure-revealjs/unnamed-chunk-4-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pull-right">
+<p><span class="bold">Asociación perfecta (e=mc^2)</span></p>
+<div class="center">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_24_files/figure-revealjs/unnamed-chunk-5-1.png" width="480"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<ul>
+<li><p>Dado un valor en una variable, los valores de la otra variable varías poco (o nada).</p></li>
+<li><p>Es decir: sabiendo algo sobre una variable se algo (o todo) sobre la otra.</p></li>
+</ul>
+</div>
+</section>
+<section id="covarianza-1" class="slide level2 inverse center middle section-title">
+<h2>Covarianza</h2>
+</section>
+<section id="covarianza-2" class="slide level2">
+<h2>Covarianza</h2>
+<p><br></p>
+<div class="fragment">
+<ul>
+<li>Hasta ahora hemos trabajado principalmente con variables aleatorias independiente, <span class="math inline">\(Y \perp X\)</span>.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Dos variable aleatorias son dependiente entre si <span class="math inline">\(\mathbb{P}(Y \mid X ) \neq \mathbb{P}(Y)\)</span>, y viceversa.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Otra forma de pensar la dependencia es en términos de co-variabilidad entre dos variables aleatorias.</li>
+</ul>
+<p><br> <br></p>
+</div>
+<div class="fragment">
+<p>La <span class="bold">covarianza</span> mide la dependencia (lineal*) entre dos variables aleatorias. Formalmente:</p>
+<div class="content-box-secondary">
+<p><span class="math display">\[\color{white}{\mathbb{Cov}(X, Y) = \mathbb{E}[ \ (X - \mathbb{E}[X]) \ (Y - \mathbb{E}[Y]) \ ]}\]</span></p>
+</div>
+<p><br></p>
+</div>
+<div class="fragment">
+<p>En promedio, ¿cuánto y cómo se desvía <span class="math inline">\(X\)</span> respecto de su media, cuando <span class="math inline">\(Y\)</span> se desvía de la suya?</p>
+</div>
+</section>
+<section id="covarianza-3" class="slide level2">
+<h2>Covarianza</h2>
+<p><br></p>
+<div class="center">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_24_files/figure-revealjs/unnamed-chunk-6-1.png" width="864"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<ul>
+<li><p><span class="bold">Cov(esc,log-ingreso) | Hombre</span> = 1.8612011</p></li>
+<li><p><span class="bold">Cov(esc,log-ingreso) | Mujer</span> = 2.1777403</p></li>
+</ul>
+</section>
+<section id="interpretación-de-la-covarianza" class="slide level2">
+<h2>Interpretación de la covarianza</h2>
+<p><br></p>
+<p>La covarianza se puede interpretar de la siguiente manera:</p>
+<p><br></p>
+<ul>
+<li><p><span class="bold">Covarianza positiva</span>: X e Y tienden a aumentar o disminuir juntas.</p></li>
+<li><p><span class="bold">Covarianza negativa</span>: X aumenta cuando Y disminuye y viceversa.</p></li>
+<li><p><span class="bold">Covarianza cero</span>: No hay relación lineal.</p></li>
+</ul>
+</section>
+<section id="propiedades-de-la-covarianza" class="slide level2">
+<h2>Propiedades de la covarianza</h2>
+<p><br></p>
+<ul>
+<li><p><span class="bold">Covarianza de variables independientes</span>- Si dos variables aleatorias <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> son independientes, entonces</p>
+<p><span class="math display">\[\mathbb{Cov}(X, Y) = 0\]</span></p></li>
+</ul>
+<div class="fragment">
+<ul>
+<li><p><span class="bold">Covarianza de variable perfectamente dependientes</span> (consigo misma)</p>
+<p><span class="math display">\[\mathbb{Cov}(X, X) = \text{Var}(X)\]</span></p></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><p><span class="bold">Covarianza con una Constante</span></p>
+<p><span class="math display">\[\mathbb{Cov}(X, a) = 0\]</span></p></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="bold">Aditividad</span></li>
+</ul>
+<p><span class="math display">\[\mathbb{Cov}(X + Y, Z) = \mathbb{Cov}(X, Z) + \mathbb{Cov}(Y, Z)\]</span></p>
+</div>
+<div class="fragment">
+<ul>
+<li><span class="bold">Multiplicación por una constante</span></li>
+</ul>
+<p><span class="math display">\[\mathbb{Cov}(aX, Y) = a \cdot \mathbb{Cov}(X, Y)\]</span></p>
+</div>
+</section>
+<section id="estimación-de-la-covarianza" class="slide level2">
+<h2>Estimación de la covarianza</h2>
+<p><br></p>
+<p>Podemos estimar la covarianza a partir de datos muestrales usando la siguiente fórmula</p>
+<p><br></p>
+<p><span class="math display">\[s_{XY} = \frac{\sum_{i=1}^{n} (X_i - \bar{X})(Y_i - \bar{Y})}{n-1}\]</span></p>
+<p><br></p>
+<div class="fragment">
+<ul>
+<li><span class="math inline">\(s_{XY}\)</span> es un estimador insesgado de <span class="math inline">\(\mathbb{Cov}(X, Y)\)</span>.</li>
+</ul>
+</div>
+</section>
+<section id="problema-de-interpretación-de-la-covarianza" class="slide level2">
+<h2>Problema de interpretación de la covarianza</h2>
+<ul>
+<li><p>Supongamos que la asociación entre escolaridad e ingresos es la misma para hombres y para mujeres</p></li>
+<li><p>Supongamos que el ingreso de los hombres es el doble que el de las mujeres: <span class="math inline">\(Y_h = 2 \times Y_m\)</span></p></li>
+<li><p>Supongamos que la escolaridad de los hombres es un 75% que la de las mujeres: <span class="math inline">\(E_h = 0.75  \times E_m\)</span></p></li>
+</ul>
+<div class="fragment">
+<div class="pull-left">
+<p><span class="bold">Hombres</span></p>
+<div class="center">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_24_files/figure-revealjs/unnamed-chunk-7-1.png" width="432"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="pull-right">
+<p><span class="bold">Mujeres</span></p>
+<div class="center">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_24_files/figure-revealjs/unnamed-chunk-8-1.png" width="432"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="problema-de-interpretación-de-la-covarianza-1" class="slide level2">
+<h2>Problema de interpretación de la covarianza</h2>
+<p><br></p>
+<div class="fragment">
+<ul>
+<li>Si <span class="math inline">\(Y_h = 2 \times Y_m \quad\)</span> y <span class="math inline">\(\quad E_h = 0.75  \times E_m\)</span></li>
+</ul>
+<p><br></p>
+</div>
+<div class="fragment">
+<p><span class="math display">\[\color{blue}{\mathbb{Cov}(E_h, Y_h)} = \mathbb{Cov}( 0.75 \times E_m, 2 \times Y_m) = \color{red}{0.75  \times  2} \times \color{blue}{\mathbb{Cov}(E_m, Y_m)}\]</span></p>
+<p><br></p>
+</div>
+<div class="fragment">
+<ul>
+<li><p><span class="bold">Cov(esc,log-ingreso) | Hombre</span> = 117.8963288</p></li>
+<li><p><span class="bold">Cov(esc,log-ingreso) | Mujer</span> = 78.5975525</p></li>
+</ul>
+<p><br><br></p>
+</div>
+<div class="fragment">
+<p><span class="bold">Problema de interpretabilidad:</span> La covarianza combina dos cosas:</p>
+<ul>
+<li><p>La fuerza de la asociación entre las variables</p></li>
+<li><p>La escala de dichas variables</p></li>
+<li><p>Por tanto, el número obtenido no indica inequivocamente la fuerza de la asociación</p></li>
+</ul>
+</div>
+</section>
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<h2>Hasta la próxima clase. Gracias!</h2>
+<p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="class_24_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="class_24_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="class_24_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="class_24_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="class_24_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="class_24_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
-  - .bold[Covarianza negativa]: X aumenta cuando Y disminuye y viceversa.
-  
-  - .bold[Covarianza cero]: No hay relación lineal.
 
----
-##Propiedades de la covarianza
+  <script src="class_24_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="class_24_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="class_24_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="class_24_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
-&lt;br&gt;
+  <script>
 
-- .bold[Covarianza de variables independientes]- Si dos variables aleatorias `\(X\)` e `\(Y\)` son independientes, entonces
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
 
-   `$$\mathbb{Cov}(X, Y) = 0$$`
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
 
---
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
 
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
 
-- .bold[Covarianza de variable perfectamente dependientes] (consigo misma)
+        // Display a presentation progress bar
+        progress: true,
 
-   `$$\mathbb{Cov}(X, X) = \text{Var}(X)$$`   
-   
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
 
---
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
 
-- .bold[Covarianza con una Constante]
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
 
-   `$$\mathbb{Cov}(X, a) = 0$$`
-   
---
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
 
-- .bold[Aditividad]
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
 
-`$$\mathbb{Cov}(X + Y, Z) = \mathbb{Cov}(X, Z) + \mathbb{Cov}(Y, Z)$$`
+        // Push each slide change to the browser history
+        history: true,
 
---
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
 
-- .bold[Multiplicación por una constante]
+        // Enable the slide overview mode
+        overview: true,
 
-`$$\mathbb{Cov}(aX, Y) = a \cdot \mathbb{Cov}(X, Y)$$`
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
 
----
-##Estimación de la covarianza
+        // Vertical centering of slides
+        center: false,
 
-&lt;br&gt;
+        // Enables touch navigation on devices with touch input
+        touch: true,
 
-Podemos estimar la covianza a partir de datos muestrales usando la siguiente fórmula
+        // Loop the presentation
+        loop: false,
 
-&lt;br&gt;
+        // Change the presentation direction to be RTL
+        rtl: false,
 
-   `$$s_{XY} = \frac{\sum_{i=1}^{n} (X_i - \bar{X})(Y_i - \bar{Y})}{n-1}$$`
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
 
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
 
-&lt;br&gt;
---
+        // Turns fragments on and off globally
+        fragments: true,
 
-- `\(s_{XY}\)` es un estimador insesgado de `\(\mathbb{Cov}(X, Y)\)`.
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
 
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
 
----
-## Problema de interpretación de la covariana
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
 
-
-- Supongamos que la asociación entre escolariadad e ingresos es la misma para hombres y para mujeres
-
-- Supongamos que el ingreso de los hombres es el doble que el de las mujeres: `\(Y_h = 2 \times Y_m\)`
-
-- Supongamos que la escolaridad de los hombres es un 75% que la de las mujeres:s: `\(E_h = 0.75  \times E_m\)`
-
---
-
-
-.pull-left[
-.bold[Hombres]
-
-.center[
-![](class_24_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
-]
-]
-
-
-.pull-right[
-
-.bold[Mujeres]
-
-.center[
-![](class_24_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
-]
-]
-
-
----
-## Problema de interpretación de la covariana
-
-&lt;br&gt;
-
---
-
-- Si `\(Y_h = 2 \times Y_m \quad\)` y  `\(\quad E_h = 0.75  \times E_m\)`
-
-&lt;br&gt;
---
-
-`$$\color{blue}{\mathbb{Cov}(E_h, Y_h)} = \mathbb{Cov}( 0.75 \times E_m, 2 \times Y_m) = \color{red}{0.75  \times  2} \times \color{blue}{\mathbb{Cov}(E_m, Y_m)}$$`
-
-&lt;br&gt;
---
-
-
-- .bold[Cov(esc,log-ingreso) | Hombre] = 90.1150216
-
-- .bold[Cov(esc,log-ingreso) | Mujer] = 60.076681
-
-
-&lt;br&gt;&lt;br&gt;
-
---
-
-.bold[Problema de interpretabilidad:] La covarianza combina dos cosas:
-
-- La fuerza de la asociación entre las variables
-
-- La escala de dichas variables
-
-- Por tanto, el número obtenido no indica inequivocamente la fuerza de la asociación
-
-
----
-class: inverse, center, middle
-
-
-##Hasta la próxima clase. Gracias!
-
-&lt;br&gt;
-Mauricio Bucca &lt;br&gt;
-https://mebucca.github.io/ &lt;br&gt;
-github.com/mebucca
-
-
-
-
-    </textarea>
-<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
-<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script>var slideshow = remark.create({
-  "ratio": "16:9",
-  "highlightStyle": "github",
-  "highlightLines": true,
-  "countIncrementalSlides": true,
-  "slideNumberFormat": "%current%"
-});
-if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
-  window.dispatchEvent(new Event('resize'));
-});
-(function(d) {
-  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
-  if (!r) return;
-  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
-  d.head.appendChild(s);
-})(document);
-
-(function(d) {
-  var el = d.getElementsByClassName("remark-slides-area");
-  if (!el) return;
-  var slide, slides = slideshow.getSlides(), els = el[0].children;
-  for (var i = 1; i < slides.length; i++) {
-    slide = slides[i];
-    if (slide.properties.continued === "true" || slide.properties.count === "false") {
-      els[i - 1].className += ' has-continuation';
-    }
-  }
-  var s = d.createElement("style");
-  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
-  d.head.appendChild(s);
-})(document);
-// delete the temporary CSS (for displaying all slides initially) when the user
-// starts to view slides
-(function() {
-  var deleted = false;
-  slideshow.on('beforeShowSlide', function(slide) {
-    if (deleted) return;
-    var sheets = document.styleSheets, node;
-    for (var i = 0; i < sheets.length; i++) {
-      node = sheets[i].ownerNode;
-      if (node.dataset["target"] !== "print-only") continue;
-      node.parentNode.removeChild(node);
-    }
-    deleted = true;
-  });
-})();
-// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
-// screen reader (see PR #262)
-(function(d) {
-  let res = {};
-  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
-    const t = tr.querySelector('td:nth-child(2)').innerText;
-    tr.querySelectorAll('td:first-child .key').forEach(key => {
-      const k = key.innerText;
-      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
-    });
-  });
-  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
-})(document);
-(function() {
-  "use strict"
-  // Replace <script> tags in slides area to make them executable
-  var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container script'
-  );
-  if (!scripts.length) return;
-  for (var i = 0; i < scripts.length; i++) {
-    var s = document.createElement('script');
-    var code = document.createTextNode(scripts[i].textContent);
-    s.appendChild(code);
-    var scriptAttrs = scripts[i].attributes;
-    for (var j = 0; j < scriptAttrs.length; j++) {
-      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
-    }
-    scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-})();
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-// adds .remark-code-has-line-highlighted class to <pre> parent elements
-// of code chunks containing highlighted lines with class .remark-code-line-highlighted
-(function(d) {
-  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
-  const preParents = [];
-  const findPreParent = function(line, p = 0) {
-    if (p > 1) return null; // traverse up no further than grandparent
-    const el = line.parentElement;
-    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
-  };
-
-  for (let line of hlines) {
-    let pre = findPreParent(line);
-    if (pre && !preParents.includes(pre)) preParents.push(pre);
-  }
-  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
-})(document);</script>
-
-<script>
-slideshow._releaseMath = function(el) {
-  var i, text, code, codes = el.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
-      }
-    }
-    i++;
-  }
-};
-slideshow._releaseMath(document);
-</script>
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-(function () {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
-  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
-    script.src  = script.src.replace(/^https?:/, '');
-  document.getElementsByTagName('head')[0].appendChild(script);
-})();
-</script>
-  </body>
-</html>
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

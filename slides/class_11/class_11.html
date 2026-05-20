@@ -1,575 +1,996 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
-  <head>
-    <title>Probabilidad e Inferencia Estadística</title>
-    <meta charset="utf-8" />
-    <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl" />
-    <script src="libs/header-attrs-2.27/header-attrs.js"></script>
-    <link rel="stylesheet" href="gentle-r.css" type="text/css" />
-    <link rel="stylesheet" href="xaringan-themer.css" type="text/css" />
-  </head>
-  <body>
-    <textarea id="source">
-class: center, middle, inverse, title-slide
-
-.title[
-# Probabilidad e Inferencia Estadística
-]
-.subtitle[
-## Estimador y su Distribución Muestral
-]
-.author[
-### <br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> <a href="mailto:mebucca@uc.cl" class="email">mebucca@uc.cl</a>
-]
-.date[
-### 23 September, 2025
-]
-
----
-
-
-
-
-
-## Estadística
-
-.center[![stats](stats.png)]
-
----
-class: inverse, center, middle
-
-
-#Estimación
-
-
----
-#Estimación
-
-
-
-
-
-- Una socióloga quiere saber el promedio de años de escolaridad en USA
-  
---
-
-- La socióloga toma una muestra aleatoria de 100 personas `\(m: \{X_1, \dots, X_{100} \}\)`. Los datos se ven así: 
-
---
-
-.pull-left[
-
-```
-## # A tibble: 100 × 3
-##    year   educ   age
-##    &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 1978     12    50
-##  2 2016     13    36
-##  3 2006     20    72
-##  4 1982      9    53
-##  5 2004     16    43
-##  6 1978     16    30
-##  7 1984     15    72
-##  8 2014     16    50
-##  9 1982     16    24
-## 10 1984     12    52
-## # ℹ 90 more rows
-```
-]
-
---
-
-.pull-right[
-
-&lt;br&gt;
-
-- .bold[Datos]: realización de `\(n\)` variables aleatorias 
-
-- Normalmente *.bold[no conocemos]* la distribución de las variables.
-
-- .bold[Estadística]: aprender de los datos para .bold[estimar] los parámetros que los generan
-
-]
-
-
-
----
-## Estimando, Estimador y Estimado
-
---
-
-- El .bold[estimando] es aquello que queremos conocer. Dicho de otra forma, es el parámetro (poblacional/teórico) de interés. Llamémoslo `\(\beta\)`.
-  - Ej. `\(\beta:\)` "promedio de años de escolaridad en USA"
-
---
-
-- Un .bold[estimador] es una función - una formula - que aplicamos a los datos para obtener una *aproximación*  del parámetro de nuestro parámetro de interés o *estimando*. Denotémos el estimador como  `\(f(\text{datos})\)`.
-  - Ej. `\(f(\text{datos}): \frac{\sum{\text{datos}}}{n}\)` 
-
---
-
-- El .bold[estimado] es la cantidad obtenida al aplicar el *estimador* a los datos. Este número es una aproximación del *estimando*. Denotémoslo como `\(\hat{\beta}\)`.
-  - Ej. `\(\hat{\beta} = 11.6\)` 
-
-
---
-En resumen: 
-.content-box-primary[
-`$$\color{white}{\text{estimador}(\underbrace{\beta}_{\text{estimando}}): f(\text{datos}) = \underbrace{\hat{\beta}}_{\text{estimado}}}$$`
-]
-
----
-## Estimando, Estimador y Estimado
-
-.center[![estimado](estimado.jpeg)]
-
-
----
-## Estimando, Estimador y Estimado
-
-
-&lt;br&gt;
-
-.pull-left[
-
-```
-## # A tibble: 100 × 3
-##    year   educ   age
-##    &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
-##  1 1978     12    50
-##  2 2016     13    36
-##  3 2006     20    72
-##  4 1982      9    53
-##  5 2004     16    43
-##  6 1978     16    30
-##  7 1984     15    72
-##  8 2014     16    50
-##  9 1982     16    24
-## 10 1984     12    52
-## # ℹ 90 more rows
-```
-
-```
-## mu_hat 
-##  13.58
-```
-]
-
-.pull-right[
-
-
-- La socióloga decide *estimar* el promedio de años de escolaridad en USA ( `\(\mu\)` ) usando la media muestral como *estimador*.
-
-- `\(\hat{\mu} =  \frac{\sum \text{educ}_{i}}{n} =\)`  13.58 es nuestro *estimado* 
-
-- ¿Que tanto podemos confiar en nuestro .bold[estimado] basado en esta muestra en particular?
-
-
-- .bold[Respuesta:] Necesitamos conocer la distribución muestral de nuestro estimador
-]
-
-
-
-
-
----
-class: inverse, center, middle
-
-
-#Distribución Muestral de un estimador
-
----
-##Distribución Muestral
-
---
-
-Si `\(\hat{\beta}\)` es un estimador definido como `\(\hat{\beta}: f(\text{datos})\)`, la **distribución muestral** de `\(\hat{\beta}\)` es la distribución de probabilidad de todos los valores posibles que `\(\hat{\beta}\)` puede tomar, calculados a partir de todas las posibles muestras de un tamaño dado `\(n\)`, tomadas de la misma población o generados por el mismo proceso. 
-
-&lt;br&gt;
---
-
-
-.bold[Paso a paso,]
-
-
---
-
-- Tomamos todas las posibles muestras `\(m_{i}: \{ X_1, X_2, ..., X_n \}\)` de un tamaño  
-dado `\(n\)`, generados por el mismo proceso (o a partir de la misma población).
-
---
-
-- En cada `\(m_{i}\)` aplicamos nuestro estimador y obtenemos `\(\hat{\beta}_{i}\)`. Formalmente, `\(f(m_{i}) = \hat{\beta}_{i}\)`.
-
---
-
-- La .bold[distribución muestral] del estimador `\(\hat{\beta}\)` refiere a la distribución de la colección obtenida de estimados `\(\hat{\beta}_{i}\)`.
-
---
-
-- Como toda distribución de probabilidades, la .bold[distribución muestral] indica la probabilidad de que el estimador `\(\hat{\beta}\)` tome diferentes valores.
-
-
-
----
-##Distribución Muestral de la media muestral
-
-#### Ejemplo via Simulación Monte Carlo
-
-- La variable `\(\text{educ}\)` en la población de USA distribuye Normal con `\(\mu=12.85\)` y `\(\sigma=3.464\)`.
-
-- Tomamos 5000 muestras alesatorias de tamaño 100 a partir de esta población: `\(m_{100_i}\)`
-
-- En cada muestra calculamos la media muestral de la variable `\(X\)`: `\(\bar{X}_{100_i}\)`   
-
---
-
-.bold[Implementación en `R`:]
-
-
-``` r
-# población (N=un millón, media=4, sd=3)
-educ_poblacion &lt;- tibble(educ = rnorm(n=10^6, mean=12.85, sd=3.464))
-
-# simulación: 
-resultados &lt;- tibble(estimado = numeric(5000))
-
-for (i in 1:5000) {
-  # tomamos 5000 muestras de tamaño 100
-  muestra_i &lt;- sample_n(educ_poblacion, size=100, replace = TRUE)
-  
-  # en cada muestra calculamos media y guardamos resultado
-  resultados$estimado[i] &lt;- mean(muestra_i$educ)
-}
-```
-
----
-##Distribución Muestral de la media muestral
-
-La colección de estimados se ve así:
-
-.pull-left[
-
-```
-## # A tibble: 5,000 × 1
-##    estimado
-##       &lt;dbl&gt;
-##  1    13.01
-##  2    13.49
-##  3    13.33
-##  4    12.65
-##  5    13.12
-##  6    12.94
-##  7    12.08
-##  8    12.89
-##  9    13.00
-## 10    13.07
-## 11    13.01
-## 12    12.75
-## 13    13.42
-## 14    12.96
-## 15    12.54
-## # ℹ 4,985 more rows
-```
-]
-
---
-
-.pull-right[
-
-- La estimación de la media muestral es aleatorias porque las muestras son aleatorias
-
-- ¿Cómo se distribuyen estas estimaciones?
-
-&lt;br&gt;
-- El .bold[Teoréma del Límite Central] nos dice que:
-
-  `$$\bar{X}_{n} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)$$`
-  
-]
-
-
----
-##Distribución Muestral
-
-La colección de estimados se ve así:
-
-.pull-left[
-
-```
-## # A tibble: 5,000 × 1
-##    estimado
-##       &lt;dbl&gt;
-##  1    13.01
-##  2    13.49
-##  3    13.33
-##  4    12.65
-##  5    13.12
-##  6    12.94
-##  7    12.08
-##  8    12.89
-##  9    13.00
-## 10    13.07
-## 11    13.01
-## 12    12.75
-## 13    13.42
-## 14    12.96
-## 15    12.54
-## # ℹ 4,985 more rows
-```
-]
-
-
-.pull-right[
-
-- La estimación de la media muestral es aleatorias porque las muestras son aleatorias
-
-- ¿Cómo se distribuyen estas estimaciones?
-
-&lt;br&gt;
-- El .bold[Teoréma del Límite Central] nos dice que:
-
-  `$$\bar{X}_{n} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)$$`
-
-&lt;br&gt;
-- En nuestro caso:
-
-  `$$\bar{X}_{100} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{100}}\bigg)$$`
-    
-]
-
----
-##Distribución Muestral de la media muestral
-
-.pull-left[
-![](class_11_files/figure-html/unnamed-chunk-7-1.png)&lt;!-- --&gt;
-]
-
-.pull-right[
-
-- El .bold[Teoréma del Límite Central] nos dice que:
-
-&lt;br&gt;
-
-  `$$\bar{X}_{100} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{100}}\bigg)$$`
-
-]
-
-
----
-##Distribución Muestral de la media muestral
-
-.pull-left[
-![](class_11_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
-]
-
-.pull-right[
-
-- El .bold[Teoréma del Límite Central] nos dice que:
-
-&lt;br&gt;
-
-  `$$\bar{X}_{100} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{100}}\bigg)$$`
-
-&lt;br&gt;
-
-- Nuestra simulación confirma la teoría
-
-]
-
-
----  
-class: inverse, center, middle
-
-#Estimación Puntual
-
----
-##Estimación Puntual
-
-
-.pull-left[
-
-
-- Cuando contamos con .bold[UNA] muestra no tenemos una distribución de estimados
-
-- Tenemos una .bold[estimación puntual]
-
-
-&lt;br&gt;
-Por ejemplo:
-
-
-`\(\bar{X}_{100}\)` =  13.58
-
-&lt;br&gt;
-
-- Sabemos que la media muestral es un estimador *insesgado* de la media poblacional (en promedio coinciden)
-
-- Sin embargo, .bold[la estimación puntal no necesariamente corresponde al parámetro poblacional].
-
-- No nos tomamos este número TAN enserio: .bold[estimación de intervalos].
- 
-]
-
-
-.pull-right[
-![](class_11_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
-]
-
-
----
-class: inverse, center, middle
-
-##Hasta la próxima clase. Gracias!
-
-
-&lt;br&gt;
-Mauricio Bucca &lt;br&gt;
-https://mebucca.github.io/ &lt;br&gt;
-github.com/mebucca
-
-
-
-
-
-
-
-
-    </textarea>
-<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
-<script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
-<script>var slideshow = remark.create({
-"ratio": "16:9",
-"highlightStyle": "github",
-"highlightLines": true,
-"countIncrementalSlides": true,
-"slideNumberFormat": "%current%"
-});
-if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
-  window.dispatchEvent(new Event('resize'));
-});
-(function(d) {
-  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
-  if (!r) return;
-  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
-  d.head.appendChild(s);
-})(document);
-
-(function(d) {
-  var el = d.getElementsByClassName("remark-slides-area");
-  if (!el) return;
-  var slide, slides = slideshow.getSlides(), els = el[0].children;
-  for (var i = 1; i < slides.length; i++) {
-    slide = slides[i];
-    if (slide.properties.continued === "true" || slide.properties.count === "false") {
-      els[i - 1].className += ' has-continuation';
+<html lang="en"><head>
+<script src="class_11_files/libs/clipboard/clipboard.min.js"></script>
+<script src="class_11_files/libs/quarto-html/tabby.min.js"></script>
+<script src="class_11_files/libs/quarto-html/popper.min.js"></script>
+<script src="class_11_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="class_11_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="class_11_files/libs/quarto-html/light-border.css" rel="stylesheet">
+<link href="class_11_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
+
+  <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
+  <meta name="dcterms.date" content="2026-05-20">
+  <title>Probabilidad e Inferencia Estadística</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="class_11_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="class_11_files/libs/revealjs/dist/reveal.css">
+  <style>
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    div.columns{display: flex; gap: min(4vw, 1.5em);}
+    div.column{flex: auto; overflow-x: auto;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
+    ul.task-list li input[type="checkbox"] {
+      width: 0.8em;
+      margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+      vertical-align: middle;
     }
-  }
-  var s = d.createElement("style");
-  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
-  d.head.appendChild(s);
-})(document);
-// delete the temporary CSS (for displaying all slides initially) when the user
-// starts to view slides
-(function() {
-  var deleted = false;
-  slideshow.on('beforeShowSlide', function(slide) {
-    if (deleted) return;
-    var sheets = document.styleSheets, node;
-    for (var i = 0; i < sheets.length; i++) {
-      node = sheets[i].ownerNode;
-      if (node.dataset["target"] !== "print-only") continue;
-      node.parentNode.removeChild(node);
+    /* CSS for syntax highlighting */
+    html { -webkit-text-size-adjust: 100%; }
+    pre > code.sourceCode { white-space: pre; position: relative; }
+    pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+    pre > code.sourceCode > span:empty { height: 1.2em; }
+    .sourceCode { overflow: visible; }
+    code.sourceCode > span { color: inherit; text-decoration: inherit; }
+    div.sourceCode { margin: 1em 0; }
+    pre.sourceCode { margin: 0; }
+    @media screen {
+    div.sourceCode { overflow: auto; }
     }
-    deleted = true;
-  });
-})();
-// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
-// screen reader (see PR #262)
-(function(d) {
-  let res = {};
-  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
-    const t = tr.querySelector('td:nth-child(2)').innerText;
-    tr.querySelectorAll('td:first-child .key').forEach(key => {
-      const k = key.innerText;
-      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
-    });
-  });
-  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
-})(document);
-(function() {
-  "use strict"
-  // Replace <script> tags in slides area to make them executable
-  var scripts = document.querySelectorAll(
-    '.remark-slides-area .remark-slide-container script'
-  );
-  if (!scripts.length) return;
-  for (var i = 0; i < scripts.length; i++) {
-    var s = document.createElement('script');
-    var code = document.createTextNode(scripts[i].textContent);
-    s.appendChild(code);
-    var scriptAttrs = scripts[i].attributes;
-    for (var j = 0; j < scriptAttrs.length; j++) {
-      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    @media print {
+    pre > code.sourceCode { white-space: pre-wrap; }
+    pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
     }
-    scripts[i].parentElement.replaceChild(s, scripts[i]);
-  }
-})();
-(function() {
-  var links = document.getElementsByTagName('a');
-  for (var i = 0; i < links.length; i++) {
-    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
-      links[i].target = '_blank';
-    }
-  }
-})();
-// adds .remark-code-has-line-highlighted class to <pre> parent elements
-// of code chunks containing highlighted lines with class .remark-code-line-highlighted
-(function(d) {
-  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
-  const preParents = [];
-  const findPreParent = function(line, p = 0) {
-    if (p > 1) return null; // traverse up no further than grandparent
-    const el = line.parentElement;
-    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
-  };
-
-  for (let line of hlines) {
-    let pre = findPreParent(line);
-    if (pre && !preParents.includes(pre)) preParents.push(pre);
-  }
-  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
-})(document);</script>
-
-<script>
-slideshow._releaseMath = function(el) {
-  var i, text, code, codes = el.getElementsByTagName('code');
-  for (i = 0; i < codes.length;) {
-    code = codes[i];
-    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
-      text = code.textContent;
-      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
-          /^\$\$(.|\s)+\$\$$/.test(text) ||
-          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
-        code.outerHTML = code.innerHTML;  // remove <code></code>
-        continue;
+    pre.numberSource code
+      { counter-reset: source-line 0; }
+    pre.numberSource code > span
+      { position: relative; left: -4em; counter-increment: source-line; }
+    pre.numberSource code > span > a:first-child::before
+      { content: counter(source-line);
+        position: relative; left: -1em; text-align: right; vertical-align: baseline;
+        border: none; display: inline-block;
+        -webkit-touch-callout: none; -webkit-user-select: none;
+        -khtml-user-select: none; -moz-user-select: none;
+        -ms-user-select: none; user-select: none;
+        padding: 0 4px; width: 4em;
       }
+    pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+    div.sourceCode
+      { color: #24292e;  }
+    @media screen {
+    pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
     }
-    i++;
-  }
-};
-slideshow._releaseMath(document);
-</script>
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-(function () {
-  var script = document.createElement('script');
-  script.type = 'text/javascript';
-  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
-  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
-    script.src  = script.src.replace(/^https?:/, '');
-  document.getElementsByTagName('head')[0].appendChild(script);
-})();
-</script>
-  </body>
-</html>
+    code span { color: #24292e; } /* Normal */
+    code span.al { color: #ff5555; font-weight: bold; } /* Alert */
+    code span.an { color: #6a737d; } /* Annotation */
+    code span.at { color: #d73a49; } /* Attribute */
+    code span.bn { color: #005cc5; } /* BaseN */
+    code span.bu { color: #d73a49; } /* BuiltIn */
+    code span.cf { color: #d73a49; } /* ControlFlow */
+    code span.ch { color: #032f62; } /* Char */
+    code span.cn { color: #005cc5; } /* Constant */
+    code span.co { color: #6a737d; } /* Comment */
+    code span.cv { color: #6a737d; } /* CommentVar */
+    code span.do { color: #6a737d; } /* Documentation */
+    code span.dt { color: #d73a49; } /* DataType */
+    code span.dv { color: #005cc5; } /* DecVal */
+    code span.er { color: #ff5555; text-decoration: underline; } /* Error */
+    code span.ex { color: #d73a49; font-weight: bold; } /* Extension */
+    code span.fl { color: #005cc5; } /* Float */
+    code span.fu { color: #6f42c1; } /* Function */
+    code span.im { color: #032f62; } /* Import */
+    code span.in { color: #6a737d; } /* Information */
+    code span.kw { color: #d73a49; } /* Keyword */
+    code span.op { color: #24292e; } /* Operator */
+    code span.ot { color: #6f42c1; } /* Other */
+    code span.pp { color: #d73a49; } /* Preprocessor */
+    code span.re { color: #6a737d; } /* RegionMarker */
+    code span.sc { color: #005cc5; } /* SpecialChar */
+    code span.ss { color: #032f62; } /* SpecialString */
+    code span.st { color: #032f62; } /* String */
+    code span.va { color: #e36209; } /* Variable */
+    code span.vs { color: #032f62; } /* VerbatimString */
+    code span.wa { color: #ff5555; } /* Warning */
+  </style>
+  <link rel="stylesheet" href="class_11_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="gentle-r.css">
+  <link rel="stylesheet" href="xaringan-themer.css">
+  <link href="class_11_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="class_11_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="class_11_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="class_11_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <style type="text/css">
+    .reveal div.sourceCode {
+      margin: 0;
+      overflow: auto;
+    }
+    .reveal div.hanging-indent {
+      margin-left: 1em;
+      text-indent: -1em;
+    }
+    .reveal .slide:not(.center) {
+      height: 100%;
+    }
+    .reveal .slide.scrollable {
+      overflow-y: auto;
+    }
+    .reveal .footnotes {
+      height: 100%;
+      overflow-y: auto;
+    }
+    .reveal .slide .absolute {
+      position: absolute;
+      display: block;
+    }
+    .reveal .footnotes ol {
+      counter-reset: ol;
+      list-style-type: none; 
+      margin-left: 0;
+    }
+    .reveal .footnotes ol li:before {
+      counter-increment: ol;
+      content: counter(ol) ". "; 
+    }
+    .reveal .footnotes ol li > p:first-child {
+      display: inline-block;
+    }
+    .reveal .slide ul,
+    .reveal .slide ol {
+      margin-bottom: 0.5em;
+    }
+    .reveal .slide ul li,
+    .reveal .slide ol li {
+      margin-top: 0.4em;
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide ul[role="tablist"] li {
+      margin-bottom: 0;
+    }
+    .reveal .slide ul li > *:first-child,
+    .reveal .slide ol li > *:first-child {
+      margin-block-start: 0;
+    }
+    .reveal .slide ul li > *:last-child,
+    .reveal .slide ol li > *:last-child {
+      margin-block-end: 0;
+    }
+    .reveal .slide .columns:nth-child(3) {
+      margin-block-start: 0.8em;
+    }
+    .reveal blockquote {
+      box-shadow: none;
+    }
+    .reveal .tippy-content>* {
+      margin-top: 0.2em;
+      margin-bottom: 0.7em;
+    }
+    .reveal .tippy-content>*:last-child {
+      margin-bottom: 0.2em;
+    }
+    .reveal .slide > img.stretch.quarto-figure-center,
+    .reveal .slide > img.r-stretch.quarto-figure-center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-left,
+    .reveal .slide > img.r-stretch.quarto-figure-left  {
+      display: block;
+      margin-left: 0;
+      margin-right: auto; 
+    }
+    .reveal .slide > img.stretch.quarto-figure-right,
+    .reveal .slide > img.r-stretch.quarto-figure-right  {
+      display: block;
+      margin-left: auto;
+      margin-right: 0; 
+    }
+  </style>
+</head>
+<body class="quarto-light">
+  <div class="reveal">
+    <div class="slides">
+
+<section id="title-slide" data-background-color="#D32F2F" class="quarto-title-block center">
+  <h1 class="title">Probabilidad e Inferencia Estadística</h1>
+  <p class="subtitle">Estimador y su Distribución Muestral</p>
+
+<div class="quarto-title-authors">
+<div class="quarto-title-author">
+<div class="quarto-title-author-name">
+<br> Mauricio Bucca <br> <a href="https://github.com/mebucca">github.com/mebucca</a> <br> mebucca@uc.cl 
+</div>
+</div>
+</div>
+
+  <p class="date">2026-05-20</p>
+</section>
+<section id="estadística" class="slide level2">
+<h2>Estadística</h2>
+<div class="center">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="stats.png"></p>
+<figcaption>stats</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="estimación" class="slide level2 inverse center middle section-title">
+<h2>Estimación</h2>
+</section>
+<section class="slide level2">
+
+</section>
+<section>
+<section id="estimación-1" class="title-slide slide level1 center">
+<h1>Estimación</h1>
+<ul>
+<li>Una socióloga quiere saber el promedio de años de escolaridad en USA</li>
+</ul>
+<div class="fragment">
+<ul>
+<li>La socióloga toma una muestra aleatoria de 100 personas <span class="math inline">\(m: \{X_1, \dots, X_{100} \}\)</span>. Los datos se ven así:</li>
+</ul>
+</div>
+<div class="fragment">
+<div class="pull-left">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 100 × 3
+   year   educ   age
+   &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 1988     13    21
+ 2 1987      8    55
+ 3 1987     16    37
+ 4 1982     16    24
+ 5 1996     14    22
+ 6 2004     11    40
+ 7 1987     16    25
+ 8 2016     14    22
+ 9 1994     18    37
+10 1988     12    38
+# ℹ 90 more rows</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="pull-right">
+<p><br></p>
+<ul>
+<li><p><span class="bold">Datos</span>: realización de <span class="math inline">\(n\)</span> variables aleatorias</p></li>
+<li><p>Normalmente <span class="bold">no conocemos</span> la distribución de las variables.</p></li>
+<li><p><span class="bold">Estadística</span>: aprender de los datos para <span class="bold">estimar</span> los parámetros que los generan</p></li>
+</ul>
+</div>
+</div>
+</section>
+<section id="estimando-estimador-y-estimado" class="slide level2">
+<h2>Estimando, Estimador y Estimado</h2>
+<div class="fragment">
+<ul>
+<li>El <span class="bold">estimando</span> es aquello que queremos conocer. Dicho de otra forma, es el parámetro (poblacional/teórico) de interés. Llamémoslo <span class="math inline">\(\beta\)</span>.
+<ul>
+<li>Ej. <span class="math inline">\(\beta:\)</span> “promedio de años de escolaridad en USA”</li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Un <span class="bold">estimador</span> es una función - una formula - que aplicamos a los datos para obtener una <em>aproximación</em> del parámetro de nuestro parámetro de interés o <em>estimando</em>. Denotémos el estimador como <span class="math inline">\(f(\text{datos})\)</span>.
+<ul>
+<li>Ej. <span class="math inline">\(f(\text{datos}): \frac{\sum{\text{datos}}}{n}\)</span></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>El <span class="bold">estimado</span> es la cantidad obtenida al aplicar el <em>estimador</em> a los datos. Este número es una aproximación del <em>estimando</em>. Denotémoslo como <span class="math inline">\(\hat{\beta}\)</span>.
+<ul>
+<li>Ej. <span class="math inline">\(\hat{\beta} = 11.6\)</span></li>
+</ul></li>
+</ul>
+</div>
+<div class="fragment">
+<p>En resumen:</p>
+<div class="content-box-primary">
+<p><span class="math display">\[\color{white}{\text{estimador}(\underbrace{\beta}_{\text{estimando}}): f(\text{datos}) = \underbrace{\hat{\beta}}_{\text{estimado}}}\]</span></p>
+</div>
+</div>
+</section>
+<section id="estimando-estimador-y-estimado-1" class="slide level2">
+<h2>Estimando, Estimador y Estimado</h2>
+<div class="center">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="estimado.jpeg"></p>
+<figcaption>estimado</figcaption>
+</figure>
+</div>
+</div>
+</section>
+<section id="estimando-estimador-y-estimado-2" class="slide level2">
+<h2>Estimando, Estimador y Estimado</h2>
+<p><br></p>
+<div class="pull-left">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 100 × 3
+   year   educ   age
+   &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
+ 1 1988     13    21
+ 2 1987      8    55
+ 3 1987     16    37
+ 4 1982     16    24
+ 5 1996     14    22
+ 6 2004     11    40
+ 7 1987     16    25
+ 8 2016     14    22
+ 9 1994     18    37
+10 1988     12    38
+# ℹ 90 more rows</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>mu_hat 
+ 13.23 </code></pre>
+</div>
+</div>
+</div>
+<div class="pull-right">
+<ul>
+<li><p>La socióloga decide <em>estimar</em> el promedio de años de escolaridad en USA ( <span class="math inline">\(\mu\)</span> ) usando la media muestral como <em>estimador</em>.</p></li>
+<li><p><span class="math inline">\(\hat{\mu} =  \frac{\sum \text{educ}_{i}}{n} =\)</span> 13.23 es nuestro <em>estimado</em></p></li>
+<li><p>¿Que tanto podemos confiar en nuestro <span class="bold">estimado</span> basado en esta muestra en particular?</p></li>
+<li><p><span class="bold">Respuesta:</span> Necesitamos conocer la distribución muestral de nuestro estimador</p></li>
+</ul>
+</div>
+</section>
+<section id="distribución-muestral-de-un-estimador" class="slide level2 inverse center middle section-title">
+<h2>Distribución Muestral de un estimador</h2>
+</section>
+<section id="distribución-muestral" class="slide level2">
+<h2>Distribución Muestral</h2>
+<div class="fragment">
+<p>Si <span class="math inline">\(\hat{\beta}\)</span> es un estimador definido como <span class="math inline">\(\hat{\beta}: f(\text{datos})\)</span>, la <strong>distribución muestral</strong> de <span class="math inline">\(\hat{\beta}\)</span> es la distribución de probabilidad de todos los valores posibles que <span class="math inline">\(\hat{\beta}\)</span> puede tomar, calculados a partir de todas las posibles muestras de un tamaño dado <span class="math inline">\(n\)</span>, tomadas de la misma población o generados por el mismo proceso.</p>
+<p><br></p>
+</div>
+<div class="fragment">
+<p><span class="bold">Paso a paso,</span></p>
+</div>
+<div class="fragment">
+<ul>
+<li>Tomamos todas las posibles muestras <span class="math inline">\(m_{i}: \{ X_1, X_2, ..., X_n \}\)</span> de un tamaño<br>
+dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a partir de la misma población).</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>En cada <span class="math inline">\(m_{i}\)</span> aplicamos nuestro estimador y obtenemos <span class="math inline">\(\hat{\beta}_{i}\)</span>. Formalmente, <span class="math inline">\(f(m_{i}) = \hat{\beta}_{i}\)</span>.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>La <span class="bold">distribución muestral</span> del estimador <span class="math inline">\(\hat{\beta}\)</span> refiere a la distribución de la colección obtenida de estimados <span class="math inline">\(\hat{\beta}_{i}\)</span>.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li>Como toda distribución de probabilidades, la <span class="bold">distribución muestral</span> indica la probabilidad de que el estimador <span class="math inline">\(\hat{\beta}\)</span> tome diferentes valores.</li>
+</ul>
+</div>
+</section>
+<section id="distribución-muestral-de-la-media-muestral" class="slide level2">
+<h2>Distribución Muestral de la media muestral</h2>
+<h4 id="ejemplo-via-simulación-monte-carlo">Ejemplo via Simulación Monte Carlo</h4>
+<ul>
+<li><p>La variable <span class="math inline">\(\text{educ}\)</span> en la población de USA distribuye Normal con <span class="math inline">\(\mu=12.85\)</span> y <span class="math inline">\(\sigma=3.464\)</span>.</p></li>
+<li><p>Tomamos 5000 muestras aleatorias de tamaño 100 a partir de esta población: <span class="math inline">\(m_{100_i}\)</span></p></li>
+<li><p>En cada muestra calculamos la media muestral de la variable <span class="math inline">\(X\)</span>: <span class="math inline">\(\bar{X}_{100_i}\)</span></p></li>
+</ul>
+<p>. . .</p>
+<p><span class="bold">Implementación en <code>R</code>:</span></p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># población (N=un millón, media=4, sd=3)</span></span>
+<span id="cb4-2"><a href=""></a>educ_poblacion <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">educ =</span> <span class="fu">rnorm</span>(<span class="at">n=</span><span class="dv">10</span><span class="sc">^</span><span class="dv">6</span>, <span class="at">mean=</span><span class="fl">12.85</span>, <span class="at">sd=</span><span class="fl">3.464</span>))</span>
+<span id="cb4-3"><a href=""></a></span>
+<span id="cb4-4"><a href=""></a><span class="co"># simulación: </span></span>
+<span id="cb4-5"><a href=""></a>resultados <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">estimado =</span> <span class="fu">numeric</span>(<span class="dv">5000</span>))</span>
+<span id="cb4-6"><a href=""></a></span>
+<span id="cb4-7"><a href=""></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5000</span>) {</span>
+<span id="cb4-8"><a href=""></a>  <span class="co"># tomamos 5000 muestras de tamaño 100</span></span>
+<span id="cb4-9"><a href=""></a>  muestra_i <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(educ_poblacion, <span class="at">size=</span><span class="dv">100</span>, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-10"><a href=""></a>  </span>
+<span id="cb4-11"><a href=""></a>  <span class="co"># en cada muestra calculamos media y guardamos resultado</span></span>
+<span id="cb4-12"><a href=""></a>  resultados<span class="sc">$</span>estimado[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(muestra_i<span class="sc">$</span>educ)</span>
+<span id="cb4-13"><a href=""></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="distribución-muestral-de-la-media-muestral-1" class="slide level2">
+<h2>Distribución Muestral de la media muestral</h2>
+<p>La colección de estimados se ve así:</p>
+<div class="pull-left">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5,000 × 1
+   estimado
+      &lt;dbl&gt;
+ 1     12.9
+ 2     12.7
+ 3     13.1
+ 4     12.7
+ 5     12.6
+ 6     13.0
+ 7     13.5
+ 8     12.7
+ 9     12.7
+10     13.2
+11     12.9
+12     13.0
+13     12.5
+14     12.9
+15     12.7
+# ℹ 4,985 more rows</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div class="pull-right">
+<ul>
+<li><p>La estimación de la media muestral es aleatorias porque las muestras son aleatorias</p></li>
+<li><p>¿Cómo se distribuyen estas estimaciones?</p></li>
+</ul>
+<p><br> - El <span class="bold">Teoréma del Límite Central</span> nos dice que:</p>
+<p><span class="math display">\[\bar{X}_{n} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)\]</span></p>
+</div>
+</div>
+</section>
+<section id="distribución-muestral-1" class="slide level2">
+<h2>Distribución Muestral</h2>
+<p>La colección de estimados se ve así:</p>
+<div class="pull-left">
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 5,000 × 1
+   estimado
+      &lt;dbl&gt;
+ 1     12.9
+ 2     12.7
+ 3     13.1
+ 4     12.7
+ 5     12.6
+ 6     13.0
+ 7     13.5
+ 8     12.7
+ 9     12.7
+10     13.2
+11     12.9
+12     13.0
+13     12.5
+14     12.9
+15     12.7
+# ℹ 4,985 more rows</code></pre>
+</div>
+</div>
+</div>
+<div class="pull-right">
+<ul>
+<li><p>La estimación de la media muestral es aleatorias porque las muestras son aleatorias</p></li>
+<li><p>¿Cómo se distribuyen estas estimaciones?</p></li>
+</ul>
+<p><br> - El <span class="bold">Teoréma del Límite Central</span> nos dice que:</p>
+<p><span class="math display">\[\bar{X}_{n} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)\]</span></p>
+<p><br> - En nuestro caso:</p>
+<p><span class="math display">\[\bar{X}_{100} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{100}}\bigg)\]</span></p>
+</div>
+</section>
+<section id="distribución-muestral-de-la-media-muestral-2" class="slide level2">
+<h2>Distribución Muestral de la media muestral</h2>
+<div class="pull-left">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_11_files/figure-revealjs/unnamed-chunk-7-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="pull-right">
+<ul>
+<li>El <span class="bold">Teoréma del Límite Central</span> nos dice que:</li>
+</ul>
+<p><br></p>
+<p><span class="math display">\[\bar{X}_{100} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{100}}\bigg)\]</span></p>
+</div>
+</section>
+<section id="distribución-muestral-de-la-media-muestral-3" class="slide level2">
+<h2>Distribución Muestral de la media muestral</h2>
+<div class="pull-left">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_11_files/figure-revealjs/unnamed-chunk-8-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+<div class="pull-right">
+<ul>
+<li>El <span class="bold">Teoréma del Límite Central</span> nos dice que:</li>
+</ul>
+<p><br></p>
+<p><span class="math display">\[\bar{X}_{100} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{100}}\bigg)\]</span></p>
+<p><br></p>
+<ul>
+<li>Nuestra simulación confirma la teoría</li>
+</ul>
+</div>
+</section>
+<section id="estimación-puntual" class="slide level2 inverse center middle section-title">
+<h2>Estimación Puntual</h2>
+</section>
+<section id="estimación-puntual-1" class="slide level2">
+<h2>Estimación Puntual</h2>
+<div class="pull-left">
+<ul>
+<li><p>Cuando contamos con <span class="bold">UNA</span> muestra no tenemos una distribución de estimados</p></li>
+<li><p>Tenemos una <span class="bold">estimación puntual</span></p></li>
+</ul>
+<p><br> Por ejemplo:</p>
+<p><span class="math inline">\(\bar{X}_{100}\)</span> = 13.23</p>
+<p><br></p>
+<ul>
+<li><p>Sabemos que la media muestral es un estimador <em>insesgado</em> de la media poblacional (en promedio coinciden)</p></li>
+<li><p>Sin embargo, <span class="bold">la estimación puntual no necesariamente corresponde al parámetro poblacional</span>.</p></li>
+<li><p>No nos tomamos este número TAN en serio: <span class="bold">estimación de intervalos</span>.</p></li>
+</ul>
+</div>
+<div class="pull-right">
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure>
+<p><img data-src="class_11_files/figure-revealjs/unnamed-chunk-9-1.png" width="768"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<h2>Hasta la próxima clase. Gracias!</h2>
+<p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
+
+</section></section>
+    </div>
+  <div class="quarto-auto-generated-content" style="display: none;">
+<div class="footer footer-default">
+
+</div>
+</div></div>
+
+  <script>window.backupDefine = window.define; window.define = undefined;</script>
+  <script src="class_11_files/libs/revealjs/dist/reveal.js"></script>
+  <!-- reveal.js plugins -->
+  <script src="class_11_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="class_11_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="class_11_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="class_11_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="class_11_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  
+
+  <script src="class_11_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="class_11_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="class_11_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="class_11_files/libs/revealjs/plugin/math/math.js"></script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://revealjs.com/config/
+      Reveal.initialize({
+'controlsAuto': true,
+'previewLinksAuto': false,
+'pdfSeparateFragments': false,
+'autoAnimateEasing': "ease",
+'autoAnimateDuration': 1,
+'autoAnimateUnmatched': true,
+'jumpToSlide': true,
+'menu': {"side":"left","useTextContentForMissingTitles":true,"markers":false,"loadIcons":false,"custom":[{"title":"Tools","icon":"<i class=\"fas fa-gear\"></i>","content":"<ul class=\"slide-menu-items\">\n<li class=\"slide-tool-item active\" data-item=\"0\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.fullscreen(event)\"><kbd>f</kbd> Fullscreen</a></li>\n<li class=\"slide-tool-item\" data-item=\"1\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.speakerMode(event)\"><kbd>s</kbd> Speaker View</a></li>\n<li class=\"slide-tool-item\" data-item=\"2\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.overview(event)\"><kbd>o</kbd> Slide Overview</a></li>\n<li class=\"slide-tool-item\" data-item=\"3\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.togglePdfExport(event)\"><kbd>e</kbd> PDF Export Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"4\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.toggleScrollView(event)\"><kbd>r</kbd> Scroll View Mode</a></li>\n<li class=\"slide-tool-item\" data-item=\"5\"><a href=\"#\" onclick=\"RevealMenuToolHandlers.keyboardHelp(event)\"><kbd>?</kbd> Keyboard Help</a></li>\n</ul>"}],"openButton":true},
+'smaller': false,
+ 
+        // Display controls in the bottom right corner
+        controls: false,
+
+        // Help the user learn the controls by providing hints, for example by
+        // bouncing the down arrow when they first encounter a vertical slide
+        controlsTutorial: false,
+
+        // Determines where controls appear, "edges" or "bottom-right"
+        controlsLayout: 'edges',
+
+        // Visibility rule for backwards navigation arrows; "faded", "hidden"
+        // or "visible"
+        controlsBackArrows: 'faded',
+
+        // Display a presentation progress bar
+        progress: true,
+
+        // Display the page number of the current slide
+        slideNumber: 'c/t',
+
+        // 'all', 'print', or 'speaker'
+        showSlideNumber: 'all',
+
+        // Add the current slide number to the URL hash so that reloading the
+        // page/copying the URL will return you to the same slide
+        hash: true,
+
+        // Start with 1 for the hash rather than 0
+        hashOneBasedIndex: false,
+
+        // Flags if we should monitor the hash and change slides accordingly
+        respondToHashChanges: true,
+
+        // Push each slide change to the browser history
+        history: true,
+
+        // Enable keyboard shortcuts for navigation
+        keyboard: true,
+
+        // Enable the slide overview mode
+        overview: true,
+
+        // Disables the default reveal.js slide layout (scaling and centering)
+        // so that you can use custom CSS layout
+        disableLayout: false,
+
+        // Vertical centering of slides
+        center: false,
+
+        // Enables touch navigation on devices with touch input
+        touch: true,
+
+        // Loop the presentation
+        loop: false,
+
+        // Change the presentation direction to be RTL
+        rtl: false,
+
+        // see https://revealjs.com/vertical-slides/#navigation-mode
+        navigationMode: 'linear',
+
+        // Randomizes the order of slides each time the presentation loads
+        shuffle: false,
+
+        // Turns fragments on and off globally
+        fragments: true,
+
+        // Flags whether to include the current fragment in the URL,
+        // so that reloading brings you to the same fragment position
+        fragmentInURL: false,
+
+        // Flags if the presentation is running in an embedded mode,
+        // i.e. contained within a limited portion of the screen
+        embedded: false,
+
+        // Flags if we should show a help overlay when the questionmark
+        // key is pressed
+        help: true,
+
+        // Flags if it should be possible to pause the presentation (blackout)
+        pause: true,
+
+        // Flags if speaker notes should be visible to all viewers
+        showNotes: false,
+
+        // Global override for autoplaying embedded media (null/true/false)
+        autoPlayMedia: null,
+
+        // Global override for preloading lazy-loaded iframes (null/true/false)
+        preloadIframes: null,
+
+        // Number of milliseconds between automatically proceeding to the
+        // next slide, disabled when set to 0, this value can be overwritten
+        // by using a data-autoslide attribute on your slides
+        autoSlide: 0,
+
+        // Stop auto-sliding after user input
+        autoSlideStoppable: true,
+
+        // Use this method for navigation when auto-sliding
+        autoSlideMethod: null,
+
+        // Specify the average time in seconds that you think you will spend
+        // presenting each slide. This is used to show a pacing timer in the
+        // speaker view
+        defaultTiming: null,
+
+        // Enable slide navigation via mouse wheel
+        mouseWheel: false,
+
+        // The display mode that will be used to show slides
+        display: 'block',
+
+        // Hide cursor if inactive
+        hideInactiveCursor: true,
+
+        // Time before the cursor is hidden (in ms)
+        hideCursorTime: 5000,
+
+        // Opens links in an iframe preview overlay
+        previewLinks: false,
+
+        // Transition style (none/fade/slide/convex/concave/zoom)
+        transition: 'none',
+
+        // Transition speed (default/fast/slow)
+        transitionSpeed: 'default',
+
+        // Transition style for full page slide backgrounds
+        // (none/fade/slide/convex/concave/zoom)
+        backgroundTransition: 'none',
+
+        // Number of slides away from the current that are visible
+        viewDistance: 3,
+
+        // Number of slides away from the current that are visible on mobile
+        // devices. It is advisable to set this to a lower number than
+        // viewDistance in order to save resources.
+        mobileViewDistance: 2,
+
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1600,
+
+        height: 900,
+
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        math: {
+          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          config: 'TeX-AMS_HTML-full',
+          tex2jax: {
+            inlineMath: [['\\(','\\)']],
+            displayMath: [['\\[','\\]']],
+            balanceBraces: true,
+            processEscapes: false,
+            processRefs: true,
+            processEnvironments: true,
+            preview: 'TeX',
+            skipTags: ['script','noscript','style','textarea','pre','code'],
+            ignoreClass: 'tex2jax_ignore',
+            processClass: 'tex2jax_process'
+          },
+        },
+
+        // reveal.js plugins
+        plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
+
+          RevealMath,
+          RevealNotes,
+          RevealSearch,
+          RevealZoom
+        ]
+      });
+    </script>
+    
+    <script>
+      // htmlwidgets need to know to resize themselves when slides are shown/hidden.
+      // Fire the "slideenter" event (handled by htmlwidgets.js) when the current
+      // slide changes (different for each slide format).
+      (function () {
+        // dispatch for htmlwidgets
+        function fireSlideEnter() {
+          const event = window.document.createEvent("Event");
+          event.initEvent("slideenter", true, true);
+          window.document.dispatchEvent(event);
+        }
+
+        function fireSlideChanged(previousSlide, currentSlide) {
+          fireSlideEnter();
+
+          // dispatch for shiny
+          if (window.jQuery) {
+            if (previousSlide) {
+              window.jQuery(previousSlide).trigger("hidden");
+            }
+            if (currentSlide) {
+              window.jQuery(currentSlide).trigger("shown");
+            }
+          }
+        }
+
+        // hookup for slidy
+        if (window.w3c_slidy) {
+          window.w3c_slidy.add_observer(function (slide_num) {
+            // slide_num starts at position 1
+            fireSlideChanged(null, w3c_slidy.slides[slide_num - 1]);
+          });
+        }
+
+      })();
+    </script>
+
+    <script id="quarto-html-after-body" type="application/javascript">
+      window.document.addEventListener("DOMContentLoaded", function (event) {
+        const tabsets =  window.document.querySelectorAll(".panel-tabset-tabby")
+        tabsets.forEach(function(tabset) {
+          const tabby = new Tabby('#' + tabset.id);
+        });
+        const isCodeAnnotation = (el) => {
+          for (const clz of el.classList) {
+            if (clz.startsWith('code-annotation-')) {                     
+              return true;
+            }
+          }
+          return false;
+        }
+        const onCopySuccess = function(e) {
+          // button target
+          const button = e.trigger;
+          // don't keep focus
+          button.blur();
+          // flash "checked"
+          button.classList.add('code-copy-button-checked');
+          var currentTitle = button.getAttribute("title");
+          button.setAttribute("title", "Copied!");
+          let tooltip;
+          if (window.bootstrap) {
+            button.setAttribute("data-bs-toggle", "tooltip");
+            button.setAttribute("data-bs-placement", "left");
+            button.setAttribute("data-bs-title", "Copied!");
+            tooltip = new bootstrap.Tooltip(button, 
+              { trigger: "manual", 
+                customClass: "code-copy-button-tooltip",
+                offset: [0, -8]});
+            tooltip.show();    
+          }
+          setTimeout(function() {
+            if (tooltip) {
+              tooltip.hide();
+              button.removeAttribute("data-bs-title");
+              button.removeAttribute("data-bs-toggle");
+              button.removeAttribute("data-bs-placement");
+            }
+            button.setAttribute("title", currentTitle);
+            button.classList.remove('code-copy-button-checked');
+          }, 1000);
+          // clear code selection
+          e.clearSelection();
+        }
+        const getTextToCopy = function(trigger) {
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
+            }
+          }
+          return codeEl.innerText;
+        }
+        const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+          text: getTextToCopy
+        });
+        clipboard.on('success', onCopySuccess);
+        if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+          const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+            text: getTextToCopy,
+            container: window.document.getElementById('quarto-embedded-source-code-modal')
+          });
+          clipboardModal.on('success', onCopySuccess);
+        }
+          var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+          var mailtoRegex = new RegExp(/^mailto:/);
+            var filterRegex = new RegExp('/' + window.location.host + '/');
+          var isInternal = (href) => {
+              return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+          }
+          // Inspect non-navigation links and adorn them if external
+         var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+          for (var i=0; i<links.length; i++) {
+            const link = links[i];
+            if (!isInternal(link.href)) {
+              // undo the damage that might have been done by quarto-nav.js in the case of
+              // links that we want to consider external
+              if (link.dataset.originalHref !== undefined) {
+                link.href = link.dataset.originalHref;
+              }
+            }
+          }
+        function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+          const config = {
+            allowHTML: true,
+            maxWidth: 500,
+            delay: 100,
+            arrow: false,
+            appendTo: function(el) {
+                return el.closest('section.slide') || el.parentElement;
+            },
+            interactive: true,
+            interactiveBorder: 10,
+            theme: 'light-border',
+            placement: 'bottom-start',
+          };
+          if (contentFn) {
+            config.content = contentFn;
+          }
+          if (onTriggerFn) {
+            config.onTrigger = onTriggerFn;
+          }
+          if (onUntriggerFn) {
+            config.onUntrigger = onUntriggerFn;
+          }
+            config['offset'] = [0,0];
+            config['maxWidth'] = 700;
+          window.tippy(el, config); 
+        }
+        const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+        for (var i=0; i<noterefs.length; i++) {
+          const ref = noterefs[i];
+          tippyHover(ref, function() {
+            // use id or data attribute instead here
+            let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+            try { href = new URL(href).hash; } catch {}
+            const id = href.replace(/^#\/?/, "");
+            const note = window.document.getElementById(id);
+            if (note) {
+              return note.innerHTML;
+            } else {
+              return "";
+            }
+          });
+        }
+        const findCites = (el) => {
+          const parentEl = el.parentElement;
+          if (parentEl) {
+            const cites = parentEl.dataset.cites;
+            if (cites) {
+              return {
+                el,
+                cites: cites.split(' ')
+              };
+            } else {
+              return findCites(el.parentElement)
+            }
+          } else {
+            return undefined;
+          }
+        };
+        var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+        for (var i=0; i<bibliorefs.length; i++) {
+          const ref = bibliorefs[i];
+          const citeInfo = findCites(ref);
+          if (citeInfo) {
+            tippyHover(citeInfo.el, function() {
+              var popup = window.document.createElement('div');
+              citeInfo.cites.forEach(function(cite) {
+                var citeDiv = window.document.createElement('div');
+                citeDiv.classList.add('hanging-indent');
+                citeDiv.classList.add('csl-entry');
+                var biblioDiv = window.document.getElementById('ref-' + cite);
+                if (biblioDiv) {
+                  citeDiv.innerHTML = biblioDiv.innerHTML;
+                }
+                popup.appendChild(citeDiv);
+              });
+              return popup.innerHTML;
+            });
+          }
+        }
+      });
+      </script>
+    
+
+</body></html>

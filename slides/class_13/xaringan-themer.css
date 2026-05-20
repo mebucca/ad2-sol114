@@ -299,3 +299,201 @@ table.dataTable.hover tbody tr:hover, table.dataTable.display tbody tr:hover {
   background-color: var(--black);
 }
 
+/* ============================================================
+ * Quarto RevealJS compatibility
+ * ============================================================ */
+
+/* Base font/color applied via reveal root */
+.reveal {
+  font-family: var(--text-font-family), var(--text-font-family-fallback), var(--text-font-base);
+  font-size: var(--base-font-size);
+  color: var(--text-color);
+  background-color: var(--background-color);
+}
+
+.reveal .slides section {
+  padding: 16px 64px 16px 64px;
+  box-sizing: border-box;
+  text-align: left;
+}
+
+/* Headings */
+.reveal h1, .reveal h2, .reveal h3,
+.reveal h4, .reveal h5, .reveal h6 {
+  font-family: var(--header-font-family), var(--header-font-family-fallback);
+  font-weight: 600;
+  color: var(--header-color);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.reveal h1 { font-size: var(--header-h1-font-size); }
+.reveal h2 { font-size: var(--header-h2-font-size); }
+.reveal h3 { font-size: var(--header-h3-font-size); }
+
+/* Section-title slides: make h2 as large as h1 */
+.reveal section.section-title h2 {
+  font-size: var(--header-h1-font-size);
+}
+
+/* Middle vertical centering */
+.reveal section.middle {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: normal;
+}
+
+/* Code blocks */
+.reveal pre {
+  width: 100%;
+  box-shadow: none;
+}
+
+.reveal pre code,
+.reveal .sourceCode code {
+  font-family: var(--code-font-family), Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+  font-size: var(--code-font-size);
+  max-height: none;
+}
+
+/* Inline code */
+.reveal p code, .reveal li code, .reveal td code, .reveal th code {
+  font-family: var(--code-font-family), Menlo, Consolas, Monaco, Liberation Mono, Lucida Console, monospace;
+  font-size: var(--code-inline-font-size);
+  color: var(--secondary);
+  background-color: #F5F5F5;
+  border-radius: 3px;
+  padding: 2px 4px;
+}
+
+/* Slide number */
+.reveal .slide-number {
+  background-color: transparent;
+  color: var(--header-color);
+  font-size: 0.9rem;
+  opacity: 1;
+}
+
+/* Bold and links */
+.reveal strong {
+  color: var(--text-bold-color);
+}
+
+.reveal a, .reveal a > code {
+  color: var(--link-color);
+  text-decoration: none;
+}
+
+/* Inverse (section break) slides */
+.reveal section.inverse {
+  background-color: var(--inverse-background-color) !important;
+  color: var(--inverse-text-color);
+}
+
+.reveal section.inverse h1,
+.reveal section.inverse h2,
+.reveal section.inverse h3 {
+  color: var(--inverse-header-color);
+}
+
+.reveal section.inverse a,
+.reveal section.inverse a > code {
+  color: var(--inverse-link-color);
+}
+
+.reveal section.inverse .slide-number {
+  display: none;
+}
+
+/* Center alignment for slides */
+.reveal section.center {
+  text-align: center;
+}
+
+/* Title slide */
+#title-slide {
+  background-color: var(--title-slide-background-color);
+  text-align: center;
+}
+
+#title-slide h1, #title-slide h2, #title-slide h3,
+#title-slide .subtitle, #title-slide .author, #title-slide .date {
+  color: var(--title-slide-text-color);
+}
+
+/* Tables */
+.reveal table {
+  margin: auto;
+  border-top: 1px solid #666;
+  border-bottom: 1px solid #666;
+}
+
+.reveal table thead th {
+  border-bottom: 1px solid #ddd;
+}
+
+.reveal table:not(.table-unshaded) thead,
+.reveal table:not(.table-unshaded) tfoot,
+.reveal table:not(.table-unshaded) tr:nth-child(even) {
+  background: #D2D2D3;
+}
+
+/* Blockquote */
+.reveal blockquote {
+  border-left: solid 5px var(--secondary, #1f202680);
+  padding-left: 1em;
+  background: transparent;
+  box-shadow: none;
+  font-style: normal;
+  width: 100%;
+}
+
+/* Column layout: use float (matches existing .pull-left/.pull-right CSS) */
+.reveal .pull-left {
+  float: left;
+  width: 47%;
+}
+
+.reveal .pull-right {
+  float: right;
+  width: 47%;
+}
+
+.reveal .pull-right + * {
+  clear: both;
+}
+
+/* Code-plot layout */
+.reveal .left-code {
+  float: left;
+  width: 38%;
+  height: 92%;
+}
+
+.reveal .right-plot {
+  float: right;
+  width: 60%;
+}
+
+/* Content boxes - ensure display */
+.reveal .content-box-primary,
+.reveal .content-box-secondary,
+.reveal .content-box-blue,
+.reveal .content-box-gray,
+.reveal .content-box-grey,
+.reveal .content-box-green,
+.reveal .content-box-purple,
+.reveal .content-box-red,
+.reveal .content-box-yellow {
+  border-radius: 0;
+  padding: 15px 20px;
+  margin: 0 0 15px;
+  display: block;
+}
+
+/* Full width wrapper */
+.reveal .full-width {
+  display: block;
+  width: 100%;
+}

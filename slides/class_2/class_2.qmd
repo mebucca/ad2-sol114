@@ -1,0 +1,440 @@
+---
+title: "Probabilidad e Inferencia Estadística"
+subtitle: "#2: Probabilidad Condicional"
+author: "<br> Mauricio Bucca <br> [github.com/mebucca](https://github.com/mebucca) <br> mebucca@uc.cl"
+date: today
+format:
+  revealjs:
+    css: ["gentle-r.css","xaringan-themer.css"]
+    slide-number: true
+    theme: default
+    highlight-style: github
+    width: 1600
+    height: 900
+    title-slide-attributes:
+      data-background-color: "#a57688"
+---
+
+## Probabilidades condicional {.inverse .center .middle}
+
+---
+
+### Probabilidad condicional
+
+[Probabilidad condicional]{.bold} es un concepto crucial en teoría de la probabilidad y subyace al propósito principal del análisis de asociación estadística.
+
+. . .
+
+La probabilidad de un evento A después de que nos enteramos de que se ha producido el evento B se denomina probabilidad condicional de A dado B. Formalmente:
+
+$$\mathbb{P}(A \mid B)$$
+
+. . .
+
+Ejemplo:
+- Experimento: tirar un dado "justo"
+- Espacio muestral, $\Omega: \{1,2,3,4,5,6\}$
+- A es el evento de obtener un cuatro o más,  $A: \{4,5,6\}$
+- B es el evento de obtener un número par, $B: \{2,4,6\}$
+
+Supongamos que tiramos el dado pero no miramos el resultado todavía. Una tercera persona nos dice que obtuvimos un número par.
+
+. . .
+
+::: {.full-width}
+::: {.content-box-primary}
+[Pregunta]{.bolder}:
+¿Cuál es la probabilidad de obtener un cuatro o más una vez que sabemos que el resultado es un número par?
+:::
+:::
+
+---
+
+### Probabilidad condicional
+
+Formalmente, nuestra pregunta se expresa del siguiente modo: $\mathbb{P}(A \mid B )$.
+
+<br>
+
+$$\mathbb{P}(A \mid B ) = \frac{\mathbb{P}(A,B)}{\mathbb{P}(B)}$$
+
+Donde,
+- $\mathbb{P}(B)$ es la probabilidad de que B ocurra. Es decir obtener un número [par]{.bold}
+
+- $\mathbb{P}(A,B)$ es la probabilidad de que A y B ocurran conjuntamente. Es decir, obtener un número [par, igual o mayor que 4]{.bold}
+
+. . .
+
+<br>
+Intuitivamente, queremos saber en qué proporción de los casos en que B ocurre, A también ocurre.
+
+---
+
+### Probabilidad condicional
+
+En nuestro caso,
+
+<br>
+
+. . .
+
+\begin{align}
+\mathbb{P}(A | B ) &= \frac{\mathbb{P}(A,B)}{\mathbb{P}(B)} \\ \\
+&= \frac{\mathbb{P}(\text{dado=4 o dado=6}) }{\mathbb{P}(\text{dado=2 o dado=4 o dado=6})} \\ \\
+&=  \frac{2/6}{3/6} = \frac{1}{3} \times 2 \approx 0.66
+\end{align}
+
+---
+
+### Probabilidad condicional
+
+[Ejercicio rápido]{.bold}:
+
+Supongamos que:
+- Un 5% de la población son mujeres (M) con estudios universitarios completos (U)
+- Las mujeres representan un 55% de la población
+- Un 20% de la población tiene estudios universitarios completos
+
+. . .
+
+::: {.full-width}
+::: {.content-box-primary}
+[Pregunta]{.bolder}:
+1) ¿Cuál es la probabilidad de tener estudios universitarios completos si se es mujer?
+:::
+:::
+
+. . .
+
+::: {.full-width}
+::: {.content-box-secondary}
+[Respuesta]{.bolder}:
+
+1) 
+\begin{align}
+\mathbb{P}(U \mid M) = \frac{\mathbb{P}(U,M)}{\mathbb{P}(M)} = \frac{0.05}{0.55} \approx  0.09
+\end{align}
+:::
+:::
+
+---
+
+### Probabilidad condicional
+
+[Ejercicio rápido]{.bold}:
+
+Supongamos que:
+- Un 5% de población son mujeres (M) con un estudios universitarios completos (U)
+- Las mujeres representan 55% de la población
+- Un 20% de la población tiene estudios universitarios completos
+
+::: {.full-width}
+::: {.content-box-primary}
+[Pregunta]{.bolder}:
+2) ¿Cuál es la probabilidad de que una persona con estudios universitarios completos sea mujer?
+:::
+:::
+
+. . .
+
+::: {.full-width}
+::: {.content-box-secondary}
+[Respuesta]{.bolder}:
+
+2) 
+\begin{align}
+\mathbb{P}(M \mid U) = \frac{\mathbb{P}(U,M)}{\mathbb{P}(U)} = \frac{0.05}{0.2} = 0.25
+\end{align}
+:::
+:::
+
+---
+
+### Probabilidad condicional
+
+[Ejercicio rápido]{.bold}:
+
+Supongamos que:
+- Un 5% de población son mujeres (M) con un estudios universitarios completos (U)
+- Las mujeres representan 55% de la población
+- Un 20% de la población tiene estudios universitarios completos
+
+::: {.full-width}
+::: {.content-box-primary}
+[Pregunta]{.bolder}:
+3) ¿Cuál es la probabilidad de que una persona con estudios universitarios completos sea hombre (H)?
+:::
+:::
+
+. . .
+
+::: {.full-width}
+::: {.content-box-secondary}
+[Respuesta]{.bolder}:
+
+3) 
+\begin{align}
+\mathbb{P}(H \mid U) = \frac{\mathbb{P}(U,H)}{\mathbb{P}(U)} = 1- \mathbb{P}(M | U) = 1 - 0.25 = 0.75 
+\end{align}
+:::
+:::
+
+---
+
+### Probabilidad condicional
+
+::: {.full-width}
+::: {.content-box-primary}
+[Bonus]{.bolder}:
+
+4) ¿Cuál es la probabilidad de tener estudios universitarios completos si se es hombre?
+:::
+:::
+
+[Pista]{.bolder}: En general,
+$$ \mathbb{P}(A | B) \neq \mathbb{P}(B | A)  $$
+
+. . .
+
+<br>
+pero el [Teorema de Bayes]{.bold} nos dice cómo transformar uno en el otro.
+
+## Teorema de Bayes {.inverse .center .middle}
+
+---
+
+### Thomas Bayes
+
+::: {.middle}
+::: {.center}
+![bayes](tbayes.png)
+:::
+:::
+
+---
+
+### Teorema de Bayes
+
+La probabilidad de A dado B está definida como:
+
+$$\mathbb{P}(A \mid B) = \frac{\mathbb{P}(A,B)}{\mathbb{P}(B)} \quad \quad \quad \quad \quad (1)$$
+<br>
+
+. . .
+
+Por tanto, la probabilidad de B dado A está definida como:
+
+$$\mathbb{P}(B \mid A) = \frac{\mathbb{P}(A,B)}{\mathbb{P}(A)} \quad \quad \quad \quad \quad (2)$$
+<br>
+
+. . .
+
+Por tanto: 
+
+$$\mathbb{P}(A,B) = \mathbb{P}(B \mid A)\mathbb{P}(A) \quad \quad \quad \quad  (3)$$
+<br>
+
+. . .
+
+Reemplazando (3) en (1) obtenemos:
+
+$$\mathbb{P}(A \mid B) = \frac{\mathbb{P}(B \mid A)\mathbb{P}(A)}{\mathbb{P}(B)} \quad \quad \quad \quad \quad $$
+
+---
+
+### Teorema de Bayes
+
+Entonces, si
+
+$$\mathbb{P}(A \mid B) = \frac{\mathbb{P}(B \mid A)\mathbb{P}(A)}{\mathbb{P}(B)} \quad \quad \quad \quad \quad $$
+
+<br>
+re-ordenando la expresión encontramos ...
+
+<br>
+
+. . .
+
+::: {.full-width}
+::: {.content-box-secondary}
+[Teorema de Bayes]{.bolder}:
+$$\mathbb{P}(B \mid A) = \frac{\mathbb{P}(A \mid B)\mathbb{P}(B)}{\mathbb{P}(A)} \quad \quad \quad \quad \quad $$
+:::
+:::
+
+## {background-image="bayes.jpg"}
+
+---
+
+### Teorema de Bayes en práctica
+
+[Ejercicio rápido]{.bolder}:
+
+- Un 5% de la población son mujeres (M) con estudios universitarios completos (U)
+- Las mujeres representan un 55% de la población
+- Un 20% de la población tiene estudios universitarios completos
+
+::: {.full-width}
+::: {.content-box-primary}
+[Bonus]{.bolder}:
+4) ¿Cuál es la probabilidad de tener estudios universitarios completos si se es hombre?
+:::
+:::
+
+::: {.full-width}
+::: {.content-box-secondary}
+[Respuesta]{.bolder}:
+
+4) 
+\begin{align}
+\mathbb{P}(U \mid H) = \frac{\mathbb{P}(H \mid U)\mathbb{P}(U)}{\mathbb{P}(H)} =   \frac{0.75 \times 0.2}{0.45} = 0.333
+\end{align}
+:::
+:::
+
+## Ley de "probabilidad total" {.inverse .center .middle}
+
+---
+
+### Ley de "probabilidad total"
+
+Si $\{B_{1}, B_{2}., \dots, B_{n}\}$ es un conjunto de particiones "desunidas" y mutuamente excluyentes del espacio muestral, entonces:
+
+\begin{align}
+\mathbb{P}(A) = \sum_{i=1}^{n}\mathbb{P}(A,B_{i})
+\end{align}
+
+<br>
+
+. . .
+
+dado que, como vimos, $\mathbb{P}(A,B) = \mathbb{P}(A \mid B)\mathbb{P}(B)$, entonces ...
+
+<br>
+
+. . .
+
+\begin{align}
+\mathbb{P}(A) = \sum_{i=1}^{n}\mathbb{P}(A \mid B_{i})\mathbb{P}(B_{i})
+\end{align}
+
+---
+
+### Ley de "probabilidad total"
+
+[Ejercicio rápido]{.bold}:
+
+- Las mujeres (M) representan un 55% de la población
+- El 20% de los hombres (H) tiene estudios universitarios completos (U)
+- El 25% de las mujeres tiene estudios universitarios completos
+
+. . .
+
+::: {.content-box-primary}
+[Pregunta]{.bolder}:
+¿Cuál es la probabilidad de que una persona seleccionada al azar tenga estudios universitarios completos?
+:::
+
+. . .
+
+::: {.content-box-secondary}
+[Respuesta]{.bolder}:
+\begin{align}
+\mathbb{P}(U) &= \mathbb{P}(U \mid H)\mathbb{P}(H) + \mathbb{P}(U \mid M)\mathbb{P}(M) \\ \\
+              &= 0.2 \times 0.45 + 0.25 \times 0.55 \\ \\
+              &= 0.2275
+\end{align}
+:::
+
+## Independencia estadística {.inverse .center .middle}
+
+---
+
+### Independencia
+
+Dos eventos A y B son [independientes]{.bold} cuando la ocurrencia de A no afecta la ocurrencia de B y viceversa. 
+
+. . .
+
+Independencia es un caso especial de probabilidad condicional: $A \bot B$ si el conocimiento sobre B no cambia nuestro conocimiento sobre A. Formalmente:
+
+$$\mathbb{P}(A | B) = \mathbb{P}(A) \quad \iff \quad \mathbb{P}(B | A) = \mathbb{P}(B)$$ 
+<br>
+
+. . .
+
+A partir de esta definición podemos derivar un test matemático de independencia:
+
+<br>
+
+\begin{align}
+  &\mathbb{P}(A | B) = \mathbb{P}(A) \\ \\
+  &\frac{\mathbb{P}(A,B)}{\mathbb{P}(B)} = \mathbb{P}(A) \\  \\
+  &\mathbb{P}(A,B) = \mathbb{P}(A)\mathbb{P}(B) 
+\end{align}
+
+<br>
+
+. . .
+
+Si dos eventos A y B son independientes entonces debe ser cierto que $\mathbb{P}(A,B)=\mathbb{P}(A)\mathbb{P}(B)$
+
+---
+
+### Independencia
+
+Ejemplo:
+- Experimento: lanzar dos monedas justas consecutivamente 
+- A es el evento de obtener Cara con la primera moneda
+- B es el evento de obtener Sello con la segunda moneda
+
+::: {.full-width}
+::: {.content-box-primary}
+[Pregunta]{.bolder}:
+¿Son A y B dos eventos independientes?
+:::
+:::
+
+. . .
+
+::: {.pull-left}
+::: {.full-width}
+::: {.content-box-secondary}
+[Sabemos que...]{.bolder}
+- $\mathbb{P}(A) = \mathbb{P}(B) = 1/2$
+
+- $\Omega: \{CC,CS,SC,SS\}$
+
+- $(A,B) = \{CS\}$
+
+- $\mathbb{P}(A,B) = 1/4$
+:::
+:::
+:::
+
+. . .
+
+::: {.pull-right}
+::: {.full-width}
+::: {.content-box-secondary}
+[Test de independencia]{.bolder}
+
+Si A y B son eventos independientes entonces deberíamos esperar que $\mathbb{P}(A)\mathbb{P}(B) = 1/4$
+
+\begin{align}
+\mathbb{P}(A)\mathbb{P}(B) = \frac{1}{2} \times \frac{1}{2} = \frac{1}{4}
+\end{align}
+:::
+:::
+:::
+
+## {.inverse .center .middle}
+
+[
+**Hasta la próxima clase. Gracias!**
+]{.huge}
+
+<br>
+Mauricio Bucca <br>
+https://mebucca.github.io/ <br>
+github.com/mebucca
