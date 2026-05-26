@@ -6,10 +6,11 @@
 <script src="class_15_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_15_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_15_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_15_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="class_15_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.33">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
+  <meta name="dcterms.date" content="2026-05-26">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -95,7 +96,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="class_15_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="class_15_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
   <link href="class_15_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -206,6 +207,7 @@
 </div>
 </div>
 
+  <p class="date">2026-05-26</p>
 </section>
 <section id="ejemplo-empírico-promedio-de-ingreso-mujeres" class="slide level2">
 <h2>Ejemplo empírico: Promedio de ingreso mujeres</h2>
@@ -403,7 +405,7 @@
 <p><span class="bold">Calculemos un IC al 99% para la <code>media</code> muestral del ingreso de las mujeres</span></p>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="co"># Escribir una función que ejecute re-sampling y la estimación</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="co"># Escribir una función que ejecute re-sampling y la estimación</span></span>
 <span id="cb3-2"><a href=""></a>bs_mu  <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb3-3"><a href=""></a>  data_b  <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(casen2017_mujeres, <span class="at">size=</span><span class="fu">nrow</span>(casen2017_mujeres), <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
 <span id="cb3-4"><a href=""></a>  mu_muestra_b    <span class="ot">&lt;-</span> <span class="fu">mean</span>(data_b<span class="sc">$</span>ingreso, <span class="at">na.rm=</span>T)</span>
@@ -414,7 +416,7 @@
 <span id="cb3-9"><a href=""></a></span>
 <span id="cb3-10"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">77623</span>)</span>
 <span id="cb3-11"><a href=""></a>distmuestral_boot <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">5000</span>, <span class="fu">bs_mu</span>()) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
-<span id="cb3-12"><a href=""></a><span class="fu">glimpse</span>(distmuestral_boot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-12"><a href=""></a><span class="fu">glimpse</span>(distmuestral_boot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 5,000
 Columns: 1
@@ -427,15 +429,15 @@ $ value &lt;dbl&gt; 419172.0, 339894.7, 422345.3, 348431.6, 371273.9, 364408.9, 
 <h2>Método Bootstrap, aplicación</h2>
 <div class="pull-left">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>ee_bs <span class="ot">&lt;-</span> <span class="fu">sd</span>(distmuestral_boot<span class="sc">$</span>value)</span>
-<span id="cb5-2"><a href=""></a>ee_bs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>ee_bs <span class="ot">&lt;-</span> <span class="fu">sd</span>(distmuestral_boot<span class="sc">$</span>value)</span>
+<span id="cb5-2"><a href=""></a>ee_bs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 28647.05</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>ci99_bs <span class="ot">&lt;-</span> </span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>ci99_bs <span class="ot">&lt;-</span> </span>
 <span id="cb7-2"><a href=""></a>  <span class="fu">quantile</span>(distmuestral_boot<span class="sc">$</span>value, </span>
 <span id="cb7-3"><a href=""></a>           <span class="at">p=</span><span class="fu">c</span>(<span class="fl">0.005</span>,<span class="fl">0.995</span>))</span>
-<span id="cb7-4"><a href=""></a>ci99_bs </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-4"><a href=""></a>ci99_bs </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    0.5%    99.5% 
 303603.2 449958.5 </code></pre>
@@ -478,7 +480,7 @@ $ value &lt;dbl&gt; 419172.0, 339894.7, 422345.3, 348431.6, 371273.9, 364408.9, 
 <p><span class="bold">Calculemos un IC al 99% para la <code>mediana</code> muestral del ingreso de las mujeres</span></p>
 <div class="fragment">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="co"># Escribir una función que ejecute re-sampling y la estimación</span></span>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="co"># Escribir una función que ejecute re-sampling y la estimación</span></span>
 <span id="cb9-2"><a href=""></a>bs_median  <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb9-3"><a href=""></a>  data_b  <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(casen2017_mujeres, <span class="at">size=</span><span class="fu">nrow</span>(casen2017_mujeres), <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
 <span id="cb9-4"><a href=""></a>  median_muestra_b    <span class="ot">&lt;-</span> <span class="fu">median</span>(data_b<span class="sc">$</span>ingreso, <span class="at">na.rm=</span>T)</span>
@@ -489,7 +491,7 @@ $ value &lt;dbl&gt; 419172.0, 339894.7, 422345.3, 348431.6, 371273.9, 364408.9, 
 <span id="cb9-9"><a href=""></a></span>
 <span id="cb9-10"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">77623</span>)</span>
 <span id="cb9-11"><a href=""></a>distmuestral_boot <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">5000</span>, <span class="fu">bs_median</span>()) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
-<span id="cb9-12"><a href=""></a><span class="fu">glimpse</span>(distmuestral_boot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb9-12"><a href=""></a><span class="fu">glimpse</span>(distmuestral_boot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 5,000
 Columns: 1
@@ -502,15 +504,15 @@ $ value &lt;dbl&gt; 275000.0, 278583.5, 300000.0, 276000.0, 265750.0, 266500.0, 
 <h2>Método Bootstrap, aplicación</h2>
 <div class="pull-left">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>ee_bs <span class="ot">&lt;-</span> <span class="fu">sd</span>(distmuestral_boot<span class="sc">$</span>value)</span>
-<span id="cb11-2"><a href=""></a>ee_bs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>ee_bs <span class="ot">&lt;-</span> <span class="fu">sd</span>(distmuestral_boot<span class="sc">$</span>value)</span>
+<span id="cb11-2"><a href=""></a>ee_bs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 14051.05</code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>ci99_bs <span class="ot">&lt;-</span> </span>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>ci99_bs <span class="ot">&lt;-</span> </span>
 <span id="cb13-2"><a href=""></a>  <span class="fu">quantile</span>(distmuestral_boot<span class="sc">$</span>value, </span>
 <span id="cb13-3"><a href=""></a>           <span class="at">p=</span><span class="fu">c</span>(<span class="fl">0.005</span>,<span class="fl">0.995</span>))</span>
-<span id="cb13-4"><a href=""></a>ci99_bs </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb13-4"><a href=""></a>ci99_bs </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    0.5%    99.5% 
 236867.0 304171.2 </code></pre>
@@ -723,7 +725,7 @@ $ value &lt;dbl&gt; 275000.0, 278583.5, 300000.0, 276000.0, 265750.0, 266500.0, 
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -835,14 +837,13 @@ $ value &lt;dbl&gt; 275000.0, 278583.5, 300000.0, 276000.0, 265750.0, 266500.0, 
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

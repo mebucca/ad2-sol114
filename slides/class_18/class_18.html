@@ -6,10 +6,11 @@
 <script src="class_18_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_18_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_18_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_18_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="class_18_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.33">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
+  <meta name="dcterms.date" content="2026-05-26">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -95,7 +96,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="class_18_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="class_18_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
   <link href="class_18_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -206,6 +207,7 @@
 </div>
 </div>
 
+  <p class="date">2026-05-26</p>
 </section>
 <section id="section" class="slide level2 inverse center middle">
 <h2></h2>
@@ -437,20 +439,20 @@
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 2
-   Drink                                       Calories
-   &lt;chr&gt;                                          &lt;dbl&gt;
- 1 White Chocolate Mocha                            360
- 2 Cool Lime Starbucks Refreshers™ Beverage          45
- 3 Tazo® Bottled White Cranberry                    140
- 4 Decaf Pike Place® Roast                            5
- 5 Tazo® Bottled Organic Iced Black Tea              60
- 6 Tazo® Bottled Black with Lemon                   140
- 7 Blonde Roast                                       5
- 8 Evolution Fresh™ Organic Ginger Limeade          110
- 9 Vanilla Sweet Cream Cold Brew                    110
-10 Iced Espresso Classics - Caramel Macchiato       130
-11 Iced Caffè Mocha                                 230
-12 Starbucks Refreshers™ Raspberry Pomegranate       90</code></pre>
+   Drink                                      Calories
+   &lt;chr&gt;                                         &lt;dbl&gt;
+ 1 Tazo® Bottled Plum Pomegranate                  140
+ 2 Nariño 70 Cold Brew                               5
+ 3 Iced Espresso Classics - Caramel Macchiato      130
+ 4 Iced Cinnamon Dolce Latte                       200
+ 5 Iced Caramel Macchiato                          250
+ 6 Teavana® Shaken Iced Green Tea                   30
+ 7 Iced Coffee                                       0
+ 8 Cool Lime Starbucks Refreshers™ Beverage         45
+ 9 Iced Coffee                                       5
+10 Nitro Cold Brew with Sweet Cream                 70
+11 Iced Coconutmilk Mocha Macchiato                260
+12 Caffè Mocha                                     290</code></pre>
 </div>
 </div>
 </div>
@@ -469,8 +471,8 @@
 <h2>Ejemplo: Calorías en bebidas de Starbucks</h2>
 <h3 id="paso-2-calcular-un-estadístico">Paso #2: Calcular un Estadístico</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>mu_hat <span class="ot">&lt;-</span> starbucks_muestra <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mu_hat =</span> <span class="fu">mean</span>(Calories)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
-<span id="cb2-2"><a href=""></a><span class="fu">cat</span>(<span class="st">"media muestral: "</span>,mu_hat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>mu_hat <span class="ot">&lt;-</span> starbucks_muestra <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mu_hat =</span> <span class="fu">mean</span>(Calories)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
+<span id="cb2-2"><a href=""></a><span class="fu">cat</span>(<span class="st">"media muestral: "</span>,mu_hat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>media muestral:  118.75</code></pre>
 </div>
@@ -483,14 +485,14 @@
 <li>Como no conocemos <span class="math inline">\(\sigma\)</span> debemos estimarlo a partir de la muestra (<span class="math inline">\(s\)</span>).</li>
 </ul>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>s <span class="ot">&lt;-</span> starbucks_muestra <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">s =</span> <span class="fu">sd</span>(Calories)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
-<span id="cb4-2"><a href=""></a><span class="fu">cat</span>(<span class="st">"desviación estándard muestral: "</span>, s)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>s <span class="ot">&lt;-</span> starbucks_muestra <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">s =</span> <span class="fu">sd</span>(Calories)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
+<span id="cb4-2"><a href=""></a><span class="fu">cat</span>(<span class="st">"desviación estándard muestral: "</span>, s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>desviación estándard muestral:  98.79099</code></pre>
+<pre><code>desviación estándard muestral:  108.442</code></pre>
 </div>
 </div>
 <p>Luego:</p>
-<p><span class="math inline">\(\hat{t} = \frac{\hat{\mu} - \mu}{\frac{s}{\sqrt{n}}} = \frac{144.17 - 100}{\frac{91.4}{\sqrt{12}}} =\)</span> 0.6574679</p>
+<p><span class="math inline">\(\hat{t} = \frac{\hat{\mu} - \mu}{\frac{s}{\sqrt{n}}} = \frac{144.17 - 100}{\frac{91.4}{\sqrt{12}}} =\)</span> 0.5989555</p>
 </section>
 <section id="ejemplo-calorías-en-bebidas-de-starbucks-5" class="slide level2">
 <h2>Ejemplo: Calorías en bebidas de Starbucks</h2>
@@ -525,16 +527,16 @@
 <p>equivalente a:</p>
 <p><span class="math inline">\(\text{valor-p} = \mathbb{P}( t_{v=11} &gt; \hat{t})\)</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>t_hat <span class="ot">=</span> (mu_hat <span class="sc">-</span> <span class="dv">100</span>)<span class="sc">/</span>(s<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">12</span>))</span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>t_hat <span class="ot">=</span> (mu_hat <span class="sc">-</span> <span class="dv">100</span>)<span class="sc">/</span>(s<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">12</span>))</span>
 <span id="cb6-2"><a href=""></a>pvalue <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(t_hat, <span class="at">df=</span><span class="dv">11</span>)</span>
 <span id="cb6-3"><a href=""></a><span class="fu">cat</span>(<span class="st">" t_hat="</span>,<span class="fu">round</span>(t_hat,<span class="dv">2</span>), </span>
 <span id="cb6-4"><a href=""></a>    <span class="st">"</span><span class="sc">\n</span><span class="st"> valor crítico="</span>, <span class="fu">qt</span>(<span class="fl">0.95</span>,<span class="at">df=</span><span class="dv">11</span>), </span>
 <span id="cb6-5"><a href=""></a>    <span class="st">"</span><span class="sc">\n</span><span class="st"> valor-p="</span>, pvalue, </span>
-<span id="cb6-6"><a href=""></a>    <span class="at">sep=</span><span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-6"><a href=""></a>    <span class="at">sep=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> t_hat=0.66
+<pre><code> t_hat=0.6
  valor crítico=1.795885
- valor-p=0.2621995</code></pre>
+ valor-p=0.2806674</code></pre>
 </div>
 </div>
 </div>
@@ -763,7 +765,7 @@
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -875,14 +877,13 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

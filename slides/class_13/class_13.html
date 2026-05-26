@@ -6,10 +6,11 @@
 <script src="class_13_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_13_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_13_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_13_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="class_13_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.33">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
+  <meta name="dcterms.date" content="2026-05-26">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -95,7 +96,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="class_13_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="class_13_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
   <link href="class_13_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -206,6 +207,7 @@
 </div>
 </div>
 
+  <p class="date">2026-05-26</p>
 </section>
 <section id="intervalos-de-confianza-para-medias-y-proporciones-muestrales" class="slide level2 inverse center middle section-title">
 <h2>Intervalos de Confianza para medias y proporciones muestrales</h2>
@@ -335,11 +337,11 @@
 <section id="promedio-de-ingreso-mujeres-1" class="slide level2">
 <h2>Promedio de ingreso mujeres</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co"># i. Calcula media muestral </span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a><span class="co"># i. Calcula media muestral </span></span>
 <span id="cb2-2"><a href=""></a></span>
 <span id="cb2-3"><a href=""></a>mu_muestra <span class="ot">&lt;-</span> <span class="fu">mean</span>(casen2017_mujeres<span class="sc">$</span>ingreso, <span class="at">na.rm=</span>T) <span class="co">#&lt;&lt;</span></span>
 <span id="cb2-4"><a href=""></a></span>
-<span id="cb2-5"><a href=""></a><span class="fu">cat</span>(<span class="st">"Media muestral:"</span>, mu_muestra)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb2-5"><a href=""></a><span class="fu">cat</span>(<span class="st">"Media muestral:"</span>, mu_muestra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Media muestral: 368070.1</code></pre>
 </div>
@@ -354,7 +356,7 @@
 <section id="promedio-de-ingreso-mujeres-ic-al-99" class="slide level2">
 <h2>Promedio de ingreso mujeres, IC al 99%</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># ii. Decidir nivel de confianza</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># ii. Decidir nivel de confianza</span></span>
 <span id="cb4-2"><a href=""></a>conf <span class="ot">&lt;-</span> <span class="fl">0.99</span>;  alpha <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> conf </span>
 <span id="cb4-3"><a href=""></a></span>
 <span id="cb4-4"><a href=""></a><span class="co"># iii. Calcular valores críticos</span></span>
@@ -370,7 +372,7 @@
 <span id="cb4-14"><a href=""></a>ic_inf <span class="ot">=</span> mu_muestra <span class="sc">+</span> z_inf<span class="sc">*</span>ee </span>
 <span id="cb4-15"><a href=""></a>ic_sup <span class="ot">=</span> mu_muestra <span class="sc">+</span> z_sup<span class="sc">*</span>ee </span>
 <span id="cb4-16"><a href=""></a></span>
-<span id="cb4-17"><a href=""></a><span class="fu">cat</span>(<span class="st">"Intervalo al"</span>, <span class="dv">100</span><span class="sc">*</span>conf, <span class="st">"% de confianza: ("</span>,ic_inf,<span class="st">","</span>,ic_sup,<span class="st">")"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-17"><a href=""></a><span class="fu">cat</span>(<span class="st">"Intervalo al"</span>, <span class="dv">100</span><span class="sc">*</span>conf, <span class="st">"% de confianza: ("</span>,ic_inf,<span class="st">","</span>,ic_sup,<span class="st">")"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Intervalo al 99 % de confianza: ( 272637.2 , 463502.9 )</code></pre>
 </div>
@@ -379,7 +381,7 @@
 <section id="promedio-de-ingreso-mujeres-ic-al-90" class="slide level2">
 <h2>Promedio de ingreso mujeres, IC al 90%</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># ii. Decidir nivel de confianza</span></span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># ii. Decidir nivel de confianza</span></span>
 <span id="cb6-2"><a href=""></a>conf <span class="ot">&lt;-</span> <span class="fl">0.90</span>; alpha <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> conf </span>
 <span id="cb6-3"><a href=""></a></span>
 <span id="cb6-4"><a href=""></a><span class="co"># iii. Calcular valores críticos</span></span>
@@ -395,7 +397,7 @@
 <span id="cb6-14"><a href=""></a>ic_inf <span class="ot">=</span> mu_muestra <span class="sc">+</span> z_inf<span class="sc">*</span>ee </span>
 <span id="cb6-15"><a href=""></a>ic_sup <span class="ot">=</span> mu_muestra <span class="sc">+</span> z_sup<span class="sc">*</span>ee </span>
 <span id="cb6-16"><a href=""></a></span>
-<span id="cb6-17"><a href=""></a><span class="fu">cat</span>(<span class="st">"Intervalo al"</span>, <span class="dv">100</span><span class="sc">*</span>conf, <span class="st">"% de confianza: ("</span>,ic_inf,<span class="st">","</span>,ic_sup,<span class="st">")"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-17"><a href=""></a><span class="fu">cat</span>(<span class="st">"Intervalo al"</span>, <span class="dv">100</span><span class="sc">*</span>conf, <span class="st">"% de confianza: ("</span>,ic_inf,<span class="st">","</span>,ic_sup,<span class="st">")"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Intervalo al 90 % de confianza: ( 307129.3 , 429010.8 )</code></pre>
 </div>
@@ -544,11 +546,11 @@
 <h2>Proporción de mujeres con grado universitario</h2>
 <h3 id="mayores-de-27">*(mayores de 27)</h3>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="co"># i. Calcula proporción muestral </span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="co"># i. Calcula proporción muestral </span></span>
 <span id="cb8-2"><a href=""></a></span>
 <span id="cb8-3"><a href=""></a>p_muestra <span class="ot">&lt;-</span> <span class="fu">mean</span>(casen2017_mujeres<span class="sc">$</span>univ, <span class="at">na.rm=</span>T) <span class="co">#&lt;&lt;</span></span>
 <span id="cb8-4"><a href=""></a></span>
-<span id="cb8-5"><a href=""></a><span class="fu">cat</span>(<span class="st">"Proporción muestral:"</span>, p_muestra)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-5"><a href=""></a><span class="fu">cat</span>(<span class="st">"Proporción muestral:"</span>, p_muestra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Proporción muestral: 0.1217949</code></pre>
 </div>
@@ -559,7 +561,7 @@
 <section id="proporción-de-mujeres-con-grado-universitario-ic-al-99" class="slide level2">
 <h2>Proporción de mujeres con grado universitario, IC al 99%</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># ii. Decidir nivel de confianza</span></span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># ii. Decidir nivel de confianza</span></span>
 <span id="cb10-2"><a href=""></a>conf <span class="ot">&lt;-</span> <span class="fl">0.99</span>;  alpha <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> conf </span>
 <span id="cb10-3"><a href=""></a></span>
 <span id="cb10-4"><a href=""></a><span class="co"># iii. Calcular valores críticos</span></span>
@@ -574,7 +576,7 @@
 <span id="cb10-13"><a href=""></a>ic_inf <span class="ot">=</span> p_muestra <span class="sc">+</span> z_inf<span class="sc">*</span>ee </span>
 <span id="cb10-14"><a href=""></a>ic_sup <span class="ot">=</span> p_muestra <span class="sc">+</span> z_sup<span class="sc">*</span>ee </span>
 <span id="cb10-15"><a href=""></a></span>
-<span id="cb10-16"><a href=""></a><span class="fu">cat</span>(<span class="st">"Intervalo al"</span>, <span class="dv">100</span><span class="sc">*</span>conf, <span class="st">"% de confianza: ("</span>,ic_inf,<span class="st">","</span>,ic_sup,<span class="st">")"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-16"><a href=""></a><span class="fu">cat</span>(<span class="st">"Intervalo al"</span>, <span class="dv">100</span><span class="sc">*</span>conf, <span class="st">"% de confianza: ("</span>,ic_inf,<span class="st">","</span>,ic_sup,<span class="st">")"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Intervalo al 99 % de confianza: ( 0.07410213 , 0.1694876 )</code></pre>
 </div>
@@ -583,7 +585,7 @@
 <section id="proporción-de-mujeres-con-grado-universitario-ic-al-90" class="slide level2">
 <h2>Proporción de mujeres con grado universitario, IC al 90%</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="co"># ii. Decidir nivel de confianza</span></span>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href=""></a><span class="co"># ii. Decidir nivel de confianza</span></span>
 <span id="cb12-2"><a href=""></a>conf <span class="ot">&lt;-</span> <span class="fl">0.90</span>; alpha <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> conf </span>
 <span id="cb12-3"><a href=""></a></span>
 <span id="cb12-4"><a href=""></a><span class="co"># iii. Calcular valores críticos</span></span>
@@ -598,7 +600,7 @@
 <span id="cb12-13"><a href=""></a>ic_inf <span class="ot">=</span> p_muestra <span class="sc">+</span> z_inf<span class="sc">*</span>ee </span>
 <span id="cb12-14"><a href=""></a>ic_sup <span class="ot">=</span> p_muestra <span class="sc">+</span> z_sup<span class="sc">*</span>ee </span>
 <span id="cb12-15"><a href=""></a></span>
-<span id="cb12-16"><a href=""></a><span class="fu">cat</span>(<span class="st">"Intervalo al"</span>, <span class="dv">100</span><span class="sc">*</span>conf, <span class="st">"% de confianza: ("</span>,ic_inf,<span class="st">","</span>,ic_sup,<span class="st">")"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb12-16"><a href=""></a><span class="fu">cat</span>(<span class="st">"Intervalo al"</span>, <span class="dv">100</span><span class="sc">*</span>conf, <span class="st">"% de confianza: ("</span>,ic_inf,<span class="st">","</span>,ic_sup,<span class="st">")"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Intervalo al 90 % de confianza: ( 0.0913396 , 0.1522501 )</code></pre>
 </div>
@@ -798,7 +800,7 @@
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -910,14 +912,13 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

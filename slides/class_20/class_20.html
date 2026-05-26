@@ -6,10 +6,11 @@
 <script src="class_20_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_20_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_20_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_20_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="class_20_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.33">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
+  <meta name="dcterms.date" content="2026-05-26">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -95,7 +96,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="class_20_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="class_20_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
   <link href="class_20_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -206,6 +207,7 @@
 </div>
 </div>
 
+  <p class="date">2026-05-26</p>
 </section>
 <section id="section" class="slide level2 inverse center middle">
 <h2></h2>
@@ -252,10 +254,10 @@
 <div class="fragment">
 <div class="pull-left">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>results <span class="ot">&lt;-</span> casen2017 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>results <span class="ot">&lt;-</span> casen2017 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span> </span>
 <span id="cb1-2"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">promedio_ingresos =</span> </span>
 <span id="cb1-3"><a href=""></a>              <span class="fu">mean</span>(ingreso, <span class="at">na.rm =</span> T),</span>
-<span id="cb1-4"><a href=""></a>            <span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(ingreso)) ); results </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-4"><a href=""></a>            <span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(ingreso)) ); results </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   genero promedio_ingresos     n
@@ -415,16 +417,16 @@
 <pre><code># A tibble: 574 × 3
    genero ingreso ingreso_p
    &lt;chr&gt;    &lt;int&gt;     &lt;int&gt;
- 1 Mujer   180000    446000
- 2 Mujer   145000    148000
- 3 Hombre  325000    400000
- 4 Mujer   500000    182000
- 5 Hombre  650000    424500
- 6 Mujer   330000    431667
- 7 Mujer   652533    180000
- 8 Mujer    95000    460000
- 9 Hombre  500000    300000
-10 Mujer    60000    500000
+ 1 Mujer   180000     30000
+ 2 Mujer   145000    240000
+ 3 Hombre  325000    455833
+ 4 Mujer   500000    365000
+ 5 Hombre  650000    460000
+ 6 Mujer   330000    130000
+ 7 Mujer   652533    684167
+ 8 Mujer    95000    264915
+ 9 Hombre  500000    300417
+10 Mujer    60000    110000
 # ℹ 564 more rows</code></pre>
 </div>
 </div>
@@ -434,9 +436,9 @@
 <p><span class="bold">Diferencia con datos permutados:</span></p>
 <p><br></p>
 <ul>
-<li><p><span class="math inline">\(\hat{\mu}_{Hp}=\)</span> 4.93112^{5}</p></li>
-<li><p><span class="math inline">\(\hat{\mu}_{Mp}=\)</span> 4.9317^{5}</p></li>
-<li><p><span class="math inline">\((\hat{\mu}_{Hp} - \hat{\mu}_{Mp})=\)</span> -58</p></li>
+<li><p><span class="math inline">\(\hat{\mu}_{Hp}=\)</span> 5.32949^{5}</p></li>
+<li><p><span class="math inline">\(\hat{\mu}_{Mp}=\)</span> 4.40804^{5}</p></li>
+<li><p><span class="math inline">\((\hat{\mu}_{Hp} - \hat{\mu}_{Mp})=\)</span> 9.2145^{4}</p></li>
 </ul>
 </div>
 </div>
@@ -449,7 +451,7 @@
 <h1>Aplicación a brechas de género</h1>
 <p><span class="bold">Algoritmo de permutación</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>n <span class="ot">&lt;-</span> casen2017  <span class="sc">%&gt;%</span> <span class="fu">select</span>(genero,ingreso) <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(ingreso) <span class="sc">%&gt;%</span> <span class="fu">with</span>(<span class="fu">length</span>(ingreso))</span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>n <span class="ot">&lt;-</span> casen2017  <span class="sc">%&gt;%</span> <span class="fu">select</span>(genero,ingreso) <span class="sc">%&gt;%</span> <span class="fu">drop_na</span>(ingreso) <span class="sc">%&gt;%</span> <span class="fu">with</span>(<span class="fu">length</span>(ingreso))</span>
 <span id="cb5-2"><a href=""></a></span>
 <span id="cb5-3"><a href=""></a>permutacion <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
 <span id="cb5-4"><a href=""></a>  </span>
@@ -460,15 +462,15 @@
 <span id="cb5-9"><a href=""></a>    <span class="fu">summarise</span>(<span class="at">promedio_ingresos =</span> <span class="fu">mean</span>(ingreso_p, <span class="at">na.rm =</span> T))</span>
 <span id="cb5-10"><a href=""></a></span>
 <span id="cb5-11"><a href=""></a>  <span class="fu">return</span>(results_p<span class="sc">$</span>promedio_ingresos[<span class="dv">1</span>] <span class="sc">-</span> results_p<span class="sc">$</span>promedio_ingresos[<span class="dv">2</span>])</span>
-<span id="cb5-12"><a href=""></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-12"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p><span class="bold">Ejecutamos 100,000 permutaciones y guardamos resultados:</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>distribucion_nula <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">n=</span><span class="dv">100000</span>, <span class="fu">permutacion</span>())</span>
-<span id="cb6-2"><a href=""></a>distribucion_nula <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>distribucion_nula <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">n=</span><span class="dv">100000</span>, <span class="fu">permutacion</span>())</span>
+<span id="cb6-2"><a href=""></a>distribucion_nula <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> num [1:100000] -91185 -20022 -4551 -142 -8569 ...</code></pre>
+<pre><code> num [1:100000] -72784 44212 -8757 74319 -52327 ...</code></pre>
 </div>
 </div>
 </div>
@@ -493,11 +495,11 @@
 <div class="fragment">
 <div class="pull-right">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>p_cola_alta <span class="ot">&lt;-</span> <span class="fu">sum</span>(distribucion_nula<span class="sc">&gt;=</span>diff)<span class="sc">/</span>n</span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a>p_cola_alta <span class="ot">&lt;-</span> <span class="fu">sum</span>(distribucion_nula<span class="sc">&gt;=</span>diff)<span class="sc">/</span>n</span>
 <span id="cb8-2"><a href=""></a>p_cola_baja <span class="ot">&lt;-</span> <span class="fu">sum</span>(distribucion_nula<span class="sc">&lt;=-</span>diff)<span class="sc">/</span>n</span>
 <span id="cb8-3"><a href=""></a></span>
 <span id="cb8-4"><a href=""></a>valor_p <span class="ot">=</span> p_cola_alta <span class="sc">+</span> p_cola_baja</span>
-<span id="cb8-5"><a href=""></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="st">"Valor-p"</span><span class="ot">=</span>valor_p))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-5"><a href=""></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="st">"Valor-p"</span><span class="ot">=</span>valor_p))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Valor-p 
       0 </code></pre>
@@ -700,7 +702,7 @@
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -812,14 +814,13 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
