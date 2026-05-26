@@ -6,10 +6,11 @@
 <script src="class_23_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_23_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_23_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_23_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="class_23_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.33">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
+  <meta name="dcterms.date" content="2026-05-26">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -95,7 +96,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="class_23_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="class_23_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
   <link href="class_23_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -206,6 +207,7 @@
 </div>
 </div>
 
+  <p class="date">2026-05-26</p>
 </section>
 <section id="section" class="slide level2 inverse center middle">
 <h2></h2>
@@ -216,13 +218,13 @@
 <section id="test-chi2-de-independencia-estadística-i" class="slide level2">
 <h2>Test <span class="math inline">\(\chi^{2}\)</span> de independencia estadística (I)</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
 <span id="cb1-2"><a href=""></a><span class="fu">library</span>(<span class="st">"carData"</span>)</span>
 <span id="cb1-3"><a href=""></a><span class="fu">data</span>(<span class="st">"Chile"</span>)</span>
 <span id="cb1-4"><a href=""></a>datos_chile <span class="ot">&lt;-</span> Chile</span>
 <span id="cb1-5"><a href=""></a>datos_chile <span class="ot">&lt;-</span> datos_chile <span class="sc">%&gt;%</span> <span class="fu">filter</span>(vote <span class="sc">==</span> <span class="st">"Y"</span> <span class="sc">|</span> vote<span class="sc">==</span><span class="st">"N"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">vote =</span> <span class="fu">factor</span>(vote))</span>
 <span id="cb1-6"><a href=""></a></span>
-<span id="cb1-7"><a href=""></a>ctable <span class="ot">&lt;-</span> datos_chile <span class="sc">%&gt;%</span> <span class="fu">with</span>(<span class="fu">table</span>(income,vote))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-7"><a href=""></a>ctable <span class="ot">&lt;-</span> datos_chile <span class="sc">%&gt;%</span> <span class="fu">with</span>(<span class="fu">table</span>(income,vote))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <p>Primer paso, testear que exista <em>algo</em> de asociación: ¿son estas tablas <em>suficientemente distintas</em>?</p>
@@ -353,7 +355,7 @@ income     N   Y
 <p><span class="bold">(Observado-Esperado)^2/Esperado:</span></p>
 <div class="center">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>(((ctable <span class="sc">-</span> ctable_independence)<span class="sc">^</span>(<span class="dv">2</span>))<span class="sc">/</span>ctable_independence) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>(((ctable <span class="sc">-</span> ctable_independence)<span class="sc">^</span>(<span class="dv">2</span>))<span class="sc">/</span>ctable_independence) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        vote
 income             N           Y
@@ -396,7 +398,7 @@ income             N           Y
 <p><span class="bold">p-value</span></p>
 <p><span class="math display">\[\mathbb{P}(\chi_{df=6}^{2} \geq \hat{t} )\]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="dv">1</span><span class="sc">-</span> <span class="fu">pchisq</span>(our_chi2,<span class="at">df=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="dv">1</span><span class="sc">-</span> <span class="fu">pchisq</span>(our_chi2,<span class="at">df=</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4209155</code></pre>
 </div>
@@ -422,14 +424,14 @@ income             N           Y
 <p><span class="bold">p-value</span></p>
 <p><span class="math display">\[\mathbb{P}(\chi_{df=6}^{2} \geq \hat{t})\]</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="dv">1</span><span class="sc">-</span> <span class="fu">pchisq</span>(our_chi2,<span class="at">df=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="dv">1</span><span class="sc">-</span> <span class="fu">pchisq</span>(our_chi2,<span class="at">df=</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4209155</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="co"># Versión automática</span></span>
-<span id="cb13-2"><a href=""></a><span class="fu">chisq.test</span>(ctable,<span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="co"># Versión automática</span></span>
+<span id="cb13-2"><a href=""></a><span class="fu">chisq.test</span>(ctable,<span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test
@@ -637,7 +639,7 @@ X-squared = 6.0203, df = 6, p-value = 0.4209</code></pre>
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -749,14 +751,13 @@ X-squared = 6.0203, df = 6, p-value = 0.4209</code></pre>
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

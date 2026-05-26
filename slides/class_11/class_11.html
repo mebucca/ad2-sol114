@@ -6,11 +6,11 @@
 <script src="class_11_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_11_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_11_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_11_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="class_11_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.33">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-20">
+  <meta name="dcterms.date" content="2026-05-26">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -96,7 +96,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="class_11_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="class_11_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
   <link href="class_11_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -207,7 +207,7 @@
 </div>
 </div>
 
-  <p class="date">2026-05-20</p>
+  <p class="date">2026-05-26</p>
 </section>
 <section id="estadística" class="slide level2">
 <h2>Estadística</h2>
@@ -244,16 +244,16 @@
 <pre><code># A tibble: 100 × 3
    year   educ   age
    &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 1988     13    21
- 2 1987      8    55
- 3 1987     16    37
- 4 1982     16    24
- 5 1996     14    22
- 6 2004     11    40
- 7 1987     16    25
- 8 2016     14    22
- 9 1994     18    37
-10 1988     12    38
+ 1 2010     15    39
+ 2 1996     12    35
+ 3 2012     17    33
+ 4 2010     13    30
+ 5 2000     12    46
+ 6 1982      9    52
+ 7 2012     16    23
+ 8 1994     13    24
+ 9 1996     20    38
+10 1994     12    49
 # ℹ 90 more rows</code></pre>
 </div>
 </div>
@@ -323,28 +323,28 @@
 <pre><code># A tibble: 100 × 3
    year   educ   age
    &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 1988     13    21
- 2 1987      8    55
- 3 1987     16    37
- 4 1982     16    24
- 5 1996     14    22
- 6 2004     11    40
- 7 1987     16    25
- 8 2016     14    22
- 9 1994     18    37
-10 1988     12    38
+ 1 2010     15    39
+ 2 1996     12    35
+ 3 2012     17    33
+ 4 2010     13    30
+ 5 2000     12    46
+ 6 1982      9    52
+ 7 2012     16    23
+ 8 1994     13    24
+ 9 1996     20    38
+10 1994     12    49
 # ℹ 90 more rows</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>mu_hat 
- 13.23 </code></pre>
+ 12.75 </code></pre>
 </div>
 </div>
 </div>
 <div class="pull-right">
 <ul>
 <li><p>La socióloga decide <em>estimar</em> el promedio de años de escolaridad en USA ( <span class="math inline">\(\mu\)</span> ) usando la media muestral como <em>estimador</em>.</p></li>
-<li><p><span class="math inline">\(\hat{\mu} =  \frac{\sum \text{educ}_{i}}{n} =\)</span> 13.23 es nuestro <em>estimado</em></p></li>
+<li><p><span class="math inline">\(\hat{\mu} =  \frac{\sum \text{educ}_{i}}{n} =\)</span> 12.75 es nuestro <em>estimado</em></p></li>
 <li><p>¿Que tanto podemos confiar en nuestro <span class="bold">estimado</span> basado en esta muestra en particular?</p></li>
 <li><p><span class="bold">Respuesta:</span> Necesitamos conocer la distribución muestral de nuestro estimador</p></li>
 </ul>
@@ -395,7 +395,7 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
 <p>. . .</p>
 <p><span class="bold">Implementación en <code>R</code>:</span></p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># población (N=un millón, media=4, sd=3)</span></span>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># población (N=un millón, media=4, sd=3)</span></span>
 <span id="cb4-2"><a href=""></a>educ_poblacion <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">educ =</span> <span class="fu">rnorm</span>(<span class="at">n=</span><span class="dv">10</span><span class="sc">^</span><span class="dv">6</span>, <span class="at">mean=</span><span class="fl">12.85</span>, <span class="at">sd=</span><span class="fl">3.464</span>))</span>
 <span id="cb4-3"><a href=""></a></span>
 <span id="cb4-4"><a href=""></a><span class="co"># simulación: </span></span>
@@ -407,7 +407,7 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
 <span id="cb4-10"><a href=""></a>  </span>
 <span id="cb4-11"><a href=""></a>  <span class="co"># en cada muestra calculamos media y guardamos resultado</span></span>
 <span id="cb4-12"><a href=""></a>  resultados<span class="sc">$</span>estimado[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(muestra_i<span class="sc">$</span>educ)</span>
-<span id="cb4-13"><a href=""></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb4-13"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="distribución-muestral-de-la-media-muestral-1" class="slide level2">
@@ -419,21 +419,21 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
 <pre><code># A tibble: 5,000 × 1
    estimado
       &lt;dbl&gt;
- 1     12.9
- 2     12.7
- 3     13.1
- 4     12.7
- 5     12.6
- 6     13.0
- 7     13.5
- 8     12.7
- 9     12.7
-10     13.2
-11     12.9
-12     13.0
-13     12.5
-14     12.9
-15     12.7
+ 1    12.98
+ 2    12.47
+ 3    12.90
+ 4    12.97
+ 5    12.54
+ 6    12.40
+ 7    12.11
+ 8    12.34
+ 9    13.19
+10    12.71
+11    12.81
+12    12.51
+13    12.96
+14    13.41
+15    12.50
 # ℹ 4,985 more rows</code></pre>
 </div>
 </div>
@@ -458,21 +458,21 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
 <pre><code># A tibble: 5,000 × 1
    estimado
       &lt;dbl&gt;
- 1     12.9
- 2     12.7
- 3     13.1
- 4     12.7
- 5     12.6
- 6     13.0
- 7     13.5
- 8     12.7
- 9     12.7
-10     13.2
-11     12.9
-12     13.0
-13     12.5
-14     12.9
-15     12.7
+ 1    12.98
+ 2    12.47
+ 3    12.90
+ 4    12.97
+ 5    12.54
+ 6    12.40
+ 7    12.11
+ 8    12.34
+ 9    13.19
+10    12.71
+11    12.81
+12    12.51
+13    12.96
+14    13.41
+15    12.50
 # ℹ 4,985 more rows</code></pre>
 </div>
 </div>
@@ -545,7 +545,7 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
 <li><p>Tenemos una <span class="bold">estimación puntual</span></p></li>
 </ul>
 <p><br> Por ejemplo:</p>
-<p><span class="math inline">\(\bar{X}_{100}\)</span> = 13.23</p>
+<p><span class="math inline">\(\bar{X}_{100}\)</span> = 12.75</p>
 <p><br></p>
 <ul>
 <li><p>Sabemos que la media muestral es un estimador <em>insesgado</em> de la media poblacional (en promedio coinciden)</p></li>
@@ -759,7 +759,7 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -871,14 +871,13 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

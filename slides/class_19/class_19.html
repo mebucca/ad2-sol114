@@ -6,10 +6,11 @@
 <script src="class_19_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_19_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_19_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_19_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="class_19_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.33">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
+  <meta name="dcterms.date" content="2026-05-26">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -95,7 +96,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="class_19_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="class_19_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
   <link href="class_19_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -206,6 +207,7 @@
 </div>
 </div>
 
+  <p class="date">2026-05-26</p>
 </section>
 <section id="section" class="slide level2 inverse center middle">
 <h2></h2>
@@ -252,10 +254,10 @@
 <div class="fragment">
 <div class="pull-left">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>results <span class="ot">&lt;-</span> casen2017 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>results <span class="ot">&lt;-</span> casen2017 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span> </span>
 <span id="cb1-2"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">promedio_ingresos =</span> </span>
 <span id="cb1-3"><a href=""></a>              <span class="fu">mean</span>(ingreso, <span class="at">na.rm =</span> T),</span>
-<span id="cb1-4"><a href=""></a>            <span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(ingreso)) ); results </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb1-4"><a href=""></a>            <span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(ingreso)) ); results </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   genero promedio_ingresos     n
@@ -397,10 +399,10 @@
 <p>No conocemos las varianzas poblacionales, por tanto debemos estimarlas ( <span class="math inline">\(s^{2}_H\)</span> y <span class="math inline">\(s^{2}_M\)</span> )</p>
 <div class="pull-left">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>stats <span class="ot">&lt;-</span> casen2017 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span> </span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>stats <span class="ot">&lt;-</span> casen2017 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span> </span>
 <span id="cb3-2"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">mu_hat =</span> <span class="fu">mean</span>(ingreso, <span class="at">na.rm =</span> T),</span>
 <span id="cb3-3"><a href=""></a>            <span class="at">s2 =</span> <span class="fu">var</span>(ingreso, <span class="at">na.rm =</span> T),</span>
-<span id="cb3-4"><a href=""></a>            <span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(ingreso)) ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-4"><a href=""></a>            <span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(ingreso)) ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -416,14 +418,14 @@
 <div class="fragment">
 <div class="pull-right">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>numerador <span class="ot">&lt;-</span> stats <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>numerador <span class="ot">&lt;-</span> stats <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href=""></a>  <span class="fu">with</span>(mu_hat[<span class="dv">1</span>] <span class="sc">-</span> mu_hat[<span class="dv">2</span>])</span>
 <span id="cb5-3"><a href=""></a></span>
 <span id="cb5-4"><a href=""></a>denominador <span class="ot">&lt;-</span> stats <span class="sc">%&gt;%</span> </span>
 <span id="cb5-5"><a href=""></a>  <span class="fu">with</span>( <span class="fu">sqrt</span>(s2[<span class="dv">1</span>]<span class="sc">/</span>n[<span class="dv">1</span>] <span class="sc">+</span> s2[<span class="dv">2</span>]<span class="sc">/</span>n[<span class="dv">2</span>]) )</span>
 <span id="cb5-6"><a href=""></a></span>
 <span id="cb5-7"><a href=""></a>z_hat <span class="ot">&lt;-</span> numerador<span class="sc">/</span>denominador</span>
-<span id="cb5-8"><a href=""></a><span class="fu">print</span>(z_hat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb5-8"><a href=""></a><span class="fu">print</span>(z_hat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.534111</code></pre>
 </div>
@@ -451,9 +453,9 @@
 <div class="fragment">
 <p>En nuestro caso:</p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>pvalue <span class="ot">=</span>  <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z_hat))</span>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>pvalue <span class="ot">=</span>  <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z_hat))</span>
 <span id="cb7-2"><a href=""></a></span>
-<span id="cb7-3"><a href=""></a><span class="fu">cat</span>(<span class="st">"z_hat="</span>,<span class="fu">round</span>(z_hat,<span class="dv">2</span>), <span class="st">" valor-p="</span>, pvalue, <span class="at">sep=</span><span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb7-3"><a href=""></a><span class="fu">cat</span>(<span class="st">"z_hat="</span>,<span class="fu">round</span>(z_hat,<span class="dv">2</span>), <span class="st">" valor-p="</span>, pvalue, <span class="at">sep=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>z_hat=4.53 valor-p=5.784671e-06</code></pre>
 </div>
@@ -503,12 +505,12 @@
 <p><br></p>
 <div class="pull-left">
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>stats <span class="ot">&lt;-</span> stats <span class="sc">%&gt;%</span></span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>stats <span class="ot">&lt;-</span> stats <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href=""></a>  <span class="fu">mutate</span>(</span>
 <span id="cb10-3"><a href=""></a>    <span class="at">se =</span> <span class="fu">sqrt</span>(s2) <span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
 <span id="cb10-4"><a href=""></a>    <span class="at">ci_inf =</span> mu_hat <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se,</span>
 <span id="cb10-5"><a href=""></a>    <span class="at">ci_sup =</span> mu_hat <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
-<span id="cb10-6"><a href=""></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-6"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p><br></p>
@@ -795,7 +797,7 @@
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -907,14 +909,13 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

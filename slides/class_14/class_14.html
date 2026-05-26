@@ -6,10 +6,11 @@
 <script src="class_14_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_14_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_14_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_14_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="class_14_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.33">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
+  <meta name="dcterms.date" content="2026-05-26">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -95,7 +96,7 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="class_14_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="class_14_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
   <link href="class_14_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
@@ -206,6 +207,7 @@
 </div>
 </div>
 
+  <p class="date">2026-05-26</p>
 </section>
 <section id="section" class="slide level2 inverse center middle">
 <h2></h2>
@@ -385,11 +387,11 @@
 <section id="promedio-de-ingreso-mujeres-1" class="slide level2">
 <h2>Promedio de ingreso mujeres</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># i. Calcula media muestral </span></span>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># i. Calcula media muestral </span></span>
 <span id="cb6-2"><a href=""></a></span>
 <span id="cb6-3"><a href=""></a>mu_muestra <span class="ot">&lt;-</span> <span class="fu">mean</span>(casen2017_mujeres<span class="sc">$</span>ingreso, <span class="at">na.rm=</span>T) <span class="co">#&lt;&lt;</span></span>
 <span id="cb6-4"><a href=""></a></span>
-<span id="cb6-5"><a href=""></a><span class="fu">cat</span>(<span class="st">"Media muestral:"</span>, mu_muestra)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-5"><a href=""></a><span class="fu">cat</span>(<span class="st">"Media muestral:"</span>, mu_muestra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Media muestral: 368070.1</code></pre>
 </div>
@@ -404,7 +406,7 @@
 <section id="promedio-de-ingreso-mujeres-ic-al-95" class="slide level2">
 <h2>Promedio de ingreso mujeres, IC al 95%</h2>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="co"># i. nivel de confianza: 0.95 -&gt; alpha=0.05</span></span>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="co"># i. nivel de confianza: 0.95 -&gt; alpha=0.05</span></span>
 <span id="cb8-2"><a href=""></a></span>
 <span id="cb8-3"><a href=""></a><span class="co"># ii. Calcular valores críticos</span></span>
 <span id="cb8-4"><a href=""></a>z_inf <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>);  z_sup <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>)</span>
@@ -413,17 +415,17 @@
 <span id="cb8-7"><a href=""></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(casen2017_mujeres<span class="sc">$</span>ingreso)) <span class="co">#cuenta observaciones (sin NAs) en ingreso</span></span>
 <span id="cb8-8"><a href=""></a>s2 <span class="ot">&lt;-</span> <span class="fu">sum</span>((casen2017_mujeres<span class="sc">$</span>ingreso <span class="sc">-</span> <span class="fu">mean</span>(casen2017_mujeres<span class="sc">$</span>ingreso,<span class="at">na.rm=</span>T))<span class="sc">^</span><span class="dv">2</span>,<span class="at">na.rm=</span>T)<span class="sc">/</span>(n<span class="dv">-1</span>)</span>
 <span id="cb8-9"><a href=""></a>s  <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(s2)</span>
-<span id="cb8-10"><a href=""></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="at">manual=</span>s,<span class="at">comandoR=</span><span class="fu">sd</span>(casen2017_mujeres<span class="sc">$</span>ingreso,<span class="at">na.rm =</span> T)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb8-10"><a href=""></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="at">manual=</span>s,<span class="at">comandoR=</span><span class="fu">sd</span>(casen2017_mujeres<span class="sc">$</span>ingreso,<span class="at">na.rm =</span> T)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  manual comandoR 
 452424.4 452424.4 </code></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># iv. error estándar</span></span>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># iv. error estándar</span></span>
 <span id="cb10-2"><a href=""></a>ee <span class="ot">&lt;-</span> s<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
 <span id="cb10-3"><a href=""></a></span>
 <span id="cb10-4"><a href=""></a><span class="co"># v. Calcular limites del intervalo de confianza:</span></span>
 <span id="cb10-5"><a href=""></a>ic<span class="ot">=</span> mu_muestra <span class="sc">+</span> <span class="fu">c</span>(z_inf,z_sup)<span class="sc">*</span>ee </span>
-<span id="cb10-6"><a href=""></a><span class="fu">cat</span>(<span class="st">"Intervalo al 95% de confianza: ("</span>,ic[<span class="dv">1</span>],<span class="st">","</span>,ic[<span class="dv">2</span>],<span class="st">")"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb10-6"><a href=""></a><span class="fu">cat</span>(<span class="st">"Intervalo al 95% de confianza: ("</span>,ic[<span class="dv">1</span>],<span class="st">","</span>,ic[<span class="dv">2</span>],<span class="st">")"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Intervalo al 95% de confianza: ( 311762.3 , 424377.8 )</code></pre>
 </div>
@@ -717,7 +719,7 @@
         margin: 0.1,
 
         math: {
-          mathjax: 'https://cdn.jsdelivr.net/npm/mathjax@2.7.9/MathJax.js',
+          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
           config: 'TeX-AMS_HTML-full',
           tex2jax: {
             inlineMath: [['\\(','\\)']],
@@ -829,14 +831,13 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
