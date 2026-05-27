@@ -8,7 +8,8 @@ format:
     css: ["gentle-r.css","xaringan-themer.css"]
     slide-number: false
     theme: default
-    highlight-style: github
+    highlight-style: arrow-dark
+    code-block-font-size: 0.9em
     width: 1600
     height: 900
     html-math-method: katex
@@ -16,14 +17,14 @@ format:
       data-background-color: "#A0522D"
 ---
 
-## {background-color="#ADD8E6" .inverse .center .middle}
+
 
 ```{r setup, include=FALSE}
 options(scipen=999)
 knitr::opts_chunk$set(eval = T, echo = T)
 ```
 
-# Test de Hipótesis en dos muestras
+# Test de Hipótesis en dos muestras {background-color="#ADD8E6" .inverse .center .middle}
 
 ## Brechas de ingresos entre hombres y mujeres
 
@@ -189,7 +190,8 @@ Recordar, si $W$ e $Y$ son normales independientes:
 
 . . .
 
-Por tanto, $(\bar{X}_{H} - \bar{X}_{M}) =  \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big) -  \text{Normal}\big(\mu_M, \frac{\sigma_M}{\sqrt{n_M}}\big) \sim  \text{Normal}\Bigg(\mu_H - \mu_M, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)$ 
+Por tanto, $(\bar{X}_{H} - \bar{X}_{M}) = \\
+ \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big) -  \text{Normal}\big(\mu_M, \frac{\sigma_M}{\sqrt{n_M}}\big) \sim  \text{Normal}\Bigg(\mu_H - \mu_M, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)$ 
 
 <br>
 

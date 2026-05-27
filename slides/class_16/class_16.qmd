@@ -8,7 +8,8 @@ format:
     css: ["gentle-r.css","xaringan-themer.css"]
     slide-number: false
     theme: default
-    highlight-style: github
+    highlight-style: arrow-dark
+    code-block-font-size: 0.9em
     width: 1600
     height: 900
     html-math-method: katex
@@ -16,14 +17,11 @@ format:
       data-background-color: "#D6523C"
 ---
 
-## {background-color="#34B334" .inverse .center .middle}
+# Test de Hipótesis {background-color="#34B334" .inverse .center .middle}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(eval = T, echo = T)
 ```
-
-# Test de Hipótesis
-## en modelos probabilísticos
 
 ## El problema de la Inducción
 

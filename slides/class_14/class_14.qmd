@@ -8,7 +8,8 @@ format:
     css: ["gentle-r.css","xaringan-themer.css"]
     slide-number: false
     theme: default
-    highlight-style: github
+    highlight-style: arrow-dark
+    code-block-font-size: 0.9em
     width: 1600
     height: 900
     html-math-method: katex
@@ -16,14 +17,11 @@ format:
       data-background-color: "#228B22"
 ---
 
-## {background-color="#4B0082" .inverse .center .middle}
+# IC con varianza desconocida & Margen de Error {background-color="#4B0082" .inverse .center .middle}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(eval = T, echo = T)
 ```
-
-# Intervalos de confianza
-## con varianza desconocida
 
 ## Intervalos de confianza con varianza desconocida
 

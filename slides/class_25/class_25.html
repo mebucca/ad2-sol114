@@ -6,8 +6,8 @@
 <script src="class_25_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_25_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_25_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_25_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="class_25_files/libs/quarto-html/quarto-syntax-highlighting-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.33">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
   <meta name="dcterms.date" content="2026-05-27">
@@ -30,7 +30,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="class_25_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="class_25_files/libs/revealjs/dist/theme/quarto-12165c658f6565b8fae334a851d646f2.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -159,16 +159,10 @@
 
   <p class="date">2026-05-27</p>
 </section>
-<section id="section" class="slide level2 inverse center middle" data-background-color="#003E30">
-<h2></h2>
-</section>
 <section>
-<section id="asociación-entre-variables-continuas" class="title-slide slide level1 center">
+<section id="asociación-entre-variables-continuas" class="title-slide slide level1 inverse center middle" data-background-color="#003E30">
 <h1>Asociación entre variables continuas</h1>
 
-</section>
-<section id="correlación-de-pearson" class="slide level2">
-<h2>Correlación de Pearson</h2>
 </section>
 <section id="brechas-de-ingresos-entre-hombres-y-mujeres" class="slide level2">
 <h2>Brechas de ingresos entre hombres y mujeres</h2>
@@ -429,8 +423,8 @@
 </div>
 <div class="fragment">
 <ul>
-<li><p><span class="bold">Cov(esc,log-ingreso) | Hombre</span> = 101.4800806</p></li>
-<li><p><span class="bold">Cov(esc,log-ingreso) | Mujer</span> = 67.6533871</p></li>
+<li><p><span class="bold">Cov(esc,log-ingreso) | Hombre</span> = 106.4983754</p></li>
+<li><p><span class="bold">Cov(esc,log-ingreso) | Mujer</span> = 70.9989169</p></li>
 </ul>
 <p><br><br></p>
 </div>
@@ -443,10 +437,10 @@
 </ul>
 </div>
 </section>
-<section id="correlación-de-pearson-1" class="slide level2 inverse center middle section-title" data-background-color="#003E30">
+<section id="correlación-de-pearson" class="slide level2 inverse center middle section-title" data-background-color="#003E30">
 <h2>Correlación de Pearson</h2>
 </section>
-<section id="correlación-de-pearson-2" class="slide level2">
+<section id="correlación-de-pearson-1" class="slide level2">
 <h2>Correlación de Pearson</h2>
 <ul>
 <li>¿Cómo podemos medir el grado de asociación entre dos variables, libre de sus escala?</li>
@@ -468,7 +462,7 @@
 </span></p>
 </div>
 </section>
-<section id="correlación-de-pearson-3" class="slide level2">
+<section id="correlación-de-pearson-2" class="slide level2">
 <h2>Correlación de Pearson</h2>
 <p><br></p>
 <p>Si</p>
@@ -523,7 +517,7 @@
 <li><p><span class="math inline">n</span> es el número de observaciones en las muestras.</p></li>
 </ul>
 </section>
-<section id="correlación-de-pearson-4" class="slide level2">
+<section id="correlación-de-pearson-3" class="slide level2">
 <h2>Correlación de Pearson</h2>
 <p><br></p>
 <div class="center">
@@ -880,14 +874,13 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

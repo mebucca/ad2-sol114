@@ -8,7 +8,8 @@ format:
     css: ["gentle-r.css","xaringan-themer.css"]
     slide-number: false
     theme: default
-    highlight-style: github
+    highlight-style: arrow-dark
+    code-block-font-size: 0.9em
     width: 1600
     height: 900
     html-math-method: katex
@@ -16,7 +17,7 @@ format:
       data-background-color: "#4B6F44"
 ---
 
-## Teoremas Asintóticos {background-color="#F4C430" .inverse .center .middle .section-title}
+# Teoremas Asintóticos {background-color="#F4C430" .inverse .center .middle}
 
 ## Teorema del Límite Central {background-color="#F4C430" .inverse .center .middle .section-title}
 ## Convergencia en Distribución
