@@ -6,11 +6,11 @@
 <script src="class_21_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_21_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_21_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_21_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_21_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,9 +30,25 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="class_21_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_21_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_21_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_21_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_21_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -141,9 +157,9 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
-<section id="section" class="slide level2 inverse center middle">
+<section id="section" class="slide level2 inverse center middle" data-background-color="#000000">
 <h2></h2>
 </section>
 <section>
@@ -399,7 +415,7 @@
 </div>
 </section>
 <section id="asociación-neq-causalidad" class="slide level2">
-<h2>Asociación <span class="math inline">\(\neq\)</span> Causalidad</h2>
+<h2>Asociación <span class="math inline">\neq</span> Causalidad</h2>
 <div class="pull-left">
 <p><strong>Mundo observado:</strong></p>
 <table class="caption-top">
@@ -443,7 +459,7 @@
 </tr>
 </tbody>
 </table>
-<p><span class="math display">\[\mathbb{P}(\text{cancer} \mid \text{fumar} ) = 2/3 &gt; \mathbb{P}(\text{cancer} \mid \text{no fumar}) = 0 \]</span> <br></p>
+<p><span class="math display">\mathbb{P}(\text{cancer} \mid \text{fumar} ) = 2/3 &gt; \mathbb{P}(\text{cancer} \mid \text{no fumar}) = 0 </span> <br></p>
 <p>Conclusión #1: <span class="bold">“Fumar y desarrollar cancer están asociados estadísticamente”</span></p>
 </div>
 <div class="fragment">
@@ -490,14 +506,14 @@
 </tr>
 </tbody>
 </table>
-<p><span class="math inline">\(\mathbb{P}(\text{cancer} \mid \text{do(fumar)} ) =  \mathbb{P}(\text{cancer} \mid \text{do(no fumar)}) = 2/5\)</span></p>
+<p><span class="math inline">\mathbb{P}(\text{cancer} \mid \text{do(fumar)} ) =  \mathbb{P}(\text{cancer} \mid \text{do(no fumar)}) = 2/5</span></p>
 <p><br></p>
 <p>Conclusión #2: <span class="bold">“Fumar no causa el desarrollo de cancer”</span></p>
 </div>
 </div>
 </section>
 <section id="asociación-neq-causalidad-why" class="slide level2">
-<h2>Asociación <span class="math inline">\(\neq\)</span> Causalidad: ¿Why?</h2>
+<h2>Asociación <span class="math inline">\neq</span> Causalidad: ¿Why?</h2>
 <ul>
 <li><p>Hay varias razones por las cuales puede pasar que asociación y causalidad no coincidan.</p></li>
 <li><p>Un caso paradigmático es cuando existe asociación espúria</p></li>
@@ -561,7 +577,7 @@
 </div>
 </section>
 <section id="asociación-neq-causalidad-why-1" class="slide level2">
-<h2>Asociación <span class="math inline">\(\neq\)</span> Causalidad: ¿Why?</h2>
+<h2>Asociación <span class="math inline">\neq</span> Causalidad: ¿Why?</h2>
 <ul>
 <li><p>Hay varias razones por las cuales puede pasar que asociación y causalidad no coincidan.</p></li>
 <li><p>Un caso paradigmático es cuando existe asociación espúria</p></li>
@@ -617,7 +633,7 @@
 </div>
 </section>
 <section id="asociación-neq-causalidad-por-qué" class="slide level2">
-<h2>Asociación <span class="math inline">\(\neq\)</span> Causalidad: ¿Por qué?</h2>
+<h2>Asociación <span class="math inline">\neq</span> Causalidad: ¿Por qué?</h2>
 <p>La diferencia entre asociación y causalidad es fundamental y va más allá de los métodos estadísticos utilizados. Consideraciones clave:</p>
 <p><br></p>
 <ul>
@@ -630,13 +646,13 @@
 </ul>
 </section>
 <section id="asociación-neq-causalidad-por-qué-1" class="slide level2">
-<h2>Asociación <span class="math inline">\(\neq\)</span> Causalidad: ¿Por qué?</h2>
+<h2>Asociación <span class="math inline">\neq</span> Causalidad: ¿Por qué?</h2>
 <p>Ejemplo de diseño de investigación: experimentos naturales y “regresión discontinua”</p>
 <div class="center">
 <p><img data-src="https://ds4ps.org/pe4ps-textbook/docs/FIGURE/RegDisc/Picture5.png"></p>
 </div>
 </section>
-<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle" data-background-color="#000000">
 <h2>Hasta la próxima clase. Gracias!</h2>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
 
@@ -661,7 +677,6 @@
   <script src="class_21_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_21_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_21_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_21_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -697,7 +712,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -829,27 +844,9 @@
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -942,13 +939,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

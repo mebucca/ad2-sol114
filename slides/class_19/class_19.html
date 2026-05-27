@@ -6,11 +6,11 @@
 <script src="class_19_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_19_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_19_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_19_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_19_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -96,9 +96,25 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="class_19_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_19_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_19_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_19_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_19_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -207,9 +223,9 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
-<section id="section" class="slide level2 inverse center middle">
+<section id="section" class="slide level2 inverse center middle" data-background-color="#ADD8E6">
 <h2></h2>
 </section>
 <section>
@@ -254,10 +270,10 @@
 <div class="fragment">
 <div class="pull-left">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>results <span class="ot">&lt;-</span> casen2017 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>results <span class="ot">&lt;-</span> casen2017 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span> </span>
 <span id="cb1-2"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">promedio_ingresos =</span> </span>
 <span id="cb1-3"><a href=""></a>              <span class="fu">mean</span>(ingreso, <span class="at">na.rm =</span> T),</span>
-<span id="cb1-4"><a href=""></a>            <span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(ingreso)) ); results </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-4"><a href=""></a>            <span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(ingreso)) ); results </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 2 × 3
   genero promedio_ingresos     n
@@ -284,14 +300,14 @@
 <div class="fragment">
 <p><span class="bold">Hipótesis Nula</span>: “La media de ingreso de las mujeres es igual a la de los hombres”.</p>
 <ul>
-<li><span class="math inline">\(H_0: \underbrace{\mathbb{E}(X \mid \text{Hombre})}_{\mu_H} = \underbrace{\mathbb{E}(X \mid \text{Mujer})}_{\mu_M} \implies  \mathbb{E}(X \mid \text{Hombre}) - \mathbb{E}(X \mid \text{Mujer}) = 0\)</span></li>
+<li><span class="math inline">H_0: \underbrace{\mathbb{E}(X \mid \text{Hombre})}_{\mu_H} = \underbrace{\mathbb{E}(X \mid \text{Mujer})}_{\mu_M} \implies  \mathbb{E}(X \mid \text{Hombre}) - \mathbb{E}(X \mid \text{Mujer}) = 0</span></li>
 </ul>
 <p><br></p>
 </div>
 <div class="fragment">
 <p><span class="bold">Hipótesis Alternativa</span>: “La media de ingreso de las mujeres es distinta de la de los hombres”.</p>
 <ul>
-<li><span class="math inline">\(H_a: \underbrace{\mathbb{E}(X \mid \text{Hombre})}_{\mu_H} \neq \underbrace{\mathbb{E}(X \mid \text{Mujer})}_{\mu_M} \implies  \mathbb{E}(X \mid \text{Hombre}) - \mathbb{E}(X \mid \text{Mujer}) \neq 0\)</span></li>
+<li><span class="math inline">H_a: \underbrace{\mathbb{E}(X \mid \text{Hombre})}_{\mu_H} \neq \underbrace{\mathbb{E}(X \mid \text{Mujer})}_{\mu_M} \implies  \mathbb{E}(X \mid \text{Hombre}) - \mathbb{E}(X \mid \text{Mujer}) \neq 0</span></li>
 </ul>
 <p><br></p>
 </div>
@@ -302,15 +318,15 @@
 <div class="fragment">
 <div class="pull-left">
 <ul>
-<li><p><span class="math inline">\(\bar{X}_{H} = \hat{\mu}_{H}=\)</span> 5.88281^{5}</p></li>
-<li><p><span class="math inline">\(\bar{X}_{M} = \hat{\mu}_{M}=\)</span> 3.6807^{5}</p></li>
+<li><p><span class="math inline">\bar{X}_{H} = \hat{\mu}_{H}=</span> 588281</p></li>
+<li><p><span class="math inline">\bar{X}_{M} = \hat{\mu}_{M}=</span> 368070</p></li>
 </ul>
 </div>
 </div>
 <div class="fragment">
 <div class="pull-right">
 <ul>
-<li><span class="math inline">\((\bar{X}_{H} - \bar{X}_{M}) = (\hat{\mu}_{H} - \hat{\mu}_{M})=\)</span> 2.20211^{5}</li>
+<li><span class="math inline">(\bar{X}_{H} - \bar{X}_{M}) = (\hat{\mu}_{H} - \hat{\mu}_{M})=</span> 220211</li>
 </ul>
 </div>
 </div>
@@ -321,15 +337,15 @@
 <ul>
 <li><p>Por el TLC sabemos que:</p>
 <ul>
-<li><p><span class="math inline">\(\bar{X}_{H}  \sim \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big)\)</span></p></li>
-<li><p><span class="math inline">\(\bar{X}_{M}  \sim \text{Normal}\big(\mu_M, \frac{\sigma_M}{\sqrt{n_M}}\big)\)</span></p></li>
+<li><p><span class="math inline">\bar{X}_{H}  \sim \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big)</span></p></li>
+<li><p><span class="math inline">\bar{X}_{M}  \sim \text{Normal}\big(\mu_M, \frac{\sigma_M}{\sqrt{n_M}}\big)</span></p></li>
 </ul></li>
 </ul>
 <p><br></p>
 <div class="fragment">
 <p>Por tanto,</p>
 <div class="pull-left">
-<p><span class="math inline">\((\bar{X}_{H} - \bar{X}_{M}) \sim \dots\)</span></p>
+<p><span class="math inline">(\bar{X}_{H} - \bar{X}_{M}) \sim \dots</span></p>
 </div>
 </div>
 <div class="fragment">
@@ -344,14 +360,14 @@
 <ul>
 <li><p>Por el TLC sabemos que:</p>
 <ul>
-<li><p><span class="math inline">\(\bar{X}_{H}  \sim \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big)\)</span></p></li>
-<li><p><span class="math inline">\(\bar{X}_{M}  \sim \text{Normal}\big(\mu_M, \frac{\sigma_M}{\sqrt{n_M}}\big)\)</span></p></li>
+<li><p><span class="math inline">\bar{X}_{H}  \sim \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big)</span></p></li>
+<li><p><span class="math inline">\bar{X}_{M}  \sim \text{Normal}\big(\mu_M, \frac{\sigma_M}{\sqrt{n_M}}\big)</span></p></li>
 </ul></li>
 </ul>
 <p><br></p>
 <p>Por tanto,</p>
 <div class="pull-left">
-<p><span class="math inline">\((\bar{X}_{H} - \bar{X}_{M}) \sim \dots\)</span></p>
+<p><span class="math inline">(\bar{X}_{H} - \bar{X}_{M}) \sim \dots</span></p>
 </div>
 <div class="pull-right">
 <p><img src="https://media.tenor.com/DWQneUNAlycAAAAd/pug-pugs.gif" alt="cooldpug" width="370" height="240"></p>
@@ -360,49 +376,49 @@
 <section id="brechas-de-ingresos-entre-hombres-y-mujeres-5" class="slide level2">
 <h2>Brechas de ingresos entre hombres y mujeres</h2>
 <div class="pull-left">
-<p><span class="math inline">\((\bar{X}_{H} - \bar{X}_{M}) \sim \dots\)</span></p>
+<p><span class="math inline">(\bar{X}_{H} - \bar{X}_{M}) \sim \dots</span></p>
 </div>
 <div class="fragment">
 <div class="pull-right">
 <div class="content-box-secondary">
-<p>Recordar, si <span class="math inline">\(W\)</span> e <span class="math inline">\(Y\)</span> son normales independientes:</p>
+<p>Recordar, si <span class="math inline">W</span> e <span class="math inline">Y</span> son normales independientes:</p>
 <ul>
-<li><p><span class="math inline">\(W \pm Y \sim \text{Normal}\)</span></p></li>
-<li><p><span class="math inline">\(\mathbb{E}(W \pm Y) = \mathbb{E}(W) \pm \mathbb{E}(Y)\)</span></p></li>
-<li><p><span class="math inline">\(\mathbb{Var}(W \pm Y) = \mathbb{Var}(W) + \mathbb{Var}(Y)\)</span></p></li>
+<li><p><span class="math inline">W \pm Y \sim \text{Normal}</span></p></li>
+<li><p><span class="math inline">\mathbb{E}(W \pm Y) = \mathbb{E}(W) \pm \mathbb{E}(Y)</span></p></li>
+<li><p><span class="math inline">\mathbb{Var}(W \pm Y) = \mathbb{Var}(W) + \mathbb{Var}(Y)</span></p></li>
 </ul>
 </div>
 </div>
 <p><br></p>
 </div>
 <div class="fragment">
-<p>Por tanto, <span class="math inline">\((\bar{X}_{H} - \bar{X}_{M}) =  \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big) -  \text{Normal}\big(\mu_M, \frac{\sigma_M}{\sqrt{n_M}}\big) \sim  \text{Normal}\Bigg(\mu_H - \mu_M, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)\)</span></p>
+<p>Por tanto, <span class="math inline">(\bar{X}_{H} - \bar{X}_{M}) =  \text{Normal}\big(\mu_H, \frac{\sigma_H}{\sqrt{n_H}}\big) -  \text{Normal}\big(\mu_M, \frac{\sigma_M}{\sqrt{n_M}}\big) \sim  \text{Normal}\Bigg(\mu_H - \mu_M, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)</span></p>
 <p><br></p>
 </div>
 <div class="fragment">
-<p>Luego, si <span class="math inline">\(H_0\)</span> es verdadera (la media de ingreso de las mujeres es igual a la de los hombres):</p>
-<p><span class="math display">\[(\bar{X}_{H} - \bar{X}_{M}) \mid H_0 \sim \text{Normal}\Bigg(0, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)\]</span></p>
+<p>Luego, si <span class="math inline">H_0</span> es verdadera (la media de ingreso de las mujeres es igual a la de los hombres):</p>
+<p><span class="math display">(\bar{X}_{H} - \bar{X}_{M}) \mid H_0 \sim \text{Normal}\Bigg(0, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)</span></p>
 </div>
 </section>
 <section id="brechas-de-ingresos-entre-hombres-y-mujeres-6" class="slide level2">
 <h2>Brechas de ingresos entre hombres y mujeres</h2>
-<p><span class="math display">\[(\bar{X}_{H} - \bar{X}_{M}) \mid H_0 \sim \text{Normal}\Bigg(0, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)\]</span></p>
+<p><span class="math display">(\bar{X}_{H} - \bar{X}_{M}) \mid H_0 \sim \text{Normal}\Bigg(0, \sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}} \quad \Bigg)</span></p>
 <div class="fragment">
-<p>Estandarizando, <span class="math inline">\(Z_{H-W} \mid H_0 \sim \text{Normal}\big(0,1)\)</span></p>
+<p>Estandarizando, <span class="math inline">Z_{H-W} \mid H_0 \sim \text{Normal}\big(0,1)</span></p>
 </div>
 <div class="fragment">
 <ul>
-<li><span class="math inline">\(\hat{z} \mid H_0 = \frac{(\hat{\mu}_{H} - \hat{\mu}_{M}) - 0 }{\sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}}}\)</span></li>
+<li><span class="math inline">\hat{z} \mid H_0 = \frac{(\hat{\mu}_{H} - \hat{\mu}_{M}) - 0 }{\sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}}}</span></li>
 </ul>
 </div>
 <div class="fragment">
-<p>No conocemos las varianzas poblacionales, por tanto debemos estimarlas ( <span class="math inline">\(s^{2}_H\)</span> y <span class="math inline">\(s^{2}_M\)</span> )</p>
+<p>No conocemos las varianzas poblacionales, por tanto debemos estimarlas ( <span class="math inline">s^{2}_H</span> y <span class="math inline">s^{2}_M</span> )</p>
 <div class="pull-left">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>stats <span class="ot">&lt;-</span> casen2017 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>stats <span class="ot">&lt;-</span> casen2017 <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(genero) <span class="sc">%&gt;%</span> </span>
 <span id="cb3-2"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">mu_hat =</span> <span class="fu">mean</span>(ingreso, <span class="at">na.rm =</span> T),</span>
 <span id="cb3-3"><a href=""></a>            <span class="at">s2 =</span> <span class="fu">var</span>(ingreso, <span class="at">na.rm =</span> T),</span>
-<span id="cb3-4"><a href=""></a>            <span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(ingreso)) ) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-4"><a href=""></a>            <span class="at">n =</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(ingreso)) ) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -418,14 +434,14 @@
 <div class="fragment">
 <div class="pull-right">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>numerador <span class="ot">&lt;-</span> stats <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>numerador <span class="ot">&lt;-</span> stats <span class="sc">%&gt;%</span></span>
 <span id="cb5-2"><a href=""></a>  <span class="fu">with</span>(mu_hat[<span class="dv">1</span>] <span class="sc">-</span> mu_hat[<span class="dv">2</span>])</span>
 <span id="cb5-3"><a href=""></a></span>
 <span id="cb5-4"><a href=""></a>denominador <span class="ot">&lt;-</span> stats <span class="sc">%&gt;%</span> </span>
 <span id="cb5-5"><a href=""></a>  <span class="fu">with</span>( <span class="fu">sqrt</span>(s2[<span class="dv">1</span>]<span class="sc">/</span>n[<span class="dv">1</span>] <span class="sc">+</span> s2[<span class="dv">2</span>]<span class="sc">/</span>n[<span class="dv">2</span>]) )</span>
 <span id="cb5-6"><a href=""></a></span>
 <span id="cb5-7"><a href=""></a>z_hat <span class="ot">&lt;-</span> numerador<span class="sc">/</span>denominador</span>
-<span id="cb5-8"><a href=""></a><span class="fu">print</span>(z_hat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-8"><a href=""></a><span class="fu">print</span>(z_hat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 4.534111</code></pre>
 </div>
@@ -437,27 +453,27 @@
 <h2>Brechas de ingresos entre hombres y mujeres</h2>
 <p><br></p>
 <div class="fragment">
-<p><span class="bold">Paso #4: Elegir un nivel de significación</span> <span class="math inline">\(\alpha\)</span></p>
+<p><span class="bold">Paso #4: Elegir un nivel de significación</span> <span class="math inline">\alpha</span></p>
 <ul>
-<li>Vamos trabajar a un nivel de significación de 5%, <span class="math inline">\(\alpha=0.05\)</span>.</li>
+<li>Vamos trabajar a un nivel de significación de 5%, <span class="math inline">\alpha=0.05</span>.</li>
 </ul>
 <p><br></p>
 </div>
 <div class="fragment">
 <p><span class="bold">Paso #5: Calcular el valor-p</span></p>
 <ul>
-<li><p><span class="math inline">\(\text{valor-p} = \mathbb{P}( \bar{X}_{H} - \bar{X}_{M} &gt; | \hat{\mu}_{H} - \hat{\mu}_{M} | \mid H_{0})\)</span></p></li>
-<li><p>equivalentemente: <span class="math inline">\(\text{valor-p} = \mathbb{P}\Bigg( Z &gt;   \Bigg| \frac{(\hat{\mu}_{H} - \hat{\mu}_{M}) - 0}{\sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}}} \Bigg|  \Bigg)\)</span></p></li>
+<li><p><span class="math inline">\text{valor-p} = \mathbb{P}( \bar{X}_{H} - \bar{X}_{M} &gt; | \hat{\mu}_{H} - \hat{\mu}_{M} | \mid H_{0})</span></p></li>
+<li><p>equivalentemente: <span class="math inline">\text{valor-p} = \mathbb{P}\Bigg( Z &gt;   \Bigg| \frac{(\hat{\mu}_{H} - \hat{\mu}_{M}) - 0}{\sqrt{\frac{\sigma^{2}_H}{n_H} + \frac{\sigma^{2}_M}{n_M}}} \Bigg|  \Bigg)</span></p></li>
 </ul>
 </div>
 <div class="fragment">
 <p>En nuestro caso:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>pvalue <span class="ot">=</span>  <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z_hat))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>pvalue <span class="ot">=</span>  <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z_hat))</span>
 <span id="cb7-2"><a href=""></a></span>
-<span id="cb7-3"><a href=""></a><span class="fu">cat</span>(<span class="st">"z_hat="</span>,<span class="fu">round</span>(z_hat,<span class="dv">2</span>), <span class="st">" valor-p="</span>, pvalue, <span class="at">sep=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-3"><a href=""></a><span class="fu">cat</span>(<span class="st">"z_hat="</span>,<span class="fu">round</span>(z_hat,<span class="dv">2</span>), <span class="st">" valor-p="</span>, pvalue, <span class="at">sep=</span><span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>z_hat=4.53 valor-p=5.784671e-06</code></pre>
+<pre><code>z_hat=4.53 valor-p=0.000005784671</code></pre>
 </div>
 </div>
 </div>
@@ -469,14 +485,14 @@
 </div>
 <div class="fragment">
 <ul>
-<li>Comparamos – bajo el supuesto de que <span class="math inline">\(H_0\)</span> es verdadera – la probabilidad de obtener el resultado que obtuvimos o uno más extremo (valor-p) vs.&nbsp;el criterio seleccionado para clasificar resultados como “extremos” ( <span class="math inline">\(\alpha\)</span> ).</li>
+<li>Comparamos – bajo el supuesto de que <span class="math inline">H_0</span> es verdadera – la probabilidad de obtener el resultado que obtuvimos o uno más extremo (valor-p) vs.&nbsp;el criterio seleccionado para clasificar resultados como “extremos” ( <span class="math inline">\alpha</span> ).</li>
 </ul>
 </div>
 <div class="fragment">
 <p><span class="bold">Decisión:</span></p>
 <ul>
-<li><p>Si <span class="math inline">\(\text{valor-p} &lt; \alpha\)</span> entonces rechazamos <span class="math inline">\(H_{0}\)</span></p></li>
-<li><p>Si <span class="math inline">\(\text{valor-p} &gt; \alpha\)</span> no podemos rechazar <span class="math inline">\(H_{0}\)</span></p></li>
+<li><p>Si <span class="math inline">\text{valor-p} &lt; \alpha</span> entonces rechazamos <span class="math inline">H_{0}</span></p></li>
+<li><p>Si <span class="math inline">\text{valor-p} &gt; \alpha</span> no podemos rechazar <span class="math inline">H_{0}</span></p></li>
 </ul>
 <p><br></p>
 </div>
@@ -484,14 +500,14 @@
 <p>En este caso:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code>𝛼=0.05; valor-p=5.784671e-06</code></pre>
+<pre><code>𝛼=0.05; valor-p=0.000005784671</code></pre>
 </div>
 </div>
 <p><span class="bold">Conclusión:</span></p>
 <p>Con un nivel de significación del 5% (o 95% de confianza) podemos rechazar la hipótesis nula de que el salario promedio de hombres y mujeres es el mismo. Nuestro resultado sugiere que el salario promedio de los hombres es significativamente mayor que el de las mujeres.</p>
 </div>
 </section>
-<section id="superposición-de-intervalos-de-confianza" class="slide level2 inverse center middle">
+<section id="superposición-de-intervalos-de-confianza" class="slide level2 inverse center middle" data-background-color="#ADD8E6">
 <h2>Superposición de intervalos de confianza</h2>
 </section>
 <section class="slide level2">
@@ -505,12 +521,12 @@
 <p><br></p>
 <div class="pull-left">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>stats <span class="ot">&lt;-</span> stats <span class="sc">%&gt;%</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a>stats <span class="ot">&lt;-</span> stats <span class="sc">%&gt;%</span></span>
 <span id="cb10-2"><a href=""></a>  <span class="fu">mutate</span>(</span>
 <span id="cb10-3"><a href=""></a>    <span class="at">se =</span> <span class="fu">sqrt</span>(s2) <span class="sc">/</span> <span class="fu">sqrt</span>(n),</span>
 <span id="cb10-4"><a href=""></a>    <span class="at">ci_inf =</span> mu_hat <span class="sc">-</span> <span class="fl">1.96</span> <span class="sc">*</span> se,</span>
 <span id="cb10-5"><a href=""></a>    <span class="at">ci_sup =</span> mu_hat <span class="sc">+</span> <span class="fl">1.96</span> <span class="sc">*</span> se</span>
-<span id="cb10-6"><a href=""></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-6"><a href=""></a>  )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <p><br></p>
@@ -557,7 +573,7 @@
 <section class="slide level2">
 
 <h3 id="superposición-de-intervalos-de-confianza-4">Superposición de intervalos de confianza</h3>
-<p>Queremos saber si <span class="math inline">\(\hat{\mu}_{H}\)</span> es significativamente <span class="bold">mayor</span> que <span class="math inline">\(\hat{\mu}_{M}\)</span>.</p>
+<p>Queremos saber si <span class="math inline">\hat{\mu}_{H}</span> es significativamente <span class="bold">mayor</span> que <span class="math inline">\hat{\mu}_{M}</span>.</p>
 <div class="pull-left">
 <p><span class="bold">Intervalos de confianza sobrepuesto</span></p>
 <div class="cell">
@@ -573,14 +589,14 @@
 <div class="pull-right">
 <p><br></p>
 <p>Implícitamente esto está evaluando si,</p>
-<p><span class="math inline">\((\hat{\mu}_{H} - Z_{\alpha/2} \cdot \sigma_{H}/\sqrt{n_H}) - (\hat{\mu}_{M} + Z_{\alpha/2} \cdot \sigma_{2}/\sqrt{n_M}) &gt; 0\)</span></p>
+<p><span class="math inline">(\hat{\mu}_{H} - Z_{\alpha/2} \cdot \sigma_{H}/\sqrt{n_H}) - (\hat{\mu}_{M} + Z_{\alpha/2} \cdot \sigma_{2}/\sqrt{n_M}) &gt; 0</span></p>
 <p><br> es decir, si</p>
-<p><span class="math inline">\((\hat{\mu}_{H} - \hat{\mu}_{M}) -  Z_{\alpha/2} \cdot (\sigma_{H}/\sqrt{n_H} + \sigma_{M}/\sqrt{n_M}) &gt; 0\)</span></p>
+<p><span class="math inline">(\hat{\mu}_{H} - \hat{\mu}_{M}) -  Z_{\alpha/2} \cdot (\sigma_{H}/\sqrt{n_H} + \sigma_{M}/\sqrt{n_M}) &gt; 0</span></p>
 </div>
 <p><br></p>
 <p>. . .</p>
 <p>En cambio, si construyéramos un <span class="bold">intervalo de confianza / test de hipótesis para la diferencia</span>, estaríamos evaluando si:</p>
-<p><span class="math display">\[(\hat{\mu}_{H} - \hat{\mu}_{M}) \pm  Z_{\alpha/2} \cdot \sqrt{(\sigma^{2}_{H}/n_H + \sigma^{2}_{M}/n_M)} &gt; 0\]</span></p>
+<p><span class="math display">(\hat{\mu}_{H} - \hat{\mu}_{M}) \pm  Z_{\alpha/2} \cdot \sqrt{(\sigma^{2}_{H}/n_H + \sigma^{2}_{M}/n_M)} &gt; 0</span></p>
 </section>
 <section class="slide level2">
 
@@ -595,15 +611,15 @@
 </div>
 <div class="pull-right">
 <p>Dado que:</p>
-<p><span class="math display">\[\frac{\sigma_{H}}{\sqrt{n_H}} + \frac{\sigma_{M}}{\sqrt{n_M}} &gt; \sqrt{\frac{\sigma^{2}_{H}}{n_H} + \frac{\sigma^{2}_{M}}{n_M}}\]</span></p>
+<p><span class="math display">\frac{\sigma_{H}}{\sqrt{n_H}} + \frac{\sigma_{M}}{\sqrt{n_M}} &gt; \sqrt{\frac{\sigma^{2}_{H}}{n_H} + \frac{\sigma^{2}_{M}}{n_M}}</span></p>
 <p><br> evaluar la superposición de intervalos de confianza no siempre garantiza una decisión correcta:</p>
 <ul>
-<li><p><strong>Si los intervalos no se superponen</strong>, el intervalo para la diferencia no contiene cero, por lo que <strong>rechazamos</strong> <span class="math inline">\(H_0\)</span> ✅.💪🏾</p></li>
-<li><p><strong>Si los intervalos se superponen</strong>, el intervalo para la diferencia no necesariamente contiene cero, lo que significa que <strong>no podemos estar seguros</strong> de si debemos rechazar o no <span class="math inline">\(H_0\)</span>️ 🤷‍♀🤔️ .</p></li>
+<li><p><strong>Si los intervalos no se superponen</strong>, el intervalo para la diferencia no contiene cero, por lo que <strong>rechazamos</strong> <span class="math inline">H_0</span> ✅.💪🏾</p></li>
+<li><p><strong>Si los intervalos se superponen</strong>, el intervalo para la diferencia no necesariamente contiene cero, lo que significa que <strong>no podemos estar seguros</strong> de si debemos rechazar o no <span class="math inline">H_0</span>️ 🤷‍♀🤔️ .</p></li>
 </ul>
 </div>
 </section>
-<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle" data-background-color="#ADD8E6">
 <h2>Hasta la próxima clase. Gracias!</h2>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
 
@@ -628,7 +644,6 @@
   <script src="class_19_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_19_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_19_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_19_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -664,7 +679,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -796,27 +811,9 @@
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -909,13 +906,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

@@ -6,11 +6,11 @@
 <script src="class_17_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_17_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_17_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_17_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_17_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -96,9 +96,25 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="class_17_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_17_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_17_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_17_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_17_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -207,9 +223,9 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
-<section id="section" class="slide level2 inverse center middle">
+<section id="section" class="slide level2 inverse center middle" data-background-color="#3949AB">
 <h2></h2>
 </section>
 <section>
@@ -350,14 +366,14 @@
 <div class="fragment">
 <p><span class="bold">Hipótesis Nula</span>: “Paul no tiene ningún talento especial, sus predicciones son como tirar una moneda al aire”.</p>
 <ul>
-<li><span class="math inline">\(H_0: \mathbb{P}(\text{Acierto}) = \mathbb{P}(\text{Fallo}) = 0.5\)</span></li>
+<li><span class="math inline">H_0: \mathbb{P}(\text{Acierto}) = \mathbb{P}(\text{Fallo}) = 0.5</span></li>
 </ul>
 <p><br></p>
 </div>
 <div class="fragment">
 <p><span class="bold">Hipótesis Alternativa</span>: “Paul tiene un talento, acierta más de lo que falla”, o quizás “Paul es un mal adivino, falla más de lo que acierta”.</p>
 <ul>
-<li><span class="math inline">\(H_a: \mathbb{P}(\text{Acierto}) \neq \mathbb{P}(\text{Fallo})\)</span></li>
+<li><span class="math inline">H_a: \mathbb{P}(\text{Acierto}) \neq \mathbb{P}(\text{Fallo})</span></li>
 </ul>
 </div>
 </section>
@@ -374,10 +390,10 @@
 </div>
 <div class="fragment">
 <ul>
-<li>Estadístico relevante: proporción de aciertos, <span class="math inline">\(\hat{p}\)</span>.</li>
+<li>Estadístico relevante: proporción de aciertos, <span class="math inline">\hat{p}</span>.</li>
 </ul>
 <p><br></p>
-<p><span class="math display">\[\text{Proporción de Aciertos}: \hat{p} = \frac{12}{14} = 0.857\]</span></p>
+<p><span class="math display">\text{Proporción de Aciertos}: \hat{p} = \frac{12}{14} = 0.857</span></p>
 </div>
 </section>
 <section id="puede-un-pulpo-predecir-los-resultados-del-futbol-4" class="slide level2">
@@ -385,17 +401,17 @@
 <p><span class="bold">Paso #3: Determinar la Distribución Nula</span></p>
 <div class="fragment">
 <ul>
-<li>Es decir, la distribución muestral de nuestro estadístico bajo el supuesto de que la <span class="math inline">\(H_0\)</span> es verdadera – Paul no tiene habilidad especial y por tanto <span class="math inline">\(\mathbb{P}(\text{Acierto}) = \mathbb{P}(\text{Fallo}) = 0.5\)</span>.</li>
+<li>Es decir, la distribución muestral de nuestro estadístico bajo el supuesto de que la <span class="math inline">H_0</span> es verdadera – Paul no tiene habilidad especial y por tanto <span class="math inline">\mathbb{P}(\text{Acierto}) = \mathbb{P}(\text{Fallo}) = 0.5</span>.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Por el TLC sabemos que: <span class="math inline">\(\hat{p} \sim \text{Normal}\bigg(p, \frac{\sqrt{p(1-p)} }{\sqrt{n}}\bigg)\)</span></li>
+<li>Por el TLC sabemos que: <span class="math inline">\hat{p} \sim \text{Normal}\bigg(p, \frac{\sqrt{p(1-p)} }{\sqrt{n}}\bigg)</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Por tanto, <span class="math inline">\(\hat{p} \mid H_{0} \sim \text{Normal}\bigg(0.5, \frac{\sqrt{0.5(1-0.5)} }{\sqrt{n}}\bigg)\)</span></li>
+<li>Por tanto, <span class="math inline">\hat{p} \mid H_{0} \sim \text{Normal}\bigg(0.5, \frac{\sqrt{0.5(1-0.5)} }{\sqrt{n}}\bigg)</span></li>
 </ul>
 <p><br></p>
 </div>
@@ -403,29 +419,29 @@
 <ul>
 <li><p>Estandarizando podemos derivar un <span class="bold">test-z</span>:</p>
 <ul>
-<li>Si <span class="math inline">\(Z_{\hat{p}} = \frac{\hat{p} - p}{\frac{\sqrt{p(1-p)} }{\sqrt{n}}}\)</span> entonces: <span class="math inline">\(Z_{\hat{p}} \mid H_0   \sim \text{Normal}\big(0, 1\big)\)</span></li>
+<li>Si <span class="math inline">Z_{\hat{p}} = \frac{\hat{p} - p}{\frac{\sqrt{p(1-p)} }{\sqrt{n}}}</span> entonces: <span class="math inline">Z_{\hat{p}} \mid H_0   \sim \text{Normal}\big(0, 1\big)</span></li>
 </ul></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Nuestro estadístico <span class="math inline">\(\hat{p}\)</span> se transforma el <span class="bold">test-z</span>, el valor estandarizado de del estadístico bajo <span class="math inline">\(H_0\)</span>:</li>
+<li>Nuestro estadístico <span class="math inline">\hat{p}</span> se transforma el <span class="bold">test-z</span>, el valor estandarizado de del estadístico bajo <span class="math inline">H_0</span>:</li>
 </ul>
-<p><span class="math display">\[\hat{z} = \frac{\hat{p} - p}{\frac{\sqrt{p(1-p)} }{\sqrt{n}}} = \frac{0.857 - 0.5}{\frac{\sqrt{0.5(1-0.5)} }{\sqrt{14}}} = 2.6726\]</span></p>
+<p><span class="math display">\hat{z} = \frac{\hat{p} - p}{\frac{\sqrt{p(1-p)} }{\sqrt{n}}} = \frac{0.857 - 0.5}{\frac{\sqrt{0.5(1-0.5)} }{\sqrt{14}}} = 2.6726</span></p>
 </div>
 </section>
 <section id="puede-un-pulpo-predecir-los-resultados-del-futbol-5" class="slide level2">
 <h2>¿Puede un pulpo predecir los resultados del futbol?</h2>
-<p><span class="bold">Paso #4: Elegir un nivel de significación</span> <span class="math inline">\(\alpha\)</span></p>
+<p><span class="bold">Paso #4: Elegir un nivel de significación</span> <span class="math inline">\alpha</span></p>
 <p><br></p>
-<p>Selecciona un <span class="bold">nivel de significación</span> <span class="math inline">\(\alpha\)</span>, tal que consideraremos como “demasiado alto”/“demasiado bajo” aquellos valores que corresponden al <span class="math inline">\(\alpha\)</span>% de valores más extremos en la distribución nula.</p>
+<p>Selecciona un <span class="bold">nivel de significación</span> <span class="math inline">\alpha</span>, tal que consideraremos como “demasiado alto”/“demasiado bajo” aquellos valores que corresponden al <span class="math inline">\alpha</span>% de valores más extremos en la distribución nula.</p>
 <p><br></p>
-<p><span class="math display">\[\alpha = \mathbb{P}(\text{Rechazar } H_{0} \mid H_{0} \text{ es verdadera})\]</span></p>
+<p><span class="math display">\alpha = \mathbb{P}(\text{Rechazar } H_{0} \mid H_{0} \text{ es verdadera})</span></p>
 <p><br></p>
 <div class="fragment">
 <ul>
-<li><p>Mientras menor es <span class="math inline">\(\alpha\)</span> más difícil es rechazar la hipótesis nula.</p></li>
-<li><p>Dado que no confiamos en pulpos adivinos, vamos trabajar a un nivel alto de significación, <span class="math inline">\(\alpha=0.01\)</span>.</p></li>
+<li><p>Mientras menor es <span class="math inline">\alpha</span> más difícil es rechazar la hipótesis nula.</p></li>
+<li><p>Dado que no confiamos en pulpos adivinos, vamos trabajar a un nivel alto de significación, <span class="math inline">\alpha=0.01</span>.</p></li>
 </ul>
 </div>
 </section>
@@ -436,18 +452,18 @@
 <div class="fragment">
 <p>En nuestro caso estamos testeando</p>
 <div class="pull-left">
-<p><span class="math inline">\(\text{valor-p} = \mathbb{P}( \bar{X} &gt; |\hat{p}| \mid H_{0} \text{ es verdadera})\)</span></p>
+<p><span class="math inline">\text{valor-p} = \mathbb{P}( \bar{X} &gt; |\hat{p}| \mid H_{0} \text{ es verdadera})</span></p>
 <p>equivalentemente:</p>
-<p><span class="math inline">\(\text{valor-p} = \mathbb{P}( Z &gt; \big| \frac{\hat{\mu} - \mu}{\sigma/\sqrt{n}} \big| )\)</span></p>
+<p><span class="math inline">\text{valor-p} = \mathbb{P}( Z &gt; \big| \frac{\hat{\mu} - \mu}{\sigma/\sqrt{n}} \big| )</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>n <span class="ot">&lt;-</span> <span class="dv">14</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>n <span class="ot">&lt;-</span> <span class="dv">14</span></span>
 <span id="cb1-2"><a href=""></a>p_hat <span class="ot">&lt;-</span> <span class="dv">12</span><span class="sc">/</span><span class="dv">14</span></span>
 <span id="cb1-3"><a href=""></a></span>
 <span id="cb1-4"><a href=""></a>z_hat <span class="ot">&lt;-</span> (p_hat <span class="sc">-</span> <span class="fl">0.5</span>)<span class="sc">/</span>(<span class="fu">sqrt</span>(<span class="fl">0.5</span><span class="sc">*</span><span class="fl">0.5</span>) <span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
 <span id="cb1-5"><a href=""></a></span>
 <span id="cb1-6"><a href=""></a>pvalue <span class="ot">=</span>  <span class="dv">2</span><span class="sc">*</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z_hat))</span>
 <span id="cb1-7"><a href=""></a></span>
-<span id="cb1-8"><a href=""></a><span class="fu">cat</span>(<span class="st">"z_hat="</span>,<span class="fu">round</span>(z_hat,<span class="dv">2</span>), <span class="st">" valor-p="</span>, pvalue, <span class="at">sep=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-8"><a href=""></a><span class="fu">cat</span>(<span class="st">"z_hat="</span>,<span class="fu">round</span>(z_hat,<span class="dv">2</span>), <span class="st">" valor-p="</span>, pvalue, <span class="at">sep=</span><span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>z_hat=2.67 valor-p=0.007526315</code></pre>
 </div>
@@ -473,14 +489,14 @@
 </div>
 <div class="fragment">
 <ul>
-<li>Comparamos – bajo el supuesto de que <span class="math inline">\(H_0\)</span> es verdadera – la probabilidad de obtener el resultado que obtuvimos ( valor-p ) vs.&nbsp;el criterio seleccionado para clasificar resultados como “extremos” ( <span class="math inline">\(\alpha\)</span> ).</li>
+<li>Comparamos – bajo el supuesto de que <span class="math inline">H_0</span> es verdadera – la probabilidad de obtener el resultado que obtuvimos ( valor-p ) vs.&nbsp;el criterio seleccionado para clasificar resultados como “extremos” ( <span class="math inline">\alpha</span> ).</li>
 </ul>
 </div>
 <div class="fragment">
 <p><span class="bold">Decisión:</span></p>
 <ul>
-<li><p>Si <span class="math inline">\(\text{valor-p} &lt; \alpha\)</span> entonces rechazamos <span class="math inline">\(H_{0}\)</span></p></li>
-<li><p>Si <span class="math inline">\(\text{valor-p} &gt; \alpha\)</span> no podemos rechazar <span class="math inline">\(H_{0}\)</span></p></li>
+<li><p>Si <span class="math inline">\text{valor-p} &lt; \alpha</span> entonces rechazamos <span class="math inline">H_{0}</span></p></li>
+<li><p>Si <span class="math inline">\text{valor-p} &gt; \alpha</span> no podemos rechazar <span class="math inline">H_{0}</span></p></li>
 </ul>
 <p><br></p>
 </div>
@@ -498,7 +514,7 @@
 <p>Sigue en pie la posibilidad de que Paul tenga habilidades especiales!</p>
 </div>
 </section>
-<section id="section-1" class="slide level2 inverse center middle">
+<section id="section-1" class="slide level2 inverse center middle" data-background-color="#3949AB">
 <h2></h2>
 <div class="center">
 <div class="quarto-figure quarto-figure-center">
@@ -509,7 +525,7 @@
 </div>
 </div>
 </section>
-<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle" data-background-color="#3949AB">
 <h2>Hasta la próxima clase. Gracias!</h2>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
 
@@ -534,7 +550,6 @@
   <script src="class_17_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_17_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_17_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_17_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -570,7 +585,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -702,27 +717,9 @@
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -815,13 +812,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

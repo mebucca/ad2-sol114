@@ -6,11 +6,11 @@
 <script src="class_16_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_16_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_16_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_16_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_16_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -96,9 +96,25 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="class_16_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_16_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_16_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_16_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_16_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -207,9 +223,9 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
-<section id="section" class="slide level2 inverse center middle">
+<section id="section" class="slide level2 inverse center middle" data-background-color="#34B334">
 <h2></h2>
 </section>
 <section>
@@ -265,12 +281,12 @@
 <section id="falsabilidad-en-modelos-probabilísticos" class="slide level2">
 <h2>Falsabilidad en modelos probabilísticos</h2>
 <div class="fragment">
-<p><span class="bold">Observación:</span> 1 cisne blanco, 2 cisnes blancos, … <span class="math inline">\(n\)</span> cisnes blancos.</p>
+<p><span class="bold">Observación:</span> 1 cisne blanco, 2 cisnes blancos, … <span class="math inline">n</span> cisnes blancos.</p>
 <p><br></p>
 </div>
 <div class="fragment">
 <p><span class="bold">Hipótesis:</span> <em>“La mayoría de los cisnes son blancos”</em>. Por ejemplo:</p>
-<p><br> <span class="math display">\[ \mathbb{P}(\text{Blanco} \mid \text{Cisne}) &gt; \mathbb{P}(\text{Otro} \mid \text{Cisne})\]</span></p>
+<p><br> <span class="math display"> \mathbb{P}(\text{Blanco} \mid \text{Cisne}) &gt; \mathbb{P}(\text{Otro} \mid \text{Cisne})</span></p>
 <p><br></p>
 </div>
 <div class="fragment">
@@ -289,7 +305,7 @@
 </ul>
 </div>
 </section>
-<section id="test-de-hipótesis-1" class="slide level2 inverse center middle section-title">
+<section id="test-de-hipótesis-1" class="slide level2 inverse center middle section-title" data-background-color="#34B334">
 <h2>Test de Hipótesis</h2>
 </section>
 <section id="prueba-de-significancia-de-la-hipótesis-nula" class="slide level2">
@@ -335,7 +351,7 @@
 </ol>
 </div>
 </section>
-<section id="paso-1-elaborar-hipótesis-nula-y-alternativa" class="slide level2 inverse center middle">
+<section id="paso-1-elaborar-hipótesis-nula-y-alternativa" class="slide level2 inverse center middle" data-background-color="#34B334">
 <h2>Paso #1: Elaborar Hipótesis Nula y Alternativa</h2>
 </section>
 <section id="hipótesis-nula-y-alternativa" class="slide level2">
@@ -344,12 +360,12 @@
 <p>Establecer una hipótesis de trabajo y dividir el espacio muestral en particiones mutuamente excluyentes:</p>
 <div class="fragment">
 <ul>
-<li>Observaciones que contradicen la hipótesis de trabajo (Hipótesis Nula, <span class="math inline">\(H_0\)</span>)</li>
+<li>Observaciones que contradicen la hipótesis de trabajo (Hipótesis Nula, <span class="math inline">H_0</span>)</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Observaciones en favor de la hipótesis de trabajo (Hipótesis Alternativa, <span class="math inline">\(H_1\)</span>)</li>
+<li>Observaciones en favor de la hipótesis de trabajo (Hipótesis Alternativa, <span class="math inline">H_1</span>)</li>
 </ul>
 </div>
 <div class="fragment">
@@ -358,12 +374,12 @@
 <p>Hipótesis de trabajo: <em>“El promedio de ingresos de las mujeres en Chile es mayor que $300,000”</em></p>
 <p><br></p>
 <ul>
-<li><p><span class="math inline">\(H_0: \mathbb{E}(X) = 300 \text{ mil}\)</span></p></li>
-<li><p><span class="math inline">\(H_1: \mathbb{E}(X) &gt; 300 \text{ mil}\)</span></p></li>
+<li><p><span class="math inline">H_0: \mathbb{E}(X) = 300 \text{ mil}</span></p></li>
+<li><p><span class="math inline">H_1: \mathbb{E}(X) &gt; 300 \text{ mil}</span></p></li>
 </ul>
 </div>
 </section>
-<section id="paso-2-calcular-un-estadístico" class="slide level2 inverse center middle">
+<section id="paso-2-calcular-un-estadístico" class="slide level2 inverse center middle" data-background-color="#34B334">
 <h2>Paso #2: Calcular un Estadístico</h2>
 </section>
 <section id="estadístico" class="slide level2">
@@ -374,60 +390,60 @@
 </ul>
 <p><br></p>
 <div class="fragment">
-<p>En nuestro ejemplo, la elección del estadístico adecuado es inequívoca: <span class="math inline">\(\bar{X} = \hat{\mu}\)</span>.</p>
+<p>En nuestro ejemplo, la elección del estadístico adecuado es inequívoca: <span class="math inline">\bar{X} = \hat{\mu}</span>.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># i. Calcula media muestral </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="co"># i. Calcula media muestral </span></span>
 <span id="cb1-2"><a href=""></a>mu_hat <span class="ot">&lt;-</span> <span class="fu">mean</span>(casen2017_mujeres<span class="sc">$</span>ingreso<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm=</span>T) <span class="sc">%&gt;%</span> <span class="fu">round</span>()</span>
-<span id="cb1-3"><a href=""></a><span class="fu">cat</span>(<span class="st">"Media muestral:"</span>, mu_hat, <span class="st">" mil"</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-3"><a href=""></a><span class="fu">cat</span>(<span class="st">"Media muestral:"</span>, mu_hat, <span class="st">" mil"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Media muestral: 368  mil</code></pre>
 </div>
 </div>
 </div>
 </section>
-<section id="paso-3-determinar-la-distribución-nula" class="slide level2 inverse center middle">
+<section id="paso-3-determinar-la-distribución-nula" class="slide level2 inverse center middle" data-background-color="#34B334">
 <h2>Paso #3: Determinar la Distribución Nula</h2>
 </section>
 <section id="distribución-nula" class="slide level2">
 <h2>Distribución Nula</h2>
-<p>Incluso si la hipótesis nula fuera verdadera, el valor del estadístico no necesariamente coincidirá con el valor establecido en <span class="math inline">\(H_0\)</span> (por el carácter finito y aleatorio de la muestra).</p>
+<p>Incluso si la hipótesis nula fuera verdadera, el valor del estadístico no necesariamente coincidirá con el valor establecido en <span class="math inline">H_0</span> (por el carácter finito y aleatorio de la muestra).</p>
 <ul>
-<li>El estadístico entregará valores distintos de muestra a muestra. Si <span class="math inline">\(H_0\)</span> es verdadera, valores cercanos a lo establecido por <span class="math inline">\(H_0\)</span> serán más probables y valores más alejados serán menos probables.</li>
+<li>El estadístico entregará valores distintos de muestra a muestra. Si <span class="math inline">H_0</span> es verdadera, valores cercanos a lo establecido por <span class="math inline">H_0</span> serán más probables y valores más alejados serán menos probables.</li>
 </ul>
 <div class="fragment">
 <ul>
-<li>Determinar la <span class="bold">distribución nula</span>: distribución muestral de nuestro estadístico bajo el supuesto de que la <span class="math inline">\(H_0\)</span> es verdadera.</li>
+<li>Determinar la <span class="bold">distribución nula</span>: distribución muestral de nuestro estadístico bajo el supuesto de que la <span class="math inline">H_0</span> es verdadera.</li>
 </ul>
 <p><br></p>
 </div>
 <div class="fragment">
-<p>En nuestro ejemplo, el estadístico elegido fue la media muestral <span class="math inline">\(\bar{X}\)</span>, y <span class="math inline">\(H_0: \mathbb{E}(Y) = 300 \text{ mil}\)</span>.</p>
+<p>En nuestro ejemplo, el estadístico elegido fue la media muestral <span class="math inline">\bar{X}</span>, y <span class="math inline">H_0: \mathbb{E}(Y) = 300 \text{ mil}</span>.</p>
 </div>
 <div class="fragment">
 <ul>
-<li>Por el TLC sabemos que: <span class="math inline">\(\bar{X} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)\)</span></li>
+<li>Por el TLC sabemos que: <span class="math inline">\bar{X} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)</span></li>
 </ul>
 </div>
 <div class="fragment">
 <p>Por tanto:</p>
-<p><span class="math display">\[\bar{X} \mid H_0 \text{ es verdadera}  \sim \text{Normal}\bigg(\mu= 300, \frac{\sigma}{\sqrt{n}}\bigg) \]</span></p>
+<p><span class="math display">\bar{X} \mid H_0 \text{ es verdadera}  \sim \text{Normal}\bigg(\mu= 300, \frac{\sigma}{\sqrt{n}}\bigg) </span></p>
 </div>
 </section>
 <section id="distribución-nula-1" class="slide level2">
 <h2>Distribución Nula</h2>
-<p><span class="math display">\[\bar{X} \mid H_0 \text{ es verdadera}  \sim \text{Normal}\bigg(\mu= 300, \frac{\sigma}{\sqrt{n}}\bigg) \]</span></p>
+<p><span class="math display">\bar{X} \mid H_0 \text{ es verdadera}  \sim \text{Normal}\bigg(\mu= 300, \frac{\sigma}{\sqrt{n}}\bigg) </span></p>
 <div class="fragment">
-<p>Para determinar la distribución nula necesitamos además la desviación estándard poblacional ( <span class="math inline">\(\sigma\)</span> ) y el tamaño muestal ( <span class="math inline">\(n\)</span> ).</p>
+<p>Para determinar la distribución nula necesitamos además la desviación estándard poblacional ( <span class="math inline">\sigma</span> ) y el tamaño muestal ( <span class="math inline">n</span> ).</p>
 <ul>
-<li>Si no conocemos <span class="math inline">\(\sigma\)</span> debemos estimarlo a partir de la muesta ( <span class="math inline">\(s\)</span> ).</li>
+<li>Si no conocemos <span class="math inline">\sigma</span> debemos estimarlo a partir de la muesta ( <span class="math inline">s</span> ).</li>
 </ul>
 </div>
 <div class="fragment">
 <div class="pull-left">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(casen2017_mujeres<span class="sc">$</span>ingreso))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(casen2017_mujeres<span class="sc">$</span>ingreso))</span>
 <span id="cb3-2"><a href=""></a>s <span class="ot">&lt;-</span> <span class="fu">sd</span>(casen2017_mujeres<span class="sc">$</span>ingreso<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm=</span>T) </span>
-<span id="cb3-3"><a href=""></a><span class="fu">cat</span>(<span class="st">"n="</span>,n,<span class="st">"; s="</span>, s, <span class="at">sep=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-3"><a href=""></a><span class="fu">cat</span>(<span class="st">"n="</span>,n,<span class="st">"; s="</span>, s, <span class="at">sep=</span><span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>n=248; s=452.4244</code></pre>
 </div>
@@ -448,23 +464,23 @@
 </section>
 <section id="distribución-nula-2" class="slide level2">
 <h2>Distribución Nula</h2>
-<p>Alternativamente, si <span class="math inline">\(Z_{\bar{X}} = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}}\)</span> entonces:</p>
+<p>Alternativamente, si <span class="math inline">Z_{\bar{X}} = \frac{\bar{X} - \mu}{\sigma/\sqrt{n}}</span> entonces:</p>
 <div class="fragment">
 <ul>
-<li>Distribución nula: <span class="math inline">\(Z_{\bar{X}} \mid H_0 \text{ es verdadera}  \sim \text{Normal}\big(0, 1\big)\)</span></li>
+<li>Distribución nula: <span class="math inline">Z_{\bar{X}} \mid H_0 \text{ es verdadera}  \sim \text{Normal}\big(0, 1\big)</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Test estadístico: <span class="math inline">\(\hat{z} = \frac{\hat{\mu} - \mu}{\sigma/\sqrt{n}}\)</span></li>
+<li>Test estadístico: <span class="math inline">\hat{z} = \frac{\hat{\mu} - \mu}{\sigma/\sqrt{n}}</span></li>
 </ul>
 <div class="pull-left">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(casen2017_mujeres<span class="sc">$</span>ingreso))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(casen2017_mujeres<span class="sc">$</span>ingreso))</span>
 <span id="cb5-2"><a href=""></a>mu_hat <span class="ot">&lt;-</span> <span class="fu">mean</span>(casen2017_mujeres<span class="sc">$</span>ingreso<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm=</span>T)</span>
 <span id="cb5-3"><a href=""></a>s <span class="ot">&lt;-</span> <span class="fu">sd</span>(casen2017_mujeres<span class="sc">$</span>ingreso<span class="sc">/</span><span class="dv">1000</span>, <span class="at">na.rm=</span>T) </span>
 <span id="cb5-4"><a href=""></a>z_hat <span class="ot">&lt;-</span> (mu_hat <span class="sc">-</span> <span class="dv">300</span>)<span class="sc">/</span>(s<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
-<span id="cb5-5"><a href=""></a><span class="fu">cat</span>(<span class="st">"mu_hat="</span>,mu_hat,<span class="st">" z_hat="</span>,z_hat, <span class="at">sep=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-5"><a href=""></a><span class="fu">cat</span>(<span class="st">"mu_hat="</span>,mu_hat,<span class="st">" z_hat="</span>,z_hat, <span class="at">sep=</span><span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>mu_hat=368.0701 z_hat=2.369387</code></pre>
 </div>
@@ -483,28 +499,28 @@
 </div>
 </div>
 </section>
-<section id="paso-4-decidir-el-nivel-de-significación" class="slide level2 inverse center middle">
+<section id="paso-4-decidir-el-nivel-de-significación" class="slide level2 inverse center middle" data-background-color="#34B334">
 <h2>Paso #4: Decidir el Nivel de Significación</h2>
 </section>
 <section id="nivel-de-significación-estadística-alpha" class="slide level2">
-<h2>Nivel de significación estadística, <span class="math inline">\(\alpha\)</span></h2>
+<h2>Nivel de significación estadística, <span class="math inline">\alpha</span></h2>
 <p>Si la media de ingresos de las mujeres fuera $300 mil, obtener un promedio muestral de $368 aparece como un resultado improbable (demasiado alto).</p>
 <ul>
 <li>pero ¿cuanto es demasiado alto (o demasiado bajo)?</li>
 </ul>
 <div class="fragment">
 <ul>
-<li>Selecciona un <span class="bold">nivel de significación</span> <span class="math inline">\(\alpha\)</span>, tal que consideraremos como “demasiado alto”/“demasiado bajo” aquellos valores que corresponden al <span class="math inline">\(\alpha\)</span>% de valores más extremos en la distribución nula:</li>
+<li>Selecciona un <span class="bold">nivel de significación</span> <span class="math inline">\alpha</span>, tal que consideraremos como “demasiado alto”/“demasiado bajo” aquellos valores que corresponden al <span class="math inline">\alpha</span>% de valores más extremos en la distribución nula:</li>
 </ul>
 <p><br></p>
 </div>
 <div class="fragment">
 <div class="pull-left">
 <p><br></p>
-<p>En nuestro ejemplo <span class="math inline">\(H_1: \mathbb{E}(X) &gt; 300 \text{ mil}\)</span>,</p>
+<p>En nuestro ejemplo <span class="math inline">H_1: \mathbb{E}(X) &gt; 300 \text{ mil}</span>,</p>
 <ul>
-<li><p>Tiene sentido testear si nuestro estadístico se encuentra en el <span class="math inline">\(\alpha\)</span>% más alto de la distribución nula.</p></li>
-<li><p>Con <span class="math inline">\(\alpha=0.05\)</span> el punto de corte es <span class="math inline">\(\Phi^{-1}(1-\alpha) = \Phi^{-1}(0.95) = 1.64\)</span></p></li>
+<li><p>Tiene sentido testear si nuestro estadístico se encuentra en el <span class="math inline">\alpha</span>% más alto de la distribución nula.</p></li>
+<li><p>Con <span class="math inline">\alpha=0.05</span> el punto de corte es <span class="math inline">\Phi^{-1}(1-\alpha) = \Phi^{-1}(0.95) = 1.64</span></p></li>
 </ul>
 </div>
 <div class="pull-right">
@@ -520,7 +536,7 @@
 </div>
 </div>
 </section>
-<section id="paso-5-calcular-el-valor-p" class="slide level2 inverse center middle">
+<section id="paso-5-calcular-el-valor-p" class="slide level2 inverse center middle" data-background-color="#34B334">
 <h2>Paso #5: Calcular el Valor-p</h2>
 </section>
 <section id="valor-p" class="slide level2">
@@ -529,20 +545,20 @@
 <p>Si la hipótesis nula fuera verdadera, es nuestro estadístico un valor esperable o un valor extremo?</p>
 </div>
 <div class="fragment">
-<p>El <span class="bold">valor-p</span> formaliza esta pregunta: <span class="math inline">\(\text{valor-p} = \mathbb{P}(\quad T(x_1 \dots  x_n) &gt; \hat{t} \mid H_{0} \text{ es verdadera})\)</span></p>
-<p>donde <span class="math inline">\(T(x_1 \dots  x_n)\)</span> es un test estadístico y <span class="math inline">\(\hat{t}\)</span> el valor obtenido al calcular el test <span class="math inline">\(T\)</span> en muestra.</p>
+<p>El <span class="bold">valor-p</span> formaliza esta pregunta: <span class="math inline">\text{valor-p} = \mathbb{P}(\quad T(x_1 \dots  x_n) &gt; \hat{t} \mid H_{0} \text{ es verdadera})</span></p>
+<p>donde <span class="math inline">T(x_1 \dots  x_n)</span> es un test estadístico y <span class="math inline">\hat{t}</span> el valor obtenido al calcular el test <span class="math inline">T</span> en muestra.</p>
 </div>
 <div class="fragment">
 <div class="pull-left">
 <p>En nuestro ejemplo:</p>
-<p><span class="math inline">\(\text{valor-p} = \mathbb{P}( \bar{X} &gt; \hat{\mu} \mid H_{0} \text{ es verdadera})\)</span></p>
+<p><span class="math inline">\text{valor-p} = \mathbb{P}( \bar{X} &gt; \hat{\mu} \mid H_{0} \text{ es verdadera})</span></p>
 <p>equivalentemente:</p>
-<p><span class="math inline">\(\text{valor-p} = \mathbb{P}( Z &gt; \frac{\hat{\mu} - \mu}{\sigma/\sqrt{n}})\)</span></p>
+<p><span class="math inline">\text{valor-p} = \mathbb{P}( Z &gt; \frac{\hat{\mu} - \mu}{\sigma/\sqrt{n}})</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>z_hat <span class="ot">&lt;-</span> (mu_hat <span class="sc">-</span> <span class="dv">300</span>)<span class="sc">/</span>(s<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>z_hat <span class="ot">&lt;-</span> (mu_hat <span class="sc">-</span> <span class="dv">300</span>)<span class="sc">/</span>(s<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
 <span id="cb7-2"><a href=""></a></span>
 <span id="cb7-3"><a href=""></a>pvalue <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pnorm</span>(z_hat)</span>
-<span id="cb7-4"><a href=""></a><span class="fu">cat</span>(<span class="st">"z_hat="</span>,<span class="fu">round</span>(z_hat,<span class="dv">2</span>), <span class="st">" valor-p="</span>,pvalue, <span class="at">sep=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-4"><a href=""></a><span class="fu">cat</span>(<span class="st">"z_hat="</span>,<span class="fu">round</span>(z_hat,<span class="dv">2</span>), <span class="st">" valor-p="</span>,pvalue, <span class="at">sep=</span><span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>z_hat=2.37 valor-p=0.0089088</code></pre>
 </div>
@@ -561,7 +577,7 @@
 </div>
 </div>
 </section>
-<section id="paso-6-mantener-o-rechazar-la-hipótesis-nula" class="slide level2 inverse center middle">
+<section id="paso-6-mantener-o-rechazar-la-hipótesis-nula" class="slide level2 inverse center middle" data-background-color="#34B334">
 <h2>Paso #6: Mantener o Rechazar la Hipótesis Nula</h2>
 </section>
 <section id="decisión" class="slide level2">
@@ -569,7 +585,7 @@
 <p>Finalmente, debemos decidir si rechazar o no la hipótesis nula</p>
 <div class="fragment">
 <ul>
-<li>Comparamos – bajo el supuesto de que <span class="math inline">\(H_0\)</span> es verdadera – la probabilidad de obtener el resultados que obtuvimos ( valor-p ) vs.&nbsp;el criterio seleccionado para clasificar resultados como “extremos” ( <span class="math inline">\(\alpha\)</span> ).</li>
+<li>Comparamos – bajo el supuesto de que <span class="math inline">H_0</span> es verdadera – la probabilidad de obtener el resultados que obtuvimos ( valor-p ) vs.&nbsp;el criterio seleccionado para clasificar resultados como “extremos” ( <span class="math inline">\alpha</span> ).</li>
 </ul>
 <p><br></p>
 </div>
@@ -577,11 +593,11 @@
 <div class="pull-left">
 <p><span class="bold">Decisión:</span></p>
 <ul>
-<li><p>Si <span class="math inline">\(\text{valor-p} &lt; \alpha\)</span> entonces rechazamos <span class="math inline">\(H_{0}\)</span></p></li>
-<li><p>Si <span class="math inline">\(\text{valor-p} &gt; \alpha\)</span> no podemos rechazar <span class="math inline">\(H_{0}\)</span></p></li>
+<li><p>Si <span class="math inline">\text{valor-p} &lt; \alpha</span> entonces rechazamos <span class="math inline">H_{0}</span></p></li>
+<li><p>Si <span class="math inline">\text{valor-p} &gt; \alpha</span> no podemos rechazar <span class="math inline">H_{0}</span></p></li>
 </ul>
 <p><br></p>
-<p><span class="bold">Importante:</span> mientras menor es <span class="math inline">\(\alpha\)</span> más difícil es rechazar la hipótesis nula.</p>
+<p><span class="bold">Importante:</span> mientras menor es <span class="math inline">\alpha</span> más difícil es rechazar la hipótesis nula.</p>
 </div>
 </div>
 <div class="fragment">
@@ -603,8 +619,8 @@
 <h2>Decisión</h2>
 <div class="pull-left">
 <ul>
-<li><p>Si <span class="math inline">\(\text{valor-p} &lt; \alpha\)</span> entonces rechazamos <span class="math inline">\(H_{0}\)</span></p></li>
-<li><p>Si <span class="math inline">\(\text{valor-p} &gt; \alpha\)</span> no podemos rechazar <span class="math inline">\(H_{0}\)</span></p></li>
+<li><p>Si <span class="math inline">\text{valor-p} &lt; \alpha</span> entonces rechazamos <span class="math inline">H_{0}</span></p></li>
+<li><p>Si <span class="math inline">\text{valor-p} &gt; \alpha</span> no podemos rechazar <span class="math inline">H_{0}</span></p></li>
 </ul>
 </div>
 <div class="fragment">
@@ -620,7 +636,7 @@
 </section>
 <section id="decisión-no-such-thing-as-a-free-lunch" class="slide level2">
 <h2>Decisión: “no such thing as a free lunch”</h2>
-<p>Nuestra decisión se basa en descartar resultados improbables bajo el supuesto de que <span class="math inline">\(H_0\)</span> es verdadera.</p>
+<p>Nuestra decisión se basa en descartar resultados improbables bajo el supuesto de que <span class="math inline">H_0</span> es verdadera.</p>
 <ul>
 <li>Dado que <span class="bold">improbable no es lo mismo que imposible</span>, debemos aceptar la posibilidad de tomar la decisión equivocada. Específicamente:</li>
 </ul>
@@ -668,7 +684,7 @@
 <dl>
 <dt>. . .</dt>
 <dd>
-<p><span class="math inline">\(\alpha = \mathbb{P}(\text{Rechazar } H_{0} \mid H_{0} \text{ es verdadera})\)</span></p>
+<p><span class="math inline">\alpha = \mathbb{P}(\text{Rechazar } H_{0} \mid H_{0} \text{ es verdadera})</span></p>
 </dd>
 </dl>
 </div>
@@ -679,11 +695,11 @@
 </div>
 <div class="fragment">
 <ul>
-<li>Trade-off entre <span class="bold">“Error tipo I”</span> y <span class="bold">“Error tipo II”</span>: extremada cautela ( <span class="math inline">\(\alpha\)</span> muy chico) conlleva el riesgo de nunca mantener la hipótesis alternativa (incluso si la nula es falsa).</li>
+<li>Trade-off entre <span class="bold">“Error tipo I”</span> y <span class="bold">“Error tipo II”</span>: extremada cautela ( <span class="math inline">\alpha</span> muy chico) conlleva el riesgo de nunca mantener la hipótesis alternativa (incluso si la nula es falsa).</li>
 </ul>
 </div>
 </section>
-<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle" data-background-color="#34B334">
 <h2>Hasta la próxima clase. Gracias!</h2>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
 
@@ -708,7 +724,6 @@
   <script src="class_16_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_16_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_16_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_16_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -744,7 +759,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -876,27 +891,9 @@
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -989,13 +986,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

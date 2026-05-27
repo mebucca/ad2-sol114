@@ -6,11 +6,11 @@
 <script src="class_3_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_3_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_3_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_3_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_3_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,9 +30,25 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="class_3_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_3_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_3_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_3_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_3_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -141,9 +157,9 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
-<section id="variables-aleatorias" class="slide level2 inverse center middle section-title">
+<section id="variables-aleatorias" class="slide level2 inverse center middle section-title" data-background-color="#c3aef2">
 <h2>Variables Aleatorias</h2>
 <h3 id="intuición">Intuición</h3>
 </section>
@@ -152,7 +168,7 @@
 <h3 id="variables-aleatorias-1">Variables Aleatorias</h3>
 <p>Una <span class="bold">variable aleatoria</span> es una variable cuyos valores son el resultado de un experimento aleatorio.</p>
 <p>. . .</p>
-<p>Si <span class="math inline">\(\Omega\)</span> es el espacio muestral de un experimento, una variable aleatoria es una función que <em>mapea</em> el espacio muestral a los números reales: <span class="math inline">\(\Omega \to \mathbb{R}\)</span>.</p>
+<p>Si <span class="math inline">\Omega</span> es el espacio muestral de un experimento, una variable aleatoria es una función que <em>mapea</em> el espacio muestral a los números reales: <span class="math inline">\Omega \to \mathbb{R}</span>.</p>
 <p>. . .</p>
 <p>Ejemplo:</p>
 <ul>
@@ -161,19 +177,19 @@
 
 <img data-src="dice_row.png" class="r-stretch quarto-figure-center"><p class="caption">dice_row</p><p>. . .</p>
 <ul>
-<li>Espacio muestral <span class="math inline">\(\Omega\)</span>: <span class="math inline">\(\{(1;1),(1;2), \dots, (5;6),(6;6)\}\)</span></li>
+<li>Espacio muestral <span class="math inline">\Omega</span>: <span class="math inline">\{(1;1),(1;2), \dots, (5;6),(6;6)\}</span></li>
 </ul>
 <p><br></p>
 <p>. . .</p>
-<p><span class="math inline">\(X\)</span> es la variable aleatoria que resulta de sumar el resultado de ambos dados,</p>
-<p><span class="math display">\[X: \{2,3,4,5,6,7,8,9,10,11,12 \}\]</span></p>
+<p><span class="math inline">X</span> es la variable aleatoria que resulta de sumar el resultado de ambos dados,</p>
+<p><span class="math display">X: \{2,3,4,5,6,7,8,9,10,11,12 \}</span></p>
 </section>
 <section class="slide level2">
 
 <h3 id="variables-aleatorias-2">Variables Aleatorias</h3>
-<p>Cada valor posible de una variable aleatoria tiene una probabilidad conocida de ocurrencia, denotada como <span class="math inline">\(\mathbb{P}(X=x)\)</span>.</p>
+<p>Cada valor posible de una variable aleatoria tiene una probabilidad conocida de ocurrencia, denotada como <span class="math inline">\mathbb{P}(X=x)</span>.</p>
 <p>. . .</p>
-<p><span class="bold">Ejercicio rápido:</span> Si <span class="math inline">\(X\)</span> es la variable que resulta de sumar los dos dados (justos) obtenidos …</p>
+<p><span class="bold">Ejercicio rápido:</span> Si <span class="math inline">X</span> es la variable que resulta de sumar los dos dados (justos) obtenidos …</p>
 <p><br></p>
 <p>. . .</p>
 <div class="pull-left">
@@ -185,8 +201,8 @@
 </div>
 </div>
 <div class="pull-right">
-<p>¿Cuál es la probabilidad de que la variable <span class="math inline">\(X\)</span> tome valor 4?</p>
-<p><span class="math display">\[\mathbb{P}(X=4) =  \frac{3}{36} = \frac{1}{12}\]</span></p>
+<p>¿Cuál es la probabilidad de que la variable <span class="math inline">X</span> tome valor 4?</p>
+<p><span class="math display">\mathbb{P}(X=4) =  \frac{3}{36} = \frac{1}{12}</span></p>
 </div>
 </section>
 <section class="slide level2">
@@ -196,7 +212,7 @@
 <p>. . .</p>
 <p>Continuando con nuestro ejemplo, podemos caracterizar la distribución de X con una función:</p>
 <div class="pull-left">
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
   f(x) =
   \begin{cases}
     \frac{1}{36}  &amp; \quad \text{si } x=2 \text{ o } x=12\\
@@ -207,7 +223,7 @@
     \frac{6}{36}  &amp; \quad \text{si } x=7 \\
     0             &amp; \quad \text{otherwise}
   \end{cases}
-\end{align}\]</span></p>
+\end{align}</span></p>
 </div>
 <p>. . .</p>
 <div class="pull-right">
@@ -277,7 +293,7 @@
 <div class="pull-left">
 <p>Podemos caracterizar la distribución de X con una función:</p>
 <p><br></p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
   f(x) =
   \begin{cases}
     \frac{1}{36}  &amp; \quad \text{si } x=2 \text{ o } x=12\\
@@ -288,7 +304,7 @@
     \frac{6}{36}  &amp; \quad \text{si } x=7 \\
     0             &amp; \quad \text{otherwise}
   \end{cases}
-\end{align}\]</span></p>
+\end{align}</span></p>
 </div>
 <div class="pull-right">
 <p><br></p>
@@ -302,10 +318,10 @@
 </div>
 </div>
 <p><br></p>
-<p><span class="bold">Importante:</span> <span class="math inline">\(\sum_{i=2}^{12} \mathbb{P}(X=i) = 1\)</span></p>
+<p><span class="bold">Importante:</span> <span class="math inline">\sum_{i=2}^{12} \mathbb{P}(X=i) = 1</span></p>
 </div>
 </section>
-<section id="distribuciones-de-probabilidad" class="slide level2 inverse center middle section-title">
+<section id="distribuciones-de-probabilidad" class="slide level2 inverse center middle section-title" data-background-color="#c3aef2">
 <h2>Distribuciones de Probabilidad</h2>
 </section>
 <section class="slide level2">
@@ -322,7 +338,7 @@
 <ul>
 <li><span class="bold">Variables continuas:</span> variables que pueden tomar cualquier valor dentro de un rango especificado. Estas variables tienen un número infinito de posibles resultados y no están limitadas a valores aislados.</li>
 </ul>
-<p>Ejemplo: Los ingresos de una persona pueden tomar cualquier valor entre 0 y <span class="math inline">\(\infty\)</span>+.</p>
+<p>Ejemplo: Los ingresos de una persona pueden tomar cualquier valor entre 0 y <span class="math inline">\infty</span>+.</p>
 </section>
 <section class="slide level2">
 
@@ -332,24 +348,24 @@
 <p>. . .</p>
 <p>La distribución de una variable se puede caracterizar de manera <span class="bold">única</span> de (al menos) dos maneras:</p>
 <ul>
-<li><p><span class="bold">Función de masa/densidad de probabilidad</span> (PMF/PDF): <span class="math inline">\(f(x)\)</span></p>
+<li><p><span class="bold">Función de masa/densidad de probabilidad</span> (PMF/PDF): <span class="math inline">f(x)</span></p>
 <ul>
-<li><p>En el caso de variables discretas <span class="math inline">\(f(x) = \mathbb{P}(X=x)\)</span>.</p></li>
-<li><p>Ejemplo, evaluando <span class="math inline">\(f(5)\)</span> obtenemos la probabilidad de que <span class="math inline">\(X\)</span> tome valor 5.</p></li>
+<li><p>En el caso de variables discretas <span class="math inline">f(x) = \mathbb{P}(X=x)</span>.</p></li>
+<li><p>Ejemplo, evaluando <span class="math inline">f(5)</span> obtenemos la probabilidad de que <span class="math inline">X</span> tome valor 5.</p></li>
 </ul></li>
 </ul>
 <p><br></p>
 <p>. . .</p>
 <ul>
-<li><p><span class="bold">Función de distribución acumulada</span> (CDF): <span class="math inline">\(F(x) = \mathbb{P}(X \leq x)\)</span></p>
+<li><p><span class="bold">Función de distribución acumulada</span> (CDF): <span class="math inline">F(x) = \mathbb{P}(X \leq x)</span></p>
 <ul>
-<li><p>Ejemplo, evaluando <span class="math inline">\(F(5)\)</span> obtenemos la probabilidad de que <span class="math inline">\(X\)</span> tome un valor igual o menor a 5.</p></li>
-<li><p>En el caso de variables discretas <span class="math inline">\(f(x) = \mathbb{P}(X=x)\)</span>.</p></li>
-<li><p>Ejemplo, evaluando <span class="math inline">\(f(5)\)</span> obtenemos la probabilidad de que <span class="math inline">\(X\)</span> tome valor 5.</p></li>
+<li><p>Ejemplo, evaluando <span class="math inline">F(5)</span> obtenemos la probabilidad de que <span class="math inline">X</span> tome un valor igual o menor a 5.</p></li>
+<li><p>En el caso de variables discretas <span class="math inline">f(x) = \mathbb{P}(X=x)</span>.</p></li>
+<li><p>Ejemplo, evaluando <span class="math inline">f(5)</span> obtenemos la probabilidad de que <span class="math inline">X</span> tome valor 5.</p></li>
 </ul></li>
 </ul>
 </section>
-<section id="fx" class="slide level2 inverse center middle section-title">
+<section id="fx" class="slide level2 inverse center middle section-title" data-background-color="#c3aef2">
 <h2>f(x)</h2>
 </section>
 <section class="slide level2">
@@ -357,13 +373,13 @@
 <h3 id="función-de-masadensidad-de-probabilidad-pmfpdf">Función de masa/densidad de probabilidad (pmf/pdf)</h3>
 <p><span class="bold">pmf: función de masa de probabilidad</span></p>
 <ul>
-<li><p>En el caso de variables discretas <span class="math inline">\(f(x) = \mathbb{P}(X=x)\)</span>.</p></li>
-<li><p>Es decir, si <span class="math inline">\(X\)</span> es una variable aletoria discreta con <strong>pmf:</strong> <span class="math inline">\(f(x)\)</span>, entonces evaluando <span class="math inline">\(f(a)\)</span> obtenemos la probabilidad de que <span class="math inline">\(X\)</span> tome valor a.</p></li>
+<li><p>En el caso de variables discretas <span class="math inline">f(x) = \mathbb{P}(X=x)</span>.</p></li>
+<li><p>Es decir, si <span class="math inline">X</span> es una variable aletoria discreta con <strong>pmf:</strong> <span class="math inline">f(x)</span>, entonces evaluando <span class="math inline">f(a)</span> obtenemos la probabilidad de que <span class="math inline">X</span> tome valor a.</p></li>
 </ul>
 <p><br></p>
 <p>. . .</p>
-<p><span class="bold">Ejemplo:</span> si <span class="math inline">\(X\)</span> es la variable que resulta de sumar los dos dados justos, entonces su <em>función de de masa de probabilidad</em> está dada por:</p>
-<p><span class="math display">\[\begin{align}
+<p><span class="bold">Ejemplo:</span> si <span class="math inline">X</span> es la variable que resulta de sumar los dos dados justos, entonces su <em>función de de masa de probabilidad</em> está dada por:</p>
+<p><span class="math display">\begin{align}
   f(x) =
   \begin{cases}
     \frac{1}{36}  &amp; \quad \text{si } x=2 \text{ o } x=12\\
@@ -374,28 +390,28 @@
     \frac{6}{36}  &amp; \quad \text{si } x=7 \\
     0             &amp; \quad \text{otherwise}
   \end{cases}
-\end{align}\]</span></p>
+\end{align}</span></p>
 </section>
 <section class="slide level2">
 
 <h3 id="función-de-masadensidad-de-probabilidad-pmfpdf-1">Función de masa/densidad de probabilidad (pmf/pdf)</h3>
 <p><span class="bold">pdf: función de densidad de probabilidad</span></p>
 <ul>
-<li>En el caso de variables continuas, la <strong>función de densidad de probabilidad</strong> (pdf) <span class="math inline">\(f(x)\)</span> no representa directamente la probabilidad de que <span class="math inline">\(X\)</span> tome un valor específico <span class="math inline">\(x\)</span>. En cambio, <span class="math inline">\(f(x)\)</span> describe la densidad de probabilidad en torno a <span class="math inline">\(x\)</span> (proporcional a la probabilidad).</li>
+<li>En el caso de variables continuas, la <strong>función de densidad de probabilidad</strong> (pdf) <span class="math inline">f(x)</span> no representa directamente la probabilidad de que <span class="math inline">X</span> tome un valor específico <span class="math inline">x</span>. En cambio, <span class="math inline">f(x)</span> describe la densidad de probabilidad en torno a <span class="math inline">x</span> (proporcional a la probabilidad).</li>
 </ul>
 <p><br></p>
 <p>. . .</p>
 <ul>
-<li>Es decir, si <span class="math inline">\(X\)</span> es una variable aleatoria continua con <strong>pdf:</strong> <span class="math inline">\(f(x)\)</span>, entonces la probabilidad de que <span class="math inline">\(X\)</span> caiga en un intervalo <span class="math inline">\([a, b]\)</span> está dada por:</li>
+<li>Es decir, si <span class="math inline">X</span> es una variable aleatoria continua con <strong>pdf:</strong> <span class="math inline">f(x)</span>, entonces la probabilidad de que <span class="math inline">X</span> caiga en un intervalo <span class="math inline">[a, b]</span> está dada por:</li>
 </ul>
-<p><span class="math display">\[\mathbb{P}(a \leq X \leq b) = \int_{a}^{b} f(x) \, dx\]</span></p>
+<p><span class="math display">\mathbb{P}(a \leq X \leq b) = \int_{a}^{b} f(x) \, dx</span></p>
 <p><br></p>
 <p>. . .</p>
 <ul>
-<li>La probabilidad de que <span class="math inline">\(X\)</span> tome un valor exacto – e.g., <span class="math inline">\(X = 3\)</span>. Cuando <span class="math inline">\(X\)</span> hay infinitos posibles valores que <span class="math inline">\(X\)</span> puede tomar, por lo que la probabilidad se “reparte” entre todos esos valores.</li>
+<li>La probabilidad de que <span class="math inline">X</span> tome un valor exacto – e.g., <span class="math inline">X = 3</span>. Cuando <span class="math inline">X</span> hay infinitos posibles valores que <span class="math inline">X</span> puede tomar, por lo que la probabilidad se “reparte” entre todos esos valores.</li>
 </ul>
 </section>
-<section id="fx-1" class="slide level2 inverse center middle section-title">
+<section id="fx-1" class="slide level2 inverse center middle section-title" data-background-color="#c3aef2">
 <h2>F(x)</h2>
 </section>
 <section class="slide level2">
@@ -403,20 +419,20 @@
 <h3 id="función-de-densidad-acumulada-cdf">Función de densidad acumulada (CDF)</h3>
 <ul>
 <li><p>Otra forma de caracterizar una distribución de probabilidad es a través de su <strong>función de densidad acumulada</strong> (CDF)</p></li>
-<li><p>La <strong>función de densidad acumulada</strong>, denotada como <span class="math inline">\(F(x)\)</span>, describe la probabilidad acumulada de que una variable aleatoria <span class="math inline">\(X\)</span> tome un valor menor o igual a <span class="math inline">\(x\)</span>. Formalmente:</p></li>
+<li><p>La <strong>función de densidad acumulada</strong>, denotada como <span class="math inline">F(x)</span>, describe la probabilidad acumulada de que una variable aleatoria <span class="math inline">X</span> tome un valor menor o igual a <span class="math inline">x</span>. Formalmente:</p></li>
 </ul>
-<p><span class="math display">\[F(x) = \mathbb{P}(X \leq x)\]</span></p>
+<p><span class="math display">F(x) = \mathbb{P}(X \leq x)</span></p>
 <p><br></p>
 <p>. . .</p>
 <ul>
-<li><strong>Para variables continuas:</strong> La CDF se obtiene integrando la función de densidad de probabilidad (pdf) <span class="math inline">\(f(x)\)</span>.</li>
+<li><strong>Para variables continuas:</strong> La CDF se obtiene integrando la función de densidad de probabilidad (pdf) <span class="math inline">f(x)</span>.</li>
 </ul>
-<p><span class="math display">\[F(x) = \int_{-\infty}^{x} f(t) \, dt\]</span></p>
+<p><span class="math display">F(x) = \int_{-\infty}^{x} f(t) \, dt</span></p>
 <p>. . .</p>
 <ul>
-<li><strong>Para variables discretas:</strong> La CDF se calcula sumando las probabilidades de todos los valores <span class="math inline">\(x_i\)</span> que <span class="math inline">\(X\)</span> puede tomar hasta <span class="math inline">\(x\)</span>.</li>
+<li><strong>Para variables discretas:</strong> La CDF se calcula sumando las probabilidades de todos los valores <span class="math inline">x_i</span> que <span class="math inline">X</span> puede tomar hasta <span class="math inline">x</span>.</li>
 </ul>
-<p><span class="math display">\[F(x) = \sum_{x_i \leq x} \mathbb{P}(X = x_i)\]</span></p>
+<p><span class="math display">F(x) = \sum_{x_i \leq x} \mathbb{P}(X = x_i)</span></p>
 </section>
 <section class="slide level2">
 
@@ -425,66 +441,66 @@
 <table class="caption-top">
 <thead>
 <tr class="header">
-<th><span class="math inline">\(x\)</span></th>
-<th><span class="math inline">\(f(x):\)</span> pmf</th>
-<th><span class="math inline">\(F(x)\)</span>: cdf</th>
+<th><span class="math inline">x</span></th>
+<th><span class="math inline">f(x):</span> pmf</th>
+<th><span class="math inline">F(x)</span>: cdf</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>2</td>
-<td><span class="math inline">\(\frac{1}{36}\)</span></td>
-<td><span class="math inline">\(\frac{1}{36}\)</span></td>
+<td><span class="math inline">\frac{1}{36}</span></td>
+<td><span class="math inline">\frac{1}{36}</span></td>
 </tr>
 <tr class="even">
 <td>3</td>
-<td><span class="math inline">\(\frac{2}{36}\)</span></td>
-<td><span class="math inline">\(\frac{3}{36}\)</span></td>
+<td><span class="math inline">\frac{2}{36}</span></td>
+<td><span class="math inline">\frac{3}{36}</span></td>
 </tr>
 <tr class="odd">
 <td>4</td>
-<td><span class="math inline">\(\frac{3}{36}\)</span></td>
-<td><span class="math inline">\(\frac{6}{36}\)</span></td>
+<td><span class="math inline">\frac{3}{36}</span></td>
+<td><span class="math inline">\frac{6}{36}</span></td>
 </tr>
 <tr class="even">
 <td>5</td>
-<td><span class="math inline">\(\frac{4}{36}\)</span></td>
-<td><span class="math inline">\(\frac{10}{36}\)</span></td>
+<td><span class="math inline">\frac{4}{36}</span></td>
+<td><span class="math inline">\frac{10}{36}</span></td>
 </tr>
 <tr class="odd">
 <td>6</td>
-<td><span class="math inline">\(\frac{5}{36}\)</span></td>
-<td><span class="math inline">\(\frac{15}{36}\)</span></td>
+<td><span class="math inline">\frac{5}{36}</span></td>
+<td><span class="math inline">\frac{15}{36}</span></td>
 </tr>
 <tr class="even">
 <td>7</td>
-<td><span class="math inline">\(\frac{6}{36}\)</span></td>
-<td><span class="math inline">\(\frac{21}{36}\)</span></td>
+<td><span class="math inline">\frac{6}{36}</span></td>
+<td><span class="math inline">\frac{21}{36}</span></td>
 </tr>
 <tr class="odd">
 <td>8</td>
-<td><span class="math inline">\(\frac{5}{36}\)</span></td>
-<td><span class="math inline">\(\frac{26}{36}\)</span></td>
+<td><span class="math inline">\frac{5}{36}</span></td>
+<td><span class="math inline">\frac{26}{36}</span></td>
 </tr>
 <tr class="even">
 <td>9</td>
-<td><span class="math inline">\(\frac{4}{36}\)</span></td>
-<td><span class="math inline">\(\frac{30}{36}\)</span></td>
+<td><span class="math inline">\frac{4}{36}</span></td>
+<td><span class="math inline">\frac{30}{36}</span></td>
 </tr>
 <tr class="odd">
 <td>10</td>
-<td><span class="math inline">\(\frac{3}{36}\)</span></td>
-<td><span class="math inline">\(\frac{33}{36}\)</span></td>
+<td><span class="math inline">\frac{3}{36}</span></td>
+<td><span class="math inline">\frac{33}{36}</span></td>
 </tr>
 <tr class="even">
 <td>11</td>
-<td><span class="math inline">\(\frac{2}{36}\)</span></td>
-<td><span class="math inline">\(\frac{35}{36}\)</span></td>
+<td><span class="math inline">\frac{2}{36}</span></td>
+<td><span class="math inline">\frac{35}{36}</span></td>
 </tr>
 <tr class="odd">
 <td>12</td>
-<td><span class="math inline">\(\frac{1}{36}\)</span></td>
-<td><span class="math inline">\(\frac{36}{36}\)</span></td>
+<td><span class="math inline">\frac{1}{36}</span></td>
+<td><span class="math inline">\frac{36}{36}</span></td>
 </tr>
 </tbody>
 </table>
@@ -502,7 +518,7 @@
 </div>
 </div>
 </section>
-<section id="section" class="slide level2 inverse center middle">
+<section id="section" class="slide level2 inverse center middle" data-background-color="#c3aef2">
 <h2></h2>
 <p><span class="huge"><strong>Hasta la próxima clase. Gracias!</strong></span></p>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
@@ -528,7 +544,6 @@
   <script src="class_3_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_3_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_3_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_3_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -564,7 +579,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -696,27 +711,9 @@
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -809,13 +806,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

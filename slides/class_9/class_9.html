@@ -6,11 +6,11 @@
 <script src="class_9_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_9_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_9_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_9_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_9_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,9 +30,25 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="class_9_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_9_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_9_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_9_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_9_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -141,12 +157,12 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
-<section id="teoremas-asintóticos" class="slide level2 inverse center middle section-title">
+<section id="teoremas-asintóticos" class="slide level2 inverse center middle section-title" data-background-color="#F4C430">
 <h2>Teoremas Asintóticos</h2>
 </section>
-<section id="ley-de-los-grandes-números" class="slide level2 inverse center middle section-title">
+<section id="ley-de-los-grandes-números" class="slide level2 inverse center middle section-title" data-background-color="#F4C430">
 <h2>Ley de los Grandes Números</h2>
 </section>
 <section id="convergencia-en-probabilidad" class="slide level2">
@@ -155,24 +171,24 @@
 <section id="ley-de-los-grandes-números-1" class="slide level2">
 <h2>Ley de los Grandes Números</h2>
 <ul>
-<li><p><span class="math inline">\(X\)</span> es una variable aleatoria con primer momento <span class="math inline">\(\mathbb{E}(X) = \mu\)</span></p></li>
-<li><p>Generamos/tomamos una muestra <span class="math inline">\(\{X_{1},X_{2}, \dots, X_{n}\}\)</span> de tamaño <span class="math inline">\(n\)</span> donde:</p>
+<li><p><span class="math inline">X</span> es una variable aleatoria con primer momento <span class="math inline">\mathbb{E}(X) = \mu</span></p></li>
+<li><p>Generamos/tomamos una muestra <span class="math inline">\{X_{1},X_{2}, \dots, X_{n}\}</span> de tamaño <span class="math inline">n</span> donde:</p>
 <ul>
-<li>Cada <span class="math inline">\(X_{i}\)</span> sigue la misma distribución que la variable aleatoria <span class="math inline">\(X\)</span></li>
-<li>Las <span class="math inline">\(X_{i}\)</span>’s son independientes entre si</li>
+<li>Cada <span class="math inline">X_{i}</span> sigue la misma distribución que la variable aleatoria <span class="math inline">X</span></li>
+<li>Las <span class="math inline">X_{i}</span>’s son independientes entre si</li>
 </ul></li>
 </ul>
 <div class="fragment">
 <ul>
-<li><p>La media aritmética en <span class="bold">esta muestra</span> es <span class="math inline">\(\bar{X}_{n} = \frac{1}{n}\sum_{i=1}^{n}X_i\)</span></p></li>
-<li><p><span class="math inline">\(\bar{X}_{n}\)</span> es <span class="bold">aleatoria</span> porque las <span class="math inline">\(X_{i}\)</span>’s son aleatorias.</p></li>
+<li><p>La media aritmética en <span class="bold">esta muestra</span> es <span class="math inline">\bar{X}_{n} = \frac{1}{n}\sum_{i=1}^{n}X_i</span></p></li>
+<li><p><span class="math inline">\bar{X}_{n}</span> es <span class="bold">aleatoria</span> porque las <span class="math inline">X_{i}</span>’s son aleatorias.</p></li>
 </ul>
 <p><br></p>
 </div>
 <div class="fragment">
-<p><span class="bold">Ley de los Grandes Números</span> establece que, a medida que el tamaño de una muestra aleatoria crece, la media aritmética de la muestra <span class="bold">converge en probabilidad</span> al promedio teórico/poblacional: <span class="math inline">\(\bar{X} \overset{p}{\to} \mathbb{E}(X)\)</span>.</p>
+<p><span class="bold">Ley de los Grandes Números</span> establece que, a medida que el tamaño de una muestra aleatoria crece, la media aritmética de la muestra <span class="bold">converge en probabilidad</span> al promedio teórico/poblacional: <span class="math inline">\bar{X} \overset{p}{\to} \mathbb{E}(X)</span>.</p>
 <div class="content-box-primary">
-<p><span class="bolder">Matemáticamente,</span> <span class="math display">\[\color{white}{\lim_{n \to \infty}\mathbb{P}\left( \left| \bar{X} - \mu \right| \geq \epsilon \right) = 0}\]</span></p>
+<p><span class="bolder">Matemáticamente,</span> <span class="math display">\color{white}{\lim_{n \to \infty}\mathbb{P}\left( \left| \bar{X} - \mu \right| \geq \epsilon \right) = 0}</span></p>
 </div>
 </div>
 </section>
@@ -202,7 +218,7 @@
 </div>
 </div>
 </section>
-<section id="valor-esperado-y-varianza" class="slide level2 inverse center middle section-title">
+<section id="valor-esperado-y-varianza" class="slide level2 inverse center middle section-title" data-background-color="#F4C430">
 <h2>Valor Esperado y Varianza</h2>
 </section>
 <section id="de-la" class="title-slide slide level1 center">
@@ -219,32 +235,32 @@
 <h2>Valor Esperado de la Media Muestral</h2>
 <div class="pull-left">
 <ul>
-<li><p><span class="math inline">\(X\)</span> es una variable aleatoria con primer momento <span class="math inline">\(\mathbb{E}(X) = \mu\)</span></p></li>
-<li><p>Generamos/tomamos una muestra <span class="math inline">\(n\)</span> del tipo:</p></li>
-<li><p><span class="math inline">\(\{X_{1},X_{2}, \dots, X_{n}\}\)</span></p></li>
-<li><p>Las <span class="math inline">\(X_{i}\)</span>’s son <span class="bold">iid</span></p></li>
-<li><p>En cada muestra calculamos la <span class="bold">media muestral</span>, <span class="math inline">\(\bar{X}_{n}\)</span></p></li>
-<li><p><span class="math inline">\(\bar{X}_{n}\)</span> es <span class="bold">aleatoria</span> porque las <span class="math inline">\(X_{i}\)</span>’s son aleatorias.</p></li>
+<li><p><span class="math inline">X</span> es una variable aleatoria con primer momento <span class="math inline">\mathbb{E}(X) = \mu</span></p></li>
+<li><p>Generamos/tomamos una muestra <span class="math inline">n</span> del tipo:</p></li>
+<li><p><span class="math inline">\{X_{1},X_{2}, \dots, X_{n}\}</span></p></li>
+<li><p>Las <span class="math inline">X_{i}</span>’s son <span class="bold">iid</span></p></li>
+<li><p>En cada muestra calculamos la <span class="bold">media muestral</span>, <span class="math inline">\bar{X}_{n}</span></p></li>
+<li><p><span class="math inline">\bar{X}_{n}</span> es <span class="bold">aleatoria</span> porque las <span class="math inline">X_{i}</span>’s son aleatorias.</p></li>
 </ul>
 <p><br></p>
 <p><span class="bold">¿Cuál es el promedio de dichas medias muestrales?</span></p>
 </div>
 <div class="fragment">
 <div class="pull-right">
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \mathbb{E}(\bar{X}_{n}) &amp;= \mathbb{E}\big(\frac{1}{n} \sum^{n}_{i=1} X_{i} \big) \\ \\
 &amp;=\frac{1}{n}\mathbb{E}\big( X_{1} + X_{2} + \cdots + X_{n} \big) \\ \\
 &amp;=\frac{1}{n}\big( \mathbb{E}(X_{1}) + \mathbb{E}(X_{2}) + \cdots  + \mathbb{E}(X_{n})\big) \\ \\
 &amp;=\frac{1}{n}\big( \mu + \mu + \cdots + \mu \big) \\ \\
 &amp;=\frac{1}{n}\big( n \mu \big) \\ \\
 &amp;=\mu
-\end{align}\]</span></p>
+\end{align}</span></p>
 </div>
 </div>
 </section>
 <section id="valor-esperado-de-la-media-muestral-1" class="slide level2">
 <h2>Valor Esperado de la Media Muestral</h2>
-<p>Para cualquier <span class="math inline">\(n\)</span> el promedio de esas las diferentes <span class="math inline">\(\bar{X}_{n}\)</span>’s es igual a <span class="math inline">\(\mathbb{E}(X)\)</span>.</p>
+<p>Para cualquier <span class="math inline">n</span> el promedio de esas las diferentes <span class="math inline">\bar{X}_{n}</span>’s es igual a <span class="math inline">\mathbb{E}(X)</span>.</p>
 <div class="center">
 <div class="cell">
 <div class="cell-output-display">
@@ -261,32 +277,32 @@
 <h2>Varianza y Desviación Standard de la Media Muestral</h2>
 <div class="pull-left">
 <ul>
-<li><p><span class="math inline">\(X\)</span> es una variable aleatoria con primer momento <span class="math inline">\(\mathbb{E}(X) = \mu\)</span></p></li>
-<li><p>Generamos/tomamos una muestra <span class="math inline">\(n\)</span> del tipo:</p></li>
-<li><p><span class="math inline">\(\{X_{1},X_{2}, \dots, X_{n}\}\)</span></p></li>
-<li><p>Las <span class="math inline">\(X_{i}\)</span>’s son <span class="bold">iid</span></p></li>
-<li><p>En cada muestra calculamos la <span class="bold">media muestral</span>, <span class="math inline">\(\bar{X}_{n}\)</span></p></li>
-<li><p><span class="math inline">\(\bar{X}_{n}\)</span> es <span class="bold">aleatoria</span> porque las <span class="math inline">\(X_{i}\)</span>’s son aleatorias.</p></li>
+<li><p><span class="math inline">X</span> es una variable aleatoria con primer momento <span class="math inline">\mathbb{E}(X) = \mu</span></p></li>
+<li><p>Generamos/tomamos una muestra <span class="math inline">n</span> del tipo:</p></li>
+<li><p><span class="math inline">\{X_{1},X_{2}, \dots, X_{n}\}</span></p></li>
+<li><p>Las <span class="math inline">X_{i}</span>’s son <span class="bold">iid</span></p></li>
+<li><p>En cada muestra calculamos la <span class="bold">media muestral</span>, <span class="math inline">\bar{X}_{n}</span></p></li>
+<li><p><span class="math inline">\bar{X}_{n}</span> es <span class="bold">aleatoria</span> porque las <span class="math inline">X_{i}</span>’s son aleatorias.</p></li>
 </ul>
 <p><br></p>
 <p><span class="bold">¿Cuanto varían dichas medias muestrales?</span></p>
 </div>
 <div class="fragment">
 <div class="pull-right">
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \text{Var}(\bar{X}) &amp;= \text{Var}\big(\frac{1}{n} \sum^{n}_{i=1} X_{i} \big) \\
 &amp;= \frac{1}{n^2} \text{Var}\big( \sum^{n}_{i=1} X_{i} \big) \\ \\
 &amp;=\frac{1}{n^2}\big( \text{Var}(X_{1}) + \text{Var}(X_{2}) + \cdots + \text{Var}(X_{n})\big) \\ \\
 &amp;=\frac{1}{n^2}\big( \sigma^2 + \sigma^2 + \cdots + \sigma^2 \big) \\ \\
 &amp;=\frac{1}{n^2}\big( n \sigma^2 \big) \\ \\
 &amp;=\frac{\sigma^2}{n} \implies \quad \sqrt{\text{Var}(\bar{X})}  = \frac{\sigma}{\sqrt{n}}
-\end{align}\]</span></p>
+\end{align}</span></p>
 </div>
 </div>
 </section>
 <section id="varianza-de-la-media-muestral" class="slide level2">
 <h2>Varianza de la Media Muestral</h2>
-<p>A medida que aumenta <span class="math inline">\(n\)</span> los diferentes <span class="math inline">\(\bar{X}_{n}\)</span>’s se concentran más cerca del promedio de las <span class="math inline">\(\bar{X}_{n}\)</span>’s (que, a su vez, coincide con <span class="math inline">\(\mathbb{E}(X)\)</span>).</p>
+<p>A medida que aumenta <span class="math inline">n</span> los diferentes <span class="math inline">\bar{X}_{n}</span>’s se concentran más cerca del promedio de las <span class="math inline">\bar{X}_{n}</span>’s (que, a su vez, coincide con <span class="math inline">\mathbb{E}(X)</span>).</p>
 <div class="center">
 <div class="cell">
 <div class="cell-output-display">
@@ -301,7 +317,7 @@
 </section>
 <section id="varianza-de-la-media-muestral-1" class="slide level2">
 <h2>Varianza de la Media Muestral</h2>
-<p>A medida que aumenta <span class="math inline">\(n\)</span> la desviación estándar de <span class="math inline">\(\bar{X}_{n}\)</span>’s <span class="bold">disminuye a una tasa decreciente</span> específica.</p>
+<p>A medida que aumenta <span class="math inline">n</span> la desviación estándar de <span class="math inline">\bar{X}_{n}</span>’s <span class="bold">disminuye a una tasa decreciente</span> específica.</p>
 <div class="center">
 <div class="cell">
 <div class="cell-output-display">
@@ -316,8 +332,8 @@
 </section>
 <section id="corolario" class="slide level2">
 <h2>Corolario</h2>
-<p>Típicamente contamos con <span class="bold">sólo una muestra</span>, con un <span class="math inline">\(n\)</span> fijo.</p>
-<p><span class="bold">¿“Cuán bien” nuestro estimado muestral</span> <span class="math inline">\(\bar{X}_{n}\)</span> <span class="bold">captura el parámetro verdadero E(X)?</span></p>
+<p>Típicamente contamos con <span class="bold">sólo una muestra</span>, con un <span class="math inline">n</span> fijo.</p>
+<p><span class="bold">¿“Cuán bien” nuestro estimado muestral</span> <span class="math inline">\bar{X}_{n}</span> <span class="bold">captura el parámetro verdadero E(X)?</span></p>
 <div class="fragment">
 <div class="center">
 <div class="cell">
@@ -332,7 +348,7 @@
 </div>
 </div>
 </section>
-<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle" data-background-color="#F4C430">
 <h2>Hasta la próxima clase. Gracias!</h2>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
 
@@ -357,7 +373,6 @@
   <script src="class_9_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_9_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_9_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_9_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -393,7 +408,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -525,27 +540,9 @@
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -638,13 +635,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

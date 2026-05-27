@@ -6,11 +6,11 @@
 <script src="class_15_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_15_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_15_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_15_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_15_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -96,9 +96,25 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="class_15_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_15_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_15_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_15_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_15_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -207,7 +223,7 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
 <section id="ejemplo-empírico-promedio-de-ingreso-mujeres" class="slide level2">
 <h2>Ejemplo empírico: Promedio de ingreso mujeres</h2>
@@ -332,19 +348,19 @@
 <p><span class="bold">Muestrando desde la muestra:</span></p>
 <p>¿Cuántas muestras podemos tomar (con reemplazo) a partir de nuestra muestra?</p>
 <div class="fragment">
-<p><span class="bold">Respuesta</span>: <span class="math inline">\(n^n\)</span></p>
+<p><span class="bold">Respuesta</span>: <span class="math inline">n^n</span></p>
 <p><br></p>
 </div>
 <div class="fragment">
-<p><span class="math display">\[\text{muestra} : \left[\begin{array}{@{}c@{}}
+<p><span class="math display">\text{muestra} : \left[\begin{array}{@{}c@{}}
     1 \\
     2 \\
     3
-    \end{array} \right]\]</span></p>
+    \end{array} \right]</span></p>
 <p><br></p>
 </div>
 <div class="fragment">
-<p><span class="math display">\[\text{posibles muestras de la muesta:} \left[\begin{array}{@{}c@{}}
+<p><span class="math display">\text{posibles muestras de la muesta:} \left[\begin{array}{@{}c@{}}
     1 \\
     1 \\
     1
@@ -368,7 +384,7 @@
     3 \\
     3 \\
     3
-    \end{array} \right]  ...\]</span></p>
+    \end{array} \right]  ...</span></p>
 </div>
 </section>
 <section id="bootstrap-method" class="slide level2">
@@ -376,12 +392,12 @@
 <p><span class="bold">Esquema del algoritmo</span>:</p>
 <div class="fragment">
 <ol type="1">
-<li>A partir de la muestra obtenén una muestra aleatoria del mismo tamaño que la muestra original (N), con reemplazo: <span class="math inline">\((X_{b})\)</span></li>
+<li>A partir de la muestra obtenén una muestra aleatoria del mismo tamaño que la muestra original (N), con reemplazo: <span class="math inline">(X_{b})</span></li>
 </ol>
 </div>
 <div class="fragment">
 <ol start="2" type="1">
-<li>Aplica el estimador <span class="math inline">\(\theta(X_{b})\)</span> a la muestra <span class="math inline">\((X_{b})\)</span> para obtener el estimado <span class="math inline">\(\hat{\theta}_{b}\)</span></li>
+<li>Aplica el estimador <span class="math inline">\theta(X_{b})</span> a la muestra <span class="math inline">(X_{b})</span> para obtener el estimado <span class="math inline">\hat{\theta}_{b}</span></li>
 </ol>
 </div>
 <div class="fragment">
@@ -405,7 +421,7 @@
 <p><span class="bold">Calculemos un IC al 99% para la <code>media</code> muestral del ingreso de las mujeres</span></p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="co"># Escribir una función que ejecute re-sampling y la estimación</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="co"># Escribir una función que ejecute re-sampling y la estimación</span></span>
 <span id="cb3-2"><a href=""></a>bs_mu  <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb3-3"><a href=""></a>  data_b  <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(casen2017_mujeres, <span class="at">size=</span><span class="fu">nrow</span>(casen2017_mujeres), <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
 <span id="cb3-4"><a href=""></a>  mu_muestra_b    <span class="ot">&lt;-</span> <span class="fu">mean</span>(data_b<span class="sc">$</span>ingreso, <span class="at">na.rm=</span>T)</span>
@@ -416,7 +432,7 @@
 <span id="cb3-9"><a href=""></a></span>
 <span id="cb3-10"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">77623</span>)</span>
 <span id="cb3-11"><a href=""></a>distmuestral_boot <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">5000</span>, <span class="fu">bs_mu</span>()) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
-<span id="cb3-12"><a href=""></a><span class="fu">glimpse</span>(distmuestral_boot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-12"><a href=""></a><span class="fu">glimpse</span>(distmuestral_boot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 5,000
 Columns: 1
@@ -429,15 +445,15 @@ $ value &lt;dbl&gt; 419172.0, 339894.7, 422345.3, 348431.6, 371273.9, 364408.9, 
 <h2>Método Bootstrap, aplicación</h2>
 <div class="pull-left">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>ee_bs <span class="ot">&lt;-</span> <span class="fu">sd</span>(distmuestral_boot<span class="sc">$</span>value)</span>
-<span id="cb5-2"><a href=""></a>ee_bs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a>ee_bs <span class="ot">&lt;-</span> <span class="fu">sd</span>(distmuestral_boot<span class="sc">$</span>value)</span>
+<span id="cb5-2"><a href=""></a>ee_bs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 28647.05</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>ci99_bs <span class="ot">&lt;-</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a>ci99_bs <span class="ot">&lt;-</span> </span>
 <span id="cb7-2"><a href=""></a>  <span class="fu">quantile</span>(distmuestral_boot<span class="sc">$</span>value, </span>
 <span id="cb7-3"><a href=""></a>           <span class="at">p=</span><span class="fu">c</span>(<span class="fl">0.005</span>,<span class="fl">0.995</span>))</span>
-<span id="cb7-4"><a href=""></a>ci99_bs </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb7-4"><a href=""></a>ci99_bs </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    0.5%    99.5% 
 303603.2 449958.5 </code></pre>
@@ -480,7 +496,7 @@ $ value &lt;dbl&gt; 419172.0, 339894.7, 422345.3, 348431.6, 371273.9, 364408.9, 
 <p><span class="bold">Calculemos un IC al 99% para la <code>mediana</code> muestral del ingreso de las mujeres</span></p>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="co"># Escribir una función que ejecute re-sampling y la estimación</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="co"># Escribir una función que ejecute re-sampling y la estimación</span></span>
 <span id="cb9-2"><a href=""></a>bs_median  <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
 <span id="cb9-3"><a href=""></a>  data_b  <span class="ot">&lt;-</span> <span class="fu">sample_n</span>(casen2017_mujeres, <span class="at">size=</span><span class="fu">nrow</span>(casen2017_mujeres), <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
 <span id="cb9-4"><a href=""></a>  median_muestra_b    <span class="ot">&lt;-</span> <span class="fu">median</span>(data_b<span class="sc">$</span>ingreso, <span class="at">na.rm=</span>T)</span>
@@ -491,7 +507,7 @@ $ value &lt;dbl&gt; 419172.0, 339894.7, 422345.3, 348431.6, 371273.9, 364408.9, 
 <span id="cb9-9"><a href=""></a></span>
 <span id="cb9-10"><a href=""></a><span class="fu">set.seed</span>(<span class="dv">77623</span>)</span>
 <span id="cb9-11"><a href=""></a>distmuestral_boot <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">5000</span>, <span class="fu">bs_median</span>()) <span class="sc">%&gt;%</span> <span class="fu">as_tibble</span>()</span>
-<span id="cb9-12"><a href=""></a><span class="fu">glimpse</span>(distmuestral_boot)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb9-12"><a href=""></a><span class="fu">glimpse</span>(distmuestral_boot)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Rows: 5,000
 Columns: 1
@@ -504,15 +520,15 @@ $ value &lt;dbl&gt; 275000.0, 278583.5, 300000.0, 276000.0, 265750.0, 266500.0, 
 <h2>Método Bootstrap, aplicación</h2>
 <div class="pull-left">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>ee_bs <span class="ot">&lt;-</span> <span class="fu">sd</span>(distmuestral_boot<span class="sc">$</span>value)</span>
-<span id="cb11-2"><a href=""></a>ee_bs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a>ee_bs <span class="ot">&lt;-</span> <span class="fu">sd</span>(distmuestral_boot<span class="sc">$</span>value)</span>
+<span id="cb11-2"><a href=""></a>ee_bs</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 14051.05</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>ci99_bs <span class="ot">&lt;-</span> </span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a>ci99_bs <span class="ot">&lt;-</span> </span>
 <span id="cb13-2"><a href=""></a>  <span class="fu">quantile</span>(distmuestral_boot<span class="sc">$</span>value, </span>
 <span id="cb13-3"><a href=""></a>           <span class="at">p=</span><span class="fu">c</span>(<span class="fl">0.005</span>,<span class="fl">0.995</span>))</span>
-<span id="cb13-4"><a href=""></a>ci99_bs </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-4"><a href=""></a>ci99_bs </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>    0.5%    99.5% 
 236867.0 304171.2 </code></pre>
@@ -531,7 +547,7 @@ $ value &lt;dbl&gt; 275000.0, 278583.5, 300000.0, 276000.0, 265750.0, 266500.0, 
 </div>
 </div>
 </section>
-<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle" data-background-color="#3B4082">
 <h2>Hasta la próxima clase. Gracias!</h2>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
 
@@ -556,7 +572,6 @@ $ value &lt;dbl&gt; 275000.0, 278583.5, 300000.0, 276000.0, 265750.0, 266500.0, 
   <script src="class_15_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_15_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_15_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_15_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -592,7 +607,7 @@ $ value &lt;dbl&gt; 275000.0, 278583.5, 300000.0, 276000.0, 265750.0, 266500.0, 
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -724,27 +739,9 @@ $ value &lt;dbl&gt; 275000.0, 278583.5, 300000.0, 276000.0, 265750.0, 266500.0, 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -837,13 +834,14 @@ $ value &lt;dbl&gt; 275000.0, 278583.5, 300000.0, 276000.0, 265750.0, 266500.0, 
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

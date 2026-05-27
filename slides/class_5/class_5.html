@@ -6,11 +6,11 @@
 <script src="class_5_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_5_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_5_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_5_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_5_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,9 +30,25 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="class_5_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_5_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_5_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_5_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_5_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -141,9 +157,9 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
-<section id="distribuciones-continuas" class="slide level2 inverse center middle">
+<section id="distribuciones-continuas" class="slide level2 inverse center middle" data-background-color="#ffec73">
 <h2>Distribuciones Continuas</h2>
 <h3 id="intuición">Intuición</h3>
 </section>
@@ -153,15 +169,15 @@
 <p>Copa Mundial de la FIFA 1974. Carlos Caszely se prepara para un importante penal contra Alemania Occidental…</p>
 <p>. . .</p>
 <div class="pull-left">
-<p><span class="bold">Variable Aleatoria Continua <span class="math inline">\(X\)</span></span>: - Distancia horizontal exacta (en cms) desde el centro de la portería por donde el balón cruzará la línea de fondo.</p>
+<p><span class="bold">Variable Aleatoria Continua <span class="math inline">X</span></span>: - Distancia horizontal exacta (en cms) desde el centro de la portería por donde el balón cruzará la línea de fondo.</p>
 <p><br> <span class="bold">Número infinito de resultados posibles</span>:</p>
 <ul>
 <li>Cada punto a lo largo de la linea de fondo donde el balón podría cruzar.</li>
 </ul>
 <p><br> <span class="bold">Evento aleatorio</span>:</p>
 <ul>
-<li><p>Cada punto específico (ej. <span class="math inline">\(x=-3.14159\)</span>) tiene probabilidad de ocurrencia 0.</p></li>
-<li><p>Podemos calcular probabilidades para rangos específicos de valores (ej. <span class="math inline">\(-3.3 &lt; x &lt; -3.1\)</span>).</p></li>
+<li><p>Cada punto específico (ej. <span class="math inline">x=-3.14159</span>) tiene probabilidad de ocurrencia 0.</p></li>
+<li><p>Podemos calcular probabilidades para rangos específicos de valores (ej. <span class="math inline">-3.3 &lt; x &lt; -3.1</span>).</p></li>
 </ul>
 </div>
 <p>. . .</p>
@@ -177,7 +193,7 @@
 </div>
 </div>
 </section>
-<section id="distribuciones-continuas-1" class="slide level2 inverse center middle">
+<section id="distribuciones-continuas-1" class="slide level2 inverse center middle" data-background-color="#ffec73">
 <h2>Distribuciones Continuas</h2>
 <h3 id="distribución-uniforme">Distribución Uniforme</h3>
 </section>
@@ -199,14 +215,14 @@
 <p>. . .</p>
 <div class="pull-right">
 <p><span class="bold">Función de densidad probabilistica (PDF):</span></p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 f(x) =
   \begin{cases}
    \frac{1}{b-a} &amp; \text{si } \quad a \leq x \leq b  \\
    0       &amp;  x &lt; a \quad \text{  o } \quad x &gt; b
   \end{cases}
-\end{align}\]</span></p>
-<p><br> En este caso <span class="math inline">\(a=25\)</span> y <span class="math inline">\(b=30\)</span>.</p>
+\end{align}</span></p>
+<p><br> En este caso <span class="math inline">a=25</span> y <span class="math inline">b=30</span>.</p>
 </div>
 </section>
 <section class="slide level2">
@@ -226,23 +242,23 @@ f(x) =
 </div>
 <div class="pull-right">
 <p><span class="bold">Función de densidad probabilistica (PDF):</span></p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 f(x) =
   \begin{cases}
    \frac{1}{b-a} &amp; \text{si } \quad a \leq x \leq b  \\
    0       &amp;  x &lt; a \quad \text{  o } \quad x &gt; b
   \end{cases}
-\end{align}\]</span></p>
-<p><br> En este caso <span class="math inline">\(b=30\)</span> y <span class="math inline">\(a=25\)</span>.</p>
+\end{align}</span></p>
+<p><br> En este caso <span class="math inline">b=30</span> y <span class="math inline">a=25</span>.</p>
 <p><br> <span class="bold">Importante:</span></p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 f(x) \neq \mathbb{P}(X=x)
-\end{align}\]</span></p>
+\end{align}</span></p>
 <p><br></p>
 <p>por ejemplo,</p>
-<p><span class="math inline">\(f(27.354)\)</span> = 1/(30-25) = 0.2</p>
+<p><span class="math inline">f(27.354)</span> = 1/(30-25) = 0.2</p>
 <p>y</p>
-<p><span class="math inline">\(\mathbb{P}(X=27.354) = 0\)</span></p>
+<p><span class="math inline">\mathbb{P}(X=27.354) = 0</span></p>
 </div>
 </section>
 <section class="slide level2">
@@ -264,13 +280,13 @@ f(x) \neq \mathbb{P}(X=x)
 <p>. . .</p>
 <div class="pull-right">
 <p><span class="bold">Función de distribución acumulada (CDF):</span></p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
      &amp;= \int_{a}^{k} f(x) dx = \int_{a}^{k} \frac{1}{b-a} dx \\ \\
      &amp;= \left. \frac{x}{b-a} \right|_a^k \\ \\
      &amp;= \frac{k-a}{b-a}
-\end{align}\]</span></p>
-<p><br> En este caso <span class="math inline">\(b=30\)</span>, <span class="math inline">\(a=25\)</span> y <span class="math inline">\(k=28\)</span>.</p>
+\end{align}</span></p>
+<p><br> En este caso <span class="math inline">b=30</span>, <span class="math inline">a=25</span> y <span class="math inline">k=28</span>.</p>
 </div>
 </section>
 <section class="slide level2">
@@ -292,15 +308,15 @@ F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
 <p>. . .</p>
 <div class="pull-right">
 <p><span class="bold">Función de distribución acumulada (CDF):</span></p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
      &amp;= \int_{a}^{k} f(x) dx \quad = \quad \int_{a}^{k} \frac{1}{b-a} dx \\ \\
      &amp;= \left. \frac{x}{b-a} \right|_a^k \\ \\
      &amp;= \frac{k-a}{b-a}
-\end{align}\]</span></p>
-<p><br> En este caso <span class="math inline">\(b=30\)</span>, <span class="math inline">\(a=25\)</span> y <span class="math inline">\(k=28\)</span>.</p>
+\end{align}</span></p>
+<p><br> En este caso <span class="math inline">b=30</span>, <span class="math inline">a=25</span> y <span class="math inline">k=28</span>.</p>
 </div>
-<p><span class="math inline">\(\frac{28-25}{30-25} =\)</span> 0.6</p>
+<p><span class="math inline">\frac{28-25}{30-25} =</span> 0.6</p>
 </section>
 <section class="slide level2">
 
@@ -320,11 +336,11 @@ F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
 </div>
 <div class="pull-right">
 <p><span class="bold">Función de distribución acumulada (CDF):</span></p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
      &amp;= \frac{k-a}{b-a}
-\end{align}\]</span></p>
-<p><br> En este caso <span class="math inline">\(b=30\)</span>, <span class="math inline">\(a=25\)</span> y <span class="math inline">\(k=28\)</span>.</p>
+\end{align}</span></p>
+<p><br> En este caso <span class="math inline">b=30</span>, <span class="math inline">a=25</span> y <span class="math inline">k=28</span>.</p>
 </div>
 </section>
 <section class="slide level2">
@@ -346,21 +362,21 @@ F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
 <p>. . .</p>
 <div class="pull-right">
 <p><span class="bold">Función de distribución acumulada (CDF):</span></p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 F(k) &amp;= \mathbb{P}(X \leq k) = \frac{k-a}{b-a}
-\end{align}\]</span></p>
+\end{align}</span></p>
 <p><br></p>
 <p><span class="bold">Probabilidad de un intervalo:</span></p>
-<p><span class="math display">\[\mathbb{P}(k_1 \leq X \leq k_2) = F(k_2) - F(k_1)\]</span> <br></p>
+<p><span class="math display">\mathbb{P}(k_1 \leq X \leq k_2) = F(k_2) - F(k_1)</span> <br></p>
 <p>En este caso:</p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
   \mathbb{P}(26 \leq X \leq 28) &amp;= \\ \\
   &amp;= \frac{k_2-a}{b-a} - \frac{k_1-a}{b-a} = \frac{k_2-k_1}{b-a} \\ \\
   &amp;= \frac{28-26}{30-25} = 0.4
-\end{align}\]</span></p>
+\end{align}</span></p>
 </div>
 </section>
-<section id="distribuciones-continuas-2" class="slide level2 inverse center middle">
+<section id="distribuciones-continuas-2" class="slide level2 inverse center middle" data-background-color="#ffec73">
 <h2>Distribuciones Continuas</h2>
 <h3 id="distribución-normal">Distribución Normal</h3>
 </section>
@@ -390,16 +406,16 @@ F(k) &amp;= \mathbb{P}(X \leq k) = \frac{k-a}{b-a}
 <p>. . .</p>
 <div class="pull-right">
 <p><span class="bold">Función de densidad probabilistica (PDF) de una distribución normal:</span></p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 f(x) = \frac{1}{{\sigma \sqrt{2\pi}}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}
-\end{align}\]</span></p>
+\end{align}</span></p>
 <p><span class="bold">Características:</span></p>
 <ul>
-<li><p><em>Simetría</em>: la curva de la distribución normal es simétrica alrededor de su media <span class="math inline">\((\mu)\)</span>.</p></li>
+<li><p><em>Simetría</em>: la curva de la distribución normal es simétrica alrededor de su media <span class="math inline">(\mu)</span>.</p></li>
 <li><p><em>Asíntota</em>: todo valor tiene una probabilidad distinta de cero.</p></li>
-<li><p><em>Dispersión y forma</em>: la desviación estándar determina el ancho y la forma de la campana <span class="math inline">\((\sigma)\)</span>. A mayor desviación estándar, la curva es más ancha y plana. A menor desviación estándar, es más estrecha y puntiaguda.</p></li>
+<li><p><em>Dispersión y forma</em>: la desviación estándar determina el ancho y la forma de la campana <span class="math inline">(\sigma)</span>. A mayor desviación estándar, la curva es más ancha y plana. A menor desviación estándar, es más estrecha y puntiaguda.</p></li>
 </ul>
-<p><br> En este caso, <span class="math inline">\(\mu=27.5\)</span> y <span class="math inline">\(\sigma=1.5\)</span>.</p>
+<p><br> En este caso, <span class="math inline">\mu=27.5</span> y <span class="math inline">\sigma=1.5</span>.</p>
 </div>
 </section>
 <section class="slide level2">
@@ -420,14 +436,14 @@ f(x) = \frac{1}{{\sigma \sqrt{2\pi}}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}
 <p>. . .</p>
 <div class="pull-right">
 <p><span class="bold">Función de densidad probabilistica (PDF) de una distribución normal:</span></p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 f(x) = \frac{1}{{\sigma \sqrt{2\pi}}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}
-\end{align}\]</span></p>
+\end{align}</span></p>
 <p><br></p>
 <p>En esta segunda distribución:</p>
 <ul>
-<li><p><em>Simetría</em>: la curva de la distribución normal es simétrica alrededor de su media <span class="math inline">\(\mu=26\)</span>.</p></li>
-<li><p><em>Dispersión y forma</em>: con una mayor desviación estándar <span class="math inline">\((\sigma=3)\)</span>, la curva es más ancha y plana.</p></li>
+<li><p><em>Simetría</em>: la curva de la distribución normal es simétrica alrededor de su media <span class="math inline">\mu=26</span>.</p></li>
+<li><p><em>Dispersión y forma</em>: con una mayor desviación estándar <span class="math inline">(\sigma=3)</span>, la curva es más ancha y plana.</p></li>
 </ul>
 </div>
 </section>
@@ -450,14 +466,14 @@ f(x) = \frac{1}{{\sigma \sqrt{2\pi}}} e^{-\frac{(x-\mu)^2}{2\sigma^2}}
 <p>. . .</p>
 <div class="pull-right">
 <p><span class="bold">Función de distribución acumulada (CDF) de una distribución normal:</span></p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
      &amp;= \int_{-\infty}^{k} \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}} dx
-\end{align}\]</span></p>
-<p>En este caso, <span class="math inline">\(k=28\)</span></p>
+\end{align}</span></p>
+<p>En este caso, <span class="math inline">k=28</span></p>
 <ul>
-<li><p>No tenemos una fórmula analítica sencilla para <span class="math inline">\(F(k)\)</span> como en la distribución uniforme.</p></li>
-<li><p>Con software estadístico, podemos calcular <span class="math inline">\(F(k)\)</span> fácilmente.</p></li>
+<li><p>No tenemos una fórmula analítica sencilla para <span class="math inline">F(k)</span> como en la distribución uniforme.</p></li>
+<li><p>Con software estadístico, podemos calcular <span class="math inline">F(k)</span> fácilmente.</p></li>
 </ul>
 </div>
 </section>
@@ -479,14 +495,14 @@ F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
 </div>
 <div class="pull-right">
 <p><span class="bold">Función de distribución acumulada (CDF) de una distribución normal:</span></p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
      &amp;= \int_{-\infty}^{k} \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}} dx
-\end{align}\]</span></p>
-<p>En este caso, <span class="math inline">\(k=28\)</span></p>
+\end{align}</span></p>
+<p>En este caso, <span class="math inline">k=28</span></p>
 <ul>
-<li><p>No tenemos una fórmula analítica sencilla para <span class="math inline">\(F(k)\)</span> como en la distribución uniforme.</p></li>
-<li><p>Con software estadístico, podemos calcular <span class="math inline">\(F(k)\)</span> fácilmente. En <code>R</code>:</p></li>
+<li><p>No tenemos una fórmula analítica sencilla para <span class="math inline">F(k)</span> como en la distribución uniforme.</p></li>
+<li><p>Con software estadístico, podemos calcular <span class="math inline">F(k)</span> fácilmente. En <code>R</code>:</p></li>
 </ul>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -513,11 +529,11 @@ F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
 </div>
 <div class="pull-right">
 <p><span class="bold">Función de distribución acumulada (CDF) de una distribución normal:</span></p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
      &amp;= \int_{-\infty}^{k} \frac{1}{\sigma \sqrt{2\pi}} e^{-\frac{(x-\mu)^2}{2\sigma^2}} dx
-\end{align}\]</span></p>
-<p>En este caso, <span class="math inline">\(k=28\)</span></p>
+\end{align}</span></p>
+<p>En este caso, <span class="math inline">k=28</span></p>
 <p><br> En <code>R</code>:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -545,14 +561,14 @@ F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
 <p>. . .</p>
 <div class="pull-right">
 <p><span class="bold">Función de distribución acumulada (CDF):</span></p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
   F(k) = \mathbb{P}(X \leq k) = \int_{-\infty}^{k} f(x) dx
-\end{align}\]</span></p>
+\end{align}</span></p>
 <p><span class="bold">Probabilidad en un intervalo:</span></p>
-<p><span class="math display">\[\mathbb{P}(k_1 \leq X \leq k_2) = F(k_2) - F(k_1)\]</span> <br> En este caso:</p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\mathbb{P}(k_1 \leq X \leq k_2) = F(k_2) - F(k_1)</span> <br> En este caso:</p>
+<p><span class="math display">\begin{align}
   \mathbb{P}(26 \leq X \leq 28) =  F(28) - F(26)
-\end{align}\]</span></p>
+\end{align}</span></p>
 <p>En <code>R</code>:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -561,7 +577,7 @@ F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
 </div>
 </div>
 </section>
-<section id="section-2" class="slide level2 inverse center middle">
+<section id="section-2" class="slide level2 inverse center middle" data-background-color="#ffec73">
 <h2></h2>
 <p><span class="huge"><strong>Hasta la próxima clase. Gracias!</strong></span></p>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
@@ -587,7 +603,6 @@ F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
   <script src="class_5_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_5_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_5_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_5_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -623,7 +638,7 @@ F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -755,27 +770,9 @@ F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -868,13 +865,14 @@ F(k) &amp;= \mathbb{P}(X \leq k) \\ \\
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

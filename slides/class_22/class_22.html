@@ -6,11 +6,11 @@
 <script src="class_22_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_22_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_22_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_22_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_22_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -96,9 +96,25 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="class_22_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_22_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_22_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_22_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_22_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -207,9 +223,9 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
-<section id="section" class="slide level2 inverse center middle">
+<section id="section" class="slide level2 inverse center middle" data-background-color="#007FFF">
 <h2></h2>
 </section>
 <section>
@@ -244,8 +260,8 @@
 <div class="fragment">
 <div class="pull-left">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>ctable <span class="ot">&lt;-</span> datos_chile <span class="sc">%&gt;%</span> <span class="fu">with</span>(<span class="fu">table</span>(income,vote))</span>
-<span id="cb1-2"><a href=""></a><span class="fu">print</span>(ctable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>ctable <span class="ot">&lt;-</span> datos_chile <span class="sc">%&gt;%</span> <span class="fu">with</span>(<span class="fu">table</span>(income,vote))</span>
+<span id="cb1-2"><a href=""></a><span class="fu">print</span>(ctable)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        vote
 income     N   Y
@@ -273,21 +289,21 @@ income     N   Y
 <p><br></p>
 <p>Caso simple:</p>
 <ul>
-<li><p><span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son dos variables categóricas.</p>
+<li><p><span class="math inline">X</span> y <span class="math inline">Y</span> son dos variables categóricas.</p>
 <ul>
-<li><p><span class="math inline">\(X\)</span> tiene <span class="math inline">\(I\)</span> categorías <span class="math inline">\(\{i, \dots, I \}\)</span></p></li>
-<li><p><span class="math inline">\(Y\)</span> tiene <span class="math inline">\(J\)</span> categorías <span class="math inline">\(\{j, \dots, J \}\)</span>.</p></li>
+<li><p><span class="math inline">X</span> tiene <span class="math inline">I</span> categorías <span class="math inline">\{i, \dots, I \}</span></p></li>
+<li><p><span class="math inline">Y</span> tiene <span class="math inline">J</span> categorías <span class="math inline">\{j, \dots, J \}</span>.</p></li>
 </ul></li>
 </ul>
 <p><br></p>
 <div class="fragment">
-<p>Una tabla rectangular que clasifica todas las combinaciones posibles de <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> tendrá <span class="math inline">\(I\)</span> filas para las categorías de <span class="math inline">\(X\)</span>, <span class="math inline">\(J\)</span> columnas para las categorías de <span class="math inline">\(Y\)</span>, y <span class="math inline">\(I \times J\)</span> celdas.</p>
+<p>Una tabla rectangular que clasifica todas las combinaciones posibles de <span class="math inline">X</span> y <span class="math inline">Y</span> tendrá <span class="math inline">I</span> filas para las categorías de <span class="math inline">X</span>, <span class="math inline">J</span> columnas para las categorías de <span class="math inline">Y</span>, y <span class="math inline">I \times J</span> celdas.</p>
 </div>
 </section>
 <section id="tablas-de-contingencia-2" class="slide level2">
 <h2>Tablas de contingencia</h2>
 <p><br> <br> <br></p>
-<p>Estructura general de una tabla 2-way, <span class="math inline">\(I \times J\)</span></p>
+<p>Estructura general de una tabla 2-way, <span class="math inline">I \times J</span></p>
 <p><br></p>
 <table class="caption-top" style="width:100%;">
 <colgroup>
@@ -301,58 +317,58 @@ income     N   Y
 <thead>
 <tr class="header">
 <th style="text-align: center;"></th>
-<th style="text-align: center;"><span class="math inline">\(Y=y_{1}\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(Y=y_{2}\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(\dots\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(Y=y_{J}\)</span></th>
+<th style="text-align: center;"><span class="math inline">Y=y_{1}</span></th>
+<th style="text-align: center;"><span class="math inline">Y=y_{2}</span></th>
+<th style="text-align: center;"><span class="math inline">\dots</span></th>
+<th style="text-align: center;"><span class="math inline">Y=y_{J}</span></th>
 <th style="text-align: center;">Total</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(X=x_{1}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n_{11}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n_{12}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n_{1J}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n_{1+}\)</span></td>
+<td style="text-align: center;"><span class="math inline">X=x_{1}</span></td>
+<td style="text-align: center;"><span class="math inline">n_{11}</span></td>
+<td style="text-align: center;"><span class="math inline">n_{12}</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
+<td style="text-align: center;"><span class="math inline">n_{1J}</span></td>
+<td style="text-align: center;"><span class="math inline">n_{1+}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><span class="math inline">\(X=x_{2}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n_{21}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n_{22}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n_{2J}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n_{2+}\)</span></td>
+<td style="text-align: center;"><span class="math inline">X=x_{2}</span></td>
+<td style="text-align: center;"><span class="math inline">n_{21}</span></td>
+<td style="text-align: center;"><span class="math inline">n_{22}</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
+<td style="text-align: center;"><span class="math inline">n_{2J}</span></td>
+<td style="text-align: center;"><span class="math inline">n_{2+}</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><span class="math inline">\(X=x_{I}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n_{I1}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n_{I2}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n_{IJ}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n_{I+}\)</span></td>
+<td style="text-align: center;"><span class="math inline">X=x_{I}</span></td>
+<td style="text-align: center;"><span class="math inline">n_{I1}</span></td>
+<td style="text-align: center;"><span class="math inline">n_{I2}</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
+<td style="text-align: center;"><span class="math inline">n_{IJ}</span></td>
+<td style="text-align: center;"><span class="math inline">n_{I+}</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Total</td>
-<td style="text-align: center;"><span class="math inline">\(n_{+1}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n_{+2}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n_{+J}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(n_{++}\)</span></td>
+<td style="text-align: center;"><span class="math inline">n_{+1}</span></td>
+<td style="text-align: center;"><span class="math inline">n_{+2}</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
+<td style="text-align: center;"><span class="math inline">n_{+J}</span></td>
+<td style="text-align: center;"><span class="math inline">n_{++}</span></td>
 </tr>
 </tbody>
 </table>
 </section>
-<section id="estructura-probabilística" class="slide level2 inverse center middle section-title">
+<section id="estructura-probabilística" class="slide level2 inverse center middle section-title" data-background-color="#007FFF">
 <h2>Estructura probabilística</h2>
 </section>
 <section id="distribución-conjunta" class="slide level2">
@@ -360,17 +376,17 @@ income     N   Y
 <p>Supongamos que elegimos al azar un individuo de nuestra población. ¿Cual es la probabilidad de que pertenezca una celda dada de la tabla de contingencia?</p>
 <p><br></p>
 <div class="fragment">
-<p>Para cada frecuencia conjunta <span class="math inline">\(n_{ij}\)</span> en la tabla existe una probabilidad conjunta asociada <span class="math inline">\(p_{ij}\)</span>, tal que</p>
-<p><span class="math display">\[p_{ij} = \mathbb{P}(X = i, Y = j)\]</span></p>
+<p>Para cada frecuencia conjunta <span class="math inline">n_{ij}</span> en la tabla existe una probabilidad conjunta asociada <span class="math inline">p_{ij}</span>, tal que</p>
+<p><span class="math display">p_{ij} = \mathbb{P}(X = i, Y = j)</span></p>
 <ul>
-<li><p>denota la probabilidad de que una observación muestreada al azar pertenezca a la celda <span class="math inline">\((i,j)\)</span>.</p></li>
-<li><p>la colección de probabilidades <span class="math inline">\(p_{ij}\)</span> forma la <span class="bold">distribución conjunta</span> de <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span>, <span class="math inline">\(f(x,y)\)</span>.</p></li>
+<li><p>denota la probabilidad de que una observación muestreada al azar pertenezca a la celda <span class="math inline">(i,j)</span>.</p></li>
+<li><p>la colección de probabilidades <span class="math inline">p_{ij}</span> forma la <span class="bold">distribución conjunta</span> de <span class="math inline">X</span> y <span class="math inline">Y</span>, <span class="math inline">f(x,y)</span>.</p></li>
 </ul>
 </div>
 <div class="fragment">
 <h3 id="estimación">Estimación</h3>
 <p>Cuando trabajamos con muestras, esta probabilidad se puede estimar (MLE) a partir de las frecuencias en la tabla:</p>
-<p><span class="math display">\[\hat{p}_{ij} = \frac{n_{ij}}{n}\]</span></p>
+<p><span class="math display">\hat{p}_{ij} = \frac{n_{ij}}{n}</span></p>
 </div>
 </section>
 <section id="distribución-conjunta-1" class="slide level2">
@@ -391,30 +407,30 @@ income            N          Y
 </div>
 <p><br></p>
 <div class="fragment">
-<p>Como con cualquier distribución de probabilidad, sabemos que los <span class="math inline">\(p_{ij}\)</span> suman a 1.</p>
+<p>Como con cualquier distribución de probabilidad, sabemos que los <span class="math inline">p_{ij}</span> suman a 1.</p>
 </div>
 <div class="fragment">
 <p>Veamos en el caso de nuestro estimador:</p>
-<p>Si <span class="math inline">\(\hat{p}_{ij} = \frac{n_{ij}}{n}\)</span>, entonces</p>
-<p><span class="math display">\[\sum_{i} \sum_{j} \frac{n_{ij}}{n} = \frac{n}{n} = 1\]</span></p>
+<p>Si <span class="math inline">\hat{p}_{ij} = \frac{n_{ij}}{n}</span>, entonces</p>
+<p><span class="math display">\sum_{i} \sum_{j} \frac{n_{ij}}{n} = \frac{n}{n} = 1</span></p>
 </div>
 </section>
 <section id="distribuciones-marginales" class="slide level2">
 <h2>Distribuciones marginales</h2>
 <p><br></p>
-<p>Podemos obtener la distribución marginal de las variables <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> a partir de su distribución conjunta.</p>
+<p>Podemos obtener la distribución marginal de las variables <span class="math inline">X</span> y <span class="math inline">Y</span> a partir de su distribución conjunta.</p>
 <p><br></p>
 <div class="fragment">
 <ul>
-<li>La distribución marginal de <span class="math inline">\(X\)</span> (filas) está dada por:</li>
+<li>La distribución marginal de <span class="math inline">X</span> (filas) está dada por:</li>
 </ul>
-<p><span class="math display">\[p_{i+} = \sum_{j} p_{ij}\]</span> <br></p>
+<p><span class="math display">p_{i+} = \sum_{j} p_{ij}</span> <br></p>
 </div>
 <div class="fragment">
 <ul>
-<li>La distribución marginal de <span class="math inline">\(Y\)</span> (columnas) está dada por:</li>
+<li>La distribución marginal de <span class="math inline">Y</span> (columnas) está dada por:</li>
 </ul>
-<p><span class="math display">\[p_{+j} = \sum_{i} p_{ij}\]</span></p>
+<p><span class="math display">p_{+j} = \sum_{i} p_{ij}</span></p>
 </div>
 </section>
 <section id="distribuciones-marginales-1" class="slide level2">
@@ -422,8 +438,8 @@ income            N          Y
 <div class="pull-left">
 <p>Podemos obtener distribuciones marginales a partir de la distribución conjunta.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># joint distibution</span></span>
-<span id="cb4-2"><a href=""></a>joint_dis <span class="ot">&lt;-</span> ctable<span class="sc">/</span><span class="fu">sum</span>(ctable)  </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># joint distibution</span></span>
+<span id="cb4-2"><a href=""></a>joint_dis <span class="ot">&lt;-</span> ctable<span class="sc">/</span><span class="fu">sum</span>(ctable)  </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </div>
 <div class="pull-right">
@@ -443,16 +459,16 @@ income            N          Y
 </div>
 <div class="fragment">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># marginal distribution rows</span></span>
-<span id="cb6-2"><a href=""></a><span class="fu">rowSums</span>(joint_dis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># marginal distribution rows</span></span>
+<span id="cb6-2"><a href=""></a><span class="fu">rowSums</span>(joint_dis)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>      2500       7500      15000      35000      75000     125000     200000 
 0.05964912 0.17719298 0.28362573 0.29064327 0.11111111 0.04035088 0.03742690 </code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="co"># marginal distribution columns</span></span>
-<span id="cb8-2"><a href=""></a><span class="fu">colSums</span>(joint_dis)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="co"># marginal distribution columns</span></span>
+<span id="cb8-2"><a href=""></a><span class="fu">colSums</span>(joint_dis)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        N         Y 
 0.5081871 0.4918129 </code></pre>
@@ -476,57 +492,57 @@ income            N          Y
 <thead>
 <tr class="header">
 <th style="text-align: center;"></th>
-<th style="text-align: center;"><span class="math inline">\(Y=y_{1}\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(Y=y_{2}\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(\dots\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(Y=y_{J}\)</span></th>
+<th style="text-align: center;"><span class="math inline">Y=y_{1}</span></th>
+<th style="text-align: center;"><span class="math inline">Y=y_{2}</span></th>
+<th style="text-align: center;"><span class="math inline">\dots</span></th>
+<th style="text-align: center;"><span class="math inline">Y=y_{J}</span></th>
 <th style="text-align: center;">Total</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(X=x_{1}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(p_{11}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(p_{12}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(p_{1J}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(p_{1+}\)</span></td>
+<td style="text-align: center;"><span class="math inline">X=x_{1}</span></td>
+<td style="text-align: center;"><span class="math inline">p_{11}</span></td>
+<td style="text-align: center;"><span class="math inline">p_{12}</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
+<td style="text-align: center;"><span class="math inline">p_{1J}</span></td>
+<td style="text-align: center;"><span class="math inline">p_{1+}</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><span class="math inline">\(X=x_{2}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(p_{21}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(p_{22}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(p_{2J}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(p_{2+}\)</span></td>
+<td style="text-align: center;"><span class="math inline">X=x_{2}</span></td>
+<td style="text-align: center;"><span class="math inline">p_{21}</span></td>
+<td style="text-align: center;"><span class="math inline">p_{22}</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
+<td style="text-align: center;"><span class="math inline">p_{2J}</span></td>
+<td style="text-align: center;"><span class="math inline">p_{2+}</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;"><span class="math inline">\(X=x_{I}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(p_{I1}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(p_{I2}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(p_{IJ}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(p_{I+}\)</span></td>
+<td style="text-align: center;"><span class="math inline">X=x_{I}</span></td>
+<td style="text-align: center;"><span class="math inline">p_{I1}</span></td>
+<td style="text-align: center;"><span class="math inline">p_{I2}</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
+<td style="text-align: center;"><span class="math inline">p_{IJ}</span></td>
+<td style="text-align: center;"><span class="math inline">p_{I+}</span></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Total</td>
-<td style="text-align: center;"><span class="math inline">\(p_{+1}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(p_{+2}\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(\dots\)</span></td>
-<td style="text-align: center;"><span class="math inline">\(p_{+J}\)</span></td>
+<td style="text-align: center;"><span class="math inline">p_{+1}</span></td>
+<td style="text-align: center;"><span class="math inline">p_{+2}</span></td>
+<td style="text-align: center;"><span class="math inline">\dots</span></td>
+<td style="text-align: center;"><span class="math inline">p_{+J}</span></td>
 <td style="text-align: center;">1</td>
 </tr>
 </tbody>
 </table>
-<p><br> Estructura general de probabilidades en una tabla 2-way, <span class="math inline">\(I \times J\)</span></p>
+<p><br> Estructura general de probabilidades en una tabla 2-way, <span class="math inline">I \times J</span></p>
 </section>
 <section id="distribucion-conjunta-y-marginales" class="slide level2 middle">
 <h2>Distribucion conjunta y marginales</h2>
@@ -542,25 +558,25 @@ income            N          Y
 </div>
 </div>
 </section>
-<section id="distribuciones-condicionales" class="slide level2 inverse center middle section-title">
+<section id="distribuciones-condicionales" class="slide level2 inverse center middle section-title" data-background-color="#007FFF">
 <h2>Distribuciones condicionales</h2>
 </section>
 <section id="distribuciones-condicionales-1" class="slide level2">
 <h2>Distribuciones condicionales</h2>
 <p><br></p>
 <ul>
-<li>Recuerden que <span class="math inline">\(\mathbb{P}(Y=y \mid X=x)\)</span> es la <span class="bold">probabilidad condicional</span> de que la variable <span class="math inline">\(Y\)</span> dado <span class="math inline">\(X\)</span>.</li>
+<li>Recuerden que <span class="math inline">\mathbb{P}(Y=y \mid X=x)</span> es la <span class="bold">probabilidad condicional</span> de que la variable <span class="math inline">Y</span> dado <span class="math inline">X</span>.</li>
 </ul>
 <div class="fragment">
 <ul>
-<li>La <span class="bold">distribución condicional</span> <span class="math inline">\(f(y \mid x)\)</span> es una función que expresa la probabilidad que <span class="math inline">\(Y\)</span> tome cada uno de sus posibles valores <span class="math inline">\(y\)</span>’s si X toma cualquiera los valores <span class="math inline">\(x\)</span>’s.</li>
+<li>La <span class="bold">distribución condicional</span> <span class="math inline">f(y \mid x)</span> es una función que expresa la probabilidad que <span class="math inline">Y</span> tome cada uno de sus posibles valores <span class="math inline">y</span>’s si X toma cualquiera los valores <span class="math inline">x</span>’s.</li>
 </ul>
 <p><br></p>
 </div>
 <div class="fragment">
 <p>Por tanto,</p>
 <ul>
-<li>En una tabla de contingencia podemos construir las distribuciones condicionales de las variables <span class="math inline">\(X\)</span> (o <span class="math inline">\(Y\)</span>) fijando la otra variable en sus diferentes niveles.</li>
+<li>En una tabla de contingencia podemos construir las distribuciones condicionales de las variables <span class="math inline">X</span> (o <span class="math inline">Y</span>) fijando la otra variable en sus diferentes niveles.</li>
 </ul>
 </div>
 <div class="fragment">
@@ -592,9 +608,9 @@ income     N   Y
 </div>
 <p><br> <br></p>
 <div class="fragment">
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \mathbb{P}( \text{vote}=j | \text{ income}=i  ) &amp;= \frac{\mathbb{P}(\text{vote}=j , \text{ income}=i )}{\mathbb{P}(\text{ income}=i)}
-\end{align}\]</span></p>
+\end{align}</span></p>
 </div>
 </section>
 <section id="distribuciones-condicionales-3" class="slide level2">
@@ -620,10 +636,10 @@ income     N   Y
 </div>
 <p><br> <br></p>
 <div class="fragment">
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \hat{p}_{j | i} &amp;= \frac{P(\text{vote}=j , \text{ income}=i )}{P(\text{ income}=i)} \\ \\
   &amp;= \frac{\frac{n_{ij}}{n}}{\frac{\sum_{j} n_{ij}}{n}} = \frac{n_{ij}}{\sum_{j}n_{ij}}
-\end{align}\]</span></p>
+\end{align}</span></p>
 </div>
 </section>
 <section id="distribuciones-condicionales-4" class="slide level2">
@@ -648,10 +664,10 @@ income     N   Y
 </div>
 <p><br></p>
 <p>Por ejemplo, la probabilidad condicional de haber tenido un “vote” dado que el genero es mujer se estima de la siguiente manera:</p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \hat{p}_{ \text{vote=Y} | \text{income=2500}} &amp; = \frac{n_{12}}{n_{11} + n_{12}} \\ \\
 &amp;= \frac{55}{47 + 55} = 0.54
-\end{align}\]</span></p>
+\end{align}</span></p>
 </section>
 <section id="distribuciones-condicionales-5" class="slide level2">
 <h2>Distribuciones condicionales</h2>
@@ -659,7 +675,7 @@ income     N   Y
 <div class="pull-left">
 <p><span class="bold">Tabla de contingencia</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">print</span>(ctable)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="fu">print</span>(ctable)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        vote
 income     N   Y
@@ -676,7 +692,7 @@ income     N   Y
 <div class="pull-right">
 <p><span class="bold">P(voto | ingreso)</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">prop.table</span>(ctable,<span class="at">margin=</span><span class="dv">1</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href=""></a><span class="fu">prop.table</span>(ctable,<span class="at">margin=</span><span class="dv">1</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        vote
 income           N         Y
@@ -694,8 +710,8 @@ income           N         Y
 <section id="independencia-estadística" class="slide level2">
 <h2>Independencia estadística</h2>
 <ul>
-<li><p>Recuerden, dos variables <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span> son independientes si al saber algo sobre <span class="math inline">\(X\)</span> no aprendemos nada sobre <span class="math inline">\(Y\)</span>, y viceversa: <span class="math inline">\(\mathbb{P}(Y|X) = \mathbb{P}(Y)\)</span>.</p></li>
-<li><p>Check: <span class="math inline">\(X \bot Y \iff \mathbb{P}(X,Y) = \mathbb{P}(X)\mathbb{P}(Y)\)</span></p></li>
+<li><p>Recuerden, dos variables <span class="math inline">X</span> y <span class="math inline">Y</span> son independientes si al saber algo sobre <span class="math inline">X</span> no aprendemos nada sobre <span class="math inline">Y</span>, y viceversa: <span class="math inline">\mathbb{P}(Y|X) = \mathbb{P}(Y)</span>.</p></li>
+<li><p>Check: <span class="math inline">X \bot Y \iff \mathbb{P}(X,Y) = \mathbb{P}(X)\mathbb{P}(Y)</span></p></li>
 </ul>
 <div class="fragment">
 <ul>
@@ -705,16 +721,16 @@ income           N         Y
 </div>
 <div class="fragment">
 <ul>
-<li>Si <span class="math inline">\(X \bot Y\)</span> las probabilidades conjuntas <span class="bold">esperadas bajo el supuesto de independencia</span> están dadas por el producto de las distribuciones marginales:</li>
+<li>Si <span class="math inline">X \bot Y</span> las probabilidades conjuntas <span class="bold">esperadas bajo el supuesto de independencia</span> están dadas por el producto de las distribuciones marginales:</li>
 </ul>
-<p><span class="math display">\[\tilde{p}_{ij} = p_{i+} \times  p_{+j}\]</span></p>
+<p><span class="math display">\tilde{p}_{ij} = p_{i+} \times  p_{+j}</span></p>
 <p><br></p>
 </div>
 <div class="fragment">
 <ul>
 <li>Asimismo, las frecuencias esperadas bajo independencia están dadas por:</li>
 </ul>
-<p><span class="math display">\[\tilde{n}_{ij} = n \times p_{i+} \times  p_{+j}\]</span></p>
+<p><span class="math display">\tilde{n}_{ij} = n \times p_{i+} \times  p_{+j}</span></p>
 <p><br></p>
 </div>
 <div class="fragment">
@@ -778,9 +794,9 @@ income            N          Y
 <div class="pull-right">
 <p><span class="bold">Distribución conjunta esperada bajo independencia</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="co"># expected joint probs under independence </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href=""></a><span class="co"># expected joint probs under independence </span></span>
 <span id="cb21-2"><a href=""></a>joint_income_vote_indep <span class="ot">&lt;-</span> margin_income <span class="sc">%*%</span> <span class="fu">t</span>(margin_vote)</span>
-<span id="cb21-3"><a href=""></a><span class="fu">print</span>(joint_income_vote_indep)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-3"><a href=""></a><span class="fu">print</span>(joint_income_vote_indep)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>              N          Y
 [1,] 0.03031292 0.02933621
@@ -798,7 +814,7 @@ income            N          Y
 <p><span class="bold">¿Se parece la distribución observada a la distribución que observariamos si voto e ingresos no estuvieran asociados?</span></p>
 </div>
 </section>
-<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle" data-background-color="#007FFF">
 <h2>Hasta la próxima clase. Gracias!</h2>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
 
@@ -823,7 +839,6 @@ income            N          Y
   <script src="class_22_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_22_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_22_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_22_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -859,7 +874,7 @@ income            N          Y
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -991,27 +1006,9 @@ income            N          Y
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -1104,13 +1101,14 @@ income            N          Y
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

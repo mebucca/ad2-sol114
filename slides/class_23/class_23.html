@@ -6,11 +6,11 @@
 <script src="class_23_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_23_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_23_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_23_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_23_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -96,9 +96,25 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="class_23_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_23_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_23_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_23_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_23_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -207,24 +223,24 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
-<section id="section" class="slide level2 inverse center middle">
+<section id="section" class="slide level2 inverse center middle" data-background-color="#50B2BE">
 <h2></h2>
 </section>
 <section id="test-chi2-de-independencia-estadística" class="slide level2">
-<h2>Test <span class="math inline">\(\chi^{2}\)</span> de independencia estadística</h2>
+<h2>Test <span class="math inline">\chi^{2}</span> de independencia estadística</h2>
 </section>
 <section id="test-chi2-de-independencia-estadística-i" class="slide level2">
-<h2>Test <span class="math inline">\(\chi^{2}\)</span> de independencia estadística (I)</h2>
+<h2>Test <span class="math inline">\chi^{2}</span> de independencia estadística (I)</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a><span class="fu">library</span>(<span class="st">"tidyverse"</span>)</span>
 <span id="cb1-2"><a href=""></a><span class="fu">library</span>(<span class="st">"carData"</span>)</span>
 <span id="cb1-3"><a href=""></a><span class="fu">data</span>(<span class="st">"Chile"</span>)</span>
 <span id="cb1-4"><a href=""></a>datos_chile <span class="ot">&lt;-</span> Chile</span>
 <span id="cb1-5"><a href=""></a>datos_chile <span class="ot">&lt;-</span> datos_chile <span class="sc">%&gt;%</span> <span class="fu">filter</span>(vote <span class="sc">==</span> <span class="st">"Y"</span> <span class="sc">|</span> vote<span class="sc">==</span><span class="st">"N"</span>) <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">vote =</span> <span class="fu">factor</span>(vote))</span>
 <span id="cb1-6"><a href=""></a></span>
-<span id="cb1-7"><a href=""></a>ctable <span class="ot">&lt;-</span> datos_chile <span class="sc">%&gt;%</span> <span class="fu">with</span>(<span class="fu">table</span>(income,vote))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-7"><a href=""></a>ctable <span class="ot">&lt;-</span> datos_chile <span class="sc">%&gt;%</span> <span class="fu">with</span>(<span class="fu">table</span>(income,vote))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p><br></p>
 <p>Primer paso, testear que exista <em>algo</em> de asociación: ¿son estas tablas <em>suficientemente distintas</em>?</p>
@@ -260,11 +276,11 @@ income     N   Y
 </div>
 </div>
 </div>
-<p><br> Donde cada frecuencia esperada bajo independencia está dada por: <span class="math inline">\(\tilde{n}_{ij} = n \times \hat{p}_{i+} \times  \hat{p}_{+j}\)</span></p>
+<p><br> Donde cada frecuencia esperada bajo independencia está dada por: <span class="math inline">\tilde{n}_{ij} = n \times \hat{p}_{i+} \times  \hat{p}_{+j}</span></p>
 </div>
 </section>
 <section id="test-chi2-de-independencia-estadística-ii" class="slide level2">
-<h2>Test <span class="math inline">\(\chi^{2}\)</span> de independencia estadística (II)</h2>
+<h2>Test <span class="math inline">\chi^{2}</span> de independencia estadística (II)</h2>
 <div class="pull-left">
 <p><span class="bold">Frecuencias observadas</span></p>
 <div class="cell">
@@ -300,12 +316,12 @@ income     N   Y
 </div>
 <div class="fragment">
 <ul>
-<li>El test Pearson <span class="math inline">\(\chi^{2}\)</span> (<strong>t</strong>) mide el grado asociación en la tabla de la siguiente manera:</li>
+<li>El test Pearson <span class="math inline">\chi^{2}</span> (<strong>t</strong>) mide el grado asociación en la tabla de la siguiente manera:</li>
 </ul>
 <div class="content-box-secondary">
-<p><span class="math display">\[\color{white}{t =\sum_{\text{all k: } i,j} \frac{(n_{ij} - \tilde{n}_{ij})^{2}}{\tilde{n}_{ij}}}\]</span></p>
+<p><span class="math display">\color{white}{t =\sum_{\text{all k: } i,j} \frac{(n_{ij} - \tilde{n}_{ij})^{2}}{\tilde{n}_{ij}}}</span></p>
 </div>
-<p><span class="bold">Un valor alto de <span class="math inline">\(t\)</span> sugiere que las variables no son independientes.</span></p>
+<p><span class="bold">Un valor alto de <span class="math inline">t</span> sugiere que las variables no son independientes.</span></p>
 </div>
 <div class="fragment">
 <p>Pero, ¿cuánto es “alto”?</p>
@@ -313,34 +329,34 @@ income     N   Y
 </section>
 <section class="slide level2">
 
-<h3 id="test-chi2-de-indepencia-estadística">Test <span class="math inline">\(\chi^{2}\)</span> de indepencia estadística</h3>
-<p><span class="bold">Nota:</span> - Si <span class="math inline">\(Z_{1}, \dots , Z_{k}\)</span> son variables independientes y cada <span class="math inline">\(Z \sim \text{Normal}(0,1)\)</span>, - Entonces la variable <span class="math inline">\(Y = \sum_{k} Z^{2} \sim \chi^{2}_{k}\)</span>. <span class="math inline">\(Y\)</span> distribuye <span class="math inline">\(\chi^{2}\)</span> con <span class="math inline">\(k\)</span> grados de libertad.</p>
+<h3 id="test-chi2-de-indepencia-estadística">Test <span class="math inline">\chi^{2}</span> de indepencia estadística</h3>
+<p><span class="bold">Nota:</span> - Si <span class="math inline">Z_{1}, \dots , Z_{k}</span> son variables independientes y cada <span class="math inline">Z \sim \text{Normal}(0,1)</span>, - Entonces la variable <span class="math inline">Y = \sum_{k} Z^{2} \sim \chi^{2}_{k}</span>. <span class="math inline">Y</span> distribuye <span class="math inline">\chi^{2}</span> con <span class="math inline">k</span> grados de libertad.</p>
 <p><br></p>
 <p>. . .</p>
 <p><span class="bold">Heuristica:</span></p>
 <ul>
-<li><p><span class="math inline">\(t =\sum_{\text{all k: } i,j} \frac{(n_{ij} - \tilde{n}_{ij})^{2}}{\tilde{n}_{ij}}\)</span></p></li>
-<li><p>Si no hay asociación entre las variables ( <span class="math inline">\(H_{0}\)</span> ) entonces: <span class="math inline">\(t =\sum_{\text{all k: } i,j} \frac{(\text{algo cercano a cero})^{2}}{\tilde{n}_{ij}}\)</span></p></li>
+<li><p><span class="math inline">t =\sum_{\text{all k: } i,j} \frac{(n_{ij} - \tilde{n}_{ij})^{2}}{\tilde{n}_{ij}}</span></p></li>
+<li><p>Si no hay asociación entre las variables ( <span class="math inline">H_{0}</span> ) entonces: <span class="math inline">t =\sum_{\text{all k: } i,j} \frac{(\text{algo cercano a cero})^{2}}{\tilde{n}_{ij}}</span></p></li>
 </ul>
 <p><br></p>
 <p>. . .</p>
-<p>Pearson demostró que si <span class="math inline">\(H_{0}\)</span> es verdadera, entonces:</p>
+<p>Pearson demostró que si <span class="math inline">H_{0}</span> es verdadera, entonces:</p>
 <div class="content-box-secondary">
-<p><span class="math display">\[\color{white}{t \sim \chi_{df}^{2}, \quad  \text{ donde } \quad  df= (I-1)(J-1)}\]</span></p>
+<p><span class="math display">\color{white}{t \sim \chi_{df}^{2}, \quad  \text{ donde } \quad  df= (I-1)(J-1)}</span></p>
 </div>
-<p>Esto le da el nombre al test <span class="math inline">\(\chi^{2}\)</span>, pero no confundir con la distribución <span class="math inline">\(\chi^{2}\)</span>.</p>
+<p>Esto le da el nombre al test <span class="math inline">\chi^{2}</span>, pero no confundir con la distribución <span class="math inline">\chi^{2}</span>.</p>
 </section>
 <section id="test-chi2-de-independencia-estadística-iii" class="slide level2">
-<h2>Test <span class="math inline">\(\chi^{2}\)</span> de independencia estadística (III)</h2>
+<h2>Test <span class="math inline">\chi^{2}</span> de independencia estadística (III)</h2>
 <p><br></p>
 <p><span class="bold">p-value</span>:</p>
 <div class="content-box-secondary">
-<p><span class="math display">\[\color{white}{\mathbb{P}(t  &gt; \hat{t} \mid H_{0})}\]</span></p>
+<p><span class="math display">\color{white}{\mathbb{P}(t  &gt; \hat{t} \mid H_{0})}</span></p>
 </div>
 <p>equivalente a:</p>
 <div class="fragment">
 <div class="content-box-secondary">
-<p><span class="math display">\[\color{white}{\mathbb{P}(\chi_{df}^{2}  &gt; \hat{t})}\]</span></p>
+<p><span class="math display">\color{white}{\mathbb{P}(\chi_{df}^{2}  &gt; \hat{t})}</span></p>
 </div>
 <div class="cell">
 <style type="text/css">
@@ -351,11 +367,11 @@ income     N   Y
 </div>
 </section>
 <section id="test-chi2-de-independencia-estadística-iv" class="slide level2">
-<h2>Test <span class="math inline">\(\chi^{2}\)</span> de independencia estadística (IV)</h2>
+<h2>Test <span class="math inline">\chi^{2}</span> de independencia estadística (IV)</h2>
 <p><span class="bold">(Observado-Esperado)^2/Esperado:</span></p>
 <div class="center">
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>(((ctable <span class="sc">-</span> ctable_independence)<span class="sc">^</span>(<span class="dv">2</span>))<span class="sc">/</span>ctable_independence) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>(((ctable <span class="sc">-</span> ctable_independence)<span class="sc">^</span>(<span class="dv">2</span>))<span class="sc">/</span>ctable_independence) <span class="sc">%&gt;%</span> <span class="fu">print</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>        vote
 income             N           Y
@@ -371,7 +387,7 @@ income             N           Y
 </div>
 <p><br></p>
 <div class="fragment">
-<p><span class="bold">Test Chi-2 : <span class="math inline">\(\sum\)</span> (Observado-Esperado)^2/Esperado</span></p>
+<p><span class="bold">Test Chi-2 : <span class="math inline">\sum</span> (Observado-Esperado)^2/Esperado</span></p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 6.02034</code></pre>
@@ -380,7 +396,7 @@ income             N           Y
 </div>
 </section>
 <section id="test-chi2-de-independencia-estadística-v" class="slide level2">
-<h2>Test <span class="math inline">\(\chi^{2}\)</span> de independencia estadística (V)</h2>
+<h2>Test <span class="math inline">\chi^{2}</span> de independencia estadística (V)</h2>
 <div class="pull-left">
 <div class="cell">
 <div class="cell-output-display">
@@ -391,14 +407,14 @@ income             N           Y
 </div>
 </div>
 </div>
-<p><span class="bold">Para ser claros:</span> Si la hipótesis de independencia ( <span class="math inline">\(H_{0}\)</span> ) es cierta, nuestro test <span class="math inline">\(t\)</span> distribuye <span class="math inline">\(\chi^{2}\)</span> con <span class="math inline">\(df= (I-1)(J-1)=6\)</span></p>
+<p><span class="bold">Para ser claros:</span> Si la hipótesis de independencia ( <span class="math inline">H_{0}</span> ) es cierta, nuestro test <span class="math inline">t</span> distribuye <span class="math inline">\chi^{2}</span> con <span class="math inline">df= (I-1)(J-1)=6</span></p>
 </div>
 <div class="fragment">
 <div class="pull-right">
 <p><span class="bold">p-value</span></p>
-<p><span class="math display">\[\mathbb{P}(\chi_{df=6}^{2} \geq \hat{t} )\]</span></p>
+<p><span class="math display">\mathbb{P}(\chi_{df=6}^{2} \geq \hat{t} )</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="dv">1</span><span class="sc">-</span> <span class="fu">pchisq</span>(our_chi2,<span class="at">df=</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="dv">1</span><span class="sc">-</span> <span class="fu">pchisq</span>(our_chi2,<span class="at">df=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4209155</code></pre>
 </div>
@@ -407,7 +423,7 @@ income             N           Y
 </div>
 </section>
 <section id="test-chi2-de-independencia-estadística-vi" class="slide level2">
-<h2>Test <span class="math inline">\(\chi^{2}\)</span> de independencia estadística (VI)</h2>
+<h2>Test <span class="math inline">\chi^{2}</span> de independencia estadística (VI)</h2>
 <div class="pull-left">
 <div class="cell">
 <div class="cell-output-display">
@@ -418,20 +434,20 @@ income             N           Y
 </div>
 </div>
 </div>
-<p><span class="bold">Para ser claros:</span> Si la hipótesis de independencia ( <span class="math inline">\(H_{0}\)</span> ) es cierta, nuestro test <span class="math inline">\(t\)</span> distribuye <span class="math inline">\(\chi^{2}\)</span> con <span class="math inline">\(df= (I-1)(J-1)=6\)</span></p>
+<p><span class="bold">Para ser claros:</span> Si la hipótesis de independencia ( <span class="math inline">H_{0}</span> ) es cierta, nuestro test <span class="math inline">t</span> distribuye <span class="math inline">\chi^{2}</span> con <span class="math inline">df= (I-1)(J-1)=6</span></p>
 </div>
 <div class="pull-right">
 <p><span class="bold">p-value</span></p>
-<p><span class="math display">\[\mathbb{P}(\chi_{df=6}^{2} \geq \hat{t})\]</span></p>
+<p><span class="math display">\mathbb{P}(\chi_{df=6}^{2} \geq \hat{t})</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="dv">1</span><span class="sc">-</span> <span class="fu">pchisq</span>(our_chi2,<span class="at">df=</span><span class="dv">6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href=""></a><span class="dv">1</span><span class="sc">-</span> <span class="fu">pchisq</span>(our_chi2,<span class="at">df=</span><span class="dv">6</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.4209155</code></pre>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="co"># Versión automática</span></span>
-<span id="cb13-2"><a href=""></a><span class="fu">chisq.test</span>(ctable,<span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href=""></a><span class="co"># Versión automática</span></span>
+<span id="cb13-2"><a href=""></a><span class="fu">chisq.test</span>(ctable,<span class="at">correct =</span> <span class="cn">FALSE</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Pearson's Chi-squared test
@@ -445,7 +461,7 @@ X-squared = 6.0203, df = 6, p-value = 0.4209</code></pre>
 <p><span class="bold">Conclusión</span>: el valor obtenido en nuestro test no es un valor demasiado improbable bajo independencia. No tenemos evidencia fuerte para sostener que ambas variables están asociadas.</p>
 </div>
 </section>
-<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle" data-background-color="#50B2BE">
 <h2>Hasta la próxima clase. Gracias!</h2>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
 
@@ -470,7 +486,6 @@ X-squared = 6.0203, df = 6, p-value = 0.4209</code></pre>
   <script src="class_23_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_23_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_23_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_23_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -506,7 +521,7 @@ X-squared = 6.0203, df = 6, p-value = 0.4209</code></pre>
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -638,27 +653,9 @@ X-squared = 6.0203, df = 6, p-value = 0.4209</code></pre>
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -751,13 +748,14 @@ X-squared = 6.0203, df = 6, p-value = 0.4209</code></pre>
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

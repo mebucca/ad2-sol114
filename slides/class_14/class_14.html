@@ -6,11 +6,11 @@
 <script src="class_14_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_14_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_14_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_14_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_14_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -96,9 +96,25 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="class_14_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_14_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_14_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_14_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_14_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -207,9 +223,9 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
-<section id="section" class="slide level2 inverse center middle">
+<section id="section" class="slide level2 inverse center middle" data-background-color="#4B0082">
 <h2></h2>
 </section>
 <section>
@@ -258,7 +274,7 @@
 </div>
 <p><span class="bold">Instrucción:</span> Calcula un intervalo al 99% de confianza y otro al 90%.</p>
 <ul>
-<li>Supongamos que la desviación estándard en la población es conocida: <span class="math inline">\(\sigma = 583454\)</span></li>
+<li>Supongamos que la desviación estándard en la población es conocida: <span class="math inline">\sigma = 583454</span></li>
 </ul>
 </div>
 </section>
@@ -314,41 +330,41 @@
 <section id="estimación-de-la-varianza" class="slide level2">
 <h2>Estimación de la varianza</h2>
 <ul>
-<li><span class="math inline">\(X\)</span> es una variable aleatoria con <span class="math inline">\(\mathbb{E}(X) =\mu\)</span> y <span class="math inline">\(\mathbb{Var}(X) =\sigma^2\)</span></li>
-<li><span class="math inline">\(\{ x_1, x_2, ..., x_n \}\)</span> es una muestra aleatoria donde todas las <span class="math inline">\(x^{'}_{s}\)</span> son independientes y siguen la misma distribución (iid).</li>
+<li><span class="math inline">X</span> es una variable aleatoria con <span class="math inline">\mathbb{E}(X) =\mu</span> y <span class="math inline">\mathbb{Var}(X) =\sigma^2</span></li>
+<li><span class="math inline">\{ x_1, x_2, ..., x_n \}</span> es una muestra aleatoria donde todas las <span class="math inline">x^{'}_{s}</span> son independientes y siguen la misma distribución (iid).</li>
 </ul>
 <div class="fragment">
 <ul>
-<li><span class="math inline">\(\bar{X}\)</span> es un estimador insesgado de <span class="math inline">\(\mu\)</span>: <span class="math inline">\(\mathbb{E}(\bar{X}) =\mu\)</span></li>
+<li><span class="math inline">\bar{X}</span> es un estimador insesgado de <span class="math inline">\mu</span>: <span class="math inline">\mathbb{E}(\bar{X}) =\mu</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>¿Cómo estimamos <span class="math inline">\(\sigma^2\)</span>?</li>
+<li>¿Cómo estimamos <span class="math inline">\sigma^2</span>?</li>
 </ul>
 </div>
 </section>
 <section id="estimación-de-la-varianza-1" class="slide level2">
 <h2>Estimación de la varianza</h2>
 <div class="fragment">
-<p><span class="math inline">\(\sigma^2_{\text{naive}} = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2\)</span></p>
+<p><span class="math inline">\sigma^2_{\text{naive}} = \frac{1}{n} \sum_{i=1}^{n} (x_i - \bar{x})^2</span></p>
 <p><br></p>
 </div>
 <div class="fragment">
-<p><span class="bold">Problema</span>: <span class="math inline">\(\sigma^2_{\text{naive}}\)</span> no es un buen estimador de la <span class="math inline">\(\sigma^2\)</span></p>
+<p><span class="bold">Problema</span>: <span class="math inline">\sigma^2_{\text{naive}}</span> no es un buen estimador de la <span class="math inline">\sigma^2</span></p>
 </div>
 <div class="fragment">
-<p><span class="math inline">\(\mathbb{E}[\sigma^2_{\text{naive}}] = \sigma^2 - \frac{\sigma^2}{n} = \sigma^2 \big(\frac{n-1}{n} \big)\)</span></p>
+<p><span class="math inline">\mathbb{E}[\sigma^2_{\text{naive}}] = \sigma^2 - \frac{\sigma^2}{n} = \sigma^2 \big(\frac{n-1}{n} \big)</span></p>
 <ul>
-<li>Subestima la varianza poblacional: <span class="math inline">\(\sigma^2 &gt; \sigma^2 \big(\frac{n-1}{n} \big)\)</span></li>
+<li>Subestima la varianza poblacional: <span class="math inline">\sigma^2 &gt; \sigma^2 \big(\frac{n-1}{n} \big)</span></li>
 </ul>
 <p><br></p>
 </div>
 <div class="fragment">
-<p><span class="bold">Correción</span>: <span class="math inline">\(\mathbb{E}[\big(\frac{n}{n-1} \big) \sigma^2_{\text{naive}}] = \sigma^2 \big(\frac{n-1}{n} \big)\big(\frac{n}{n-1} \big) = \sigma^2\)</span></p>
-<p>Para corregir este sesgo, necesitamos multiplicar <span class="math inline">\(\sigma^2_{\text{naive}}\)</span> por el factor <span class="math inline">\(\frac{n}{n-1}\)</span>, lo que conduce al estimador insesgado:</p>
-<p><span class="math display">\[s^2 = \frac{n}{n-1} \cdot \sigma^2_{\text{naive}} = \bigg(\frac{n}{n-1}\bigg) \cdot\frac{1}{n}\sum_{i=1}^{n} (x_i - \bar{x})^2 =  \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2\]</span></p>
-<p><br> - <span class="math inline">\(s^2\)</span> es un estimador insesgado de la la varianza poblacional <span class="math inline">\(\sigma^2\)</span>.</p>
+<p><span class="bold">Correción</span>: <span class="math inline">\mathbb{E}[\big(\frac{n}{n-1} \big) \sigma^2_{\text{naive}}] = \sigma^2 \big(\frac{n-1}{n} \big)\big(\frac{n}{n-1} \big) = \sigma^2</span></p>
+<p>Para corregir este sesgo, necesitamos multiplicar <span class="math inline">\sigma^2_{\text{naive}}</span> por el factor <span class="math inline">\frac{n}{n-1}</span>, lo que conduce al estimador insesgado:</p>
+<p><span class="math display">s^2 = \frac{n}{n-1} \cdot \sigma^2_{\text{naive}} = \bigg(\frac{n}{n-1}\bigg) \cdot\frac{1}{n}\sum_{i=1}^{n} (x_i - \bar{x})^2 =  \frac{1}{n-1} \sum_{i=1}^{n} (x_i - \bar{x})^2</span></p>
+<p><br> - <span class="math inline">s^2</span> es un estimador insesgado de la la varianza poblacional <span class="math inline">\sigma^2</span>.</p>
 </div>
 </section>
 <section id="promedio-de-ingreso-mujeres" class="slide level2">
@@ -387,11 +403,11 @@
 <section id="promedio-de-ingreso-mujeres-1" class="slide level2">
 <h2>Promedio de ingreso mujeres</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># i. Calcula media muestral </span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># i. Calcula media muestral </span></span>
 <span id="cb6-2"><a href=""></a></span>
 <span id="cb6-3"><a href=""></a>mu_muestra <span class="ot">&lt;-</span> <span class="fu">mean</span>(casen2017_mujeres<span class="sc">$</span>ingreso, <span class="at">na.rm=</span>T) <span class="co">#&lt;&lt;</span></span>
 <span id="cb6-4"><a href=""></a></span>
-<span id="cb6-5"><a href=""></a><span class="fu">cat</span>(<span class="st">"Media muestral:"</span>, mu_muestra)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-5"><a href=""></a><span class="fu">cat</span>(<span class="st">"Media muestral:"</span>, mu_muestra)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Media muestral: 368070.1</code></pre>
 </div>
@@ -406,7 +422,7 @@
 <section id="promedio-de-ingreso-mujeres-ic-al-95" class="slide level2">
 <h2>Promedio de ingreso mujeres, IC al 95%</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="co"># i. nivel de confianza: 0.95 -&gt; alpha=0.05</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="co"># i. nivel de confianza: 0.95 -&gt; alpha=0.05</span></span>
 <span id="cb8-2"><a href=""></a></span>
 <span id="cb8-3"><a href=""></a><span class="co"># ii. Calcular valores críticos</span></span>
 <span id="cb8-4"><a href=""></a>z_inf <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>);  z_sup <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>)</span>
@@ -415,23 +431,23 @@
 <span id="cb8-7"><a href=""></a>n <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="sc">!</span><span class="fu">is.na</span>(casen2017_mujeres<span class="sc">$</span>ingreso)) <span class="co">#cuenta observaciones (sin NAs) en ingreso</span></span>
 <span id="cb8-8"><a href=""></a>s2 <span class="ot">&lt;-</span> <span class="fu">sum</span>((casen2017_mujeres<span class="sc">$</span>ingreso <span class="sc">-</span> <span class="fu">mean</span>(casen2017_mujeres<span class="sc">$</span>ingreso,<span class="at">na.rm=</span>T))<span class="sc">^</span><span class="dv">2</span>,<span class="at">na.rm=</span>T)<span class="sc">/</span>(n<span class="dv">-1</span>)</span>
 <span id="cb8-9"><a href=""></a>s  <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(s2)</span>
-<span id="cb8-10"><a href=""></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="at">manual=</span>s,<span class="at">comandoR=</span><span class="fu">sd</span>(casen2017_mujeres<span class="sc">$</span>ingreso,<span class="at">na.rm =</span> T)))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb8-10"><a href=""></a><span class="fu">print</span>(<span class="fu">c</span>(<span class="at">manual=</span>s,<span class="at">comandoR=</span><span class="fu">sd</span>(casen2017_mujeres<span class="sc">$</span>ingreso,<span class="at">na.rm =</span> T)))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  manual comandoR 
 452424.4 452424.4 </code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># iv. error estándar</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="co"># iv. error estándar</span></span>
 <span id="cb10-2"><a href=""></a>ee <span class="ot">&lt;-</span> s<span class="sc">/</span><span class="fu">sqrt</span>(n)</span>
 <span id="cb10-3"><a href=""></a></span>
 <span id="cb10-4"><a href=""></a><span class="co"># v. Calcular limites del intervalo de confianza:</span></span>
 <span id="cb10-5"><a href=""></a>ic<span class="ot">=</span> mu_muestra <span class="sc">+</span> <span class="fu">c</span>(z_inf,z_sup)<span class="sc">*</span>ee </span>
-<span id="cb10-6"><a href=""></a><span class="fu">cat</span>(<span class="st">"Intervalo al 95% de confianza: ("</span>,ic[<span class="dv">1</span>],<span class="st">","</span>,ic[<span class="dv">2</span>],<span class="st">")"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-6"><a href=""></a><span class="fu">cat</span>(<span class="st">"Intervalo al 95% de confianza: ("</span>,ic[<span class="dv">1</span>],<span class="st">","</span>,ic[<span class="dv">2</span>],<span class="st">")"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Intervalo al 95% de confianza: ( 311762.3 , 424377.8 )</code></pre>
 </div>
 </div>
 </section>
-<section id="margen-de-error" class="slide level2 inverse center middle section-title">
+<section id="margen-de-error" class="slide level2 inverse center middle section-title" data-background-color="#4B0082">
 <h2>Margen de Error</h2>
 </section>
 <section id="margen-de-error-1" class="slide level2">
@@ -446,14 +462,14 @@
 <p>¿Qué es el margen de error?</p>
 <p><br></p>
 <div class="fragment">
-<p><span class="math display">\[IC: \bar{X} \pm Z_{(\alpha/2)} \cdot \sigma/\sqrt{n}\]</span></p>
+<p><span class="math display">IC: \bar{X} \pm Z_{(\alpha/2)} \cdot \sigma/\sqrt{n}</span></p>
 </div>
 </section>
 <section id="margen-de-error-3" class="slide level2">
 <h2>Margen de Error</h2>
 <p>¿Qué es el margen de error?: la mitad del ancho del intervalo de confianza</p>
 <p><br></p>
-<p><span class="math display">\[IC: \bar{X} \pm \underbrace{ \color{#4B0082}{Z_{(\alpha/2)} \cdot \sigma/\sqrt{n}}}_{\color{#228B22}{\text{MARGEN DE ERROR}}}\]</span></p>
+<p><span class="math display">IC: \bar{X} \pm \underbrace{ \color{#4B0082}{Z_{(\alpha/2)} \cdot \sigma/\sqrt{n}}}_{\color{#228B22}{\text{MARGEN DE ERROR}}}</span></p>
 <div class="fragment">
 <p>Por ejemplo, si una encuesta reporta que: <br></p>
 <blockquote>
@@ -461,56 +477,56 @@
 </blockquote>
 </div>
 <div class="fragment">
-<p>IC: <span class="math inline">\(\hat{p} \pm 0.028 =\)</span></p>
+<p>IC: <span class="math inline">\hat{p} \pm 0.028 =</span></p>
 </div>
 </section>
 <section id="margen-de-error-4" class="slide level2">
 <h2>Margen de Error</h2>
 <p>Podemos usar esta fórmula para determinar el tamaño muestral necesario para alcanzar un nivel deseado de precisión (margen de error, ME).</p>
 <div class="fragment">
-<p>Si, <span class="math inline">\(\text{ME} = \pm Z_{(\alpha/2)} \cdot \sigma/\sqrt{n} \quad\)</span> despejado por <span class="math inline">\(n\)</span> obtenemos:</p>
+<p>Si, <span class="math inline">\text{ME} = \pm Z_{(\alpha/2)} \cdot \sigma/\sqrt{n} \quad</span> despejado por <span class="math inline">n</span> obtenemos:</p>
 <p><br></p>
 </div>
 <div class="fragment">
-<p><span class="math display">\[ n  = \frac{Z^2_{(\alpha/2)} \cdot \sigma^2}{\text{ME}^2}\]</span></p>
+<p><span class="math display"> n  = \frac{Z^2_{(\alpha/2)} \cdot \sigma^2}{\text{ME}^2}</span></p>
 <p>donde,</p>
 </div>
 <div class="fragment">
 <ul>
-<li><span class="math inline">\(Z_{(\alpha/2)}\)</span> es el valor crítico asociado al nivel de confianza elegido. Típicamente se trabaja el 95% de confianza <span class="math inline">\(\implies Z_{(\alpha/2)} = 1.96 \approx 2\)</span></li>
+<li><span class="math inline">Z_{(\alpha/2)}</span> es el valor crítico asociado al nivel de confianza elegido. Típicamente se trabaja el 95% de confianza <span class="math inline">\implies Z_{(\alpha/2)} = 1.96 \approx 2</span></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li><p><span class="math inline">\(\sigma^2\)</span> es la varianza poblacional de la variable en cuestión. Usualmente desconocida.</p>
+<li><p><span class="math inline">\sigma^2</span> es la varianza poblacional de la variable en cuestión. Usualmente desconocida.</p>
 <ul>
-<li>Para variables dicotómicas se asume <span class="bold">varianza máxima</span>. El máximo de <span class="math inline">\(\mathbb{Var}(X) = p(1-p)\)</span> ocurre cuando <span class="math inline">\(p=0.5 \implies p(1-p)=0.25\)</span></li>
+<li>Para variables dicotómicas se asume <span class="bold">varianza máxima</span>. El máximo de <span class="math inline">\mathbb{Var}(X) = p(1-p)</span> ocurre cuando <span class="math inline">p=0.5 \implies p(1-p)=0.25</span></li>
 </ul></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li><span class="math inline">\(\text{ME}\)</span> es el nivel de precisión al que queremos trabajar.</li>
+<li><span class="math inline">\text{ME}</span> es el nivel de precisión al que queremos trabajar.</li>
 </ul>
 </div>
 </section>
 <section id="margen-de-error-5" class="slide level2">
 <h2>Margen de Error</h2>
-<p>Dado que es común trabajar al 95% de confianza ( <span class="math inline">\(Z_{(\alpha/2)} \approx 2\)</span> ) y asumir que la variable de interés es dicotómica con varianza máxima ( <span class="math inline">\(\sigma^2=0.25\)</span> ), la fórmula para calcular el tamaño muestral se transforma en:</p>
+<p>Dado que es común trabajar al 95% de confianza ( <span class="math inline">Z_{(\alpha/2)} \approx 2</span> ) y asumir que la variable de interés es dicotómica con varianza máxima ( <span class="math inline">\sigma^2=0.25</span> ), la fórmula para calcular el tamaño muestral se transforma en:</p>
 <p><br></p>
 <div class="fragment">
-<p><span class="math display">\[n  = \frac{Z^2_{(\alpha/2)} \cdot \sigma^2}{\text{ME}^2} \approx  \frac{2^2 \cdot 0.25}{\text{ME}^2} =  \frac{1}{\text{ME}^2}\]</span></p>
+<p><span class="math display">n  = \frac{Z^2_{(\alpha/2)} \cdot \sigma^2}{\text{ME}^2} \approx  \frac{2^2 \cdot 0.25}{\text{ME}^2} =  \frac{1}{\text{ME}^2}</span></p>
 <p><br></p>
 </div>
 <div class="fragment">
 <p>Por ejemplo, si vamos a estimar una proporción y queremos trabajar con un margen de error de 2 puntos porcentuales (ME = 0.02) al 95% de confianza, entonces necesitamos una muestra de tamaño:</p>
-<p><span class="math display">\[n  \approx \frac{1}{\text{0.02}^2} = 2500\]</span> <br></p>
+<p><span class="math display">n  \approx \frac{1}{\text{0.02}^2} = 2500</span> <br></p>
 </div>
 <div class="fragment">
 <p><span class="bold">IMPORTANTE:</span> El margen de error es específico a una variable. NO existe tal cosa como el <span class="bold">margen de error de la encuesta</span>.</p>
 </div>
 </section>
-<section id="section-1" class="slide level2 inverse middle">
+<section id="section-1" class="slide level2 inverse middle" data-background-color="#4B0082">
 <h2></h2>
 </section>
 <section id="el-margen-de-error-de-la-encuesta-es-de-0.0x-puntos-porcentuales" class="slide level2 pull-left">
@@ -525,7 +541,7 @@
 </figure>
 </div>
 </div>
-<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle" data-background-color="#4B0082">
 <h2>Hasta la próxima clase. Gracias!</h2>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
 
@@ -550,7 +566,6 @@
   <script src="class_14_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_14_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_14_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_14_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -586,7 +601,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -718,27 +733,9 @@
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -831,13 +828,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

@@ -6,11 +6,11 @@
 <script src="class_25_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_25_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_25_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_25_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_25_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,9 +30,25 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="class_25_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_25_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_25_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_25_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_25_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -141,9 +157,9 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
-<section id="section" class="slide level2 inverse center middle">
+<section id="section" class="slide level2 inverse center middle" data-background-color="#003E30">
 <h2></h2>
 </section>
 <section>
@@ -252,7 +268,7 @@
 </ul>
 </div>
 </section>
-<section id="covarianza" class="slide level2 inverse center middle section-title">
+<section id="covarianza" class="slide level2 inverse center middle section-title" data-background-color="#003E30">
 <h2>Covarianza</h2>
 </section>
 <section id="covarianza-1" class="slide level2">
@@ -260,12 +276,12 @@
 <p><br></p>
 <div class="fragment">
 <ul>
-<li>Hasta ahora hemos trabajado principalmente con variables aleatorias independiente, <span class="math inline">\(Y \perp X\)</span>.</li>
+<li>Hasta ahora hemos trabajado principalmente con variables aleatorias independiente, <span class="math inline">Y \perp X</span>.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Dos variable aleatorias son dependiente entre si <span class="math inline">\(\mathbb{P}(Y \mid X ) \neq \mathbb{P}(Y)\)</span>, y viceversa.</li>
+<li>Dos variable aleatorias son dependiente entre si <span class="math inline">\mathbb{P}(Y \mid X ) \neq \mathbb{P}(Y)</span>, y viceversa.</li>
 </ul>
 </div>
 <div class="fragment">
@@ -277,12 +293,12 @@
 <div class="fragment">
 <p>La <span class="bold">covarianza</span> mide la dependencia (lineal*) entre dos variables aleatorias. Formalmente:</p>
 <div class="content-box-secondary">
-<p><span class="math display">\[\color{white}{\mathbb{Cov}(X, Y) = \mathbb{E}[ \ (X - \mathbb{E}[X]) \ (Y - \mathbb{E}[Y]) \ ]}\]</span></p>
+<p><span class="math display">\color{white}{\mathbb{Cov}(X, Y) = \mathbb{E}[ \ (X - \mathbb{E}[X]) \ (Y - \mathbb{E}[Y]) \ ]}</span></p>
 </div>
 <p><br></p>
 </div>
 <div class="fragment">
-<p>En promedio, ¿cuánto y cómo se desvía <span class="math inline">\(X\)</span> respecto de su media, cuando <span class="math inline">\(Y\)</span> se desvía de la suya?</p>
+<p>En promedio, ¿cuánto y cómo se desvía <span class="math inline">X</span> respecto de su media, cuando <span class="math inline">Y</span> se desvía de la suya?</p>
 </div>
 </section>
 <section id="covarianza-2" class="slide level2">
@@ -319,32 +335,32 @@
 <h2>Propiedades de la covarianza</h2>
 <p><br></p>
 <ul>
-<li><p><span class="bold">Covarianza de variables independientes</span>- Si dos variables aleatorias <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> son independientes, entonces</p>
-<p><span class="math display">\[\mathbb{Cov}(X, Y) = 0\]</span></p></li>
+<li><p><span class="bold">Covarianza de variables independientes</span>- Si dos variables aleatorias <span class="math inline">X</span> e <span class="math inline">Y</span> son independientes, entonces</p>
+<p><span class="math display">\mathbb{Cov}(X, Y) = 0</span></p></li>
 </ul>
 <div class="fragment">
 <ul>
 <li><p><span class="bold">Covarianza de variable perfectamente dependientes</span> (consigo misma)</p>
-<p><span class="math display">\[\mathbb{Cov}(X, X) = \text{Var}(X)\]</span></p></li>
+<p><span class="math display">\mathbb{Cov}(X, X) = \text{Var}(X)</span></p></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
 <li><p><span class="bold">Covarianza con una Constante</span></p>
-<p><span class="math display">\[\mathbb{Cov}(X, a) = 0\]</span></p></li>
+<p><span class="math display">\mathbb{Cov}(X, a) = 0</span></p></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
 <li><span class="bold">Aditividad</span></li>
 </ul>
-<p><span class="math display">\[\mathbb{Cov}(X + Y, Z) = \mathbb{Cov}(X, Z) + \mathbb{Cov}(Y, Z)\]</span></p>
+<p><span class="math display">\mathbb{Cov}(X + Y, Z) = \mathbb{Cov}(X, Z) + \mathbb{Cov}(Y, Z)</span></p>
 </div>
 <div class="fragment">
 <ul>
 <li><span class="bold">Multiplicación por una constante</span></li>
 </ul>
-<p><span class="math display">\[\mathbb{Cov}(aX, Y) = a \cdot \mathbb{Cov}(X, Y)\]</span></p>
+<p><span class="math display">\mathbb{Cov}(aX, Y) = a \cdot \mathbb{Cov}(X, Y)</span></p>
 </div>
 </section>
 <section id="estimación-de-la-covarianza" class="slide level2">
@@ -352,11 +368,11 @@
 <p><br></p>
 <p>Podemos estimar la covarianza a partir de datos muestrales usando la siguiente fórmula</p>
 <p><br></p>
-<p><span class="math display">\[s_{XY} = \frac{\sum_{i=1}^{n} (X_i - \bar{X})(Y_i - \bar{Y})}{n-1}\]</span></p>
+<p><span class="math display">s_{XY} = \frac{\sum_{i=1}^{n} (X_i - \bar{X})(Y_i - \bar{Y})}{n-1}</span></p>
 <p><br></p>
 <div class="fragment">
 <ul>
-<li><span class="math inline">\(s_{XY}\)</span> es un estimador insesgado de <span class="math inline">\(\mathbb{Cov}(X, Y)\)</span>.</li>
+<li><span class="math inline">s_{XY}</span> es un estimador insesgado de <span class="math inline">\mathbb{Cov}(X, Y)</span>.</li>
 </ul>
 </div>
 </section>
@@ -364,8 +380,8 @@
 <h2>Problema de interpretación de la covarianza</h2>
 <ul>
 <li><p>Supongamos que la asociación entre escolaridad e ingresos es la misma para hombres y para mujeres</p></li>
-<li><p>Supongamos que el ingreso de los hombres es el doble que el de las mujeres: <span class="math inline">\(Y_h = 2 \times Y_m\)</span></p></li>
-<li><p>Supongamos que la escolaridad de los hombres es un 75% que la de las mujeres: <span class="math inline">\(E_h = 0.75  \times E_m\)</span></p></li>
+<li><p>Supongamos que el ingreso de los hombres es el doble que el de las mujeres: <span class="math inline">Y_h = 2 \times Y_m</span></p></li>
+<li><p>Supongamos que la escolaridad de los hombres es un 75% que la de las mujeres: <span class="math inline">E_h = 0.75  \times E_m</span></p></li>
 </ul>
 <div class="fragment">
 <div class="pull-left">
@@ -403,18 +419,18 @@
 <p><br></p>
 <div class="fragment">
 <ul>
-<li>Si <span class="math inline">\(Y_h = 2 \times Y_m \quad\)</span> y <span class="math inline">\(\quad E_h = 0.75  \times E_m\)</span></li>
+<li>Si <span class="math inline">Y_h = 2 \times Y_m \quad</span> y <span class="math inline">\quad E_h = 0.75  \times E_m</span></li>
 </ul>
 <p><br></p>
 </div>
 <div class="fragment">
-<p><span class="math display">\[\color{blue}{\mathbb{Cov}(E_h, Y_h)} = \mathbb{Cov}( 0.75 \times E_m, 2 \times Y_m) = \color{red}{0.75  \times  2} \times \color{blue}{\mathbb{Cov}(E_m, Y_m)}\]</span></p>
+<p><span class="math display">\color{blue}{\mathbb{Cov}(E_h, Y_h)} = \mathbb{Cov}( 0.75 \times E_m, 2 \times Y_m) = \color{red}{0.75  \times  2} \times \color{blue}{\mathbb{Cov}(E_m, Y_m)}</span></p>
 <p><br></p>
 </div>
 <div class="fragment">
 <ul>
-<li><p><span class="bold">Cov(esc,log-ingreso) | Hombre</span> = 107.4100879</p></li>
-<li><p><span class="bold">Cov(esc,log-ingreso) | Mujer</span> = 71.6067253</p></li>
+<li><p><span class="bold">Cov(esc,log-ingreso) | Hombre</span> = 101.4800806</p></li>
+<li><p><span class="bold">Cov(esc,log-ingreso) | Mujer</span> = 67.6533871</p></li>
 </ul>
 <p><br><br></p>
 </div>
@@ -427,7 +443,7 @@
 </ul>
 </div>
 </section>
-<section id="correlación-de-pearson-1" class="slide level2 inverse center middle section-title">
+<section id="correlación-de-pearson-1" class="slide level2 inverse center middle section-title" data-background-color="#003E30">
 <h2>Correlación de Pearson</h2>
 </section>
 <section id="correlación-de-pearson-2" class="slide level2">
@@ -437,35 +453,35 @@
 </ul>
 <div class="fragment">
 <ul>
-<li><span class="bold">Solución:</span> Estandarizar. En vez de calcular <span class="math inline">\(\mathbb{Cov}(X, Y)\)</span> calculamos <span class="math inline">\(\mathbb{Cov}(Z_X, Z_Y)\)</span>. Formalmente,</li>
+<li><span class="bold">Solución:</span> Estandarizar. En vez de calcular <span class="math inline">\mathbb{Cov}(X, Y)</span> calculamos <span class="math inline">\mathbb{Cov}(Z_X, Z_Y)</span>. Formalmente,</li>
 </ul>
 <p><br></p>
 </div>
 <div class="fragment">
-<p><span class="math display">\[
+<p><span class="math display">
 \begin{align}
 \mathbb{Cov}(Z_X, Z_Y) &amp;= \mathbb{E}[ \ (Z_X - \mathbb{E}[Z_X]) \ (Z_Y  - \mathbb{E}[Z_Y]) \ ] \\ \\
 &amp;= \mathbb{E}[ \ Z_X \ Z_Y \ ] \\ \\
 &amp;= \mathbb{E}\Bigg[ \   \frac{(X - \mathbb{E}[X])}{\sqrt{\mathbb{Var}[X]}}  \ \frac{(Y - \mathbb{E}[Y])}{\sqrt{\mathbb{Var}[Y]}} \  \Bigg] \\ \\
 &amp;=  \frac{\mathbb{Cov}(X, Y)}{\sqrt{\mathbb{Var}[X]}\sqrt{\mathbb{Var}[Y]}}
 \end{align}
-\]</span></p>
+</span></p>
 </div>
 </section>
 <section id="correlación-de-pearson-3" class="slide level2">
 <h2>Correlación de Pearson</h2>
 <p><br></p>
 <p>Si</p>
-<p><span class="math display">\[
+<p><span class="math display">
 \begin{align}
 \mathbb{Cov}(Z_X, Z_Y) =  \frac{\mathbb{Cov}(X, Y)}{\sqrt{\mathbb{Var}[X]}\sqrt{\mathbb{Var}[Y]}}
 \end{align}
-\]</span></p>
+</span></p>
 <p><br> <br></p>
 <div class="fragment">
 <p>El <span class="bold">Coeficiente de Correlación de Pearson</span> se define como:</p>
 <div class="content-box-secondary">
-<p><span class="math display">\[\color{white}{\rho_{XY}:  \mathbb{Corr}(X, Y) =  \frac{\mathbb{Cov}(X, Y)}{\sigma_X \sigma_Y}}\]</span></p>
+<p><span class="math display">\color{white}{\rho_{XY}:  \mathbb{Corr}(X, Y) =  \frac{\mathbb{Cov}(X, Y)}{\sigma_X \sigma_Y}}</span></p>
 </div>
 </div>
 </section>
@@ -474,37 +490,37 @@
 <p><br> <br></p>
 <div class="fragment">
 <ul>
-<li><span class="math inline">\(\rho \in [-1,1]\)</span>: varía entre -1 y +1 y mide la fuerza y dirección de una relación lineal entre dos variables.</li>
+<li><span class="math inline">\rho \in [-1,1]</span>: varía entre -1 y +1 y mide la fuerza y dirección de una relación lineal entre dos variables.</li>
 </ul>
 <p><br></p>
 </div>
 <div class="fragment">
 <ul>
-<li><span class="math inline">\(\rho &gt; 0\)</span> indica una relación positiva entre las variables; a medida que una aumenta, la otra tiende a aumentar también. Un valor cercano a +1 implica una fuerte correlación positiva.</li>
+<li><span class="math inline">\rho &gt; 0</span> indica una relación positiva entre las variables; a medida que una aumenta, la otra tiende a aumentar también. Un valor cercano a +1 implica una fuerte correlación positiva.</li>
 </ul>
 <p><br></p>
 </div>
 <div class="fragment">
 <ul>
-<li><span class="math inline">\(\rho &lt; 0\)</span> señala una relación negativa; cuando una variable aumenta, la otra tiende a disminuir. Un valor cercano a -1 indica una fuerte correlación negativa.</li>
+<li><span class="math inline">\rho &lt; 0</span> señala una relación negativa; cuando una variable aumenta, la otra tiende a disminuir. Un valor cercano a -1 indica una fuerte correlación negativa.</li>
 </ul>
 <p><br></p>
 </div>
 <div class="fragment">
 <ul>
-<li><span class="math inline">\(\rho = 0\)</span> sugiere que no hay asociación lineal entre las variables. Los valores que se acercan a cero indican una débil o nula correlación lineal.</li>
+<li><span class="math inline">\rho = 0</span> sugiere que no hay asociación lineal entre las variables. Los valores que se acercan a cero indican una débil o nula correlación lineal.</li>
 </ul>
 </div>
 </section>
 <section id="estimación-del-coeficiente-de-correlación" class="slide level2">
 <h2>Estimación del Coeficiente de Correlación</h2>
 <p>Podemos estimar el coeficiente de correlación a partir de datos muestrales utilizando la siguiente fórmula:</p>
-<p><br><br> <span class="math display">\[r_{XY} = \frac{\sum_{i=1}^{n} (X_i - \bar{X})(Y_i - \bar{Y})}{\sqrt{\sum_{i=1}^{n} (X_i - \bar{X})^2 \sum_{i=1}^{n} (Y_i - \bar{Y})^2}}\]</span></p>
+<p><br><br> <span class="math display">r_{XY} = \frac{\sum_{i=1}^{n} (X_i - \bar{X})(Y_i - \bar{Y})}{\sqrt{\sum_{i=1}^{n} (X_i - \bar{X})^2 \sum_{i=1}^{n} (Y_i - \bar{Y})^2}}</span></p>
 <p><br> donde</p>
 <ul>
-<li><p><span class="math inline">\(r_{XY}\)</span> es el coeficiente de correlación muestral entre las variables X e Y.</p></li>
-<li><p><span class="math inline">\(\bar{X}\)</span> y <span class="math inline">\(\bar{Y}\)</span> son las medias de las muestras de X e Y, respectivamente.</p></li>
-<li><p><span class="math inline">\(n\)</span> es el número de observaciones en las muestras.</p></li>
+<li><p><span class="math inline">r_{XY}</span> es el coeficiente de correlación muestral entre las variables X e Y.</p></li>
+<li><p><span class="math inline">\bar{X}</span> y <span class="math inline">\bar{Y}</span> son las medias de las muestras de X e Y, respectivamente.</p></li>
+<li><p><span class="math inline">n</span> es el número de observaciones en las muestras.</p></li>
 </ul>
 </section>
 <section id="correlación-de-pearson-4" class="slide level2">
@@ -577,7 +593,7 @@
 </div>
 </div>
 </section>
-<section id="the-end.-gracias" class="slide level2 inverse center middle">
+<section id="the-end.-gracias" class="slide level2 inverse center middle" data-background-color="#003E30">
 <h2>The End. Gracias!</h2>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
 
@@ -602,7 +618,6 @@
   <script src="class_25_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_25_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_25_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_25_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -638,7 +653,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -770,27 +785,9 @@
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -883,13 +880,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
