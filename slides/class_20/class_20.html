@@ -430,16 +430,16 @@
 <pre><code># A tibble: 574 × 3
    genero ingreso ingreso_p
    &lt;chr&gt;    &lt;int&gt;     &lt;int&gt;
- 1 Mujer   180000       833
- 2 Mujer   145000    378333
- 3 Hombre  325000    100000
- 4 Mujer   500000    150000
- 5 Hombre  650000     50000
- 6 Mujer   330000    270000
- 7 Mujer   652533    130000
- 8 Mujer    95000    250000
- 9 Hombre  500000    780000
-10 Mujer    60000    230000
+ 1 Mujer   180000    287520
+ 2 Mujer   145000   1187334
+ 3 Hombre  325000     30000
+ 4 Mujer   500000   1666667
+ 5 Hombre  650000    120000
+ 6 Mujer   330000    200000
+ 7 Mujer   652533    182000
+ 8 Mujer    95000    320917
+ 9 Hombre  500000    937833
+10 Mujer    60000    450000
 # ℹ 564 more rows</code></pre>
 </div>
 </div>
@@ -449,9 +449,9 @@
 <p><span class="bold">Diferencia con datos permutados:</span></p>
 <p><br></p>
 <ul>
-<li><p><span class="math inline">\hat{\mu}_{Hp}=</span> 482128</p></li>
-<li><p><span class="math inline">\hat{\mu}_{Mp}=</span> 507609</p></li>
-<li><p><span class="math inline">(\hat{\mu}_{Hp} - \hat{\mu}_{Mp})=</span> -25481</p></li>
+<li><p><span class="math inline">\hat{\mu}_{Hp}=</span> 509499</p></li>
+<li><p><span class="math inline">\hat{\mu}_{Mp}=</span> 471630</p></li>
+<li><p><span class="math inline">(\hat{\mu}_{Hp} - \hat{\mu}_{Mp})=</span> 37868</p></li>
 </ul>
 </div>
 </div>
@@ -483,7 +483,7 @@
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>distribucion_nula <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="at">n=</span><span class="dv">100000</span>, <span class="fu">permutacion</span>())</span>
 <span id="cb6-2"><a href=""></a>distribucion_nula <span class="sc">%&gt;%</span> <span class="fu">glimpse</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> num [1:100000] 21566 -46098 30330 5757 65018 ...</code></pre>
+<pre><code> num [1:100000] -12385 125062 -78807 -39636 38724 ...</code></pre>
 </div>
 </div>
 </div>
