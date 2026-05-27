@@ -6,18 +6,20 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#A51C30"
 ---
 
-## {.inverse .center .middle}
+## {background-color="#000000" .inverse .center .middle}
 
 ```{r setup, include=FALSE}
+options(scipen=999)
 knitr::opts_chunk$set(eval = T, echo = T)
 ```
 
@@ -288,7 +290,7 @@ Ejemplo de diseño de investigación: experimentos naturales y "regresión disco
 ![](https://ds4ps.org/pe4ps-textbook/docs/FIGURE/RegDisc/Picture5.png)
 :::
 
-## Hasta la próxima clase. Gracias! {.inverse .center .middle}
+## Hasta la próxima clase. Gracias! {background-color="#000000" .inverse .center .middle}
 
 <br>
 Mauricio Bucca <br>

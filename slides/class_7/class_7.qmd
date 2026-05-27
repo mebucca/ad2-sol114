@@ -6,11 +6,12 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#D18229"
 ---
@@ -40,7 +41,7 @@ $$X \sim \text{Normal}(\mu,\sigma)$$
 
 La variable aleatoria $X$ sigue una distribución Normal con valor esperado $\mu$ y desviación estándar $\sigma$.
 
-## Estandarización {.inverse .center .middle .section-title}
+## Estandarización {background-color="#4E5354" .inverse .center .middle .section-title}
 ## (puntaje Z)
 
 ## Puntaje Z
@@ -216,7 +217,7 @@ grid(normal_plot, z_normal_plot, poisson_plot, z_poisson_plot, ncol = 2)
 ```
 :::
 
-## Ejemplo {.inverse .center .middle .section-title}
+## Ejemplo {background-color="#4E5354" .inverse .center .middle .section-title}
 ## Altura en dos "poblaciones"
 
 ## Altura en dos "poblaciones"
@@ -385,7 +386,7 @@ knitr::kable(tabla, align = c('c', 'c', 'c', 'c'), col.names = c("País", "Géne
 ![faroe](faroe.png)
 :::
 
-## Hasta la próxima clase. Gracias! {.inverse .center .middle}
+## Hasta la próxima clase. Gracias! {background-color="#4E5354" .inverse .center .middle}
 
 <br>
 Mauricio Bucca <br>

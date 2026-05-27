@@ -6,16 +6,17 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#D6523C"
 ---
 
-## {.inverse .center .middle}
+## {background-color="#34B334" .inverse .center .middle}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(eval = T, echo = T)
@@ -91,7 +92,7 @@ $$ \mathbb{P}(\text{Blanco} \mid \text{Cisne}) > \mathbb{P}(\text{Otro} \mid \te
 
 - Mientras más cisnes no-blancos menos plausible es la teoría.
 
-## Test de Hipótesis {.inverse .center .middle .section-title}
+## Test de Hipótesis {background-color="#34B334" .inverse .center .middle .section-title}
 ## Prueba de Significancia de la Hipótesis Nula
 ### Fisher & Neyman-Pearson Framework
 
@@ -125,7 +126,7 @@ Estadísticos como Fisher, Neyman and Pearson desarrollaron el análogo probabil
 
 5. Proceso iterativo: Si se rechaza la hipótesis nula, entonces la hipótesis alternativa sigue en pie (provisoriamente).
 
-## Paso #1: Elaborar Hipótesis Nula y Alternativa {.inverse .center .middle}
+## Paso #1: Elaborar Hipótesis Nula y Alternativa {background-color="#34B334" .inverse .center .middle}
 
 ## Hipótesis Nula y Alternativa
 
@@ -155,7 +156,7 @@ Hipótesis de trabajo: *"El promedio de ingresos de las mujeres en Chile es mayo
 
 - $H_1: \mathbb{E}(X) > 300 \text{ mil}$
 
-## Paso #2: Calcular un Estadístico {.inverse .center .middle}
+## Paso #2: Calcular un Estadístico {background-color="#34B334" .inverse .center .middle}
 
 ## Estadístico
 
@@ -185,7 +186,7 @@ mu_hat <- mean(casen2017_mujeres$ingreso/1000, na.rm=T) %>% round()
 cat("Media muestral:", mu_hat, " mil") 
 ```
 
-## Paso #3: Determinar la Distribución Nula {.inverse .center .middle}
+## Paso #3: Determinar la Distribución Nula {background-color="#34B334" .inverse .center .middle}
 
 ## Distribución Nula
 
@@ -369,7 +370,7 @@ print(normal_distribution_plot)
 ```
 :::
 
-## Paso #4: Decidir el Nivel de Significación {.inverse .center .middle}
+## Paso #4: Decidir el Nivel de Significación {background-color="#34B334" .inverse .center .middle}
 
 ## Nivel de significación estadística, $\alpha$ 
 
@@ -454,7 +455,7 @@ print(normal_distribution_plot)
 ```
 :::
 
-## Paso #5: Calcular el Valor-p {.inverse .center .middle}
+## Paso #5: Calcular el Valor-p {background-color="#34B334" .inverse .center .middle}
 
 ## Valor-p
 
@@ -545,7 +546,7 @@ print(normal_distribution_plot)
 ```
 :::
 
-## Paso #6: Mantener o Rechazar la Hipótesis Nula {.inverse .center .middle}
+## Paso #6: Mantener o Rechazar la Hipótesis Nula {background-color="#34B334" .inverse .center .middle}
 
 ## Decisión
 
@@ -696,7 +697,7 @@ Notar que:
 
 - Trade-off entre ["Error tipo I"]{.bold} y ["Error tipo II"]{.bold}: extremada cautela ( $\alpha$ muy chico) conlleva el riesgo de nunca mantener la hipótesis alternativa (incluso si la nula es falsa).
 
-## Hasta la próxima clase. Gracias! {.inverse .center .middle}
+## Hasta la próxima clase. Gracias! {background-color="#34B334" .inverse .center .middle}
 
 <br>
 Mauricio Bucca <br>

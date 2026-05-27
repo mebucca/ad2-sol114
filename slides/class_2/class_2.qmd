@@ -6,16 +6,17 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#a57688"
 ---
 
-## Probabilidades condicional {.inverse .center .middle}
+## Probabilidades condicional {background-color="#6fbbca" .inverse .center .middle}
 
 ---
 
@@ -199,7 +200,7 @@ $$ \mathbb{P}(A | B) \neq \mathbb{P}(B | A)  $$
 <br>
 pero el [Teorema de Bayes]{.bold} nos dice cómo transformar uno en el otro.
 
-## Teorema de Bayes {.inverse .center .middle}
+## Teorema de Bayes {background-color="#6fbbca" .inverse .center .middle}
 
 ---
 
@@ -292,7 +293,7 @@ $$\mathbb{P}(B \mid A) = \frac{\mathbb{P}(A \mid B)\mathbb{P}(B)}{\mathbb{P}(A)}
 :::
 :::
 
-## Ley de "probabilidad total" {.inverse .center .middle}
+## Ley de "probabilidad total" {background-color="#6fbbca" .inverse .center .middle}
 
 ---
 
@@ -346,7 +347,7 @@ dado que, como vimos, $\mathbb{P}(A,B) = \mathbb{P}(A \mid B)\mathbb{P}(B)$, ent
 \end{align}
 :::
 
-## Independencia estadística {.inverse .center .middle}
+## Independencia estadística {background-color="#6fbbca" .inverse .center .middle}
 
 ---
 
@@ -428,7 +429,7 @@ Si A y B son eventos independientes entonces deberíamos esperar que $\mathbb{P}
 :::
 :::
 
-## {.inverse .center .middle}
+## {background-color="#6fbbca" .inverse .center .middle}
 
 [
 **Hasta la próxima clase. Gracias!**

@@ -6,18 +6,20 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#A0522D"
 ---
 
-## {.inverse .center .middle}
+## {background-color="#ADD8E6" .inverse .center .middle}
 
 ```{r setup, include=FALSE}
+options(scipen=999)
 knitr::opts_chunk$set(eval = T, echo = T)
 ```
 
@@ -249,7 +251,7 @@ Entonces, ¿cuándo se usa la distribución $t$?
 
 - Varianza conocida (sin importar el tamaño muestral): Usamos distribución normal (este siempre es el caso cuando estimamos proporciones!).
 
-## Ejemplo: Calorías en bebidas de Starbucks {.inverse .center .middle}
+## Ejemplo: Calorías en bebidas de Starbucks {background-color="#ADD8E6" .inverse .center .middle}
 
 ## Ejemplo: calorías en bebidas de Starbucks 
 
@@ -514,7 +516,7 @@ Finalmente, debemos decidir si rechazar o no la hipótesis nula
 - No tenemos evidencia para rechazar la hipótesis de que los bebestibles de Starbucks tienen, en promedio, 100 calorías (ni menos).
 :::
 
-## Hasta la próxima clase. Gracias! {.inverse .center .middle}
+## Hasta la próxima clase. Gracias! {background-color="#ADD8E6" .inverse .center .middle}
 
 <br>
 Mauricio Bucca <br>

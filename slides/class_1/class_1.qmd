@@ -6,16 +6,17 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#01647F"
 ---
 
-## Fundamentos de Probabilidades {.inverse .center .middle .section-title}
+## Fundamentos de Probabilidades {background-color="#FF4500" .inverse .center .middle .section-title}
 
 ## Experimentos aleatorios
 
@@ -264,7 +265,7 @@ Entonces,
 &= \frac{2}{6}
 \end{align}
 
-## Hasta la próxima clase. Gracias! {.inverse .center .middle}
+## Hasta la próxima clase. Gracias! {background-color="#FF4500" .inverse .center .middle}
 
 <br>
 Mauricio Bucca <br>

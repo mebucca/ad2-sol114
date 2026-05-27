@@ -6,18 +6,20 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#4682B4"
 ---
 
-## {.inverse .center .middle}
+## {background-color="#CD5C5C" .inverse .center .middle}
 
 ```{r setup, include=FALSE}
+options(scipen=999)
 knitr::opts_chunk$set(eval = T, echo = T)
 ```
 
@@ -209,7 +211,7 @@ print(scatter + geom_vline(xintercept=500, colour="red", size=1))
 
 - Es decir: sabiendo algo sobre una variable se algo (o todo) sobre la otra.
 
-## Covarianza {.inverse .center .middle .section-title}
+## Covarianza {background-color="#CD5C5C" .inverse .center .middle .section-title}
 
 ## Covarianza
 
@@ -480,7 +482,7 @@ $$\color{blue}{\mathbb{Cov}(E_h, Y_h)} = \mathbb{Cov}( 0.75 \times E_m, 2 \times
 
 - Por tanto, el número obtenido no indica inequivocamente la fuerza de la asociación
 
-## Hasta la próxima clase. Gracias! {.inverse .center .middle}
+## Hasta la próxima clase. Gracias! {background-color="#CD5C5C" .inverse .center .middle}
 
 <br>
 Mauricio Bucca <br>

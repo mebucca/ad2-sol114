@@ -6,11 +6,12 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#4953A6"
 ---
@@ -19,7 +20,7 @@ format:
 
 ![mometos](momentos.jpg)
 
-## Primer momento {.inverse .center .middle .section-title}
+## Primer momento {background-color="#FFD58D" .inverse .center .middle .section-title}
 ## Valor Esperado
 
 ## Valor Esperado
@@ -174,7 +175,7 @@ $$\mathbb{E}(G) = 1000 + 100 \times \sum^{n=10}_{i=1}\mathbb{E}(X_{i})$$
 
 $$\mathbb{E}(G) = 1000 + 10 (3.5 + 3.5 + \dots + 3.5)) = 1000 + 100 \times 10 \times 3.5 = \$4500$$
 
-## Segundo momento {.inverse .center .middle .section-title}
+## Segundo momento {background-color="#FFD58D" .inverse .center .middle .section-title}
 ## Varianza
 
 ## Varianza 
@@ -338,7 +339,7 @@ $$\mathbb{Var}(G) =  0 +  100^{2} \times 10 \times 2.9167 = \$291,670$$
 
 $$\sigma_{G} = \sqrt{0 + 100 \times 100 \times 291,670} = \$ 539.88$$
 
-## {.inverse .center .middle}
+## {background-color="#FFD58D" .inverse .center .middle}
 
 [
 **Hasta la próxima clase. Gracias!**

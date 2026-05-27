@@ -6,16 +6,17 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#972D15"
 ---
 
-## Probabilidad & Estadística {.inverse .center .middle .section-title}
+## Probabilidad & Estadística {background-color="#1f2026" .inverse .center .middle .section-title}
 
 ## Probabilidad & Estadística
 
@@ -33,7 +34,7 @@ format:
 ![stats](stats.png)
 :::
 
-## Equipo de trabajo {.inverse .center .middle .section-title}
+## Equipo de trabajo {background-color="#1f2026" .inverse .center .middle .section-title}
 
 ## Profesor
 
@@ -78,7 +79,7 @@ format:
 ![tomas](tomas.jpeg)
 :::
 
-## Filosofía de enseñanza {.inverse .center .middle .section-title}
+## Filosofía de enseñanza {background-color="#1f2026" .inverse .center .middle .section-title}
 
 ---
 
@@ -140,7 +141,7 @@ $$X   \text{ es una variable}$$
 ![methods](foundations.jpg)
 :::
 
-## Recursos {.inverse .center .middle .section-title}
+## Recursos {background-color="#1f2026" .inverse .center .middle .section-title}
 
 ## Repositorio Github
 
@@ -170,7 +171,7 @@ Todo el material del curso será almacenado y actualizado regularmente en reposi
 ![lab](qcs2.png)
 :::
 
-## Hasta la próxima clase. Gracias! {.inverse .center .middle}
+## Hasta la próxima clase. Gracias! {background-color="#1f2026" .inverse .center .middle}
 
 <br>
 Mauricio Bucca <br>

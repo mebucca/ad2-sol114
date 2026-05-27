@@ -6,18 +6,20 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#6CABDD"
 ---
 
-## {.inverse .center .middle}
+## {background-color="#1C2C5B" .inverse .center .middle}
 
 ```{r setup, include=FALSE}
+options(scipen=999)
 knitr::opts_chunk$set(eval = T, echo = T)
 ```
 
@@ -73,7 +75,7 @@ results <- casen2017 %>% group_by(genero) %>%
 ![gwg](https://d26oc3sg82pgk3.cloudfront.net/files/media/edit/image/31933/square_thumb%402x.jpg)
 :::
 
-## Test de Permutación {.inverse .center .middle .section-title}
+## Test de Permutación {background-color="#1C2C5B" .inverse .center .middle .section-title}
 
 ---
 
@@ -281,7 +283,7 @@ print(c("Valor-p"=valor_p))
 ```
 :::
 
-## Hasta la próxima clase. Gracias! {.inverse .center .middle}
+## Hasta la próxima clase. Gracias! {background-color="#1C2C5B" .inverse .center .middle}
 
 <br>
 Mauricio Bucca <br>
