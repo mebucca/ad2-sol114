@@ -6,8 +6,8 @@
 <script src="class_4_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_4_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_4_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_4_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.8.27">
+<link href="class_4_files/libs/quarto-html/quarto-syntax-highlighting-bc185b5c5bdbcb35c2eb49d8a876ef70.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.7.33">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
   <meta name="dcterms.date" content="2026-05-27">
@@ -30,7 +30,7 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="class_4_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
+  <link rel="stylesheet" href="class_4_files/libs/revealjs/dist/theme/quarto-12165c658f6565b8fae334a851d646f2.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
   <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
@@ -159,10 +159,12 @@
 
   <p class="date">2026-05-27</p>
 </section>
-<section id="distribuciones-discretas" class="slide level2 inverse center middle" data-background-color="#6A8EAE">
-<h2>Distribuciones Discretas</h2>
-<h3 id="intuición">Intuición</h3>
+<section>
+<section id="distribuciones-discretas" class="title-slide slide level1 inverse center middle" data-background-color="#6A8EAE">
+<h1>Distribuciones Discretas</h1>
+
 </section>
+<h3 id="intuición">Intuición</h3>
 <section class="slide level2">
 
 <h3 id="tiro-de-penal">Tiro de penal</h3>
@@ -248,10 +250,10 @@ f(x) =
 <p>Repitamos el proceso 1000 veces …</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 0 0 1 0 1 0 1 0 0 1 1 1 0 1 1 1 1 1 1 0</code></pre>
+<pre><code> [1] 1 1 1 0 1 1 1 1 1 1 1 1 0 1 0 0 1 1 0 1</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "P(Cara) =  0.677"</code></pre>
+<pre><code>[1] "P(Cara) =  0.674"</code></pre>
 </div>
 </div>
 </section>
@@ -486,7 +488,7 @@ F(k=5; n=10, p=0.6) &amp;=  \mathbb{P}(X=0) + \dots + \mathbb{P}(X=5) \\ \\
 <p><span class="huge"><strong>Hasta la próxima clase. Gracias!</strong></span></p>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
 
-</section>
+</section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
 <div class="footer footer-default">
@@ -769,14 +771,13 @@ F(k=5; n=10, p=0.6) &amp;=  \mathbb{P}(X=0) + \dots + \mathbb{P}(X=5) \\ \\
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-          const outerScaffold = trigger.parentElement.cloneNode(true);
-          const codeEl = outerScaffold.querySelector('code');
-          for (const childEl of codeEl.children) {
-            if (isCodeAnnotation(childEl)) {
-              childEl.remove();
+            const codeEl = trigger.previousElementSibling.cloneNode(true);
+            for (const childEl of codeEl.children) {
+              if (isCodeAnnotation(childEl)) {
+                childEl.remove();
+              }
             }
-          }
-          return codeEl.innerText;
+            return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

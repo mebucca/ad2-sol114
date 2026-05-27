@@ -8,7 +8,8 @@ format:
     css: ["gentle-r.css","xaringan-themer.css"]
     slide-number: false
     theme: default
-    highlight-style: github
+    highlight-style: arrow-dark
+    code-block-font-size: 0.9em
     width: 1600
     height: 900
     html-math-method: katex
@@ -16,14 +17,12 @@ format:
       data-background-color: "#6CABDD"
 ---
 
-## {background-color="#1C2C5B" .inverse .center .middle}
+# Test de Hipótesis en dos muestras {background-color="#1C2C5B" .inverse .center .middle}
 
 ```{r setup, include=FALSE}
 options(scipen=999)
 knitr::opts_chunk$set(eval = T, echo = T)
 ```
-
-# Test de Hipótesis en dos muestras
 
 ## Brechas de ingresos entre hombres y mujeres
 

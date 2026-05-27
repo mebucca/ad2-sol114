@@ -8,7 +8,8 @@ format:
     css: ["gentle-r.css","xaringan-themer.css"]
     slide-number: false
     theme: default
-    highlight-style: github
+    highlight-style: arrow-dark
+    code-block-font-size: 0.9em
     width: 1600
     height: 900
     html-math-method: katex
@@ -16,7 +17,7 @@ format:
       data-background-color: "#ff7377"
 ---
 
-## Distribuciones Continuas {background-color="#ffec73" .inverse .center .middle}
+# Distribuciones Continuas {background-color="#ffec73" .inverse .center .middle}
 ### Intuición
 
 ---

@@ -8,7 +8,8 @@ format:
     css: ["gentle-r.css","xaringan-themer.css"]
     slide-number: false
     theme: default
-    highlight-style: github
+    highlight-style: arrow-dark
+    code-block-font-size: 0.9em
     width: 1600
     height: 900
     html-math-method: katex
@@ -20,7 +21,7 @@ format:
 
 ![mometos](momentos.jpg)
 
-## Primer momento {background-color="#FFD58D" .inverse .center .middle .section-title}
+# Primer momento {background-color="#FFD58D" .inverse .center .middle}
 ## Valor Esperado
 
 ## Valor Esperado
