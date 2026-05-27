@@ -345,3 +345,8 @@ strong {
   padding-right: 4em;
   font-size: 60%;
 }
+
+/* Hide image labels from markdown ![label](path) syntax */
+.reveal figure figcaption {
+  display: none !important;
+}

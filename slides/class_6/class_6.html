@@ -6,11 +6,11 @@
 <script src="class_6_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_6_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_6_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_6_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_6_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,9 +30,25 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="class_6_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_6_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_6_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_6_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_6_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -141,13 +157,13 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
 <section id="section" class="slide level2 fullscreen center middle">
 <h2></h2>
 
 <img data-src="momentos.jpg" class="r-stretch quarto-figure-center"><p class="caption">mometos</p></section>
-<section id="primer-momento" class="slide level2 inverse center middle section-title">
+<section id="primer-momento" class="slide level2 inverse center middle section-title" data-background-color="#FFD58D">
 <h2>Primer momento</h2>
 </section>
 <section id="valor-esperado" class="slide level2">
@@ -158,10 +174,10 @@
 <p>El valor esperado de una variable es el análogo teórico de un promedio. Los posibles valores de la variable se ponderan por su probabilidad de ocurrencia. En el caso de variables discretas:</p>
 <p><br></p>
 <div class="fragment">
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \mathbb{E}(X) &amp;= \sum_{i} x_{i} \times \mathbb{P}(X=x_{i}) \\
 &amp;\equiv  \sum_{i} x_{i} \times f(x_{i})
-\end{align}\]</span></p>
+\end{align}</span></p>
 <p><br></p>
 </div>
 <div class="fragment">
@@ -169,22 +185,22 @@
 </div>
 <div class="fragment">
 <p>Análogamente, para variables continuas:</p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \mathbb{E}(X) =  \int x f(x)dx
-\end{align}\]</span></p>
+\end{align}</span></p>
 </div>
 </section>
 <section id="valor-esperado-variable-discreta" class="slide level2">
 <h2>Valor Esperado, variable discreta</h2>
-<p>Por ejemplo, supongamos que <span class="math inline">\(Y\)</span> es una variable que resulta de tirar un dado “justo”. ¿Cuál es el valor esperado de <span class="math inline">\(Y\)</span>?</p>
+<p>Por ejemplo, supongamos que <span class="math inline">Y</span> es una variable que resulta de tirar un dado “justo”. ¿Cuál es el valor esperado de <span class="math inline">Y</span>?</p>
 <p><br></p>
 <div class="fragment">
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \mathbb{E}(Y) &amp;= \sum_{i}y_{i} \times f(y_{i})  \\ \\
      &amp;= \sum_{i}y_{i} \times \mathbb{P}(Y=y_{i})  \\ \\
      &amp;=  1 \times  \frac{1}{6}+ 2 \times \frac{1}{6} + \dots + 6 \times \frac{1}{6}  \\ \\
      &amp;= 3.5
-\end{align}\]</span></p>
+\end{align}</span></p>
 </div>
 </section>
 <section id="valor-esperado-algunas-propiedades-útiles" class="slide level2">
@@ -194,31 +210,31 @@
 <ol type="1">
 <li>El valor esperado de una constante es una constante.</li>
 </ol>
-<p><span class="math display">\[\mathbb{E}(c)=c\]</span> <br></p>
+<p><span class="math display">\mathbb{E}(c)=c</span> <br></p>
 </div>
 <div class="fragment">
 <ol start="2" type="1">
-<li>Si <span class="math inline">\(X\)</span> es una variable aleatoria y <span class="math inline">\(c\)</span> una constante, entonces</li>
+<li>Si <span class="math inline">X</span> es una variable aleatoria y <span class="math inline">c</span> una constante, entonces</li>
 </ol>
-<p><span class="math display">\[\mathbb{E}(X + c)= \mathbb{E}(X) + c\]</span></p>
+<p><span class="math display">\mathbb{E}(X + c)= \mathbb{E}(X) + c</span></p>
 <p><br></p>
 </div>
 <div class="fragment">
 <ol start="3" type="1">
-<li>Si <span class="math inline">\(X\)</span> es una variable aleatoria y <span class="math inline">\(c\)</span> una constante, entonces</li>
+<li>Si <span class="math inline">X</span> es una variable aleatoria y <span class="math inline">c</span> una constante, entonces</li>
 </ol>
-<p><span class="math display">\[\mathbb{E}(c X)= c \mathbb{E}(X)\]</span> <br></p>
+<p><span class="math display">\mathbb{E}(c X)= c \mathbb{E}(X)</span> <br></p>
 </div>
 <div class="fragment">
 <ol start="4" type="1">
-<li>Si <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> son variables aleatorias (sin importar si <span class="math inline">\(X \bot Y\)</span> o no), entonces</li>
+<li>Si <span class="math inline">X</span> e <span class="math inline">Y</span> son variables aleatorias (sin importar si <span class="math inline">X \bot Y</span> o no), entonces</li>
 </ol>
-<p><span class="math display">\[\mathbb{E}(X + Y)=  \mathbb{E}(X) + \mathbb{E}(Y)\]</span></p>
+<p><span class="math display">\mathbb{E}(X + Y)=  \mathbb{E}(X) + \mathbb{E}(Y)</span></p>
 </div>
 </section>
 <section id="valor-esperado-ejemplo" class="slide level2">
 <h2>Valor Esperado, ejemplo</h2>
-<p>Por ejemplo, supongamos que <span class="math inline">\(X_{i}\)</span> es la variable que resulta de tirar un dado “justo”. Participamos de un concurso que consiste en tirar el mismo dado 10 veces. El premio (G) es $ <span class="math inline">\(1000\)</span> de base, más el resultado de cada dado <span class="math inline">\(i\)</span> multiplicado por 100.</p>
+<p>Por ejemplo, supongamos que <span class="math inline">X_{i}</span> es la variable que resulta de tirar un dado “justo”. Participamos de un concurso que consiste en tirar el mismo dado 10 veces. El premio (G) es $ <span class="math inline">1000</span> de base, más el resultado de cada dado <span class="math inline">i</span> multiplicado por 100.</p>
 <div class="fragment">
 <p>¿Cuánto es el premio esperado?</p>
 </div>
@@ -238,22 +254,22 @@
 </section>
 <section id="valor-esperado-ejemplo-1" class="slide level2">
 <h2>Valor Esperado, ejemplo</h2>
-<p>Por ejemplo, supongamos que <span class="math inline">\(X_{i}\)</span> es la variable que resulta de tirar un dado “justo”. Participamos de un concurso que consiste en tirar el mismo dado 10 veces. El premio (G) es $ <span class="math inline">\(1000\)</span> de base, más el resultado de cada dado <span class="math inline">\(i\)</span> multiplicado por 100. ¿Cuánto es el premio esperado?</p>
+<p>Por ejemplo, supongamos que <span class="math inline">X_{i}</span> es la variable que resulta de tirar un dado “justo”. Participamos de un concurso que consiste en tirar el mismo dado 10 veces. El premio (G) es $ <span class="math inline">1000</span> de base, más el resultado de cada dado <span class="math inline">i</span> multiplicado por 100. ¿Cuánto es el premio esperado?</p>
 <p><br></p>
 <div class="fragment">
-<p><span class="math display">\[G = 1000 + \sum^{n=10}_{i=1} X_{i} \times 100 \quad \text{ por tanto,}\]</span></p>
+<p><span class="math display">G = 1000 + \sum^{n=10}_{i=1} X_{i} \times 100 \quad \text{ por tanto,}</span></p>
 </div>
 <div class="fragment">
-<p><span class="math display">\[\mathbb{E}(G) = \mathbb{E}(1000 + \sum^{n=10}_{i=1} X_{i} \times 100)\]</span></p>
+<p><span class="math display">\mathbb{E}(G) = \mathbb{E}(1000 + \sum^{n=10}_{i=1} X_{i} \times 100)</span></p>
 </div>
 <div class="fragment">
-<p><span class="math display">\[\mathbb{E}(G) = 1000 + 100 \times \sum^{n=10}_{i=1}\mathbb{E}(X_{i})\]</span></p>
+<p><span class="math display">\mathbb{E}(G) = 1000 + 100 \times \sum^{n=10}_{i=1}\mathbb{E}(X_{i})</span></p>
 </div>
 <div class="fragment">
-<p><span class="math display">\[\mathbb{E}(G) = 1000 + 10 (3.5 + 3.5 + \dots + 3.5)) = 1000 + 100 \times 10 \times 3.5 = \$4500\]</span></p>
+<p><span class="math display">\mathbb{E}(G) = 1000 + 10 (3.5 + 3.5 + \dots + 3.5)) = 1000 + 100 \times 10 \times 3.5 = \$4500</span></p>
 </div>
 </section>
-<section id="segundo-momento" class="slide level2 inverse center middle section-title">
+<section id="segundo-momento" class="slide level2 inverse center middle section-title" data-background-color="#FFD58D">
 <h2>Segundo momento</h2>
 </section>
 <section id="varianza" class="slide level2">
@@ -265,25 +281,25 @@
 <div class="fragment">
 <p>Mide cuánta dispersión existe en torno al centro (la media). Formalmente, en el caso de variables aleatorias discretas:</p>
 <p><br></p>
-<p><span class="math display">\[\mathbb{Var}(X) = \sum_{i} \bigg( x_{i} - \mathbb{E}(X) \bigg)^{2} \times f(x_{i})\]</span> <br></p>
+<p><span class="math display">\mathbb{Var}(X) = \sum_{i} \bigg( x_{i} - \mathbb{E}(X) \bigg)^{2} \times f(x_{i})</span> <br></p>
 </div>
 <div class="fragment">
 <p>Análogamente, para variables continuas:</p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \mathbb{Var}(X) =  \int \bigg(x -  \mathbb{E}(X)\bigg)^{2} f(x)dx
-\end{align}\]</span></p>
+\end{align}</span></p>
 </div>
 </section>
 <section id="varianza-2" class="slide level2">
 <h2>Varianza</h2>
-<p>Por ejemplo, si <span class="math inline">\(Y\)</span> es una variable que resulta de tirar un dado “justo”, ¿cuál es la varianza de <span class="math inline">\(Y\)</span>?</p>
+<p>Por ejemplo, si <span class="math inline">Y</span> es una variable que resulta de tirar un dado “justo”, ¿cuál es la varianza de <span class="math inline">Y</span>?</p>
 <p><br></p>
 <div class="fragment">
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \mathbb{Var}(Y) &amp;= \sum_{i} \bigg( y_{i} - \mathbb{E}(Y) \bigg)^{2} \times f(y_{i})   \\ \\
      &amp;=  (1 - 3.5)^{2} \times  \frac{1}{6} + (2-3.5)^{2} \times \frac{1}{6} + \dots + (6-3.5)^{2} \times \frac{1}{6}  \\ \\
      &amp;= 2.91
-\end{align}\]</span></p>
+\end{align}</span></p>
 </div>
 </section>
 <section id="varianza-algunas-propiedades-útiles" class="slide level2">
@@ -294,28 +310,28 @@
 <li>La varianza de una constante es cero.</li>
 </ol>
 <p><br></p>
-<p><span class="math display">\[\mathbb{Var}(c)=0\]</span></p>
+<p><span class="math display">\mathbb{Var}(c)=0</span></p>
 <p><br></p>
 </div>
 <div class="fragment">
 <ol start="2" type="1">
-<li>Si <span class="math inline">\(X\)</span> es una variable aleatoria y <span class="math inline">\(c\)</span> una constante, entonces</li>
+<li>Si <span class="math inline">X</span> es una variable aleatoria y <span class="math inline">c</span> una constante, entonces</li>
 </ol>
 <p><br></p>
-<p><span class="math display">\[\mathbb{Var}(c X)= c^{2} \mathbb{Var}(X)\]</span></p>
+<p><span class="math display">\mathbb{Var}(c X)= c^{2} \mathbb{Var}(X)</span></p>
 <p><br></p>
 </div>
 <div class="fragment">
 <ol start="3" type="1">
-<li>Si <span class="math inline">\(X\)</span> e <span class="math inline">\(Y\)</span> son dos variables aleatorias <span class="bold">independientes</span>, entonces</li>
+<li>Si <span class="math inline">X</span> e <span class="math inline">Y</span> son dos variables aleatorias <span class="bold">independientes</span>, entonces</li>
 </ol>
 <p><br></p>
-<p><span class="math display">\[\mathbb{Var}(X \pm Y) =  \mathbb{Var}(X) + \mathbb{Var}(Y)\]</span></p>
+<p><span class="math display">\mathbb{Var}(X \pm Y) =  \mathbb{Var}(X) + \mathbb{Var}(Y)</span></p>
 </div>
 </section>
 <section id="varianza-ejemplo" class="slide level2">
 <h2>Varianza, ejemplo</h2>
-<p>Por ejemplo, supongamos que <span class="math inline">\(X_{i}\)</span> es la variable que resulta de tirar un dado “justo”. Participamos de un concurso que consiste en tirar el mismo dado 10 veces. El premio (G) es $ <span class="math inline">\(1000\)</span> de base, más el resultado de cada dado <span class="math inline">\(i\)</span> multiplicado por 100.</p>
+<p>Por ejemplo, supongamos que <span class="math inline">X_{i}</span> es la variable que resulta de tirar un dado “justo”. Participamos de un concurso que consiste en tirar el mismo dado 10 veces. El premio (G) es $ <span class="math inline">1000</span> de base, más el resultado de cada dado <span class="math inline">i</span> multiplicado por 100.</p>
 <div class="fragment">
 <p>¿Cuánto es la desviación estándar del premio?</p>
 </div>
@@ -335,26 +351,26 @@
 </section>
 <section id="varianza-ejemplo-1" class="slide level2">
 <h2>Varianza, ejemplo</h2>
-<p>Por ejemplo, supongamos que <span class="math inline">\(X_{i}\)</span> es la variable que resulta de tirar un dado “justo”. Participamos de un concurso que consiste en tirar el mismo dado 10 veces. El premio (G) es $ <span class="math inline">\(1000\)</span> de base, más el resultado de cada dado <span class="math inline">\(i\)</span> multiplicado por 100. ¿Cuánto es la desviación estándar del premio?</p>
+<p>Por ejemplo, supongamos que <span class="math inline">X_{i}</span> es la variable que resulta de tirar un dado “justo”. Participamos de un concurso que consiste en tirar el mismo dado 10 veces. El premio (G) es $ <span class="math inline">1000</span> de base, más el resultado de cada dado <span class="math inline">i</span> multiplicado por 100. ¿Cuánto es la desviación estándar del premio?</p>
 <p><br></p>
 <div class="fragment">
-<p><span class="math display">\[G = 1000 + \sum^{n=10}_{i=1} X_{i} \times 100 \quad \text{ por tanto,}\]</span></p>
+<p><span class="math display">G = 1000 + \sum^{n=10}_{i=1} X_{i} \times 100 \quad \text{ por tanto,}</span></p>
 </div>
 <div class="fragment">
-<p><span class="math display">\[\mathbb{Var}(G) = \mathbb{Var}(1000 + \sum^{n=10}_{i=1} X_{i} \times 100)\]</span></p>
+<p><span class="math display">\mathbb{Var}(G) = \mathbb{Var}(1000 + \sum^{n=10}_{i=1} X_{i} \times 100)</span></p>
 </div>
 <div class="fragment">
-<p><span class="math display">\[\mathbb{Var}(G) = \mathbb{Var}(1000) + 100^{2} \times \sum^{n=10}_{i=1}\mathbb{Var}(X_{i})\]</span></p>
+<p><span class="math display">\mathbb{Var}(G) = \mathbb{Var}(1000) + 100^{2} \times \sum^{n=10}_{i=1}\mathbb{Var}(X_{i})</span></p>
 </div>
 <div class="fragment">
-<p><span class="math display">\[\mathbb{Var}(G) =  0 +  100^{2} \times 10 \times 2.9167 = \$291,670\]</span></p>
+<p><span class="math display">\mathbb{Var}(G) =  0 +  100^{2} \times 10 \times 2.9167 = \$291,670</span></p>
 <p><br></p>
 </div>
 <div class="fragment">
-<p><span class="math display">\[\sigma_{G} = \sqrt{0 + 100 \times 100 \times 291,670} = \$ 539.88\]</span></p>
+<p><span class="math display">\sigma_{G} = \sqrt{0 + 100 \times 100 \times 291,670} = \$ 539.88</span></p>
 </div>
 </section>
-<section id="section-1" class="slide level2 inverse center middle">
+<section id="section-1" class="slide level2 inverse center middle" data-background-color="#FFD58D">
 <h2></h2>
 <p><span class="huge"><strong>Hasta la próxima clase. Gracias!</strong></span></p>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
@@ -380,7 +396,6 @@
   <script src="class_6_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_6_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_6_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_6_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -416,7 +431,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -548,27 +563,9 @@
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -661,13 +658,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

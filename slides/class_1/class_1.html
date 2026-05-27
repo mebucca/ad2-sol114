@@ -6,11 +6,11 @@
 <script src="class_1_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_1_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_1_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_1_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_1_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,9 +30,25 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="class_1_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_1_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_1_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_1_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_1_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -141,9 +157,9 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
-<section id="fundamentos-de-probabilidades" class="slide level2 inverse center middle section-title">
+<section id="fundamentos-de-probabilidades" class="slide level2 inverse center middle section-title" data-background-color="#FF4500">
 <h2>Fundamentos de Probabilidades</h2>
 </section>
 <section id="experimentos-aleatorios" class="slide level2">
@@ -155,13 +171,13 @@
 <p><br></p>
 </div>
 <div class="fragment">
-<p>El conjunto de todos los posibles resultados de un experimento se llama “espacio muestral”, <span class="math inline">\(\Omega\)</span>.</p>
+<p>El conjunto de todos los posibles resultados de un experimento se llama “espacio muestral”, <span class="math inline">\Omega</span>.</p>
 <p>En este caso:</p>
-<p><span class="math display">\[\Omega: \{1,2,3,4,5,6 \}\]</span></p>
+<p><span class="math display">\Omega: \{1,2,3,4,5,6 \}</span></p>
 <p><br></p>
 </div>
 <div class="fragment">
-<p>En palabras, <span class="math inline">\(\Omega: \{1,2,3,4,5,6 \}\)</span> significa que nuestro experimento, consistente en tirar un dado, puede resultar en: “1 o 2 o 3… o 6”</p>
+<p>En palabras, <span class="math inline">\Omega: \{1,2,3,4,5,6 \}</span> significa que nuestro experimento, consistente en tirar un dado, puede resultar en: “1 o 2 o 3… o 6”</p>
 </div>
 </section>
 <section id="eventos" class="slide level2">
@@ -174,7 +190,7 @@
 </div>
 <div class="fragment">
 <p>Formalmente,</p>
-<p><span class="math display">\[A :  \text{dado=1 o dado=5}\]</span></p>
+<p><span class="math display">A :  \text{dado=1 o dado=5}</span></p>
 </div>
 </section>
 <section id="probabilidad" class="slide level2">
@@ -185,7 +201,7 @@
 <p>Continuando con nuestro ejemplo,</p>
 <ul>
 <li>Experimento: Tirar un dado</li>
-<li>Espacio muestral, <span class="math inline">\(\Omega: \{1,2,3,4,5,6\}\)</span></li>
+<li>Espacio muestral, <span class="math inline">\Omega: \{1,2,3,4,5,6\}</span></li>
 <li>A es el evento de “obtener un 1 o un 5”</li>
 </ul>
 <p>¿Cuál es la probabilidad de que ocurra A?</p>
@@ -193,7 +209,7 @@
 </div>
 <div class="fragment">
 <p>Formalmente,</p>
-<p><span class="math display">\[\mathbb{P}(A) = \mathbb{P}(\text{dado=1 o dado=5})\]</span> <br> donde <span class="math inline">\(\mathbb{P}(.)\)</span> refiere a la probabilidad de ocurrencia del evento y <span class="math inline">\(\mathbb{P}(.) \in [0,1]\)</span></p>
+<p><span class="math display">\mathbb{P}(A) = \mathbb{P}(\text{dado=1 o dado=5})</span> <br> donde <span class="math inline">\mathbb{P}(.)</span> refiere a la probabilidad de ocurrencia del evento y <span class="math inline">\mathbb{P}(.) \in [0,1]</span></p>
 </div>
 </section>
 <section id="probabilidad-1" class="slide level2">
@@ -216,8 +232,8 @@
 <div class="fragment">
 <p><span class="bold">Respuestas:</span></p>
 <ol type="1">
-<li><p><span class="math inline">\(\frac{1}{6}\)</span></p></li>
-<li><p><span class="math inline">\(\frac{2}{6}\)</span></p></li>
+<li><p><span class="math inline">\frac{1}{6}</span></p></li>
+<li><p><span class="math inline">\frac{2}{6}</span></p></li>
 </ol>
 </div>
 <div class="fragment">
@@ -230,15 +246,15 @@
 <ol type="1">
 <li>Las probabilidades están limitadas entre cero y uno. Si A es un evento, entonces:</li>
 </ol>
-<p><span class="math display">\[0 \leq \mathbb{P}(A) \leq 1\]</span> <br></p>
+<p><span class="math display">0 \leq \mathbb{P}(A) \leq 1</span> <br></p>
 <p>. . .</p>
 <ol start="2" type="1">
 <li>La probabilidad de que dos eventos mutuamente excluyentes ocurran al mismo tiempo es cero. Si A y B son eventos mutuamente excluyentes, entonces:</li>
 </ol>
-<p><span class="math display">\[\mathbb{P}(A \text{ y }B) = 0\]</span> Por ejemplo, - si <span class="math inline">\(A:\text{dado=1 o dado=5}\)</span> - y <span class="math inline">\(B:\text{dado=6}\)</span></p>
+<p><span class="math display">\mathbb{P}(A \text{ y }B) = 0</span> Por ejemplo, - si <span class="math inline">A:\text{dado=1 o dado=5}</span> - y <span class="math inline">B:\text{dado=6}</span></p>
 <p><br></p>
 <p>. . .</p>
-<p>entonces <span class="math inline">\(\mathbb{P}(A \text{ y } B) = 0\)</span></p>
+<p>entonces <span class="math inline">\mathbb{P}(A \text{ y } B) = 0</span></p>
 </section>
 <section class="slide level2">
 
@@ -246,12 +262,12 @@
 <ol start="3" type="1">
 <li>Si A y B son dos eventos la probabilidad de que <em>al menos</em> uno de los dos ocurra es llamada la “unión” de ambos eventos y viene dada por:</li>
 </ol>
-<p><span class="math display">\[\mathbb{P}(A \text{ o } B) = \mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \text{ y } B)\]</span> <br></p>
+<p><span class="math display">\mathbb{P}(A \text{ o } B) = \mathbb{P}(A) + \mathbb{P}(B) - \mathbb{P}(A \text{ y } B)</span> <br></p>
 <p>. . .</p>
 <p>Por ejemplo,<br>
-- si <span class="math inline">\(A: \text{dado=1 o dado=5}\)</span> - y <span class="math inline">\(B:\text{dado=5 o dado=6}\)</span></p>
+- si <span class="math inline">A: \text{dado=1 o dado=5}</span> - y <span class="math inline">B:\text{dado=5 o dado=6}</span></p>
 <p>entonces,</p>
-<p><span class="math display">\[\mathbb{P}(A \text{ o } B) = \mathbb{P}(\text{dado=1 o dado=5}) + \mathbb{P}(\text{dado=5 o dado=6}) - \mathbb{P}(\text{dado=5})\]</span></p>
+<p><span class="math display">\mathbb{P}(A \text{ o } B) = \mathbb{P}(\text{dado=1 o dado=5}) + \mathbb{P}(\text{dado=5 o dado=6}) - \mathbb{P}(\text{dado=5})</span></p>
 </section>
 <section class="slide level2">
 
@@ -272,10 +288,10 @@
 <p>. . .</p>
 <div class="full-width">
 <div class="content-box-secondary">
-<p><span class="bolder">Respuesta</span>: <span class="math display">\[\begin{align}
+<p><span class="bolder">Respuesta</span>: <span class="math display">\begin{align}
 \mathbb{P}(\text{dado=3 o dado=4}) &amp;= \mathbb{P}(\text{dado=3}) +  \mathbb{P}(\text{dado=4}) - \mathbb{P}(\text{dado=3 y dado=4}) \\
 &amp;= \frac{1}{6} +  \frac{1}{6} - 0 = \frac{2}{6}
-\end{align}\]</span></p>
+\end{align}</span></p>
 </div>
 </div>
 </section>
@@ -285,7 +301,7 @@
 <ol start="4" type="1">
 <li>De los puntos 2 y 3 se deduce que la probabilidad de la unión de dos eventos desunidos, A y B, viene dada por:</li>
 </ol>
-<p><span class="math display">\[\mathbb{P}(A \text{ o } B) = \mathbb{P}(A) + \mathbb{P}(B)\]</span></p>
+<p><span class="math display">\mathbb{P}(A \text{ o } B) = \mathbb{P}(A) + \mathbb{P}(B)</span></p>
 </section>
 <section class="slide level2">
 
@@ -295,16 +311,16 @@
 </ol>
 <p><br></p>
 <p>. . .</p>
-<p>Formalmente, si denotamos cada posible resultado de un experimento como <span class="math inline">\(A_{i}\)</span>, entonces:</p>
-<p><span class="math display">\[\mathbb{P}(\Omega) = \mathbb{P}(A_{1} \text{ o } A_{2} \dots \text{ o } A_{n})  = \sum_{i} \mathbb{P}(A_{i}) = 1\]</span> <br></p>
+<p>Formalmente, si denotamos cada posible resultado de un experimento como <span class="math inline">A_{i}</span>, entonces:</p>
+<p><span class="math display">\mathbb{P}(\Omega) = \mathbb{P}(A_{1} \text{ o } A_{2} \dots \text{ o } A_{n})  = \sum_{i} \mathbb{P}(A_{i}) = 1</span> <br></p>
 <p>. . .</p>
 <p>Por ejemplo - Experimento: tirar un dado justo</p>
 <p>Entonces,</p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \mathbb{P}(\Omega) &amp;= \mathbb{P}(\text{dado=1  o ... o dado=6})  \\ \\
 &amp;= \mathbb{P}(\text{dado=1}) + \dots + \mathbb{P}(\text{dado=6}) \\ \\
 &amp;= \frac{1}{6} + \dots + \frac{1}{6} = 1
-\end{align}\]</span></p>
+\end{align}</span></p>
 </section>
 <section class="slide level2">
 
@@ -315,18 +331,18 @@
 <p><br></p>
 <p>. . .</p>
 <p>Formalmente,</p>
-<p><span class="math display">\[\mathbb{P}(A) = 1 - \mathbb{P}(B)\]</span></p>
+<p><span class="math display">\mathbb{P}(A) = 1 - \mathbb{P}(B)</span></p>
 <p><br></p>
 <p>. . .</p>
-<p>Por ejemplo - Experimento: tirar un dado justo - <span class="math inline">\(A: \text{dado &lt; 3}\)</span> - <span class="math inline">\(B:\text{dado} \geq 3\)</span></p>
+<p>Por ejemplo - Experimento: tirar un dado justo - <span class="math inline">A: \text{dado &lt; 3}</span> - <span class="math inline">B:\text{dado} \geq 3</span></p>
 <p>Entonces,</p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \mathbb{P}(A) &amp;= 1 - \mathbb{P}(B) \\
 &amp;= 1 - \frac{4}{6} \\
 &amp;= \frac{2}{6}
-\end{align}\]</span></p>
+\end{align}</span></p>
 </section>
-<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle" data-background-color="#FF4500">
 <h2>Hasta la próxima clase. Gracias!</h2>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
 
@@ -351,7 +367,6 @@
   <script src="class_1_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_1_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_1_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_1_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -387,7 +402,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -519,27 +534,9 @@
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -594,13 +591,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

@@ -6,18 +6,20 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#A0522D"
 ---
 
-## {.inverse .center .middle}
+## {background-color="#ADD8E6" .inverse .center .middle}
 
 ```{r setup, include=FALSE}
+options(scipen=999)
 knitr::opts_chunk$set(eval = T, echo = T)
 ```
 
@@ -306,7 +308,7 @@ cat("𝛼=",0.05, "; valor-p=",pvalue, sep="")
 
 Con un nivel de significación del 5% (o 95% de confianza) podemos rechazar la hipótesis nula de que el salario promedio de hombres y mujeres es el mismo. Nuestro resultado sugiere que el salario promedio de los hombres es significativamente mayor que el de las mujeres.
 
-## Superposición de intervalos de confianza {.inverse .center .middle}
+## Superposición de intervalos de confianza {background-color="#ADD8E6" .inverse .center .middle}
 
 ---
 
@@ -444,7 +446,7 @@ evaluar la superposición de intervalos de confianza no siempre garantiza una de
 - **Si los intervalos se superponen**, el intervalo para la diferencia no necesariamente contiene cero, lo que significa que **no podemos estar seguros** de si debemos rechazar o no $H_0$️ 🤷‍♀🤔️ .
 :::
 
-## Hasta la próxima clase. Gracias! {.inverse .center .middle}
+## Hasta la próxima clase. Gracias! {background-color="#ADD8E6" .inverse .center .middle}
 
 <br>
 Mauricio Bucca <br>

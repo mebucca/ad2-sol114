@@ -6,18 +6,19 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#4B6F44"
 ---
 
-## Teoremas Asintóticos {.inverse .center .middle .section-title}
+## Teoremas Asintóticos {background-color="#F4C430" .inverse .center .middle .section-title}
 
-## Teorema del Límite Central {.inverse .center .middle .section-title}
+## Teorema del Límite Central {background-color="#F4C430" .inverse .center .middle .section-title}
 ## Convergencia en Distribución
 
 ## Teorema del Límite Central
@@ -281,7 +282,7 @@ $\quad \quad \quad \quad$ Por tanto
 $\frac{1}{\sqrt{n}} \sum_{i=1}^{n}{Z_{i}} \sim \frac{1}{\sqrt{n}} \text{Normal}(0, n) \sim \text{Normal}(0, 1)$
 :::
 
-## Hasta la próxima clase. Gracias! {.inverse .center .middle}
+## Hasta la próxima clase. Gracias! {background-color="#F4C430" .inverse .center .middle}
 
 <br>
 Mauricio Bucca <br>

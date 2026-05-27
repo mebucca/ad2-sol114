@@ -6,18 +6,20 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#C80815"
 ---
 
-## {.inverse .center .middle}
+## {background-color="#007FFF" .inverse .center .middle}
 
 ```{r setup, include=FALSE}
+options(scipen=999)
 knitr::opts_chunk$set(eval = T, echo = T)
 ```
 
@@ -109,7 +111,7 @@ Estructura general de una tabla 2-way, $I \times J$
 | $X=x_{I}$ 	|  $n_{I1}$ 	|  $n_{I2}$ 	| $\dots$ 	|  $n_{IJ}$ 	| $n_{I+}$ 	|
 |   Total   	|  $n_{+1}$ 	|  $n_{+2}$ 	| $\dots$ 	|  $n_{+J}$ 	| $n_{++}$ 	|
 
-## Estructura probabilística {.inverse .center .middle .section-title}
+## Estructura probabilística {background-color="#007FFF" .inverse .center .middle .section-title}
 
 ## Distribución conjunta
 
@@ -288,7 +290,7 @@ grid.arrange(
 ```
 :::
 
-## Distribuciones condicionales {.inverse .center .middle .section-title}
+## Distribuciones condicionales {background-color="#007FFF" .inverse .center .middle .section-title}
 
 ## Distribuciones condicionales 
 
@@ -486,7 +488,7 @@ print(joint_income_vote_indep)
 
 [¿Se parece la distribución observada a la distribución que observariamos si voto e ingresos no estuvieran asociados?]{.bold}
 
-## Hasta la próxima clase. Gracias! {.inverse .center .middle}
+## Hasta la próxima clase. Gracias! {background-color="#007FFF" .inverse .center .middle}
 
 <br>
 Mauricio Bucca <br>

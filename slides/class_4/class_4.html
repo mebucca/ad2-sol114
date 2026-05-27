@@ -6,11 +6,11 @@
 <script src="class_4_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_4_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_4_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_4_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_4_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,9 +30,25 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="class_4_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_4_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_4_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_4_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_4_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -141,9 +157,9 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
-<section id="distribuciones-discretas" class="slide level2 inverse center middle">
+<section id="distribuciones-discretas" class="slide level2 inverse center middle" data-background-color="#6A8EAE">
 <h2>Distribuciones Discretas</h2>
 <h3 id="intuición">Intuición</h3>
 </section>
@@ -176,7 +192,7 @@
 </div>
 </div>
 </section>
-<section id="distribuciones-discretas-1" class="slide level2 inverse center middle">
+<section id="distribuciones-discretas-1" class="slide level2 inverse center middle" data-background-color="#6A8EAE">
 <h2>Distribuciones Discretas</h2>
 <h3 id="distribución-bernoulli">Distribución Bernoulli</h3>
 </section>
@@ -186,8 +202,8 @@
 <div class="pull-left">
 <ul>
 <li><p>Experimento: tiramos una moneda al aire.</p></li>
-<li><p><span class="math inline">\(X\)</span> es una variable aleatoria tal que <span class="math inline">\(X=1\)</span> (Cara) o <span class="math inline">\(X=0\)</span> (Sello).</p></li>
-<li><p>La probabilidad de obtener Cara es <span class="math inline">\(p=0.7\)</span> y la de Sello es <span class="math inline">\(1-p = 0.3\)</span></p></li>
+<li><p><span class="math inline">X</span> es una variable aleatoria tal que <span class="math inline">X=1</span> (Cara) o <span class="math inline">X=0</span> (Sello).</p></li>
+<li><p>La probabilidad de obtener Cara es <span class="math inline">p=0.7</span> y la de Sello es <span class="math inline">1-p = 0.3</span></p></li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
@@ -204,24 +220,24 @@
 <p><span class="bold">Función de masa probabilistica (PMF):</span></p>
 <p><br></p>
 <p>X es una variable aleatoria Bernoulli, es decir</p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 f(x) =
   \begin{cases}
     p  &amp; \quad \text{si } x=1\\
     1 - p  &amp; \quad \text{si } x=0 \\
     0 &amp; \quad \text{otro}
   \end{cases}
-\end{align}\]</span></p>
+\end{align}</span></p>
 <p><br> <br></p>
 <p>En modo más sintético:</p>
-<p><span class="math display">\[f(x) = p^{x}(1-p)^{1-x}  \quad \text{si } x=1 \text{ o } x=0\]</span></p>
+<p><span class="math display">f(x) = p^{x}(1-p)^{1-x}  \quad \text{si } x=1 \text{ o } x=0</span></p>
 </div>
 </section>
 <section class="slide level2">
 
 <h3 id="distribución-bernoulli-2">Distribución Bernoulli</h3>
 <p><span class="bold">Ilustración via simulación en</span> <code>R</code></p>
-<p>Tiremos una moneda con probabilidad de obtener “Cara” ( <span class="math inline">\(1\)</span> ) de 70% ( <span class="math inline">\(p=0.7\)</span> )</p>
+<p>Tiremos una moneda con probabilidad de obtener “Cara” ( <span class="math inline">1</span> ) de 70% ( <span class="math inline">p=0.7</span> )</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 1</code></pre>
@@ -232,14 +248,14 @@ f(x) =
 <p>Repitamos el proceso 1000 veces …</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
-<pre><code> [1] 1 1 1 1 1 0 1 1 1 1 1 1 1 1 0 0 0 1 0 1</code></pre>
+<pre><code> [1] 0 0 1 0 1 0 1 0 0 1 1 1 0 1 1 1 1 1 1 0</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] "P(Cara) =  0.709"</code></pre>
+<pre><code>[1] "P(Cara) =  0.677"</code></pre>
 </div>
 </div>
 </section>
-<section id="distribuciones-discretas-2" class="slide level2 inverse center middle">
+<section id="distribuciones-discretas-2" class="slide level2 inverse center middle" data-background-color="#6A8EAE">
 <h2>Distribuciones Discretas</h2>
 <h3 id="distribución-binomial">Distribución Binomial</h3>
 </section>
@@ -251,18 +267,18 @@ f(x) =
 <p>. . .</p>
 <p>Ejemplo,</p>
 <ul>
-<li><p>Supongamos que <span class="math inline">\(X\)</span> es una variable de Bernoulli que toma el valor 1 cuando se obtiene “Cara” al lanzar una moneda</p></li>
-<li><p><span class="math inline">\(\mathbb{P}(X=1)=p\)</span></p></li>
+<li><p>Supongamos que <span class="math inline">X</span> es una variable de Bernoulli que toma el valor 1 cuando se obtiene “Cara” al lanzar una moneda</p></li>
+<li><p><span class="math inline">\mathbb{P}(X=1)=p</span></p></li>
 </ul>
 <p><br></p>
 <p>. . .</p>
 <ul>
-<li><p>Ahora, supongamos que lanzamos la misma moneda 3 veces. Llamamos a estas variables <span class="math inline">\(X_{1}, X_{2}, X_{3}\)</span></p></li>
-<li><p>Definamos <span class="math inline">\(Y = X_{1} + X_{2} + X_{3}\)</span></p></li>
+<li><p>Ahora, supongamos que lanzamos la misma moneda 3 veces. Llamamos a estas variables <span class="math inline">X_{1}, X_{2}, X_{3}</span></p></li>
+<li><p>Definamos <span class="math inline">Y = X_{1} + X_{2} + X_{3}</span></p></li>
 </ul>
 <p>. . .</p>
 <ul>
-<li><span class="math inline">\(Y\)</span> sigue una distribución Binomial, o <span class="math inline">\(Y \sim \text{Binomial}\)</span></li>
+<li><span class="math inline">Y</span> sigue una distribución Binomial, o <span class="math inline">Y \sim \text{Binomial}</span></li>
 </ul>
 </section>
 <section class="slide level2">
@@ -271,68 +287,68 @@ f(x) =
 <p><span class="bold">Ejercicio rápido:</span></p>
 <p><br></p>
 <div class="content-box-primary">
-<p><span class="bolder">Pregunta 1:</span> ¿Cuál es la probabilidad de obtener tres “Caras”? Es decir, ¿Cuál es la probabilidad de que <span class="math inline">\(Y=3\)</span>?</p>
+<p><span class="bolder">Pregunta 1:</span> ¿Cuál es la probabilidad de obtener tres “Caras”? Es decir, ¿Cuál es la probabilidad de que <span class="math inline">Y=3</span>?</p>
 </div>
 <p>. . .</p>
 <div class="content-box-secondary">
 <ul>
 <li>Dado que los 3 ensayos son independientes podemos expresar esta probabilidad como:</li>
 </ul>
-<p><span class="math display">\[\mathbb{P}(Y=3) =  \mathbb{P}(X_{1}=1,X_{2}=1,X_{3}=1) = \mathbb{P}(X_{1}=1)\mathbb{P}(X_{2}=1)\mathbb{P}(X_{3}=1)\]</span> <br></p>
+<p><span class="math display">\mathbb{P}(Y=3) =  \mathbb{P}(X_{1}=1,X_{2}=1,X_{3}=1) = \mathbb{P}(X_{1}=1)\mathbb{P}(X_{2}=1)\mathbb{P}(X_{3}=1)</span> <br></p>
 <ul>
-<li>Y dado que las tres variables distribuyen Bernoulli con la misma probabilidad <span class="math inline">\(p\)</span>, obtenemos:</li>
+<li>Y dado que las tres variables distribuyen Bernoulli con la misma probabilidad <span class="math inline">p</span>, obtenemos:</li>
 </ul>
-<p><span class="math display">\[\mathbb{P}(Y=3) = p \times p \times p =  p^{3}\]</span></p>
+<p><span class="math display">\mathbb{P}(Y=3) = p \times p \times p =  p^{3}</span></p>
 </div>
 </section>
 <section class="slide level2">
 
 <h3 id="distribución-binomial-3">Distribución Binomial</h3>
 <div class="content-box-primary">
-<p><span class="bolder">Pregunta 2:</span> ¿Cuál es la probabilidad de obtener 2 “Caras” con 3 tiros? Es decir, ¿Cuál es la probabilidad de que <span class="math inline">\(Y=2\)</span>?</p>
+<p><span class="bolder">Pregunta 2:</span> ¿Cuál es la probabilidad de obtener 2 “Caras” con 3 tiros? Es decir, ¿Cuál es la probabilidad de que <span class="math inline">Y=2</span>?</p>
 </div>
 <p>. . .</p>
 <ul>
-<li>Por simpleza, consideremos la siguiente secuencia: <span class="math inline">\(\{X_{1}=1,X_{2}=1,X_{3}=0\}\)</span>, que satisface <span class="math inline">\(Y=2\)</span></li>
+<li>Por simpleza, consideremos la siguiente secuencia: <span class="math inline">\{X_{1}=1,X_{2}=1,X_{3}=0\}</span>, que satisface <span class="math inline">Y=2</span></li>
 </ul>
 <p>. . .</p>
 <ul>
 <li>La probabilidad de obtener esta secuencia es:</li>
 </ul>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
   \mathbb{P}(X_{1}=1,X_{2}=1,X_{3}=0)  &amp;= \mathbb{P}(X_{1}=1) \times \mathbb{P}(X_{2}=1) \times \mathbb{P}(X_{3}=0)  \\
                               &amp;= p \times p \times (1-p) =  p^{2}(1-p)
-\end{align}\]</span></p>
+\end{align}</span></p>
 <p>. . .</p>
 <ul>
-<li>Sin embargo, hay 3 secuencias que satisfacen <span class="math inline">\(Y=2\)</span>.</li>
+<li>Sin embargo, hay 3 secuencias que satisfacen <span class="math inline">Y=2</span>.</li>
 </ul>
 <p>. . .</p>
-<p>También <span class="math inline">\(\{X_{1}=1,X_{2}=0,X_{3}=1\}\)</span> y <span class="math inline">\(\{X_{1}=0,X_{2}=1,X_{3}=1\}\)</span>, cada una con probabilidad de ocurrencia <span class="math inline">\(p^{2}(1-p)^{1}\)</span>. Por tanto:</p>
+<p>También <span class="math inline">\{X_{1}=1,X_{2}=0,X_{3}=1\}</span> y <span class="math inline">\{X_{1}=0,X_{2}=1,X_{3}=1\}</span>, cada una con probabilidad de ocurrencia <span class="math inline">p^{2}(1-p)^{1}</span>. Por tanto:</p>
 <p>. . .</p>
 <div class="content-box-secondary">
-<p><span class="bolder">Respuesta:</span> la probabilidad de conseguir 2 “Caras” con 3 tiros es: <span class="math display">\[\mathbb{P}(Y=2) = 3 \times  p^{2}(1-p)^{1}\]</span></p>
+<p><span class="bolder">Respuesta:</span> la probabilidad de conseguir 2 “Caras” con 3 tiros es: <span class="math display">\mathbb{P}(Y=2) = 3 \times  p^{2}(1-p)^{1}</span></p>
 </div>
 </section>
 <section class="slide level2">
 
 <h3 id="distribución-binomial-4">Distribución Binomial</h3>
-<p><span class="bold">Generalización</span>: lanzamos la misma moneda <span class="math inline">\(n\)</span> veces y la variable <span class="math inline">\(Y\)</span> cuantifica el número de “Caras” (1) obtenidas.</p>
-<p><span class="math display">\[Y = \sum^{n}_{i=1} X_{i}\]</span></p>
+<p><span class="bold">Generalización</span>: lanzamos la misma moneda <span class="math inline">n</span> veces y la variable <span class="math inline">Y</span> cuantifica el número de “Caras” (1) obtenidas.</p>
+<p><span class="math display">Y = \sum^{n}_{i=1} X_{i}</span></p>
 <p>. . .</p>
 <div class="content-box-primary">
-<p><span class="bolder">Pregunta:</span> ¿Cuál es la probabilidad de conseguir <span class="math inline">\(y\)</span> “Caras” con <span class="math inline">\(n\)</span> tiros?</p>
+<p><span class="bolder">Pregunta:</span> ¿Cuál es la probabilidad de conseguir <span class="math inline">y</span> “Caras” con <span class="math inline">n</span> tiros?</p>
 </div>
 <p>. . .</p>
 <ul>
-<li><p>La probabilidad de obtener una secuencia particular con <span class="math inline">\(y\)</span> “Caras” a partir de <span class="math inline">\(n\)</span> lanzamientos es <span class="math inline">\(p^{y}(1-p)^{n-y}\)</span></p></li>
-<li><p>Existen <span class="math inline">\({n \choose y} = \frac{n!}{y! (n-y)!}\)</span> secuencias de este tipo…</p></li>
+<li><p>La probabilidad de obtener una secuencia particular con <span class="math inline">y</span> “Caras” a partir de <span class="math inline">n</span> lanzamientos es <span class="math inline">p^{y}(1-p)^{n-y}</span></p></li>
+<li><p>Existen <span class="math inline">{n \choose y} = \frac{n!}{y! (n-y)!}</span> secuencias de este tipo…</p></li>
 </ul>
 <p>. . .</p>
 <p>Por tanto,</p>
-<p><span class="math display">\[\mathbb{P}(Y=y) = f(y) = \frac{n!}{y! (n-y)!} \times p^{y} (1-p)^{n-y}\]</span></p>
+<p><span class="math display">\mathbb{P}(Y=y) = f(y) = \frac{n!}{y! (n-y)!} \times p^{y} (1-p)^{n-y}</span></p>
 <p>. . .</p>
-<p>En otras palabras, <span class="math inline">\(Y\)</span> distribuye binomial con <span class="bold">parámetros</span> <span class="math inline">\(n\)</span> y <span class="math inline">\(p\)</span>: <span class="math inline">\(Y \sim \text{Binomial}(n,p)\)</span></p>
+<p>En otras palabras, <span class="math inline">Y</span> distribuye binomial con <span class="bold">parámetros</span> <span class="math inline">n</span> y <span class="math inline">p</span>: <span class="math inline">Y \sim \text{Binomial}(n,p)</span></p>
 </section>
 <section class="slide level2">
 
@@ -340,7 +356,7 @@ f(x) =
 <p>En práctica … <br></p>
 <p>. . .</p>
 <ul>
-<li><strong>Contexto</strong>: Tenemos una moneda que, cuando se lanza, tiene una probabilidad de <span class="math inline">\(p = 0.6\)</span> de caer en “Cara” y una probabilidad de <span class="math inline">\(1-p = 0.4\)</span> de caer en “Sello”.</li>
+<li><strong>Contexto</strong>: Tenemos una moneda que, cuando se lanza, tiene una probabilidad de <span class="math inline">p = 0.6</span> de caer en “Cara” y una probabilidad de <span class="math inline">1-p = 0.4</span> de caer en “Sello”.</li>
 </ul>
 <p>. . .</p>
 <ul>
@@ -348,23 +364,23 @@ f(x) =
 </ul>
 <p>. . .</p>
 <ul>
-<li><strong>Solución</strong>: <span class="math inline">\(X \sim \text{Binomial}(n=10,p=0.6)\)</span></li>
+<li><strong>Solución</strong>: <span class="math inline">X \sim \text{Binomial}(n=10,p=0.6)</span></li>
 </ul>
 <p><br></p>
 <p>. . .</p>
-<p><span class="math inline">\(\quad \quad \quad \mathbb{P}(X=3) = \binom{10}{3} \times (0.6)^3 \times (0.4)^{10-3}\)</span></p>
+<p><span class="math inline">\quad \quad \quad \mathbb{P}(X=3) = \binom{10}{3} \times (0.6)^3 \times (0.4)^{10-3}</span></p>
 <p><br></p>
 <p>. . .</p>
-<p><span class="math inline">\(\quad \quad \quad \mathbb{P}(X=3) = \frac{10!}{3! \times 7!} \times (0.6)^3 \times (0.4)^7\)</span></p>
+<p><span class="math inline">\quad \quad \quad \mathbb{P}(X=3) = \frac{10!}{3! \times 7!} \times (0.6)^3 \times (0.4)^7</span></p>
 <p><br></p>
 <p>. . .</p>
-<p><span class="math inline">\(\quad \quad \quad \mathbb{P}(X=3) = \frac{10 \times 9 \times \dots 1}{(3 \times 2 \times1) \times (7 \times 6 \times \dots 1 )} \times (0.6)^3 \times (0.4)^7\)</span></p>
+<p><span class="math inline">\quad \quad \quad \mathbb{P}(X=3) = \frac{10 \times 9 \times \dots 1}{(3 \times 2 \times1) \times (7 \times 6 \times \dots 1 )} \times (0.6)^3 \times (0.4)^7</span></p>
 <p><br></p>
 <p>. . .</p>
-<p><span class="math inline">\(\quad \quad \quad \mathbb{P}(X=3) = 120 \times 0.216 \times 0.0028\)</span></p>
+<p><span class="math inline">\quad \quad \quad \mathbb{P}(X=3) = 120 \times 0.216 \times 0.0028</span></p>
 <p><br></p>
 <p>. . .</p>
-<p><span class="math inline">\(\quad \quad \quad \mathbb{P}(X=3) \approx 0.0425\)</span></p>
+<p><span class="math inline">\quad \quad \quad \mathbb{P}(X=3) \approx 0.0425</span></p>
 </section>
 <section class="slide level2">
 
@@ -372,7 +388,7 @@ f(x) =
 <div class="pull-left">
 <ul>
 <li><p>Ahora observamos la distribución completa</p></li>
-<li><p>La probabilidad de obtener <span class="math inline">\(0, 1, \dots, 10\)</span> caras es:</p></li>
+<li><p>La probabilidad de obtener <span class="math inline">0, 1, \dots, 10</span> caras es:</p></li>
 </ul>
 <div class="cell">
 <div class="cell-output-display">
@@ -389,12 +405,12 @@ f(x) =
 <p><span class="bold">Función de masa probabilistica (PMF):</span></p>
 <p><br></p>
 <p>X es una variable aleatoria Binomial, es decir</p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \mathbb{P}(X=x) = f(x) = \frac{n!}{x! (n-x)!}  p^{x} (1-p)^{n-x}
-\end{align}\]</span></p>
+\end{align}</span></p>
 <p><br></p>
 <p>En este caso,</p>
-<p><span class="math inline">\(n=10\)</span> y <span class="math inline">\(p=0.6\)</span></p>
+<p><span class="math inline">n=10</span> y <span class="math inline">p=0.6</span></p>
 </div>
 </section>
 <section class="slide level2">
@@ -419,16 +435,16 @@ f(x) =
 <p><span class="bold">Función de distribución acumulada (CDF):</span></p>
 <p><br></p>
 <p>X es una variable aleatoria Binomial, es decir</p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 F(k; n, p) &amp;= \mathbb{P}(X \leq k) \\ \\
            &amp;= \sum_{i=0}^{k} \mathbb{P}(X=i) \\ \\
            &amp;= \sum_{i=0}^{k} \frac{n!}{i! (n-i)!}  p^i (1-p)^{n-i}
-\end{align}\]</span></p>
+\end{align}</span></p>
 <p>En este caso,</p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 F(k=5; n=10, p=0.6) &amp;=  \mathbb{P}(X=0) + \dots + \mathbb{P}(X=5) \\ \\
                     &amp;\approx 0.366
-\end{align}\]</span></p>
+\end{align}</span></p>
 </div>
 </section>
 <section class="slide level2">
@@ -453,19 +469,19 @@ F(k=5; n=10, p=0.6) &amp;=  \mathbb{P}(X=0) + \dots + \mathbb{P}(X=5) \\ \\
 <p><span class="bold">Función de distribución acumulada (CDF):</span></p>
 <p><br></p>
 <p>X es una variable aleatoria Binomial, es decir</p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 F(k; n, p) &amp;= \mathbb{P}(X \leq k) \\ \\
            &amp;= \sum_{i=0}^{k} \mathbb{P}(X=i) \\ \\
            &amp;= \sum_{i=0}^{k} \frac{n!}{i! (n-i)!}  p^i (1-p)^{n-i}
-\end{align}\]</span></p>
+\end{align}</span></p>
 <p>En este caso,</p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 F(k=5; n=10, p=0.6) &amp;=  \mathbb{P}(X=0) + \dots + \mathbb{P}(X=5) \\ \\
                     &amp;\approx 0.366
-\end{align}\]</span></p>
+\end{align}</span></p>
 </div>
 </section>
-<section id="section" class="slide level2 inverse center middle">
+<section id="section" class="slide level2 inverse center middle" data-background-color="#6A8EAE">
 <h2></h2>
 <p><span class="huge"><strong>Hasta la próxima clase. Gracias!</strong></span></p>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
@@ -491,7 +507,6 @@ F(k=5; n=10, p=0.6) &amp;=  \mathbb{P}(X=0) + \dots + \mathbb{P}(X=5) \\ \\
   <script src="class_4_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_4_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_4_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_4_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -527,7 +542,7 @@ F(k=5; n=10, p=0.6) &amp;=  \mathbb{P}(X=0) + \dots + \mathbb{P}(X=5) \\ \\
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -659,27 +674,9 @@ F(k=5; n=10, p=0.6) &amp;=  \mathbb{P}(X=0) + \dots + \mathbb{P}(X=5) \\ \\
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -772,13 +769,14 @@ F(k=5; n=10, p=0.6) &amp;=  \mathbb{P}(X=0) + \dots + \mathbb{P}(X=5) \\ \\
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

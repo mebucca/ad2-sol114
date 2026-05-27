@@ -6,16 +6,17 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#ff7377"
 ---
 
-## Distribuciones Continuas {.inverse .center .middle}
+## Distribuciones Continuas {background-color="#ffec73" .inverse .center .middle}
 ### Intuición
 
 ---
@@ -55,7 +56,7 @@ Copa Mundial de la FIFA 1974. Carlos Caszely se prepara para un importante penal
 :::
 :::
 
-## Distribuciones Continuas {.inverse .center .middle}
+## Distribuciones Continuas {background-color="#ffec73" .inverse .center .middle}
 ### Distribución Uniforme
 
 ---
@@ -442,7 +443,7 @@ En este caso:
 \end{align}
 :::
 
-## Distribuciones Continuas {.inverse .center .middle}
+## Distribuciones Continuas {background-color="#ffec73" .inverse .center .middle}
 ### Distribución Normal
 
 ## {.center .middle}
@@ -843,7 +844,7 @@ pnorm(q=28, mean=27.5, sd=1.5) -
 ```
 :::
 
-## {.inverse .center .middle}
+## {background-color="#ffec73" .inverse .center .middle}
 
 [
 **Hasta la próxima clase. Gracias!**

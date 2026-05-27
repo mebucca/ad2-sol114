@@ -6,11 +6,11 @@
 <script src="class_0_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_0_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_0_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_0_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_0_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia   para Estadística Social (SOL512)</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,9 +30,25 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="class_0_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_0_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_0_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_0_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_0_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -141,9 +157,9 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
-<section id="probabilidad-estadística" class="slide level2 inverse center middle section-title">
+<section id="probabilidad-estadística" class="slide level2 inverse center middle section-title" data-background-color="#1f2026">
 <h2>Probabilidad &amp; Estadística</h2>
 </section>
 <section id="probabilidad-estadística-1" class="slide level2">
@@ -172,7 +188,7 @@
 </div>
 </div>
 </section>
-<section id="equipo-de-trabajo" class="slide level2 inverse center middle section-title">
+<section id="equipo-de-trabajo" class="slide level2 inverse center middle section-title" data-background-color="#1f2026">
 <h2>Equipo de trabajo</h2>
 </section>
 <section id="profesor" class="slide level2">
@@ -225,7 +241,7 @@
 </div>
 </div>
 </section>
-<section id="filosofía-de-enseñanza" class="slide level2 inverse center middle section-title">
+<section id="filosofía-de-enseñanza" class="slide level2 inverse center middle section-title" data-background-color="#1f2026">
 <h2>Filosofía de enseñanza</h2>
 </section>
 <section class="slide level2">
@@ -248,14 +264,14 @@
 <div class="pull-left">
 <p><span class="bold">Muchas cosas parecen más difíciles de lo que son</span></p>
 <div class="huge">
-<p><span class="math display">\[\int xf(x)dx := \mu \]</span></p>
+<p><span class="math display">\int xf(x)dx := \mu </span></p>
 </div>
 </div>
 <p>. . .</p>
 <div class="pull-right">
 <p><span class="bold">Otras parecen más simples de lo que son</span></p>
 <div class="huge">
-<p><span class="math display">\[X   \text{ es una variable}\]</span></p>
+<p><span class="math display">X   \text{ es una variable}</span></p>
 </div>
 </div>
 <p>. . .</p>
@@ -277,7 +293,7 @@
 <p><span class="bold">Fundamentos sólidos</span> <img data-src="foundations.jpg" alt="methods"></p>
 </div>
 </section>
-<section id="recursos" class="slide level2 inverse center middle section-title">
+<section id="recursos" class="slide level2 inverse center middle section-title" data-background-color="#1f2026">
 <h2>Recursos</h2>
 </section>
 <section id="repositorio-github" class="slide level2">
@@ -324,7 +340,7 @@
 </div>
 </div>
 </section>
-<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle" data-background-color="#1f2026">
 <h2>Hasta la próxima clase. Gracias!</h2>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
 
@@ -349,7 +365,6 @@
   <script src="class_0_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_0_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_0_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_0_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -385,7 +400,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -517,27 +532,9 @@
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -592,13 +589,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

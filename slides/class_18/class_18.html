@@ -6,11 +6,11 @@
 <script src="class_18_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_18_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_18_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_18_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_18_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -96,9 +96,25 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="class_18_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_18_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_18_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_18_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_18_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -207,9 +223,9 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
-<section id="section" class="slide level2 inverse center middle">
+<section id="section" class="slide level2 inverse center middle" data-background-color="#ADD8E6">
 <h2></h2>
 </section>
 <section>
@@ -236,7 +252,7 @@
 <li><p>Dos problemas:</p>
 <ul>
 <li><p>Muestras pequeñas: la empresa no quería desperdiciar cerveza en experimentos.</p></li>
-<li><p>No conocía la varianza poblacional <span class="math inline">\(\sigma^2\)</span> de los ingredientes.</p></li>
+<li><p>No conocía la varianza poblacional <span class="math inline">\sigma^2</span> de los ingredientes.</p></li>
 </ul></li>
 <li><p>Ambas limitaciones dificultaban el uso de herramientas estadísticas como el <em>TLC</em>.</p></li>
 </ul>
@@ -246,11 +262,11 @@
 <h2>Problemas: tamaño Muestral y varianza desconocida</h2>
 <p><br> <br></p>
 <ul>
-<li><span class="bold">Tamaño Muestral</span>: Cuando se trabaja con muestras pequeñas ( <span class="math inline">\(\approx n &lt; 30\)</span> ), los resultados estadísticos tienden a ser menos precisos.</li>
+<li><span class="bold">Tamaño Muestral</span>: Cuando se trabaja con muestras pequeñas ( <span class="math inline">\approx n &lt; 30</span> ), los resultados estadísticos tienden a ser menos precisos.</li>
 </ul>
 <p><br></p>
 <ul>
-<li><span class="bold">Varianza Desconocida</span>: Cuando no conocemos la <strong>varianza poblacional</strong> ( <span class="math inline">\(\sigma^2\)</span> ), debemos estimarla a partir de los datos: <span class="math inline">\(s^2\)</span>. Esto introduce una fuente adicional de incertidumbre, ya que <span class="math inline">\(s^2\)</span> es una estimación basada en datos limitados.</li>
+<li><span class="bold">Varianza Desconocida</span>: Cuando no conocemos la <strong>varianza poblacional</strong> ( <span class="math inline">\sigma^2</span> ), debemos estimarla a partir de los datos: <span class="math inline">s^2</span>. Esto introduce una fuente adicional de incertidumbre, ya que <span class="math inline">s^2</span> es una estimación basada en datos limitados.</li>
 </ul>
 <p><br> - Relación entre <span class="bold">tamaño muestral</span> y <span class="bold">varianza desconocida</span>: cuando usamos la <strong>varianza muestral</strong> en lugar de la varianza poblacional, perdemos un <strong>grado de libertad</strong>.</p>
 <ul>
@@ -266,21 +282,21 @@
 <p><br></p>
 <p><span class="bold">Ejemplo:</span></p>
 <p>Tenemos 3 valores y conocemos la media:</p>
-<p><span class="math display">\[ X_1, X_2, X_3 \quad \text{con} \quad \bar{X} = 10 \]</span></p>
+<p><span class="math display"> X_1, X_2, X_3 \quad \text{con} \quad \bar{X} = 10 </span></p>
 <ul>
-<li>Si ya conocemos <span class="math inline">\(X_1\)</span> y <span class="math inline">\(X_2\)</span>, <span class="math inline">\(X_3\)</span> no puede variar libremente, porque está restringido por el valor de la media. Por tanto, solo hay <strong>2 grados de libertad</strong>.</li>
+<li>Si ya conocemos <span class="math inline">X_1</span> y <span class="math inline">X_2</span>, <span class="math inline">X_3</span> no puede variar libremente, porque está restringido por el valor de la media. Por tanto, solo hay <strong>2 grados de libertad</strong>.</li>
 </ul>
 </div>
 <div class="fragment">
 <p><br></p>
 <ul>
 <li><p>En el contexto de la <strong>varianza muestral</strong>, uno de los valores (la media muestral) ya ha sido utilizado para el cálculo, por lo que se pierde un grado de libertad.</p></li>
-<li><p>Luego, cuando calculamos la varianza en una muestra de tamaño <span class="math inline">\(n\)</span>, solo quedan <span class="math inline">\(n-1\)</span> grados de libertad.</p></li>
+<li><p>Luego, cuando calculamos la varianza en una muestra de tamaño <span class="math inline">n</span>, solo quedan <span class="math inline">n-1</span> grados de libertad.</p></li>
 </ul>
 </div>
 </section>
 <section id="la-solución-distribución-t-student" class="slide level2">
-<h2>La Solución: distribución <span class="math inline">\(t\)</span>-Student</h2>
+<h2>La Solución: distribución <span class="math inline">t</span>-Student</h2>
 <div class="center">
 <div class="quarto-figure quarto-figure-center">
 <figure>
@@ -298,18 +314,18 @@
 <p><br></p>
 <p>. . .</p>
 <ul>
-<li><p>La <strong>distribución <span class="math inline">\(t\)</span> de Student</strong> ajusta esta incertidumbre asignando mayor probabilidad de observar valores extremos.</p></li>
+<li><p>La <strong>distribución <span class="math inline">t</span> de Student</strong> ajusta esta incertidumbre asignando mayor probabilidad de observar valores extremos.</p></li>
 <li><p>Probabilidad asignada a valores extremos es mayor mientras más pequeña es la muestra.</p></li>
-<li><p>La distribución <span class="math inline">\(t\)</span> es, por tanto, más conservadora</p></li>
+<li><p>La distribución <span class="math inline">t</span> es, por tanto, más conservadora</p></li>
 </ul>
 </section>
 <section class="slide level2">
 
-<h3 id="distribución-t-estándar">Distribución <span class="math inline">\(t\)</span> Estándar</h3>
+<h3 id="distribución-t-estándar">Distribución <span class="math inline">t</span> Estándar</h3>
 <div class="pull-left">
 <p>Bajo las circunstancias mencionadas (varianza desconocida y muestra chica), al realizar el proceso de estandarización obtenemos:</p>
 <p><br></p>
-<p><span class="math display">\[t = \frac{\bar{X} - \mu}{\frac{s}{\sqrt{n}}} \sim t_{v}\]</span></p>
+<p><span class="math display">t = \frac{\bar{X} - \mu}{\frac{s}{\sqrt{n}}} \sim t_{v}</span></p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Student_t_pdf.svg/400px-Student_t_pdf.svg.png"></p>
@@ -320,22 +336,22 @@
 <div class="pull-right">
 <p><br><br><br><br><br><br><br><br><br><br> donde:</p>
 <ul>
-<li><p><span class="math inline">\(\bar{X}\)</span> es la media muestral,</p></li>
-<li><p><span class="math inline">\(\mu\)</span> es la media poblacional bajo <span class="math inline">\(H_0\)</span>,</p></li>
-<li><p><span class="math inline">\(s\)</span> es la desviación estándar muestral,</p></li>
-<li><p><span class="math inline">\(n\)</span> es el tamaño de la muestra,</p></li>
-<li><p><span class="math inline">\(k\)</span> es el número de parámetros estimados</p></li>
-<li><p><span class="math inline">\(v = n - k\)</span> son los <strong>grados de libertad</strong></p></li>
+<li><p><span class="math inline">\bar{X}</span> es la media muestral,</p></li>
+<li><p><span class="math inline">\mu</span> es la media poblacional bajo <span class="math inline">H_0</span>,</p></li>
+<li><p><span class="math inline">s</span> es la desviación estándar muestral,</p></li>
+<li><p><span class="math inline">n</span> es el tamaño de la muestra,</p></li>
+<li><p><span class="math inline">k</span> es el número de parámetros estimados</p></li>
+<li><p><span class="math inline">v = n - k</span> son los <strong>grados de libertad</strong></p></li>
 </ul>
 </div>
 </section>
 <section class="slide level2">
 
-<h3 id="distribución-t-estándar-1">Distribución <span class="math inline">\(t\)</span> Estándar</h3>
+<h3 id="distribución-t-estándar-1">Distribución <span class="math inline">t</span> Estándar</h3>
 <div class="pull-left">
 <p>Bajo las circunstancias mencionadas (varianza desconocida y muestra chica), al realizar el proceso de estandarización obtenemos:</p>
 <p><br></p>
-<p><span class="math display">\[t = \frac{\bar{X} - \mu}{\frac{s}{\sqrt{n}}} \sim t_{v}\]</span></p>
+<p><span class="math display">t = \frac{\bar{X} - \mu}{\frac{s}{\sqrt{n}}} \sim t_{v}</span></p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/41/Student_t_pdf.svg/400px-Student_t_pdf.svg.png"></p>
@@ -347,29 +363,29 @@
 <p><br><br><br><br><br><br></p>
 <p><span class="bold">Características</span>:</p>
 <ul>
-<li><p>La distribución <span class="math inline">\(t\)</span> tiene <strong>colas más gruesas</strong> que la normal estándar ( <span class="math inline">\(\text{Normal}(0,1)\)</span> ), reflejando mayor probabilidad de obtener valores extremos en muestras pequeñas.</p></li>
-<li><p><strong>Parámetro clave</strong>: La forma de la distribución <span class="math inline">\(t\)</span> depende de los <strong>grados de libertad</strong> <span class="math inline">\(v\)</span>.</p></li>
-<li><p><strong>Simetría</strong>: La distribución <span class="math inline">\(t\)</span>-standard es simétrica alrededor de 0.</p></li>
-<li><p><strong>Varianza</strong>: La varianza de la distribución <span class="math inline">\(t\)</span>-standard es ligeramente mayor que 1 para muestras pequeñas, y se aproxima a 1 a medida que <span class="math inline">\(n\)</span> aumenta.</p></li>
+<li><p>La distribución <span class="math inline">t</span> tiene <strong>colas más gruesas</strong> que la normal estándar ( <span class="math inline">\text{Normal}(0,1)</span> ), reflejando mayor probabilidad de obtener valores extremos en muestras pequeñas.</p></li>
+<li><p><strong>Parámetro clave</strong>: La forma de la distribución <span class="math inline">t</span> depende de los <strong>grados de libertad</strong> <span class="math inline">v</span>.</p></li>
+<li><p><strong>Simetría</strong>: La distribución <span class="math inline">t</span>-standard es simétrica alrededor de 0.</p></li>
+<li><p><strong>Varianza</strong>: La varianza de la distribución <span class="math inline">t</span>-standard es ligeramente mayor que 1 para muestras pequeñas, y se aproxima a 1 a medida que <span class="math inline">n</span> aumenta.</p></li>
 </ul>
 </div>
 </section>
 <section id="convergencia-entre-la-distribución-t-y-la-normal" class="slide level2">
-<h2>Convergencia entre la Distribución <span class="math inline">\(t\)</span> y la Normal</h2>
+<h2>Convergencia entre la Distribución <span class="math inline">t</span> y la Normal</h2>
 <p><br></p>
-<p>La <strong>distribución t de Student</strong> se aproxima a la <span class="math inline">\(\text{Normal}(0,1)\)</span> cuando el tamaño muestral tiende a infinito: <span class="math inline">\(n \to \infty\)</span>.</p>
+<p>La <strong>distribución t de Student</strong> se aproxima a la <span class="math inline">\text{Normal}(0,1)</span> cuando el tamaño muestral tiende a infinito: <span class="math inline">n \to \infty</span>.</p>
 <p><br></p>
 <div class="fragment">
 <ul>
-<li><p>A medida que el número de grados de libertad aumenta, las colas de la distribución <span class="math inline">\(t\)</span> se vuelven menos pronunciadas.</p></li>
-<li><p>En el límite (cuando <span class="math inline">\(df \to \infty\)</span> ), la distribución <span class="math inline">\(t\)</span> se convierte en la distribución normal estándar.</p></li>
+<li><p>A medida que el número de grados de libertad aumenta, las colas de la distribución <span class="math inline">t</span> se vuelven menos pronunciadas.</p></li>
+<li><p>En el límite (cuando <span class="math inline">df \to \infty</span> ), la distribución <span class="math inline">t</span> se convierte en la distribución normal estándar.</p></li>
 </ul>
 <p><br></p>
 </div>
 <div class="fragment">
-<p>Formalmente, si <span class="math inline">\(T_n\)</span> es un estadístico <span class="math inline">\(t\)</span> con <span class="math inline">\(n-1\)</span> grados de libertad, entonces:</p>
+<p>Formalmente, si <span class="math inline">T_n</span> es un estadístico <span class="math inline">t</span> con <span class="math inline">n-1</span> grados de libertad, entonces:</p>
 <p><br></p>
-<p><span class="math display">\[T_n \xrightarrow{d} \mathcal{N}(0,1) \quad \text{cuando} \quad n \to \infty \]</span></p>
+<p><span class="math display">T_n \xrightarrow{d} \mathcal{N}(0,1) \quad \text{cuando} \quad n \to \infty </span></p>
 </div>
 </section>
 <section id="aplicación-al-test-de-hipótesis" class="slide level2">
@@ -378,17 +394,17 @@
 <p><span class="bold">Paso a Paso del test de hipótesis</span></p>
 <p>Cuando usamos la <strong>distribución t</strong> en un test de hipótesis, el proceso sigue estos pasos:</p>
 <div class="fragment">
-<p>1). Definir <span class="math inline">\(H_1\)</span> y <span class="math inline">\(H_0\)</span>.</p>
+<p>1). Definir <span class="math inline">H_1</span> y <span class="math inline">H_0</span>.</p>
 </div>
 <div class="fragment">
 <p>2). Calcular el estadístico de interés (ej., media muestral)</p>
 </div>
 <div class="fragment">
-<p>3). Transformar el estadístico a valor <span class="math inline">\(t\)</span> (análogo a <span class="math inline">\(z\)</span> pero usando varianza muestral):</p>
-<p><span class="math display">\[t = \frac{\bar{X} - \mu_0}{\frac{s}{\sqrt{n}}}\]</span></p>
+<p>3). Transformar el estadístico a valor <span class="math inline">t</span> (análogo a <span class="math inline">z</span> pero usando varianza muestral):</p>
+<p><span class="math display">t = \frac{\bar{X} - \mu_0}{\frac{s}{\sqrt{n}}}</span></p>
 </div>
 <div class="fragment">
-<p>4). Calcular valor- <span class="math inline">\(p\)</span> en base a la distribución <span class="math inline">\(t\)</span>-standard con grados de libertad <span class="math inline">\(n-k\)</span>.</p>
+<p>4). Calcular valor- <span class="math inline">p</span> en base a la distribución <span class="math inline">t</span>-standard con grados de libertad <span class="math inline">n-k</span>.</p>
 </div>
 <div class="fragment">
 <p>5). Comparar con nivel de significación y tomar una decisión.</p>
@@ -399,22 +415,22 @@
 <p>La <strong>distribución t de Student</strong> se utiliza principalmente bajo las siguientes condiciones:</p>
 <ol type="1">
 <li><p>Varianza poblacional es desconocida</p></li>
-<li><p>El tamaño de la muestra es pequeño (generalmente <span class="math inline">\(n &lt; 30\)</span>).</p></li>
+<li><p>El tamaño de la muestra es pequeño (generalmente <span class="math inline">n &lt; 30</span>).</p></li>
 </ol>
 <p><br></p>
 <div class="fragment">
-<p>Entonces, ¿cuándo se usa la distribución <span class="math inline">\(t\)</span>?</p>
+<p>Entonces, ¿cuándo se usa la distribución <span class="math inline">t</span>?</p>
 <p><br></p>
 </div>
 <div class="fragment">
 <ul>
-<li><p>Varianza desconocida + muestra pequeña: Usamos distribución <span class="math inline">\(t\)</span>.</p></li>
+<li><p>Varianza desconocida + muestra pequeña: Usamos distribución <span class="math inline">t</span>.</p></li>
 <li><p>Varianza desconocida + muestra grande: <em>Podemos</em> usar distribución normal</p></li>
 <li><p>Varianza conocida (sin importar el tamaño muestral): Usamos distribución normal (este siempre es el caso cuando estimamos proporciones!).</p></li>
 </ul>
 </div>
 </section>
-<section id="ejemplo-calorías-en-bebidas-de-starbucks" class="slide level2 inverse center middle">
+<section id="ejemplo-calorías-en-bebidas-de-starbucks" class="slide level2 inverse center middle" data-background-color="#ADD8E6">
 <h2>Ejemplo: Calorías en bebidas de Starbucks</h2>
 </section>
 <section id="ejemplo-calorías-en-bebidas-de-starbucks-1" class="slide level2">
@@ -439,20 +455,20 @@
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code># A tibble: 12 × 2
-   Drink                                      Calories
-   &lt;chr&gt;                                         &lt;dbl&gt;
- 1 Tazo® Bottled Plum Pomegranate                  140
- 2 Nariño 70 Cold Brew                               5
- 3 Iced Espresso Classics - Caramel Macchiato      130
- 4 Iced Cinnamon Dolce Latte                       200
- 5 Iced Caramel Macchiato                          250
- 6 Teavana® Shaken Iced Green Tea                   30
- 7 Iced Coffee                                       0
- 8 Cool Lime Starbucks Refreshers™ Beverage         45
- 9 Iced Coffee                                       5
-10 Nitro Cold Brew with Sweet Cream                 70
-11 Iced Coconutmilk Mocha Macchiato                260
-12 Caffè Mocha                                     290</code></pre>
+   Drink                                          Calories
+   &lt;chr&gt;                                             &lt;dbl&gt;
+ 1 Starbucks® Iced Coffee Unsweetened                   10
+ 2 Iced Coffee                                           5
+ 3 Tazo® Bottled Berry Blossom White                    60
+ 4 Tazo® Bottled Organic Black Lemonade                140
+ 5 Starbucks® Iced Coffee Caramel                       60
+ 6 Tazo® Bottled Organic Black Lemonade                140
+ 7 Teavana® Shaken Iced Peach Green Tea                 60
+ 8 Strawberry Acai Starbucks Refreshers™ Beverage       80
+ 9 Tazo® Bottled White Cranberry                       140
+10 Cappuccino                                          120
+11 Nariño 70 Cold Brew with Milk                         0
+12 Vanilla Crème                                       200</code></pre>
 </div>
 </div>
 </div>
@@ -463,42 +479,42 @@
 <p>Hipótesis de trabajo: <em>“En promedio, un bebestible de Starbuck tiene más de 100 calorías”</em></p>
 <p><br></p>
 <ul>
-<li><p><span class="math inline">\(H_0: \mathbb{E}(X) = 100 \text{ kcal}\)</span></p></li>
-<li><p><span class="math inline">\(H_1: \mathbb{E}(X) &gt; 100 \text{ kcal}\)</span></p></li>
+<li><p><span class="math inline">H_0: \mathbb{E}(X) = 100 \text{ kcal}</span></p></li>
+<li><p><span class="math inline">H_1: \mathbb{E}(X) &gt; 100 \text{ kcal}</span></p></li>
 </ul>
 </section>
 <section id="ejemplo-calorías-en-bebidas-de-starbucks-4" class="slide level2">
 <h2>Ejemplo: Calorías en bebidas de Starbucks</h2>
 <h3 id="paso-2-calcular-un-estadístico">Paso #2: Calcular un Estadístico</h3>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>mu_hat <span class="ot">&lt;-</span> starbucks_muestra <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mu_hat =</span> <span class="fu">mean</span>(Calories)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
-<span id="cb2-2"><a href=""></a><span class="fu">cat</span>(<span class="st">"media muestral: "</span>,mu_hat)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href=""></a>mu_hat <span class="ot">&lt;-</span> starbucks_muestra <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mu_hat =</span> <span class="fu">mean</span>(Calories)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
+<span id="cb2-2"><a href=""></a><span class="fu">cat</span>(<span class="st">"media muestral: "</span>,mu_hat)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>media muestral:  118.75</code></pre>
+<pre><code>media muestral:  84.58333</code></pre>
 </div>
 </div>
 <p>. . .</p>
 <p>Estandarizando nuestro estadístico obtenemos:</p>
-<p><span class="math display">\[\hat{t} = \frac{\hat{\mu} - \mu}{\frac{\sigma}{\sqrt{n}}} = \frac{144.17 - 100}{\frac{\sigma}{\sqrt{12}}}\]</span></p>
+<p><span class="math display">\hat{t} = \frac{\hat{\mu} - \mu}{\frac{\sigma}{\sqrt{n}}} = \frac{144.17 - 100}{\frac{\sigma}{\sqrt{12}}}</span></p>
 <p>. . .</p>
 <ul>
-<li>Como no conocemos <span class="math inline">\(\sigma\)</span> debemos estimarlo a partir de la muestra (<span class="math inline">\(s\)</span>).</li>
+<li>Como no conocemos <span class="math inline">\sigma</span> debemos estimarlo a partir de la muestra (<span class="math inline">s</span>).</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>s <span class="ot">&lt;-</span> starbucks_muestra <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">s =</span> <span class="fu">sd</span>(Calories)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
-<span id="cb4-2"><a href=""></a><span class="fu">cat</span>(<span class="st">"desviación estándard muestral: "</span>, s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a>s <span class="ot">&lt;-</span> starbucks_muestra <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">s =</span> <span class="fu">sd</span>(Calories)) <span class="sc">%&gt;%</span> <span class="fu">pull</span>()</span>
+<span id="cb4-2"><a href=""></a><span class="fu">cat</span>(<span class="st">"desviación estándard muestral: "</span>, s)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>desviación estándard muestral:  108.442</code></pre>
+<pre><code>desviación estándard muestral:  63.72734</code></pre>
 </div>
 </div>
 <p>Luego:</p>
-<p><span class="math inline">\(\hat{t} = \frac{\hat{\mu} - \mu}{\frac{s}{\sqrt{n}}} = \frac{144.17 - 100}{\frac{91.4}{\sqrt{12}}} =\)</span> 0.5989555</p>
+<p><span class="math inline">\hat{t} = \frac{\hat{\mu} - \mu}{\frac{s}{\sqrt{n}}} = \frac{144.17 - 100}{\frac{91.4}{\sqrt{12}}} =</span> -0.8380218</p>
 </section>
 <section id="ejemplo-calorías-en-bebidas-de-starbucks-5" class="slide level2">
 <h2>Ejemplo: Calorías en bebidas de Starbucks</h2>
 <h3 id="paso-3-determinar-la-distribución-nula">Paso #3: Determinar la Distribución Nula</h3>
 <p><br></p>
-<p>En nuestro caso: <span class="math inline">\(\hat{t} \mid H_0 \text{ es verdadera} \sim t_{v=11}\)</span></p>
+<p>En nuestro caso: <span class="math inline">\hat{t} \mid H_0 \text{ es verdadera} \sim t_{v=11}</span></p>
 <p><br></p>
 <p>. . .</p>
 <div class="center">
@@ -514,8 +530,8 @@
 </div>
 <h3 id="paso-4-decidir-el-nivel-de-significación">Paso #4: Decidir el Nivel de Significación</h3>
 <ul>
-<li><p>Trabajaremos a un nivel de significación estadística <span class="math inline">\(\alpha=0.05\)</span></p></li>
-<li><p>Dado que <span class="math inline">\(H_1: \mathbb{E}(X) &gt; 100 \text{ kcal}\)</span>, tiene sentido testear si nuestro estadístico se encuentra en el <span class="math inline">\(\alpha\)</span>% más alto de la distribución nula.</p></li>
+<li><p>Trabajaremos a un nivel de significación estadística <span class="math inline">\alpha=0.05</span></p></li>
+<li><p>Dado que <span class="math inline">H_1: \mathbb{E}(X) &gt; 100 \text{ kcal}</span>, tiene sentido testear si nuestro estadístico se encuentra en el <span class="math inline">\alpha</span>% más alto de la distribución nula.</p></li>
 </ul>
 </section>
 <section id="ejemplo-calorías-en-bebidas-de-starbucks-6" class="slide level2">
@@ -523,20 +539,20 @@
 <h3 id="paso-5-calcular-el-valor-p">Paso #5: Calcular el Valor-p</h3>
 <div class="pull-left">
 <p>En nuestro caso:</p>
-<p><span class="math inline">\(\text{valor-p}: \mathbb{P}( \bar{X} &gt; \hat{\mu} \mid H_{0} \text{ es verdadera})\)</span></p>
+<p><span class="math inline">\text{valor-p}: \mathbb{P}( \bar{X} &gt; \hat{\mu} \mid H_{0} \text{ es verdadera})</span></p>
 <p>equivalente a:</p>
-<p><span class="math inline">\(\text{valor-p} = \mathbb{P}( t_{v=11} &gt; \hat{t})\)</span></p>
+<p><span class="math inline">\text{valor-p} = \mathbb{P}( t_{v=11} &gt; \hat{t})</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>t_hat <span class="ot">=</span> (mu_hat <span class="sc">-</span> <span class="dv">100</span>)<span class="sc">/</span>(s<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">12</span>))</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a>t_hat <span class="ot">=</span> (mu_hat <span class="sc">-</span> <span class="dv">100</span>)<span class="sc">/</span>(s<span class="sc">/</span><span class="fu">sqrt</span>(<span class="dv">12</span>))</span>
 <span id="cb6-2"><a href=""></a>pvalue <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pt</span>(t_hat, <span class="at">df=</span><span class="dv">11</span>)</span>
 <span id="cb6-3"><a href=""></a><span class="fu">cat</span>(<span class="st">" t_hat="</span>,<span class="fu">round</span>(t_hat,<span class="dv">2</span>), </span>
 <span id="cb6-4"><a href=""></a>    <span class="st">"</span><span class="sc">\n</span><span class="st"> valor crítico="</span>, <span class="fu">qt</span>(<span class="fl">0.95</span>,<span class="at">df=</span><span class="dv">11</span>), </span>
 <span id="cb6-5"><a href=""></a>    <span class="st">"</span><span class="sc">\n</span><span class="st"> valor-p="</span>, pvalue, </span>
-<span id="cb6-6"><a href=""></a>    <span class="at">sep=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb6-6"><a href=""></a>    <span class="at">sep=</span><span class="st">""</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code> t_hat=0.6
+<pre><code> t_hat=-0.84
  valor crítico=1.795885
- valor-p=0.2806674</code></pre>
+ valor-p=0.7900725</code></pre>
 </div>
 </div>
 </div>
@@ -559,8 +575,8 @@
 <div class="pull-left">
 <p><span class="bold">Decisión:</span></p>
 <ul>
-<li><p>Si <span class="math inline">\(\text{valor-p} &lt; \alpha\)</span> entonces rechazamos <span class="math inline">\(H_{0}\)</span></p></li>
-<li><p>Si <span class="math inline">\(\text{valor-p} &gt; \alpha\)</span> no podemos rechazar <span class="math inline">\(H_{0}\)</span></p></li>
+<li><p>Si <span class="math inline">\text{valor-p} &lt; \alpha</span> entonces rechazamos <span class="math inline">H_{0}</span></p></li>
+<li><p>Si <span class="math inline">\text{valor-p} &gt; \alpha</span> no podemos rechazar <span class="math inline">H_{0}</span></p></li>
 </ul>
 </div>
 <p>. . .</p>
@@ -571,7 +587,7 @@
 </ul>
 </div>
 </section>
-<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle" data-background-color="#ADD8E6">
 <h2>Hasta la próxima clase. Gracias!</h2>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
 
@@ -596,7 +612,6 @@
   <script src="class_18_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_18_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_18_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_18_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -632,7 +647,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -764,27 +779,9 @@
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -877,13 +874,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

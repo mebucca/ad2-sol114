@@ -6,16 +6,17 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#1F3C88"
 ---
 
-## Estimación de Intervalos {.inverse .center .middle .section-title}
+## Estimación de Intervalos {background-color="#DAA996" .inverse .center .middle .section-title}
 
 ## Estimación Puntual
 
@@ -86,7 +87,7 @@ print(normal_distribution_plot)
 ```
 :::
 
-## Error en estimación {.inverse .center .middle .section-title}
+## Error en estimación {background-color="#DAA996" .inverse .center .middle .section-title}
 
 ## Error en estimación
 
@@ -257,7 +258,7 @@ print(normal_distribution_plot)
 ```
 :::
 
-## Intervalos de confianza {.inverse .center .middle .section-title}
+## Intervalos de confianza {background-color="#DAA996" .inverse .center .middle .section-title}
 
 ## Intervalos de confianza
 
@@ -452,13 +453,13 @@ $\color{white}{\text{La probabilidad de que un intervalo entre } \bar{X} -  Z_{(
 
 > Si tomamos infinitas muestras de tamaño $n$ a partir de la misma población y en cada uno construimos un intervalo en torno al promedio muestral $\bar{X}$, el $100 \cdot (1 - \alpha)\%$ de dichos intervalos contendrá $\mu$.
 
-## Intervalos de confianza {.inverse .center .middle .section-title}
+## Intervalos de confianza {background-color="#DAA996" .inverse .center .middle .section-title}
 
 ### Ejemplo
 
  [`[Shiny App]`](https://github.com/mebucca/ad2-sol114/blob/master/slides/class_12/shinyapp_ci.R)
 
-## Hasta la próxima clase. Gracias! {.inverse .center .middle}
+## Hasta la próxima clase. Gracias! {background-color="#DAA996" .inverse .center .middle}
 
 <br>
 Mauricio Bucca <br>

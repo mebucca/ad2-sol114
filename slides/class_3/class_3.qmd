@@ -6,16 +6,17 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#719379"
 ---
 
-## Variables Aleatorias {.inverse .center .middle .section-title}
+## Variables Aleatorias {background-color="#c3aef2" .inverse .center .middle .section-title}
 ### Intuición
 
 ---
@@ -181,7 +182,7 @@ table(X) %>%
 [Importante:]{.bold} $\sum_{i=2}^{12} \mathbb{P}(X=i) = 1$
 :::
 
-## Distribuciones de Probabilidad {.inverse .center .middle .section-title}
+## Distribuciones de Probabilidad {background-color="#c3aef2" .inverse .center .middle .section-title}
 
 ---
 
@@ -233,7 +234,7 @@ La distribución de una variable se puede caracterizar de manera [única]{.bold}
    
    - Ejemplo, evaluando $f(5)$ obtenemos la probabilidad de que $X$ tome valor 5.
 
-## f(x) {.inverse .center .middle .section-title}
+## f(x) {background-color="#c3aef2" .inverse .center .middle .section-title}
 
 ---
 
@@ -286,7 +287,7 @@ $$\mathbb{P}(a \leq X \leq b) = \int_{a}^{b} f(x) \, dx$$
 
 - La probabilidad de que $X$ tome un valor exacto -- e.g., $X = 3$. Cuando $X$ hay infinitos posibles valores que $X$ puede tomar, por lo que la probabilidad se "reparte" entre todos esos valores.
 
-## F(x) {.inverse .center .middle .section-title}
+## F(x) {background-color="#c3aef2" .inverse .center .middle .section-title}
 
 ---
 
@@ -375,7 +376,7 @@ cdf_data %>%
 ```
 :::
 
-## {.inverse .center .middle}
+## {background-color="#c3aef2" .inverse .center .middle}
 
 [
 **Hasta la próxima clase. Gracias!**

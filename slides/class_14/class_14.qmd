@@ -6,16 +6,17 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#228B22"
 ---
 
-## {.inverse .center .middle}
+## {background-color="#4B0082" .inverse .center .middle}
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(eval = T, echo = T)
@@ -199,7 +200,7 @@ cat("Intervalo al 95% de confianza: (",ic[1],",",ic[2],")")
 
 ```
 
-## Margen de Error {.inverse .center .middle .section-title}
+## Margen de Error {background-color="#4B0082" .inverse .center .middle .section-title}
 
 ## Margen de Error
 
@@ -290,7 +291,7 @@ $$n  \approx \frac{1}{\text{0.02}^2} = 2500$$
 
 [IMPORTANTE:]{.bold} El margen de error es específico a una variable. NO existe tal cosa como el [margen de error de la encuesta]{.bold}.
 
-## {.inverse .middle}
+## {background-color="#4B0082" .inverse .middle}
 
 
 ::: {.pull-left}
@@ -303,7 +304,7 @@ $$n  \approx \frac{1}{\text{0.02}^2} = 2500$$
 ![nail](nailedit.jpeg)
 :::
 
-## Hasta la próxima clase. Gracias! {.inverse .center .middle}
+## Hasta la próxima clase. Gracias! {background-color="#4B0082" .inverse .center .middle}
 
 <br>
 Mauricio Bucca <br>

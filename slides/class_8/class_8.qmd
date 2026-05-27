@@ -6,16 +6,17 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#003366"
 ---
 
-## Distribución Normal Standard {.inverse .center .middle .section-title}
+## Distribución Normal Standard {background-color="#FFFFF0" .inverse .center .middle .section-title}
 
 ## Distribución Normal Standard
 
@@ -165,7 +166,7 @@ pnorm(-1)
 ```
 :::
 
-## Propiedades de la Normal Standard {.inverse .center .middle .section-title}
+## Propiedades de la Normal Standard {background-color="#FFFFF0" .inverse .center .middle .section-title}
 
 ## 1) Simetría
 
@@ -431,7 +432,7 @@ En una Normal Standard:
 ```
 :::
 
-## Quantiles de la Normal Standard {.inverse .center .middle .section-title}
+## Quantiles de la Normal Standard {background-color="#FFFFF0" .inverse .center .middle .section-title}
 
 ## Función de Quantiles de la Normal Standard
 
@@ -492,7 +493,7 @@ qnorm(p=0.1); qnorm(p=0.9)
 ```
 :::
 
-## De Normal Standard a {.inverse .center .middle .section-title}
+## De Normal Standard a {background-color="#FFFFF0" .inverse .center .middle .section-title}
 # Normal con parámetros arbitrarios
 
 ---
@@ -914,7 +915,7 @@ x2 <- 5 + 3*z_95; print(x2)
 ```
 :::
 
-## Hasta la próxima clase. Gracias! {.inverse .center .middle}
+## Hasta la próxima clase. Gracias! {background-color="#FFFFF0" .inverse .center .middle}
 
 <br>
 Mauricio Bucca <br>

@@ -6,16 +6,17 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#A67C52"
 ---
 
-## Intervalos de Confianza para medias y proporciones muestrales {.inverse .center .middle .section-title}
+## Intervalos de Confianza para medias y proporciones muestrales {background-color="#FAF3E0" .inverse .center .middle .section-title}
 
 ## Intervalos de confianza
 
@@ -63,7 +64,7 @@ $$IC: \bar{X} \pm Z_{(\alpha/2)} \cdot \sigma/\sqrt{n}$$
 
 -  $\uparrow n \implies$ intervalo más estrecho. $\uparrow \sigma \implies$ intervalo más ancho.
 
-## Intervalos de confianza {.inverse .center .middle .section-title}
+## Intervalos de confianza {background-color="#FAF3E0" .inverse .center .middle .section-title}
 ## Ejemplo
 
 ## Las mujeres en el mercado laboral
@@ -159,7 +160,7 @@ cat("Intervalo al", 100*conf, "% de confianza: (",ic_inf,",",ic_sup,")")
 
 ```
 
-## Intervalos de Confiaza para proporciones {.inverse .center .middle}
+## Intervalos de Confiaza para proporciones {background-color="#FAF3E0" .inverse .center .middle}
 
 ## Estimación de una proporción
 
@@ -368,7 +369,7 @@ cat("Intervalo al", 100*conf, "% de confianza: (",ic_inf,",",ic_sup,")")
 
 ```
 
-## Hasta la próxima clase. Gracias! {.inverse .center .middle}
+## Hasta la próxima clase. Gracias! {background-color="#FAF3E0" .inverse .center .middle}
 
 <br>
 Mauricio Bucca <br>

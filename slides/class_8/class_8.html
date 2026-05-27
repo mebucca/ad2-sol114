@@ -6,11 +6,11 @@
 <script src="class_8_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_8_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_8_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_8_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_8_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,9 +30,25 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="class_8_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_8_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_8_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_8_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_8_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -141,31 +157,31 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
-<section id="distribución-normal-standard" class="slide level2 inverse center middle section-title">
+<section id="distribución-normal-standard" class="slide level2 inverse center middle section-title" data-background-color="#FFFFF0">
 <h2>Distribución Normal Standard</h2>
 </section>
 <section id="distribución-normal-standard-1" class="slide level2">
 <h2>Distribución Normal Standard</h2>
 <div class="fragment">
 <ul>
-<li><span class="math inline">\(X\)</span> es una variable aleatoria que sigue una distribución Normal con valor esperado <span class="math inline">\(\mu\)</span> y desviación estándar <span class="math inline">\(\sigma\)</span>.</li>
+<li><span class="math inline">X</span> es una variable aleatoria que sigue una distribución Normal con valor esperado <span class="math inline">\mu</span> y desviación estándar <span class="math inline">\sigma</span>.</li>
 </ul>
-<p><span class="math display">\[X \sim \text{Normal}(\mu,\sigma)\]</span></p>
+<p><span class="math display">X \sim \text{Normal}(\mu,\sigma)</span></p>
 <p><br></p>
 </div>
 <div class="fragment">
 <ul>
-<li>Consideremos una nueva variable aleatoria <span class="math inline">\(Z\)</span>, tal que</li>
+<li>Consideremos una nueva variable aleatoria <span class="math inline">Z</span>, tal que</li>
 </ul>
-<p><span class="math display">\[Z = \frac{X-\mu}{\sigma}\]</span></p>
+<p><span class="math display">Z = \frac{X-\mu}{\sigma}</span></p>
 </div>
 <div class="fragment">
 <p><span class="bold">Pregunta: ¿Cual es la distribución de Z?</span></p>
 <p><br></p>
 <div class="content-box-secondary">
-<p><span class="bolder">Respuesta</span>: <span class="math display">\[Z \sim \text{Normal}(0,1)\]</span></p>
+<p><span class="bolder">Respuesta</span>: <span class="math display">Z \sim \text{Normal}(0,1)</span></p>
 </div>
 </div>
 </section>
@@ -184,11 +200,11 @@
 </div>
 <div class="pull-right">
 <p><span class="bold">Función de densidad probabilística</span></p>
-<p><br> <span class="math display">\[f(x) = \frac{1}{7 \sqrt{2\pi}} e^{-\frac{(x - 15)^2}{2 \times 7^2}}
-\]</span></p>
+<p><br> <span class="math display">f(x) = \frac{1}{7 \sqrt{2\pi}} e^{-\frac{(x - 15)^2}{2 \times 7^2}}
+</span></p>
 <p><br><br><br><br><br></p>
-<p><span class="math display">\[f(z) = \frac{1}{ \sqrt{2\pi}} e^{-\frac{z^2}{2}}
-\]</span></p>
+<p><span class="math display">f(z) = \frac{1}{ \sqrt{2\pi}} e^{-\frac{z^2}{2}}
+</span></p>
 </div>
 </section>
 <section id="distribución-normal-standard-3" class="slide level2">
@@ -206,17 +222,17 @@
 </div>
 <div class="pull-right">
 <p><span class="bold">Función de probabilidad acumulada (CDF):</span></p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 F(-z) &amp;= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e^{-\frac{z^2}{2}} dx
-\end{align}\]</span></p>
-<p>En este caso, <span class="math inline">\(-z=-1\)</span></p>
+\end{align}</span></p>
+<p>En este caso, <span class="math inline">-z=-1</span></p>
 <ul>
-<li><p>No tenemos una fórmula analítica sencilla para <span class="math inline">\(F(-z)\)</span>.</p></li>
-<li><p>Por convención la <span class="bold">CDF de una Normal Standard se denota</span> <span class="math inline">\(\Phi(.)\)</span>, tal que</p>
+<li><p>No tenemos una fórmula analítica sencilla para <span class="math inline">F(-z)</span>.</p></li>
+<li><p>Por convención la <span class="bold">CDF de una Normal Standard se denota</span> <span class="math inline">\Phi(.)</span>, tal que</p>
 <ul>
-<li><span class="math inline">\(\Phi(-z): F(-z)\)</span></li>
+<li><span class="math inline">\Phi(-z): F(-z)</span></li>
 </ul></li>
-<li><p>En <code>R</code> podemos calcular <span class="math inline">\(\Phi(-1)\)</span> fácilmente:</p></li>
+<li><p>En <code>R</code> podemos calcular <span class="math inline">\Phi(-1)</span> fácilmente:</p></li>
 </ul>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -225,7 +241,7 @@ F(-z) &amp;= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e
 </div>
 </div>
 </section>
-<section id="propiedades-de-la-normal-standard" class="slide level2 inverse center middle section-title">
+<section id="propiedades-de-la-normal-standard" class="slide level2 inverse center middle section-title" data-background-color="#FFFFF0">
 <h2>Propiedades de la Normal Standard</h2>
 </section>
 <section id="simetría" class="slide level2">
@@ -242,14 +258,14 @@ F(-z) &amp;= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e
 </div>
 </div>
 <div class="pull-right">
-<p>Si <span class="math display">\[\begin{align}
+<p>Si <span class="math display">\begin{align}
 \mathbb{P}(Z \leq -z) = \Phi(-z)  = p
-\end{align}\]</span></p>
+\end{align}</span></p>
 <p>entonces</p>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \mathbb{P}(Z \geq z) =  1 - \Phi(z) = p
-\end{align}\]</span></p>
-<p><br> En este caso, <span class="math inline">\(z=1\)</span> y <span class="math inline">\(-z=-1\)</span></p>
+\end{align}</span></p>
+<p><br> En este caso, <span class="math inline">z=1</span> y <span class="math inline">-z=-1</span></p>
 </div>
 </section>
 <section id="simetría-1" class="slide level2">
@@ -268,7 +284,7 @@ F(-z) &amp;= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e
 <div class="pull-right">
 <p>En <code>R</code>,</p>
 <ul>
-<li><span class="math inline">\(\mathbb{P}(Z \leq -1) = \Phi(-1) =\)</span></li>
+<li><span class="math inline">\mathbb{P}(Z \leq -1) = \Phi(-1) =</span></li>
 </ul>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -277,7 +293,7 @@ F(-z) &amp;= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e
 </div>
 <p><br> y <br></p>
 <ul>
-<li><span class="math inline">\(\mathbb{P}(Z \geq 1) = 1 - \Phi(1) =\)</span></li>
+<li><span class="math inline">\mathbb{P}(Z \geq 1) = 1 - \Phi(1) =</span></li>
 </ul>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -300,13 +316,13 @@ F(-z) &amp;= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e
 </div>
 </div>
 <div class="pull-right">
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \mathbb{P}( Z \leq -z  \quad \text{or} \quad   Z \geq z ) &amp;= \\ \\
 &amp;= \Phi(-z) + (1 - \Phi(z)) \quad \text{ por simetría} &amp;= \\ \\
 &amp;= 2 \times \Phi(-z)
-\end{align}\]</span></p>
+\end{align}</span></p>
 <p><br> <br></p>
-<p>Por ejemplo, <span class="math inline">\(\mathbb{P}( Z \leq -1  \quad \text{or} \quad   Z \geq 1 )\)</span></p>
+<p>Por ejemplo, <span class="math inline">\mathbb{P}( Z \leq -1  \quad \text{or} \quad   Z \geq 1 )</span></p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.3173105</code></pre>
@@ -328,13 +344,13 @@ F(-z) &amp;= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e
 </div>
 </div>
 <div class="pull-right">
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \mathbb{P}( -z \leq Z \leq z) &amp;=  \mathbb{P}( |Z| \leq z) \\ \\
 &amp;= \Phi(z)  - \Phi(-z)   \quad \text{ por simetría} \\ \\
 &amp;= 1 - 2 \times \Phi(-z)
-\end{align}\]</span></p>
+\end{align}</span></p>
 <p><br> <br></p>
-<p>Por ejemplo, <span class="math inline">\(\mathbb{P}(-1 \leq Z \leq 1)\)</span></p>
+<p>Por ejemplo, <span class="math inline">\mathbb{P}(-1 \leq Z \leq 1)</span></p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6826895</code></pre>
@@ -360,9 +376,9 @@ F(-z) &amp;= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e
 <ul>
 <li>La probabilidad de encontrar <span class="bold">valores a menos de 1σ</span> respecto de la media es aprox. 68%.</li>
 </ul>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \mathbb{P}( -1 \leq Z \leq 1) = 1 - 2 \times \Phi(-1)
-\end{align}\]</span></p>
+\end{align}</span></p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.6826895</code></pre>
@@ -371,9 +387,9 @@ F(-z) &amp;= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e
 <ul>
 <li>La probabilidad de encontrar <span class="bold">valores a menos de 2σ</span> respecto de la media es aprox. 96%.</li>
 </ul>
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \mathbb{P}( -2 \leq Z \leq 2) = 1 - 2 \times \Phi(-2)
-\end{align}\]</span></p>
+\end{align}</span></p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
 <pre><code>[1] 0.9544997</code></pre>
@@ -381,7 +397,7 @@ F(-z) &amp;= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e
 </div>
 </div>
 </section>
-<section id="quantiles-de-la-normal-standard" class="slide level2 inverse center middle section-title">
+<section id="quantiles-de-la-normal-standard" class="slide level2 inverse center middle section-title" data-background-color="#FFFFF0">
 <h2>Quantiles de la Normal Standard</h2>
 </section>
 <section id="función-de-quantiles-de-la-normal-standard" class="slide level2">
@@ -400,9 +416,9 @@ F(-z) &amp;= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e
 <div class="pull-right">
 <p>En terminos generales, la <span class="bold">función de quantiles</span> es la inversa de la función de densidad acumulada (CDF):</p>
 <ul>
-<li><p>En una Normal Standard la CDF <span class="math inline">\(\Phi(z)\)</span> entrega <span class="math inline">\(p = \mathbb{P}(Z \leq z)\)</span>.</p></li>
-<li><p>La inversa de la CDF, <span class="math inline">\(\Phi^{-1}(p)\)</span> entrega el valor <span class="math inline">\(z\)</span> tal que <span class="math inline">\(\mathbb{P}(Z \leq z) = p\)</span>.</p></li>
-<li><p>No hay fórmula analítica sencilla para <span class="math inline">\(\Phi^{-1}(p)\)</span>, pero podemos calcularlo en <code>R</code>.</p></li>
+<li><p>En una Normal Standard la CDF <span class="math inline">\Phi(z)</span> entrega <span class="math inline">p = \mathbb{P}(Z \leq z)</span>.</p></li>
+<li><p>La inversa de la CDF, <span class="math inline">\Phi^{-1}(p)</span> entrega el valor <span class="math inline">z</span> tal que <span class="math inline">\mathbb{P}(Z \leq z) = p</span>.</p></li>
+<li><p>No hay fórmula analítica sencilla para <span class="math inline">\Phi^{-1}(p)</span>, pero podemos calcularlo en <code>R</code>.</p></li>
 </ul>
 <p><span class="bold">Ejemplo:</span> ¿Bajo que valor de una Normal Standard se acumula el 90% de la probabilidad?</p>
 <div class="cell">
@@ -415,7 +431,7 @@ F(-z) &amp;= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e
 </div>
 </div>
 </section>
-<section id="de-normal-standard-a" class="slide level2 inverse center middle section-title">
+<section id="de-normal-standard-a" class="slide level2 inverse center middle section-title" data-background-color="#FFFFF0">
 <h2>De Normal Standard a</h2>
 </section>
 <section>
@@ -426,27 +442,27 @@ F(-z) &amp;= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e
 <section class="slide level2">
 
 <h3 id="de-normal-standard-a-normal-con-parámetros-arbitrarios">De Normal Standard a Normal con parámetros arbitrarios</h3>
-<p>Si <span class="math display">\[Z = \frac{X-\mu}{\sigma}\]</span></p>
+<p>Si <span class="math display">Z = \frac{X-\mu}{\sigma}</span></p>
 <p>entonces</p>
-<p><span class="math display">\[X = \mu + \sigma Z  \]</span></p>
+<p><span class="math display">X = \mu + \sigma Z  </span></p>
 <p><br> <br> <br></p>
 <p>. . .</p>
-<p>Si sabemos que <span class="math inline">\(Z \sim \text{Normal}(0,1)\)</span>, ¿Cuál es la distribución de <span class="math inline">\(X\)</span>?</p>
+<p>Si sabemos que <span class="math inline">Z \sim \text{Normal}(0,1)</span>, ¿Cuál es la distribución de <span class="math inline">X</span>?</p>
 <p><br></p>
 <p>. . .</p>
-<p><span class="math display">\[X \sim  \text{Normal}(\mu,\sigma)\]</span></p>
+<p><span class="math display">X \sim  \text{Normal}(\mu,\sigma)</span></p>
 </section>
 <section class="slide level2">
 
 <h3 id="función-de-probabilidad-acumulada">Función de probabilidad acumulada</h3>
 <div class="pull-left">
-<p><span class="math inline">\(X \leq x \implies  \frac{X-\mu}{\sigma} \leq  \frac{x-\mu}{\sigma}\)</span></p>
-<p><span class="math inline">\(X \leq x \implies  Z \leq  z\)</span></p>
+<p><span class="math inline">X \leq x \implies  \frac{X-\mu}{\sigma} \leq  \frac{x-\mu}{\sigma}</span></p>
+<p><span class="math inline">X \leq x \implies  Z \leq  z</span></p>
 <p><br></p>
-<p>Dado que <span class="math inline">\(x = \mu + \sigma z \quad\)</span> entonces:</p>
-<p><span class="math display">\[\mathbb{P}(X \leq  x ) = \mathbb{P}(X \leq \mu + \sigma z ) =  \mathbb{P}(Z \leq z)\]</span> <br> - Sabemos que <span class="math inline">\(\mathbb{P}(Z \leq z) = \Phi(z)\)</span></p>
+<p>Dado que <span class="math inline">x = \mu + \sigma z \quad</span> entonces:</p>
+<p><span class="math display">\mathbb{P}(X \leq  x ) = \mathbb{P}(X \leq \mu + \sigma z ) =  \mathbb{P}(Z \leq z)</span> <br> - Sabemos que <span class="math inline">\mathbb{P}(Z \leq z) = \Phi(z)</span></p>
 <div class="content-box-secondary">
-<p><span class="bolder">Por tanto:</span> <span class="math display">\[F_{X}(x) = F_{X}( \mu + \sigma z) = \Phi(z)\]</span></p>
+<p><span class="bolder">Por tanto:</span> <span class="math display">F_{X}(x) = F_{X}( \mu + \sigma z) = \Phi(z)</span></p>
 </div>
 </div>
 <div class="pull-right">
@@ -466,15 +482,15 @@ F(-z) &amp;= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e
 <h3 id="función-de-probabilidad-acumulada-1">Función de probabilidad acumulada</h3>
 <p><span class="bold">Ejemplo:</span></p>
 <ul>
-<li><p>Si <span class="math inline">\(X \sim  \text{Normal}(\mu=5,\sigma=3)\)</span></p></li>
-<li><p>¿Cuanta es la probabilidad de obtener un valor <span class="math inline">\(X \leq 3.48\)</span>?</p></li>
+<li><p>Si <span class="math inline">X \sim  \text{Normal}(\mu=5,\sigma=3)</span></p></li>
+<li><p>¿Cuanta es la probabilidad de obtener un valor <span class="math inline">X \leq 3.48</span>?</p></li>
 </ul>
 <p>. . .</p>
 <p><span class="bold">Respuesta:</span></p>
 <ul>
-<li>Sabemos que: <span class="math inline">\(F_{X}(x) = F_{X}( \mu + \sigma z) = \Phi(z)\)</span>, por tanto,</li>
+<li>Sabemos que: <span class="math inline">F_{X}(x) = F_{X}( \mu + \sigma z) = \Phi(z)</span>, por tanto,</li>
 </ul>
-<p><span class="math display">\[F_{X}(3.48) = \Phi\Big( (3.48 - 5)/3 \Big) = 0.306\]</span></p>
+<p><span class="math display">F_{X}(3.48) = \Phi\Big( (3.48 - 5)/3 \Big) = 0.306</span></p>
 <p>. . .</p>
 <div class="pull-left">
 <p><span class="bolder">En <code>R</code></span>:</p>
@@ -499,13 +515,13 @@ F(-z) &amp;= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e
 <h3 id="función-de-probabilidad-acumulada-inversa">Función de probabilidad acumulada inversa</h3>
 <div class="pull-left">
 <ul>
-<li><p>Si <span class="math inline">\(\Phi^{-1}(p)=z\)</span> y</p></li>
-<li><p><span class="math inline">\(x = \mu + \sigma z\)</span></p></li>
-<li><p><span class="math inline">\(x = \mu + \sigma \Phi^{-1}(p)\)</span></p></li>
+<li><p>Si <span class="math inline">\Phi^{-1}(p)=z</span> y</p></li>
+<li><p><span class="math inline">x = \mu + \sigma z</span></p></li>
+<li><p><span class="math inline">x = \mu + \sigma \Phi^{-1}(p)</span></p></li>
 </ul>
 <p><br></p>
 <div class="content-box-secondary">
-<p><span class="bolder">Entonces:</span> <span class="math display">\[F^{-1}_{X}(p) = \mu + \sigma \Phi^{-1}(p)\]</span></p>
+<p><span class="bolder">Entonces:</span> <span class="math display">F^{-1}_{X}(p) = \mu + \sigma \Phi^{-1}(p)</span></p>
 </div>
 </div>
 <div class="pull-right">
@@ -525,15 +541,15 @@ F(-z) &amp;= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e
 <h3 id="función-de-probabilidad-acumulada-inversa-1">Función de probabilidad acumulada inversa</h3>
 <p><span class="bold">Ejemplo:</span></p>
 <ul>
-<li><p>Si <span class="math inline">\(X \sim  \text{Normal}(\mu=5,\sigma=3)\)</span></p></li>
-<li><p>¿Bajo que valor de <span class="math inline">\(X\)</span> se acumula el 30% de la densidad probabilística?</p></li>
+<li><p>Si <span class="math inline">X \sim  \text{Normal}(\mu=5,\sigma=3)</span></p></li>
+<li><p>¿Bajo que valor de <span class="math inline">X</span> se acumula el 30% de la densidad probabilística?</p></li>
 </ul>
 <p>. . .</p>
 <p><span class="bold">Respuesta:</span></p>
 <ul>
-<li>Sabemos que: <span class="math inline">\(F^{-1}_{X}(p) = \mu + \sigma \Phi^{-1}(p)\)</span>, por tanto,</li>
+<li>Sabemos que: <span class="math inline">F^{-1}_{X}(p) = \mu + \sigma \Phi^{-1}(p)</span>, por tanto,</li>
 </ul>
-<p><span class="math display">\[F^{-1}_{X}(0.3) = 5 + 3 \Phi^{-1}(0.3) = 3.43\]</span></p>
+<p><span class="math display">F^{-1}_{X}(0.3) = 5 + 3 \Phi^{-1}(0.3) = 3.43</span></p>
 <p>. . .</p>
 <div class="pull-left">
 <p><span class="bolder">En <code>R</code></span>:</p>
@@ -559,7 +575,7 @@ F(-z) &amp;= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e
 <section class="slide level2">
 
 <h3 id="construcción-de-intervalos">Construcción de Intervalos</h3>
-<p>Si <span class="math inline">\(X \sim  \text{Normal}(\mu,\sigma)\)</span>, ¿Cuales son los valores <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span> tales que <span class="math inline">\(\mathbb{P}( x_1 \leq X \leq x_2) = p\)</span> ?</p>
+<p>Si <span class="math inline">X \sim  \text{Normal}(\mu,\sigma)</span>, ¿Cuales son los valores <span class="math inline">x_1</span> y <span class="math inline">x_2</span> tales que <span class="math inline">\mathbb{P}( x_1 \leq X \leq x_2) = p</span> ?</p>
 <div class="pull-left">
 <div class="cell">
 <div class="cell-output-display">
@@ -572,12 +588,12 @@ F(-z) &amp;= \mathbb{P}(Z \leq -z) = \int_{-\infty}^{-z} \frac{1}{\sqrt{2\pi}} e
 </div>
 </div>
 <div class="pull-right">
-<p><span class="bold">Despejando por</span> <span class="math inline">\(x_1\)</span>:</p>
-<p><span class="math display">\[\begin{align}
+<p><span class="bold">Despejando por</span> <span class="math inline">x_1</span>:</p>
+<p><span class="math display">\begin{align}
 F_{X}(x_1) &amp;= (1-p)/2  \quad \text{ aplicando función inversa (quantiles)} \\
           x_1 &amp;= F^{-1}_{X}\Big( (1-p)/2 \Big)
-\end{align}\]</span></p>
-<p>Dado que <span class="math inline">\(F^{-1}_{X}(q) =  \mu + \sigma \Phi^{-1}(q)\)</span>, concluimos que <span class="math display">\[x_1 = F^{-1}_{X}\Big( (1-p)/2 \Big) = \mu + \sigma \Phi^{-1}\Big((1-p)/2\Big)\]</span></p>
+\end{align}</span></p>
+<p>Dado que <span class="math inline">F^{-1}_{X}(q) =  \mu + \sigma \Phi^{-1}(q)</span>, concluimos que <span class="math display">x_1 = F^{-1}_{X}\Big( (1-p)/2 \Big) = \mu + \sigma \Phi^{-1}\Big((1-p)/2\Big)</span></p>
 <p><br> <span class="bold">En este caso</span>:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -592,7 +608,7 @@ F_{X}(x_1) &amp;= (1-p)/2  \quad \text{ aplicando función inversa (quantiles)} 
 <section class="slide level2">
 
 <h3 id="construcción-de-intervalos-1">Construcción de Intervalos</h3>
-<p>Si <span class="math inline">\(X \sim  \text{Normal}(\mu,\sigma)\)</span>, ¿Cuales son los valores <span class="math inline">\(x_1\)</span> y <span class="math inline">\(x_2\)</span> tales que <span class="math inline">\(\mathbb{P}( x_1 \leq X \leq x_2) = p\)</span> ?</p>
+<p>Si <span class="math inline">X \sim  \text{Normal}(\mu,\sigma)</span>, ¿Cuales son los valores <span class="math inline">x_1</span> y <span class="math inline">x_2</span> tales que <span class="math inline">\mathbb{P}( x_1 \leq X \leq x_2) = p</span> ?</p>
 <div class="pull-left">
 <div class="cell">
 <div class="cell-output-display">
@@ -605,13 +621,13 @@ F_{X}(x_1) &amp;= (1-p)/2  \quad \text{ aplicando función inversa (quantiles)} 
 </div>
 </div>
 <div class="pull-right">
-<p><span class="bold">Despejando por</span> <span class="math inline">\(x_2\)</span>:</p>
-<p><span class="math display">\[\begin{align}
+<p><span class="bold">Despejando por</span> <span class="math inline">x_2</span>:</p>
+<p><span class="math display">\begin{align}
 1 - F_{X}(x_2) &amp;=  (1-p)/2 \\
           1 - (1-p)/2  &amp;= F_{X}(x_2)  \\
           F^{-1}_{X}\Big( 1-  (1-p)/2 \Big) &amp;= x_2
-\end{align}\]</span></p>
-<p>Dado que <span class="math inline">\(F^{-1}_{X}(q) =  \mu + \sigma \Phi^{-1}(q)\)</span>, concluimos que <span class="math display">\[x_2 = F^{-1}_{X}\Big( 1- (1-p)/2 \Big) = \mu + \sigma \Phi^{-1}\Big( 1- (1-p)/2 \Big)\]</span></p>
+\end{align}</span></p>
+<p>Dado que <span class="math inline">F^{-1}_{X}(q) =  \mu + \sigma \Phi^{-1}(q)</span>, concluimos que <span class="math display">x_2 = F^{-1}_{X}\Big( 1- (1-p)/2 \Big) = \mu + \sigma \Phi^{-1}\Big( 1- (1-p)/2 \Big)</span></p>
 <p><span class="bold">En este caso</span>:</p>
 <div class="cell">
 <div class="cell-output cell-output-stdout">
@@ -623,7 +639,7 @@ F_{X}(x_1) &amp;= (1-p)/2  \quad \text{ aplicando función inversa (quantiles)} 
 </div>
 </div>
 </section>
-<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle" data-background-color="#FFFFF0">
 <h2>Hasta la próxima clase. Gracias!</h2>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
 
@@ -648,7 +664,6 @@ F_{X}(x_1) &amp;= (1-p)/2  \quad \text{ aplicando función inversa (quantiles)} 
   <script src="class_8_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_8_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_8_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_8_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -684,7 +699,7 @@ F_{X}(x_1) &amp;= (1-p)/2  \quad \text{ aplicando función inversa (quantiles)} 
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -816,27 +831,9 @@ F_{X}(x_1) &amp;= (1-p)/2  \quad \text{ aplicando función inversa (quantiles)} 
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -929,13 +926,14 @@ F_{X}(x_1) &amp;= (1-p)/2  \quad \text{ aplicando función inversa (quantiles)} 
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

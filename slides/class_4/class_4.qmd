@@ -6,11 +6,12 @@ date: today
 format:
   revealjs:
     css: ["gentle-r.css","xaringan-themer.css"]
-    slide-number: true
+    slide-number: false
     theme: default
     highlight-style: github
     width: 1600
     height: 900
+    html-math-method: katex
     title-slide-attributes:
       data-background-color: "#F57C6C"
 ---
@@ -20,7 +21,7 @@ primary_color   <- "#F57C6C"
 secondary_color <- "#6A8EAE"
 ```
 
-## Distribuciones Discretas {.inverse .center .middle}
+## Distribuciones Discretas {background-color="#6A8EAE" .inverse .center .middle}
 ### Intuición
 
 ---
@@ -56,7 +57,7 @@ Final de la Copa Mundial de la FIFA 1994. Roberto Baggio va a tirar su penal ...
 :::
 :::
 
-## Distribuciones Discretas {.inverse .center .middle}
+## Distribuciones Discretas {background-color="#6A8EAE" .inverse .center .middle}
 ### Distribución Bernoulli
 
 ---
@@ -162,7 +163,7 @@ print(head(monedas,20))
 print(paste("P(Cara) = ",mean(monedas)))
 ```
 
-## Distribuciones Discretas {.inverse .center .middle}
+## Distribuciones Discretas {background-color="#6A8EAE" .inverse .center .middle}
 ### Distribución Binomial
 
 ---
@@ -516,7 +517,7 @@ F(k=5; n=10, p=0.6) &=  \mathbb{P}(X=0) + \dots + \mathbb{P}(X=5) \\ \\
 \end{align}
 :::
 
-## {.inverse .center .middle}
+## {background-color="#6A8EAE" .inverse .center .middle}
 
 [
 **Hasta la próxima clase. Gracias!**

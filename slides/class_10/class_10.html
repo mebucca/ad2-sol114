@@ -6,11 +6,11 @@
 <script src="class_10_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_10_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_10_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_10_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_10_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -30,9 +30,25 @@
       vertical-align: middle;
     }
   </style>
-  <link rel="stylesheet" href="class_10_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_10_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_10_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_10_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_10_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -141,12 +157,12 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
-<section id="teoremas-asintóticos" class="slide level2 inverse center middle section-title">
+<section id="teoremas-asintóticos" class="slide level2 inverse center middle section-title" data-background-color="#F4C430">
 <h2>Teoremas Asintóticos</h2>
 </section>
-<section id="teorema-del-límite-central" class="slide level2 inverse center middle section-title">
+<section id="teorema-del-límite-central" class="slide level2 inverse center middle section-title" data-background-color="#F4C430">
 <h2>Teorema del Límite Central</h2>
 </section>
 <section id="convergencia-en-distribución" class="slide level2">
@@ -156,14 +172,14 @@
 <h2>Teorema del Límite Central</h2>
 <p><br></p>
 <ul>
-<li><p><span class="math inline">\(X\)</span> es una variable aleatoria con primer momento <span class="math inline">\(\mathbb{E}(X) = \mu\)</span></p></li>
-<li><p>Generamos/tomamos una muestra <span class="math inline">\(\{X_{1},X_{2}, \dots, X_{n}\}\)</span> de tamaño <span class="math inline">\(n\)</span> donde todas las <span class="math inline">\(X_{i}\)</span>’s son <span class="bold">iid</span>.</p></li>
-<li><p>La media aritmética en <span class="bold">esta muestra</span> es <span class="math inline">\(\bar{X}_{n} = \frac{1}{n}\sum_{i=1}^{n}X_i\)</span>, donde <span class="math inline">\(\bar{X}_{n}\)</span> es <span class="bold">aleatoria</span> porque las <span class="math inline">\(X_{i}\)</span>’s son aleatorias.</p></li>
-<li><p>Sabemos que <span class="math inline">\(\mathbb{E}(\bar{X}_{n}) = \mu\)</span> y <span class="math inline">\(\sqrt{\mathbb{Var}\big(\bar{X}_{n} \big)}=\frac{\sigma}{\sqrt{n}}\)</span>.</p></li>
+<li><p><span class="math inline">X</span> es una variable aleatoria con primer momento <span class="math inline">\mathbb{E}(X) = \mu</span></p></li>
+<li><p>Generamos/tomamos una muestra <span class="math inline">\{X_{1},X_{2}, \dots, X_{n}\}</span> de tamaño <span class="math inline">n</span> donde todas las <span class="math inline">X_{i}</span>’s son <span class="bold">iid</span>.</p></li>
+<li><p>La media aritmética en <span class="bold">esta muestra</span> es <span class="math inline">\bar{X}_{n} = \frac{1}{n}\sum_{i=1}^{n}X_i</span>, donde <span class="math inline">\bar{X}_{n}</span> es <span class="bold">aleatoria</span> porque las <span class="math inline">X_{i}</span>’s son aleatorias.</p></li>
+<li><p>Sabemos que <span class="math inline">\mathbb{E}(\bar{X}_{n}) = \mu</span> y <span class="math inline">\sqrt{\mathbb{Var}\big(\bar{X}_{n} \big)}=\frac{\sigma}{\sqrt{n}}</span>.</p></li>
 </ul>
 <div class="fragment">
 <ul>
-<li><span class="bold">¿Cual es la distribución de</span> <span class="math inline">\(\bar{X}_{n}\)</span>?</li>
+<li><span class="bold">¿Cual es la distribución de</span> <span class="math inline">\bar{X}_{n}</span>?</li>
 </ul>
 </div>
 </section>
@@ -171,16 +187,16 @@
 <h2>Teorema del Límite Central (parte 1)</h2>
 <p>A medida que el tamaño de una muestra crece, la media aritmética de la muestra <span class="bold">converge en distribución</span> a un distribución normal con los siguientes parámetros.</p>
 <div class="content-box-primary">
-<p><span class="math display">\[\color{white}{\bar{X} \overset{d}{\to}
-\text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)}\]</span></p>
+<p><span class="math display">\color{white}{\bar{X} \overset{d}{\to}
+\text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)}</span></p>
 </div>
 <p><br></p>
 <div class="fragment">
 <p>Específicamente,</p>
 <ul>
-<li><p><span class="bold">Convergencia en distribución</span>: A medida que <span class="math inline">\(n\)</span> aumenta <span class="math inline">\(\bar{X}\)</span> tiende a seguir una <span class="bold">distribución normal</span>, <span class="bold">sin importar la distribución original de las variables aleatorias</span>.</p></li>
+<li><p><span class="bold">Convergencia en distribución</span>: A medida que <span class="math inline">n</span> aumenta <span class="math inline">\bar{X}</span> tiende a seguir una <span class="bold">distribución normal</span>, <span class="bold">sin importar la distribución original de las variables aleatorias</span>.</p></li>
 <li><p><span class="bold">Inmediatez de la convergencia</span>: Si las variables originales distribuyen normal, la distribución de las medias muestrales será normal, independientemente del tamaño de la muestra.</p></li>
-<li><p><span class="bold">Variable degenerada en µ</span>: A medida que <span class="math inline">\(n \to \infty\)</span>, <span class="math inline">\(\bar{X}\)</span> tiende a transformarse en una constante (variable “degenerada”).</p></li>
+<li><p><span class="bold">Variable degenerada en µ</span>: A medida que <span class="math inline">n \to \infty</span>, <span class="math inline">\bar{X}</span> tiende a transformarse en una constante (variable “degenerada”).</p></li>
 </ul>
 </div>
 </section>
@@ -193,7 +209,7 @@
 </section>
 <section id="teorema-del-límite-central-parte-1-2" class="slide level2">
 <h2>Teorema del Límite Central (parte 1)</h2>
-<p><span class="bold">¿Por qué</span>: <span class="math inline">\(\bar{X} \sim \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)\)</span>?</p>
+<p><span class="bold">¿Por qué</span>: <span class="math inline">\bar{X} \sim \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)</span>?</p>
 <div class="fragment">
 <p><br></p>
 <div class="img-right">
@@ -210,8 +226,8 @@
 </section>
 <section id="teorema-del-límite-central-parte-1-3" class="slide level2">
 <h2>Teorema del Límite Central (parte 1)</h2>
-<p><span class="bold">¿Por qué</span>: <span class="math inline">\(\bar{X} \sim \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)\)</span>?</p>
-<p>Recordemos que <span class="math inline">\(\bar{X}\)</span> es la suma de variables aleatorias <span class="math inline">\(\frac{1}{n}(X_{1} + X_{2} + \dots + X_{n} )\)</span></p>
+<p><span class="bold">¿Por qué</span>: <span class="math inline">\bar{X} \sim \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)</span>?</p>
+<p>Recordemos que <span class="math inline">\bar{X}</span> es la suma de variables aleatorias <span class="math inline">\frac{1}{n}(X_{1} + X_{2} + \dots + X_{n} )</span></p>
 <div class="fragment">
 <p><br> <br> <br></p>
 <div class="cell">
@@ -227,33 +243,33 @@
 </section>
 <section id="teorema-del-límite-central-parte-2" class="slide level2">
 <h2>Teorema del Límite Central (parte 2)</h2>
-<p><span class="bold">Teorema del Límite Central (parte 1)</span>: Si <span class="math inline">\(\bar{X} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)\)</span>, entonces</p>
+<p><span class="bold">Teorema del Límite Central (parte 1)</span>: Si <span class="math inline">\bar{X} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)</span>, entonces</p>
 <div class="content-box-primary">
-<p><span class="math display">\[\color{white}{ \frac{\sqrt{n}(\bar{X} - \mu)}{\sigma}  \sim
-\text{Normal}(0, 1)}\]</span></p>
+<p><span class="math display">\color{white}{ \frac{\sqrt{n}(\bar{X} - \mu)}{\sigma}  \sim
+\text{Normal}(0, 1)}</span></p>
 </div>
 <div class="fragment">
 <p><span class="bold">¿Por qué?</span></p>
 </div>
 <div class="fragment">
 <div class="pull-left">
-<p><span class="math display">\[\begin{align}
+<p><span class="math display">\begin{align}
 \frac{(\bar{X} - \mu)}{\frac{\sigma}{\sqrt{n}}} &amp;= \frac{n (\bar{X} - \mu)}{\sqrt{n}\sigma}  \\
 &amp;=\frac{  (X_{1} + X_{2} + \dots + X_{n} ) - (\mu + \mu +  \dots + \mu )}{\sqrt{n}\sigma} \\
 &amp;= \frac{1}{\sqrt{n}} \sum_{i=1}^{n}{Z_{i}} \quad \text{ donde } Z_{i} \sim \text{Normal}(0, 1)
-\end{align}\]</span></p>
+\end{align}</span></p>
 </div>
 </div>
 <div class="fragment">
 <div class="pull-left">
-<p><span class="math inline">\(\quad \quad \quad \quad \quad \quad \quad \quad \mathbb{E}(\sum_{i=1}^{n}{Z_{i}}) = 0, \quad \mathbb{Var}(\sum_{i=1}^{n}{Z_{i}}) = n\)</span></p>
-<p><br> <span class="math inline">\(\quad \quad \quad \quad \quad \quad \quad \quad \sqrt{\mathbb{Var}(\sum_{i=1}^{n}{Z_{i}})} = \sqrt{n}\)</span></p>
-<p><br> <span class="math inline">\(\quad \quad \quad \quad\)</span> Por tanto</p>
-<p><span class="math inline">\(\frac{1}{\sqrt{n}} \sum_{i=1}^{n}{Z_{i}} \sim \frac{1}{\sqrt{n}} \text{Normal}(0, n) \sim \text{Normal}(0, 1)\)</span></p>
+<p><span class="math inline">\quad \quad \quad \quad \quad \quad \quad \quad \mathbb{E}(\sum_{i=1}^{n}{Z_{i}}) = 0, \quad \mathbb{Var}(\sum_{i=1}^{n}{Z_{i}}) = n</span></p>
+<p><br> <span class="math inline">\quad \quad \quad \quad \quad \quad \quad \quad \sqrt{\mathbb{Var}(\sum_{i=1}^{n}{Z_{i}})} = \sqrt{n}</span></p>
+<p><br> <span class="math inline">\quad \quad \quad \quad</span> Por tanto</p>
+<p><span class="math inline">\frac{1}{\sqrt{n}} \sum_{i=1}^{n}{Z_{i}} \sim \frac{1}{\sqrt{n}} \text{Normal}(0, n) \sim \text{Normal}(0, 1)</span></p>
 </div>
 </div>
 </section>
-<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle" data-background-color="#F4C430">
 <h2>Hasta la próxima clase. Gracias!</h2>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
 
@@ -278,7 +294,6 @@
   <script src="class_10_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_10_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_10_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_10_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -314,7 +329,7 @@
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -446,27 +461,9 @@
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -559,13 +556,14 @@
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy

@@ -6,11 +6,11 @@
 <script src="class_11_files/libs/quarto-html/tippy.umd.min.js"></script>
 <link href="class_11_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="class_11_files/libs/quarto-html/light-border.css" rel="stylesheet">
-<link href="class_11_files/libs/quarto-html/quarto-syntax-highlighting-59898bd1c6b9d2bb783127feaa000c76.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.7.33">
+<link href="class_11_files/libs/quarto-html/quarto-syntax-highlighting-8b4baf804e461d9b72633f0de59a0cac.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+  <meta name="generator" content="quarto-1.8.27">
 
   <meta name="author" content="  Mauricio Bucca   github.com/mebucca   mebucca@uc.cl">
-  <meta name="dcterms.date" content="2026-05-26">
+  <meta name="dcterms.date" content="2026-05-27">
   <title>Probabilidad e Inferencia Estadística</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -96,9 +96,25 @@
     code span.vs { color: #032f62; } /* VerbatimString */
     code span.wa { color: #ff5555; } /* Warning */
   </style>
-  <link rel="stylesheet" href="class_11_files/libs/revealjs/dist/theme/quarto-f563837468303362081e247dddd440d0.css">
+  <link rel="stylesheet" href="class_11_files/libs/revealjs/dist/theme/quarto-534cd8e3a96973385dffff3f4709048d.css">
   <link rel="stylesheet" href="gentle-r.css">
   <link rel="stylesheet" href="xaringan-themer.css">
+  <script>window.backupDefine = window.define; window.define = undefined;</script><script src="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.js"></script>
+  <script>document.addEventListener("DOMContentLoaded", function () {
+ var mathElements = document.getElementsByClassName("math");
+ var macros = [];
+ for (var i = 0; i < mathElements.length; i++) {
+  var texText = mathElements[i].firstChild;
+  if (mathElements[i].tagName == "SPAN") {
+   katex.render(texText.data, mathElements[i], {
+    displayMode: mathElements[i].classList.contains('display'),
+    throwOnError: false,
+    macros: macros,
+    fleqn: false
+   });
+}}});
+  </script>
+  <script>window.define = window.backupDefine; window.backupDefine = undefined;</script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@latest/dist/katex.min.css">
   <link href="class_11_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
   <link href="class_11_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
   <link href="class_11_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
@@ -207,7 +223,7 @@
 </div>
 </div>
 
-  <p class="date">2026-05-26</p>
+  <p class="date">2026-05-27</p>
 </section>
 <section id="estadística" class="slide level2">
 <h2>Estadística</h2>
@@ -220,7 +236,7 @@
 </div>
 </div>
 </section>
-<section id="estimación" class="slide level2 inverse center middle section-title">
+<section id="estimación" class="slide level2 inverse center middle section-title" data-background-color="#FAD9A1">
 <h2>Estimación</h2>
 </section>
 <section class="slide level2">
@@ -234,7 +250,7 @@
 </ul>
 <div class="fragment">
 <ul>
-<li>La socióloga toma una muestra aleatoria de 100 personas <span class="math inline">\(m: \{X_1, \dots, X_{100} \}\)</span>. Los datos se ven así:</li>
+<li>La socióloga toma una muestra aleatoria de 100 personas <span class="math inline">m: \{X_1, \dots, X_{100} \}</span>. Los datos se ven así:</li>
 </ul>
 </div>
 <div class="fragment">
@@ -244,16 +260,16 @@
 <pre><code># A tibble: 100 × 3
    year   educ   age
    &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 2010     15    39
- 2 1996     12    35
- 3 2012     17    33
- 4 2010     13    30
- 5 2000     12    46
- 6 1982      9    52
- 7 2012     16    23
- 8 1994     13    24
- 9 1996     20    38
-10 1994     12    49
+ 1 1993     16    84
+ 2 1990     12    49
+ 3 2016     12    28
+ 4 1987     16    48
+ 5 1996     12    24
+ 6 2016     12    70
+ 7 2016     13    29
+ 8 1988      6    83
+ 9 2012     16    44
+10 1991     15    43
 # ℹ 90 more rows</code></pre>
 </div>
 </div>
@@ -263,7 +279,7 @@
 <div class="pull-right">
 <p><br></p>
 <ul>
-<li><p><span class="bold">Datos</span>: realización de <span class="math inline">\(n\)</span> variables aleatorias</p></li>
+<li><p><span class="bold">Datos</span>: realización de <span class="math inline">n</span> variables aleatorias</p></li>
 <li><p>Normalmente <span class="bold">no conocemos</span> la distribución de las variables.</p></li>
 <li><p><span class="bold">Estadística</span>: aprender de los datos para <span class="bold">estimar</span> los parámetros que los generan</p></li>
 </ul>
@@ -274,32 +290,32 @@
 <h2>Estimando, Estimador y Estimado</h2>
 <div class="fragment">
 <ul>
-<li>El <span class="bold">estimando</span> es aquello que queremos conocer. Dicho de otra forma, es el parámetro (poblacional/teórico) de interés. Llamémoslo <span class="math inline">\(\beta\)</span>.
+<li>El <span class="bold">estimando</span> es aquello que queremos conocer. Dicho de otra forma, es el parámetro (poblacional/teórico) de interés. Llamémoslo <span class="math inline">\beta</span>.
 <ul>
-<li>Ej. <span class="math inline">\(\beta:\)</span> “promedio de años de escolaridad en USA”</li>
+<li>Ej. <span class="math inline">\beta:</span> “promedio de años de escolaridad en USA”</li>
 </ul></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Un <span class="bold">estimador</span> es una función - una formula - que aplicamos a los datos para obtener una <em>aproximación</em> del parámetro de nuestro parámetro de interés o <em>estimando</em>. Denotémos el estimador como <span class="math inline">\(f(\text{datos})\)</span>.
+<li>Un <span class="bold">estimador</span> es una función - una formula - que aplicamos a los datos para obtener una <em>aproximación</em> del parámetro de nuestro parámetro de interés o <em>estimando</em>. Denotémos el estimador como <span class="math inline">f(\text{datos})</span>.
 <ul>
-<li>Ej. <span class="math inline">\(f(\text{datos}): \frac{\sum{\text{datos}}}{n}\)</span></li>
+<li>Ej. <span class="math inline">f(\text{datos}): \frac{\sum{\text{datos}}}{n}</span></li>
 </ul></li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>El <span class="bold">estimado</span> es la cantidad obtenida al aplicar el <em>estimador</em> a los datos. Este número es una aproximación del <em>estimando</em>. Denotémoslo como <span class="math inline">\(\hat{\beta}\)</span>.
+<li>El <span class="bold">estimado</span> es la cantidad obtenida al aplicar el <em>estimador</em> a los datos. Este número es una aproximación del <em>estimando</em>. Denotémoslo como <span class="math inline">\hat{\beta}</span>.
 <ul>
-<li>Ej. <span class="math inline">\(\hat{\beta} = 11.6\)</span></li>
+<li>Ej. <span class="math inline">\hat{\beta} = 11.6</span></li>
 </ul></li>
 </ul>
 </div>
 <div class="fragment">
 <p>En resumen:</p>
 <div class="content-box-primary">
-<p><span class="math display">\[\color{white}{\text{estimador}(\underbrace{\beta}_{\text{estimando}}): f(\text{datos}) = \underbrace{\hat{\beta}}_{\text{estimado}}}\]</span></p>
+<p><span class="math display">\color{white}{\text{estimador}(\underbrace{\beta}_{\text{estimando}}): f(\text{datos}) = \underbrace{\hat{\beta}}_{\text{estimado}}}</span></p>
 </div>
 </div>
 </section>
@@ -323,40 +339,40 @@
 <pre><code># A tibble: 100 × 3
    year   educ   age
    &lt;fct&gt; &lt;dbl&gt; &lt;dbl&gt;
- 1 2010     15    39
- 2 1996     12    35
- 3 2012     17    33
- 4 2010     13    30
- 5 2000     12    46
- 6 1982      9    52
- 7 2012     16    23
- 8 1994     13    24
- 9 1996     20    38
-10 1994     12    49
+ 1 1993     16    84
+ 2 1990     12    49
+ 3 2016     12    28
+ 4 1987     16    48
+ 5 1996     12    24
+ 6 2016     12    70
+ 7 2016     13    29
+ 8 1988      6    83
+ 9 2012     16    44
+10 1991     15    43
 # ℹ 90 more rows</code></pre>
 </div>
 <div class="cell-output cell-output-stdout">
 <pre><code>mu_hat 
- 12.75 </code></pre>
+ 13.08 </code></pre>
 </div>
 </div>
 </div>
 <div class="pull-right">
 <ul>
-<li><p>La socióloga decide <em>estimar</em> el promedio de años de escolaridad en USA ( <span class="math inline">\(\mu\)</span> ) usando la media muestral como <em>estimador</em>.</p></li>
-<li><p><span class="math inline">\(\hat{\mu} =  \frac{\sum \text{educ}_{i}}{n} =\)</span> 12.75 es nuestro <em>estimado</em></p></li>
+<li><p>La socióloga decide <em>estimar</em> el promedio de años de escolaridad en USA ( <span class="math inline">\mu</span> ) usando la media muestral como <em>estimador</em>.</p></li>
+<li><p><span class="math inline">\hat{\mu} =  \frac{\sum \text{educ}_{i}}{n} =</span> 13.08 es nuestro <em>estimado</em></p></li>
 <li><p>¿Que tanto podemos confiar en nuestro <span class="bold">estimado</span> basado en esta muestra en particular?</p></li>
 <li><p><span class="bold">Respuesta:</span> Necesitamos conocer la distribución muestral de nuestro estimador</p></li>
 </ul>
 </div>
 </section>
-<section id="distribución-muestral-de-un-estimador" class="slide level2 inverse center middle section-title">
+<section id="distribución-muestral-de-un-estimador" class="slide level2 inverse center middle section-title" data-background-color="#FAD9A1">
 <h2>Distribución Muestral de un estimador</h2>
 </section>
 <section id="distribución-muestral" class="slide level2">
 <h2>Distribución Muestral</h2>
 <div class="fragment">
-<p>Si <span class="math inline">\(\hat{\beta}\)</span> es un estimador definido como <span class="math inline">\(\hat{\beta}: f(\text{datos})\)</span>, la <strong>distribución muestral</strong> de <span class="math inline">\(\hat{\beta}\)</span> es la distribución de probabilidad de todos los valores posibles que <span class="math inline">\(\hat{\beta}\)</span> puede tomar, calculados a partir de todas las posibles muestras de un tamaño dado <span class="math inline">\(n\)</span>, tomadas de la misma población o generados por el mismo proceso.</p>
+<p>Si <span class="math inline">\hat{\beta}</span> es un estimador definido como <span class="math inline">\hat{\beta}: f(\text{datos})</span>, la <strong>distribución muestral</strong> de <span class="math inline">\hat{\beta}</span> es la distribución de probabilidad de todos los valores posibles que <span class="math inline">\hat{\beta}</span> puede tomar, calculados a partir de todas las posibles muestras de un tamaño dado <span class="math inline">n</span>, tomadas de la misma población o generados por el mismo proceso.</p>
 <p><br></p>
 </div>
 <div class="fragment">
@@ -364,23 +380,23 @@
 </div>
 <div class="fragment">
 <ul>
-<li>Tomamos todas las posibles muestras <span class="math inline">\(m_{i}: \{ X_1, X_2, ..., X_n \}\)</span> de un tamaño<br>
-dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a partir de la misma población).</li>
+<li>Tomamos todas las posibles muestras <span class="math inline">m_{i}: \{ X_1, X_2, ..., X_n \}</span> de un tamaño<br>
+dado <span class="math inline">n</span>, generados por el mismo proceso (o a partir de la misma población).</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>En cada <span class="math inline">\(m_{i}\)</span> aplicamos nuestro estimador y obtenemos <span class="math inline">\(\hat{\beta}_{i}\)</span>. Formalmente, <span class="math inline">\(f(m_{i}) = \hat{\beta}_{i}\)</span>.</li>
+<li>En cada <span class="math inline">m_{i}</span> aplicamos nuestro estimador y obtenemos <span class="math inline">\hat{\beta}_{i}</span>. Formalmente, <span class="math inline">f(m_{i}) = \hat{\beta}_{i}</span>.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>La <span class="bold">distribución muestral</span> del estimador <span class="math inline">\(\hat{\beta}\)</span> refiere a la distribución de la colección obtenida de estimados <span class="math inline">\(\hat{\beta}_{i}\)</span>.</li>
+<li>La <span class="bold">distribución muestral</span> del estimador <span class="math inline">\hat{\beta}</span> refiere a la distribución de la colección obtenida de estimados <span class="math inline">\hat{\beta}_{i}</span>.</li>
 </ul>
 </div>
 <div class="fragment">
 <ul>
-<li>Como toda distribución de probabilidades, la <span class="bold">distribución muestral</span> indica la probabilidad de que el estimador <span class="math inline">\(\hat{\beta}\)</span> tome diferentes valores.</li>
+<li>Como toda distribución de probabilidades, la <span class="bold">distribución muestral</span> indica la probabilidad de que el estimador <span class="math inline">\hat{\beta}</span> tome diferentes valores.</li>
 </ul>
 </div>
 </section>
@@ -388,14 +404,14 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
 <h2>Distribución Muestral de la media muestral</h2>
 <h4 id="ejemplo-via-simulación-monte-carlo">Ejemplo via Simulación Monte Carlo</h4>
 <ul>
-<li><p>La variable <span class="math inline">\(\text{educ}\)</span> en la población de USA distribuye Normal con <span class="math inline">\(\mu=12.85\)</span> y <span class="math inline">\(\sigma=3.464\)</span>.</p></li>
-<li><p>Tomamos 5000 muestras aleatorias de tamaño 100 a partir de esta población: <span class="math inline">\(m_{100_i}\)</span></p></li>
-<li><p>En cada muestra calculamos la media muestral de la variable <span class="math inline">\(X\)</span>: <span class="math inline">\(\bar{X}_{100_i}\)</span></p></li>
+<li><p>La variable <span class="math inline">\text{educ}</span> en la población de USA distribuye Normal con <span class="math inline">\mu=12.85</span> y <span class="math inline">\sigma=3.464</span>.</p></li>
+<li><p>Tomamos 5000 muestras aleatorias de tamaño 100 a partir de esta población: <span class="math inline">m_{100_i}</span></p></li>
+<li><p>En cada muestra calculamos la media muestral de la variable <span class="math inline">X</span>: <span class="math inline">\bar{X}_{100_i}</span></p></li>
 </ul>
 <p>. . .</p>
 <p><span class="bold">Implementación en <code>R</code>:</span></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># población (N=un millón, media=4, sd=3)</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># población (N=un millón, media=4, sd=3)</span></span>
 <span id="cb4-2"><a href=""></a>educ_poblacion <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">educ =</span> <span class="fu">rnorm</span>(<span class="at">n=</span><span class="dv">10</span><span class="sc">^</span><span class="dv">6</span>, <span class="at">mean=</span><span class="fl">12.85</span>, <span class="at">sd=</span><span class="fl">3.464</span>))</span>
 <span id="cb4-3"><a href=""></a></span>
 <span id="cb4-4"><a href=""></a><span class="co"># simulación: </span></span>
@@ -407,7 +423,7 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
 <span id="cb4-10"><a href=""></a>  </span>
 <span id="cb4-11"><a href=""></a>  <span class="co"># en cada muestra calculamos media y guardamos resultado</span></span>
 <span id="cb4-12"><a href=""></a>  resultados<span class="sc">$</span>estimado[i] <span class="ot">&lt;-</span> <span class="fu">mean</span>(muestra_i<span class="sc">$</span>educ)</span>
-<span id="cb4-13"><a href=""></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-13"><a href=""></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 </section>
 <section id="distribución-muestral-de-la-media-muestral-1" class="slide level2">
@@ -419,21 +435,21 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
 <pre><code># A tibble: 5,000 × 1
    estimado
       &lt;dbl&gt;
- 1    12.98
- 2    12.47
- 3    12.90
- 4    12.97
- 5    12.54
- 6    12.40
- 7    12.11
- 8    12.34
- 9    13.19
-10    12.71
-11    12.81
-12    12.51
-13    12.96
-14    13.41
-15    12.50
+ 1     13.2
+ 2     13.9
+ 3     13.6
+ 4     12.4
+ 5     12.2
+ 6     12.7
+ 7     13.6
+ 8     12.5
+ 9     13.0
+10     12.7
+11     13.1
+12     13.0
+13     12.8
+14     13.1
+15     12.4
 # ℹ 4,985 more rows</code></pre>
 </div>
 </div>
@@ -445,7 +461,7 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
 <li><p>¿Cómo se distribuyen estas estimaciones?</p></li>
 </ul>
 <p><br> - El <span class="bold">Teoréma del Límite Central</span> nos dice que:</p>
-<p><span class="math display">\[\bar{X}_{n} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)\]</span></p>
+<p><span class="math display">\bar{X}_{n} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)</span></p>
 </div>
 </div>
 </section>
@@ -458,21 +474,21 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
 <pre><code># A tibble: 5,000 × 1
    estimado
       &lt;dbl&gt;
- 1    12.98
- 2    12.47
- 3    12.90
- 4    12.97
- 5    12.54
- 6    12.40
- 7    12.11
- 8    12.34
- 9    13.19
-10    12.71
-11    12.81
-12    12.51
-13    12.96
-14    13.41
-15    12.50
+ 1     13.2
+ 2     13.9
+ 3     13.6
+ 4     12.4
+ 5     12.2
+ 6     12.7
+ 7     13.6
+ 8     12.5
+ 9     13.0
+10     12.7
+11     13.1
+12     13.0
+13     12.8
+14     13.1
+15     12.4
 # ℹ 4,985 more rows</code></pre>
 </div>
 </div>
@@ -483,9 +499,9 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
 <li><p>¿Cómo se distribuyen estas estimaciones?</p></li>
 </ul>
 <p><br> - El <span class="bold">Teoréma del Límite Central</span> nos dice que:</p>
-<p><span class="math display">\[\bar{X}_{n} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)\]</span></p>
+<p><span class="math display">\bar{X}_{n} \sim \text{Normal}\bigg(\mu, \frac{\sigma}{\sqrt{n}}\bigg)</span></p>
 <p><br> - En nuestro caso:</p>
-<p><span class="math display">\[\bar{X}_{100} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{100}}\bigg)\]</span></p>
+<p><span class="math display">\bar{X}_{100} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{100}}\bigg)</span></p>
 </div>
 </section>
 <section id="distribución-muestral-de-la-media-muestral-2" class="slide level2">
@@ -506,7 +522,7 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
 <li>El <span class="bold">Teoréma del Límite Central</span> nos dice que:</li>
 </ul>
 <p><br></p>
-<p><span class="math display">\[\bar{X}_{100} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{100}}\bigg)\]</span></p>
+<p><span class="math display">\bar{X}_{100} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{100}}\bigg)</span></p>
 </div>
 </section>
 <section id="distribución-muestral-de-la-media-muestral-3" class="slide level2">
@@ -527,14 +543,14 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
 <li>El <span class="bold">Teoréma del Límite Central</span> nos dice que:</li>
 </ul>
 <p><br></p>
-<p><span class="math display">\[\bar{X}_{100} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{100}}\bigg)\]</span></p>
+<p><span class="math display">\bar{X}_{100} \sim \text{Normal}\bigg(12.85, \frac{3.464}{\sqrt{100}}\bigg)</span></p>
 <p><br></p>
 <ul>
 <li>Nuestra simulación confirma la teoría</li>
 </ul>
 </div>
 </section>
-<section id="estimación-puntual" class="slide level2 inverse center middle section-title">
+<section id="estimación-puntual" class="slide level2 inverse center middle section-title" data-background-color="#FAD9A1">
 <h2>Estimación Puntual</h2>
 </section>
 <section id="estimación-puntual-1" class="slide level2">
@@ -545,7 +561,7 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
 <li><p>Tenemos una <span class="bold">estimación puntual</span></p></li>
 </ul>
 <p><br> Por ejemplo:</p>
-<p><span class="math inline">\(\bar{X}_{100}\)</span> = 12.75</p>
+<p><span class="math inline">\bar{X}_{100}</span> = 13.08</p>
 <p><br></p>
 <ul>
 <li><p>Sabemos que la media muestral es un estimador <em>insesgado</em> de la media poblacional (en promedio coinciden)</p></li>
@@ -565,7 +581,7 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
 </div>
 </div>
 </section>
-<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle">
+<section id="hasta-la-próxima-clase.-gracias" class="slide level2 inverse center middle" data-background-color="#FAD9A1">
 <h2>Hasta la próxima clase. Gracias!</h2>
 <p><br> Mauricio Bucca <br> https://mebucca.github.io/ <br> github.com/mebucca</p>
 
@@ -590,7 +606,6 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
   <script src="class_11_files/libs/revealjs/plugin/notes/notes.js"></script>
   <script src="class_11_files/libs/revealjs/plugin/search/search.js"></script>
   <script src="class_11_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="class_11_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>
@@ -626,7 +641,7 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
         progress: true,
 
         // Display the page number of the current slide
-        slideNumber: 'c/t',
+        slideNumber: false,
 
         // 'all', 'print', or 'speaker'
         showSlideNumber: 'all',
@@ -758,27 +773,9 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
         // Factor of the display size that should remain empty around the content
         margin: 0.1,
 
-        math: {
-          mathjax: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/MathJax.js',
-          config: 'TeX-AMS_HTML-full',
-          tex2jax: {
-            inlineMath: [['\\(','\\)']],
-            displayMath: [['\\[','\\]']],
-            balanceBraces: true,
-            processEscapes: false,
-            processRefs: true,
-            processEnvironments: true,
-            preview: 'TeX',
-            skipTags: ['script','noscript','style','textarea','pre','code'],
-            ignoreClass: 'tex2jax_ignore',
-            processClass: 'tex2jax_process'
-          },
-        },
-
         // reveal.js plugins
         plugins: [QuartoLineHighlight, PdfExport, RevealMenu, QuartoSupport,
 
-          RevealMath,
           RevealNotes,
           RevealSearch,
           RevealZoom
@@ -871,13 +868,14 @@ dado <span class="math inline">\(n\)</span>, generados por el mismo proceso (o a
           e.clearSelection();
         }
         const getTextToCopy = function(trigger) {
-            const codeEl = trigger.previousElementSibling.cloneNode(true);
-            for (const childEl of codeEl.children) {
-              if (isCodeAnnotation(childEl)) {
-                childEl.remove();
-              }
+          const outerScaffold = trigger.parentElement.cloneNode(true);
+          const codeEl = outerScaffold.querySelector('code');
+          for (const childEl of codeEl.children) {
+            if (isCodeAnnotation(childEl)) {
+              childEl.remove();
             }
-            return codeEl.innerText;
+          }
+          return codeEl.innerText;
         }
         const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
           text: getTextToCopy
