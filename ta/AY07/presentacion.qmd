@@ -137,8 +137,7 @@ Los grados de libertad dependen del tamaño de la tabla: $$df = (\text{Nº Filas
 
 . . .
 
-**p-value:** Es la probabilidad de obtener un estadístico $t$ igual o más extremo que el que calculamos, asumiendo que $H_0$ es cierta. $$p\text{-value} = \mathbb{P}(\chi^2_{df} > \hat{t})$$
-# Parte 3: Test $\chi^2$ de Independencia
+**p-value:** Es la probabilidad de obtener un estadístico $t$ igual o más extremo que el que calculamos, asumiendo que $H_0$ es cierta. $$p\text{-value} = \mathbb{P}(\chi^2_{df} > \hat{t})$$ \
 
 ## El estadístico de Pearson ($t$)
 
@@ -165,29 +164,25 @@ Pero, ¿cuánto es un valor de $t$ lo "suficientemente alto" para rechazar la in
 
 . . .
 
-Pearson demostró que, si la hipótesis nula (independencia) es cierta, el estadístico $t$ sigue una distribución Chi-cuadrado ($\chi^2$) con ciertos **Grados de Libertad ($df$)**:
+Pearson demostró que, si la hipótesis nula (independencia) es cierta, el estadístico $t$ sigue una distribución Chi-cuadrado ($\chi^2$) con ciertos **Grados de Libertad (**$df$):
 
 $$t \sim \chi^2_{df}$$
 
 . . .
 
-Los grados de libertad dependen del tamaño de la tabla:
-$$df = (\text{Nº Filas} - 1) \times (\text{Nº Columnas} - 1)$$
+Los grados de libertad dependen del tamaño de la tabla: $$df = (\text{Nº Filas} - 1) \times (\text{Nº Columnas} - 1)$$
 
 . . .
 
-**p-value:**
-Es la probabilidad de obtener un estadístico $t$ igual o más extremo que el que calculamos, asumiendo que $H_0$ es cierta.
-$$p\text{-value} = \mathbb{P}(\chi^2_{df} > \hat{t})$$
+**p-value:** Es la probabilidad de obtener un estadístico $t$ igual o más extremo que el que calculamos, asumiendo que $H_0$ es cierta. $$p\text{-value} = \mathbb{P}(\chi^2_{df} > \hat{t})$$
 
 ## Ejemplo de implementación en R (Cálculo Manual)
 
-Imaginemos que encuestamos a 1000 personas sobre su nivel de ingresos (Alto/Bajo) y si votarían Sí o No en un plebiscito. 
+Imaginemos que encuestamos a 1000 personas sobre su nivel de ingresos (Alto/Bajo) y si votarían Sí o No en un plebiscito.
 
 . . .
 
 ::: panel-tabset
-
 ### 1. Datos y Totales
 
 ```{r}
@@ -251,10 +246,7 @@ cat("Grados de libertad:", df)
 p_value <- pchisq(estadistico_t, df = df, lower.tail = FALSE)
 cat("Valor-p:", p_value)
 ```
-
 :::
-
-
 
 ## Comprobación con `chisq.test()`
 
@@ -289,7 +281,6 @@ print(test_independencia$observed)
 residuos_cuadrados <- (test_independencia$observed - test_independencia$expected)^2 / test_independencia$expected
 print(residuos_cuadrados)
 ```
-
 :::
 
 . . .
@@ -384,5 +375,4 @@ test_bonus <- chisq.test(votos, correct = FALSE)
 
 print(test_bonus)
 ```
-
 :::
