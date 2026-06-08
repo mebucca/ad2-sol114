@@ -8,5 +8,5 @@
 | 27 | Abril | Tomás | Solución Tarea 4 | [`[Enunciado Tarea]`](AY04/enunciado.pdf)[`[Solución]`](AY04/solucion.R)| [`[Visualizador / Simulador]`](https://prep-tc4.streamlit.app/) |
 | 4 | Mayo | Vicente | ICs & Boostrap | [`[Pres]`](https://rawcdn.githack.com/mebucca/ad2-sol114/refs/heads/master/ta/AY05/TA5.html) |  |
 | 11 | Mayo | Vicente | Solución Tarea 5 |  |  |
-| 8 | Junio | Tomás | χ² e independencia |  |  |
+| 8 | Junio | Tomás | χ² e independencia | [`[Pres]`](https://mebucca.github.io/ad2-sol114/ta/AY07/presentacion#title-slide) |  |
 | 15 | Junio | Tomás | Solución Tarea 6 |  |  |
