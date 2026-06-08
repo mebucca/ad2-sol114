@@ -1,0 +1,388 @@
+---
+title: "Ayudantía 7"
+author: "Tomás Leva"
+format: 
+  revealjs:
+    theme: simple
+    transition: slide
+    incremental: true
+    slide-number: true
+    scrollable: true
+    smaller: true
+editor: visual
+lang: es
+engine: knitr
+---
+
+# Parte 1: Tablas de Contingencia
+
+## ¿Qué son las tablas de contingencia?
+
+Si queremos estudiar la asociación estadística entre dos variables **categóricas** (o discretas), el primer paso es construir una tabla de contingencia.
+
+. . .
+
+Una tabla de contingencia es una matriz que muestra la *distribución multivariada* de frecuencias de nuestras variables.
+
+. . .
+
+Supongamos dos variables:
+
+- $X$ (ej. Nivel de Ingreso) con $I$ categorías (filas).
+- $Y$ (ej. Intención de Voto) con $J$ categorías (columnas).
+
+. . .
+
+La tabla tendrá dimensiones $I \times J$, y cada celda nos dirá cuántas observaciones ($n_{ij}$) caen en esa intersección específica.
+
+## Estructura Probabilística
+
+A partir de las frecuencias observadas ($n_{ij}$), podemos calcular probabilidades.
+
+. . .
+
+**1. Distribución Conjunta:** Es la probabilidad de que una observación elegida al azar pertenezca a una celda específica. $$p_{ij} = \mathbb{P}(X = i \text{ y } Y = j)$$
+
+Se estima dividiendo la frecuencia de la celda por el total de la muestra ($n$): $$\hat{p}_{ij} = \frac{n_{ij}}{n}$$
+
+. . .
+
+**2. Distribuciones Marginales:** Son las probabilidades totales de cada fila o columna (los márgenes de la tabla).
+
+- Marginal de $X$ (filas): $p_{i+} = \sum_{j} p_{ij}$
+- Marginal de $Y$ (columnas): $p_{+j} = \sum_{i} p_{ij}$
+
+## Distribuciones Condicionales
+
+La probabilidad condicional expresa la probabilidad de que la variable $Y$ tome un valor $j$, *dado* que sabemos que $X$ tomó el valor $i$.
+
+. . .
+
+Recordemos la fórmula clásica: $\mathbb{P}(Y \mid X) = \frac{\mathbb{P}(X \cap Y)}{\mathbb{P}(X)}$
+
+. . .
+
+En el contexto de nuestra tabla, se estima así:
+
+$$\hat{p}_{j \mid i} = \frac{\mathbb{P}(Y=j , X=i)}{\mathbb{P}(X=i)} = \frac{n_{ij}}{\sum_{j}n_{ij}}$$
+
+. . .
+
+Básicamente, miramos **solo una fila** (condicionamos por esa categoría de $X$) y vemos cómo se distribuye $Y$ dentro de ella.
+
+# Parte 2: Independencia Estadística
+
+## Independencia en Tablas de Contingencia
+
+Recordemos de probabilidades que dos variables $X$ e $Y$ son independientes ($X \perp Y$) si saber algo sobre $X$ no nos dice nada nuevo sobre $Y$.
+
+. . .
+
+Matemáticamente: $X \perp Y \iff \mathbb{P}(X,Y) = \mathbb{P}(X) \times \mathbb{P}(Y)$
+
+. . .
+
+Si asumimos que nuestras dos variables en la tabla son **totalmente independientes**, las probabilidades conjuntas *esperadas* serían el producto de sus marginales:
+
+$$\tilde{p}_{ij} = p_{i+} \times p_{+j}$$
+
+## Frecuencias Esperadas
+
+Si transformamos esa probabilidad esperada a cantidad de personas (frecuencias esperadas), multiplicamos por el tamaño total de la muestra ($n$):
+
+$$\tilde{n}_{ij} = n \times p_{i+} \times p_{+j}$$
+
+. . .
+
+*¿Para qué sirve esto?* Nos permite construir un "Mundo Paralelo": **¿Cómo se vería nuestra tabla si de verdad no existiera ninguna asociación entre las variables?**
+
+. . .
+
+Luego, compararemos nuestra tabla real (observada) con esta tabla imaginaria (esperada). Si son muy diferentes, es porque las variables **no** son independientes.
+
+# Parte 3: Test $\chi^2$ de Independencia
+
+## El estadístico de Pearson ($t$)
+
+Para testear estadísticamente si hay asociación, usamos el test de Pearson $\chi^2$.
+
+. . .
+
+Nuestra hipótesis nula ($H_0$) es que **las variables son independientes**.
+
+. . .
+
+El estadístico compara las frecuencias observadas ($n_{ij}$) con las frecuencias esperadas bajo independencia ($\tilde{n}_{ij}$):
+
+$$t = \sum_{\text{todas las celdas } i,j} \frac{(n_{ij} - \tilde{n}_{ij})^2}{\tilde{n}_{ij}}$$
+
+. . .
+
+- Si las tablas son casi idénticas (Obs $\approx$ Esp), el numerador será $\approx 0$, y el valor de $t$ será muy bajo.
+- Si las variables están muy asociadas, (Obs - Esp) será grande, y obtendremos un valor de $t$ alto.
+
+## Distribución y p-value
+
+Pero, ¿cuánto es un valor de $t$ lo "suficientemente alto" para rechazar la independencia?
+
+. . .
+
+Pearson demostró que, si la hipótesis nula (independencia) es cierta, el estadístico $t$ sigue una distribución Chi-cuadrado ($\chi^2$) con ciertos **Grados de Libertad (**$df$):
+
+$$t \sim \chi^2_{df}$$
+
+. . .
+
+Los grados de libertad dependen del tamaño de la tabla: $$df = (\text{Nº Filas} - 1) \times (\text{Nº Columnas} - 1)$$
+
+. . .
+
+**p-value:** Es la probabilidad de obtener un estadístico $t$ igual o más extremo que el que calculamos, asumiendo que $H_0$ es cierta. $$p\text{-value} = \mathbb{P}(\chi^2_{df} > \hat{t})$$
+# Parte 3: Test $\chi^2$ de Independencia
+
+## El estadístico de Pearson ($t$)
+
+Para testear estadísticamente si hay asociación, usamos el test de Pearson $\chi^2$.
+
+. . .
+
+Nuestra hipótesis nula ($H_0$) es que **las variables son independientes**.
+
+. . .
+
+El estadístico compara las frecuencias observadas ($n_{ij}$) con las frecuencias esperadas bajo independencia ($\tilde{n}_{ij}$):
+
+$$t = \sum_{\text{todas las celdas } i,j} \frac{(n_{ij} - \tilde{n}_{ij})^2}{\tilde{n}_{ij}}$$
+
+. . .
+
+- Si las tablas son casi idénticas (Obs $\approx$ Esp), el numerador será $\approx 0$, y el valor de $t$ será muy bajo.
+- Si las variables están muy asociadas, (Obs - Esp) será grande, y obtendremos un valor de $t$ alto.
+
+## Distribución y p-value
+
+Pero, ¿cuánto es un valor de $t$ lo "suficientemente alto" para rechazar la independencia?
+
+. . .
+
+Pearson demostró que, si la hipótesis nula (independencia) es cierta, el estadístico $t$ sigue una distribución Chi-cuadrado ($\chi^2$) con ciertos **Grados de Libertad ($df$)**:
+
+$$t \sim \chi^2_{df}$$
+
+. . .
+
+Los grados de libertad dependen del tamaño de la tabla:
+$$df = (\text{Nº Filas} - 1) \times (\text{Nº Columnas} - 1)$$
+
+. . .
+
+**p-value:**
+Es la probabilidad de obtener un estadístico $t$ igual o más extremo que el que calculamos, asumiendo que $H_0$ es cierta.
+$$p\text{-value} = \mathbb{P}(\chi^2_{df} > \hat{t})$$
+
+## Ejemplo de implementación en R (Cálculo Manual)
+
+Imaginemos que encuestamos a 1000 personas sobre su nivel de ingresos (Alto/Bajo) y si votarían Sí o No en un plebiscito. 
+
+. . .
+
+::: panel-tabset
+
+### 1. Datos y Totales
+
+```{r}
+#| echo: true
+# Datos observados
+datos_observados <- matrix(c(150, 350,  # Ingresos Altos
+                             250, 250), # Ingresos Bajos
+                           nrow = 2, byrow = TRUE)
+
+rownames(datos_observados) <- c("Alto", "Bajo")
+colnames(datos_observados) <- c("Voto_Si", "Voto_No")
+
+# Calculamos los totales de fila, columna y el gran total (N)
+totales_fila <- rowSums(datos_observados)
+totales_col <- colSums(datos_observados)
+n_total <- sum(datos_observados)
+
+print(totales_fila)
+print(totales_col)
+```
+
+### 2. Frec. Esperadas
+
+La frecuencia esperada bajo independencia es: $\frac{\text{Total Fila} \times \text{Total Columna}}{N}$
+
+```{r}
+#| echo: true
+# La función outer() multiplica cada total de fila por cada total de columna
+frec_esperadas <- outer(totales_fila, totales_col) / n_total
+
+rownames(frec_esperadas) <- c("Alto", "Bajo")
+colnames(frec_esperadas) <- c("Voto_Si", "Voto_No")
+
+print(frec_esperadas)
+```
+
+### 3. Componentes y $\chi^2$
+
+Calculamos $\frac{(O - E)^2}{E}$ para cada celda y sumamos para obtener el estadístico de prueba.
+
+```{r}
+#| echo: true
+# Componentes del chi-cuadrado
+componentes_chi <- (datos_observados - frec_esperadas)^2 / frec_esperadas
+print(componentes_chi)
+
+# Estadístico de prueba
+estadistico_t <- sum(componentes_chi)
+cat("Estadístico Chi-cuadrado:", estadistico_t)
+```
+
+### 4. df y p-valor
+
+```{r}
+#| echo: true
+# Grados de libertad: (filas - 1) * (columnas - 1)
+df <- (nrow(datos_observados) - 1) * (ncol(datos_observados) - 1)
+cat("Grados de libertad:", df)
+
+# Calculamos el p-valor
+p_value <- pchisq(estadistico_t, df = df, lower.tail = FALSE)
+cat("Valor-p:", p_value)
+```
+
+:::
+
+
+
+## Comprobación con `chisq.test()`
+
+Ahora que sabemos cómo se calcula internamente, podemos usar la función integrada de R para comprobar que nuestros resultados manuales son correctos.
+
+. . .
+
+::: panel-tabset
+### Test Automático
+
+```{r}
+#| echo: true
+# Aplicamos el test de Chi-cuadrado (correct = FALSE evita la corrección de Yates)
+test_independencia <- chisq.test(datos_observados, correct = FALSE)
+
+print(test_independencia)
+```
+
+### ¿Qué más guarda el test?
+
+Podemos extraer directamente de la función los mismos elementos que calculamos a mano:
+
+```{r}
+#| echo: true
+# Frecuencias esperadas calculadas por la función
+print(test_independencia$expected)
+
+# Frecuencias observadas
+print(test_independencia$observed)
+
+# Residuos de Pearson al cuadrado (nuestros componentes)
+residuos_cuadrados <- (test_independencia$observed - test_independencia$expected)^2 / test_independencia$expected
+print(residuos_cuadrados)
+```
+
+:::
+
+. . .
+
+**Conclusión del ejemplo:** Obtuvimos un p-value extremadamente pequeño ($< 0.05$). Esto significa que es altamente improbable obtener esta tabla si el voto y el ingreso fuesen eventos independientes. **Rechazamos** $H_0$, ya que las variables están asociadas.
+
+# Parte 4: Ejercicios de Evaluaciones Pasadas
+
+## Prueba Bonus 2025 - Pregunta 2 (Enunciado)
+
+A partir de la siguiente tabla de contingencia entre sexo e intención de voto, donde cada celda reporta los recuentos observados y, **entre paréntesis, los recuentos esperados bajo independencia**, aplique el test Chi-cuadrado de independencia para evaluar si existe asociación entre ambas variables al 99% de confianza ($\alpha = 0.01$).
+
+| Sexo / Voto |   Kast    |   Jara    |  Total   |
+|-------------|:---------:|:---------:|:--------:|
+| Hombre      | 735 (733) | 675 (677) |   1410   |
+| Mujer       | 825 (827) | 765 (763) |   1590   |
+| **Total**   | **1560**  | **1440**  | **3000** |
+
+## Desarrollo Paso a Paso
+
+**Paso 1: Plantear Hipótesis**
+
+- $H_0$: Sexo e intención de voto son independientes.
+- $H_1$: Sexo e intención de voto están asociados.
+
+. . .
+
+## 
+
+**Paso 2: Calcular el Estadístico Chi-cuadrado**
+
+La fórmula nos dice que debemos sumar $\frac{(O_{ij} - E_{ij})^2}{E_{ij}}$ para cada una de las 4 celdas.
+
+. . .
+
+- Para Hombre-Kast: $\frac{(735-733)^2}{733} = \frac{4}{733} = 0.00546$
+- Para Hombre-Jara: $\frac{(675-677)^2}{677} = \frac{4}{677} = 0.00591$
+- Para Mujer-Kast: $\frac{(825-827)^2}{827} = \frac{4}{827} = 0.00484$
+- Para Mujer-Jara: $\frac{(765-763)^2}{763} = \frac{4}{763} = 0.00524$
+
+. . .
+
+Sumando todos los términos:
+
+$\chi^2_{obs} = 0.00546 + 0.00591 + 0.00484 + 0.00524 = \mathbf{0.02145}$
+
+## Conclusión del Ejercicio
+
+**Paso 3: Grados de Libertad (**$df$)
+
+$df = (\text{filas} - 1)(\text{columnas} - 1) = (2 - 1)(2 - 1) = \mathbf{1}$
+
+. . .
+
+**Paso 4: Decisión y Conclusión**
+
+Sabemos por el enunciado original (o buscando en una tabla) que el valor crítico para $\chi^2$ con $df=1$ y $\alpha=0.01$ es $6.635$.
+
+. . .
+
+Como nuestro $\chi^2_{obs} = 0.02145$ es **menor** que $6.635$, **no rechazamos la hipótesis nula**.
+
+. . .
+
+*(Nota: el valor p asociado a este estadístico es altísimo, cercano a 0.88. Esto indica que si las variables fueran independientes, sería extremadamente normal observar estos datos).*
+
+. . .
+
+**Conclusión sustantiva:** No existe evidencia estadística significativa al 99% de confianza para afirmar que el sexo y la intención de voto están asociados. Las diferencias observadas son tan pequeñas que pueden atribuirse al azar del muestreo.
+
+## Solución en R
+
+Podemos llegar exactamente a la misma conclusión si le pasamos los datos del ejercicio a R usando la función `chisq.test()`.
+
+. . .
+
+::: panel-tabset
+### R
+
+```{r}
+#| echo: true
+# 1. Creamos la tabla de contingencia con los datos observados
+votos <- matrix(c(735, 675,  # Fila Hombre
+                  825, 765), # Fila Mujer
+                nrow = 2, byrow = TRUE)
+
+rownames(votos) <- c("Hombre", "Mujer")
+colnames(votos) <- c("Kast", "Jara")
+
+# 2. Aplicamos el test (correct = FALSE para no usar corrección de Yates y coincidir con el cálculo manual)
+test_bonus <- chisq.test(votos, correct = FALSE)
+
+print(test_bonus)
+```
+
+:::
