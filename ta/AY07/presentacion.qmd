@@ -52,6 +52,10 @@ Se estima dividiendo la frecuencia de la celda por el total de la muestra ($n$):
 - Marginal de $X$ (filas): $p_{i+} = \sum_{j} p_{ij}$
 - Marginal de $Y$ (columnas): $p_{+j} = \sum_{i} p_{ij}$
 
+::: {.notes}
+representan la suma de todas ellas al final
+:::
+
 ## Distribuciones Condicionales
 
 La probabilidad condicional expresa la probabilidad de que la variable $Y$ tome un valor $j$, *dado* que sabemos que $X$ tomó el valor $i$.
@@ -93,6 +97,24 @@ Si transformamos esa probabilidad esperada a cantidad de personas (frecuencias e
 $$\tilde{n}_{ij} = n \times p_{i+} \times p_{+j}$$
 
 . . .
+
+::: {.notes}
+
+1. $$\tilde{n}_{ij} = n \times p_{i+} \times p_{+j}$$
+2. $$\tilde{n}_{ij} = n \times \left( \frac{N_{i+}}{n} \right) \times \left( \frac{N_{+j}}{n} \right)$$
+3. $$\tilde{n}_{ij} = \frac{n \times N_{i+} \times N_{+j}}{n^2}$$
+4. $$\tilde{n}_{ij} = \frac{N_{i+} \times N_{+j}}{n}$$
+
+:::
+
+. . .
+
+
+**Simplificación Algebraica (Cancelación de $n$):**
+$$\tilde{n}_{ij} = \frac{\text{Total Fila } i \times \text{Total Columna } j}{n}$$
+
+. . .
+
 
 *¿Para qué sirve esto?* Nos permite construir un "Mundo Paralelo": **¿Cómo se vería nuestra tabla si de verdad no existiera ninguna asociación entre las variables?**
 
@@ -137,44 +159,17 @@ Los grados de libertad dependen del tamaño de la tabla: $$df = (\text{Nº Filas
 
 . . .
 
-**p-value:** Es la probabilidad de obtener un estadístico $t$ igual o más extremo que el que calculamos, asumiendo que $H_0$ es cierta. $$p\text{-value} = \mathbb{P}(\chi^2_{df} > \hat{t})$$ \
 
-## El estadístico de Pearson ($t$)
+::: {.notes}
+mencionar tabla
+:::
 
-Para testear estadísticamente si hay asociación, usamos el test de Pearson $\chi^2$.
+**p-value:** Es la probabilidad de obtener un estadístico $t$ igual o más extremo que el que calculamos, asumiendo que $H_0$ es cierta. $$p\text{-value} = \mathbb{P}(\chi^2_{df} > \hat{t})$$\
 
-. . .
+::: {.notes}
+Estas son tus notas. Solo tú las verás al presionar la tecla 'S' durante la presentación.
+:::
 
-Nuestra hipótesis nula ($H_0$) es que **las variables son independientes**.
-
-. . .
-
-El estadístico compara las frecuencias observadas ($n_{ij}$) con las frecuencias esperadas bajo independencia ($\tilde{n}_{ij}$):
-
-$$t = \sum_{\text{todas las celdas } i,j} \frac{(n_{ij} - \tilde{n}_{ij})^2}{\tilde{n}_{ij}}$$
-
-. . .
-
-- Si las tablas son casi idénticas (Obs $\approx$ Esp), el numerador será $\approx 0$, y el valor de $t$ será muy bajo.
-- Si las variables están muy asociadas, (Obs - Esp) será grande, y obtendremos un valor de $t$ alto.
-
-## Distribución y p-value
-
-Pero, ¿cuánto es un valor de $t$ lo "suficientemente alto" para rechazar la independencia?
-
-. . .
-
-Pearson demostró que, si la hipótesis nula (independencia) es cierta, el estadístico $t$ sigue una distribución Chi-cuadrado ($\chi^2$) con ciertos **Grados de Libertad (**$df$):
-
-$$t \sim \chi^2_{df}$$
-
-. . .
-
-Los grados de libertad dependen del tamaño de la tabla: $$df = (\text{Nº Filas} - 1) \times (\text{Nº Columnas} - 1)$$
-
-. . .
-
-**p-value:** Es la probabilidad de obtener un estadístico $t$ igual o más extremo que el que calculamos, asumiendo que $H_0$ es cierta. $$p\text{-value} = \mathbb{P}(\chi^2_{df} > \hat{t})$$
 
 ## Ejemplo de implementación en R (Cálculo Manual)
 
