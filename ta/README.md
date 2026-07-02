@@ -1,3 +1,10 @@
+# Compilado ejercicios examen
+
+| Enunciado | Respuestas |
+|------------|------------|
+| [`[Compilado]`](Prep/EX/compilado.pdf) | [`[Respuestas]`](Prep/EX/compilado_respuestas.pdf) |
+| | [`[Examen 2023]`](Prep/EX/final_exam_2023.pdf) |
+
 # Calendario Ayudantías
 
 | Día | Mes | Ayudante | Contenido | Material | Preparación |

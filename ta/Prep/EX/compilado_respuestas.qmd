@@ -1,0 +1,1207 @@
+---
+title: "_________________________________________"
+author: "Compilado exámenes (Respuestas)"
+format: 
+    pdf:
+        include-in-header:
+            text: |
+                \addtokomafont{section}{\centering}
+editor: visual
+geometry:
+  - left=.5in
+  - textwidth=5.5in
+  - marginparsep=.25in
+  - marginparwidth=2.25in
+---
+
+# Examen 2025[^1]
+
+[^1]: **Nota:** Muchos de los ejercicios tuve que reescribirlos yo mismo, ya que en la pauta se eliminaron los enunciados originales. Asuman que en la evaluación original los enunciados presentaban un mundo sin dar los datos de las poblaciones explícitamente.
+
+**Instrucciones:**\
+Seleccione las preguntas que desea responder, de modo que la suma de sus ponderaciones alcance **exactamente 100%**. Debe elegir entre **7 y 10 preguntas**. Una vez alcanzado el 100%, respuestas adicionales no serán consideradas. Cada pregunta indica su ponderación entre paréntesis.
+
+**1. (5%)**\
+En una región del país, el 55% de los votantes prefiere a Jara y el 45% a Kast. Se sabe, además, que entre quienes tienen educación universitaria, el 60% vota por Jara. Si el 30% de los votantes tiene educación universitaria, ¿cuál es la probabilidad de seleccionar al azar una persona que tenga educación universitaria **y** vote por Jara?
+
+Primero defino claramente los eventos para ordenar el problema:
+
+- $U$: "tener educación universitaria".\
+- $J$: "votar por Jara".
+
+La probabilidad que se pide es la probabilidad conjunta de que ambas cosas ocurran a la vez, es decir $P(U \cap J)$. A partir de las reglas de probabilidad sé que:
+
+$$P(U \cap J) = P(J \mid U)\, P(U),$$
+
+porque la probabilidad conjunta se puede expresar como "probabilidad condicional por probabilidad marginal".
+
+Del enunciado tomo los valores:
+
+- $P(J \mid U) = 0.60$ (60% de quienes tienen educación universitaria votan por Jara).
+- $P(U) = 0.30$ (30% de los votantes tiene educación universitaria).
+
+Entonces reemplazo en la fórmula:
+
+$$P(U \cap J) = 0.60 \times 0.30 = 0.18.$$
+
+Por lo tanto, la probabilidad de elegir al azar una persona que **tenga educación universitaria y vote por Jara** es $0.18$, es decir, un $18\%$ de todos los votantes se ubica simultáneamente en ambas categorías.
+
+------------------------------------------------------------------------
+
+**2. (5%)**\
+Usando el contexto anterior, calcule la probabilidad de que un votante que apoya a Jara tenga educación universitaria. Interprete el resultado.
+
+En este caso la probabilidad es condicional "al revés" del ejercicio anterior: ahora quiero $P(U \mid J)$, es decir, la probabilidad de que la persona tenga educación universitaria dado que **ya sabemos** que vota por Jara.
+
+Uso la definición de probabilidad condicional:
+
+$$P(U \mid J) = \frac{P(U \cap J)}{P(J)}.$$
+
+Del ejercicio 1 ya calculé la probabilidad conjunta:
+
+$$P(U \cap J) = 0.18.$$
+
+Y del enunciado sé que:
+
+$$P(J) = 0.55,$$
+
+porque el 55% de los votantes prefiere a Jara. Entonces sustituyo:
+
+$$P(U \mid J) = \frac{0.18}{0.55} \approx 0.3273.$$
+
+Numéricamente, $0.3273$ equivale aproximadamente a un $32.7\%$.
+
+**Interpretación:** entre quienes apoyan a Jara (es decir, restringiendo la población solo a votantes de Jara), alrededor de un tercio tiene educación universitaria. Es importante notar que esto es distinto de decir "el 30% de la población tiene educación universitaria": aquí estoy reponderando sobre el subconjunto de personas que votan por Jara.
+
+------------------------------------------------------------------------
+
+**3. (5%)**\
+Suponga que 5 votantes se seleccionan al azar y que cada uno vota por Kast con probabilidad 0.45, de manera independiente. ¿Cuál es la probabilidad de que exactamente 4 voten por Kast?
+
+Primero identifico el modelo probabilístico apropiado. Cada votante tiene dos posibles resultados: "vota Kast" o "no vota Kast", con:
+
+- $P(\text{vota Kast}) = 0.45$,
+- $P(\text{no vota Kast}) = 1 - 0.45 = 0.55$,
+
+y los votantes se consideran independientes. Por lo tanto, el número de personas que votan por Kast en una muestra de $n = 5$ sigue una distribución Binomial:
+
+$$X \sim \text{Binomial}(n = 5, p = 0.45).$$
+
+Quiero la probabilidad de que exactamente 4 voten por Kast, es decir:
+
+$$P(X = 4).$$
+
+La fórmula de la Binomial es:
+
+$$P(X = k) = \binom{n}{k} p^k (1-p)^{n-k}.$$
+
+Sustituyo $n = 5$, $k = 4$ y $p = 0.45$:
+
+$$P(X = 4) = \binom{5}{4} (0.45)^4 (0.55)^{5-4}.$$
+
+Calculo paso a paso:
+
+1.  El coeficiente binomial:
+
+$$\binom{5}{4} = 5.$$
+
+2.  La potencia de la probabilidad de "éxito":
+
+$$(0.45)^4.$$
+
+3.  La probabilidad de "fracaso" elevada a la cantidad correspondiente:
+
+$$(0.55)^1 = 0.55.$$
+
+Luego, la probabilidad total es:
+
+$$P(X = 4) = 5 \times 0.45^4 \times 0.55 \approx 0.113.$$
+
+Por lo tanto, la probabilidad de que exactamente 4 de los 5 votantes seleccionados voten por Kast es aproximadamente $0.113$, es decir, un $11.3\%$.
+
+------------------------------------------------------------------------
+
+**4. (5%)**\
+El ingreso mensual sigue $N(800, 200^2)$. ¿Cuál es la probabilidad de ingreso mayor a $1000$?
+
+Aquí se plantea una variable aleatoria continua con distribución Normal:
+
+$$X \sim N(\mu = 800,\ \sigma^2 = 200^2).$$
+
+Me piden $P(X > 1000)$. Para calcular esta probabilidad uso la estandarización a la distribución Normal estándar $Z \sim N(0,1)$.
+
+Primero calculo el puntaje $z$ correspondiente a $x = 1000$:
+
+$$z = \frac{x - \mu}{\sigma} = \frac{1000 - 800}{200} = \frac{200}{200} = 1.$$
+
+Entonces, la probabilidad original se traduce a:
+
+$$P(X > 1000) = P\bigg(Z > \frac{1000-800}{200}\bigg) = P(Z > 1).$$
+
+Uso la tabla de la Normal estándar (o un software) para obtener $P(Z \leq 1) = \Phi(1) \approx 0.8413$. Por tanto:
+
+$$P(Z > 1) = 1 - \Phi(1) \approx 1 - 0.8413 = 0.1587.$$
+
+Por lo tanto, aproximadamente un $15.9\%$ de las personas tiene un ingreso mensual superior a $1000$ (en las mismas unidades del enunciado).
+
+------------------------------------------------------------------------
+
+**5. (10%)**\
+Sea $X$ el ingreso en 2010:\
+$\mathbb{E}[X] = 834$, $\text{Var}(X) = 270^2$\
+$Y = 200 + 1.5X$ (ingreso en 2030)
+
+a)  Calcular $\mathbb{E}[Y]$
+
+Uso la propiedad de linealidad de la esperanza matemática. Si $Y = a + bX$, entonces:
+
+$$\mathbb{E}[Y] = a + b\, \mathbb{E}[X].$$
+
+En este caso $a = 200$, $b = 1.5$ y $\mathbb{E}[X] = 834$, entonces:
+
+$$\mathbb{E}[Y] = 200 + 1.5 \cdot 834.$$
+
+Calculo el producto:
+
+$$1.5 \cdot 834 = 1.5 \cdot (800 + 34) = 1.5 \cdot 800 + 1.5 \cdot 34 = 1200 + 51 = 1251.$$
+
+Luego:
+
+$$\mathbb{E}[Y] = 200 + 1251 = 1451.$$
+
+Es decir, el ingreso promedio esperado para 2030 es de $1451$.
+
+b)  Calcular $\text{Var}(Y)$
+
+Para una transformación lineal $Y = a + bX$, la varianza cumple:
+
+$$\text{Var}(Y) = b^2 \text{Var}(X),$$
+
+porque sumar una constante no cambia la varianza y multiplicar por $b$ la escala por $b^2$.
+
+Aquí $b = 1.5$ y $\text{Var}(X) = 270^2$, entonces:
+
+$$\text{Var}(Y) = (1.5)^2 \cdot 270^2.$$
+
+Primero calculo:
+
+$$(1.5)^2 = 2.25,$$
+
+$$270^2 = 72{,}900.$$
+
+Ahora:
+
+$$\text{Var}(Y) = 2.25 \cdot 72{,}900 = 164{,}025.$$
+
+c)  Calcular $\text{Cov}(X, Y)$
+
+La covarianza entre $X$ y una transformación lineal $Y = a + bX$ tiene la forma:
+
+$$\text{Cov}(X, a + bX) = b \,\text{Cov}(X, X) = b\, \text{Var}(X).$$
+
+Por lo tanto, con $b = 1.5$:
+
+$$\text{Cov}(X, Y) = 1.5 \cdot \text{Var}(X) = 1.5 \cdot 72{,}900.$$
+
+Calculo:
+
+$$1.5 \cdot 72{,}900 = 109{,}350.$$
+
+**Interpretación:** el ingreso promedio esperado en 2030 es $1451$, mayor que el promedio de $834$ en 2010, lo que refleja un aumento sistemático. La varianza aumenta a $164{,}025$, lo que indica que la dispersión de los ingresos también se amplifica con el factor $1.5$. La covarianza positiva y grande, $\text{Cov}(X, Y) = 109{,}350$, muestra una fuerte asociación positiva: quienes tenían mayores ingresos en 2010 tienden, en promedio, a tener mayores ingresos también en 2030.
+
+------------------------------------------------------------------------
+
+**6. (15%)**\
+La Ley de los Grandes Números establece:
+
+$$\lim_{n \to \infty} P\big( \lvert \bar{X}_n - \mu \rvert < \varepsilon \big) = 1,$$
+
+donde:
+
+- $\bar{X}_n$ es el promedio muestral de una muestra de tamaño $n$,
+- $\mu$ es la media poblacional verdadera,
+- $\varepsilon$ es un margen (tolerancia) positivo y pequeño.
+
+Primero interpreto la expresión: para cualquier margen de error $\varepsilon > 0$, por pequeño que sea, la probabilidad de que la diferencia entre el promedio muestral $\bar{X}_n$ y la verdadera media $\mu$ sea menor a $\varepsilon$ **tiende a 1** cuando el tamaño muestral $n$ crece sin límite.
+
+Esto significa, en palabras, que:
+
+- Cuando el tamaño de la muestra es **muy grande**, el promedio observado en la muestra se aproxima mucho al promedio real de la población.
+- La discrepancia entre $\bar{X}_n$ y $\mu$ se debe al azar del muestreo, pero a medida que incorporamos más observaciones, este azar "se compensa" y el promedio muestral se estabiliza alrededor de $\mu$.
+
+Aplicado a encuestas en ciencias sociales:
+
+- Si tomamos una muestra pequeña, el promedio muestral puede ser muy distinto del promedio poblacional simplemente por azar.
+- Si tomamos muestras grandes y repetimos el proceso, veremos que los promedios muestrales se concentran cada vez más cerca de $\mu$.
+- Por eso, la Ley de los Grandes Números justifica que el promedio muestral sea un **estimador consistente** de la media poblacional: al aumentar $n$, la estimación se vuelve más precisa y confiable.
+
+En resumen, la Ley de los Grandes Números dice que "promediar mucho" reduce el impacto del azar de muestreo y hace que el promedio de la muestra represente mejor a la población.
+
+------------------------------------------------------------------------
+
+**7. (5%)**\
+Distribución muestral del promedio ($\bar{x} = 834$, $s = 270$, $n = 3000$).
+
+Primero identifico qué se me pide: la distribución muestral de la media. Asumo que la población tiene media $\mu \approx 834$ y desviación estándar $\sigma \approx 270$, y que el tamaño muestral es grande ($n = 3000$). En estas condiciones, por el Teorema Central del Límite, el promedio muestral $\bar{X}$ se distribuye aproximadamente Normal con:
+
+- media igual a la media poblacional, y
+- desviación estándar igual al error estándar.
+
+El error estándar del promedio es:
+
+$$SE(\bar{X}) = \frac{\sigma}{\sqrt{n}} \approx \frac{270}{\sqrt{3000}}.$$
+
+Calculo $\sqrt{3000}$:
+
+$$\sqrt{3000} \approx 54.77,$$
+
+entonces:
+
+$$SE(\bar{X}) \approx \frac{270}{54.77} \approx 4.93.$$
+
+Por lo tanto, la distribución muestral del promedio se aproxima a:
+
+$$\bar{X} \sim N(834,\ 4.93^2).$$
+
+**Interpretación:** si repitiéramos muchas veces la encuesta, cada vez con una muestra aleatoria de tamaño $3000$, los promedios obtenidos en cada muestra seguirían aproximadamente una distribución Normal con centro en $834$ y variación alrededor de ese valor medida por un error estándar de aproximadamente $4.93$.
+
+------------------------------------------------------------------------
+
+**8. (10%)**\
+Explique qué es una distribución muestral y cómo se relaciona con el error estándar.
+
+Una **distribución muestral** describe cómo se comporta un **estadístico** (por ejemplo, un promedio, una proporción o una diferencia de promedios) cuando repetimos el proceso de muestreo muchas veces bajo las mismas condiciones. La idea es la siguiente:
+
+1.  Fijamos una población y un tamaño muestral $n$.
+2.  Tomamos una primera muestra aleatoria y calculamos un estadístico, por ejemplo el promedio $\bar{X}_1$.
+3.  Repetimos el proceso muchas veces: tomamos otra muestra, calculamos $\bar{X}_2$; luego otra, obtenemos $\bar{X}_3$, y así sucesivamente.
+4.  Si miramos todos esos valores $\bar{X}_1, \bar{X}_2, \dots$, veremos que no son idénticos: varían por efecto del azar del muestreo.
+
+La distribución de todos esos posibles valores del estadístico (en este ejemplo, los distintos promedios muestrales) es la **distribución muestral** del estadístico.
+
+El **error estándar (SE)** es un número que resume cuánta variabilidad hay en esa distribución muestral. Por ejemplo, en el caso del promedio:
+
+$$SE(\bar{X}) = \frac{\sigma}{\sqrt{n}},$$
+
+donde $\sigma$ es la desviación estándar poblacional y $n$ el tamaño de la muestra. Este $SE$ es, en esencia, la **desviación estándar de la distribución muestral** del promedio.
+
+Es crucial distinguir:
+
+- La **desviación estándar muestral** $s$ mide la variabilidad de **las personas** dentro de una misma muestra (qué tan dispersos están los ingresos, por ejemplo, entre los individuos).
+- El **error estándar** mide la variabilidad de **un estadístico** (por ejemplo, del promedio) **entre muestras hipotéticas diferentes**.
+
+En otras palabras, el error estándar no describe la dispersión de los datos individuales, sino la precisión del estimador: si el $SE$ es pequeño, significa que, al repetir el muestreo, los valores del estadístico (por ejemplo, los promedios) se agruparían fuertemente alrededor del valor real poblacional; si es grande, esos valores fluctuarían más de una muestra a otra.
+
+------------------------------------------------------------------------
+
+**9. (10%)**\
+Intervalo de confianza al 99% para la media poblacional.
+
+Tengo:
+
+- promedio muestral $\bar{x} = 834$,
+- error estándar $SE \approx 4.93$,
+- nivel de confianza $99\%$.
+
+Para un intervalo de confianza al $99\%$ con distribución Normal, el valor crítico es aproximadamente:
+
+$$z_{0.005} = 2.576,$$
+
+porque dejo $0.005$ de probabilidad en cada cola.
+
+La fórmula del intervalo de confianza es:
+
+$$IC_{99\%} = \bar{x} \pm z_{0.005} \cdot SE.$$
+
+Sustituyo los valores:
+
+$$IC_{99\%} = 834 \pm 2.576 \cdot 4.93.$$
+
+Primero calculo el margen de error:
+
+$$2.576 \cdot 4.93 \approx 12.7.$$
+
+Entonces los extremos del intervalo son:
+
+$$\text{límite inferior} = 834 - 12.7 \approx 821.3,$$
+
+$$\text{límite superior} = 834 + 12.7 \approx 846.7.$$
+
+Así, el intervalo es:
+
+$$IC_{99\%} \approx [821.3;\ 846.7].$$
+
+**Interpretación correcta:** el procedimiento de construcción del intervalo está diseñado de modo que, si repitiéramos el muestreo muchas veces y cada vez construyéramos un intervalo usando la misma fórmula, aproximadamente el $99\%$ de esos intervalos contaría con el verdadero promedio poblacional $\mu$. Para **este** intervalo específico, no tiene sentido decir que hay un "99% de probabilidad" de que $\mu$ esté adentro, porque $\mu$ es un número fijo (no aleatorio). Lo que es aleatorio son las muestras y, por lo tanto, los intervalos resultantes. Lo que afirmamos es que estamos usando un método que, en el largo plazo, captura el valor verdadero en el $99\%$ de los casos.
+
+------------------------------------------------------------------------
+
+**10. (10%)**\
+Test de proporción: $\hat{p} = 0.52$, $p_0 = 0.50$, $n = 3000$, $\alpha = 0.01$.
+
+Primero planteo las hipótesis:
+
+- $H_0: p = 0.50$ (la proporción poblacional es 50%),
+- $H_1: p \neq 0.50$ (la proporción es distinta de 50%).
+
+El estadístico de prueba para una proporción, usando aproximación Normal, es:
+
+$$z = \frac{\hat{p} - p_0}{\sqrt{\frac{p_0 (1 - p_0)}{n}}}.$$
+
+Sustituyo los valores:
+
+- $\hat{p} = 0.52$,
+- $p_0 = 0.50$,
+- $n = 3000$.
+
+Primero calculo el denominador (error estándar bajo $H_0$):
+
+$$SE_0 = \sqrt{\frac{p_0 (1 - p_0)}{n}} = \sqrt{\frac{0.5 \cdot 0.5}{3000}} = \sqrt{\frac{0.25}{3000}}.$$
+
+Entonces:
+
+$$\frac{0.25}{3000} \approx 0.00008333,$$
+
+y
+
+$$SE_0 \approx \sqrt{0.00008333} \approx 0.00913.$$
+
+Ahora calculo el estadístico $z$:
+
+$$z = \frac{0.52 - 0.50}{0.00913} = \frac{0.02}{0.00913} \approx 2.19.$$
+
+Para obtener el $p$-value en un test bilateral:
+
+$$p\text{-value} = 2 \cdot P(Z > |z|) = 2 \cdot P(Z > 2.19).$$
+
+De la tabla de la Normal estándar, $P(Z > 2.19) \approx 0.0143$, por lo tanto:
+
+$$p\text{-value} \approx 2 \cdot 0.0143 = 0.0286.$$
+
+Finalmente, comparo:
+
+- $p\text{-value} \approx 0.0286$,
+- $\alpha = 0.01$.
+
+Como $0.0286 > 0.01$, **no** rechazo $H_0$.
+
+**Conclusión sustantiva:** con un nivel de significancia del $1\%$, la evidencia estadística no es suficientemente fuerte como para afirmar que la proporción real difiere del 50%. Aunque la estimación puntual es $52\%$, esa diferencia de 2 puntos porcentuales no alcanza el umbral de significancia exigente que fijamos ($\alpha = 0.01$).
+
+------------------------------------------------------------------------
+
+**11. (15%)**\
+Test de diferencia de proporciones entre hombres y mujeres.
+
+Supongo que el ejercicio entrega:
+
+- $\hat{p}_H = 0.55$ con $n_H = 1400$ (hombres),
+- $\hat{p}_M = 0.49$ con $n_M = 1600$ (mujeres),
+- diferencia observada: $\hat{p}_H - \hat{p}_M = 0.06$.
+
+Quiero probar si esta diferencia es estadísticamente distinta de cero al 1%.
+
+Las hipótesis son:
+
+- $H_0: p_H - p_M = 0$,
+- $H_1: p_H - p_M \neq 0$.
+
+El error estándar de la diferencia de proporciones se calcula (sin "pooled" en este caso) como:
+
+$$SE(\hat{p}_H - \hat{p}_M) = 
+\sqrt{\frac{\hat{p}_H (1 - \hat{p}_H)}{n_H} + \frac{\hat{p}_M (1 - \hat{p}_M)}{n_M}}.$$
+
+Sustituyo valores:
+
+$$SE = \sqrt{\frac{0.55 \cdot 0.45}{1400} + \frac{0.49 \cdot 0.51}{1600}}.$$
+
+Calculo cada término:
+
+$$\frac{0.55 \cdot 0.45}{1400} = \frac{0.2475}{1400} \approx 0.0001768,$$
+
+$$\frac{0.49 \cdot 0.51}{1600} = \frac{0.2499}{1600} \approx 0.0001562.$$
+
+Sumo:
+
+$$0.0001768 + 0.0001562 \approx 0.000333.$$
+
+Entonces:
+
+$$SE \approx \sqrt{0.000333} \approx 0.01825.$$
+
+El estadístico de prueba es:
+
+$$z = \frac{(\hat{p}_H - \hat{p}_M) - 0}{SE} = \frac{0.06}{0.01825} \approx 3.29.$$
+
+Para $\alpha = 0.01$ en un test bilateral, el valor crítico es aproximadamente $z_{0.005} = 2.576$. Comparo:
+
+- $|z| = 3.29$,
+- $2.576$ es el umbral.
+
+Como $3.29 > 2.576$, la estadística cae en la región de rechazo.
+
+**Conclusión:** se rechaza $H_0$ al 1% de significancia. Hay evidencia estadísticamente significativa de que la proporción difiere entre hombres y mujeres. Sustantivamente, la proporción de hombres (55%) es mayor que la de mujeres (49%), y esa diferencia de 6 puntos porcentuales no puede atribuirse solo al azar de muestreo con este nivel de confianza.
+
+------------------------------------------------------------------------
+
+**12. (10%)**\
+Tamaño muestral necesario para estimar una proporción con error máximo $E = 0.001$ al $99\%$ de confianza, usando $p = 0.5$ como caso conservador.
+
+La fórmula general para el tamaño muestral en estimación de una proporción es:
+
+$$n = \frac{z_{\alpha/2}^2\, p(1-p)}{E^2},$$
+
+donde:
+
+- $z_{\alpha/2}$ es el valor crítico (para $99\%$, $\alpha = 0.01$ y $\alpha/2 = 0.005$),
+- $p$ es una suposición inicial sobre la proporción,
+- $E$ es el error máximo tolerado (margen de error).
+
+Para $99\%$ de confianza:
+
+$$z_{0.005} = 2.576.$$
+
+El problema indica usar $p = 0.5$, que es el valor que maximiza $p(1-p)$ y, por tanto, da el tamaño muestral más grande (más conservador).
+
+Sustituyo:
+
+$$n = \frac{(2.576)^2 \cdot 0.5(1-0.5)}{(0.001)^2}
+= \frac{(2.576)^2 \cdot 0.25}{(0.001)^2}.$$
+
+Calculo paso a paso:
+
+$$(2.576)^2 \approx 6.64,$$
+
+entonces:
+
+$$n = \frac{6.64 \cdot 0.25}{0.000001} = \frac{1.66}{0.000001} \approx 1{,}660{,}000.$$
+
+Por lo tanto, se requerirían aproximadamente $1{,}660{,}000$ casos.
+
+**Comentario:** este resultado muestra que exigir un margen de error extremadamente pequeño ($E = 0.001$) con un nivel de confianza muy alto ($99\%$) implica muestras gigantescas en encuestas reales.
+
+------------------------------------------------------------------------
+
+**13. (5%)**\
+Cálculo de la correlación a partir de la covarianza y las varianzas.
+
+Supongamos que se entregan:
+
+- $\text{Cov}(X, Y) = 312.4$,
+- $\text{Var}(X) = 72{,}900$,
+- $\text{Var}(Y) = 6.76$.
+
+Primero obtengo las desviaciones estándar de cada variable:
+
+$$\sigma_X = \sqrt{\text{Var}(X)} = \sqrt{72{,}900},$$
+
+$$\sigma_Y = \sqrt{\text{Var}(Y)} = \sqrt{6.76}.$$
+
+Numéricamente:
+
+$$\sigma_X \approx 270,$$
+
+$$\sigma_Y \approx 2.6.$$
+
+El coeficiente de correlación se define como:
+
+$$\rho_{XY} = \frac{\text{Cov}(X, Y)}{\sigma_X \sigma_Y}.$$
+
+Sustituyo:
+
+$$\rho = \frac{312.4}{\sqrt{72{,}900 \cdot 6.76}}.$$
+
+Como ya tengo aproximaciones:
+
+$$\sqrt{72{,}900 \cdot 6.76} \approx 270 \cdot 2.6 = 702,$$
+
+entonces:
+
+$$\rho \approx \frac{312.4}{702} \approx 0.445.$$
+
+**Interpretación:** la correlación es aproximadamente $0.445$, lo que indica una asociación positiva de magnitud moderada entre las dos variables. En el contexto de ingreso y escolaridad, esto significa que quienes tienen más años de escolaridad tienden, en promedio, a tener mayores ingresos, aunque la relación está lejos de ser perfecta (no todos los casos siguen exactamente esa tendencia).
+
+------------------------------------------------------------------------
+
+**14. (10%)**\
+Modelo cuadrático y correlación.
+
+Supongo que el modelo ajustado es:
+
+$$\text{Ingreso} = 50 + 4.1\,(\text{Escolaridad} - 8)^2.$$
+
+Primero observo que se trata de una relación cuadrática centrada en 8 años de escolaridad. El término $(\text{Escolaridad} - 8)^2$ es siempre no negativo y toma su valor mínimo cuando $\text{Escolaridad} = 8$. Eso significa que el ingreso mínimo según el modelo se alcanza en 8 años de escolaridad y luego crece tanto para menos como para más de 8.
+
+Este tipo de relación genera una forma de "U" simétrica en torno a 8. Esto es importante para la correlación porque:
+
+- La **correlación de Pearson** mide la **asociación lineal** entre dos variables.
+- Si la relación es fuertemente curvilínea y simétrica alrededor de un punto, los "aumentos" y "disminuciones" pueden cancelarse en promedio al calcular el producto de desviaciones.
+
+En otras palabras, aunque haya una relación sistemática (el ingreso varía claramente con la escolaridad), la forma cuadrática hace que el ajuste lineal no capture bien la tendencia global. El coeficiente de correlación podría incluso ser cercano a cero porque la parte "ascendente" y la parte "descendente" de la curva se compensan al resumir todo en una sola línea recta.
+
+Por eso, en este ejemplo puede ocurrir que:
+
+- Exista una relación clara y fuerte entre escolaridad e ingreso (descripta por el modelo cuadrático),
+- Pero la correlación de Pearson entre ambas variables sea baja o incluso cercana a cero, ya que la correlación únicamente mide el componente lineal de esa relación.
+
+------------------------------------------------------------------------
+
+**15. (10%)**\
+Explique con precisión qué es el $p$-value.
+
+El $p$-value se define formalmente como:
+
+$$p\text{-value} = P\big( T \geq t_{\text{obs}} \,\big|\, H_0\ \text{verdadera} \big),$$
+
+en el caso de un test unilateral con cola superior (en un bilateral se consideran ambas colas). En palabras:
+
+- $T$ es el estadístico de prueba (por ejemplo, un $z$ o un $t$),
+- $t_{\text{obs}}$ es el valor observado de ese estadístico en nuestros datos,
+- $H_0$ es la hipótesis nula.
+
+El $p$-value es la probabilidad, **suponiendo que la hipótesis nula es verdadera**, de obtener un valor del estadístico de prueba tan extremo como el observado (o más extremo) solo por azar de muestreo.
+
+Es importante enfatizar que el $p$-value:
+
+- Es una **probabilidad condicional sobre los datos**: se calcula bajo el supuesto de que $H_0$ es cierta.
+- **No** es la probabilidad de que la hipótesis nula sea verdadera o falsa.
+- **No** es la probabilidad de que los resultados se deban "solo al azar" en un sentido general; es una probabilidad calculada dentro de un modelo específico donde $H_0$ se asume cierta.
+
+En la práctica, si el $p$-value es muy pequeño (menor que $\alpha$), interpretamos que sería muy raro observar datos tan extremos si $H_0$ fuera verdadera, lo cual nos lleva a **rechazar** $H_0$ a ese nivel de significancia.
+
+------------------------------------------------------------------------
+
+**16. (10%)**\
+Explique por qué, si rechazamos $H_0$ cuando $p < \alpha$, la probabilidad de cometer un error tipo I es igual a $\alpha$.
+
+Recordemos que un **error tipo I** consiste en **rechazar** $H_0$ siendo $H_0$ verdadera. El nivel de significancia $\alpha$ se define justamente como:
+
+$$\alpha = P(\text{rechazar } H_0 \mid H_0\ \text{verdadera}).$$
+
+En un test clásico, construimos una **regla de decisión** basada en el estadístico de prueba $T$ y una región de rechazo. Por ejemplo:
+
+- En un test bilateral, rechazamos $H_0$ si $|T| > t_{\alpha/2}$.
+- En la versión basada en $p$-value, rechazamos si $p\text{-value} < \alpha$.
+
+Ambas reglas son equivalentes: el $p$-value es precisamente la probabilidad (bajo $H_0$) de caer en la región de valores tan extremos o más que el observado. Cuando fijamos un umbral $\alpha$ y definimos la región de rechazo de modo que bajo $H_0$:
+
+$$P(\text{estadística cae en la región de rechazo}) = \alpha,$$
+
+estamos garantizando que, si $H_0$ es verdadera y repetimos el experimento muchas veces, en aproximadamente un $\alpha \times 100\%$ de los casos terminaremos rechazando $H_0$ **por error** (es decir, cometiendo un error tipo I).
+
+Por lo tanto, si usamos la regla "rechazar cuando $p < \alpha$", estamos construyendo una prueba donde, por diseño, la probabilidad de cometer un error tipo I en el largo plazo es igual a $\alpha$. Esa es justamente la interpretación de $\alpha$ como nivel de significancia: el control de la tasa de falsos positivos cuando $H_0$ es verdadera.
+
+------------------------------------------------------------------------
+
+# Examen 2024
+
+**Instrucciones: Responde a las preguntas proporcionadas, asegurándote de justificar tus respuestas con cálculos y razonamientos claros.**
+
+**I.** En el Antiguo Testamento, el libro del Génesis comienza así: *"Y creó Dios al hombre a su imagen, a imagen de Dios lo creó; varón y hembra los creó"* (Génesis 1:27).
+
+![La creación](sistine.jpg){fig-align="center" width="8cm"}
+
+En esta pregunta, reemplazaremos la idea de creación divina por una versión probabilística: **variables aleatorias**.
+
+**I.i.** Sea $X$ una variable aleatoria que describe el sexo de una persona, donde la probabilidad de ser “varón” ($X = 1$) es $p$, y la probabilidad de ser “hembra” ($X = 0$) es $1-p$. Identifica qué distribución sigue la variable aleatoria $Y$ y escribe su función de masa de probabilidad (PMF).
+
+*Respuesta:*
+
+La variable aleatoria $X$, que describe el sexo de una persona, donde $P(X = 1) = p$ (varón) y $P(X = 0) = 1 - p$ (hembra), sigue una **distribución de Bernoulli**.
+
+La función de masa de probabilidad (PMF, por sus siglas en inglés) de una variable de Bernoulli está dada por:
+$$f_X(x) = P(X = x) = 
+\begin{cases} 
+p & \text{si } x = 1, \\ 
+1 - p & \text{si } x = 0, \\ 
+0 & \text{en otro caso.}
+\end{cases}$$
+
+En términos generales, la PMF se puede escribir como:
+$$f_X(x) = p^x (1-p)^{1-x}, \quad x \in \{0, 1\}.$$
+
+**I.ii.** Si la probabilidad de ser “varón” y “hembra” es la misma, ¿cuál es el valor de $p$?
+
+*Respuesta:*
+
+Si la probabilidad de ser “varón” ($X = 1$) y de ser “hembra” ($X = 0$) es la misma, tenemos:
+$$P(X = 1) = P(X = 0) \implies p = 1 - p.$$
+
+Resolviendo esta ecuación:
+$$p + p = 1 \implies 2p = 1 \implies p = \frac{1}{2}.$$
+
+Por lo tanto, cuando la probabilidad es la misma, el valor de $p$ es:
+$$p = \frac{1}{2}.$$
+
+**I.iii.** Si Adán ($X_1$) y Eva ($X_2$) son dos realizaciones independientes de $X$, expresa y calcula la probabilidad de generar dos personas secuencialmente y obtener un “varón” y una “hembra” (en ese orden).
+
+*Respuesta:*
+
+Sean $X_1$ y $X_2$ las variables independientes que representan las realizaciones de Adán y Eva, respectivamente. Deseamos calcular la probabilidad de obtener un “varón” ($X_1 = 1$) seguido por una “hembra” ($X_2 = 0$):
+
+$$P(X_1 = 1 \text{ y } X_2 = 0).$$
+
+Dado que $X_1$ y $X_2$ son independientes, la probabilidad conjunta se puede expresar como el producto de las probabilidades marginales:
+$$P(X_1 = 1 \text{ y } X_2 = 0) = P(X_1 = 1) \cdot P(X_2 = 0).$$
+
+Sustituyendo las probabilidades, tenemos:
+$$P(X_1 = 1) = p, \quad P(X_2 = 0) = 1 - p.$$
+
+Por lo tanto:
+$$P(X_1 = 1 \text{ y } X_2 = 0) = p \cdot (1 - p).$$
+
+Si $p = \frac{1}{2}$ (como calculamos en la parte anterior), entonces:
+$$P(X_1 = 1 \text{ y } X_2 = 0) = \frac{1}{2} \cdot \left(1 - \frac{1}{2}\right) = \frac{1}{2} \cdot \frac{1}{2} = \frac{1}{4}.$$
+
+**II.** Asimismo, el creador probabilístico estableció que la variable aleatoria $Y$ describe la altura (en cms) de un "varón" y de una "hembra" de la siguiente manera:
+
+- $Y \mid X =1 \sim \text{Normal}(\mu_v= 170, \sigma_v=20)$
+- $Y \mid X =0 \sim \text{Normal}(\mu_h= 160, \sigma_h=10)$
+
+**II.i.** ¿Son sexo y altura dos variables independientes? Fundamenta tu respuesta.
+
+La altura $Y$ sigue una distribución condicional dependiente del sexo $X$. Esto implica que $Y$ no tiene la misma distribución para todos los valores de $X$. En otras palabras, la probabilidad de $Y$ depende del valor de $X$.
+
+Por lo tanto, **sexo y altura no son independientes**, ya que la altura depende del sexo.
+
+**II.ii.** Calcula la probabilidad de que un hombre tenga una altura superior a 180 cms.
+
+La altura de un hombre ($Y \mid X = 1$) sigue una distribución normal:
+$$Y \mid X = 1 \sim \mathcal{N}(\mu_v = 170, \sigma_v = 20).$$
+
+Queremos calcular:
+$$P(Y > 180 \mid X = 1).$$
+
+Estandarizamos $Y$ usando la transformación $Z = \frac{Y - \mu_v}{\sigma_v}$, donde $Z \sim \mathcal{N}(0, 1)$. Así, la probabilidad se convierte en:
+$$P(Y > 180 \mid X = 1) = P\left(Z > \frac{180 - 170}{20}\right) = P(Z > 0.5).$$
+
+La probabilidad acumulada de $Z \leq 0.5$ se obtiene de la tabla de la distribución normal estándar:
+$$P(Z \leq 0.5) = 0.6915.$$
+
+Por lo tanto:
+$$P(Z > 0.5) = 1 - P(Z \leq 0.5) = 1 - 0.6915 = 0.3085.$$
+
+La probabilidad de que un hombre tenga una altura superior a 180 cm es:
+$$P(Y > 180 \mid X = 1) \approx 0.3085.$$
+
+**II.iii.** ¿Que altura debe tener una mujer para ubicarse en el percentil 90 (10% más alto)?
+
+Para una mujer ($Y \mid X = 0$), la altura sigue una distribución normal:
+$$Y \mid X = 0 \sim \mathcal{N}(\mu_h = 160, \sigma_h = 10).$$
+
+Queremos encontrar $y$ tal que:
+$$P(Y \leq y \mid X = 0) = 0.9.$$
+
+El percentil 90 de una distribución normal estándar ($Z$) corresponde a un valor acumulado de 0.9. De las tablas de la normal estándar:
+$$P(Z \leq 1.28) = 0.9.$$
+
+Desestandarizamos $Z$ para encontrar $y$:
+$$y = \mu_h + Z \cdot \sigma_h = 160 + 1.28 \cdot 10 = 160 + 12.8 = 172.8.$$
+
+Por lo tanto, una mujer debe tener una altura de:
+$$y = 172.8 \, \text{cm},$$
+para ubicarse en el percentil 90 (10% más alto).
+
+**III.** Teomémas Asintóticos
+
+**III .i.** Identifica los siguientes teorémas y explica en palabras haciendo referencia a los términos usados en las ecuaciones respectivas.
+
+- 
+
+  a)  $\bar{X} \overset{d}{\to} \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)$
+
+Este enunciado corresponde al **Teorema Central del Límite (TCL)**. Este teorema establece que, para una muestra aleatoria de tamaño $n$, si las observaciones son independientes y provienen de una población con media finita $\mu$ y varianza finita $\sigma^2$, entonces la media muestral $\bar{X}$ sigue una distribución aproximadamente normal cuando $n$ es grande, incluso si los datos originales no tienen una distribución normal.
+
+- $\bar{X}$: Representa la media muestral.
+- $\overset{d}{\to}$: Denota convergencia en distribución (la distribución de $\bar{X}$ se aproxima a una distribución normal a medida que $n \to \infty$).
+- $\mu$: Media poblacional.
+- $\frac{\sigma}{\sqrt{n}}$: Desviación estándar de la media muestral (conocida como error estándar de la media).
+
+En palabras simples, el TCL nos permite realizar inferencias sobre la media poblacional usando la distribución normal estándar, independientemente de la distribución original de los datos, siempre que el tamaño muestral sea suficientemente grande.
+
+- 
+
+  b)  $\lim_{n \to \infty}\mathbb{P}\left( \left| \bar{X} - \mu \right| \geq \epsilon \right) = 0$
+
+Este enunciado corresponde a la **Ley de los Grandes Números (LGN)**, específicamente la **versión débil de la LGN**. Este teorema garantiza que, a medida que el tamaño de la muestra $n$ aumenta indefinidamente, la media muestral $\bar{X}$ converge en probabilidad a la media poblacional $\mu$.
+
+- $\mathbb{P}$: Denota probabilidad.
+- $\left| \bar{X} - \mu \right| \geq \epsilon$: Evento en el cual la media muestral $\bar{X}$ difiere de la media poblacional $\mu$ por una cantidad mayor o igual a un umbral $\epsilon > 0$.
+- $\lim_{n \to \infty}$: Nos indica el comportamiento cuando el tamaño muestral crece indefinidamente.
+
+En palabras simples, la LGN asegura que, para tamaños muestrales grandes, la probabilidad de que la media muestral difiera significativamente de la media poblacional tiende a cero. Este resultado es fundamental para garantizar que la media muestral sea un estimador consistente de la media poblacional.
+
+**III .ii.** Explica los conceptos de "distribución muestral" (sampling distribution) de un estimador y su "error estándar".
+
+La distribución muestral de un estimador es la distribución de probabilidad que describe cómo varía ese estimador cuando se toman múltiples muestras aleatorias de un tamaño fijo $n$ de una población.
+
+- Es un concepto teórico que describe la variabilidad inherente de un estadístico debido al muestreo.
+- La forma de la distribución muestral depende del estadístico, del tamaño muestral $n$, y de la distribución de la población original.
+
+El error estándar de un estadístico es una medida de la variabilidad esperada del estadístico debido al muestreo aleatorio. Matemáticamente, es el desvío estándar de la distribución muestral del estadístico.
+
+**IV.** Luego de leer el libro del Genesis un teólogo desea conocer la proporción de hombres y mujeres en una comunidad bíblica. Para ello, selecciona aleatoriamente 150 personas mencionadas en los relatos bíblicos y encuentra que 90 son hombres y 60 son mujeres.
+
+El análisis se realiza utilizando una fórmula que calcula la proporción como el cociente entre el número de hombres observados y el tamaño de la muestra. Aplicando esta fórmula a los datos recolectados se obtiene un valor numérico de 0.6.
+
+**Pregunta:**: Con base en la situación descrita, identifica
+
+- **El estimando:** La proporción verdadera de hombres en la comunidad bíblica (desconocida).
+
+- **El estimador:** La fórmula $\hat{p} = \frac{\text{Número de hombres observados}}{\text{Tamaño de la muestra}}$.
+
+- **El estimado (**$\hat{p} = 0.6$): El valor calculado de 0.6, basado en
+
+**V.** El arqueólogo Dr. Ezekiel Ben-David, en sus estudios sobre registros históricos de Galilea en el año 34 d.C., recopiló datos sobre la altura y el sexo de individuos, posiblemente descendientes de los fundadores bíblicos Adán y Eva.
+
+| Sexo   | Altura (cm) |
+|--------|-------------|
+| Varón  | 150         |
+| Hembra | 140         |
+| Hembra | 147         |
+| Hembra | 162         |
+| Varón  | 199         |
+| Varón  | 169         |
+| Varón  | 168         |
+| Hembra | 168         |
+| Hembra | 152         |
+| Hembra | 171         |
+| Hembra | 159         |
+| Varón  | 167         |
+| Hembra | 166         |
+| Varón  | 161         |
+| Hembra | 166         |
+| Hembra | 157         |
+| Varón  | 159         |
+| Hembra | 154         |
+| Hembra | 164         |
+| Varón  | 148         |
+
+**V .i.** Estima la proporción de hombres y construye un intervalo de confianza al 95% para dicha proporción. Interpreta el resultado tanto desde una perspectiva estadística como sustantiva. Justifica tus decisiones metodológicas.
+
+**Estimación de la proporción**: - Número de hombres: $n_{\text{hombres}} = 8$. - Tamaño total de la muestra: $n_{\text{total}} = 20$. - Proporción estimada de hombres:
+$$     \hat{p} = \frac{n_{\text{hombres}}}{n_{\text{total}}} = \frac{8}{20} = 0.4.
+     $$
+
+**Intervalo de confianza al 95%**: - Error estándar de la proporción:
+$$     SE(\hat{p}) = \sqrt{\frac{\hat{p}(1 - \hat{p})}{n_{\text{total}}}} = \sqrt{\frac{0.4(1 - 0.4)}{20}} \approx 0.1095.
+     $$ - Usando un valor crítico $z = 1.96$ (para un nivel de confianza del 95%):
+$$     IC_{95\%} = \hat{p} \pm z \cdot SE(\hat{p}).
+     $$ - Límite inferior:
+$$     0.4 - 1.96 \cdot 0.1095 \approx 0.1853.
+     $$ - Límite superior:
+$$     0.4 + 1.96 \cdot 0.1095 \approx 0.6147.
+     $$ - Intervalo de confianza:
+$$     IC_{95\%} = (0.1853, 0.6147).
+     $$
+
+**Interpretación estadística**: Estimamos que el 40% de los individuos son hombres. Con un 95% de confianza, la proporción verdadera de hombres en esta comunidad se encuentra entre 18.5% y 61.5%.
+
+**Interpretación sustantiva**: La proporción estimada sugiere que en esta comunidad bíblica hay más mujeres que hombres. Sin embargo, dado el intervalo de confianza relativamente amplio, no podemos descartar proporciones más cercanas a la paridad debido al tamaño reducido de la muestra.
+
+**V.ii.** Realiza un test de hipótesis para evaluar si la altura promedio de los hombres era mayor que la de las mujeres. Plantea la hipótesis nula y alternativa, determina el test estadístico apropiado y calcula su valor p. Interpreta el resultado tanto desde una perspectiva estadística como sustantiva. Justifica tus decisiones metodológicas.
+
+**Planteamiento de las hipótesis**: - $H_0$: La altura promedio de los hombres es menor o igual que la de las mujeres ($\mu_{\text{hombres}} \leq \mu_{\text{mujeres}}$). - $H_1$: La altura promedio de los hombres es mayor que la de las mujeres ($\mu_{\text{hombres}} > \mu_{\text{mujeres}}$).
+
+**Datos resumidos**: - Promedio de altura de los hombres ($\bar{x}_{\text{hombres}}$): $165.13 \, \text{cm}$. - Promedio de altura de las mujeres ($\bar{x}_{\text{mujeres}}$): $158.83 \, \text{cm}$. - Tamaño de muestra: $n_{\text{hombres}} = 8$, $n_{\text{mujeres}} = 12$.
+
+**Test estadístico**: - Usamos una prueba $t$ de comparación de medias con la alternativa unilateral ($\mu_{\text{hombres}} > \mu_{\text{mujeres}}$):
+$$     t = \frac{\bar{x}_{\text{hombres}} - \bar{x}_{\text{mujeres}}}{\sqrt{\frac{s_{\text{hombres}}^2}{n_{\text{hombres}}} + \frac{s_{\text{mujeres}}^2}{n_{\text{mujeres}}}}}.
+     $$ - Valor observado de $t$: $t = 1.13$. - Valor $p$: $p \approx 0.137$.
+
+**Interpretación estadística**: - Dado que $p = 0.137 > 0.05$, no rechazamos la hipótesis nula al nivel de significancia del 5%. Esto significa que no hay suficiente evidencia estadística para afirmar que la altura promedio de los hombres es mayor que la de las mujeres.
+
+**Interpretación sustantiva**: - Aunque los hombres parecen ser más altos en promedio ($165.13 \, \text{cm}$) que las mujeres ($158.83 \, \text{cm}$), la diferencia no es lo suficientemente grande como para ser estadísticamente significativa, posiblemente debido al tamaño pequeño de las muestras y la variabilidad en los datos.
+
+**VI.** En sus investigaciones, el arqueólogo Dr. Ezekiel Ben-David descubrió los resultados de un plebiscito popular llevado a cabo en comunidades rurales y urbanas de Galilea (año 34 d.C.), respecto a la adopción de un nuevo código moral con dos opciones: "Tradición" y "Cambio".
+
+La siguiente tabla de contingencia resume los resultados obtenidos:
+
+|             | Rural | Urbano |
+|-------------|-------|--------|
+| "Tradición" | 50    | 60     |
+| "Cambio"    | 50    | 140    |
+
+**VI.i.** Realiza un test de $\chi^2$ para evaluar si existe una asociación entre el tipo de comunidad (rural o urbana) y la preferencia por el nuevo código moral. Detalla los pasos involucrados en el cálculo del estadístico $\chi^2$ y proporciona una interpretación sustantiva del resultado.
+
+- **Hipótesis nula (**$H_0$): No existe asociación entre el tipo de comunidad (rural o urbana) y la preferencia por el código moral.
+
+- **Hipótesis alternativa (**$H_a$): Existe asociación entre el tipo de comunidad y la preferencia por el código moral.
+
+- **Datos observados:**\
+
+  $$ \begin{array}{|c|c|c|}
+   \hline
+   & \text{Rural} & \text{Urbano} \\
+   \hline
+   \text{"Tradición"} & 50 & 60 \\
+   \text{"Cambio"} & 50 & 140 \\
+   \hline
+   \end{array}
+   $$
+
+- **Frecuencias esperadas:**\
+  Utilizando la fórmula $E_{ij} = \frac{R_i \cdot C_j}{N}$, donde $R_i$ y $C_j$ son los totales de las filas y columnas, respectivamente:
+  $$  \begin{array}{|c|c|c|}
+    \hline
+    & \text{Rural} & \text{Urbano} \\
+    \hline
+    \text{"Tradición"} & 36.67 & 73.33 \\
+    \text{"Cambio"} & 63.33 & 126.67 \\
+    \hline
+    \end{array}
+    $$
+
+- **Estadístico Chi-cuadrado y valor** $p$:
+  $$  \chi^2 = 10.64, \quad p = 0.0011
+    $$
+
+- **Grados de libertad:** $df = (2-1)(2-1) = 1$
+
+**Interpretación:**\
+El valor $p$ (0.0011) es mucho menor que un nivel de significancia típico ($\alpha = 0.05$), por lo que rechazamos la hipótesis nula de independencia. Esto indica que existe evidencia de una asociación entre el tipo de comunidad (rural o urbana) y la preferencia por el nuevo código moral.
+
+**VI.ii.** Calcula las proporciones muestrales que estiman las siguientes probabilidades:
+
+- $P(\text{"Cambio"} \mid \text{Rural}) = \hat{p}_{\text{R}} = \frac{50}{100} = 0.5$
+
+- $P(\text{"Cambio"} \mid \text{Urbano}) = \hat{p}_{\text{U}}  = \frac{140}{200} = 0.7$
+
+**VI.iii.** Realiza un test de diferencia en proporciones para evaluar la hipótesis:
+
+- **Hipótesis nula (**$H_0$): $P(\text{"Cambio"} \mid \text{Rural}) = P(\text{"Cambio"} \mid \text{Urbano})$\
+
+- **Hipótesis alternativa (**$H_a$): $P(\text{"Cambio"} \mid \text{Rural}) < P(\text{"Cambio"} \mid \text{Urbano})$
+
+El estadístico de prueba se calcula como:
+$$z = \frac{\hat{p}_\text{R} - \hat{p}_\text{U}}{\sqrt{\frac{\hat{p}_\text{R}(1 - \hat{p}_\text{R})}{n_\text{R}} + \frac{\hat{p}_\text{U}(1 - \hat{p}_\text{U})}{n_\text{U}}}}$$
+donde:
+
+- $\hat{p}_\text{R} = \frac{\text{Éxitos en Rural}}{\text{Total Rural}} = \frac{50}{100} = 0.5$,
+
+- $\hat{p}_\text{U} = \frac{\text{Éxitos en Urbano}}{\text{Total Urbano}} = \frac{140}{200} = 0.7$,
+
+- $n_\text{R} = 100$,
+
+- $n_\text{U} = 200$.
+
+- Calculamos la varianza para el grupo Rural:
+  $$\frac{\hat{p}_\text{R}(1 - \hat{p}_\text{R})}{n_\text{R}} = \frac{0.5 \cdot (1 - 0.5)}{100} = \frac{0.25}{100} = 0.0025$$
+
+- Calculamos la varianza para el grupo Urbano:
+  $$\frac{\hat{p}_\text{U}(1 - \hat{p}_\text{U})}{n_\text{U}} = \frac{0.7 \cdot (1 - 0.7)}{200} = \frac{0.21}{200} = 0.00105$$
+
+- Suma de varianzas:
+  $$\text{Varianza total} = 0.0025 + 0.00105 = 0.00355$$
+
+- Desviación estándar total:
+  $$\sqrt{\text{Varianza total}} = \sqrt{0.00355} \approx 0.0596$$
+
+- Estadístico $z$:
+  $$z = \frac{\hat{p}_\text{R} - \hat{p}_\text{U}}{\sqrt{\frac{\hat{p}_\text{R}(1 - \hat{p}_\text{R})}{n_\text{R}} + \frac{\hat{p}_\text{U}(1 - \hat{p}_\text{U})}{n_\text{U}}}}
+  = \frac{0.5 - 0.7}{0.0596} = \frac{-0.2}{0.0596} \approx -3.36$$
+
+- Valor $p$: Para una prueba unilateral:
+  $$p = P(Z < -3.36)$$
+
+De la tabla de la distribución normal estándar (o software), encontramos:
+$$p \approx 0.00039$$
+
+**Interpretación:**\
+El valor $p$ es muy pequeño ($p < 0.05$), por lo que rechazamos $H_0$. Esto proporciona evidencia sólida de que la proporción de preferencia por "Cambio" es significativamente mayor en comunidades urbanas que en comunidades rurales.
+
+**VI.** Galileo Galilei y la Ley de la Caída Libre
+
+Galileo Galilei descubrió que la distancia recorrida por un objeto en caída libre desde el reposo está dada por la ecuación:
+
+$$d = 4.9 t^2$$
+
+Donde: - ($d$) es la distancia recorrida (en metros). - ($t$) es el tiempo transcurrido (en segundos).
+
+Un físico decidió poner a prueba esta ley realizando un experimento con un tamaño muestral de ($n = 20$). Midió el tiempo y la distancia recorrida por un objeto en caída libre en condiciones reales, por lo que los datos presentan un pequeño ruido aleatorio. Los resultados se resumen en la siguiente tabla:
+
+| Variable      | Media   | Desviación estándar (SD) | Covarianza (t, d) |
+|---------------|---------|--------------------------|-------------------|
+| Tiempo (t)    | 2.75 s  | 1.40 s                   | 52.83             |
+| Distancia (d) | 46.18 m | 38.62 m                  | \-                |
+
+El siguiente gráfico muestra la relación entre el tiempo y la distancia reportada en el experimento:
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+# Código en R para generar el gráfico con estilo antiguo
+
+# Generar datos casi determinísticos
+n <- 20
+set.seed(42)
+
+# Tiempo (t) y distancia (d)
+t <- seq(0.5, 5, length.out = n)  # Tiempos entre 0.5 y 5 segundos
+d <- 4.9 * t^2                     # Relación cuadrática
+noise <- rnorm(n, mean = 0, sd = 0.1)  # Ruido pequeño
+d_noisy <- d + noise               # Datos con ruido
+
+# Crear data frame
+datos <- data.frame(Tiempo = t, Distancia = d_noisy)
+
+# Cargar librería ggplot2
+library(ggplot2)
+
+# Crear gráfico con estilo "old school"
+ggplot(datos, aes(x = Tiempo, y = Distancia)) +
+  geom_point(shape = 21, fill = "white", colour = "black", size = 3) +
+  geom_line(colour = "black", linetype = "dotted") +
+  labs(title = "Relación entre Tiempo y Distancia",
+       x = "Tiempo (s)",
+       y = "Distancia (m)") +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    panel.border = element_rect(colour = "black", fill = NA, size = 1),
+    panel.grid.major = element_line(colour = "grey80", linetype = "dashed"),
+    panel.grid.minor = element_blank(),
+    axis.ticks = element_line(colour = "black"),
+    axis.title = element_text(face = "bold")
+  )
+```
+
+**VI.i.** ¿Qué tipo de relación observas entre el tiempo (t) y la distancia (d) según los datos?
+
+La relación entre el tiempo y la distancia en caída libre muestra una **dependencia cuadrática**. Según la fórmula teórica $d = 4.9 t^2$, la distancia aumenta con el cuadrado del tiempo. En el gráfico proporcionado, se observa una relación creciente y no lineal, lo que concuerda con la ecuación descrita.
+
+**VI.ii.** Calcula el coeficiente de correlación de Pearson entre el tiempo (t) y la distancia (d). Comenta sobre el signo y la magnitud de la correlación obtenida.
+
+El coeficiente de correlación de Pearson ($r$) mide la fuerza y dirección de la relación lineal entre $t$ y $d$. Se calcula como:
+$$r = \frac{\text{Cov}(t, d)}{\sigma_t \cdot \sigma_d},$$
+donde: - $\text{Cov}(t, d) = 52.83$ (covarianza), - $\sigma_t = 1.40$ (desviación estándar de $t$), - $\sigma_d = 38.62$ (desviación estándar de $d$).
+
+Sustituyendo los valores:
+$$r = \frac{52.83}{1.40 \cdot 38.62} \approx 0.977.$$
+
+$r \approx 0.977$ indica una correlación muy fuerte. El signo positivo implica que a medida que $t$ aumenta, $d$ también aumenta.
+
+**VI.iii.** ¿Crees que es una medida adecuada para describir esta relación?
+
+El coeficiente de correlación de Pearson mide la relación lineal entre $t$ y $d$, pero la relación real entre estas variables es **no lineal (cuadrática)**. Aunque $r$ es alto debido a la monotonía de la relación (ambas variables aumentan juntas), no captura adecuadamente la naturaleza no lineal de los datos. Por tanto, a pesar de que $r$ proporciona información sobre la fuerza de la relación creciente, no describe completamente la forma cuadrática subyacente.
+
+# Prueba Bonus 2025
+
+En el marco de las elecciones presidenciales de segunda vuelta en Chile, un centro de estudios sociales realiza una encuesta a nivel nacional para analizar el comportamiento electoral y ciertas características socioeconómicas de la población. El estudio se aplicó a individuos mayores de 18 años, residentes en todas las regiones, con muestreo aleatorio estratificado. Se recolectaron, entre otras, las siguientes cuatro variables:
+
+- Sexo: Hombre (H) / Mujer (M)\
+- Intención de voto (segunda vuelta): Kast / Jara\
+- Ingreso mensual (en miles de pesos chilenos)\
+- Años de escolaridad
+
+Se levantó una muestra grande (n = 3.000), pero a continuación se muestran 7 registros como ejemplo ilustrativo:
+
+| ID  | Sexo | Voto | Ingreso (mil) | Escol. (años) |
+|-----|------|------|---------------|---------------|
+| 1   | H    | Kast | 980           | 12            |
+| 2   | M    | Jara | 650           | 14            |
+| 3   | H    | Kast | 1.200         | 16            |
+| 4   | M    | Jara | 720           | 13            |
+| 5   | M    | Kast | 820           | 11            |
+| 6   | H    | Kast | 1.050         | 15            |
+| 7   | M    | Jara | 580           | 10            |
+
+La siguiente table muestra los principales estadísticos descriptivos de la muestra:
+
+| Variable            | Media | Desv. Est. | Proporción |
+|---------------------|-------|------------|------------|
+| Ingreso (mil pesos) | 834   | 270        | —          |
+| Escolaridad (años)  | 13.2  | 2.6        | —          |
+| Sexo (Hombre)       | —     | —          | 0.47       |
+| Voto Kast           | —     | —          | 0.52       |
+| Voto Jara           | —     | —          | 0.48       |
+
+Además, la siguiente tabla muestra la matriz de varianza--covarianza entre las variables Ingreso y Escolaridad. Una matriz de varianza--covarianza resume cuánta variación tiene cada variable por sí sola (las varianzas, ubicadas en la diagonal) y cómo se relacionan entre sí (las covarianzas, ubicadas fuera de la diagonal).
+
+$$\Sigma =
+\begin{pmatrix}
+Var(\text{Ingreso}) & Cov(\text{Ingreso, Escolaridad})\\[6pt]
+Cov(\text{Ingreso, Escolaridad}) & Var(\text{Escolaridad})
+\end{pmatrix}
+=
+\begin{pmatrix}
+72900 & 312.4\\
+312.4 & 6.76
+\end{pmatrix}$$ donde:
+
+- Var(Ingreso): varianza de los ingresos individuales.
+- Var(Escolaridad): varianza de los años de escolaridad.
+- Cov(Ingreso, Escolaridad): covarianza entre ambas variables.
+
+Importante:
+
+- Todos los estimadores presentados son insesgados para sus respectivos parámetros teóricos poblacionales.
+- Para todos los procedimientos inferenciales se trabajará con un nivel de confianza del 99% ($\alpha$ = 0.01).
+
+### Preguntas
+
+1.  (20%) Estime los intervalos de confianza al 99% para:
+
+<!-- -->
+
+a)  La proporción de intención de voto por Kast\
+b)  La proporción de intención de voto por Jara
+
+Interprete ambos resultados en el contexto electoral.
+
+Para construir los intervalos de confianza al 99% para proporciones utilizo la fórmula:
+
+$$IC_{99\%} = \hat{p} \pm z_{0.005} \cdot \sqrt{\frac{\hat{p}(1-\hat{p})}{n}}$$
+
+donde $z_{0.005} = 2.576$ para un nivel de confianza del 99%.
+
+Para Kast tenemos $\hat{p}_{Kast} = 0.52$ y $n = 3000$. Calculando el error estándar:
+
+$$EE_{Kast} = \sqrt{\frac{0.52 \cdot 0.48}{3000}} = \sqrt{\frac{0.2496}{3000}} = \sqrt{0.0000832} = 0.00912$$
+
+El margen de error es:
+
+$$ME_{Kast} = 2.576 \cdot 0.00912 = 0.0235$$
+
+Por lo tanto el intervalo de confianza para Kast es:
+
+$$IC_{99\%}(Kast) = [0.52 - 0.0235, 0.52 + 0.0235] = [0.4965, 0.5435]$$
+
+Para Jara tenemos $\hat{p}_{Jara} = 0.48$ y $n = 3000$. El error estándar es:
+
+$$EE_{Jara} = \sqrt{\frac{0.48 \cdot 0.52}{3000}} = \sqrt{\frac{0.2496}{3000}} = 0.00912$$
+
+El margen de error es:
+
+$$ME_{Jara} = 2.576 \cdot 0.00912 = 0.0235$$
+
+Por lo tanto el intervalo de confianza para Jara es:
+
+$$IC_{99\%}(Jara) = [0.48 - 0.0235, 0.48 + 0.0235] = [0.4565, 0.5035]$$
+
+Interpretación: Con un 99% de confianza, la verdadera proporción poblacional de votantes por Kast se encuentra entre 49.65% y 54.35%, mientras que para Jara se encuentra entre 45.65% y 50.35%. Ambos intervalos se traslapan considerablemente, lo que indica que la elección está técnicamente empatada dentro del margen de error estadístico. Ninguno de los candidatos puede declararse claramente ganador basándose únicamente en esta encuesta, ya que los intervalos incluyen valores donde cualquiera de los dos podría obtener la mayoría.
+
+2.  (24%) A partir de la siguiente tabla de contingencia entre sexo e intención de voto, donde cada celda reporta los recuentos observados y, entre paréntesis, los recuentos esperados bajo independencia, aplique el test Chi-cuadrado de independencia para evaluar si existe asociación entre ambas variables.
+
+| Sexo / Voto | Kast      | Jara      | Total |
+|-------------|-----------|-----------|-------|
+| Hombre      | 735 (733) | 675 (677) | 1410  |
+| Mujer       | 825 (827) | 765 (763) | 1590  |
+| Total       | 1560      | 1440      | 3000  |
+
+Para realizar el test Chi-cuadrado de independencia planteo las hipótesis:
+
+$H_0$: Sexo e intención de voto son independientes
+
+$H_1$: Sexo e intención de voto están asociados
+
+El estadístico Chi-cuadrado se calcula como:
+
+$$\chi^2 = \sum \frac{(O_{ij} - E_{ij})^2}{E_{ij}}$$
+
+Calculando para cada celda:
+
+Para Hombre-Kast: $\frac{(735 - 733)^2}{733} = \frac{4}{733} = 0.00546$
+
+Para Hombre-Jara: $\frac{(675 - 677)^2}{677} = \frac{4}{677} = 0.00591$
+
+Para Mujer-Kast: $\frac{(825 - 827)^2}{827} = \frac{4}{827} = 0.00484$
+
+Para Mujer-Jara: $\frac{(765 - 763)^2}{763} = \frac{4}{763} = 0.00524$
+
+Sumando todos los términos:
+
+$$\chi^2_{obs} = 0.00546 + 0.00591 + 0.00484 + 0.00524 = 0.02145$$
+
+Los grados de libertad son:
+
+$$gl = (filas - 1)(columnas - 1) = (2 - 1)(2 - 1) = 1$$
+
+Bajo la hipótesis nula de independencia, el estadístico $\chi^2_{obs}$ sigue una distribución Chi-cuadrado con 1 grado de libertad. El valor crítico para $\alpha = 0.01$ con 1 grado de libertad es $\chi^2_{crítico} = 6.635$.
+
+Como $\chi^2_{obs} = 0.02145 < 6.635$, no rechazo la hipótesis nula. El valor p asociado a este estadístico es extremadamente alto (cercano a 0.88), lo que indica que si las variables fueran independientes, obtener un estadístico como el observado o más extremo sería muy probable.
+
+Conclusión: No existe evidencia estadística significativa al 99% de confianza para afirmar que el sexo y la intención de voto están asociados. Las diferencias observadas entre hombres y mujeres en sus preferencias electorales son tan pequeñas que pueden atribuirse al azar del muestreo. El sexo no parece ser un factor relevante en la elección entre Kast y Jara en esta muestra.
+
+3.  (20%) Use el test de diferencia de proporciones para evaluar si la proporción de votantes por Kast es significativamente distinta entre hombres y mujeres.
+
+Primero calculo las proporciones muestrales de cada grupo:
+
+Para hombres: $\hat{p}_H = \frac{735}{1410} = 0.5213$
+
+Para mujeres: $\hat{p}_M = \frac{825}{1590} = 0.5189$
+
+Planteo las hipótesis:
+
+$H_0$: $p_H = p_M$ (las proporciones son iguales)
+
+$H_1$: $p_H \neq p_M$ (las proporciones son diferentes)
+
+El error estándar de la diferencia se calcula directamente como:
+
+$$EE = \sqrt{\frac{\hat{p}_H(1 - \hat{p}_H)}{n_H} + \frac{\hat{p}_M(1 - \hat{p}_M)}{n_M}}$$
+
+$$EE = \sqrt{\frac{0.5213 \cdot 0.4787}{1410} + \frac{0.5189 \cdot 0.4811}{1590}}$$
+
+$$EE = \sqrt{\frac{0.2496}{1410} + \frac{0.2496}{1590}}$$
+
+$$EE = \sqrt{0.0001770 + 0.0001570} = \sqrt{0.0003340} = 0.01828$$
+
+El estadístico de prueba es:
+
+$$z = \frac{\hat{p}_H - \hat{p}_M}{EE} = \frac{0.5213 - 0.5189}{0.01828} = \frac{0.0024}{0.01828} = 0.1313$$
+
+Bajo la hipótesis nula de igualdad de proporciones, el estadístico z sigue una distribución Normal estándar $N(0,1)$. Para un test bilateral con $\alpha = 0.01$, el valor crítico es $z_{crítico} = \pm 2.576$.
+
+Como $|z_{obs}| = 0.1313 < 2.576$, no rechazo la hipótesis nula. El valor p asociado a este estadístico es aproximadamente 0.90, lo que significa que si las proporciones poblacionales fueran iguales, obtener una diferencia como la observada o más extrema sería muy probable.
+
+Conclusión: No hay evidencia estadística significativa al 99% de confianza para afirmar que la proporción de votantes por Kast difiere entre hombres y mujeres. La diferencia observada de apenas 0.24 puntos porcentuales es tan pequeña que puede explicarse fácilmente por variación muestral aleatoria. Este resultado es consistente con el test Chi-cuadrado realizado anteriormente.
+
+4.  (20%) Usando la matriz de varianza-covarianza y estadísticos provistos, calcule el coeficiente de correlación de Pearson entre ingreso y años de escolaridad.
+
+- Explique qué mide.\
+- Interprete su valor, signo e intensidad.
+
+El coeficiente de correlación de Pearson se calcula como:
+
+$$r = \frac{Cov(X, Y)}{\sigma_X \cdot \sigma_Y}$$
+
+De la matriz de varianza-covarianza tenemos:
+
+$Var(Ingreso) = 72900$, por lo tanto $\sigma_{Ingreso} = \sqrt{72900} = 270$
+
+$Var(Escolaridad) = 6.76$, por lo tanto $\sigma_{Escolaridad} = \sqrt{6.76} = 2.6$
+
+$Cov(Ingreso, Escolaridad) = 312.4$
+
+Calculando la correlación:
+
+$$r = \frac{312.4}{270 \cdot 2.6} = \frac{312.4}{702} = 0.445$$
+
+El coeficiente de correlación de Pearson mide la fuerza y dirección de la relación lineal entre dos variables cuantitativas. Toma valores entre -1 y 1, donde valores cercanos a 1 indican una relación lineal positiva fuerte, valores cercanos a -1 indican una relación lineal negativa fuerte, y valores cercanos a 0 indican ausencia de relación lineal.
+
+En este caso, $r = 0.445$ indica una correlación positiva moderada entre ingreso y años de escolaridad. El signo positivo significa que a mayor escolaridad tiende a haber mayores ingresos. La magnitud de 0.445 sugiere que la relación es moderada, es decir, existe una tendencia clara pero no perfecta. Aproximadamente el 19.8% de la variabilidad en los ingresos puede explicarse por la escolaridad ($r^2 = 0.198$), lo que implica que aunque la educación es un factor relevante para explicar los ingresos, existen muchos otros factores que también influyen en esta variable.
+
+5.  (16%) Si $X$ es una variable aleatoria e $Y=\frac{1}{2} \cdot X$, ¿cuál es la correlación de Pearson entre $X$ e $Y$?
+
+Explique el razonamiento y el significado del resultado.
+
+Para encontrar la correlación entre $X$ e $Y = \frac{1}{2}X$ utilizo la fórmula:
+
+$$r_{X,Y} = \frac{Cov(X, Y)}{\sigma_X \cdot \sigma_Y}$$
+
+Primero calculo la covarianza. Por propiedades de la covarianza:
+
+$$Cov(X, Y) = Cov\left(X, \frac{1}{2}X\right) = \frac{1}{2}Cov(X, X) = \frac{1}{2}Var(X) = \frac{1}{2}\sigma_X^2$$
+
+Ahora calculo la desviación estándar de $Y$. Por propiedades de la varianza:
+
+$$Var(Y) = Var\left(\frac{1}{2}X\right) = \left(\frac{1}{2}\right)^2 Var(X) = \frac{1}{4}\sigma_X^2$$
+
+Por lo tanto:
+
+$$\sigma_Y = \sqrt{\frac{1}{4}\sigma_X^2} = \frac{1}{2}\sigma_X$$
+
+Sustituyendo en la fórmula de correlación:
+
+$$r_{X,Y} = \frac{\frac{1}{2}\sigma_X^2}{\sigma_X \cdot \frac{1}{2}\sigma_X} = \frac{\frac{1}{2}\sigma_X^2}{\frac{1}{2}\sigma_X^2} = 1$$
+
+El resultado es $r_{X,Y} = 1$, lo que indica una correlación perfecta positiva.
+
+Este resultado tiene sentido porque $Y$ es una transformación lineal positiva de $X$. Cuando una variable es una función lineal de otra con pendiente positiva, la correlación siempre es 1, independientemente de la constante multiplicativa o aditiva. El coeficiente de correlación es invariante ante cambios de escala y localización, por lo que solo captura la dirección y fuerza de la relación lineal, no la magnitud de los cambios. En este caso, cada vez que $X$ aumenta, $Y$ aumenta proporcionalmente, manteniendo una relación lineal perfecta, aunque $Y$ sea exactamente la mitad de $X$.

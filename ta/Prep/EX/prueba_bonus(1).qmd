@@ -10,45 +10,38 @@ geometry:
   - marginparwidth=2.25in
 ---
 
-
 En el marco de las elecciones presidenciales de segunda vuelta en Chile, un centro de estudios sociales realiza una encuesta a nivel nacional para analizar el comportamiento electoral y ciertas características socioeconómicas de la población. El estudio se aplicó a individuos mayores de 18 años, residentes en todas las regiones, con muestreo aleatorio estratificado. Se recolectaron, entre otras, las siguientes cuatro variables:
 
-* Sexo: Hombre (H) / Mujer (M)  
-* Intención de voto (segunda vuelta): Kast / Jara  
-* Ingreso mensual (en miles de pesos chilenos)  
-* Años de escolaridad
+- Sexo: Hombre (H) / Mujer (M)\
+- Intención de voto (segunda vuelta): Kast / Jara\
+- Ingreso mensual (en miles de pesos chilenos)\
+- Años de escolaridad
 
 Se levantó una muestra grande (n = 3.000), pero a continuación se muestran 7 registros como ejemplo ilustrativo:
 
-| ID | Sexo | Voto | Ingreso (mil) | Escol. (años) |
-| -- | ---- | ---- | ------------- | ------------- |
-| 1  | H    | Kast | 980           | 12            |
-| 2  | M    | Jara | 650           | 14            |
-| 3  | H    | Kast | 1.200         | 16            |
-| 4  | M    | Jara | 720           | 13            |
-| 5  | M    | Kast | 820           | 11            |
-| 6  | H    | Kast | 1.050         | 15            |
-| 7  | M    | Jara | 580           | 10            |
-
-
+| ID  | Sexo | Voto | Ingreso (mil) | Escol. (años) |
+|-----|------|------|---------------|---------------|
+| 1   | H    | Kast | 980           | 12            |
+| 2   | M    | Jara | 650           | 14            |
+| 3   | H    | Kast | 1.200         | 16            |
+| 4   | M    | Jara | 720           | 13            |
+| 5   | M    | Kast | 820           | 11            |
+| 6   | H    | Kast | 1.050         | 15            |
+| 7   | M    | Jara | 580           | 10            |
 
 La siguiente table muestra los principales estadísticos descriptivos de la muestra:
 
 | Variable            | Media | Desv. Est. | Proporción |
-| ------------------- | ----- | ---------- | ---------- |
+|---------------------|-------|------------|------------|
 | Ingreso (mil pesos) | 834   | 270        | —          |
 | Escolaridad (años)  | 13.2  | 2.6        | —          |
 | Sexo (Hombre)       | —     | —          | 0.47       |
 | Voto Kast           | —     | —          | 0.52       |
 | Voto Jara           | —     | —          | 0.48       |
 
+Además, la siguiente tabla muestra la matriz de varianza--covarianza entre las variables Ingreso y Escolaridad. Una matriz de varianza--covarianza resume cuánta variación tiene cada variable por sí sola (las varianzas, ubicadas en la diagonal) y cómo se relacionan entre sí (las covarianzas, ubicadas fuera de la diagonal).
 
-
-Además, la siguiente tabla muestra la matriz de varianza--covarianza entre las variables Ingreso y Escolaridad. Una matriz de varianza--covarianza resume cuánta variación tiene cada variable por sí sola (las varianzas, ubicadas en la diagonal) y cómo se relacionan entre sí (las covarianzas, ubicadas fuera de la diagonal). 
-
-
-$$
-\Sigma =
+$$\Sigma =
 \begin{pmatrix}
 Var(\text{Ingreso}) & Cov(\text{Ingreso, Escolaridad})\\[6pt]
 Cov(\text{Ingreso, Escolaridad}) & Var(\text{Escolaridad})
@@ -57,28 +50,25 @@ Cov(\text{Ingreso, Escolaridad}) & Var(\text{Escolaridad})
 \begin{pmatrix}
 72900 & 312.4\\
 312.4 & 6.76
-\end{pmatrix}
-$$
-donde:
+\end{pmatrix}$$ donde:
 
-* Var(Ingreso): varianza de los ingresos individuales.
-* Var(Escolaridad): varianza de los años de escolaridad.
-* Cov(Ingreso, Escolaridad): covarianza entre ambas variables. 
-
+- Var(Ingreso): varianza de los ingresos individuales.
+- Var(Escolaridad): varianza de los años de escolaridad.
+- Cov(Ingreso, Escolaridad): covarianza entre ambas variables.
 
 Importante:
 
 - Todos los estimadores presentados son insesgados para sus respectivos parámetros teóricos poblacionales.
 - Para todos los procedimientos inferenciales se trabajará con un nivel de confianza del 99% ($\alpha$ = 0.01).
 
-
 ### Preguntas
 
+1.  (20%) Estime los intervalos de confianza al 99% para:
 
-1. (20%) Estime los intervalos de confianza al 99% para:
+<!-- -->
 
-a) La proporción de intención de voto por Kast  
-b) La proporción de intención de voto por Jara
+a)  La proporción de intención de voto por Kast\
+b)  La proporción de intención de voto por Jara
 
 Interprete ambos resultados en el contexto electoral.
 
@@ -114,11 +104,10 @@ $$IC_{99\%}(Jara) = [0.48 - 0.0235, 0.48 + 0.0235] = [0.4565, 0.5035]$$
 
 Interpretación: Con un 99% de confianza, la verdadera proporción poblacional de votantes por Kast se encuentra entre 49.65% y 54.35%, mientras que para Jara se encuentra entre 45.65% y 50.35%. Ambos intervalos se traslapan considerablemente, lo que indica que la elección está técnicamente empatada dentro del margen de error estadístico. Ninguno de los candidatos puede declararse claramente ganador basándose únicamente en esta encuesta, ya que los intervalos incluyen valores donde cualquiera de los dos podría obtener la mayoría.
 
-
-2. (24%) A partir de la siguiente tabla de contingencia entre sexo e intención de voto, donde cada celda reporta los recuentos observados y, entre paréntesis, los recuentos esperados bajo independencia, aplique el test Chi-cuadrado de independencia para evaluar si existe asociación entre ambas variables.
+2.  (24%) A partir de la siguiente tabla de contingencia entre sexo e intención de voto, donde cada celda reporta los recuentos observados y, entre paréntesis, los recuentos esperados bajo independencia, aplique el test Chi-cuadrado de independencia para evaluar si existe asociación entre ambas variables.
 
 | Sexo / Voto | Kast      | Jara      | Total |
-| ----------- | --------- | --------- | ----- |
+|-------------|-----------|-----------|-------|
 | Hombre      | 735 (733) | 675 (677) | 1410  |
 | Mujer       | 825 (827) | 765 (763) | 1590  |
 | Total       | 1560      | 1440      | 3000  |
@@ -157,8 +146,7 @@ Como $\chi^2_{obs} = 0.02145 < 6.635$, no rechazo la hipótesis nula. El valor p
 
 Conclusión: No existe evidencia estadística significativa al 99% de confianza para afirmar que el sexo y la intención de voto están asociados. Las diferencias observadas entre hombres y mujeres en sus preferencias electorales son tan pequeñas que pueden atribuirse al azar del muestreo. El sexo no parece ser un factor relevante en la elección entre Kast y Jara en esta muestra.
 
-
-3. (20%) Use el test de diferencia de proporciones para evaluar si la proporción de votantes por Kast es significativamente distinta entre hombres y mujeres.
+3.  (20%) Use el test de diferencia de proporciones para evaluar si la proporción de votantes por Kast es significativamente distinta entre hombres y mujeres.
 
 Primero calculo las proporciones muestrales de cada grupo:
 
@@ -192,11 +180,10 @@ Como $|z_{obs}| = 0.1313 < 2.576$, no rechazo la hipótesis nula. El valor p aso
 
 Conclusión: No hay evidencia estadística significativa al 99% de confianza para afirmar que la proporción de votantes por Kast difiere entre hombres y mujeres. La diferencia observada de apenas 0.24 puntos porcentuales es tan pequeña que puede explicarse fácilmente por variación muestral aleatoria. Este resultado es consistente con el test Chi-cuadrado realizado anteriormente.
 
+4.  (20%) Usando la matriz de varianza-covarianza y estadísticos provistos, calcule el coeficiente de correlación de Pearson entre ingreso y años de escolaridad.
 
-4. (20%) Usando la matriz de varianza-covarianza y estadísticos provistos, calcule el coeficiente de correlación de Pearson entre ingreso y años de escolaridad.
-
-* Explique qué mide.  
-* Interprete su valor, signo e intensidad.
+- Explique qué mide.\
+- Interprete su valor, signo e intensidad.
 
 El coeficiente de correlación de Pearson se calcula como:
 
@@ -218,9 +205,8 @@ El coeficiente de correlación de Pearson mide la fuerza y dirección de la rela
 
 En este caso, $r = 0.445$ indica una correlación positiva moderada entre ingreso y años de escolaridad. El signo positivo significa que a mayor escolaridad tiende a haber mayores ingresos. La magnitud de 0.445 sugiere que la relación es moderada, es decir, existe una tendencia clara pero no perfecta. Aproximadamente el 19.8% de la variabilidad en los ingresos puede explicarse por la escolaridad ($r^2 = 0.198$), lo que implica que aunque la educación es un factor relevante para explicar los ingresos, existen muchos otros factores que también influyen en esta variable.
 
+5.  (16%) Si $X$ es una variable aleatoria e $Y=\frac{1}{2} \cdot X$, ¿cuál es la correlación de Pearson entre $X$ e $Y$?
 
-5. (16%) Si $X$ es una variable aleatoria e $Y=\frac{1}{2} \cdot X$, ¿cuál es la correlación de Pearson entre $X$ e $Y$?  
- 
 Explique el razonamiento y el significado del resultado.
 
 Para encontrar la correlación entre $X$ e $Y = \frac{1}{2}X$ utilizo la fórmula:
