@@ -1,0 +1,101 @@
+---
+title: "_________________________________________"
+author: "Compilado exámenes"
+format: 
+    pdf:
+        include-in-header:
+            text: |
+                \addtokomafont{section}{\centering}
+editor: visual
+geometry:
+  - left=.5in
+  - textwidth=5.5in
+  - marginparsep=.25in
+  - marginparwidth=2.25in
+---
+# Examen 2025^[**Nota:** Muchos de los ejercicios tuve que reescribirlos yo mismo, ya que en la pauta se eliminaron los enunciados originales. Asuman que en la evaluación original los enunciados presentaban un mundo sin dar los datos de las poblaciones explícitamente.]
+**Instrucciones:**\
+Seleccione las preguntas que desea responder, de modo que la suma de sus ponderaciones alcance **exactamente 100%**. Debe elegir entre **7 y 10 preguntas**. Una vez alcanzado el 100%, respuestas adicionales no serán consideradas. Cada pregunta indica su ponderación entre paréntesis.
+
+**1. (5%)**\
+En una región del país, el 55% de los votantes prefiere a Jara y el 45% a Kast. Se sabe, además, que entre quienes tienen educación universitaria, el 60% vota por Jara. Si el 30% de los votantes tiene educación universitaria, ¿cuál es la probabilidad de seleccionar al azar una persona que tenga educación universitaria **y** vote por Jara?
+
+{{< pagebreak >}}
+**2. (5%)**\
+Usando el contexto anterior, calcule la probabilidad de que un votante que apoya a Jara tenga educación universitaria. Interprete el resultado.
+
+{{< pagebreak >}}
+**3. (5%)**\
+Suponga que 5 votantes se seleccionan al azar y que cada uno vota por Kast con probabilidad 0.45, de manera independiente. ¿Cuál es la probabilidad de que exactamente 4 voten por Kast?
+
+{{< pagebreak >}}
+**4. (5%)**\
+El ingreso mensual sigue $N(800, 200^2)$. ¿Cuál es la probabilidad de ingreso mayor a $1000$?
+
+{{< pagebreak >}}
+**5. (10%)**\
+Sea $X$ el ingreso en 2010:\
+$\mathbb{E}[X] = 834$, $\text{Var}(X) = 270^2$\
+$Y = 200 + 1.5X$ (ingreso en 2030)
+
+a)  Calcular $\mathbb{E}[Y]$
+b)  Calcular $\text{Var}(Y)$
+c)  Calcular $\text{Cov}(X, Y)$
+
+
+{{< pagebreak >}}
+**6. (15%)**\
+La Ley de los Grandes Números establece:
+
+$$
+\lim_{n \to \infty} P\big( \lvert \bar{X}_n - \mu \rvert < \varepsilon \big) = 1,
+$$
+
+Explique en sus propias palabras que significa la fórmula, identificando las variables e interpretando su funcionamiento. ¿Cómo puede ser aplicada a la planificación de una encuesta en ciencias sociales?
+
+
+{{< pagebreak >}}
+**8. (10%)**\
+Establezca la distribución muestral de una población con las siguientes características:
+
+($\bar{x} = 834$, $s = 270$, $n = 3000$)
+
+{{< pagebreak >}}
+**7. (10%)**\
+Utilizando los mismos datos del ejercicio anterior, cálcule el intervalo de confianza al 99% de la población.
+
+{{< pagebreak >}}
+**9. (10%)**\
+Explique qué es una distribución muestral y cómo se relaciona con el error estándar.
+
+{{< pagebreak >}}
+**10. (10%)**\
+Realice un test de proporción para una población con: 
+$\hat{p} = 0.52$, $p_0 = 0.50$, $n = 3000$, $\alpha = 0.01$.
+
+{{< pagebreak >}}
+**11. (15%)**\
+Realice un test de diferencia de proporciones entre hombre y mujeres. Considere que los datos de la población son:
+
+- $\hat{p}_H = 0.55$ con $n_H = 1400$ (hombres),
+- $\hat{p}_M = 0.49$ con $n_M = 1600$ (mujeres), 
+
+{{< pagebreak >}}
+**12. (10%)**\
+¿Cúal es el tamaño poblacional necesario para estimar una proporción de $0.5$ con error máximo de $E = 0.001$ al $99%$ de confianza?
+
+{{< pagebreak >}}
+**13. (5%)**\
+Haga un cálculo de correlación entre $X$ e $Y$ asumiendo que:
+
+- $\text{Cov}(X, Y) = 312.4$,
+- $\text{Var}(X) = 72{,}900$,
+- $\text{Var}(Y) = 6.76$.
+
+{{< pagebreak >}}
+**15. (10%)**\
+Explique con precisión qué es el $p$-value.
+
+{{< pagebreak >}}
+**16. (10%)**\
+Explique por qué, si rechazamos $H_0$ cuando $p < \alpha$, la probabilidad de cometer un error tipo I es igual a $\alpha$.
