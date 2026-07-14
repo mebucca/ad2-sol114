@@ -1,0 +1,75 @@
+1:6
+tirar_dado <- function() {
+sample(1:6, size=1, replace=FALSE)
+}
+tirar_dado()
+tirar_dado()
+tirar_dado()
+tirar_dado()
+tirar_dado()
+tirar_dado()
+tirar_dado()
+tirar_dado()
+replicate(n=100,tirar_dado)
+tirar_dado <- function() {
+sample(1:6, size=1, replace=FALSE)
+}
+replicate(n=100,tirar_dado)
+tirar_dado <- function() {
+sample(1:6, size=1, replace=FALSE)
+}
+replicate(n=100,tirar_dado())
+replicate <- replicate(n=100,tirar_dado())
+result <- replicate(n=100,tirar_dado())
+table(result)
+sum(table(result))
+tirar_dado <- function() {
+sample(1:6, size=1, replace=FALSE)
+}
+result <- replicate(n=100,tirar_dado())
+probs <- table(result)/sum(table(result))
+probs
+1/6
+result <- replicate(n=10,tirar_dado())
+result
+probs <- table(result)/sum(table(result))
+probs
+result <- replicate(n=10,tirar_dado())
+probs <- table(result)/sum(table(result))
+probs
+result <- replicate(n=10,tirar_dado())
+probs <- table(result)/sum(table(result))
+probs
+result <- replicate(n=10,tirar_dado())
+probs <- table(result)/sum(table(result))
+probs
+result <- replicate(n=10,tirar_dado())
+probs <- table(result)/sum(table(result))
+probs
+result <- replicate(n=10,tirar_dado())
+probs <- table(result)/sum(table(result))
+probs
+result <- replicate(n=10,tirar_dado())
+probs <- table(result)/sum(table(result))
+probs
+result <- replicate(n=10,tirar_dado())
+probs <- table(result)/sum(table(result))
+probs
+result <- replicate(n=10,tirar_dado())
+probs <- table(result)/sum(table(result))
+probs
+result <- replicate(n=10,tirar_dado())
+probs <- table(result)/sum(table(result))
+probs
+result <- replicate(n=10000,tirar_dado())
+probs <- table(result)/sum(table(result))
+probs
+result <- replicate(n=100000,tirar_dado())
+probs <- table(result)/sum(table(result))
+probs
+result <- replicate(n=1000000,tirar_dado())
+probs <- table(result)/sum(table(result))
+probs
+result <- replicate(n=10000000,tirar_dado())
+probs <- table(result)/sum(table(result))
+probs
