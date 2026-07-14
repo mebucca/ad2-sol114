@@ -11,7 +11,7 @@ Este repositorio contiene el material del curso SOL512 Probabilidad e Inferencia
 
 ### Reporte de notas
 
-- [`[Ver reporte de nota final]`](https://mebucca.github.io/ad2-sol114/exams/notas_final.html)
+- [`[Ver reporte de nota final]`](https://mebucca.github.io/ad2-sol114/exams/notas_final)
 
 ### Nivelación Matemática
 
