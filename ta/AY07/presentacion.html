@@ -243,6 +243,19 @@ Tomás Leva
 <li class="fragment">Marginal de <span class="math inline">\(X\)</span> (filas): <span class="math inline">\(p_{i+} = \sum_{j} p_{ij}\)</span></li>
 <li class="fragment">Marginal de <span class="math inline">\(Y\)</span> (columnas): <span class="math inline">\(p_{+j} = \sum_{i} p_{ij}\)</span></li>
 </ul>
+<aside class="notes">
+<p>representan la suma de todas ellas al final</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 </section>
 <section id="distribuciones-condicionales" class="slide level2">
@@ -275,10 +288,33 @@ Tomás Leva
 <p><span class="math display">\[\tilde{p}_{ij} = p_{i+} \times p_{+j}\]</span></p>
 </div>
 </section>
-<section id="frecuencias-esperadas" class="slide level2">
+<section id="frecuencias-esperadas" class="slide level2 scrollable">
 <h2>Frecuencias Esperadas</h2>
 <p>Si transformamos esa probabilidad esperada a cantidad de personas (frecuencias esperadas), multiplicamos por el tamaño total de la muestra (<span class="math inline">\(n\)</span>):</p>
 <p><span class="math display">\[\tilde{n}_{ij} = n \times p_{i+} \times p_{+j}\]</span></p>
+<div class="fragment">
+<aside class="notes">
+<ol type="1">
+<li><span class="math display">\[\tilde{n}_{ij} = n \times p_{i+} \times p_{+j}\]</span></li>
+<li><span class="math display">\[\tilde{n}_{ij} = n \times \left( \frac{N_{i+}}{n} \right) \times \left( \frac{N_{+j}}{n} \right)\]</span></li>
+<li><span class="math display">\[\tilde{n}_{ij} = \frac{n \times N_{i+} \times N_{+j}}{n^2}\]</span></li>
+<li><span class="math display">\[\tilde{n}_{ij} = \frac{N_{i+} \times N_{+j}}{n}\]</span></li>
+</ol>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
+</div>
+<div class="fragment">
+<p><strong>Simplificación Algebraica (Cancelación de <span class="math inline">\(n\)</span>):</strong> <span class="math display">\[\tilde{n}_{ij} = \frac{\text{Total Fila } i \times \text{Total Columna } j}{n}\]</span></p>
+</div>
 <div class="fragment">
 <p><em>¿Para qué sirve esto?</em> Nos permite construir un “Mundo Paralelo”: <strong>¿Cómo se vería nuestra tabla si de verdad no existiera ninguna asociación entre las variables?</strong></p>
 </div>
@@ -319,39 +355,34 @@ Tomás Leva
 <p>Los grados de libertad dependen del tamaño de la tabla: <span class="math display">\[df = (\text{Nº Filas} - 1) \times (\text{Nº Columnas} - 1)\]</span></p>
 </div>
 <div class="fragment">
+<aside class="notes">
+<p>mencionar tabla</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 <p><strong>p-value:</strong> Es la probabilidad de obtener un estadístico <span class="math inline">\(t\)</span> igual o más extremo que el que calculamos, asumiendo que <span class="math inline">\(H_0\)</span> es cierta. <span class="math display">\[p\text{-value} = \mathbb{P}(\chi^2_{df} &gt; \hat{t})\]</span><br>
 </p>
-</div>
-</section>
-<section id="el-estadístico-de-pearson-t-1" class="slide level2">
-<h2>El estadístico de Pearson (<span class="math inline">\(t\)</span>)</h2>
-<p>Para testear estadísticamente si hay asociación, usamos el test de Pearson <span class="math inline">\(\chi^2\)</span>.</p>
-<div class="fragment">
-<p>Nuestra hipótesis nula (<span class="math inline">\(H_0\)</span>) es que <strong>las variables son independientes</strong>.</p>
-</div>
-<div class="fragment">
-<p>El estadístico compara las frecuencias observadas (<span class="math inline">\(n_{ij}\)</span>) con las frecuencias esperadas bajo independencia (<span class="math inline">\(\tilde{n}_{ij}\)</span>):</p>
-<p><span class="math display">\[t = \sum_{\text{todas las celdas } i,j} \frac{(n_{ij} - \tilde{n}_{ij})^2}{\tilde{n}_{ij}}\]</span></p>
-</div>
-<div class="fragment">
-<ul>
-<li class="fragment">Si las tablas son casi idénticas (Obs <span class="math inline">\(\approx\)</span> Esp), el numerador será <span class="math inline">\(\approx 0\)</span>, y el valor de <span class="math inline">\(t\)</span> será muy bajo.</li>
-<li class="fragment">Si las variables están muy asociadas, (Obs - Esp) será grande, y obtendremos un valor de <span class="math inline">\(t\)</span> alto.</li>
-</ul>
-</div>
-</section>
-<section id="distribución-y-p-value-1" class="slide level2">
-<h2>Distribución y p-value</h2>
-<p>Pero, ¿cuánto es un valor de <span class="math inline">\(t\)</span> lo “suficientemente alto” para rechazar la independencia?</p>
-<div class="fragment">
-<p>Pearson demostró que, si la hipótesis nula (independencia) es cierta, el estadístico <span class="math inline">\(t\)</span> sigue una distribución Chi-cuadrado (<span class="math inline">\(\chi^2\)</span>) con ciertos <strong>Grados de Libertad (</strong><span class="math inline">\(df\)</span>):</p>
-<p><span class="math display">\[t \sim \chi^2_{df}\]</span></p>
-</div>
-<div class="fragment">
-<p>Los grados de libertad dependen del tamaño de la tabla: <span class="math display">\[df = (\text{Nº Filas} - 1) \times (\text{Nº Columnas} - 1)\]</span></p>
-</div>
-<div class="fragment">
-<p><strong>p-value:</strong> Es la probabilidad de obtener un estadístico <span class="math inline">\(t\)</span> igual o más extremo que el que calculamos, asumiendo que <span class="math inline">\(H_0\)</span> es cierta. <span class="math display">\[p\text{-value} = \mathbb{P}(\chi^2_{df} &gt; \hat{t})\]</span></p>
+<aside class="notes">
+<p>Estas son tus notas. Solo tú las verás al presionar la tecla ‘S’ durante la presentación.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 </div>
 </section>
 <section id="ejemplo-de-implementación-en-r-cálculo-manual" class="slide level2">

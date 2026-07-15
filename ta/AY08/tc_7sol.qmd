@@ -1,0 +1,128 @@
+---
+title: "Tarea 7"
+subtitle: "SOL507"
+format: pdf
+lang: es
+---
+
+## Contexto
+
+Una empresa quiere saber si enviar un cupón de descuento **causa** que sus clientes realicen una compra.
+
+Para responder esta pregunta de forma causal, necesitamos pensar en **resultados potenciales**: para cada cliente, ¿qué habría pasado si hubiera recibido el cupón? ¿Y si no lo hubiera recibido? En la realidad solo podemos observar uno de los dos escenarios, pero para entender la lógica de la causalidad, partiremos de una base de datos que contiene **ambos**.
+
+La base de datos tiene las siguientes variables:
+
+| Variable | Descripción |
+|----------|-------------|
+| `cliente` | Identificador del cliente (1 a 10) |
+| `D` | Tratamiento recibido: 1 = recibió el cupón, 0 = no lo recibió |
+| `Y1` | Resultado potencial **si recibe** el cupón (1 = compra, 0 = no compra) |
+| `Y0` | Resultado potencial **si no recibe** el cupón (1 = compra, 0 = no compra) |
+| `Y_obs` | Resultado **observado**: lo que realmente ocurrió según el tratamiento recibido |
+
+> **Nota:** `Y1` e `Y0` son los "mundos paralelos". En la realidad, solo uno de los dos es observable para cada cliente. `Y_obs` es ese único resultado que efectivamente podemos ver.
+
+---
+
+```{r}
+#| label: preparacion-datos
+
+datos <- data.frame(
+  cliente = 1:10,
+  D       = c(1, 1, 1, 1, 1, 0, 0, 0, 0, 0),
+  Y1      = c(1, 0, 1, 1, 0, 1, 0, 1, 1, 0),
+  Y0      = c(0, 0, 1, 0, 0, 1, 0, 0, 1, 0),
+  Y_obs   = c(1, 0, 1, 1, 0, 1, 0, 0, 1, 0)
+)
+
+print(datos)
+```
+
+Observa la tabla con atención. Para los clientes que recibieron el cupón (`D = 1`), `Y_obs` coincide con `Y1`. Para los que no lo recibieron (`D = 0`), `Y_obs` coincide con `Y0`. La columna del otro mundo paralelo está en la base de datos, pero en la realidad **no existiría**.
+
+---
+
+## Parte 1: Efecto causal individual (2,5 puntos)
+
+El **efecto causal individual** de recibir el cupón para cada cliente es la diferencia entre sus dos resultados potenciales:
+
+$$\delta_i = Y_{1i} - Y_{0i}$$
+
+Un valor de $\delta_i = 1$ significa que el cupón *sí causó* que ese cliente comprara. Un valor de $\delta_i = 0$ significa que el cupón no cambió su decisión.
+
+Agrega esta columna al data frame y muestra el resultado. ¿Cuántos clientes fueron causalmente afectados por el cupón?
+
+---
+
+**Respuesta:**
+
+```{r}
+#| label: efecto-individual
+
+# Calculamos el efecto individual restando Y0 a Y1
+datos$delta <- datos$Y1 - datos$Y0
+
+# Mostramos la tabla actualizada
+print(datos)
+
+# Contamos cuántos clientes fueron afectados (delta == 1)
+clientes_afectados <- sum(datos$delta == 1)
+clientes_afectados
+```
+
+**Interpretación:**
+Al observar la columna `delta`, vemos que los clientes **1, 4 y 8** tienen un valor de 1. Esto significa que hay **3 clientes** que fueron causalmente afectados por el cupón (compraron *porque* recibieron el cupón, y no habrían comprado sin él). Para los otros 7 clientes, el cupón no tuvo efecto ($\delta_i = 0$) *(1.5 punto por asignar correctamente la columna en el DF. 1 punto por la interpretación correcta)*.
+
+---
+
+## Parte 2: Efecto causal promedio (1,5 puntos)
+
+El **Efecto Promedio del Tratamiento** (ATE) resume el efecto causal en toda la población:
+
+$$ATE = \frac{1}{n}\sum_{i=1}^{n} \delta_i$$
+
+Calcula el ATE usando `mean()`. Interpreta: ¿el cupón causa, en promedio, un aumento en las compras?
+
+**Respuesta**
+
+```{r}
+#| label: efecto-promedio
+
+# Calculamos el promedio de la columna delta
+ATE <- mean(datos$delta)
+ATE
+```
+
+**Interpretación:**
+El Efecto Promedio del Tratamiento (ATE) es **0.3**. Esto indica que el cupón causa, en promedio, un aumento de **30 puntos porcentuales** (o un 30%) en la probabilidad de realizar una compra en esta población. *(0,5 punto por el calculo del ATE, 1 punto por la interpretación correcta)*
+
+---
+
+## Parte 3: Asociación estadística vs. causalidad (2 puntos)
+
+En la realidad no tenemos acceso a los mundos paralelos: solo observamos `Y_obs`. A partir de eso, podemos calcular la diferencia de medias entre clientes que recibieron el cupón y los que no:
+
+Compara este valor con el ATE de la Parte 2. ¿Son iguales? ¿Qué nos dice esto sobre la diferencia entre asociación estadística y causalidad?
+
+**Respuesta**
+
+```{r}
+#| label: asociacion-estadistica
+
+# Calculamos la media de compras para tratados y controles usando lo observado
+media_tratados  <- mean(datos$Y_obs[datos$D == 1])
+media_controles <- mean(datos$Y_obs[datos$D == 0])
+
+# Diferencia estadística (asociación)
+diferencia_observada <- media_tratados - media_controles
+diferencia_observada
+```
+
+**Interpretación:**
+La diferencia de medias observada (asociación estadística) es **0.20**, mientras que el verdadero efecto causal (ATE) calculado en la Parte 2 es **0.30**. 
+
+**No son iguales**. Esto nos demuestra empíricamente la frase "correlación no implica causalidad". La diferencia de medias usando datos observacionales no siempre captura el verdadero efecto causal, ya que los grupos de tratados y controles podrían no ser perfectamente comparables (sesgo de selección). En la vida real, como no vemos los resultados potenciales (`Y1` e `Y0`), debemos recurrir a experimentos aleatorios (RCTs) u otros métodos causales para asegurarnos de que esta diferencia observada sea igual al verdadero ATE. 
+*(0.5 por el calculo de la diferencia, 1.5 por la interpretación correcta)*
+
+```

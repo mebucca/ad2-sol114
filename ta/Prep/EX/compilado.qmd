@@ -1,0 +1,387 @@
+---
+title: "_________________________________________"
+author: "Compilado exámenes"
+format: 
+    pdf:
+        include-in-header:
+            text: |
+                \addtokomafont{section}{\centering}
+editor: visual
+geometry:
+  - left=.5in
+  - textwidth=5.5in
+  - marginparsep=.25in
+  - marginparwidth=2.25in
+---
+# Examen 2025^[**Nota:** Muchos de los ejercicios tuve que reescribirlos yo mismo, ya que en la pauta se eliminaron los enunciados originales. Asuman que en la evaluación original los enunciados presentaban un mundo sin dar los datos de las poblaciones explícitamente.]
+**Instrucciones:**\
+Seleccione las preguntas que desea responder, de modo que la suma de sus ponderaciones alcance **exactamente 100%**. Debe elegir entre **7 y 10 preguntas**. Una vez alcanzado el 100%, respuestas adicionales no serán consideradas. Cada pregunta indica su ponderación entre paréntesis.
+
+**1. (5%)**\
+En una región del país, el 55% de los votantes prefiere a Jara y el 45% a Kast. Se sabe, además, que entre quienes tienen educación universitaria, el 60% vota por Jara. Si el 30% de los votantes tiene educación universitaria, ¿cuál es la probabilidad de seleccionar al azar una persona que tenga educación universitaria **y** vote por Jara?
+
+{{< pagebreak >}}
+**2. (5%)**\
+Usando el contexto anterior, calcule la probabilidad de que un votante que apoya a Jara tenga educación universitaria. Interprete el resultado.
+
+{{< pagebreak >}}
+**3. (5%)**\
+Suponga que 5 votantes se seleccionan al azar y que cada uno vota por Kast con probabilidad 0.45, de manera independiente. ¿Cuál es la probabilidad de que exactamente 4 voten por Kast?
+
+{{< pagebreak >}}
+**4. (5%)**\
+El ingreso mensual sigue $N(800, 200^2)$. ¿Cuál es la probabilidad de ingreso mayor a $1000$?
+
+{{< pagebreak >}}
+**5. (10%)**\
+Sea $X$ el ingreso en 2010:\
+$\mathbb{E}[X] = 834$, $\text{Var}(X) = 270^2$\
+$Y = 200 + 1.5X$ (ingreso en 2030)
+
+a)  Calcular $\mathbb{E}[Y]$
+b)  Calcular $\text{Var}(Y)$
+c)  Calcular $\text{Cov}(X, Y)$
+
+
+{{< pagebreak >}}
+**6. (15%)**\
+La Ley de los Grandes Números establece:
+
+$$
+\lim_{n \to \infty} P\big( \lvert \bar{X}_n - \mu \rvert < \varepsilon \big) = 1,
+$$
+
+Explique en sus propias palabras que significa la fórmula, identificando las variables e interpretando su funcionamiento. ¿Cómo puede ser aplicada a la planificación de una encuesta en ciencias sociales?
+
+
+{{< pagebreak >}}
+**8. (10%)**\
+Establezca la distribución muestral de una población con las siguientes características:
+
+($\bar{x} = 834$, $s = 270$, $n = 3000$)
+
+{{< pagebreak >}}
+**7. (10%)**\
+Utilizando los mismos datos del ejercicio anterior, cálcule el intervalo de confianza al 99% de la población.
+
+{{< pagebreak >}}
+**9. (10%)**\
+Explique qué es una distribución muestral y cómo se relaciona con el error estándar.
+
+{{< pagebreak >}}
+**10. (10%)**\
+Realice un test de proporción para una población con: 
+$\hat{p} = 0.52$, $p_0 = 0.50$, $n = 3000$, $\alpha = 0.01$.
+
+{{< pagebreak >}}
+**11. (15%)**\
+Realice un test de diferencia de proporciones entre hombre y mujeres. Considere que los datos de la población son:
+
+- $\hat{p}_H = 0.55$ con $n_H = 1400$ (hombres),
+- $\hat{p}_M = 0.49$ con $n_M = 1600$ (mujeres), 
+
+{{< pagebreak >}}
+**12. (10%)**\
+¿Cúal es el tamaño poblacional necesario para estimar una proporción de $0.5$ con error máximo de $E = 0.001$ al $99%$ de confianza?
+
+{{< pagebreak >}}
+**13. (5%)**\
+Haga un cálculo de correlación entre $X$ e $Y$ asumiendo que:
+
+- $\text{Cov}(X, Y) = 312.4$,
+- $\text{Var}(X) = 72{,}900$,
+- $\text{Var}(Y) = 6.76$.
+
+{{< pagebreak >}}
+**15. (10%)**\
+Explique con precisión qué es el $p$-value.
+
+{{< pagebreak >}}
+**16. (10%)**\
+Explique por qué, si rechazamos $H_0$ cuando $p < \alpha$, la probabilidad de cometer un error tipo I es igual a $\alpha$.
+{{< pagebreak >}}
+
+# Examen 2024
+
+**Instrucciones: Responde a las preguntas proporcionadas, asegurándote de justificar tus respuestas con cálculos y razonamientos claros.**
+
+**I.** En el Antiguo Testamento, el libro del Génesis comienza así: *"Y creó Dios al hombre a su imagen, a imagen de Dios lo creó; varón y hembra los creó"* (Génesis 1:27).
+
+![La creación](sistine.jpg){fig-align="center" width="8cm"}
+
+En esta pregunta, reemplazaremos la idea de creación divina por una versión probabilística: **variables aleatorias**.
+
+**Preguntas:**
+
+**I.i.** Sea $X$ una variable aleatoria que describe el sexo de una persona, donde la probabilidad de ser “varón” ($X = 1$) es $p$, y la probabilidad de ser “hembra” ($X = 0$) es $1-p$. Identifica qué distribución sigue la variable aleatoria $Y$ y escribe su función de masa de probabilidad (PMF).
+
+**I.ii.** Si la probabilidad de ser “varón” y “hembra” es la misma, ¿cuál es el valor de $p$?
+
+**I.iii.** Si Adán ($X_1$) y Eva ($X_2$) son dos realizaciones independientes de $X$, expresa y calcula la probabilidad de generar dos personas secuencialmente y obtener un “varón” y una “hembra” (en ese orden).
+
+\newpage
+
+. \newpage
+
+**II.** Asimismo, el creador probabilístico estableció que la variable aleatoria $Y$ describe la altura (en cms) de un "varón" y de una "hembra" de la siguiente manera:
+
+- $Y \mid X =1 \sim \text{Normal}(\mu_v= 170, \sigma_v=20)$
+- $Y \mid X =0 \sim \text{Normal}(\mu_h= 160, \sigma_h=10)$
+
+**II.i.** ¿Son sexo y altura dos variables independientes? Fundamenta tu respuesta.
+
+**II.ii.** Calcula la probabilidad de que un hombre tenga una altura superior a 180 cms.
+
+**II.iii.** ¿Que altura debe tener una mujer para ubicarse en el percentil 90 (10% más alto)?
+
+\newpage
+
+. \newpage
+
+**III.** Teomémas Asintóticos
+
+**Preguntas:**
+
+**III .i.** Identifica los siguientes teorémas y explica en palabras haciendo referencia a los términos usados en las ecuaciones respectivas.
+
+- 
+
+  a)  $\bar{X} \overset{d}{\to} \text{Normal}\Bigg(\mu, \frac{\sigma}{\sqrt{n}}\Bigg)$
+
+- 
+
+  b)  $\lim_{n \to \infty}\mathbb{P}\left( \left| \bar{X} - \mu \right| \geq \epsilon \right) = 0$
+
+**III .ii.** Explica los conceptos de "distribución muestral" (sampling distribution) de un estimador y su "error estándar".
+
+\newpage
+
+. \newpage
+
+**IV.** Luego de leer el libro del Genesis un teólogo desea conocer la proporción de hombres y mujeres en una comunidad bíblica. Para ello, selecciona aleatoriamente 150 personas mencionadas en los relatos bíblicos y encuentra que 90 son hombres y 60 son mujeres.
+
+El análisis se realiza utilizando una fórmula que calcula la proporción como el cociente entre el número de hombres observados y el tamaño de la muestra. Aplicando esta fórmula a los datos recolectados se obtiene un valor numérico de 0.6.
+
+**Pregunta:**: Con base en la situación descrita, identifica
+
+- **El estimando:**
+
+- **El estimador:**
+
+- **El estimado:**
+
+**V.** El arqueólogo Dr. Ezekiel Ben-David, en sus estudios sobre registros históricos de Galilea en el año 34 d.C., recopiló datos sobre la altura y el sexo de individuos, posiblemente descendientes de los fundadores bíblicos Adán y Eva.
+
+| Sexo   | Altura (cm) |
+|--------|-------------|
+| Varón  | 150         |
+| Hembra | 140         |
+| Hembra | 147         |
+| Hembra | 162         |
+| Varón  | 199         |
+| Varón  | 169         |
+| Varón  | 168         |
+| Hembra | 168         |
+| Hembra | 152         |
+| Hembra | 171         |
+| Hembra | 159         |
+| Varón  | 167         |
+| Hembra | 166         |
+| Varón  | 161         |
+| Hembra | 166         |
+| Hembra | 157         |
+| Varón  | 159         |
+| Hembra | 154         |
+| Hembra | 164         |
+| Varón  | 148         |
+
+**Preguntas:**:
+
+**V .i.** Estima la proporción de hombres y construye un intervalo de confianza al 95% para dicha proporción. Interpreta el resultado tanto desde una perspectiva estadística como sustantiva. Justifica tus decisiones metodológicas.
+
+**V.ii.** Realiza un test de hipótesis para evaluar si la altura promedio de los hombres era mayor que la de las mujeres. Plantea la hipótesis nula y alternativa, determina el test estadístico apropiado y calcula su valor p. Interpreta el resultado tanto desde una perspectiva estadística como sustantiva. Justifica tus decisiones metodológicas.
+
+\newpage
+
+. \newpage
+
+**VI.** En sus investigaciones, el arqueólogo Dr. Ezekiel Ben-David descubrió los resultados de un plebiscito popular llevado a cabo en comunidades rurales y urbanas de Galilea (año 34 d.C.), respecto a la adopción de un nuevo código moral con dos opciones: "Tradición" y "Cambio".
+
+La siguiente tabla de contingencia resume los resultados obtenidos:
+
+|             | Rural | Urbano |
+|-------------|-------|--------|
+| "Tradición" | 50    | 60     |
+| "Cambio"    | 50    | 140    |
+
+**Preguntas:**
+
+**VI.i.** Realiza un test de $\chi^2$ para evaluar si existe una asociación entre el tipo de comunidad (rural o urbana) y la preferencia por el nuevo código moral. Detalla los pasos involucrados en el cálculo del estadístico $\chi^2$ y proporciona una interpretación sustantiva del resultado.
+
+**VI.ii.** Calcula las proporciones muestrales que estiman las siguientes probabilidades:
+
+- $P(\text{"Cambio"} \mid \text{Rural}) = \hat{p}_{\text{R}}$
+
+- $P(\text{"Cambio"} \mid \text{Urbano}) = \hat{p}_{\text{U}}$
+
+**VI.iii.** Realiza un test de diferencia en proporciones para evaluar la hipótesis:
+
+- $H_0: P(\text{"Cambio"} \mid \text{Rural}) = P(\text{"Cambio"} \mid \text{Urbano})$
+
+- $H_a: P(\text{"Cambio"} \mid \text{Rural}) > P(\text{"Cambio"} \mid \text{Urbano})$
+
+Proporciona el cálculo del test estadístico el valor $p$, y una interpretación sustantiva del resultado. Justifica tus decisiones metodológicas.
+
+\newpage
+
+. \newpage
+
+**VI.** Galileo Galilei y la Ley de la Caída Libre
+
+Galileo Galilei descubrió que la distancia recorrida por un objeto en caída libre desde el reposo está dada por la ecuación:
+
+$$d = 4.9 t^2$$
+
+Donde: - ($d$) es la distancia recorrida (en metros). - ($t$) es el tiempo transcurrido (en segundos).
+
+Un físico decidió poner a prueba esta ley realizando un experimento con un tamaño muestral de ($n = 20$). Midió el tiempo y la distancia recorrida por un objeto en caída libre en condiciones reales, por lo que los datos presentan un pequeño ruido aleatorio. Los resultados se resumen en la siguiente tabla:
+
+| Variable      | Media   | Desviación estándar (SD) | Covarianza (t, d) |
+|---------------|---------|--------------------------|-------------------|
+| Tiempo (t)    | 2.75 s  | 1.40 s                   | 52.83             |
+| Distancia (d) | 46.18 m | 38.62 m                  | \-                |
+
+El siguiente gráfico muestra la relación entre el tiempo y la distancia reportada en el experimento:
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
+# Código en R para generar el gráfico con estilo antiguo
+
+# Generar datos casi determinísticos
+n <- 20
+set.seed(42)
+
+# Tiempo (t) y distancia (d)
+t <- seq(0.5, 5, length.out = n)  # Tiempos entre 0.5 y 5 segundos
+d <- 4.9 * t^2                     # Relación cuadrática
+noise <- rnorm(n, mean = 0, sd = 0.1)  # Ruido pequeño
+d_noisy <- d + noise               # Datos con ruido
+
+# Crear data frame
+datos <- data.frame(Tiempo = t, Distancia = d_noisy)
+
+# Cargar librería ggplot2
+library(ggplot2)
+
+# Crear gráfico con estilo "old school"
+ggplot(datos, aes(x = Tiempo, y = Distancia)) +
+  geom_point(shape = 21, fill = "white", colour = "black", size = 3) +
+  geom_line(colour = "black", linetype = "dotted") +
+  labs(title = "Relación entre Tiempo y Distancia",
+       x = "Tiempo (s)",
+       y = "Distancia (m)") +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold", hjust = 0.5),
+    panel.border = element_rect(colour = "black", fill = NA, size = 1),
+    panel.grid.major = element_line(colour = "grey80", linetype = "dashed"),
+    panel.grid.minor = element_blank(),
+    axis.ticks = element_line(colour = "black"),
+    axis.title = element_text(face = "bold")
+  )
+```
+
+**Preguntas:**
+
+**VI.i.** ¿Qué tipo de relación observas entre el tiempo (t) y la distancia (d) según los datos?
+
+**VI.ii.** Calcula el coeficiente de correlación de Pearson entre el tiempo (t) y la distancia (d). Comenta sobre el signo y la magnitud de la correlación obtenida.
+
+**VI.iii.** ¿Crees que es una medida adecuada para describir esta relación?
+
+\newpage
+
+. \newpage
+
+# Prueba Bonus 2025
+
+En el marco de las elecciones presidenciales de segunda vuelta en Chile, un centro de estudios sociales realiza una encuesta a nivel nacional para analizar el comportamiento electoral y ciertas características socioeconómicas de la población. El estudio se aplicó a individuos mayores de 18 años, residentes en todas las regiones, con muestreo aleatorio estratificado. Se recolectaron, entre otras, las siguientes cuatro variables:
+
+- Sexo: Hombre (H) / Mujer (M)\
+- Intención de voto (segunda vuelta): Kast / Jara\
+- Ingreso mensual (en miles de pesos chilenos)\
+- Años de escolaridad
+
+Se levantó una muestra grande (n = 3.000), pero a continuación se muestran 7 registros como ejemplo ilustrativo:
+
+| ID  | Sexo | Voto | Ingreso (mil) | Escol. (años) |
+|-----|------|------|---------------|---------------|
+| 1   | H    | Kast | 980           | 12            |
+| 2   | M    | Jara | 650           | 14            |
+| 3   | H    | Kast | 1.200         | 16            |
+| 4   | M    | Jara | 720           | 13            |
+| 5   | M    | Kast | 820           | 11            |
+| 6   | H    | Kast | 1.050         | 15            |
+| 7   | M    | Jara | 580           | 10            |
+
+La siguiente table muestra los principales estadísticos descriptivos de la muestra:
+
+| Variable            | Media | Desv. Est. | Proporción |
+|---------------------|-------|------------|------------|
+| Ingreso (mil pesos) | 834   | 270        | —          |
+| Escolaridad (años)  | 13.2  | 2.6        | —          |
+| Sexo (Hombre)       | —     | —          | 0.47       |
+| Voto Kast           | —     | —          | 0.52       |
+| Voto Jara           | —     | —          | 0.48       |
+
+Además, la siguiente tabla muestra la matriz de varianza--covarianza entre las variables Ingreso y Escolaridad. Una matriz de varianza--covarianza resume cuánta variación tiene cada variable por sí sola (las varianzas, ubicadas en la diagonal) y cómo se relacionan entre sí (las covarianzas, ubicadas fuera de la diagonal).
+
+$$\Sigma =
+\begin{pmatrix}
+Var(\text{Ingreso}) & Cov(\text{Ingreso, Escolaridad})\\[6pt]
+Cov(\text{Ingreso, Escolaridad}) & Var(\text{Escolaridad})
+\end{pmatrix}
+=
+\begin{pmatrix}
+72900 & 312.4\\
+312.4 & 6.76
+\end{pmatrix}$$
+donde:
+
+- Var(Ingreso): varianza de los ingresos individuales.
+- Var(Escolaridad): varianza de los años de escolaridad.
+- Cov(Ingreso, Escolaridad): covarianza entre ambas variables.
+
+Importante:
+
+- Todos los estimadores presentados son insesgados para sus respectivos parámetros teóricos poblacionales.
+- Para todos los procedimientos inferenciales se trabajará con un nivel de confianza del 99% ($\alpha$ = 0.01).
+
+### Preguntas
+
+1.  (20%) Estime los intervalos de confianza al 99% para:
+
+<!-- -->
+
+a)  La proporción de intención de voto por Kast\
+b)  La proporción de intención de voto por Jara
+
+Interprete ambos resultados en el contexto electoral.
+{{< pagebreak >}}
+2.  (24%) A partir de la siguiente tabla de contingencia entre sexo e intención de voto, donde cada celda reporta los recuentos observados y, entre paréntesis, los recuentos esperados bajo independencia, aplique el test Chi-cuadrado de independencia para evaluar si existe asociación entre ambas variables.
+
+| Sexo / Voto | Kast      | Jara      | Total |
+|-------------|-----------|-----------|-------|
+| Hombre      | 735 (733) | 675 (677) | 1410  |
+| Mujer       | 825 (827) | 765 (763) | 1590  |
+| Total       | 1560      | 1440      | 3000  |
+
+3.  (20%) Use el test de diferencia de proporciones para evaluar si la proporción de votantes por Kast es significativamente distinta entre hombres y mujeres.
+{{< pagebreak >}}
+4.  (20%) Usando la matriz de varianza-covarianza y estadísticos provistos, calcule el coeficiente de correlación de Pearson entre ingreso y años de escolaridad.
+
+- Explique qué mide.\
+- Interprete su valor, signo e intensidad.
+{{< pagebreak >}}
+5.  (16%) Si $X$ es una variable aleatoria e $Y=\frac{1}{2} \cdot X$, ¿cuál es la correlación de Pearson entre $X$ e $Y$?
+
+Explique el razonamiento y el significado del resultado.

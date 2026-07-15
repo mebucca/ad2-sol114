@@ -9,6 +9,10 @@ Este repositorio contiene el material del curso SOL512 Probabilidad e Inferencia
 
 ## Contenidos
 
+### Reporte de notas
+
+- [`[Ver reporte de nota final]`](https://mebucca.github.io/ad2-sol114/exams/notas_final)
+
 ### Nivelación Matemática
 
 - El concepto de integral, "Calculus Made Easy", 1910: [`[calculus]`](files/calculus_easy.jpg)
@@ -64,4 +68,3 @@ Este repositorio contiene el material del curso SOL512 Probabilidad e Inferencia
 
 - Reuniones individuales de aproximadamente 15 minutos cada día Miércoles entre 14:30 y 15:30pm. [`[Agendar]`](
 https://calendar.app.google/8rfTeNoxGiDJPbzEA)
-
