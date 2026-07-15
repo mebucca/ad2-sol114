@@ -232,9 +232,9 @@ window.Quarto = {
 <p>La nota final se calcula sobre una escala de 1,0 a 7,0 según los siguientes componentes:</p>
 <table class="caption-top table">
 <colgroup>
-<col style="width: 20%">
-<col style="width: 58%">
-<col style="width: 20%">
+<col style="width: 22%">
+<col style="width: 54%">
+<col style="width: 22%">
 </colgroup>
 <thead>
 <tr class="header">
@@ -264,10 +264,11 @@ window.Quarto = {
 <section id="conversión-de-la-nota-del-examen" class="level3">
 <h3 class="anchored" data-anchor-id="conversión-de-la-nota-del-examen">Conversión de la nota del examen</h3>
 <p>Para fijar el 4 en una obtención del 40% de los puntos, a nota del examen se transforma desde el puntaje bruto usando exactamente la siguiente fórmula:</p>
+<p><span class="math display">\[Y = \text{Sum(Puntaje)}\]</span></p>
 <p><span class="math display">\[E =
 \begin{cases}
-1 + \dfrac{3}{40}Y3, &amp; \text{si } Y3 \leq 40 \\
-4 + \dfrac{3}{60}(Y3 - 40), &amp; \text{si } Y3 &gt; 40
+1 + \dfrac{3}{40}Y, &amp; \text{si } Y \leq 40 \\
+4 + \dfrac{3}{60}(Y - 40), &amp; \text{si } Y &gt; 40
 \end{cases}\]</span></p>
 <p>Esta conversión produce una nota entre 1,0 y 7,0. El examen conserva siempre su ponderación propia de 30%, incluso cuando se utiliza para reemplazar una prueba no rendida.</p>
 </section>
